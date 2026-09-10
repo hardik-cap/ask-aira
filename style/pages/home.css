@@ -16,44 +16,23 @@
 /* The hero deliberately carries no padding overrides: it sits on the
    standard .section rhythm like every other block. */
 
-/* Beams: three rotated radial streaks pinned top-left, bleeding up behind
-   the navbar, and a vignette that settles them into the page ground. */
-.hero__decor {
+/* Full-bleed vertical gradient: a quiet slate grey at the very top behind
+   the transparent navbar, fading to the page ground before the how-it-fits
+   section, with a whisper of brand tint at the top centre. Grey per the
+   10 Sep direction change; indigo is accent-only on this page. */
+.hero__grad {
   position: absolute;
-  inset: calc(-1 * var(--nav-h)) 0 0;
-  overflow: hidden;
+  /* Overshoot the nav-height bleed by 2px: the nav is nav-h plus a 1px
+     bottom border, and an exact bleed leaves a 1px page-bg line at y=0. */
+  inset: calc(-1 * var(--nav-h) - 2px) 0 0;
   pointer-events: none;
-}
-.hero__beam {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 240px;
-  height: 1280px;
-  border-radius: var(--r-pill);
-}
-.hero__beam--a {
-  width: 560px;
-  transform: translateY(-350px) rotate(-45deg);
-  background: radial-gradient(68.54% 68.72% at 55.02% 31.46%,
-              var(--beam-a) 0, var(--beam-b) 50%, transparent 80%);
-}
-.hero__beam--b {
-  transform: translate(5%, -50%) rotate(-45deg);
-  background: radial-gradient(50% 50% at 50% 50%,
-              var(--beam-b) 0, var(--beam-c) 80%, transparent 100%);
-}
-.hero__beam--c {
-  border-radius: 0;
-  transform: translateY(-350px) rotate(-45deg);
-  background: radial-gradient(50% 50% at 50% 50%,
-              var(--beam-b) 0, transparent 100%);
-}
-.hero__vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(125% 125% at 50% 100%,
-              transparent 0%, var(--bg) 75%);
+  background:
+    radial-gradient(64% 52% at 50% 0%,
+      color-mix(in srgb, var(--indigo-500) 7%, transparent), transparent 72%),
+    linear-gradient(180deg,
+      var(--slate-200) 0%,
+      var(--slate-100) 48%,
+      var(--bg) 100%);
 }
 /* Positioned decor would otherwise paint over the static content wrappers. */
 .hero > .padding-global { position: relative; }
@@ -66,8 +45,8 @@
   gap: var(--sp-3);
   margin-bottom: var(--sp-10);
   padding: 4px 4px 4px 14px;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
   border-radius: var(--r-pill);
   box-shadow: var(--shadow-xs);
   font-size: var(--t-body-sm);
@@ -75,7 +54,7 @@
   color: var(--ink);
   transition: background var(--dur) var(--ease);
 }
-.hero__announce:hover { background: var(--surface); }
+.hero__announce:hover { background: var(--slate-50); }
 
 .hero__announce-text {
   display: inline-flex;
@@ -95,10 +74,10 @@
   height: 24px;
   border-radius: 50%;
   overflow: hidden;
-  background: var(--bg);
+  background: var(--surface-2);
   transition: background var(--dur) var(--ease);
 }
-.hero__announce:hover .hero__announce-go { background: var(--surface-2); }
+.hero__announce:hover .hero__announce-go { background: var(--slate-200); }
 
 .hero__announce-arrows {
   display: flex;
@@ -175,6 +154,7 @@
 .hero__asklist li {
   display: inline-flex;
   align-items: center;
+  gap: 8px;
   padding: 8px 16px;
   background: var(--surface);
   border: 1px solid var(--border-strong);
@@ -185,140 +165,45 @@
   color: var(--ink-2);
   white-space: nowrap;
 }
+/* Official Phosphor icons (regular weight), inlined with currentColor. */
+.hero__asklist svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  color: var(--brand-ink);
+}
 
-/* ---- Hero product frame -------------------------------------------------
-   The template's app-screen slot. No product screenshots exist yet and the
-   house rule draws UI in CSS, so the frame seats the panel, widened to two
-   columns: the ask and its reasoning left, the finding and the built move
-   right. This is the whole promise in one object.
+/* ---- Hero product shot ---------------------------------------------------
+   The real product screenshot in a hairline frame whose bottom fades into
+   the page ground (Tailark hero-section treatment). The fade overlay
+   overshoots the border by 1px so the frame dissolves with the image.
    ---------------------------------------------------------------------- */
 
-.hero__frame {
+.hero__shot {
+  position: relative;
   margin-top: var(--sp-16);
-  padding: var(--sp-4);
-  background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: var(--r-xl);
-  box-shadow: var(--shadow-lg);
+  background: var(--surface);
+  padding: var(--sp-2);
 }
-
-.panel--wide {
-  box-shadow: none;   /* the frame carries the elevation */
+.hero__shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: calc(var(--r-xl) - var(--sp-2));
 }
-.panel--wide .panel__body { padding: var(--sp-6); }
-
-.panel__body--split {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  gap: var(--sp-6) var(--sp-10);
-  align-items: start;
-}
-.panel__body--split .trace { margin-bottom: 0; }
-
-.ask {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--sp-3);
-  padding-bottom: var(--sp-4);
-  border-bottom: 1px solid var(--border);
-  margin-bottom: var(--sp-4);
-}
-.ask__who {
-  font-family: var(--font-mono);
-  font-size: var(--t-mono);
-  font-weight: 500;
-  letter-spacing: var(--tr-mono);
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  padding-top: 3px;
-  flex: none;
-}
-
-/* The reasoning trace as a literal thread: sparkle nodes on a hairline. */
-.trace {
-  position: relative;
-  display: grid;
-  gap: 9px;
-  margin-bottom: var(--sp-5);
-}
-.trace::before {
-  content: '';
+.hero__shot-fade {
   position: absolute;
-  left: 4px;
-  top: 8px;
-  bottom: 8px;
-  width: 1px;
-  background: var(--border-strong);
-}
-.trace__line {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-mono);
-  font-size: var(--t-mono);
-  color: var(--ink-3);
-  letter-spacing: 0.02em;
-}
-.trace__line .sparkle { width: 9px; height: 9px; color: var(--brand); flex: none; }
-.trace__line:last-child { color: var(--ink-2); }
-
-.finding {
-  display: flex;
-  align-items: baseline;
-  gap: var(--sp-3);
-  margin-bottom: var(--sp-5);
-}
-.finding__n {
-  /* See .stat__n in components.css: sans for display figures. */
-  font-family: var(--font-sans);
-  font-size: 1.75rem;
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  color: var(--ink);
-  font-variant-numeric: tabular-nums;
-  line-height: 1;
-}
-.finding__t {
-  font-size: var(--t-body-sm);
-  line-height: 1.55;
-  color: var(--ink-2);
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 45%, var(--bg) 100%);
 }
 
-.move {
-  background: var(--indigo-50);
-  border: 1px solid var(--brand-line);
-  border-radius: var(--r-sm);
-  padding: var(--sp-4);
-}
-.move__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-3);
-  margin-bottom: var(--sp-2);
-}
-.move__title {
-  font-size: var(--t-body-sm);
-  font-weight: 700;
-  letter-spacing: var(--tr-title);
-  color: var(--ink);
-}
-.move__meta {
-  font-size: var(--t-caption);
-  color: var(--ink-2);
-  line-height: 1.55;
-}
-
-@media (max-width: 991px) {
-  /* Template shows the beams on large screens only. */
-  .hero__decor { display: none; }
-  .hero__frame { margin-top: var(--sp-12); }
-}
 @media (max-width: 768px) {
-  .hero__frame { margin-top: var(--sp-10); padding: var(--sp-2); }
-  .panel__body--split { grid-template-columns: 1fr; gap: var(--sp-5); }
-  .panel__body--split .trace { margin-bottom: var(--sp-5); }
+  .hero__shot { margin-top: var(--sp-10); padding: 4px; }
+  .hero__shot img { border-radius: calc(var(--r-xl) - 4px); }
 }
 
 /* ---- Proof strip ------------------------------------------------------- */
@@ -356,18 +241,22 @@
   pointer-events: none;
   background:
     radial-gradient(80% 64% at 50% 112%,
-      color-mix(in srgb, var(--indigo-500) 36%, transparent), transparent 72%),
+      color-mix(in srgb, var(--indigo-500) 14%, transparent), transparent 72%),
     radial-gradient(46% 40% at 16% 116%,
-      color-mix(in srgb, var(--indigo-400) 22%, transparent), transparent 75%);
+      color-mix(in srgb, var(--indigo-400) 8%, transparent), transparent 75%);
 }
 
 .mech__diagram {
+  position: relative;   /* the measured wires overlay anchors to this */
   display: grid;
   grid-template-columns:
-    minmax(180px, 0.75fr) minmax(40px, 0.45fr) minmax(0, 1.5fr)
-    minmax(40px, 0.45fr) minmax(210px, 0.85fr);
+    minmax(180px, 0.9fr) minmax(60px, 1fr) auto
+    minmax(60px, 1fr) minmax(210px, 0.9fr);
   align-items: center;
 }
+.mech__sources { grid-column: 1; }
+.mech__core { grid-column: 3; }
+.mech__dest { grid-column: 5; }
 
 .mech__col-label {
   font-family: var(--font-mono);
@@ -379,38 +268,34 @@
   margin-bottom: var(--sp-4);
 }
 
-.mech__sources .mech__pill + .mech__pill { margin-top: var(--sp-3); }
-.mech__pill {
+/* Bare brand lockups (dark-surface variants), no pill chrome. Heights are
+   set per logo in the markup: the stacked lockups (BigQuery, Redshift)
+   need more height than the single-line ones to read optically equal. */
+.mech__sources {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 11px 16px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: var(--r-pill);
-  font-size: var(--t-body-sm);
-  font-weight: 550;
-  color: var(--ink-inv-2);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-6);
 }
-.mech__pill { min-height: 46px; }
-.mech__pill svg { width: 15px; height: 15px; color: var(--indigo-300); flex: none; }
-/* Brand lockups (dark-surface variants) replace the placeholder glyphs.
-   Heights are set per logo in the markup: the stacked lockups (BigQuery,
-   Redshift) need more height than the single-line ones to read equal. */
-.mech__pill img { display: block; }
-.mech__pill--muted { color: var(--ink-inv-3); font-weight: 500; }
-.mech__pill--muted svg { color: var(--ink-inv-3); }
+.mech__sources .mech__col-label { margin-bottom: 0; }
+.mech__sources img { display: block; }
 
-/* Dashed wires. preserveAspectRatio="none" stretches them to the gap, and
-   non-scaling-stroke keeps the dash weight true while they stretch. */
-.mech__wires { width: 100%; height: 300px; display: block; }
+/* Dashed wires, generated by js/diagram.js from measured logo and node
+   positions so every line terminates on the thing it connects. */
+.mech__wires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
 .mech__wires path {
   fill: none;
   stroke: rgba(255, 255, 255, 0.22);
   stroke-width: 1.5;
   stroke-dasharray: 1 6;
   stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
 }
 
 /* Animated beams (Magic UI AnimatedBeam, in CSS): each wire carries a
@@ -418,10 +303,12 @@
    exactly 100, so sliding the offset one period per loop sends a single
    pulse start-to-end seamlessly. Delays are staggered inline per path. */
 .mech__wires .mech__beam {
-  stroke: var(--indigo-300);
-  stroke-width: 2.5;
-  stroke-dasharray: 12 88;
-  animation: mech-beam 5s linear infinite;
+  /* Not a solid comet: three faint dots glide along the wire. The pattern
+     still sums to exactly 100 so each loop stays seamless. */
+  stroke: color-mix(in srgb, var(--indigo-300) 70%, transparent);
+  stroke-width: 2;
+  stroke-dasharray: 0.5 2.5 0.5 2.5 0.5 93.5;
+  animation: mech-beam 6s linear infinite;
 }
 @keyframes mech-beam {
   from { stroke-dashoffset: 100; }
@@ -431,23 +318,61 @@
   .mech__wires .mech__beam { display: none; }
 }
 
+/* The core as a compact node (Tailark illustration style): the aiRA mark
+   in a circle with a dashed halo ring, a soft indigo glow, an orbiting
+   border beam, and a mono label hung beneath. */
 .mech__core {
   position: relative;
-  padding: var(--sp-8);
-  background: rgba(255, 255, 255, 0.045);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: var(--r-xl);
-  box-shadow: 0 40px 90px -50px rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+}
+
+.mech__core-node {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 0 80px color-mix(in srgb, var(--indigo-500) 28%, transparent);
+}
+.mech__core-node img { width: 40px; height: 40px; }
+
+/* Dashed halo ring around the node. */
+.mech__core-node::after {
+  content: '';
+  position: absolute;
+  inset: -26px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+}
+
+/* Hung below the node so the circle stays on the wires' centre line. */
+.mech__core-label {
+  position: absolute;
+  top: calc(100% + var(--sp-8));
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-inv-3);
 }
 
 /* Border beam (Magic UI BorderBeam, in CSS): a lit segment of a conic
-   gradient orbits the core card's border, masked to a 1px ring. */
+   gradient orbits the node's border, masked to a 1px ring. */
 @property --mech-orbit {
   syntax: '<angle>';
   initial-value: 0deg;
   inherits: false;
 }
-.mech__core::before {
+.mech__core-node::before {
   content: '';
   position: absolute;
   inset: -1px;
@@ -468,82 +393,35 @@
   to { --mech-orbit: 360deg; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .mech__core::before { display: none; }
-}
-.mech__core-head { margin-bottom: var(--sp-8); }
-.mech__core-head img { height: 22px; width: auto; }
-.mech__core-sub {
-  font-size: var(--t-body);
-  color: var(--ink-inv-3);
-  margin-top: var(--sp-2);
-}
-.mech__core-main {
-  padding: var(--sp-6);
-  text-align: center;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  border-radius: var(--r-md);
-  font-size: var(--t-title-sm);
-  font-weight: 600;
-  color: var(--ink-inv);
-  margin-bottom: var(--sp-3);
-}
-.mech__core-tiles {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--sp-3);
-}
-.mech__core-tiles > div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: var(--sp-5) var(--sp-3);
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--r-md);
-  font-size: var(--t-body-sm);
-  font-weight: 550;
-  color: var(--ink-inv-2);
-  line-height: 1.4;
-}
-.mech__core-note {
-  margin-top: var(--sp-5);
-  font-size: var(--t-caption);
-  color: var(--ink-inv-3);
+  .mech__core-node::before { display: none; }
 }
 
-.mech__card {
-  padding: var(--sp-4);
-  background: rgba(255, 255, 255, 0.045);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: var(--r-lg);
-}
-.mech__row {
+/* Channel logos mirror the sources: bare lockups, right-aligned. */
+.mech__dest {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 8px;
-  font-size: var(--t-body-sm);
-  font-weight: 550;
-  color: var(--ink-inv-2);
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--sp-6);
 }
-.mech__row svg { width: 15px; height: 15px; color: var(--ink-inv-3); flex: none; }
-.mech__row--muted { color: var(--ink-inv-3); font-weight: 500; }
-.mech__card hr { border-top: 1px solid rgba(255, 255, 255, 0.10); margin: var(--sp-2) 0; }
+.mech__dest .mech__col-label { margin-bottom: 0; }
+.mech__dest img { display: block; }
 
 .mech__foot { margin-top: var(--sp-10); color: var(--ink-inv-3); }
 
 @media (max-width: 991px) {
   .mech__diagram { grid-template-columns: 1fr; gap: var(--sp-6); }
+  .mech__sources, .mech__core, .mech__dest { grid-column: auto; }
   .mech__wires { display: none; }
-  .mech__sources { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
-  .mech__sources .mech__pill + .mech__pill { margin-top: 0; }
-  .mech__sources .mech__col-label { width: 100%; margin-bottom: 0; }
-}
-@media (max-width: 600px) {
-  .mech__core { padding: var(--sp-5); }
-  .mech__core-tiles { grid-template-columns: 1fr; }
+  .mech__sources, .mech__dest {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--sp-5) var(--sp-8);
+  }
+  .mech__sources .mech__col-label, .mech__dest .mech__col-label { width: 100%; }
+  /* The hung label needs cleared space when the diagram stacks. */
+  .mech__core { margin-block: var(--sp-6) var(--sp-16); }
 }
 
 /* ---- Questions ---------------------------------------------------------- */

@@ -577,34 +577,13 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   body.nav-locked { overflow: hidden; }
 }
 
-/* ---- Footer (shadcn footer-three) ---------------------------------------
-   A contained card, nav-width, with rounded top corners, a hairline top
-   border lit by a blurred lamp segment, and a soft glow falling from the
-   top edge. Light surface; the dark close section sits above it.
+/* ---- Footer --------------------------------------------------------------
+   Flat and flush with the site grid: no border, no glow, content aligned
+   to the same container edge as the header. The gradient divider above the
+   legal line is the only hairline it carries.
    ---------------------------------------------------------------------- */
 
 .footer { margin-top: var(--section-pad); }
-
-.footer__card {
-  position: relative;
-  padding-inline: var(--sp-8);
-  border-top: 1px solid var(--border-strong);
-  border-radius: 40px 40px 0 0;
-  background: radial-gradient(35% 128px at 50% 0%,
-    color-mix(in srgb, var(--ink) 7%, transparent), transparent);
-}
-
-.footer__lamp {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 33%;
-  height: 2px;
-  transform: translate(-50%, -50%);
-  border-radius: var(--r-pill);
-  background: color-mix(in srgb, var(--ink) 22%, transparent);
-  filter: blur(3px);
-}
 
 .footer__grid {
   display: grid;
@@ -668,6 +647,5 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   .footer__grid { grid-template-columns: 1fr; gap: var(--sp-8); }
 }
 @media (max-width: 768px) {
-  .footer__card { padding-inline: var(--sp-5); border-radius: 28px 28px 0 0; }
   .footer__cols { grid-template-columns: 1fr 1fr; }
 }

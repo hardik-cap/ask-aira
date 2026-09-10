@@ -87,15 +87,6 @@
   --reject:       #C4106A;
   --reject-bg:    #FCE7F1;
 
-  /* ---- Hero beams -----------------------------------------------------
-     Rotated radial streaks behind the hero (Tailark hero block, requested
-     10 Sep 2026, superseding the Steep aurora wash). Indigo-tinted so
-     they read on the light ground; the template's originals are white
-     and built for dark. Placeholder values like the rest of the palette. */
-  --beam-a: rgba(82, 108, 246, 0.16);
-  --beam-b: rgba(82, 108, 246, 0.09);
-  --beam-c: rgba(82, 108, 246, 0.05);
-
   /* ---- Nav surfaces ---------------------------------------------------
      Solid-ish fallback, and the glass pair used where backdrop-filter is
      supported (header-three: bg/95, supports-backdrop-filter:bg/50).    */
@@ -215,10 +206,6 @@
   --brand-subtle: rgba(82, 108, 246, 0.16);
   --brand-line:   rgba(82, 108, 246, 0.34);
   --brand-ink:    #BAC4FB;
-
-  --beam-a: rgba(255, 255, 255, 0.08);
-  --beam-b: rgba(255, 255, 255, 0.04);
-  --beam-c: rgba(255, 255, 255, 0.03);
 
   --nav-surface:           rgba(8, 11, 20, 0.92);
   --nav-surface-glass:     rgba(8, 11, 20, 0.60);
