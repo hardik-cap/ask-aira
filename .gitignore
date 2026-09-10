@@ -1,0 +1,35 @@
+# Source context and research material, not part of the shipped site.
+# Kept out of the repo per the project brief.
+Contexts/
+
+# Working docs stay local: the repo ships the site only.
+# content/ is exempted so phase-5 category content can be .md if needed.
+*.md
+!content/**/*.md
+
+# Supplied logo originals: 2.4MB of raster sources that must not be
+# committed or deployed. The exported variants in assets/logo/ ship.
+assets/logo/source/
+
+# Working scratch
+_probe.html
+_harness.html
+_scroll.html
+*.log
+
+# OS / editor
+*.code-workspace
+.DS_Store
+**/.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Claude Code: local tooling config, not part of the shipped site
+.claude/
+
+# Local tooling
+node_modules/
+.wrangler/
+.env
+.env.*

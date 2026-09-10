@@ -1,0 +1,629 @@
+/* ==========================================================================
+   aiRA — Homepage
+   Page-specific layout only. Anything reusable belongs in components.css.
+
+   The hero carries the Tailark hero-block structure: beams and a vignette
+   for atmosphere, an announcement pill, centred display serif, and the
+   product surface in a wide app frame. Everything below it holds its own
+   weight with typography and hairlines.
+   ========================================================================== */
+
+/* ---- Hero ---------------------------------------------------------------
+   Announcement pill, centred display serif with the trailing phrase in
+   italic, framed CTA pair, then the product surface as the app-screen slot.
+   ---------------------------------------------------------------------- */
+
+/* The hero deliberately carries no padding overrides: it sits on the
+   standard .section rhythm like every other block. */
+
+/* Beams: three rotated radial streaks pinned top-left, bleeding up behind
+   the navbar, and a vignette that settles them into the page ground. */
+.hero__decor {
+  position: absolute;
+  inset: calc(-1 * var(--nav-h)) 0 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero__beam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 1280px;
+  border-radius: var(--r-pill);
+}
+.hero__beam--a {
+  width: 560px;
+  transform: translateY(-350px) rotate(-45deg);
+  background: radial-gradient(68.54% 68.72% at 55.02% 31.46%,
+              var(--beam-a) 0, var(--beam-b) 50%, transparent 80%);
+}
+.hero__beam--b {
+  transform: translate(5%, -50%) rotate(-45deg);
+  background: radial-gradient(50% 50% at 50% 50%,
+              var(--beam-b) 0, var(--beam-c) 80%, transparent 100%);
+}
+.hero__beam--c {
+  border-radius: 0;
+  transform: translateY(-350px) rotate(-45deg);
+  background: radial-gradient(50% 50% at 50% 50%,
+              var(--beam-b) 0, transparent 100%);
+}
+.hero__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(125% 125% at 50% 100%,
+              transparent 0%, var(--bg) 75%);
+}
+/* Positioned decor would otherwise paint over the static content wrappers. */
+.hero > .padding-global { position: relative; }
+
+/* Announcement pill: sparkle, claim, divider, then a circular port where
+   the second arrow slides in on hover. */
+.hero__announce {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-10);
+  padding: 4px 4px 4px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow-xs);
+  font-size: var(--t-body-sm);
+  font-weight: 550;
+  color: var(--ink);
+  transition: background var(--dur) var(--ease);
+}
+.hero__announce:hover { background: var(--surface); }
+
+.hero__announce-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero__announce-text .sparkle { width: 11px; height: 11px; color: var(--brand); flex: none; }
+
+.hero__announce-sep {
+  width: 1px;
+  height: 14px;
+  background: var(--border-strong);
+}
+
+.hero__announce-go {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--bg);
+  transition: background var(--dur) var(--ease);
+}
+.hero__announce:hover .hero__announce-go { background: var(--surface-2); }
+
+.hero__announce-arrows {
+  display: flex;
+  width: 48px;
+  transform: translateX(-50%);
+  transition: transform var(--dur-slow) var(--ease);
+}
+.hero__announce:hover .hero__announce-arrows { transform: translateX(0); }
+.hero__announce-arrows svg {
+  width: 12px;
+  height: 12px;
+  margin: 6px;
+  flex: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__announce,
+  .hero__announce-go,
+  .hero__announce-arrows { transition: none; }
+}
+
+.hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: var(--t-display-0);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+  max-width: 21ch;
+  margin-bottom: var(--sp-6);
+  text-wrap: balance;
+}
+.hero__title em {
+  font-style: normal;
+  color: var(--ink-3);
+}
+
+.hero__sub {
+  font-size: var(--t-body-lg);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 36rem;
+  margin-bottom: var(--sp-8);
+  text-wrap: pretty;
+}
+
+.hero__cta {
+  justify-content: center;
+  margin-bottom: var(--sp-10);
+}
+
+/* Capability index: a mono label over a row of pill chips, in the same
+   pill language as the announcement pill and the mechanism sources. */
+.hero__asks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero__asks-label { margin-bottom: var(--sp-4); }
+
+.hero__asklist {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-2);
+}
+.hero__asklist li {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow-xs);
+  font-size: var(--t-body-sm);
+  font-weight: 550;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+/* ---- Hero product frame -------------------------------------------------
+   The template's app-screen slot. No product screenshots exist yet and the
+   house rule draws UI in CSS, so the frame seats the panel, widened to two
+   columns: the ask and its reasoning left, the finding and the built move
+   right. This is the whole promise in one object.
+   ---------------------------------------------------------------------- */
+
+.hero__frame {
+  margin-top: var(--sp-16);
+  padding: var(--sp-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.panel--wide {
+  box-shadow: none;   /* the frame carries the elevation */
+}
+.panel--wide .panel__body { padding: var(--sp-6); }
+
+.panel__body--split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: var(--sp-6) var(--sp-10);
+  align-items: start;
+}
+.panel__body--split .trace { margin-bottom: 0; }
+
+.ask {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--sp-4);
+}
+.ask__who {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding-top: 3px;
+  flex: none;
+}
+
+/* The reasoning trace as a literal thread: sparkle nodes on a hairline. */
+.trace {
+  position: relative;
+  display: grid;
+  gap: 9px;
+  margin-bottom: var(--sp-5);
+}
+.trace::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: var(--border-strong);
+}
+.trace__line {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+}
+.trace__line .sparkle { width: 9px; height: 9px; color: var(--brand); flex: none; }
+.trace__line:last-child { color: var(--ink-2); }
+
+.finding {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-5);
+}
+.finding__n {
+  /* See .stat__n in components.css: sans for display figures. */
+  font-family: var(--font-sans);
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.finding__t {
+  font-size: var(--t-body-sm);
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+
+.move {
+  background: var(--indigo-50);
+  border: 1px solid var(--brand-line);
+  border-radius: var(--r-sm);
+  padding: var(--sp-4);
+}
+.move__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-2);
+}
+.move__title {
+  font-size: var(--t-body-sm);
+  font-weight: 700;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+}
+.move__meta {
+  font-size: var(--t-caption);
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+
+@media (max-width: 991px) {
+  /* Template shows the beams on large screens only. */
+  .hero__decor { display: none; }
+  .hero__frame { margin-top: var(--sp-12); }
+}
+@media (max-width: 768px) {
+  .hero__frame { margin-top: var(--sp-10); padding: var(--sp-2); }
+  .panel__body--split { grid-template-columns: 1fr; gap: var(--sp-5); }
+  .panel__body--split .trace { margin-bottom: var(--sp-5); }
+}
+
+/* ---- Proof strip ------------------------------------------------------- */
+
+.proof { padding-block: var(--sp-8); border-block: 1px solid var(--border); }
+.proof__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6) var(--sp-10);
+  flex-wrap: wrap;
+}
+.proof__label { flex: none; max-width: 15rem; }
+.proof .logo-wall { flex: 1; min-width: 0; }
+
+@media (max-width: 768px) {
+  .proof__inner { gap: var(--sp-5); }
+  /* flex:none plus max-content text overflowed narrow viewports */
+  .proof__label { flex: 1 1 100%; max-width: none; }
+  .proof .logo-wall { gap: var(--sp-3) var(--sp-6); }
+}
+
+/* ---- Mechanism: data -> judgement -> channels --------------------------
+   Dark architecture diagram (Steep-style): source pills feed the aiRA core
+   over dashed wires, and the core fans out to the channels. Neutral glyphs
+   hold the seats in the pills and rows until the real brand logos arrive.
+   ---------------------------------------------------------------------- */
+
+.mech { overflow: hidden; }
+.mech > .padding-global { position: relative; }
+
+/* Violet glow rising from the bottom edge, mixed from the brand tokens. */
+.mech__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(80% 64% at 50% 112%,
+      color-mix(in srgb, var(--indigo-500) 36%, transparent), transparent 72%),
+    radial-gradient(46% 40% at 16% 116%,
+      color-mix(in srgb, var(--indigo-400) 22%, transparent), transparent 75%);
+}
+
+.mech__diagram {
+  display: grid;
+  grid-template-columns:
+    minmax(180px, 0.75fr) minmax(40px, 0.45fr) minmax(0, 1.5fr)
+    minmax(40px, 0.45fr) minmax(210px, 0.85fr);
+  align-items: center;
+}
+
+.mech__col-label {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-inv-3);
+  margin-bottom: var(--sp-4);
+}
+
+.mech__sources .mech__pill + .mech__pill { margin-top: var(--sp-3); }
+.mech__pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--r-pill);
+  font-size: var(--t-body-sm);
+  font-weight: 550;
+  color: var(--ink-inv-2);
+}
+.mech__pill { min-height: 46px; }
+.mech__pill svg { width: 15px; height: 15px; color: var(--indigo-300); flex: none; }
+/* Brand lockups (dark-surface variants) replace the placeholder glyphs.
+   Heights are set per logo in the markup: the stacked lockups (BigQuery,
+   Redshift) need more height than the single-line ones to read equal. */
+.mech__pill img { display: block; }
+.mech__pill--muted { color: var(--ink-inv-3); font-weight: 500; }
+.mech__pill--muted svg { color: var(--ink-inv-3); }
+
+/* Dashed wires. preserveAspectRatio="none" stretches them to the gap, and
+   non-scaling-stroke keeps the dash weight true while they stretch. */
+.mech__wires { width: 100%; height: 300px; display: block; }
+.mech__wires path {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.22);
+  stroke-width: 1.5;
+  stroke-dasharray: 1 6;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Animated beams (Magic UI AnimatedBeam, in CSS): each wire carries a
+   duplicate path normalised to pathLength=100 whose dash pattern sums to
+   exactly 100, so sliding the offset one period per loop sends a single
+   pulse start-to-end seamlessly. Delays are staggered inline per path. */
+.mech__wires .mech__beam {
+  stroke: var(--indigo-300);
+  stroke-width: 2.5;
+  stroke-dasharray: 12 88;
+  animation: mech-beam 5s linear infinite;
+}
+@keyframes mech-beam {
+  from { stroke-dashoffset: 100; }
+  to   { stroke-dashoffset: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mech__wires .mech__beam { display: none; }
+}
+
+.mech__core {
+  position: relative;
+  padding: var(--sp-8);
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--r-xl);
+  box-shadow: 0 40px 90px -50px rgba(0, 0, 0, 0.9);
+}
+
+/* Border beam (Magic UI BorderBeam, in CSS): a lit segment of a conic
+   gradient orbits the core card's border, masked to a 1px ring. */
+@property --mech-orbit {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+.mech__core::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: conic-gradient(from var(--mech-orbit),
+    transparent 0deg 300deg,
+    color-mix(in srgb, var(--indigo-300) 90%, transparent) 330deg,
+    transparent 360deg);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: mech-orbit 8s linear infinite;
+}
+@keyframes mech-orbit {
+  to { --mech-orbit: 360deg; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mech__core::before { display: none; }
+}
+.mech__core-head { margin-bottom: var(--sp-8); }
+.mech__core-head img { height: 22px; width: auto; }
+.mech__core-sub {
+  font-size: var(--t-body);
+  color: var(--ink-inv-3);
+  margin-top: var(--sp-2);
+}
+.mech__core-main {
+  padding: var(--sp-6);
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: var(--r-md);
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  color: var(--ink-inv);
+  margin-bottom: var(--sp-3);
+}
+.mech__core-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-3);
+}
+.mech__core-tiles > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--sp-5) var(--sp-3);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--r-md);
+  font-size: var(--t-body-sm);
+  font-weight: 550;
+  color: var(--ink-inv-2);
+  line-height: 1.4;
+}
+.mech__core-note {
+  margin-top: var(--sp-5);
+  font-size: var(--t-caption);
+  color: var(--ink-inv-3);
+}
+
+.mech__card {
+  padding: var(--sp-4);
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--r-lg);
+}
+.mech__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 8px;
+  font-size: var(--t-body-sm);
+  font-weight: 550;
+  color: var(--ink-inv-2);
+}
+.mech__row svg { width: 15px; height: 15px; color: var(--ink-inv-3); flex: none; }
+.mech__row--muted { color: var(--ink-inv-3); font-weight: 500; }
+.mech__card hr { border-top: 1px solid rgba(255, 255, 255, 0.10); margin: var(--sp-2) 0; }
+
+.mech__foot { margin-top: var(--sp-10); color: var(--ink-inv-3); }
+
+@media (max-width: 991px) {
+  .mech__diagram { grid-template-columns: 1fr; gap: var(--sp-6); }
+  .mech__wires { display: none; }
+  .mech__sources { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
+  .mech__sources .mech__pill + .mech__pill { margin-top: 0; }
+  .mech__sources .mech__col-label { width: 100%; margin-bottom: 0; }
+}
+@media (max-width: 600px) {
+  .mech__core { padding: var(--sp-5); }
+  .mech__core-tiles { grid-template-columns: 1fr; }
+}
+
+/* ---- Questions ---------------------------------------------------------- */
+
+.asks { background: var(--bg-subtle); }
+.asks__note { margin-top: var(--sp-6); }
+
+/* ---- Differentiators ----------------------------------------------------
+   Three arguments as editorial rows: figure, claim, case. Hairlines, not
+   card chrome.
+   ---------------------------------------------------------------------- */
+
+.diff__list { border-top: 1px solid var(--border-strong); }
+
+.diff__row {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 0.95fr) minmax(0, 1fr);
+  gap: var(--sp-3) var(--sp-10);
+  padding-block: var(--sp-8);
+  border-bottom: 1px solid var(--border);
+}
+.diff__n { color: var(--brand); padding-top: 8px; }
+.diff__claim {
+  font-size: var(--t-display-3);
+  font-weight: 700;
+  line-height: 1.22;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+  max-width: 22ch;
+  text-wrap: balance;
+}
+.diff__body {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  align-self: center;
+  max-width: 36rem;
+  text-wrap: pretty;
+}
+.diff__body strong { color: var(--ink); font-weight: 600; }
+
+.diff__cta { margin-top: var(--sp-8); }
+
+@media (max-width: 991px) {
+  .diff__row { grid-template-columns: 3rem minmax(0, 1fr); }
+  .diff__n { padding-top: 4px; }
+  .diff__body { grid-column: 2; }
+}
+
+/* ---- Closing CTA --------------------------------------------------------
+   The offer on the left, the three terms as a thread on the right. The
+   thread is the reasoning trace made visual; here it carries the promises.
+   ---------------------------------------------------------------------- */
+
+.close__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: var(--sp-12) var(--sp-20);
+  align-items: center;
+}
+
+.close__title {
+  font-size: var(--t-display-2);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: var(--tr-display);
+  margin-bottom: var(--sp-5);
+  text-wrap: balance;
+}
+.close__sub {
+  font-size: var(--t-body-lg);
+  line-height: var(--lh-body);
+  color: var(--ink-inv-2);
+  max-width: 36rem;
+  margin-bottom: var(--sp-8);
+  text-wrap: pretty;
+}
+
+.close__thread { max-width: 28rem; }
+
+@media (max-width: 991px) {
+  .close__grid { grid-template-columns: 1fr; }
+}

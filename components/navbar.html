@@ -1,0 +1,145 @@
+<!-- aiRA navbar. Injected into #navbar-placeholder by js/components.js.
+     If the placeholder already has children the fetch is skipped, which is
+     the escape hatch for a page-specific nav variant. -->
+<header class="nav" id="site-nav" data-nav>
+  <div class="padding-global">
+    <div class="container nav__inner">
+
+      <a class="nav__logo" href="/" aria-label="aiRA by Capillary, home">
+        <img class="nav__logo-light" src="/assets/logo/aira-logo.png"
+             alt="aiRA by Capillary" width="81" height="26">
+        <img class="nav__logo-dark" src="/assets/logo/aira-logo-reverse.png"
+             alt="" aria-hidden="true" width="81" height="26">
+      </a>
+
+      <button class="nav__burger" type="button" aria-label="Open menu"
+              aria-expanded="false" aria-controls="nav-menu" data-nav-burger>
+        <svg class="nav__burger-open" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18"/>
+        </svg>
+        <svg class="nav__burger-close" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18"/>
+        </svg>
+      </button>
+
+      <nav class="nav__menu" id="nav-menu" aria-label="Main">
+        <div class="nav__links">
+
+          <a class="nav__link" href="/product">Product</a>
+
+          <div class="nav__dd" data-dropdown>
+            <button class="nav__toggle" type="button" aria-expanded="false"
+                    aria-controls="dd-solutions" data-dropdown-toggle>
+              <span>Solutions</span>
+              <svg class="nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+
+            <div class="nav__panel" id="dd-solutions">
+              <div class="nav__panel-grid">
+                <div class="nav__panel-card">
+                  <a class="nav__item" href="/solutions/retail/apparel-fashion">
+                    <span class="nav__item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg></span>
+                    <span class="nav__item-text">
+                      <span class="nav__item-label">Apparel &amp; Fashion</span>
+                      <span class="nav__item-desc">Seasonal drops, sizes and returns</span>
+                    </span>
+                  </a>
+                  <a class="nav__item" href="/solutions/retail/supermarkets-grocery">
+                    <span class="nav__item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></span>
+                    <span class="nav__item-text">
+                      <span class="nav__item-label">Supermarkets &amp; Grocery</span>
+                      <span class="nav__item-desc">High frequency, basket-level signals</span>
+                    </span>
+                  </a>
+                  <a class="nav__item" href="/solutions/retail/health-beauty">
+                    <span class="nav__item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span>
+                    <span class="nav__item-text">
+                      <span class="nav__item-label">Health &amp; Beauty</span>
+                      <span class="nav__item-desc">Replenishment cycles, brand switching</span>
+                    </span>
+                  </a>
+                  <a class="nav__item" href="/solutions/retail/fuel-convenience">
+                    <span class="nav__item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 22h12"/><path d="M4 9h10"/><path d="M14 22V4a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v18"/><path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2 2 2 0 0 0 2-2V9.83a2 2 0 0 0-.59-1.42L18 5"/></svg></span>
+                    <span class="nav__item-text">
+                      <span class="nav__item-label">Fuel &amp; Convenience</span>
+                      <span class="nav__item-desc">Daily footfall, forecourt to store</span>
+                    </span>
+                  </a>
+                  <a class="nav__item" href="/solutions/retail/luxury-jewellery">
+                    <span class="nav__item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg></span>
+                    <span class="nav__item-text">
+                      <span class="nav__item-label">Luxury &amp; Jewellery</span>
+                      <span class="nav__item-desc">Low frequency, high consideration</span>
+                    </span>
+                  </a>
+                  <a class="nav__item" href="/solutions/retail/food-beverage-qsr">
+                    <span class="nav__item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg></span>
+                    <span class="nav__item-text">
+                      <span class="nav__item-label">Food, Beverage &amp; QSR</span>
+                      <span class="nav__item-desc">Daily orders across channels</span>
+                    </span>
+                  </a>
+                  <a class="nav__item" href="/solutions/retail/consumer-electronics">
+                    <span class="nav__item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></span>
+                    <span class="nav__item-text">
+                      <span class="nav__item-label">Consumer Electronics</span>
+                      <span class="nav__item-desc">Long cycles, upgrade moments</span>
+                    </span>
+                  </a>
+                  <a class="nav__item" href="/solutions/retail/home-furniture">
+                    <span class="nav__item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3"/><path d="M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H7v-2a2 2 0 0 0-4 0Z"/><path d="M5 18v2"/><path d="M19 18v2"/></svg></span>
+                    <span class="nav__item-text">
+                      <span class="nav__item-label">Home &amp; Furniture</span>
+                      <span class="nav__item-desc">Very low frequency, high ticket</span>
+                    </span>
+                  </a>
+                  <a class="nav__item" href="/solutions/retail/pharmacy-drugstore">
+                    <span class="nav__item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span>
+                    <span class="nav__item-text">
+                      <span class="nav__item-label">Pharmacy &amp; Drugstore</span>
+                      <span class="nav__item-desc">Refill rhythms, regulated data</span>
+                    </span>
+                  </a>
+                  <a class="nav__item" href="/solutions/retail">
+                    <span class="nav__item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg></span>
+                    <span class="nav__item-text">
+                      <span class="nav__item-label">All 15 retail categories</span>
+                      <span class="nav__item-desc">Browse the complete set</span>
+                    </span>
+                  </a>
+                </div>
+
+                <div class="nav__aside">
+                  <p class="nav__col-title">By team</p>
+                  <a class="nav__mini" href="/solutions?role=marketing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>Marketing</a>
+                  <a class="nav__mini" href="/solutions?role=crm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>CRM</a>
+                  <a class="nav__mini" href="/solutions?role=bi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>Business Intelligence</a>
+                  <a class="nav__mini" href="/solutions?role=ecommerce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>eCommerce</a>
+                  <a class="nav__mini" href="/solutions?role=growth"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>Growth</a>
+                </div>
+              </div>
+
+              <p class="nav__panel-foot">
+                Pick your category and your team to see the questions that actually apply.
+                <a href="/solutions">Find your use cases</a>
+              </p>
+            </div>
+          </div>
+
+          <a class="nav__link" href="/pricing">Pricing</a>
+          <a class="nav__link" href="/security">Security</a>
+        </div>
+
+        <div class="nav__actions">
+          <a class="btn btn--primary btn--sm" href="/book">Book a session</a>
+        </div>
+      </nav>
+
+    </div>
+  </div>
+</header>

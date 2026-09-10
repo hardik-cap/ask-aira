@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 457 450" fill="none" role="img" aria-label="aiRA">
+  <defs>
+    <linearGradient id="aira-mark-g" x1="0" y1="0" x2="457" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6369F6"/>
+      <stop offset="1" stop-color="#436FF6"/>
+    </linearGradient>
+  </defs>
+  <g fill="url(#aira-mark-g)">
+    <path d="M166,58Q202.5,187.5 332,224Q202.5,260.5 166,390Q129.5,260.5 0,224Q129.5,187.5 166,58Z"/>
+    <path d="M377,0Q394.6,62.4 457,80Q394.6,97.6 377,160Q359.4,97.6 297,80Q359.4,62.4 377,0Z"/>
+    <path d="M377,290Q394.6,352.4 457,370Q394.6,387.6 377,450Q359.4,387.6 297,370Q359.4,352.4 377,290Z"/>
+  </g>
+</svg>

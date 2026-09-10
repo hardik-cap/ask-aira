@@ -1,0 +1,602 @@
+/* ==========================================================================
+   aiRA — Component library and visual language.
+
+   THE SIGNATURE
+   Three motifs carry aiRA's identity, all derived from the product itself
+   (a question, a reasoning trace, a move awaiting approval) and from the
+   logo's four-point sparkle:
+
+     1. .rule    a hairline whose left terminus is a sparkle. Sections are
+                 separated by a mark, not a border. Asymmetric and directional,
+                 so the page reads left to right, top to bottom.
+     2. .thread  a vertical hairline with sparkle nodes. This is the reasoning
+                 trace made visual: a sequence of steps, each one anchored.
+     3. .qstring a real question set in mono, quoted, with a brand left mark.
+                 Questions are the product's surface, so they are a first-class
+                 typographic object rather than body copy.
+
+   Nothing here uses the dashed double-rail system from the base export.
+   That is another product's signature.
+   ========================================================================== */
+
+/* ---- 1. Sparkle rule --------------------------------------------------- */
+
+.rule {
+  position: relative;
+  height: 1px;
+  background: var(--border);
+  border: 0;
+  margin: 0;
+}
+.rule::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  transform: translate(-1px, -50%);
+  background: var(--brand);
+  /* the sparkle, as a mask so it inherits the brand token */
+  -webkit-mask: var(--sparkle-mask) center / contain no-repeat;
+  mask: var(--sparkle-mask) center / contain no-repeat;
+}
+.rule--center::before { left: 50%; transform: translate(-50%, -50%); }
+.rule--muted::before { background: var(--slate-300); }
+.section--inv .rule { background: rgba(255, 255, 255, 0.12); }
+.section--inv .rule::before { background: var(--indigo-400); }
+
+:root {
+  --sparkle-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M12,0Q14.6,9.4 24,12Q14.6,14.6 12,24Q9.4,14.6 0,12Q9.4,9.4 12,0Z'/%3E%3C/svg%3E");
+}
+
+/* Section top rule: sits flush on the section's leading edge. */
+.section > .rule:first-child,
+.section-rule {
+  position: absolute;
+  top: 0;
+  left: var(--pad-x);
+  right: var(--pad-x);
+  width: auto;
+}
+
+/* ---- 2. Thread --------------------------------------------------------- */
+
+.thread {
+  display: grid;
+  gap: var(--sp-8);
+  position: relative;
+  padding-left: var(--sp-8);
+}
+.thread::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    var(--indigo-300) 0%,
+    var(--border-strong) 58%,
+    transparent 100%
+  );
+}
+.thread__step { position: relative; }
+.thread__step::before {
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--sp-8) + 0px);
+  top: 5px;
+  width: 11px;
+  height: 11px;
+  background: var(--brand);
+  -webkit-mask: var(--sparkle-mask) center / contain no-repeat;
+  mask: var(--sparkle-mask) center / contain no-repeat;
+}
+.thread__step:not(:first-child)::before { background: var(--slate-400); }
+
+.thread__label {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 6px;
+}
+.thread__title {
+  font-size: var(--t-title-sm);
+  font-weight: 700;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+  margin-bottom: 5px;
+}
+.thread__body {
+  font-size: var(--t-body-sm);
+  line-height: 1.65;
+  color: var(--ink-2);
+  max-width: 32rem;
+}
+
+.section--inv .thread__title { color: var(--ink-inv); }
+.section--inv .thread__body { color: var(--ink-inv-2); }
+.section--inv .thread__label { color: var(--ink-inv-3); }
+.section--inv .thread::before {
+  background: linear-gradient(to bottom, rgba(139,157,249,0.5), rgba(255,255,255,0.10) 55%, transparent);
+}
+.section--inv .thread__step:not(:first-child)::before { background: rgba(255, 255, 255, 0.30); }
+
+/* ---- 3. Question string ------------------------------------------------ */
+
+.qstring {
+  position: relative;
+  padding-left: var(--sp-4);
+  font-family: var(--font-mono);
+  font-size: var(--t-mono-lg);
+  font-weight: 400;
+  line-height: 1.62;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.qstring::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 3px;
+  bottom: 3px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--brand);
+}
+.qstring--muted { color: var(--ink-2); }
+.qstring--muted::before { background: var(--slate-300); }
+.section--inv .qstring { color: var(--ink-inv); }
+
+/* ---- Mono micro-label -------------------------------------------------- */
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.mono--brand { color: var(--brand-ink); }
+.mono--faint { color: var(--ink-faint); }
+.mono--num { text-transform: none; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
+/* For labels that contain the product name: aiRA must never render AIRA. */
+.mono--case { text-transform: none; }
+
+/* ---- Cards -------------------------------------------------------------
+   One card shell, three intents. Cards do not lift on hover; they settle.
+   ---------------------------------------------------------------------- */
+
+.card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-6);
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--dur) var(--ease),
+              box-shadow var(--dur) var(--ease),
+              transform var(--dur-slow) var(--ease);
+}
+.card__title {
+  font-size: var(--t-title);
+  font-weight: 700;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+  margin-bottom: var(--sp-2);
+  text-wrap: balance;
+}
+.card__body {
+  font-size: var(--t-body-sm);
+  line-height: 1.68;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+.card__body strong { color: var(--ink); font-weight: 600; }
+.card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-4);
+}
+
+/* Interactive card: an anchor wrapping the shell. */
+a.card, .card--link { display: block; }
+a.card:hover, .card--link:hover {
+  border-color: var(--brand-line);
+  box-shadow: var(--shadow-md);
+}
+
+/* Numbered argument card. The index is a mono figure, not a circle badge. */
+.card--argued { padding-top: var(--sp-5); }
+.card__index {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--brand);
+  margin-bottom: var(--sp-4);
+  display: block;
+}
+
+/* Quiet card: no shadow, for dense grids. */
+.card--quiet { box-shadow: none; background: var(--bg-subtle); }
+.card--quiet:hover { box-shadow: none; }
+
+/* Card on a dark section. */
+.section--inv .card {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(255, 255, 255, 0.10);
+  box-shadow: none;
+}
+.section--inv .card__title { color: var(--ink-inv); }
+.section--inv .card__body { color: var(--ink-inv-2); }
+.section--inv .card__body strong { color: var(--ink-inv); }
+.section--inv a.card:hover, .section--inv .card--link:hover {
+  border-color: rgba(139, 157, 249, 0.45);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-5);
+}
+.card-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.card-grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 991px) {
+  .card-grid, .card-grid--4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .card-grid, .card-grid--2, .card-grid--4 { grid-template-columns: 1fr; }
+}
+
+/* ---- Chips and pills --------------------------------------------------- */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: var(--t-body-sm);
+  font-weight: 550;
+  color: var(--ink-2);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-pill);
+  padding: 8px 15px;
+  transition: border-color var(--dur-fast) var(--ease),
+              color var(--dur-fast) var(--ease),
+              background var(--dur-fast) var(--ease);
+}
+.chip .sparkle { width: 10px; height: 10px; color: var(--brand); flex: none; }
+button.chip, a.chip { cursor: pointer; }
+button.chip:hover, a.chip:hover { border-color: var(--brand-line); color: var(--ink); }
+.chip[aria-pressed="true"], .chip.is-active {
+  background: var(--brand); border-color: transparent; color: var(--on-brand);
+}
+.chip[aria-pressed="true"] .sparkle, .chip.is-active .sparkle { color: var(--on-brand); }
+
+.chip-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+
+/* Eyebrow badge: the pill that sits above a hero headline. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--brand-ink);
+  background: var(--surface);
+  border: 1px solid var(--brand-line);
+  border-radius: var(--r-pill);
+  padding: 7px 14px 7px 11px;
+  box-shadow: var(--shadow-xs);
+}
+.badge .sparkle { width: 11px; height: 11px; flex: none; }
+
+/* ---- Approval grammar --------------------------------------------------
+   aiRA proposes, a person decides. Every proposed move carries its state.
+   ---------------------------------------------------------------------- */
+
+.state {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+  border-radius: var(--r-pill);
+  padding: 4px 9px;
+  white-space: nowrap;
+}
+.state::before {
+  content: '';
+  width: 5px; height: 5px; border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+.state--pending { color: var(--pending); background: var(--pending-bg); }
+.state--approve { color: var(--approve); background: var(--approve-bg); }
+.state--hold    { color: var(--hold);    background: var(--hold-bg); }
+.state--reject  { color: var(--reject);  background: var(--reject-bg); }
+
+/* ---- Panel: CSS-drawn product surface ---------------------------------
+   The house illustration style. Product UI is drawn in CSS, never
+   screenshotted, so it stays crisp, themeable and editable.
+   ---------------------------------------------------------------------- */
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+.panel__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 11px 14px;
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+/* Panel identity: the sparkle and the product's name, left-aligned.
+   Not macOS traffic lights; this is aiRA's surface, not a browser mock. */
+.panel__app {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 600;
+  letter-spacing: var(--tr-mono);
+  /* no text-transform: the product name is always aiRA, never AIRA */
+  color: var(--ink);
+}
+.panel__app .sparkle { width: 11px; height: 11px; color: var(--brand); flex: none; }
+.panel__meta {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.panel__name {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.panel__body { padding: var(--sp-5); }
+.panel__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-3) var(--sp-5);
+  border-top: 1px solid var(--border);
+  background: var(--bg-subtle);
+}
+
+/* Decision buttons: flat tinted pills, no border. */
+.decide { display: flex; gap: 6px; }
+.decide button {
+  font-size: var(--t-caption);
+  font-weight: 600;
+  border-radius: var(--r-pill);
+  padding: 6px 13px;
+  transition: filter var(--dur-fast) var(--ease);
+}
+.decide button:hover { filter: brightness(0.96); }
+.decide__approve { color: var(--approve); background: var(--approve-bg); }
+.decide__hold    { color: var(--hold);    background: var(--hold-bg); }
+.decide__reject  { color: var(--reject);  background: var(--reject-bg); }
+
+/* ---- Dot field: a quiet stage behind illustrations --------------------- */
+
+.dot-field { position: relative; }
+.dot-field::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(11, 16, 32, 0.09) 1px, transparent 1px);
+  background-size: 18px 18px;
+  -webkit-mask-image: radial-gradient(ellipse 78% 78% at 50% 42%, #000 28%, transparent 76%);
+  mask-image: radial-gradient(ellipse 78% 78% at 50% 42%, #000 28%, transparent 76%);
+}
+.section--inv .dot-field::before {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.10) 1px, transparent 1px);
+}
+
+/* ---- Comparison table -------------------------------------------------- */
+
+.cmp-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.cmp {
+  min-width: 44rem;
+  font-size: var(--t-body-sm);
+}
+.cmp th, .cmp td {
+  text-align: left;
+  padding: var(--sp-4) var(--sp-5);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.cmp thead th {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  border-bottom-color: var(--border-strong);
+  white-space: nowrap;
+}
+.cmp thead th.is-aira { color: var(--brand-ink); }
+.cmp tbody th {
+  font-weight: 600;
+  color: var(--ink);
+  width: 12rem;
+}
+.cmp td { color: var(--ink-2); line-height: 1.6; }
+.cmp td.is-aira { color: var(--ink); background: var(--indigo-50); }
+.cmp tbody tr:last-child th, .cmp tbody tr:last-child td { border-bottom: 0; }
+
+/* ---- Stat ------------------------------------------------------------- */
+
+.stat__n {
+  /* Sans, not mono: Geist Mono gives the comma a full character cell,
+     so "41,208" reads as "41 , 208". Tabular numerals keep it aligned. */
+  font-family: var(--font-sans);
+  font-size: 1.625rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.stat__l {
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+  margin-top: 5px;
+}
+.section--inv .stat__n { color: var(--ink-inv); }
+.section--inv .stat__l { color: var(--ink-inv-2); }
+
+/* ---- Logo wall --------------------------------------------------------- */
+
+/* Until real logo files are approved, brand names are set as a mono
+   index. Deliberate typography, not sans-serif text pretending to be
+   logos. Swap for artwork when the files arrive. */
+.logo-wall {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-4) var(--sp-10);
+}
+.logo-wall span {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono-lg);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+/* ---- Question ledger ----------------------------------------------------
+   Questions set as a numbered index, not a grid of cards. Each row is a
+   figure, a capability, and the question itself as a .qstring. Reused on
+   category pages for the per-role question sets.
+   ---------------------------------------------------------------------- */
+
+.qledger { border-top: 1px solid var(--border-strong); }
+
+.qledger__row,
+.qledger__more {
+  display: grid;
+  grid-template-columns: 2.75rem 13rem minmax(0, 1fr);
+  gap: var(--sp-2) var(--sp-8);
+  align-items: baseline;
+  padding-block: var(--sp-5);
+  border-bottom: 1px solid var(--border);
+}
+
+.qledger__n { color: var(--ink-faint); }
+.qledger__cap { color: var(--brand-ink); }
+.qledger .qstring { max-width: 46rem; }
+
+.qledger__more-t {
+  font-size: var(--t-body-sm);
+  line-height: 1.68;
+  color: var(--ink-2);
+  max-width: 46rem;
+  text-wrap: pretty;
+}
+.qledger__more-t strong { color: var(--ink); font-weight: 600; }
+.qledger__go {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--brand-ink);
+  white-space: nowrap;
+  transition: gap var(--dur-fast) var(--ease);
+}
+.qledger__go svg { width: 14px; height: 14px; flex: none; }
+a.qledger__more:hover .qledger__go { gap: 10px; }
+a.qledger__more:hover .qledger__cap { color: var(--brand); }
+
+@media (max-width: 768px) {
+  .qledger__row,
+  .qledger__more { grid-template-columns: 2.75rem minmax(0, 1fr); }
+  .qledger__row .qstring,
+  .qledger__more-t { grid-column: 2; }
+}
+
+/* ---- Footnote ---------------------------------------------------------- */
+
+.footnote {
+  font-size: var(--t-caption);
+  line-height: 1.6;
+  color: var(--ink-3);
+  max-width: 44rem;
+}
+.footnote a { color: var(--brand-ink); text-decoration: underline; text-underline-offset: 2px; }
+
+/* ---- Hover grammar: things settle into place --------------------------
+   One idea, applied consistently. Elements at rest are slightly out of
+   true and straighten on hover. Rest-state transforms MUST live in CSS,
+   never in an inline style attribute, or the hover rule loses.
+   ---------------------------------------------------------------------- */
+
+.settle { transition: transform var(--dur-slow) var(--ease); }
+.settle--tilt-l { transform: rotate(-1.4deg); }
+.settle--tilt-r { transform: rotate(1.4deg); }
+.settle--drop   { transform: translateY(4px); }
+.settle-group:hover .settle,
+.settle:hover { transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .settle, .card, .btn, .chip, .nav, .nav__panel { transition: none !important; }
+  .settle--tilt-l, .settle--tilt-r, .settle--drop { transform: none; }
+}
+
+/* ---- Reveal on scroll -------------------------------------------------
+   Implemented for real in js/reveal.js. If JS fails or is disabled the
+   .no-js / no-observer path adds .is-in immediately, so content is never
+   trapped invisible.
+   ---------------------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+.reveal.is-in { opacity: 1; transform: none; }
+.reveal-stagger > * { transition-delay: calc(var(--i, 0) * 60ms); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}

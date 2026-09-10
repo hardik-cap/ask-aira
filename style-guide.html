@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>aiRA | Visual language</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Internal reference for the aiRA design system.">
+  <link rel="icon" href="/assets/logo/aira-mark.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap">
+
+  <link rel="stylesheet" href="/style/tokens.css">
+  <link rel="stylesheet" href="/style/global.css">
+  <link rel="stylesheet" href="/style/components.css">
+  <link rel="stylesheet" href="/style/pages/guide.css">
+
+  <script src="/js/components.js" defer></script>
+</head>
+
+<body class="page-guide">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="navbar-placeholder"></div>
+
+  <main id="main" class="padding-global">
+    <div class="container">
+
+      <header class="g-hero">
+        <p class="eyebrow"><svg class="sparkle" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12,0Q14.6,9.4 24,12Q14.6,14.6 12,24Q9.4,14.6 0,12Q9.4,9.4 12,0Z"/></svg> Phase 1, direction</p>
+        <h1 class="g-hero__title">aiRA visual language.</h1>
+        <p class="g-bl">
+          The system behind the site: tokens, type, buttons, cards, navigation and
+          the three motifs that carry aiRA's identity. Every value here is a custom
+          property defined in <code>style/tokens.css</code>. Nothing on a page hardcodes
+          a colour.
+        </p>
+      </header>
+
+      <!-- ============ COLOUR ============ -->
+      <section class="g-block">
+        <div class="g-block__head">
+          <h2 class="g-block__title">Colour</h2>
+          <p class="g-block__note">
+            The brand anchor is <strong>#526CF6</strong>, sampled from the aiRA logo mark.
+            The mark runs a horizontal gradient from #6369F6 to #436FF6 and centres here.
+            This supersedes the violet product pill in the 2026 Capillary brand guide,
+            which predates the current logo. Neutrals are cool and hue-aligned to the
+            indigo so greys never read warm against it.
+          </p>
+        </div>
+
+        <p class="g-sub">Indigo, the brand ramp</p>
+        <div class="g-swatches">
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #F7F8FF"></div>
+              <span class="g-swatch__name">indigo-50</span>
+              <span class="g-swatch__hex">#F7F8FF</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #EEF0FE"></div>
+              <span class="g-swatch__name">indigo-100</span>
+              <span class="g-swatch__hex">#EEF0FE</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #D8DEFD"></div>
+              <span class="g-swatch__name">indigo-200</span>
+              <span class="g-swatch__hex">#D8DEFD</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #BAC4FB"></div>
+              <span class="g-swatch__name">indigo-300</span>
+              <span class="g-swatch__hex">#BAC4FB</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #8B9DF9"></div>
+              <span class="g-swatch__name">indigo-400</span>
+              <span class="g-swatch__hex">#8B9DF9</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #526CF6"></div>
+              <span class="g-swatch__name">indigo-500</span>
+              <span class="g-swatch__hex">#526CF6</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #455CD3"></div>
+              <span class="g-swatch__name">indigo-600</span>
+              <span class="g-swatch__hex">#455CD3</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #384AAC"></div>
+              <span class="g-swatch__name">indigo-700</span>
+              <span class="g-swatch__hex">#384AAC</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #2A3887"></div>
+              <span class="g-swatch__name">indigo-800</span>
+              <span class="g-swatch__hex">#2A3887</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #1E2966"></div>
+              <span class="g-swatch__name">indigo-900</span>
+              <span class="g-swatch__hex">#1E2966</span>
+            </div>
+        </div>
+
+        <p class="g-sub">Slate, the neutral ramp</p>
+        <div class="g-swatches">
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #F7F8FB"></div>
+              <span class="g-swatch__name">slate-50</span>
+              <span class="g-swatch__hex">#F7F8FB</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #EFF1F6"></div>
+              <span class="g-swatch__name">slate-100</span>
+              <span class="g-swatch__hex">#EFF1F6</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #E2E5EE"></div>
+              <span class="g-swatch__name">slate-200</span>
+              <span class="g-swatch__hex">#E2E5EE</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #C7CBD9"></div>
+              <span class="g-swatch__name">slate-300</span>
+              <span class="g-swatch__hex">#C7CBD9</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #9AA0B4"></div>
+              <span class="g-swatch__name">slate-400</span>
+              <span class="g-swatch__hex">#9AA0B4</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #767C91"></div>
+              <span class="g-swatch__name">slate-500</span>
+              <span class="g-swatch__hex">#767C91</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #575D72"></div>
+              <span class="g-swatch__name">slate-600</span>
+              <span class="g-swatch__hex">#575D72</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #3D4356"></div>
+              <span class="g-swatch__name">slate-700</span>
+              <span class="g-swatch__hex">#3D4356</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #262B3B"></div>
+              <span class="g-swatch__name">slate-800</span>
+              <span class="g-swatch__hex">#262B3B</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: #0B1020"></div>
+              <span class="g-swatch__name">slate-900</span>
+              <span class="g-swatch__hex">#0B1020</span>
+            </div>
+        </div>
+
+        <p class="g-sub">Approval grammar</p>
+        <p class="g-sm" style="margin-bottom: var(--sp-5)">
+          aiRA proposes, a person decides. These four states are the only semantic
+          colours in the system, and they exist because the human-in-command promise
+          needs to be visible on every surface where a move appears.
+        </p>
+        <div class="g-semantic">
+            <div class="g-semantic__row">
+              <span class="g-semantic__dot" style="background: var(--pending-bg); border-color: var(--pending)"></span>
+              <span><strong style="color: var(--pending)">Pending</strong><br>aiRA proposes</span>
+            </div>
+            <div class="g-semantic__row">
+              <span class="g-semantic__dot" style="background: var(--approve-bg); border-color: var(--approve)"></span>
+              <span><strong style="color: var(--approve)">Approve</strong><br>a person decides</span>
+            </div>
+            <div class="g-semantic__row">
+              <span class="g-semantic__dot" style="background: var(--hold-bg); border-color: var(--hold)"></span>
+              <span><strong style="color: var(--hold)">Hold</strong><br>parked, not rejected</span>
+            </div>
+            <div class="g-semantic__row">
+              <span class="g-semantic__dot" style="background: var(--reject-bg); border-color: var(--reject)"></span>
+              <span><strong style="color: var(--reject)">Reject</strong><br>declined, on the trail</span>
+            </div>
+        </div>
+      </section>
+
+      <!-- ============ TYPE ============ -->
+      <section class="g-block">
+        <div class="g-block__head">
+          <h2 class="g-block__title">Typography</h2>
+          <p class="g-block__note">
+            <strong>Plus Jakarta Sans</strong> for everything readable, and it is
+            Capillary's own secondary typeface, so it is brand-defensible. Its taller
+            x-height holds far better than Montserrat at 14 to 16px in dense layouts.
+            <strong>Geist Mono</strong> carries labels, credits and question strings.
+            Display sizes are fluid; body sizes are fixed so line length stays predictable.
+          </p>
+        </div>
+
+        <div class="g-spec">
+          <p class="g-spec__meta">DISPLAY 1 &middot; clamp(31px, 62px) &middot; 700 &middot; -0.035em</p>
+          <p class="g-d1">On-demand insights and analytics agent.</p>
+        </div>
+        <div class="g-spec">
+          <p class="g-spec__meta">DISPLAY 2 &middot; clamp(30px, 44px) &middot; 700 &middot; -0.035em</p>
+          <p class="g-d2">aiRA sits between your data and your channels.</p>
+        </div>
+        <div class="g-spec">
+          <p class="g-spec__meta">DISPLAY 3 &middot; clamp(24px, 32px) &middot; 700</p>
+          <p class="g-d3">What people actually ask aiRA.</p>
+        </div>
+        <div class="g-spec">
+          <p class="g-spec__meta">TITLE &middot; 19px &middot; 700 &middot; -0.015em</p>
+          <p class="g-ti">They arrive empty. aiRA arrives knowing your category.</p>
+        </div>
+        <div class="g-spec">
+          <p class="g-spec__meta">BODY LARGE &middot; 17px / 1.68</p>
+          <p class="g-bl">You already own the warehouse. You already own the channels. What is missing is the judgement in between, and today that runs on analyst tickets and Monday meetings.</p>
+        </div>
+        <div class="g-spec">
+          <p class="g-spec__meta">BODY &middot; 15.5px / 1.68</p>
+          <p class="g-bd">A narrative answer is where your job begins: brief the team, size the audience, wait for the build. aiRA carries it through to a built move, waiting on your approval.</p>
+        </div>
+        <div class="g-spec">
+          <p class="g-spec__meta">MONO LABEL &middot; 11.5px &middot; 500 &middot; 0.09em &middot; uppercase</p>
+          <p class="mono">System of record &middot; 140 playbooks &middot; 2 credits</p>
+        </div>
+      </section>
+
+      <!-- ============ SIGNATURE ============ -->
+      <section class="g-block">
+        <div class="g-block__head">
+          <h2 class="g-block__title">The signature</h2>
+          <p class="g-block__note">
+            Three motifs, all derived from the product itself and from the logo's
+            four-point sparkle. None of them is the dashed double-rail system from the
+            base export; that is another product's identity.
+          </p>
+        </div>
+
+        <p class="g-sub">1. The sparkle rule</p>
+        <p class="g-sm" style="margin-bottom: var(--sp-5)">
+          Sections are separated by a mark, not a border. The terminus is asymmetric,
+          so the page reads left to right and has a direction.
+        </p>
+        <div class="rule" style="margin-bottom: var(--sp-8)"></div>
+
+        <p class="g-sub">2. The thread</p>
+        <p class="g-sm" style="margin-bottom: var(--sp-6)">
+          The reasoning trace made visual: a sequence of steps, each anchored by a
+          sparkle node. The first node is brand-coloured, the rest recede, so a
+          sequence has a beginning.
+        </p>
+        <div class="thread" style="max-width: 34rem">
+          <div class="thread__step">
+            <p class="thread__label">Step 01</p>
+            <p class="thread__title">Read where the data sits</p>
+            <p class="thread__body">18 months of purchase and loyalty history, in place. Zero copy, no migration.</p>
+          </div>
+          <div class="thread__step">
+            <p class="thread__label">Step 02</p>
+            <p class="thread__title">Apply your definitions</p>
+            <p class="thread__body">Your active-member rule, your tiers, layered on top of the industry playbook.</p>
+          </div>
+          <div class="thread__step">
+            <p class="thread__label">Step 03</p>
+            <p class="thread__title">Build the move</p>
+            <p class="thread__body">A segment and a journey, built and waiting. A person approves before it goes live.</p>
+          </div>
+        </div>
+
+        <p class="g-sub">3. The question string</p>
+        <p class="g-sm" style="margin-bottom: var(--sp-5)">
+          Questions are the product's surface, so they are a first-class typographic
+          object rather than body copy. Mono, quoted by a brand left mark.
+        </p>
+        <div style="display: grid; gap: var(--sp-4); max-width: 40rem">
+          <p class="qstring">How many members with a negative points balance redeemed a certificate last quarter?</p>
+          <p class="qstring qstring--muted">What counts as an active member under our current program rules?</p>
+        </div>
+      </section>
+
+      <!-- ============ BUTTONS ============ -->
+      <section class="g-block">
+        <div class="g-block__head">
+          <h2 class="g-block__title">Buttons</h2>
+          <p class="g-block__note">
+            Three intents, three sizes. Trailing arrows nudge outward on hover by growing
+            the gap rather than translating the icon, so the label never shifts.
+          </p>
+        </div>
+
+        <p class="g-sub">Intents</p>
+        <div class="g-row">
+          <a class="btn btn--primary" href="#">Book a working session <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn--secondary" href="#">See how it works</a>
+          <a class="btn btn--ghost" href="#">Find your use cases <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+
+        <p class="g-sub">Sizes</p>
+        <div class="g-row">
+          <a class="btn btn--primary btn--lg" href="#">Large</a>
+          <a class="btn btn--primary" href="#">Default</a>
+          <a class="btn btn--primary btn--sm" href="#">Small</a>
+        </div>
+
+        <p class="g-sub">On a dark surface</p>
+        <div class="g-dark section--inv">
+          <div class="g-row">
+            <a class="btn btn--primary" href="#">Book a working session <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn--secondary" href="#">See how it works</a>
+          </div>
+        </div>
+
+        <p class="g-sub">Decision buttons</p>
+        <p class="g-sm" style="margin-bottom: var(--sp-4)">
+          Flat tinted pills, no border. Reserved for the approval moment.
+        </p>
+        <div class="decide">
+          <button type="button" class="decide__approve">Approve</button>
+          <button type="button" class="decide__hold">Hold</button>
+          <button type="button" class="decide__reject">Reject</button>
+        </div>
+      </section>
+
+      <!-- ============ CARDS ============ -->
+      <section class="g-block">
+        <div class="g-block__head">
+          <h2 class="g-block__title">Cards and chips</h2>
+          <p class="g-block__note">
+            One card shell, several intents. Cards do not lift on hover; they settle.
+            Anything at rest that is slightly out of true straightens when you point at it.
+          </p>
+        </div>
+
+        <p class="g-sub">Card intents</p>
+        <div class="g-grid-3">
+          <div class="card">
+            <h3 class="card__title">Default</h3>
+            <p class="card__body">Surface, hairline border, soft shadow. The workhorse.</p>
+          </div>
+          <div class="card card--argued">
+            <span class="card__index">02</span>
+            <h3 class="card__title">Argued</h3>
+            <p class="card__body">Carries a mono index. For a numbered argument where order matters.</p>
+          </div>
+          <a class="card card--link" href="#">
+            <h3 class="card__title">Link</h3>
+            <p class="card__body">Border picks up the brand on hover. <strong>Whole card is the target.</strong></p>
+          </a>
+        </div>
+
+        <p class="g-sub">Chips</p>
+        <div class="chip-row">
+          <span class="chip">Ad hoc analytics</span>
+          <span class="chip">Predictive models</span>
+          <button class="chip is-active" type="button"><svg class="sparkle" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12,0Q14.6,9.4 24,12Q14.6,14.6 12,24Q9.4,14.6 0,12Q9.4,9.4 12,0Z"/></svg> Selected</button>
+          <button class="chip" type="button">Selectable</button>
+        </div>
+
+        <p class="g-sub">Badge and states</p>
+        <div class="g-row">
+          <span class="badge"><svg class="sparkle" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12,0Q14.6,9.4 24,12Q14.6,14.6 12,24Q9.4,14.6 0,12Q9.4,9.4 12,0Z"/></svg> Agentic analytics for customer data</span>
+        </div>
+        <div class="g-row" style="margin-top: var(--sp-4)">
+          <span class="state state--pending">Pending your approval</span>
+          <span class="state state--approve">Approved</span>
+          <span class="state state--hold">On hold</span>
+          <span class="state state--reject">Rejected</span>
+        </div>
+
+        <p class="g-sub">Cards on a dark surface</p>
+        <div class="g-dark section--inv">
+          <div class="g-grid-2">
+            <div class="card">
+              <h3 class="card__title">Inverted</h3>
+              <p class="card__body">Translucent white fill, no shadow. The same shell, retuned.</p>
+            </div>
+            <div class="card">
+              <h3 class="card__title">Consistent</h3>
+              <p class="card__body">Section-level <strong>.section--inv</strong> retunes every child. No separate dark components.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PANEL ============ -->
+      <section class="g-block">
+        <div class="g-block__head">
+          <h2 class="g-block__title">Product surfaces</h2>
+          <p class="g-block__note">
+            Product UI is drawn in CSS, never screenshotted, so it stays crisp,
+            themeable and editable. This is the whole promise in one object: a question,
+            the reasoning, and a move that is built but not yet live.
+          </p>
+        </div>
+
+        <div class="panel" style="max-width: 34rem">
+          <div class="panel__bar">
+            <span class="panel__app">
+              <svg class="sparkle" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12,0Q14.6,9.4 24,12Q14.6,14.6 12,24Q9.4,14.6 0,12Q9.4,9.4 12,0Z"/></svg>
+              aiRA
+            </span>
+            <span class="panel__meta">Reads in place</span>
+          </div>
+          <div class="panel__body">
+            <p class="qstring" style="margin-bottom: var(--sp-4)">Build a segment of members who bought once and never came back.</p>
+            <div class="trace" style="display:grid; gap:7px; margin-bottom: var(--sp-4)">
+              <p class="trace__line"><svg class="sparkle" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12,0Q14.6,9.4 24,12Q14.6,14.6 12,24Q9.4,14.6 0,12Q9.4,9.4 12,0Z"/></svg> Matched 1,412,390 member records</p>
+              <p class="trace__line"><svg class="sparkle" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12,0Q14.6,9.4 24,12Q14.6,14.6 12,24Q9.4,14.6 0,12Q9.4,9.4 12,0Z"/></svg> Excluded returns and staff accounts</p>
+            </div>
+            <div class="move">
+              <div class="move__head">
+                <p class="move__title">Segment, built</p>
+                <span class="state state--pending">Pending your approval</span>
+              </div>
+              <p class="move__meta">128,540 members. Refreshes daily. Ready to push to Braze.</p>
+            </div>
+          </div>
+          <div class="panel__foot">
+            <span class="mono mono--faint">1 credit</span>
+            <div class="decide">
+              <button type="button" class="decide__approve">Approve</button>
+              <button type="button" class="decide__hold">Hold</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ TABLE + STATS ============ -->
+      <section class="g-block">
+        <div class="g-block__head">
+          <h2 class="g-block__title">Comparison and figures</h2>
+          <p class="g-block__note">
+            The comparison table is the argument's backbone, so the aiRA column is
+            tinted rather than merely bolded. Display figures use the sans face with
+            tabular numerals: Geist Mono gives a comma its own character cell, so
+            "41,208" would render as "41 , 208".
+          </p>
+        </div>
+
+        <div class="cmp-wrap">
+          <table class="cmp">
+            <thead>
+              <tr>
+                <th scope="col"><span class="sr-only">Factor</span></th>
+                <th scope="col" class="is-aira">aiRA</th>
+                <th scope="col">Horizontal AI analytics platforms</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Bought by</th>
+                <td class="is-aira">Marketing, CRM, growth and insights leaders at consumer brands</td>
+                <td>The data platform team, then rolled out to the business</td>
+              </tr>
+              <tr>
+                <th scope="row">Before the first answer</th>
+                <td class="is-aira">Industry playbooks ship pre-built. Your definitions layered on in days</td>
+                <td>You model the semantic layer first, typically two to four months</td>
+              </tr>
+              <tr>
+                <th scope="row">Where it ends</th>
+                <td class="is-aira">The recommended move, built and pending your approval</td>
+                <td>A chart, a narrative and an export. The action is a separate brief</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="g-sub">Figures</p>
+        <div class="g-row" style="gap: var(--sp-12)">
+          <div class="stat"><p class="stat__n">41,208</p><p class="stat__l">members at high risk</p></div>
+          <div class="stat"><p class="stat__n">140+</p><p class="stat__l">industry playbooks</p></div>
+          <div class="stat"><p class="stat__n">2 to 4</p><p class="stat__l">weeks to a pilot</p></div>
+        </div>
+      </section>
+
+      <section class="g-block">
+        <div class="g-block__head">
+          <h2 class="g-block__title">Motion</h2>
+          <p class="g-block__note">
+            One easing curve across the site, <code>cubic-bezier(.22,.61,.36,1)</code>,
+            and one idea: <strong>things settle into place.</strong> Point at the group
+            below. Every motion rule is paired with a
+            <code>prefers-reduced-motion</code> guard, and the reveal-on-scroll hook is
+            a real IntersectionObserver rather than the dead class the base export shipped.
+          </p>
+        </div>
+        <div class="settle-group g-grid-3" style="max-width: 44rem">
+          <div class="card settle settle--tilt-l"><p class="card__body">Rotated at rest.</p></div>
+          <div class="card settle settle--drop"><p class="card__body">Offset at rest.</p></div>
+          <div class="card settle settle--tilt-r"><p class="card__body">Rotated the other way.</p></div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+</body>
+</html>

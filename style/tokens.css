@@ -1,0 +1,241 @@
+/* ==========================================================================
+   aiRA — Design tokens
+   The only file allowed to contain raw colour values. Everything else
+   references these custom properties.
+
+   Brand anchor: #526CF6, sampled from the aiRA logo mark.
+   The mark runs a horizontal gradient #6369F6 -> #436FF6, centring here.
+   This supersedes the #6F459B violet in the 2026 Capillary brand guide,
+   which predates the current logo.
+   ========================================================================== */
+
+:root {
+  /* ---- Raw ramp: indigo (brand) ------------------------------------ */
+  --indigo-50:  #F7F8FF;
+  --indigo-100: #EEF0FE;
+  --indigo-200: #D8DEFD;
+  --indigo-300: #BAC4FB;
+  --indigo-400: #8B9DF9;
+  --indigo-500: #526CF6;  /* brand */
+  --indigo-600: #455CD3;
+  --indigo-700: #384AAC;
+  --indigo-800: #2A3887;
+  --indigo-900: #1E2966;
+
+  /* Logo gradient endpoints, for the mark and brand gradients only */
+  --indigo-grad-from: #6369F6;
+  --indigo-grad-to:   #436FF6;
+
+  /* ---- Raw ramp: slate (cool neutrals, hue-aligned to the indigo) --- */
+  --slate-50:  #F7F8FB;
+  --slate-100: #EFF1F6;
+  --slate-200: #E2E5EE;
+  --slate-300: #C7CBD9;
+  --slate-400: #9AA0B4;
+  --slate-500: #767C91;
+  --slate-600: #575D72;
+  --slate-700: #3D4356;
+  --slate-800: #262B3B;
+  --slate-900: #0B1020;
+
+  /* ---- Capillary lineage -------------------------------------------
+     Available for endorsement moments (the "by capillary" lockup,
+     parent-brand strips). Not part of the aiRA palette proper.        */
+  --capillary-navy:  #142737;
+  --capillary-blue:  #26A9E1;
+  --capillary-amber: #F4A114;
+
+  /* ---- Semantic: surfaces ------------------------------------------ */
+  --bg:          #FBFBFD;
+  --bg-subtle:   var(--slate-50);
+  --surface:     #FFFFFF;
+  --surface-2:   var(--slate-100);
+  --surface-inv: var(--slate-900);
+
+  /* ---- Semantic: lines --------------------------------------------- */
+  --border:        #E7E9F1;
+  --border-strong: var(--slate-200);
+  --hairline:      rgba(11, 16, 32, 0.08);
+
+  /* ---- Semantic: text ---------------------------------------------- */
+  --ink:        var(--slate-900);
+  --ink-2:      var(--slate-600);
+  --ink-3:      var(--slate-500);
+  --ink-faint:  var(--slate-400);
+  --ink-inv:    #FFFFFF;
+  --ink-inv-2:  rgba(255, 255, 255, 0.68);
+  --ink-inv-3:  rgba(255, 255, 255, 0.46);
+
+  /* ---- Semantic: brand --------------------------------------------- */
+  --brand:         var(--indigo-500);
+  --brand-hover:   var(--indigo-600);
+  --brand-press:   var(--indigo-700);
+  --brand-subtle:  var(--indigo-100);
+  --brand-line:    var(--indigo-200);
+  --brand-ink:     var(--indigo-700);   /* brand colour used as text on light */
+  --on-brand:      #FFFFFF;
+
+  /* ---- Semantic: approval grammar ----------------------------------
+     aiRA proposes, a person decides. These four states carry that
+     promise everywhere it appears in the UI.                          */
+  --pending:      var(--indigo-600);
+  --pending-bg:   var(--indigo-100);
+  --approve:      #0E8A4F;
+  --approve-bg:   #E6F5EC;
+  --hold:         #B26A00;
+  --hold-bg:      #FDF3E3;
+  --reject:       #C4106A;
+  --reject-bg:    #FCE7F1;
+
+  /* ---- Hero beams -----------------------------------------------------
+     Rotated radial streaks behind the hero (Tailark hero block, requested
+     10 Sep 2026, superseding the Steep aurora wash). Indigo-tinted so
+     they read on the light ground; the template's originals are white
+     and built for dark. Placeholder values like the rest of the palette. */
+  --beam-a: rgba(82, 108, 246, 0.16);
+  --beam-b: rgba(82, 108, 246, 0.09);
+  --beam-c: rgba(82, 108, 246, 0.05);
+
+  /* ---- Nav surfaces ---------------------------------------------------
+     Solid-ish fallback, and the glass pair used where backdrop-filter is
+     supported (header-three: bg/95, supports-backdrop-filter:bg/50).    */
+  --nav-surface:           rgba(251, 251, 253, 0.95);
+  --nav-surface-glass:     rgba(251, 251, 253, 0.55);
+  --nav-surface-inv:       rgba(11, 16, 32, 0.92);
+  --nav-surface-inv-glass: rgba(11, 16, 32, 0.60);
+
+  /* ---- Focus ------------------------------------------------------- */
+  --focus-ring: 0 0 0 3px rgba(82, 108, 246, 0.32);
+
+  /* ---- Elevation --------------------------------------------------- */
+  --shadow-xs: 0 1px 2px rgba(11, 16, 32, 0.04);
+  --shadow-sm: 0 1px 2px rgba(11, 16, 32, 0.04), 0 2px 6px -2px rgba(11, 16, 32, 0.06);
+  --shadow-md: 0 1px 2px rgba(11, 16, 32, 0.04), 0 10px 28px -18px rgba(11, 16, 32, 0.22);
+  --shadow-lg: 0 1px 2px rgba(11, 16, 32, 0.04), 0 28px 64px -34px rgba(11, 16, 32, 0.28);
+
+  /* ---- Radius ------------------------------------------------------ */
+  --r-xs:   4px;
+  --r-sm:   8px;
+  --r-md:   12px;
+  --r-lg:   16px;
+  --r-xl:   22px;
+  --r-pill: 999px;
+
+  /* ---- Type families ----------------------------------------------- */
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system,
+               'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo,
+               'Liberation Mono', monospace;
+  /* Display face for hero-scale type. Instrument Sans, per the 10 Sep
+     direction change; it replaced the Instrument Serif / Signifier serif. */
+  --font-display: 'Instrument Sans', ui-sans-serif, system-ui, -apple-system,
+                  'Segoe UI', sans-serif;
+
+  /* ---- Type scale --------------------------------------------------
+     Display sizes are fluid. Body sizes are fixed so line length and
+     rhythm stay predictable across breakpoints.                       */
+  --t-display-0: clamp(2.75rem, 1.1rem + 6.6vw, 6rem);        /* 44 -> 96, hero serif */
+  --t-display-1: clamp(1.9375rem, 0.85rem + 4.6vw, 3.875rem);  /* 31 -> 62 */
+  --t-display-2: clamp(1.875rem, 1.15rem + 2.6vw, 2.75rem);   /* 30 -> 44 */
+  --t-display-3: clamp(1.5rem, 1.13rem + 1.35vw, 2rem);       /* 24 -> 32 */
+  --t-title:     1.1875rem;   /* 19 */
+  --t-title-sm:  1rem;        /* 16 */
+  --t-body-lg:   1.0625rem;   /* 17 */
+  --t-body:      0.96875rem;  /* 15.5 */
+  --t-body-sm:   0.875rem;    /* 14 */
+  --t-caption:   0.8125rem;   /* 13 */
+  --t-mono:      0.71875rem;  /* 11.5 */
+  --t-mono-lg:   0.8125rem;   /* 13 */
+
+  --lh-display: 1.06;
+  --lh-title:   1.32;
+  --lh-body:    1.68;
+
+  --tr-display: -0.035em;   /* tracking */
+  --tr-title:   -0.015em;
+  --tr-mono:    0.09em;
+
+  /* ---- Space ------------------------------------------------------- */
+  --sp-1: 4px;   --sp-2: 8px;   --sp-3: 12px;  --sp-4: 16px;
+  --sp-5: 20px;  --sp-6: 24px;  --sp-8: 32px;  --sp-10: 40px;
+  --sp-12: 48px; --sp-16: 64px; --sp-20: 80px; --sp-24: 96px;
+
+  /* ---- Layout ------------------------------------------------------ */
+  /* One vertical rhythm for every major block: sections pad with it and
+     the footer gaps with it. global.css steps it down per breakpoint. */
+  --section-pad: var(--sp-24);
+  --container:   80rem;   /* 1280 */
+  --container-narrow: 46rem;
+  --pad-x:       5%;
+  --nav-h:       56px;
+
+  /* ---- Motion ------------------------------------------------------
+     One easing curve across the site. Things settle into place.       */
+  --ease:      cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast:  0.18s;
+  --dur:       0.28s;
+  --dur-slow:  0.42s;
+}
+
+/* ==========================================================================
+   Dark theme — SCAFFOLDED, NOT YET DESIGNED.
+
+   Light is the shipping theme. This block exists so the architecture is
+   proven and dark is a starting point rather than a retrofit. It is gated
+   on an explicit [data-theme="dark"] only, never on prefers-color-scheme,
+   so it cannot activate by accident.
+
+   Before shipping dark: audit every section, re-check contrast, and supply
+   a reverse (white wordmark) logo. The current lockup is pure black and
+   will be invisible here.
+   ========================================================================== */
+
+:root[data-theme="dark"] {
+  --bg:          #080B14;
+  --bg-subtle:   #0D111C;
+  --surface:     #10141F;
+  --surface-2:   #171C29;
+  --surface-inv: #F7F8FB;
+
+  --border:        #1F2532;
+  --border-strong: #2B3242;
+  --hairline:      rgba(255, 255, 255, 0.10);
+
+  --ink:        #F2F4FA;
+  --ink-2:      #A7AEC1;
+  --ink-3:      #858C9E;
+  --ink-faint:  #626878;
+  --ink-inv:    #0B1020;
+  --ink-inv-2:  rgba(11, 16, 32, 0.68);
+  --ink-inv-3:  rgba(11, 16, 32, 0.46);
+
+  --brand:        #7A8DF9;
+  --brand-hover:  #8B9DF9;
+  --brand-press:  #BAC4FB;
+  --brand-subtle: rgba(82, 108, 246, 0.16);
+  --brand-line:   rgba(82, 108, 246, 0.34);
+  --brand-ink:    #BAC4FB;
+
+  --beam-a: rgba(255, 255, 255, 0.08);
+  --beam-b: rgba(255, 255, 255, 0.04);
+  --beam-c: rgba(255, 255, 255, 0.03);
+
+  --nav-surface:           rgba(8, 11, 20, 0.92);
+  --nav-surface-glass:     rgba(8, 11, 20, 0.60);
+  --nav-surface-inv:       rgba(8, 11, 20, 0.92);
+  --nav-surface-inv-glass: rgba(8, 11, 20, 0.60);
+
+  --pending:    #8B9DF9;
+  --pending-bg: rgba(82, 108, 246, 0.16);
+  --approve:    #4ED18B;
+  --approve-bg: rgba(14, 138, 79, 0.18);
+  --hold:       #E5A93F;
+  --hold-bg:    rgba(178, 106, 0, 0.20);
+  --reject:     #F075AC;
+  --reject-bg:  rgba(196, 16, 106, 0.18);
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.30);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.30), 0 2px 6px -2px rgba(0, 0, 0, 0.40);
+  --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.30), 0 10px 28px -18px rgba(0, 0, 0, 0.60);
+  --shadow-lg: 0 1px 2px rgba(0, 0, 0, 0.30), 0 28px 64px -34px rgba(0, 0, 0, 0.70);
+}
