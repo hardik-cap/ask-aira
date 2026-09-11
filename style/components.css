@@ -600,3 +600,65 @@ a.qledger__more:hover .qledger__cap { color: var(--brand); }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
 }
+
+/* ---- Video lightbox -------------------------------------------------------
+   Opened by js/video.js from a [data-video] poster: dimmed overlay, a 16:9
+   box for the embed, a close button above it. Escape, the button, or a
+   click on the backdrop closes it.
+   ---------------------------------------------------------------------- */
+
+body.modal-open { overflow: hidden; }
+
+.vmodal {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-16) var(--sp-5) var(--sp-5);
+  background: rgba(11, 16, 32, 0.80);
+  animation: vmodal-in var(--dur) var(--ease);
+}
+@keyframes vmodal-in {
+  from { opacity: 0; }
+}
+
+.vmodal__box {
+  position: relative;
+  width: min(1080px, 100%);
+  aspect-ratio: 16 / 9;
+  max-height: 100%;
+  background: var(--slate-900);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+}
+.vmodal__box iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: inherit;
+}
+
+.vmodal__close {
+  position: absolute;
+  top: -44px;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--ink-inv);
+  transition: background var(--dur-fast) var(--ease);
+}
+.vmodal__close:hover { background: rgba(255, 255, 255, 0.22); }
+.vmodal__close svg { width: 16px; height: 16px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .vmodal { animation: none; }
+  .vmodal__close { transition: none; }
+}

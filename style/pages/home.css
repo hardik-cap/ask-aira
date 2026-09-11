@@ -235,7 +235,15 @@
   flex-direction: column;
   align-items: center;
 }
-.hero__asks-label { margin-bottom: var(--sp-4); }
+/* Jakarta, not mono, per the 11 Sep call; the caps are typed in the markup
+   so the brand name keeps its casing. */
+.hero__asks-label {
+  margin-bottom: var(--sp-4);
+  font-size: var(--t-caption);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+}
 
 .hero__asklist {
   display: flex;
@@ -263,6 +271,81 @@
   height: 15px;
   flex: none;
   color: var(--brand-ink);
+}
+
+/* ---- Hero video -----------------------------------------------------------
+   The product screenshot as the poster of a popup player (see js/video.js):
+   clicking opens the YouTube embed in a lightbox, so no third-party iframe
+   ever loads on the page itself. Narrower than the container, and the
+   poster's bottom fades into the page ground like the old static shot.
+   ---------------------------------------------------------------------- */
+
+.hero__video {
+  position: relative;
+  max-width: 54rem;
+  margin: var(--sp-16) auto 0;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-xl);
+  background: var(--surface);
+  padding: var(--sp-2);
+}
+.hero__video-poster {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border-radius: calc(var(--r-xl) - var(--sp-2));
+  overflow: visible;
+  cursor: pointer;
+}
+/* Overshoots the frame's padding and border so the whole frame dissolves
+   into the ground, not just the image. */
+.hero__video-fade {
+  position: absolute;
+  inset: calc(-1 * var(--sp-2) - 1px);
+  border-radius: var(--r-xl);
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 52%, var(--bg) 100%);
+}
+.hero__video-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+.hero__video-btn {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--nav-surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-lg);
+  transition: transform var(--dur-fast) var(--ease);
+}
+.hero__video-poster:hover .hero__video-btn { transform: scale(1.08); }
+.hero__video-btn svg {
+  width: 26px;
+  height: 26px;
+  margin-left: 3px;   /* optical centre for the triangle */
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__video-btn { transition: none; }
+  .hero__video-poster:hover .hero__video-btn { transform: none; }
+}
+@media (max-width: 768px) {
+  .hero__video { margin-top: var(--sp-10); padding: 4px; }
+  .hero__video-poster { border-radius: calc(var(--r-xl) - 4px); }
+  .hero__video-fade { inset: -5px; }
+  .hero__video-btn { width: 56px; height: 56px; }
+  .hero__video-btn svg { width: 20px; height: 20px; }
 }
 
 /* ---- Proof: customer logo cloud ------------------------------------------
@@ -519,10 +602,142 @@
   .mech__core { margin-block: var(--sp-6) var(--sp-16); }
 }
 
-/* ---- Questions ---------------------------------------------------------- */
+/* ---- Questions: what people actually ask aiRA -----------------------------
+   Tailark features-4 shape: two feature columns split by a hairline, each
+   with a CSS-drawn illustration card (house rule: product UI is drawn, not
+   faked as an image), then a hairline-topped row of four mini capabilities.
+   ---------------------------------------------------------------------- */
 
-.asks { background: var(--bg-subtle); }
-.asks__note { margin-top: var(--sp-6); }
+.feat {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.feat__col {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--sp-12) var(--sp-10) 0;
+}
+.feat__col + .feat__col {
+  border-left: 1px solid var(--border);
+  padding: 0 0 var(--sp-10) var(--sp-12);
+}
+
+.feat__title {
+  font-size: var(--t-title);
+  font-weight: 700;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+  margin-bottom: var(--sp-3);
+}
+.feat__body {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 32rem;
+  margin-bottom: var(--sp-8);
+}
+
+/* Illustration well + drawn card. margin-top:auto bottom-aligns the wells
+   so the two columns finish on the same line. */
+.feat__fig {
+  margin-top: auto;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-6);
+}
+.feat__card {
+  display: grid;
+  gap: var(--sp-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--sp-5);
+}
+.feat__line {
+  display: block;
+  height: 8px;
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+}
+.feat__line--w90 { width: 90%; }
+.feat__line--w70 { width: 70%; }
+.feat__line--w60 { width: 60%; }
+.feat__line--w50 { width: 50%; }
+
+.feat__move-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+.feat__move-name {
+  font-size: var(--t-body-sm);
+  font-weight: 600;
+  color: var(--ink);
+}
+.feat__move-actions {
+  display: flex;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+}
+
+/* Capability blocks (shadcn feature-three): cells in a grid whose 1px gaps
+   over a border-coloured ground draw the dividers, bounded by top and
+   bottom hairlines. Icon rides high in brand colour; the title and its
+   verbatim /lp question sit at the cell's foot. The sixth cell carries the
+   usage footnote so the divider grid stays complete. */
+.feat__mini {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border-block: 1px solid var(--border);
+  margin-top: var(--sp-12);
+}
+.feat__mini > li {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  padding: var(--sp-6);
+}
+.feat__mini-icon {
+  display: block;
+  padding-bottom: var(--sp-6);
+  color: var(--brand);
+}
+.feat__mini-icon svg { width: 20px; height: 20px; }
+.feat__mini h4 {
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: var(--sp-2);
+}
+/* Questions in Jakarta here, no qstring mark: this grid reads as feature
+   copy, not the mono question motif (user call, 11 Sep). */
+.feat__mini p {
+  font-size: var(--t-body-sm);
+  line-height: 1.65;
+  color: var(--ink-3);
+}
+
+.asks__note { margin-top: var(--sp-8); }
+
+@media (max-width: 991px) {
+  .feat { grid-template-columns: 1fr; }
+  .feat__col { padding: 0 0 var(--sp-10); }
+  .feat__col + .feat__col {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+    padding: var(--sp-10) 0;
+  }
+  .feat__mini { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .feat__mini { grid-template-columns: 1fr; }
+}
 
 /* ---- Differentiators ----------------------------------------------------
    Three arguments as editorial rows: figure, claim, case. Hairlines, not
