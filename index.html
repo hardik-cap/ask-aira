@@ -47,12 +47,18 @@
   <script src="/js/components.js" defer></script>
   <script src="/js/reveal.js" defer></script>
   <script src="/js/diagram.js" defer></script>
+  <script src="/js/rotator.js" defer></script>
 </head>
 
 <body class="page-home">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <div id="navbar-placeholder"></div>
+
+  <!-- Page-frame joints: one .joint between each pair of visible sections
+       (see global.css). When a hidden section is restored, move or add
+       joints so every visible boundary keeps its line. -->
+  <div class="joint joint--bare" aria-hidden="true"></div>
 
   <main id="main">
 
@@ -78,8 +84,13 @@
           </a>
 
           <h1 class="hero__title">
-            On-demand insights and analytics agent
-            <em>for customer data.</em>
+            <span class="sr-only">Analytics agent for eCommerce, growth, marketing, CRM, loyalty, and data and BI teams.</span>
+            <span aria-hidden="true">
+              Analytics agent for<br>
+              <span class="hero__rot-icon" id="hero-rot-icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg></span>
+              <span class="hero__rot-word" id="hero-rot-word">eCommerce</span>
+              <em>teams</em>
+            </span>
           </h1>
 
           <p class="hero__sub">
@@ -95,15 +106,13 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
               </a>
             </span>
-            <a class="btn btn--ghost btn--lg" href="/product">
-              See how it works
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
           </div>
 
           <div class="hero__asks">
-            <p class="mono mono--faint mono--case hero__asks-label">Ask aiRA for</p>
-            <ul class="hero__asklist">
+            <!-- Typed caps, not text-transform: the transform would render
+                 the brand as AIRA. mono--case keeps it exactly as written. -->
+            <p class="mono mono--faint mono--case hero__asks-label">ASK aiRA FOR</p>
+              <ul class="hero__asklist">
               <li>
                 <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg>
                 Ad hoc analytics
@@ -129,40 +138,52 @@
 
         </div>
       </div>
+    </section>
 
-      <!-- Product screenshot in a hairline frame; the bottom fades into the
-           page ground. -->
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= PROOF: logo cloud ================= -->
+    <!-- Marquee (Magic UI): identical tracks slide one track-width per loop;
+         only the first is exposed to assistive tech. Mono-caps names hold
+         the seats until the customer brand marks arrive. -->
+    <section class="section section--tight proof">
       <div class="padding-global">
         <div class="container">
-          <div class="hero__shot">
-            <img src="/assets/product/hero-product.png"
-                 alt="The aiRA product interface"
-                 width="2600" height="1401">
-            <div class="hero__shot-fade" aria-hidden="true"></div>
+          <div class="proof__marquee">
+            <div class="logo-wall proof__track">
+              <img src="/assets/logos/nascar.svg" alt="NASCAR" width="192" height="32">
+              <img src="/assets/logos/hertz.svg" alt="Hertz" width="90" height="32">
+              <img src="/assets/logos/rack-room-shoes.svg" alt="Rack Room Shoes" width="48" height="48">
+              <img src="/assets/logos/racetrac.svg" alt="RaceTrac" width="142" height="32">
+              <img src="/assets/logos/walgreens.svg" alt="Walgreens" width="154" height="32">
+              <img src="/assets/logos/cochran.svg" alt="Cochran" width="114" height="32">
+            </div>
+            <div class="logo-wall proof__track" aria-hidden="true">
+              <img src="/assets/logos/nascar.svg" alt="NASCAR" width="192" height="32">
+              <img src="/assets/logos/hertz.svg" alt="Hertz" width="90" height="32">
+              <img src="/assets/logos/rack-room-shoes.svg" alt="Rack Room Shoes" width="48" height="48">
+              <img src="/assets/logos/racetrac.svg" alt="RaceTrac" width="142" height="32">
+              <img src="/assets/logos/walgreens.svg" alt="Walgreens" width="154" height="32">
+              <img src="/assets/logos/cochran.svg" alt="Cochran" width="114" height="32">
+            </div>
+            <div class="logo-wall proof__track" aria-hidden="true">
+              <img src="/assets/logos/nascar.svg" alt="NASCAR" width="192" height="32">
+              <img src="/assets/logos/hertz.svg" alt="Hertz" width="90" height="32">
+              <img src="/assets/logos/rack-room-shoes.svg" alt="Rack Room Shoes" width="48" height="48">
+              <img src="/assets/logos/racetrac.svg" alt="RaceTrac" width="142" height="32">
+              <img src="/assets/logos/walgreens.svg" alt="Walgreens" width="154" height="32">
+              <img src="/assets/logos/cochran.svg" alt="Cochran" width="114" height="32">
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Sections below carry `hidden` while the homepage is pared down to
-         hero + how-it-fits + footer for direction review. Remove the
-         attribute to restore a section. -->
+    <div class="joint" aria-hidden="true"></div>
 
-    <!-- ================= PROOF ================= -->
-    <section class="proof" hidden>
-      <div class="padding-global">
-        <div class="container proof__inner">
-          <p class="mono mono--faint proof__label">Live with marketing and CRM teams at US consumer brands</p>
-          <div class="logo-wall">
-            <span>NASCAR</span>
-            <span>Hertz</span>
-            <span>Rack Room Shoes</span>
-            <span>Royal Caribbean</span>
-            <span>7&#8209;Eleven</span>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Sections below carry `hidden` while the homepage is pared down for
+         direction review. Remove the attribute to restore a section, and
+         add a joint above it so every visible boundary keeps its line. -->
 
     <!-- ================= MECHANISM ================= -->
     <section class="section section--inv mech" id="how" data-nav-dark>
@@ -218,6 +239,8 @@
         </div>
       </div>
     </section>
+
+    <div class="joint" aria-hidden="true"></div>
 
     <!-- ================= QUESTIONS ================= -->
     <section class="section section--tight asks" id="questions" hidden>

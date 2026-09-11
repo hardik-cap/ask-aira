@@ -57,6 +57,14 @@
   --border-strong: var(--slate-200);
   --hairline:      rgba(11, 16, 32, 0.08);
 
+  /* Page frame: the vertical rails at the container edges and the joint
+     lines between sections. Kept light (11 Sep direction): the frame
+     should structure, not draw attention. */
+  --frame-line:      var(--border);
+  --frame-line-inv:  rgba(255, 255, 255, 0.14);
+  --frame-plus:      var(--slate-500);
+  --frame-grid:      rgba(11, 16, 32, 0.04);
+
   /* ---- Semantic: text ---------------------------------------------- */
   --ink:        var(--slate-900);
   --ink-2:      var(--slate-600);
@@ -123,20 +131,21 @@
                   'Segoe UI', sans-serif;
 
   /* ---- Type scale --------------------------------------------------
-     Display sizes are fluid. Body sizes are fixed so line length and
-     rhythm stay predictable across breakpoints.                       */
-  --t-display-0: clamp(2.75rem, 1.1rem + 6.6vw, 6rem);        /* 44 -> 96, hero serif */
-  --t-display-1: clamp(1.9375rem, 0.85rem + 4.6vw, 3.875rem);  /* 31 -> 62 */
-  --t-display-2: clamp(1.875rem, 1.15rem + 2.6vw, 2.75rem);   /* 30 -> 44 */
-  --t-display-3: clamp(1.5rem, 1.13rem + 1.35vw, 2rem);       /* 24 -> 32 */
-  --t-title:     1.1875rem;   /* 19 */
+     Locked 11 Sep: even pixel sizes only, 12px minimum, site-wide.
+     Display sizes are fluid but cap at the locked size; body sizes are
+     fixed so line length and rhythm stay predictable.                 */
+  --t-display-0: clamp(2.75rem, 2.04rem + 2.92vw, 4.375rem);  /* 44 -> 70, hero H1 */
+  --t-display-1: clamp(2rem, 1.23rem + 3.15vw, 3.75rem);      /* 32 -> 60, reserve */
+  --t-display-2: clamp(1.875rem, 1.6rem + 1.12vw, 2.5rem);    /* 30 -> 40, H2 */
+  --t-display-3: clamp(1.5rem, 1.39rem + 0.45vw, 1.75rem);    /* 24 -> 28, H3 */
+  --t-title:     1.125rem;    /* 18 */
   --t-title-sm:  1rem;        /* 16 */
-  --t-body-lg:   1.0625rem;   /* 17 */
-  --t-body:      0.96875rem;  /* 15.5 */
-  --t-body-sm:   0.875rem;    /* 14 */
-  --t-caption:   0.8125rem;   /* 13 */
-  --t-mono:      0.71875rem;  /* 11.5 */
-  --t-mono-lg:   0.8125rem;   /* 13 */
+  --t-body-lg:   1rem;        /* 16, subheader / lede */
+  --t-body:      0.875rem;    /* 14 */
+  --t-body-sm:   0.875rem;    /* 14, nav links, buttons, UI */
+  --t-caption:   0.75rem;     /* 12 */
+  --t-mono:      0.75rem;     /* 12 */
+  --t-mono-lg:   0.875rem;    /* 14 */
 
   --lh-display: 1.06;
   --lh-title:   1.32;
@@ -159,6 +168,10 @@
   --container-narrow: 46rem;
   --pad-x:       5%;
   --nav-h:       56px;
+  /* X offset of the page frame's vertical rails: the .container's left and
+     right edge. Only valid on full-viewport-width elements, where 50% and
+     the 5% pad resolve against the same width padding-global uses. */
+  --frame-x: max(var(--pad-x), calc(50% - var(--container) / 2));
 
   /* ---- Motion ------------------------------------------------------
      One easing curve across the site. Things settle into place.       */

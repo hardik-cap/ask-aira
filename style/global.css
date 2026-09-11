@@ -78,6 +78,9 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   width: 100%;
   max-width: var(--container);
   margin-inline: auto;
+  /* The page frame's rails ride the container's outer edges; this inner
+     padding keeps every section's content 20px clear of the lines. */
+  padding-inline: var(--sp-5);
 }
 .container--narrow { max-width: var(--container-narrow); }
 
@@ -111,6 +114,65 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 .section--inv .eyebrow { color: var(--indigo-300); }
 .section--inv .section-heading { color: var(--ink-inv); }
 .section--inv .section-sub { color: var(--ink-inv-2); }
+
+/* ---- Page frame ----------------------------------------------------------
+   The structural blueprint frame: vertical rails at the .container's edges
+   run through every section, a .joint hairline crosses the full width at
+   each section boundary, and a Phosphor plus marks each intersection.
+   Rails ride at z-index 1 so full-bleed decor layers (hero wash, mech glow)
+   cannot paint over them; real content stacks higher on its own.
+   ---------------------------------------------------------------------- */
+
+.section::before,
+.section::after,
+.footer::before,
+.footer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  z-index: 1;
+  background: var(--frame-line);
+  pointer-events: none;
+}
+.section::before, .footer::before { left: var(--frame-x); }
+.section::after,  .footer::after  { right: var(--frame-x); }
+.section--inv::before,
+.section--inv::after { background: var(--frame-line-inv); }
+
+/* The joint: a full-width hairline placed between sections in the markup,
+   with the official Phosphor plus (regular) masked over each rail crossing.
+   z-index lifts it above the hero wash, which bleeds past its section. */
+.joint {
+  position: relative;
+  z-index: 2;
+  height: 1px;
+  background: var(--frame-line);
+  pointer-events: none;
+}
+.joint::before,
+.joint::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 15px;
+  height: 15px;
+  background: var(--frame-plus);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath d='M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath d='M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.joint::before {
+  left: calc(var(--frame-x) + 0.5px);
+  transform: translate(-50%, -50%);
+}
+.joint::after {
+  right: calc(var(--frame-x) + 0.5px);
+  transform: translate(50%, -50%);
+}
+/* A joint that is only the line, no plus markers (under the header). */
+.joint--bare::before,
+.joint--bare::after { display: none; }
 
 /* ---- Section typography ------------------------------------------------ */
 
@@ -583,7 +645,13 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
    legal line is the only hairline it carries.
    ---------------------------------------------------------------------- */
 
-.footer { margin-top: var(--section-pad); }
+.footer {
+  position: relative;
+  margin-top: var(--section-pad);
+}
+/* The rails bridge the footer's top margin so the frame runs unbroken from
+   the joint above it. */
+.footer::before, .footer::after { top: calc(-1 * var(--section-pad) - 1px); }
 
 .footer__grid {
   display: grid;

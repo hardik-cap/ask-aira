@@ -42,14 +42,14 @@
 }
 .g-swatch__name {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--t-mono);
   letter-spacing: 0.02em;
   color: var(--ink-3);
   display: block;
 }
 .g-swatch__hex {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--t-mono);
   color: var(--ink-faint);
 }
 
@@ -68,7 +68,7 @@
 .g-spec:last-child { border-bottom: 0; }
 .g-spec__meta {
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: var(--t-mono);
   letter-spacing: 0.06em;
   color: var(--ink-faint);
   margin-bottom: var(--sp-3);

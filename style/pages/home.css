@@ -34,6 +34,30 @@
       var(--slate-100) 48%,
       var(--bg) 100%);
 }
+/* Subtle blueprint grid over the hero wash. It spans exactly between the
+   page frame's rails and tiles at 80px, so at full container width the
+   columns land on the rails. Masked to two soft corner patches (top right
+   and bottom left, per the recruitpilot reference); the layers add, so the
+   grid surfaces only there and stays out of the headline's way. */
+.hero__grad::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--frame-x);
+  right: var(--frame-x);
+  background-image:
+    linear-gradient(to right, var(--frame-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--frame-grid) 1px, transparent 1px);
+  background-size: 80px 80px;
+  -webkit-mask-image:
+    radial-gradient(44% 42% at 88% 10%, #000, transparent 72%),
+    radial-gradient(44% 42% at 12% 88%, #000, transparent 72%);
+  mask-image:
+    radial-gradient(44% 42% at 88% 10%, #000, transparent 72%),
+    radial-gradient(44% 42% at 12% 88%, #000, transparent 72%);
+}
+
 /* Positioned decor would otherwise paint over the static content wrappers. */
 .hero > .padding-global { position: relative; }
 
@@ -117,9 +141,77 @@
   margin-bottom: var(--sp-6);
   text-wrap: balance;
 }
+/* "teams" rides in full ink (user call, 11 Sep): the rotating word carries
+   the brand colour, so the fixed word stays black rather than muted. */
 .hero__title em {
   font-style: normal;
-  color: var(--ink-3);
+  color: var(--ink);
+}
+
+/* ---- Rotating team in the H1 ---------------------------------------------
+   "Analytics agent for [icon] {team} teams": js/rotator.js swaps the team
+   word character by character and the Phosphor icon in its app-style tile
+   every few seconds. The word box carries an explicit width so the swap
+   glides (FLIP) instead of jumping; the sr-only sibling in the markup keeps
+   the full claim readable while this whole line is aria-hidden.
+   ---------------------------------------------------------------------- */
+
+.hero__rot-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.92em;
+  height: 0.92em;
+  /* vertical-align: middle is the only baseline-independent alignment that
+     behaves the same in every engine (length values hang off the box's own
+     synthesized baseline, which Safari and Chrome compute differently for
+     inline-flex). middle centres on the x-height, so the relative nudge
+     lifts the tile to the Title-case optical centre. */
+  vertical-align: middle;
+  position: relative;
+  top: -0.06em;
+  border-radius: 0.2em;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--brand) 78%, white), var(--brand));
+  color: var(--on-brand);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 10px 24px -10px color-mix(in srgb, var(--indigo-500) 65%, transparent);
+}
+.hero__rot-icon svg {
+  width: 56%;
+  height: 56%;
+  transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+.hero__rot-icon--swap svg {
+  transform: scale(0.3) rotate(-14deg);
+  opacity: 0;
+}
+
+.hero__rot-word {
+  display: inline-flex;
+  justify-content: center;
+  white-space: nowrap;
+  /* Brand-coloured on request (11 Sep): the one deliberate exception to the
+     muted-turn-phrase rule, carried by the rotating word only. */
+  color: var(--brand);
+  transition: width 0.3s var(--ease);
+}
+.hero__char { display: inline-block; }
+.hero__char--out { animation: hero-char-out 0.22s var(--ease) both; }
+.hero__char--in  { animation: hero-char-in 0.3s var(--ease) both; }
+
+@keyframes hero-char-out {
+  to { opacity: 0; transform: translateY(-0.4em); }
+}
+@keyframes hero-char-in {
+  from { opacity: 0; transform: translateY(0.4em); }
+}
+
+/* js/rotator.js also never starts the cycle under reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .hero__rot-icon svg, .hero__rot-word { transition: none; }
+  .hero__char--out, .hero__char--in { animation: none; }
 }
 
 .hero__sub {
@@ -173,56 +265,59 @@
   color: var(--brand-ink);
 }
 
-/* ---- Hero product shot ---------------------------------------------------
-   The real product screenshot in a hairline frame whose bottom fades into
-   the page ground (Tailark hero-section treatment). The fade overlay
-   overshoots the border by 1px so the frame dissolves with the image.
+/* ---- Proof: customer logo cloud ------------------------------------------
+   A marquee strip (Magic UI Marquee, logo-cloud-three) sitting between two
+   frame joints. Three identical tracks form the belt so it stays covered at
+   container width; each slides one track-width per loop, and an edge mask
+   dissolves the names before they reach the rails. Mono-caps names hold the
+   seats until the customer brand marks arrive.
    ---------------------------------------------------------------------- */
 
-.hero__shot {
-  position: relative;
-  margin-top: var(--sp-16);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--r-xl);
-  background: var(--surface);
-  padding: var(--sp-2);
-}
-.hero__shot img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: calc(var(--r-xl) - var(--sp-2));
-}
-.hero__shot-fade {
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  pointer-events: none;
-  background: linear-gradient(to bottom, transparent 45%, var(--bg) 100%);
-}
-
-@media (max-width: 768px) {
-  .hero__shot { margin-top: var(--sp-10); padding: 4px; }
-  .hero__shot img { border-radius: calc(var(--r-xl) - 4px); }
-}
-
-/* ---- Proof strip ------------------------------------------------------- */
-
-.proof { padding-block: var(--sp-8); border-block: 1px solid var(--border); }
-.proof__inner {
+.proof__marquee {
   display: flex;
-  align-items: center;
-  gap: var(--sp-6) var(--sp-10);
-  flex-wrap: wrap;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right,
+    transparent, #000 16%, #000 84%, transparent);
+  mask-image: linear-gradient(to right,
+    transparent, #000 16%, #000 84%, transparent);
 }
-.proof__label { flex: none; max-width: 15rem; }
-.proof .logo-wall { flex: 1; min-width: 0; }
 
-@media (max-width: 768px) {
-  .proof__inner { gap: var(--sp-5); }
-  /* flex:none plus max-content text overflowed narrow viewports */
-  .proof__label { flex: 1 1 100%; max-width: none; }
-  .proof .logo-wall { gap: var(--sp-3) var(--sp-6); }
+/* The supplied lockups are full-colour brand files: greyed and dimmed in
+   CSS so the strip reads as one quiet index on the light ground. */
+.proof__track img {
+  display: block;
+  filter: grayscale(1);
+  opacity: 0.45;
+}
+
+.proof__track {
+  flex: none;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--sp-20);
+  /* Trailing pad keeps the loop seam the same width as the item gap. */
+  padding-right: var(--sp-20);
+  animation: proof-marquee 36s linear infinite;
+}
+@keyframes proof-marquee {
+  to { transform: translateX(-100%); }
+}
+
+/* Reduced motion: one static, centred index; no mask, no duplicates. */
+@media (prefers-reduced-motion: reduce) {
+  .proof__track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-right: 0;
+  }
+  .proof__track[aria-hidden="true"] { display: none; }
+  .proof__marquee {
+    /* The lone track is max-content wide, so the wrapper centres it. */
+    justify-content: center;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
 }
 
 /* ---- Mechanism: data -> judgement -> channels --------------------------
