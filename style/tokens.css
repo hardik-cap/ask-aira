@@ -140,7 +140,7 @@
      Locked 11 Sep: even pixel sizes only, 12px minimum, site-wide.
      Display sizes are fluid but cap at the locked size; body sizes are
      fixed so line length and rhythm stay predictable.                 */
-  --t-display-0: clamp(2.75rem, 2.04rem + 2.92vw, 4.375rem);  /* 44 -> 70, hero H1 */
+  --t-display-0: clamp(2.25rem, 1.42rem + 3.4vw, 4.375rem); /* 36 -> 70px, cap ~1390px */  /* 44 -> 70, hero H1 */
   --t-display-1: clamp(2rem, 1.23rem + 3.15vw, 3.75rem);      /* 32 -> 60, reserve */
   --t-display-2: clamp(1.875rem, 1.6rem + 1.12vw, 2.5rem);    /* 30 -> 40, H2 */
   --t-display-3: clamp(1.5rem, 1.39rem + 0.45vw, 1.75rem);    /* 24 -> 28, H3 */

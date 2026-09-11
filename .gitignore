@@ -8,8 +8,8 @@ Contexts/
 !content/**/*.md
 
 # Supplied logo originals: 2.4MB of raster sources that must not be
-# committed or deployed. The exported variants in assets/logo/ ship.
-assets/logo/source/
+# committed or deployed. The exported variants in assets/brand/ ship.
+assets/brand/source/
 
 # Working scratch
 _probe.html

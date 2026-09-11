@@ -116,6 +116,14 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   background: var(--surface-inv);
   color: var(--ink-inv);
 }
+/* Light sections carry the hero's quiet wash rather than flat page bg: a
+   slate top fading to the ground, plus a whisper of indigo at top centre. */
+.section--wash {
+  background:
+    radial-gradient(56% 42% at 50% 0%,
+      color-mix(in srgb, var(--indigo-500) 4%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--slate-100) 0%, var(--bg) 52%);
+}
 .section--inv .eyebrow { color: var(--indigo-300); }
 .section--inv .section-heading { color: var(--ink-inv); }
 .section--inv .section-sub { color: var(--ink-inv-2); }
@@ -202,7 +210,7 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 
 .section-heading {
   font-size: var(--t-display-2);
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.1;
   letter-spacing: var(--tr-display);
   color: var(--ink);
@@ -408,8 +416,6 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   border-radius: var(--r-sm);
   transition: background var(--dur-fast) var(--ease);
 }
-.nav__logo:hover { background: var(--slate-100); }
-.nav.nav-dark .nav__logo:hover { background: rgba(255, 255, 255, 0.08); }
 .nav__logo img { height: 24px; width: auto; }
 .nav__logo-dark { display: none; }
 .nav.nav-dark .nav__logo-light { display: none; }
@@ -620,19 +626,18 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 
 @media (max-width: 991px) {
   .nav__burger { display: inline-flex; }
+  /* Full-screen sheet under the bar, in the bar's own rest colour so the
+     two read as one surface. */
   .nav__menu {
     position: fixed;
-    inset: var(--nav-h) 0 auto;
+    inset: var(--nav-h) 0 0;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
     margin: 0;
     padding: var(--sp-5) var(--pad-x) var(--sp-10);
-    max-height: calc(100dvh - var(--nav-h));
     overflow-y: auto;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    box-shadow: var(--shadow-lg);
+    background: var(--nav-rest);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-8px);
@@ -675,11 +680,11 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 
 .footer {
   position: relative;
-  margin-top: var(--section-pad);
+  /* Padding, not margin: the footer's own tone starts at the joint above. */
+  padding-top: var(--section-pad);
+  background: var(--slate-100);
 }
-/* The rails bridge the footer's top margin so the frame runs unbroken from
-   the joint above it. */
-.footer::before, .footer::after { top: calc(-1 * var(--section-pad) - 1px); }
+.footer::before, .footer::after { top: 0; }
 
 .footer__grid {
   display: grid;

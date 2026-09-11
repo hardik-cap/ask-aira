@@ -662,3 +662,88 @@ body.modal-open { overflow: hidden; }
   .vmodal { animation: none; }
   .vmodal__close { transition: none; }
 }
+
+/* ============ Accordion ============
+   One-open-at-a-time disclosure list. Hairline-separated rows, mono index,
+   Phosphor caret. Collapse animates via the 0fr -> 1fr grid-row trick so no
+   heights are hardcoded. Used with js/accordion.js ([data-accordion]). */
+
+.acc { display: flex; flex-direction: column; }
+
+.acc__item { border-top: 1px solid var(--border); }
+.acc__item:last-child { border-bottom: 1px solid var(--border); }
+
+.acc__head { margin: 0; }
+
+.acc__btn {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  width: 100%;
+  padding: var(--sp-5) 0;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: var(--ink);
+}
+
+.acc__icon {
+  flex: none;
+  display: flex;
+  margin-top: 2px;
+  color: var(--brand);
+}
+.acc__icon svg { width: 20px; height: 20px; }
+
+.acc__n {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  color: var(--ink-faint);
+}
+
+.acc__title {
+  font-family: var(--font-display);
+  font-size: var(--t-title-sm);
+  font-weight: 500;
+  letter-spacing: var(--tr-title);
+  line-height: 1.32;
+}
+
+.acc__chev {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-left: auto;
+  align-self: center;
+  color: var(--ink-3);
+  transition: transform var(--dur-fast) var(--ease);
+}
+.acc__item.is-open .acc__chev { transform: rotate(180deg); }
+
+.acc__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s var(--ease);
+}
+.acc__item.is-open .acc__panel { grid-template-rows: 1fr; }
+.acc__panel > .acc__body { overflow: hidden; min-height: 0; }
+
+.acc__body p {
+  font-size: var(--t-body);
+  color: var(--ink-2);
+  /* Indent under the title: index width plus the button gap. */
+  padding: 0 var(--sp-8) var(--sp-5) calc(20px + var(--sp-4));
+  margin: 0;
+  max-width: 34rem;
+}
+.acc__body strong { color: var(--ink); font-weight: 600; }
+
+@media (prefers-reduced-motion: reduce) {
+  .acc__panel { transition: none; }
+  .acc__chev { transition: none; }
+}
