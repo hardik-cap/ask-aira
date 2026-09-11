@@ -58,12 +58,13 @@
   --hairline:      rgba(11, 16, 32, 0.08);
 
   /* Page frame: the vertical rails at the container edges and the joint
-     lines between sections. Kept light (11 Sep direction): the frame
-     should structure, not draw attention. */
-  --frame-line:      var(--border);
+     lines between sections. Kept light (11 Sep direction) but translucent
+     ink, not a fixed light grey: a solid line lighter than the hero wash
+     vanishes against it, while an alpha line reads on any ground. */
+  --frame-line:      var(--hairline);
   --frame-line-inv:  rgba(255, 255, 255, 0.14);
   --frame-plus:      var(--slate-500);
-  --frame-grid:      rgba(11, 16, 32, 0.04);
+  --frame-grid:      rgba(11, 16, 32, 0.07);
 
   /* ---- Semantic: text ---------------------------------------------- */
   --ink:        var(--slate-900);
@@ -120,13 +121,14 @@
   --r-xl:   22px;
   --r-pill: 999px;
 
-  /* ---- Type families ----------------------------------------------- */
-  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system,
+  /* ---- Type families -------------------------------------------------
+     Locked 11 Sep: headings always Instrument Sans, body always Inter.
+     Jakarta is out. Inter loads as a variable font (300..800) so the
+     450 body weight is a true instance, not a synthesized one.          */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system,
                'Segoe UI', sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo,
                'Liberation Mono', monospace;
-  /* Display face for hero-scale type. Instrument Sans, per the 10 Sep
-     direction change; it replaced the Instrument Serif / Signifier serif. */
   --font-display: 'Instrument Sans', ui-sans-serif, system-ui, -apple-system,
                   'Segoe UI', sans-serif;
 

@@ -13,8 +13,9 @@
    italic, framed CTA pair, then the product surface as the app-screen slot.
    ---------------------------------------------------------------------- */
 
-/* The hero deliberately carries no padding overrides: it sits on the
-   standard .section rhythm like every other block. */
+/* The hero sits on the standard .section rhythm, except flush at the
+   bottom (section--flush-bottom in the markup) so the video frame's fade
+   runs straight into the joint below it. */
 
 /* Full-bleed vertical gradient: a quiet slate grey at the very top behind
    the transparent navbar, fading to the page ground before the how-it-fits
@@ -235,7 +236,7 @@
   flex-direction: column;
   align-items: center;
 }
-/* Jakarta, not mono, per the 11 Sep call; the caps are typed in the markup
+/* Body face (Inter), not mono, per the 11 Sep call; caps typed in the markup
    so the brand name keeps its casing. */
 .hero__asks-label {
   margin-bottom: var(--sp-4);
@@ -326,11 +327,17 @@
   align-items: center;
   justify-content: center;
   background: var(--nav-surface);
-  color: var(--ink);
+  color: var(--brand);
   box-shadow: var(--shadow-lg);
-  transition: transform var(--dur-fast) var(--ease);
+  transition: transform var(--dur-fast) var(--ease),
+              background var(--dur-fast) var(--ease),
+              color var(--dur-fast) var(--ease);
 }
-.hero__video-poster:hover .hero__video-btn { transform: scale(1.08); }
+.hero__video-poster:hover .hero__video-btn {
+  transform: scale(1.08);
+  background: var(--brand);
+  color: var(--on-brand);
+}
 .hero__video-btn svg {
   width: 26px;
   height: 26px;
@@ -622,17 +629,28 @@
   padding: 0 0 var(--sp-10) var(--sp-12);
 }
 
-.feat__title {
-  font-size: var(--t-title);
-  font-weight: 700;
+/* One block anatomy everywhere in this section (12px under the icon, 8px
+   under the header): the two illustration columns and the six cells share
+   it; the columns just add the figure. */
+.feat__icon {
+  display: block;
+  margin-bottom: var(--sp-3);
+  color: var(--brand);
+}
+.feat__icon svg { width: 20px; height: 20px; }
+
+.feat__title,
+.feat__mini h4 {
+  font-size: var(--t-title-sm);
+  font-weight: 600;
   letter-spacing: var(--tr-title);
   color: var(--ink);
-  margin-bottom: var(--sp-3);
+  margin-bottom: var(--sp-2);
 }
 .feat__body {
-  font-size: var(--t-body);
-  line-height: var(--lh-body);
-  color: var(--ink-2);
+  font-size: var(--t-body-sm);
+  line-height: 1.65;
+  color: var(--ink-3);
   max-width: 32rem;
   margin-bottom: var(--sp-8);
 }
@@ -666,6 +684,122 @@
 .feat__line--w60 { width: 60%; }
 .feat__line--w50 { width: 50%; }
 
+/* Drawn-card details, mirroring the real product's answer flow (user's
+   screenshot, 11 Sep): tool-run rows like the session view, then a KPI
+   figure with a sparkline. Deliberately a different anatomy from the
+   approval card beside it. */
+.feat__runs { display: grid; gap: 6px; }
+.feat__run {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.feat__run-icon { display: flex; flex: none; color: var(--ink-3); }
+.feat__run-icon svg { width: 13px; height: 13px; }
+.feat__run-t {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--ink-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.feat__run-meta {
+  flex: none;
+  font-size: var(--t-caption);
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.feat__spark {
+  width: 48px;
+  height: 16px;
+  margin-left: auto;
+  stroke: var(--approve);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.feat__stat-label {
+  margin-top: var(--sp-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.feat__stat {
+  /* Sans with tabular numerals, never mono: Geist Mono breaks the comma. */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.feat__stat span {
+  font-size: var(--t-body-sm);
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--ink-3);
+}
+
+/* Grey header lip peeking above the move card (integrations reference). */
+.feat__panel-lip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 var(--sp-2) -12px;
+  padding: 8px 14px 20px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md) var(--r-md) 0 0;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.feat__panel-lip svg { width: 14px; height: 14px; flex: none; color: var(--ink-faint); }
+.feat__panel-lip + .feat__card { position: relative; z-index: 1; }
+
+/* Config steps inside the move card: icon tile, label, skeleton value,
+   dashed dividers between rows. */
+.feat__steps { display: grid; gap: 10px; margin-top: var(--sp-1); }
+.feat__step { display: flex; align-items: center; gap: 10px; }
+.feat__step + .feat__step { border-top: 1px dashed var(--border); padding-top: 10px; }
+.feat__step-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex: none;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--ink-2);
+}
+.feat__step-icon svg { width: 14px; height: 14px; }
+.feat__step-body { flex: 1; display: grid; gap: 5px; }
+.feat__step-t {
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
 .feat__move-head {
   display: flex;
   align-items: center;
@@ -684,38 +818,22 @@
   margin-top: var(--sp-2);
 }
 
-/* Capability blocks (shadcn feature-three): cells in a grid whose 1px gaps
-   over a border-coloured ground draw the dividers, bounded by top and
-   bottom hairlines. Icon rides high in brand colour; the title and its
-   verbatim /lp question sit at the cell's foot. The sixth cell carries the
-   usage footnote so the divider grid stays complete. */
+/* Capability blocks: an open grid, no cell chrome (11 Sep). One horizontal
+   hairline above the row meets the columns' vertical divider, exactly the
+   Tailark features-4 junction: the divider runs to the .feat bottom edge,
+   and this border-top IS that edge (no margin between them). */
 .feat__mini {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
-  background: var(--border);
-  border-block: 1px solid var(--border);
-  margin-top: var(--sp-12);
+  gap: var(--sp-10) var(--sp-8);
+  border-top: 1px solid var(--border);
+  padding-top: var(--sp-10);
 }
 .feat__mini > li {
   display: flex;
   flex-direction: column;
-  background: var(--bg);
-  padding: var(--sp-6);
 }
-.feat__mini-icon {
-  display: block;
-  padding-bottom: var(--sp-6);
-  color: var(--brand);
-}
-.feat__mini-icon svg { width: 20px; height: 20px; }
-.feat__mini h4 {
-  font-size: var(--t-title-sm);
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: var(--sp-2);
-}
-/* Questions in Jakarta here, no qstring mark: this grid reads as feature
+/* Questions in the body face here, no qstring mark: this grid reads as feature
    copy, not the mono question motif (user call, 11 Sep). */
 .feat__mini p {
   font-size: var(--t-body-sm);
@@ -723,7 +841,6 @@
   color: var(--ink-3);
 }
 
-.asks__note { margin-top: var(--sp-8); }
 
 @media (max-width: 991px) {
   .feat { grid-template-columns: 1fr; }

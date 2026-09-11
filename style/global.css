@@ -27,13 +27,18 @@ body {
   font-family: var(--font-sans);
   font-size: var(--t-body);
   line-height: var(--lh-body);
-  font-weight: 400;
+  /* 450, not 400: Inter's regular runs light at 14px under antialiasing,
+     and the variable load makes 450 a true instance. */
+  font-weight: 450;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
 }
 
-h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: 700; }
+/* Headings always set in the display face (Instrument Sans), body in Inter:
+   the locked 11 Sep type rule. Mono-labelled headings opt out via .mono
+   or their own font-family. */
+h1, h2, h3, h4, h5, h6 { margin: 0; font-family: var(--font-display); font-weight: 700; }
 p, ul, ol, figure, blockquote { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
 img, svg, video { display: block; max-width: 100%; height: auto; }
@@ -111,7 +116,7 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   background: var(--surface-inv);
   color: var(--ink-inv);
 }
-.section--inv .eyebrow { color: var(--indigo-300); }
+.section--inv .eyebrow { color: var(--ink-inv-3); }
 .section--inv .section-heading { color: var(--ink-inv); }
 .section--inv .section-sub { color: var(--ink-inv-2); }
 
@@ -176,6 +181,9 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 
 /* ---- Section typography ------------------------------------------------ */
 
+/* Section eyebrow (11 Sep rule): Geist Mono with a "/" prefix, grey, never
+   brand-coloured; primary stays out of section headers so it can carry the
+   few moments that earn it. Any sparkle left in older markup is hidden. */
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -185,10 +193,11 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   font-weight: 500;
   letter-spacing: var(--tr-mono);
   text-transform: uppercase;
-  color: var(--brand-ink);
+  color: var(--ink-faint);
   margin-bottom: var(--sp-4);
 }
-.eyebrow .sparkle { width: 10px; height: 10px; flex: none; }
+.eyebrow::before { content: '/'; }
+.eyebrow .sparkle { display: none; }
 
 .section-heading {
   font-size: var(--t-display-2);
@@ -350,14 +359,17 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
    near-opaque as the fallback, half-transparent glass where
    backdrop-filter is supported, per the template. */
 .nav {
-  border-bottom: 1px solid transparent;
+  /* Permanent bottom border (11 Sep): the header always carries its line,
+     which also draws the frame's top joint, so no separate joint element
+     sits under the placeholder. Frame-line alpha, not --border: a solid
+     light grey disappears against the hero wash behind the bar. */
+  border-bottom: 1px solid var(--frame-line);
   /* Flat background-color, never a gradient: WebKit cannot interpolate
      between two gradient values and flickers mid-swap on theme sync. */
   transition: background-color var(--dur) var(--ease),
               border-color var(--dur) var(--ease);
 }
 .nav--scrolled {
-  border-bottom-color: var(--border);
   background-color: var(--nav-surface);
 }
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
