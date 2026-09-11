@@ -116,7 +116,7 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   background: var(--surface-inv);
   color: var(--ink-inv);
 }
-.section--inv .eyebrow { color: var(--ink-inv-3); }
+.section--inv .eyebrow { color: var(--indigo-300); }
 .section--inv .section-heading { color: var(--ink-inv); }
 .section--inv .section-sub { color: var(--ink-inv-2); }
 
@@ -181,9 +181,10 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 
 /* ---- Section typography ------------------------------------------------ */
 
-/* Section eyebrow (11 Sep rule): Geist Mono with a "/" prefix, grey, never
-   brand-coloured; primary stays out of section headers so it can carry the
-   few moments that earn it. Any sparkle left in older markup is hidden. */
+/* Section eyebrow (11 Sep rule, revised same day): Geist Mono with a "/"
+   prefix, in the primary colour; every section carries one except the
+   hero, the logo cloud and the footer. Sparkles in older markup stay
+   hidden. */
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -193,7 +194,7 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   font-weight: 500;
   letter-spacing: var(--tr-mono);
   text-transform: uppercase;
-  color: var(--ink-faint);
+  color: var(--brand-ink);
   margin-bottom: var(--sp-4);
 }
 .eyebrow::before { content: '/'; }
@@ -364,6 +365,10 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
      sits under the placeholder. Frame-line alpha, not --border: a solid
      light grey disappears against the hero wash behind the bar. */
   border-bottom: 1px solid var(--frame-line);
+  /* Solid at rest too (11 Sep): the hero wash and blueprint grid must not
+     show through the bar. Not white: --nav-rest is matched per page to the
+     colour behind the bar. The scrolled rules override with surface/glass. */
+  background-color: var(--nav-rest);
   /* Flat background-color, never a gradient: WebKit cannot interpolate
      between two gradient values and flickers mid-swap on theme sync. */
   transition: background-color var(--dur) var(--ease),

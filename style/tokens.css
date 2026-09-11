@@ -99,6 +99,10 @@
   /* ---- Nav surfaces ---------------------------------------------------
      Solid-ish fallback, and the glass pair used where backdrop-filter is
      supported (header-three: bg/95, supports-backdrop-filter:bg/50).    */
+  /* Rest-state bar colour: opaque, and matched per page to whatever sits
+     at the very top behind the bar (the homepage sets it to the hero
+     wash's top tone), so the bar blends without any transparency. */
+  --nav-rest:              var(--bg);
   --nav-surface:           rgba(251, 251, 253, 0.95);
   --nav-surface-glass:     rgba(251, 251, 253, 0.55);
   --nav-surface-inv:       rgba(11, 16, 32, 0.92);

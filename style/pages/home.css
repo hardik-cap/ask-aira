@@ -17,6 +17,10 @@
    bottom (section--flush-bottom in the markup) so the video frame's fade
    runs straight into the joint below it. */
 
+/* The bar's rest colour matches the hero wash's top tone, so the header
+   reads as part of the wash while staying fully opaque over the grid. */
+.page-home { --nav-rest: var(--slate-200); }
+
 /* Full-bleed vertical gradient: a quiet slate grey at the very top behind
    the transparent navbar, fading to the page ground before the how-it-fits
    section, with a whisper of brand tint at the top centre. Grey per the
@@ -138,7 +142,9 @@
   line-height: 1.04;
   letter-spacing: var(--tr-display);
   color: var(--ink);
-  max-width: 21ch;
+  /* Three explicit lines: "On-demand insights and / analytics agent for /
+     [icon] {team} teams". Wide enough that the br's decide the breaks. */
+  max-width: 24ch;
   margin-bottom: var(--sp-6);
   text-wrap: balance;
 }
@@ -266,10 +272,10 @@
   color: var(--ink-2);
   white-space: nowrap;
 }
-/* Official Phosphor icons (regular weight), inlined with currentColor. */
+/* Official Phosphor icons (duotone), inlined with currentColor. */
 .hero__asklist svg {
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   flex: none;
   color: var(--brand-ink);
 }
@@ -341,7 +347,10 @@
 .hero__video-btn svg {
   width: 26px;
   height: 26px;
-  margin-left: 3px;   /* optical centre for the triangle */
+  /* The play-fill glyph is right-of-centre in its 256 viewBox (bbox centre
+     x=152, not 128): pull it back so the triangle centres in the circle,
+     with 1px left for triangle optics. */
+  margin-left: -1px;
 }
 @media (prefers-reduced-motion: reduce) {
   .hero__video-btn { transition: none; }
@@ -372,12 +381,24 @@
     transparent, #000 16%, #000 84%, transparent);
 }
 
-/* The supplied lockups are full-colour brand files: greyed and dimmed in
-   CSS so the strip reads as one quiet index on the light ground. */
-.proof__track img {
+/* Each mark is a stacked pair of supplied files: the grey export shows by
+   default, the full-colour original crossfades in on hover (11 Sep). The
+   belt pauses while hovered so a moving logo can actually be hovered. */
+.proof__logo {
+  position: relative;
   display: block;
-  filter: grayscale(1);
-  opacity: 0.45;
+}
+.proof__logo img { display: block; opacity: 0.55; transition: opacity var(--dur-fast) var(--ease); }
+.proof__logo .proof__logo-color {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.proof__logo:hover img { opacity: 0; }
+.proof__logo:hover .proof__logo-color { opacity: 1; }
+.proof__marquee:hover .proof__track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .proof__logo img { transition: none; }
 }
 
 .proof__track {
