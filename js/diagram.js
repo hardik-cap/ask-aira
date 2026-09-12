@@ -133,15 +133,17 @@
       var destBlock = diagram.querySelector('.mech__dest').getBoundingClientRect();
       var nodeX = n.left - box.left + n.width / 2;
 
-      sources.forEach(function (el) {
-        var r = el.getBoundingClientRect();
-        wireV(r.left - box.left + r.width / 2, srcBlock.bottom - box.top + 4,
+      /* The wrapped logo rows can't be connected per logo here, so the
+         stack draws a symmetric pair on each side of the node instead:
+         two lines in from the sources block, two out to the channels. */
+      var spread = Math.min(box.width * 0.2, 72);
+      [-spread, spread].forEach(function (dx) {
+        wireV(nodeX + dx, srcBlock.bottom - box.top + 4,
               nodeX, n.top - box.top - 4);
       });
-      dests.forEach(function (el) {
-        var r = el.getBoundingClientRect();
+      [-spread, spread].forEach(function (dx) {
         wireV(nodeX, coreBlock.bottom - box.top + 4,
-              r.left - box.left + r.width / 2, destBlock.top - box.top - 4);
+              nodeX + dx, destBlock.top - box.top - 4);
       });
     } else {
       var midY = n.top - box.top + n.height / 2;
