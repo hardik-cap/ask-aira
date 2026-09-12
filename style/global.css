@@ -263,6 +263,12 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 @media (max-width: 768px) {
   .section-head { margin-bottom: var(--sp-8); }
 }
+/* Phones read better ragged-left: centred heads go left-aligned. */
+@media (max-width: 640px) {
+  .section-head--center { text-align: left; margin-inline: 0; }
+  .section-head--center .section-heading,
+  .section-head--center .section-sub { margin-inline: 0; }
+}
 
 /* ---- Buttons -----------------------------------------------------------
    Trailing arrows nudge outward on hover; the gap grows rather than the
@@ -693,20 +699,12 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   padding-block: var(--sp-10);
 }
 
-.footer__logo { display: inline-flex; margin-bottom: var(--sp-4); }
+.footer__logo { display: inline-flex; }
 .footer__logo img { height: 26px; width: auto; }
-
-.footer__tagline {
-  font-size: var(--t-body-sm);
-  line-height: 1.65;
-  color: var(--ink-3);
-  max-width: 22rem;
-  margin-bottom: var(--sp-5);
-}
 
 .footer__cols {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--sp-8) var(--sp-6);
 }
 
@@ -727,21 +725,61 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 }
 .footer__col-list a:hover { color: var(--ink); }
 
-.footer__divider {
-  height: 1px;
-  background: linear-gradient(to right,
-    transparent, var(--border-strong), transparent);
-}
-
 .footer__bottom {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-3) var(--sp-6);
+  padding-block: var(--sp-12) var(--sp-6);
+}
+.footer__social {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+/* 16px glyph centred in a 28px box: the whole box is the click area. */
+.footer__social a {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  padding-block: var(--sp-5);
+  width: 28px;
+  height: 28px;
+  color: var(--ink-3);
+  transition: color var(--dur-fast) var(--ease);
+}
+.footer__social a:hover { color: var(--ink); }
+.footer__social svg { width: 16px; height: 16px; display: block; }
+
+.footer__bottom-right {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-3) var(--sp-6);
 }
 .footer__legal {
   font-size: var(--t-caption);
   color: var(--ink-3);
-  text-align: center;
+}
+.footer__bottom-links {
+  display: flex;
+  gap: var(--sp-6);
+}
+.footer__bottom-links a {
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+  transition: color var(--dur-fast) var(--ease);
+}
+.footer__bottom-links a:hover { color: var(--ink); }
+
+/* The giant outline wordmark: the footer's last element. The img keeps the
+   SVG's own aspect ratio: full available width, height follows. */
+.footer__wordmark { padding-block: var(--sp-6) 0; }
+.footer__wordmark img {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0.07;
 }
 
 @media (max-width: 991px) {

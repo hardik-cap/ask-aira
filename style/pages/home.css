@@ -222,6 +222,18 @@
   .hero__char--out, .hero__char--in { animation: none; }
 }
 
+/* Phones: the icon tile's ~44px is what pushes the widest word (eCommerce)
+   onto a fourth line, and the reflow jumps the page height every cycle.
+   Dropping the tile keeps every word on three lines at a stable height. */
+@media (max-width: 640px) {
+  .hero__rot-icon { display: none; }
+}
+/* Below ~380px the 36px clamp floor still wraps the widest word (and at
+   360 even the first line), so the title steps down to 32px there. */
+@media (max-width: 380px) {
+  .hero__title { font-size: 2rem; }
+}
+
 .hero__sub {
   font-size: var(--t-body-lg);
   line-height: var(--lh-body);
@@ -253,11 +265,59 @@
   color: var(--ink-faint);
 }
 
+/* The belt is inert at desktop widths (one centred wrapped list, the JS
+   clone hidden); on phones it becomes the ticker viewport. */
+.hero__askbelt {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.hero__askbelt .hero__asklist[aria-hidden="true"] { display: none; }
+
 .hero__asklist {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--sp-2);
+}
+
+@media (max-width: 640px) {
+  /* hero__inner centres children at content width, so the nowrap belt
+     would grow to the list's full width without this clamp. */
+  .hero__asks { width: 100%; }
+  .hero__askbelt {
+    justify-content: flex-start;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right,
+      transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(to right,
+      transparent, #000 12%, #000 88%, transparent);
+  }
+  /* Trailing padding equals the pill gap, so translateX(-100%) lands
+     exactly on the clone and the loop is seamless. */
+  .hero__askbelt .hero__asklist {
+    flex: none;
+    width: max-content;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-right: var(--sp-2);
+    animation: hero-ask-scroll 26s linear infinite;
+  }
+  .hero__askbelt .hero__asklist[aria-hidden="true"] { display: flex; }
+}
+@keyframes hero-ask-scroll {
+  to { transform: translateX(-100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__askbelt { overflow: visible; -webkit-mask-image: none; mask-image: none; }
+  .hero__askbelt .hero__asklist {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: auto;
+    padding-right: 0;
+  }
+  .hero__askbelt .hero__asklist[aria-hidden="true"] { display: none; }
 }
 .hero__asklist li {
   display: inline-flex;
@@ -363,6 +423,14 @@
   .hero__video-fade { inset: -5px; }
   .hero__video-btn { width: 56px; height: 56px; }
   .hero__video-btn svg { width: 20px; height: 20px; }
+}
+/* Touch devices never see the hover state, so the play badge rests in the
+   primary colour there. */
+@media (hover: none) {
+  .hero__video-btn {
+    background: var(--brand);
+    color: var(--on-brand);
+  }
 }
 
 /* ---- Proof: customer logo cloud ------------------------------------------
@@ -1159,53 +1227,15 @@
 .compare__cell--aira.compare__cell--head img { display: block; }
 
 
-/* Phones: the board restacks as label / aiRA chip / category text per row.
-   The spanning brand panel and the column headers retire; each argument
-   cell announces its own column. */
+/* Phones: the board keeps all three columns and scrolls sideways inside
+   .compare__wrap (the user's call over the earlier restacked layout: the
+   full grid reads better). Slightly narrower minimum and tighter gutters
+   shorten the scroll distance. */
 @media (max-width: 767px) {
-  .compare__wrap { overflow: visible; }
-  .compare__board { display: block; min-width: 0; padding-block: 0; }
-  .compare__brandbg,
-  .compare__board > .compare__cell.compare__cell--head { display: none; }
-  .compare__cell { display: block; padding: 0; border-bottom: 0; }
-  .compare__cell--feat {
-    gap: var(--sp-3);
-    display: flex;
-    align-items: center;
-    padding: var(--sp-6) 0 var(--sp-3);
-  }
-  .compare__cell--aira {
-    background: var(--brand);
-    color: #fff;
-    border-radius: var(--r-md);
-    padding: var(--sp-4);
-  }
-  .compare__cell--aira::before {
-    content: 'aiRA';
-    display: block;
-    font-family: var(--font-mono);
-    font-size: var(--t-mono);
-    font-weight: 500;
-    letter-spacing: var(--tr-mono);
-    color: rgba(255, 255, 255, 0.75);
-    margin-bottom: 4px;
-  }
-  .compare__cell--other {
-    padding: var(--sp-4) 0 var(--sp-6);
-    border-bottom: 1px solid var(--border);
-  }
-  .compare__cell--other::before {
-    content: 'Horizontal AI analytics platforms';
-    display: block;
-    font-family: var(--font-mono);
-    font-size: var(--t-mono);
-    font-weight: 500;
-    letter-spacing: var(--tr-mono);
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    margin-bottom: 4px;
-  }
-  .compare__board > .compare__cell--other:last-child { border-bottom: 0; }
+  .compare__board { min-width: 44rem; }
+  .compare__cell--feat { padding-right: var(--sp-5); }
+  .compare__cell--aira { padding-inline: var(--sp-4); }
+  .compare__cell--other { padding-left: var(--sp-5); }
 }
 
 /* Last row: the board's edge, not a divider. */
@@ -1344,8 +1374,12 @@
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 18%, transparent);
 }
 
+.book__question { resize: vertical; min-height: 88px; line-height: var(--lh-body); }
+
 .book__submit { width: 100%; justify-content: center; margin-top: var(--sp-2); }
 .book__note { font-size: var(--t-caption); color: var(--ink-3); margin-top: var(--sp-4); }
+.book__note a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.book__note a:hover { color: var(--ink); }
 
 @media (max-width: 991px) {
   .book__card { grid-template-columns: 1fr; }
@@ -1354,9 +1388,17 @@
 }
 @media (max-width: 640px) {
   .book__claim { font-size: var(--t-display-3); }
-}
-@media (max-width: 640px) {
   .book__row { grid-template-columns: 1fr; }
+  /* Compact panel: content height instead of the tall well, and the
+     watermark scaled into the corner so it reads as the mark rather
+     than a cropped blob. */
+  .book__panel { min-height: 0; padding: var(--sp-8); }
+  .book__panel::after {
+    width: 140px;
+    height: 140px;
+    right: -28px;
+    bottom: -28px;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .input { transition: none; }

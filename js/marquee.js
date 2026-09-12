@@ -47,3 +47,22 @@
   }
   requestAnimationFrame(tick);
 })();
+
+/* Hero capability ticker: on phones the pill row scrolls as a belt (CSS
+   animation in home.css). The seamless loop needs the list twice, so clone
+   it here instead of duplicating the markup; the clone stays display:none
+   at desktop widths and under reduced motion. */
+(function () {
+  'use strict';
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var belt = document.querySelector('.hero__askbelt');
+  if (!belt) return;
+  var list = belt.querySelector('.hero__asklist');
+  if (!list || belt.children.length > 1) return;
+
+  var clone = list.cloneNode(true);
+  clone.setAttribute('aria-hidden', 'true');
+  belt.appendChild(clone);
+})();

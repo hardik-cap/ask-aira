@@ -1,79 +1,87 @@
-<!-- aiRA footer (shadcn footer-three): a contained card with rounded top
-     corners and a lamp-lit top border. Injected into #footer-placeholder
-     by js/components.js. -->
+<!-- aiRA footer (Attio-style): logo alone on the left, link columns right,
+     a space-between legal row, and the giant outline wordmark as the very
+     last element. Injected into #footer-placeholder by js/components.js. -->
 <footer class="footer">
   <div class="padding-global">
     <div class="container">
-      <div class="footer__card">
-    <div class="footer__grid">
-      <div class="footer__brand reveal">
-        <a class="footer__logo" href="/" aria-label="aiRA by Capillary, home">
-          <img src="/assets/brand/aira-lockup.png" alt="aiRA by Capillary" width="78" height="26">
-        </a>
-        <p class="footer__tagline">
-          The on-demand insights and analytics agent for customer data.
-          aiRA reads the data you already own, and pushes to the channels you already run.
-        </p>
-        <a class="btn btn--secondary btn--sm" href="/book">
-          Book a working session
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 12h14M13 6l6 6-6 6"/>
-          </svg>
-        </a>
+
+      <div class="footer__grid">
+        <div class="footer__brand reveal">
+          <a class="footer__logo" href="/" aria-label="aiRA by Capillary, home">
+            <img src="/assets/brand/aira-lockup.png" alt="aiRA by Capillary" width="78" height="26">
+          </a>
+        </div>
+
+        <div class="footer__cols reveal reveal-stagger">
+          <div class="footer__col">
+            <h3 class="footer__col-title">Product</h3>
+            <ul class="footer__col-list">
+              <li><a href="/product">Capabilities</a></li>
+              <li><a href="/pricing">Pricing</a></li>
+              <li><a href="/security">Security</a></li>
+            </ul>
+          </div>
+
+          <div class="footer__col">
+            <h3 class="footer__col-title">Solutions</h3>
+            <ul class="footer__col-list">
+              <li><a href="/solutions/retail/apparel-fashion">Apparel &amp; Fashion</a></li>
+              <li><a href="/solutions/retail/supermarkets-grocery">Supermarkets &amp; Grocery</a></li>
+              <li><a href="/solutions/retail/hypermarkets-mass">Hypermarkets &amp; Mass Merchants</a></li>
+              <li><a href="/solutions/retail/fuel-convenience">Fuel &amp; Convenience</a></li>
+              <li><a href="/solutions/retail/food-beverage-qsr">Food Beverage &amp; QSR</a></li>
+              <li><a href="/solutions/retail/health-beauty">Health &amp; Beauty</a></li>
+              <li><a href="/solutions/retail/luxury-jewellery">Luxury &amp; Jewellery</a></li>
+              <li><a href="/solutions/retail/consumer-electronics">Consumer Durables &amp; Electronics</a></li>
+              <li><a href="/solutions/retail">All retail categories</a></li>
+            </ul>
+          </div>
+
+          <div class="footer__col">
+            <h3 class="footer__col-title">Company</h3>
+            <ul class="footer__col-list">
+              <li><a href="https://www.capillarytech.com/about-us/" rel="noopener">About Capillary</a></li>
+              <li><a href="mailto:aira@capillarytech.com">Contact us</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
 
-      <div class="footer__cols reveal reveal-stagger">
-        <div class="footer__col">
-          <h3 class="footer__col-title">Product</h3>
-          <ul class="footer__col-list">
-            <li><a href="/product">How aiRA works</a></li>
-            <li><a href="/product#capabilities">Capabilities</a></li>
-            <li><a href="/pricing">Pricing</a></li>
-            <li><a href="/security">Security and compliance</a></li>
-          </ul>
-        </div>
+      <div class="footer__bottom">
+        <ul class="footer__social">
+          <li>
+            <a href="https://www.linkedin.com/company/capillary-technologies" rel="noopener"
+               aria-label="Capillary Technologies on LinkedIn">
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M4.68938 13.9414H2.19817V6.00487H4.68938V13.9414ZM11.0331 5.8076C13.5556 5.80761 14.0204 7.4507 14.0204 9.58788L14.0195 13.9414H11.5312V10.083C11.5312 9.16272 11.5141 7.97752 10.2363 7.97752C8.94014 7.97762 8.74212 8.98038 8.74212 10.0156V13.9414H6.25286V6.00487H8.64251V7.08983H8.67571C8.91482 6.68505 9.2606 6.3517 9.67571 6.12596C10.0908 5.90033 10.56 5.79021 11.0331 5.8076ZM3.16204 2.08788C3.44219 2.03265 3.73307 2.06074 3.997 2.16893C4.26087 2.2771 4.4867 2.46024 4.64544 2.6953C4.80418 2.93045 4.88855 3.20738 4.8886 3.49022C4.88863 3.67786 4.85166 3.86371 4.77923 4.0371C4.70668 4.21061 4.59984 4.36912 4.46575 4.50194C4.33173 4.63461 4.17208 4.73967 3.997 4.81151C3.82188 4.88332 3.63382 4.92085 3.44427 4.92088C3.15884 4.92084 2.87989 4.83661 2.64251 4.67967C2.40501 4.5226 2.21965 4.29931 2.11028 4.03807C2.00094 3.77682 1.97261 3.48928 2.02825 3.2119C2.08392 2.93455 2.22091 2.67949 2.42278 2.47948C2.62464 2.27953 2.88204 2.14316 3.16204 2.08788Z" fill="currentColor"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/@Capillarytech" rel="noopener"
+               aria-label="Capillary Technologies on YouTube">
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M8 14C8.0013 14 13.0031 14.0003 14.251 13.665C14.9394 13.4804 15.482 12.9365 15.666 12.2461C16.0004 10.9944 16 8.38281 16 8.38281C16 8.35899 15.9987 5.76644 15.666 4.52051C15.482 3.82998 14.9394 3.28611 14.251 3.10156C13.0033 2.76623 8.0013 2.76563 8 2.76562C8 2.76562 2.99689 2.76619 1.74902 3.10156C1.06063 3.28611 0.517969 3.82998 0.333984 4.52051C0.00128595 5.76644 7.0398e-06 8.35899 1.5904e-09 8.38281C1.5904e-09 8.38281 -0.00035472 10.9944 0.333984 12.2461C0.518005 12.9365 1.06068 13.4804 1.74902 13.665C2.99713 14.0003 8 14 8 14ZM6.36426 6.01172L10.5459 8.38281L6.36426 10.7539V6.01172Z" fill="currentColor"/>
+              </svg>
+            </a>
+          </li>
+        </ul>
 
-        <div class="footer__col">
-          <h3 class="footer__col-title">Solutions</h3>
-          <ul class="footer__col-list">
-            <li><a href="/solutions">Find your use cases</a></li>
-            <li><a href="/solutions/retail">Retail</a></li>
-            <li><a href="/solutions?role=marketing">For marketing teams</a></li>
-            <li><a href="/solutions?role=crm">For CRM teams</a></li>
-            <li><a href="/solutions?role=bi">For BI and data teams</a></li>
-          </ul>
-        </div>
-
-        <div class="footer__col">
-          <h3 class="footer__col-title">Capillary</h3>
-          <ul class="footer__col-list">
-            <li><a href="https://www.capillarytech.com/" rel="noopener">Capillary Technologies</a></li>
-            <li><a href="https://www.capillarytech.com/about-us/" rel="noopener">About</a></li>
-            <li><a href="https://www.capillarytech.com/about-us/news" rel="noopener">News</a></li>
-            <li><a href="mailto:aira@capillarytech.com">aira@<wbr>capillarytech.com</a></li>
-          </ul>
-        </div>
-
-        <div class="footer__col">
-          <h3 class="footer__col-title">Legal</h3>
-          <ul class="footer__col-list">
+        <div class="footer__bottom-right">
+          <p class="footer__legal">
+            &copy; 2026 Capillary Technologies. All rights reserved.
+          </p>
+          <ul class="footer__bottom-links">
+            <li><a href="/terms">Terms and conditions</a></li>
             <li><a href="/privacy">Privacy policy</a></li>
-            <li><a href="/terms">aiRA terms</a></li>
-            <li><a href="/security">Information security</a></li>
           </ul>
         </div>
       </div>
-    </div>
 
-    <div class="footer__divider" aria-hidden="true"></div>
-
-    <div class="footer__bottom">
-      <p class="footer__legal">
-        &copy; 2026 Capillary Technologies. aiRA, the on-demand insights and analytics agent.
-      </p>
-    </div>
+      <div class="footer__wordmark" aria-hidden="true">
+        <img src="/assets/brand/aira-footer.svg" alt="" width="1476" height="476" loading="lazy">
       </div>
+
     </div>
   </div>
 </footer>
