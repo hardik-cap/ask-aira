@@ -41,17 +41,67 @@
     svg.setAttribute('viewBox', '0 0 ' + box.width + ' ' + box.height);
     svg.setAttribute('aria-hidden', 'true');
 
+    var defs = document.createElementNS(NS, 'defs');
+    svg.appendChild(defs);
+
     var count = 0;
-    function wire(d) {
+    /* Each beam is the wire redrawn with a travelling blue-to-violet
+       gradient (Magic UI AnimatedBeam): a userSpaceOnUse linearGradient
+       whose window SMIL-animates along the wire's main axis. Duration,
+       phase, window length and colour order are randomised per wire. */
+    function wire(d, x1, y1, x2, y2, vertical) {
       var base = document.createElementNS(NS, 'path');
       base.setAttribute('d', d);
       svg.appendChild(base);
 
+      var id = 'mech-beam-' + count;
+      var from = vertical ? y1 : x1;
+      var to = vertical ? y2 : x2;
+      var seg = 70 + Math.random() * 80;              /* window length */
+      var dur = (4 + Math.random() * 3).toFixed(2);   /* 4-7s per run */
+      var begin = (-Math.random() * dur).toFixed(2) + 's';
+      var flip = Math.random() < 0.5;                 /* colour order */
+
+      var grad = document.createElementNS(NS, 'linearGradient');
+      grad.setAttribute('id', id);
+      grad.setAttribute('gradientUnits', 'userSpaceOnUse');
+      if (vertical) {
+        grad.setAttribute('x1', x1.toFixed(1));
+        grad.setAttribute('x2', x1.toFixed(1));
+      } else {
+        grad.setAttribute('y1', y1.toFixed(1));
+        grad.setAttribute('y2', y1.toFixed(1));
+      }
+      [
+        [0, flip ? 'b' : 'a', 0],
+        [0.35, flip ? 'b' : 'a', 1],
+        [0.65, flip ? 'a' : 'b', 1],
+        [1, flip ? 'a' : 'b', 0]
+      ].forEach(function (s) {
+        var stop = document.createElementNS(NS, 'stop');
+        stop.setAttribute('offset', s[0]);
+        stop.setAttribute('class', 'mech__beamstop-' + s[1]);
+        stop.setAttribute('stop-opacity', s[2]);
+        grad.appendChild(stop);
+      });
+      [[vertical ? 'y1' : 'x1', from - seg, to],
+       [vertical ? 'y2' : 'x2', from, to + seg]].forEach(function (a) {
+        var an = document.createElementNS(NS, 'animate');
+        an.setAttribute('attributeName', a[0]);
+        an.setAttribute('from', a[1].toFixed(1));
+        an.setAttribute('to', a[2].toFixed(1));
+        an.setAttribute('dur', dur + 's');
+        an.setAttribute('begin', begin);
+        an.setAttribute('repeatCount', 'indefinite');
+        grad.appendChild(an);
+      });
+      defs.appendChild(grad);
+
       var beam = document.createElementNS(NS, 'path');
       beam.setAttribute('d', d);
       beam.setAttribute('class', 'mech__beam');
-      beam.setAttribute('pathLength', '100');
-      beam.style.animationDelay = (-count * 1.1).toFixed(1) + 's';
+      /* Inline style: the base .mech__wires path stroke must not win. */
+      beam.style.stroke = 'url(#' + id + ')';
       svg.appendChild(beam);
       count++;
     }
@@ -61,7 +111,8 @@
       wire('M' + x1.toFixed(1) + ',' + y1.toFixed(1) +
            ' C' + mx + ',' + y1.toFixed(1) +
            ' ' + mx + ',' + y2.toFixed(1) +
-           ' ' + x2.toFixed(1) + ',' + y2.toFixed(1));
+           ' ' + x2.toFixed(1) + ',' + y2.toFixed(1),
+           x1, y1, x2, y2, false);
     }
     /* Vertical S-curve (stacked mobile: blocks above and below the node). */
     function wireV(x1, y1, x2, y2) {
@@ -69,7 +120,8 @@
       wire('M' + x1.toFixed(1) + ',' + y1.toFixed(1) +
            ' C' + x1.toFixed(1) + ',' + my +
            ' ' + x2.toFixed(1) + ',' + my +
-           ' ' + x2.toFixed(1) + ',' + y2.toFixed(1));
+           ' ' + x2.toFixed(1) + ',' + y2.toFixed(1),
+           x1, y1, x2, y2, true);
     }
 
     if (stacked) {

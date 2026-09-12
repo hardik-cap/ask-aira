@@ -38,7 +38,9 @@
   function tick(now) {
     var dt = Math.min((now - last) / 1000, 0.1);
     last = now;
-    v += (speed * factor - v) * Math.min(1, dt * 5);
+    /* Gentle ease toward the target speed (~450ms time constant), so the
+       belt visibly decelerates into the hover state instead of snapping. */
+    v += (speed * factor - v) * Math.min(1, dt * 2.2);
     x -= v * dt;
     if (width && x <= -width) x += width;
     var t = 'translateX(' + x.toFixed(2) + 'px)';

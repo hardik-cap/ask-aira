@@ -457,7 +457,7 @@
   position: relative;
   display: block;
 }
-.proof__logo img { display: block; opacity: 0.55; transition: opacity var(--dur-fast) var(--ease); }
+.proof__logo img { display: block; opacity: 0.55; transition: opacity var(--dur) var(--ease); }
 .proof__logo .proof__logo-color {
   position: absolute;
   inset: 0;
@@ -536,9 +536,7 @@
     minmax(180px, 0.9fr) minmax(60px, 1fr) auto
     minmax(60px, 1fr) minmax(210px, 0.9fr);
   align-items: center;
-  /* Pulled in from the rails, but still generous: near end to end. */
-  max-width: 70rem;
-  margin-inline: auto;
+  /* Full container width: no cap, no side margins (user call, 12 Sep). */
 }
 .mech__sources { grid-column: 1; }
 .mech__core { grid-column: 3; }
@@ -593,22 +591,17 @@
   stroke-linecap: round;
 }
 
-/* Animated beams (Magic UI AnimatedBeam, in CSS): each wire carries a
-   duplicate path normalised to pathLength=100 whose dash pattern sums to
-   exactly 100, so sliding the offset one period per loop sends a single
-   pulse start-to-end seamlessly. Delays are staggered inline per path. */
+/* Animated beams (Magic UI AnimatedBeam): each wire carries a duplicate
+   solid path stroked with a travelling blue-to-violet gradient that
+   js/diagram.js builds and SMIL-animates along the wire, with randomised
+   pace, phase, window and colour order per wire. The gradient stroke
+   itself rides an inline style; only the geometry is styled here. */
 .mech__wires .mech__beam {
-  /* Not a solid comet: three faint dots glide along the wire. The pattern
-     still sums to exactly 100 so each loop stays seamless. */
-  stroke: color-mix(in srgb, var(--indigo-300) 70%, transparent);
   stroke-width: 2;
-  stroke-dasharray: 0.5 2.5 0.5 2.5 0.5 93.5;
-  animation: mech-beam 6s linear infinite;
+  stroke-dasharray: none;
 }
-@keyframes mech-beam {
-  from { stroke-dashoffset: 100; }
-  to   { stroke-dashoffset: 0; }
-}
+.mech__wires .mech__beamstop-a { stop-color: var(--indigo-400); }
+.mech__wires .mech__beamstop-b { stop-color: var(--violet-400); }
 @media (prefers-reduced-motion: reduce) {
   .mech__wires .mech__beam { display: none; }
 }
@@ -767,6 +760,9 @@
 .mech__dest img { display: block; height: 30px; width: auto; }
 /* The Engage+ pill lockup runs optically large: one step down. */
 .mech__dest img[alt="Capillary Engage+"] { height: 22px; }
+/* The Salesforce lockup stacks its cloud over the text, so at the uniform
+   height it reads tiny: one step up. */
+.mech__dest img[alt="Salesforce Marketing Cloud"] { height: 42px; }
 
 .mech__foot { margin-top: var(--sp-10); color: var(--ink-inv-3); }
 
@@ -837,11 +833,11 @@
 .feat__col {
   display: flex;
   flex-direction: column;
-  padding: 0 var(--sp-12) var(--sp-10) 0;
+  padding: 0 var(--sp-12) 0 0;
 }
 .feat__col + .feat__col {
   border-left: 1px solid var(--border);
-  padding: 0 0 var(--sp-10) var(--sp-12);
+  padding: 0 0 0 var(--sp-12);
 }
 
 /* One block anatomy everywhere in this section (12px under the icon, 8px
@@ -867,24 +863,42 @@
   line-height: 1.65;
   color: var(--ink-3);
   max-width: 32rem;
-  margin-bottom: var(--sp-8);
+  margin-bottom: var(--sp-6);
 }
 
-/* Illustration well + drawn card. margin-top:auto bottom-aligns the wells
-   so the two columns finish on the same line. */
+/* Illustration well + drawn card. Both wells share one fixed height on a
+   clean grey ground; the cards run past the bottom edge and dissolve
+   through the fade (no bottom padding), so the pair reads structured and
+   equal despite different content. */
 .feat__fig {
+  position: relative;
   margin-top: auto;
+  height: 372px;
+  overflow: hidden;
   background: var(--bg-subtle);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: var(--sp-6);
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  padding: var(--sp-6) var(--sp-6) 0;
+}
+.feat__fig::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 84px;
+  background: linear-gradient(to bottom, transparent, var(--bg-subtle));
+  pointer-events: none;
+  z-index: 2;
 }
 .feat__card {
   display: grid;
+  align-content: start;
   gap: var(--sp-3);
+  min-height: 100%;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--r-md);
+  border-bottom: 0;
+  border-radius: var(--r-md) var(--r-md) 0 0;
   box-shadow: var(--shadow-md);
   padding: var(--sp-5);
 }
@@ -899,10 +913,182 @@
 .feat__line--w60 { width: 60%; }
 .feat__line--w50 { width: 50%; }
 
-/* Drawn-card details, mirroring the real product's answer flow (user's
-   screenshot, 11 Sep): tool-run rows like the session view, then a KPI
-   figure with a sparkline. Deliberately a different anatomy from the
-   approval card beside it. */
+/* Drawn-card details, mirroring the real product's session view (user's
+   screenshots, 11-12 Sep): a collapsible task checklist with struck-through
+   completed steps and right-aligned timings, then the artifact chip the run
+   produced. Deliberately a different anatomy from the approval card. */
+/* The question as the user's chat bubble, per the session screenshot:
+   white rounded pill hugging the right edge, body face rather than the
+   mono qstring motif. */
+.feat__msg {
+  justify-self: end;
+  max-width: 92%;
+  margin-bottom: var(--sp-1);
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-xs);
+  font-size: var(--t-caption);
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.feat__tasks { display: grid; gap: 6px; }
+.feat__tasks-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--ink-2);
+}
+.feat__tasks-head svg { width: 10px; height: 10px; flex: none; color: var(--ink-faint); }
+.feat__task {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.feat__task-icon { display: flex; flex: none; color: var(--brand); }
+.feat__task-icon svg { width: 14px; height: 14px; }
+.feat__task-t {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--t-caption);
+  color: var(--ink-faint);
+  text-decoration: line-through;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.feat__task-meta {
+  flex: none;
+  font-size: var(--t-caption);
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The produced artifact, as the tinted chip rows in the session view. */
+.feat__artifact {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: color-mix(in srgb, var(--brand) 6%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--brand) 24%, transparent);
+  border-radius: var(--r-sm);
+}
+.feat__artifact-icon { display: flex; flex: none; color: var(--brand); }
+.feat__artifact-icon svg { width: 16px; height: 16px; }
+.feat__artifact-body { display: grid; gap: 1px; min-width: 0; }
+.feat__artifact-t,
+.feat__artifact-m {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.feat__artifact-t {
+  font-size: var(--t-caption);
+  font-weight: 600;
+  color: var(--ink);
+}
+.feat__artifact-m {
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+}
+.feat__artifact-state { margin-left: auto; flex: none; }
+
+/* The journey canvas: the builder surface from the product screenshot.
+   Dot-grid ground, an entry block splitting into two typed paths, blocks
+   joined by hairline connectors; type reads from a coloured square dot. */
+.feat__canvas {
+  padding: var(--sp-3);
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--ink) 10%, transparent) 1px, transparent 1px);
+  background-size: 14px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.feat__node {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  padding: 5px 9px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  box-shadow: var(--shadow-xs);
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--ink-2);
+  position: relative;
+  z-index: 1;
+}
+/* Bare text can't ellipsize as a flex child, so labels ride in a span. */
+.feat__node-t {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.feat__node--entry { width: fit-content; max-width: 100%; margin-inline: auto; }
+.feat__nodedot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+}
+.feat__nodedot--audience { background: var(--ink); }
+.feat__nodedot--sms { background: var(--hold); }
+.feat__nodedot--wait { background: var(--ink-faint); }
+.feat__nodedot--email { background: var(--brand); }
+
+/* Entry stub, crossbar, and the two drops into the path columns. */
+.feat__split { position: relative; height: 16px; }
+.feat__split::before {
+  content: '';
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  top: 8px;
+  bottom: 0;
+  border: 1px solid var(--border-strong);
+  border-bottom: 0;
+}
+.feat__split::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 8px;
+  background: var(--border-strong);
+}
+
+.feat__paths {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-3);
+}
+.feat__path {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+/* The column's spine: nodes sit over it, the gaps show it. */
+.feat__path::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 14px;
+  left: 50%;
+  width: 1px;
+  background: var(--border-strong);
+}
+
 .feat__runs { display: grid; gap: 6px; }
 .feat__run {
   display: flex;
@@ -942,6 +1128,165 @@
   stroke-linejoin: round;
 }
 
+/* The segment trend: a full-width area chart closing the card, bleeding
+   into the well's bottom fade like the reference illustrations. Faint
+   gridlines and a glowing endpoint give it the dashboard read. */
+.feat__chartwrap { position: relative; margin-top: var(--sp-1); }
+.feat__chart {
+  display: block;
+  width: 100%;
+  height: 56px;
+}
+.feat__chart-grid {
+  fill: none;
+  stroke: color-mix(in srgb, var(--ink) 7%, transparent);
+  stroke-width: 1;
+}
+.feat__chart-area {
+  fill: var(--approve);
+  opacity: 0.09;
+}
+.feat__chart-line {
+  fill: none;
+  stroke: var(--approve);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* HTML dot, not an svg circle: preserveAspectRatio none would stretch it. */
+.feat__chart-end {
+  position: absolute;
+  left: 99.2%;
+  top: 14.3%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--approve);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--approve) 18%, transparent);
+}
+
+/* The task list collapses like the product's session log; the structure is
+   always wrapped so the grid-rows trick has a track to animate. */
+.feat__tasks-list {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.45s var(--ease);
+}
+.feat__tasks-listin {
+  min-height: 0;
+  overflow: hidden;
+  display: grid;
+  gap: 6px;
+}
+.feat__tasks-head svg { transition: transform 0.3s var(--ease); }
+
+/* ---- One-time session playback (js/session-card.js) --------------------
+   The card arms hidden, then replays: message -> tasks (spinner, strike,
+   check) -> artifact chip -> chart draw. The finished state is
+   the markup default; everything here rides the .is-armed gate so no-JS
+   and reduced motion never see it. */
+.feat__card.is-armed .feat__msg,
+.feat__card.is-armed .feat__tasks-head,
+.feat__card.is-armed .feat__task,
+.feat__card.is-armed .feat__artifact,
+.feat__card.is-armed .feat__chartwrap {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+}
+.feat__card.s-msg .feat__msg,
+.feat__card.s-head .feat__tasks-head,
+.feat__card.is-armed .feat__task.is-on,
+.feat__card.s-artifact .feat__artifact,
+.feat__card.s-chart .feat__chartwrap {
+  opacity: 1;
+  transform: none;
+}
+
+/* A running task: no strike yet, timing hidden, spinner over the check. */
+.feat__task-icon { position: relative; width: 14px; height: 14px; }
+.feat__task-icon svg { transition: opacity 0.2s var(--ease), transform 0.25s var(--ease); }
+.feat__task-meta { transition: opacity 0.25s var(--ease); }
+.feat__card.is-armed .feat__task:not(.is-done) .feat__task-t {
+  text-decoration: none;
+  color: var(--ink-2);
+}
+.feat__card.is-armed .feat__task:not(.is-done) .feat__task-meta { opacity: 0; }
+.feat__card.is-armed .feat__task:not(.is-done) .feat__task-icon svg {
+  opacity: 0;
+  transform: scale(0.5);
+}
+.feat__card.is-armed .feat__task.is-on:not(.is-done) .feat__task-icon::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-strong);
+  border-top-color: var(--brand);
+  animation: feat-spin 0.6s linear infinite;
+}
+@keyframes feat-spin { to { transform: rotate(360deg); } }
+
+/* Chart draw-on: line sweeps, area floods, endpoint pops. */
+.feat__card.is-armed .feat__chart-line {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+.feat__card.s-chart .feat__chart-line {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.8s var(--ease) 0.1s;
+}
+.feat__card.is-armed .feat__chart-area {
+  opacity: 0;
+  transition: opacity 0.6s var(--ease) 0.45s;
+}
+.feat__card.s-chart .feat__chart-area { opacity: 0.09; }
+.feat__card.is-armed .feat__chart-end {
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.3s var(--ease) 0.8s, transform 0.3s var(--ease) 0.8s;
+}
+.feat__card.s-chart .feat__chart-end {
+  opacity: 1;
+  transform: none;
+}
+
+/* Journey card playback: canvas ground in, then the flow builds top-down:
+   entry node, connectors grow downward, then each level of path nodes. */
+.feat__card.is-armed .feat__canvas {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+}
+.feat__card.s-canvas .feat__canvas {
+  opacity: 1;
+  transform: none;
+}
+.feat__card.is-armed .feat__node {
+  opacity: 0;
+  transform: translateY(4px) scale(0.94);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.feat__card.is-armed .feat__node.is-in {
+  opacity: 1;
+  transform: none;
+}
+.feat__card.is-armed .feat__split::before,
+.feat__card.is-armed .feat__split::after,
+.feat__card.is-armed .feat__path::before {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.5s var(--ease);
+}
+.feat__card.s-split .feat__split::before,
+.feat__card.s-split .feat__split::after { transform: scaleY(1); }
+.feat__card.s-split .feat__path::before {
+  transform: scaleY(1);
+  transition-duration: 1s;
+  transition-delay: 0.2s;
+}
+
 .feat__stat-label {
   margin-top: var(--sp-2);
   font-family: var(--font-mono);
@@ -976,7 +1321,7 @@
   align-items: center;
   gap: 8px;
   margin: 0 var(--sp-2) -12px;
-  padding: 8px 14px 20px;
+  padding: 8px 14px 16px;
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: var(--r-md) var(--r-md) 0 0;
@@ -989,6 +1334,43 @@
 }
 .feat__panel-lip svg { width: 14px; height: 14px; flex: none; color: var(--ink-faint); }
 .feat__panel-lip + .feat__card { position: relative; z-index: 1; }
+
+/* The journey timeline inside the move card: labelled hops (channel, wait,
+   channel) joined by a hairline connector between the icon tiles, so the
+   card reads as a sequence rather than skeleton rows. */
+.feat__flow { display: grid; margin-top: var(--sp-1); }
+.feat__hop {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-block: 4px;
+}
+.feat__hop + .feat__hop::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: -5px;
+  width: 1px;
+  height: 10px;
+  background: var(--border-strong);
+}
+.feat__hop-body {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-2);
+}
+.feat__hop-t {
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--ink-2);
+}
+.feat__hop-meta {
+  font-size: var(--t-caption);
+  color: var(--ink-faint);
+}
 
 /* Config steps inside the move card: icon tile, label, skeleton value,
    dashed dividers between rows. */
@@ -1056,6 +1438,12 @@
   color: var(--ink-3);
 }
 
+
+/* Phones: the qstrings wrap onto extra lines, so the wells get taller and
+   the fade shallower to keep the approval chips clear of it. */
+@media (max-width: 640px) {
+  .feat__fig { height: 472px; }
+}
 
 @media (max-width: 991px) {
   .feat { grid-template-columns: 1fr; }

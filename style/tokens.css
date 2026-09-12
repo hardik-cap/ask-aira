@@ -26,6 +26,9 @@
   --indigo-grad-from: #6369F6;
   --indigo-grad-to:   #436FF6;
 
+  /* Violet accent: the blue-to-purple sweep in the mechanism beams */
+  --violet-400: #A78BFA;
+
   /* ---- Raw ramp: slate (cool neutrals, hue-aligned to the indigo) --- */
   --slate-50:  #F7F8FB;
   --slate-100: #EFF1F6;
