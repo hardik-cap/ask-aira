@@ -1,0 +1,108 @@
+/* ==========================================================================
+   aiRA — Homepage V2 experiment (index-v2.html)
+   Workers-style dark treatment (cloudflare.com/products/workers): near-black
+   ground (tokens remapped in tokens.css under .page-v2), DOTTED vertical
+   frame rails with square handles at the joints, a faint dot-grid texture
+   in the outer gutters, and dashed-border chip accents.
+
+   Loads AFTER home.css and only overrides; everything token-driven flips
+   through the .page-v2 remap on its own.
+   ========================================================================== */
+
+/* ---- The frame: dotted rails, square handles, gutter dot-grid ---------- */
+
+/* Vertical rails become dotted runs of the frame line. */
+.page-v2 .section::before,
+.page-v2 .section::after,
+.page-v2 .footer::before,
+.page-v2 .footer::after {
+  background: repeating-linear-gradient(to bottom,
+    var(--frame-line) 0 3px, transparent 3px 9px);
+}
+.page-v2 .section--inv::before,
+.page-v2 .section--inv::after {
+  background: repeating-linear-gradient(to bottom,
+    var(--frame-line-inv) 0 3px, transparent 3px 9px);
+}
+
+/* Joint crossings: the Phosphor plus gives way to the reference's small
+   outlined square handles. */
+.page-v2 .joint::before,
+.page-v2 .joint::after {
+  width: 7px;
+  height: 7px;
+  -webkit-mask: none;
+  mask: none;
+  background: var(--bg);
+  border: 1px solid var(--ink-faint);
+}
+
+/* Dot-grid bands INSIDE the 80rem frame (the reference's page texture):
+   from the questions section down (.v2-frame in the markup), each rail
+   pseudo widens into a strip bounded by dotted lines on both edges with
+   the dot grid filling between, and the content column insets to clear
+   it. Above 1199px only; phones keep the plain rails. */
+@media (min-width: 1200px) {
+  .page-v2 .v2-frame::before,
+  .page-v2 .v2-frame::after {
+    width: 112px;
+    background:
+      repeating-linear-gradient(to bottom,
+        var(--frame-line) 0 3px, transparent 3px 9px) left top / 1px 100% no-repeat,
+      repeating-linear-gradient(to bottom,
+        var(--frame-line) 0 3px, transparent 3px 9px) right top / 1px 100% no-repeat,
+      radial-gradient(circle, var(--frame-grid) 1px, transparent 1.5px)
+        left top / 14px 14px repeat;
+  }
+  .page-v2 .v2-frame.section--inv::before,
+  .page-v2 .v2-frame.section--inv::after {
+    background:
+      repeating-linear-gradient(to bottom,
+        var(--frame-line-inv) 0 3px, transparent 3px 9px) left top / 1px 100% no-repeat,
+      repeating-linear-gradient(to bottom,
+        var(--frame-line-inv) 0 3px, transparent 3px 9px) right top / 1px 100% no-repeat,
+      radial-gradient(circle, var(--frame-grid) 1px, transparent 1.5px)
+        left top / 14px 14px repeat;
+  }
+  /* The slight layout shift: content clears the bands. */
+  .page-v2 .v2-frame .container { padding-inline: 136px; }
+}
+
+/* ---- Navbar over the dark ground --------------------------------------- */
+
+/* The default (light) logo is near-invisible here; pin the reverse. */
+.page-v2 .nav__logo-light { display: none; }
+.page-v2 .nav__logo-dark { display: block; }
+.page-v2 .footer__logo-light { display: none; }
+.page-v2 .footer__logo-dark { display: block; }
+
+/* ---- Workers-flavour accents ------------------------------------------- */
+
+/* The hero video frame goes dashed, like the reference's terminal panels. */
+.page-v2 .hero__video {
+  border: 1px dashed var(--border-strong);
+  background: var(--bg-subtle);
+}
+
+/* ---- Per-section fixups over the remapped ground ------------------------ */
+
+/* Customer logos ship as #393939 exports: inverted they read as the light
+   grey the reference uses. The colour hover layer stays untouched. */
+.page-v2 .proof__logo > img:first-child { filter: invert(1); opacity: 0.6; }
+
+/* The footer wordmark's black strokes flip light. */
+.page-v2 .footer__wordmark img { filter: invert(1); opacity: 0.12; }
+
+/* The white session cards read better as dark surfaces here; every inner
+   token (borders, inks, chips) already remapped. */
+.page-v2 .feat__msg { background: var(--surface-2); }
+
+/* Muted-ink strikethrough tasks stay legible on dark. */
+.page-v2 .feat__task-t { color: var(--ink-faint); }
+
+/* The compare board's brand panel keeps real brand indigo, not the lifted
+   dark-mode accent, so white text keeps its contrast. */
+.page-v2 .compare__brandbg { background: var(--indigo-500); }
+
+/* Book panel keeps true indigo too. */
+.page-v2 .book__panel { background: var(--indigo-500); }

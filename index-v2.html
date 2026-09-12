@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>V2 · aiRA | On-Demand Insights and Analytics Agent for Customer Data</title>
+  <meta name="description" content="aiRA reads the customer data you already own and pushes to the channels you already run. Ask in plain language, get the insight, the reasoning and a recommended move built and waiting on your approval.">
+
+  <meta property="og:title" content="aiRA | On-Demand Insights and Analytics Agent for Customer Data">
+  <meta property="og:description" content="aiRA sits between your data and your channels. Ask in plain language, get the insight, the reasoning and a recommended move built and waiting on your approval.">
+  <meta property="og:image" content="https://askaira.ai/assets/og/og-default.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://askaira.ai/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="aiRA | On-Demand Insights and Analytics Agent for Customer Data">
+  <meta name="twitter:description" content="aiRA sits between your data and your channels. Ask in plain language, get a move built and waiting on your approval.">
+  <meta name="twitter:image" content="https://askaira.ai/assets/og/og-default.png">
+
+  <link rel="icon" href="/assets/brand/aira-mark.svg" type="image/svg+xml">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "aiRA",
+    "applicationCategory": "BusinessApplication",
+    "description": "On-demand insights and analytics agent for customer data.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Capillary Technologies",
+      "url": "https://www.capillarytech.com/"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Geist+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap">
+
+  <!-- Order matters: tokens -> global -> components -> page -->
+  <link rel="stylesheet" href="/style/tokens.css">
+  <link rel="stylesheet" href="/style/global.css">
+  <link rel="stylesheet" href="/style/components.css">
+  <link rel="stylesheet" href="/style/pages/home.css">
+  <link rel="stylesheet" href="/style/pages/home-v2.css">
+
+  <script src="/js/components.js" defer></script>
+  <script src="/js/reveal.js" defer></script>
+  <script src="/js/diagram.js" defer></script>
+  <script src="/js/rotator.js" defer></script>
+  <script src="/js/video.js" defer></script>
+  <script src="/js/accordion.js" defer></script>
+  <script src="/js/marquee.js" defer></script>
+  <script src="/js/session-card.js" defer></script>
+</head>
+
+<body class="page-home page-v2">
+
+  <div id="navbar-placeholder"></div>
+
+  <!-- Page-frame joints: one .joint between each pair of visible sections
+       (see global.css); the header's own bottom border draws the top line.
+       When a hidden section is restored, move or add joints so every
+       visible boundary keeps its line. -->
+
+  <main id="main">
+
+    <!-- ================= HERO ================= -->
+    <section class="section section--flush-bottom hero">
+      <div class="hero__grad" aria-hidden="true"></div>
+
+      <div class="padding-global">
+        <div class="container hero__inner">
+
+          <a class="hero__announce" href="/product">
+            <span class="hero__announce-text">
+              <img class="hero__announce-mark" src="/assets/brand/capillary.svg" alt="" aria-hidden="true" width="24" height="18">
+              Introducing aiRA by Capillary
+            </span>
+            <span class="hero__announce-sep"></span>
+            <span class="hero__announce-go">
+              <span class="hero__announce-arrows">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
+            </span>
+          </a>
+
+          <h1 class="hero__title">
+            <span class="sr-only">On-demand insights and analytics agent for eCommerce, growth, marketing, CRM, loyalty, and data and BI teams.</span>
+            <span aria-hidden="true">
+              On-demand insights and<br>
+              analytics agent for<br>
+              <span class="hero__rot-icon" id="hero-rot-icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg></span>
+              <span class="hero__rot-word" id="hero-rot-word">eCommerce</span>
+              <em>teams</em>
+            </span>
+          </h1>
+
+          <p class="hero__sub">
+            Ask questions about your customer and marketing data in plain language.
+            Get real-time insights, the reasoning behind them, and a recommended move
+            built and waiting on your approval.
+          </p>
+
+          <div class="btn-row hero__cta">
+            <span class="btn-frame">
+              <a class="btn btn--primary btn--lg" href="/book">
+                Book a working session
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </span>
+          </div>
+
+          <div class="hero__asks">
+            <!-- Typed caps, not text-transform: the transform would render
+                 the brand as AIRA. -->
+            <p class="hero__asks-label">ASK aiRA FOR</p>
+            <!-- On phones the pill row becomes a ticker: js/marquee.js clones
+                 the list into the belt and CSS scrolls it. -->
+            <div class="hero__askbelt">
+              <ul class="hero__asklist">
+              <li>
+                <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg>
+                Ad hoc analytics
+              </li>
+              <li>
+                <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg>
+                Predictive models
+              </li>
+              <li>
+                <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>
+                Audience builder
+              </li>
+              <li>
+                <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M80,176a32,32,0,1,1-32-32A32,32,0,0,1,80,176Z" opacity="0.2"/><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg>
+                Journey orchestration
+              </li>
+              <li>
+                <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M176,96a48,48,0,1,1-48-48A48,48,0,0,1,176,96Z" opacity="0.2"/><path d="M216,96A88,88,0,1,0,72,163.83V240a8,8,0,0,0,11.58,7.16L128,225l44.43,22.21A8.07,8.07,0,0,0,176,248a8,8,0,0,0,8-8V163.83A87.85,87.85,0,0,0,216,96ZM56,96a72,72,0,1,1,72,72A72.08,72.08,0,0,1,56,96ZM168,227.06l-36.43-18.21a8,8,0,0,0-7.16,0L88,227.06V174.37a87.89,87.89,0,0,0,80,0ZM128,152A56,56,0,1,0,72,96,56.06,56.06,0,0,0,128,152Zm0-96A40,40,0,1,1,88,96,40,40,0,0,1,128,56Z"/></svg>
+                Loyalty &amp; rewards
+              </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Product tour: the screenshot as the poster of a click-to-load
+           facade (js/video.js); the YouTube iframe loads only on click. -->
+      <div class="padding-global">
+        <div class="container">
+          <div class="hero__video"
+               data-video="https://www.youtube.com/embed/9OHDIi256uQ?si=e6kLUBVmScoQgixV&amp;autoplay=1"
+               data-video-title="The aiRA product tour">
+            <button class="hero__video-poster" type="button" data-video-play
+                    aria-label="Play the aiRA product tour video">
+              <img src="/assets/product/hero-product.png"
+                   alt="" width="2600" height="1401">
+              <span class="hero__video-fade" aria-hidden="true"></span>
+              <span class="hero__video-btn" aria-hidden="true">
+                <svg viewBox="0 0 256 256" fill="currentColor"><path d="M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z"/></svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= PROOF: logo cloud ================= -->
+    <!-- Marquee (Magic UI): identical tracks slide one track-width per loop;
+         only the first is exposed to assistive tech. Mono-caps names hold
+         the seats until the customer brand marks arrive. -->
+    <section class="section section--tight section--wash proof">
+      <div class="padding-global">
+        <div class="container">
+          <div class="proof__marquee">
+            <div class="logo-wall proof__track">
+              <span class="proof__logo"><img src="/assets/logos/nascar.svg" alt="NASCAR" width="192" height="32"><img class="proof__logo-color" src="/assets/logos/nascar-color.svg" alt="" aria-hidden="true" width="192" height="32"></span>
+              <span class="proof__logo"><img src="/assets/logos/hertz.svg" alt="Hertz" width="90" height="32"><img class="proof__logo-color" src="/assets/logos/hertz-color.svg" alt="" aria-hidden="true" width="90" height="32"></span>
+              <span class="proof__logo"><img src="/assets/logos/rack-room-shoes.svg" alt="Rack Room Shoes" width="48" height="48"><img class="proof__logo-color" src="/assets/logos/rack-room-shoes-color.svg" alt="" aria-hidden="true" width="48" height="48"></span>
+              <span class="proof__logo"><img src="/assets/logos/racetrac.svg" alt="RaceTrac" width="142" height="32"><img class="proof__logo-color" src="/assets/logos/racetrac-color.svg" alt="" aria-hidden="true" width="142" height="32"></span>
+              <span class="proof__logo"><img src="/assets/logos/walgreens.svg" alt="Walgreens" width="154" height="32"><img class="proof__logo-color" src="/assets/logos/walgreens-color.svg" alt="" aria-hidden="true" width="154" height="32"></span>
+              <span class="proof__logo"><img src="/assets/logos/cochran.svg" alt="Cochran" width="114" height="32"><img class="proof__logo-color" src="/assets/logos/cochran-color.svg" alt="" aria-hidden="true" width="114" height="32"></span>
+            </div>
+            <div class="logo-wall proof__track" aria-hidden="true">
+              <span class="proof__logo"><img src="/assets/logos/nascar.svg" alt="NASCAR" width="192" height="32"><img class="proof__logo-color" src="/assets/logos/nascar-color.svg" alt="" aria-hidden="true" width="192" height="32"></span>
+              <span class="proof__logo"><img src="/assets/logos/hertz.svg" alt="Hertz" width="90" height="32"><img class="proof__logo-color" src="/assets/logos/hertz-color.svg" alt="" aria-hidden="true" width="90" height="32"></span>
+              <span class="proof__logo"><img src="/assets/logos/rack-room-shoes.svg" alt="Rack Room Shoes" width="48" height="48"><img class="proof__logo-color" src="/assets/logos/rack-room-shoes-color.svg" alt="" aria-hidden="true" width="48" height="48"></span>
+              <span class="proof__logo"><img src="/assets/logos/racetrac.svg" alt="RaceTrac" width="142" height="32"><img class="proof__logo-color" src="/assets/logos/racetrac-color.svg" alt="" aria-hidden="true" width="142" height="32"></span>
+              <span class="proof__logo"><img src="/assets/logos/walgreens.svg" alt="Walgreens" width="154" height="32"><img class="proof__logo-color" src="/assets/logos/walgreens-color.svg" alt="" aria-hidden="true" width="154" height="32"></span>
+              <span class="proof__logo"><img src="/assets/logos/cochran.svg" alt="Cochran" width="114" height="32"><img class="proof__logo-color" src="/assets/logos/cochran-color.svg" alt="" aria-hidden="true" width="114" height="32"></span>
+            </div>
+            <div class="logo-wall proof__track" aria-hidden="true">
+              <span class="proof__logo"><img src="/assets/logos/nascar.svg" alt="NASCAR" width="192" height="32"><img class="proof__logo-color" src="/assets/logos/nascar-color.svg" alt="" aria-hidden="true" width="192" height="32"></span>
+              <span class="proof__logo"><img src="/assets/logos/hertz.svg" alt="Hertz" width="90" height="32"><img class="proof__logo-color" src="/assets/logos/hertz-color.svg" alt="" aria-hidden="true" width="90" height="32"></span>
+              <span class="proof__logo"><img src="/assets/logos/rack-room-shoes.svg" alt="Rack Room Shoes" width="48" height="48"><img class="proof__logo-color" src="/assets/logos/rack-room-shoes-color.svg" alt="" aria-hidden="true" width="48" height="48"></span>
+              <span class="proof__logo"><img src="/assets/logos/racetrac.svg" alt="RaceTrac" width="142" height="32"><img class="proof__logo-color" src="/assets/logos/racetrac-color.svg" alt="" aria-hidden="true" width="142" height="32"></span>
+              <span class="proof__logo"><img src="/assets/logos/walgreens.svg" alt="Walgreens" width="154" height="32"><img class="proof__logo-color" src="/assets/logos/walgreens-color.svg" alt="" aria-hidden="true" width="154" height="32"></span>
+              <span class="proof__logo"><img src="/assets/logos/cochran.svg" alt="Cochran" width="114" height="32"><img class="proof__logo-color" src="/assets/logos/cochran-color.svg" alt="" aria-hidden="true" width="114" height="32"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= QUESTIONS ================= -->
+    <section class="section section--wash asks" id="questions">
+      <div class="padding-global">
+        <div class="container">
+
+          <div class="section-head section-head--center reveal">
+            <p class="eyebrow">In practice</p>
+            <h2 class="section-heading">What people actually ask aiRA.</h2>
+            <p class="section-sub">
+              Real question shapes across aiRA's core capabilities, grounded in how teams
+              actually use it, not hypothetical demo copy.
+            </p>
+          </div>
+
+          <!-- The audience builder -> journey orchestration pair is one
+               continuous thread on /lp, so it carries the two illustration
+               columns; the other five capability question pairs follow. -->
+          <div class="feat reveal">
+            <div class="feat__col">
+              <span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg></span>
+              <h3 class="feat__title">Audience builder</h3>
+              <p class="feat__body">
+                Describe the audience the way you would say it out loud, and aiRA
+                builds the segment from your live data.
+              </p>
+              <div class="feat__fig">
+                <div class="feat__card feat__card--session">
+                  <p class="feat__msg">Build a segment of members who bought once and never came back.</p>
+                  <div class="feat__tasks" aria-hidden="true">
+                    <p class="feat__tasks-head">
+                      <svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+                      Building the segment
+                    </p>
+                    <div class="feat__tasks-list"><div class="feat__tasks-listin">
+                    <div class="feat__task">
+                      <span class="feat__task-icon"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span>
+                      <span class="feat__task-t">Querying the CDP snapshot</span>
+                      <span class="feat__task-meta">1.2s</span>
+                    </div>
+                    <div class="feat__task">
+                      <span class="feat__task-icon"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span>
+                      <span class="feat__task-t">Pulling spend, frequency, recency</span>
+                      <span class="feat__task-meta">0.9s</span>
+                    </div>
+                    <div class="feat__task">
+                      <span class="feat__task-icon"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span>
+                      <span class="feat__task-t">Matching one-time buyers</span>
+                      <span class="feat__task-meta">1.4s</span>
+                    </div>
+                    </div></div>
+                  </div>
+                  <div class="feat__artifact" aria-hidden="true">
+                    <span class="feat__artifact-icon"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg></span>
+                    <span class="feat__artifact-body">
+                      <span class="feat__artifact-t">Lapsed once-buyers</span>
+                      <span class="feat__artifact-m">Segment &middot; 12,408 members &middot; v1</span>
+                    </span>
+                  </div>
+                  <div class="feat__chartwrap" aria-hidden="true">
+                    <svg class="feat__chart" viewBox="0 0 240 56" preserveAspectRatio="none">
+                      <path class="feat__chart-grid" d="M2 18H238M2 32H238M2 46H238"/>
+                      <path class="feat__chart-area" d="M2 44L36 34L70 38L104 24L138 28L172 16L206 20L238 8L238 54L2 54Z"/>
+                      <path class="feat__chart-line" d="M2 44L36 34L70 38L104 24L138 28L172 16L206 20L238 8" pathLength="100"/>
+                    </svg>
+                    <i class="feat__chart-end"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="feat__col">
+              <span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M80,176a32,32,0,1,1-32-32A32,32,0,0,1,80,176Z" opacity="0.2"/><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg></span>
+              <h3 class="feat__title">Journey orchestration</h3>
+              <p class="feat__body">
+                The follow-up move on that segment arrives already built, and nothing
+                goes live until a person approves it.
+              </p>
+              <div class="feat__fig">
+                <div class="feat__card feat__card--journey">
+                  <p class="feat__msg">Create a win-back journey for the lapsed members in that segment.</p>
+                  <div class="feat__artifact" aria-hidden="true">
+                    <span class="feat__artifact-icon"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg></span>
+                    <span class="feat__artifact-body">
+                      <span class="feat__artifact-t">Lapsed win-back journey</span>
+                      <span class="feat__artifact-m">Journey &middot; 14 steps &middot; 2 paths &middot; v1</span>
+                    </span>
+                    <span class="state state--pending feat__artifact-state">Pending</span>
+                  </div>
+                  <div class="feat__canvas" aria-hidden="true">
+                    <div class="feat__node feat__node--entry"><i class="feat__nodedot feat__nodedot--audience"></i><span class="feat__node-t">Entry &middot; no purchase 60 days</span></div>
+                    <div class="feat__split"></div>
+                    <div class="feat__paths">
+                      <div class="feat__path">
+                        <div class="feat__node"><i class="feat__nodedot feat__nodedot--sms"></i><span class="feat__node-t">SMS &middot; VIP win-back</span></div>
+                        <div class="feat__node"><i class="feat__nodedot feat__nodedot--wait"></i><span class="feat__node-t">Wait 2 days</span></div>
+                        <div class="feat__node"><i class="feat__nodedot feat__nodedot--email"></i><span class="feat__node-t">Email &middot; 25% off</span></div>
+                      </div>
+                      <div class="feat__path">
+                        <div class="feat__node"><i class="feat__nodedot feat__nodedot--sms"></i><span class="feat__node-t">SMS &middot; reminder</span></div>
+                        <div class="feat__node"><i class="feat__nodedot feat__nodedot--wait"></i><span class="feat__node-t">Wait 3 days</span></div>
+                        <div class="feat__node"><i class="feat__nodedot feat__nodedot--email"></i><span class="feat__node-t">Email &middot; 10% off</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ul class="feat__mini reveal reveal-stagger">
+            <li>
+              <span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg></span>
+              <h4>Ad hoc analytics</h4>
+              <p>How many members with a negative points balance redeemed a certificate last quarter?</p>
+            </li>
+            <li>
+              <span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V200H224A8,8,0,0,1,232,208ZM132,160a12,12,0,1,0-12-12A12,12,0,0,0,132,160Zm-24-56A12,12,0,1,0,96,92,12,12,0,0,0,108,104ZM76,176a12,12,0,1,0-12-12A12,12,0,0,0,76,176Zm96-48a12,12,0,1,0-12-12A12,12,0,0,0,172,128Zm24-40a12,12,0,1,0-12-12A12,12,0,0,0,196,88Zm-20,76a12,12,0,1,0,12-12A12,12,0,0,0,176,164Z"/></svg></span>
+              <h4>Advanced analytics</h4>
+              <p>Run a market basket analysis for our decile&#8209;10 buyers this year.</p>
+            </li>
+            <li>
+              <span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,56v56c0,96-88,120-88,120S40,208,40,112V56a8,8,0,0,1,8-8H208A8,8,0,0,1,216,56Z" opacity="0.2"/><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></svg></span>
+              <h4>Data quality &amp; fraud checks</h4>
+              <p>Flag duplicate emails and unusual redemption spikes from the last 30 days.</p>
+            </li>
+            <li>
+              <span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg></span>
+              <h4>Predictive models</h4>
+              <p>Which members are most likely to churn in the next 60 days?</p>
+            </li>
+            <li>
+              <span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,56V200H160a32,32,0,0,0-32,32,32,32,0,0,0-32-32H24V56H96a32,32,0,0,1,32,32,32,32,0,0,1,32-32Z" opacity="0.2"/><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></svg></span>
+              <h4>Knowledge base Q&amp;A</h4>
+              <p>What counts as an active member under our current program rules?</p>
+            </li>
+            <li>
+              <span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M176,96a48,48,0,1,1-48-48A48,48,0,0,1,176,96Z" opacity="0.2"/><path d="M216,96A88,88,0,1,0,72,163.83V240a8,8,0,0,0,11.58,7.16L128,225l44.43,22.21A8.07,8.07,0,0,0,176,248a8,8,0,0,0,8-8V163.83A87.85,87.85,0,0,0,216,96ZM56,96a72,72,0,1,1,72,72A72.08,72.08,0,0,1,56,96ZM168,227.06l-36.43-18.21a8,8,0,0,0-7.16,0L88,227.06V174.37a87.89,87.89,0,0,0,80,0ZM128,152A56,56,0,1,0,72,96,56.06,56.06,0,0,0,128,152Zm0-96A40,40,0,1,1,88,96,40,40,0,0,1,128,56Z"/></svg></span>
+              <h4>Loyalty &amp; rewards</h4>
+              <p>Which rewards actually change repeat behaviour, and which just cost margin?</p>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- Sections below carry `hidden` while the homepage is pared down for
+         direction review. Remove the attribute to restore a section, and
+         add a joint above it so every visible boundary keeps its line. -->
+
+    <!-- ================= MECHANISM ================= -->
+    <section class="section section--inv mech v2-frame" id="how" data-nav-dark>
+      <div class="mech__glow" aria-hidden="true"></div>
+      <div class="padding-global">
+        <div class="container">
+
+          <div class="section-head section-head--center reveal">
+            <p class="eyebrow">How it fits</p>
+            <h2 class="section-heading">
+              aiRA sits between your<br>
+              <em>data and your channels.</em>
+            </h2>
+            <p class="section-sub">
+              You already own the warehouse. You already own the channels. What is missing
+              is the judgement in between, and today that runs on analyst tickets and
+              Monday meetings.
+            </p>
+          </div>
+
+          <div class="mech__diagram reveal">
+
+            <div class="mech__sources">
+              <p class="mech__col-label">System of record</p>
+              <img src="/assets/logos/databricks.svg" alt="Databricks" width="143" height="22">
+              <img src="/assets/logos/snowflake.svg" alt="Snowflake" width="96" height="22">
+              <img src="/assets/logos/bigquery.svg" alt="Google BigQuery" width="82" height="28">
+              <img src="/assets/logos/redshift.svg" alt="Amazon Redshift" width="67" height="26">
+              <p class="mech__col-sub">Reads where your data already sits</p>
+            </div>
+
+            <div class="mech__core">
+              <div class="mech__core-node">
+                <img src="/assets/brand/aira-mark.svg" alt="aiRA" width="40" height="40">
+              </div>
+              <p class="mech__core-label">The intelligence layer</p>
+                <div class="mech__core-sub" aria-label="Reasoning engine · your business context · 140+ playbooks · learns from every approval">
+                  <span class="mech__core-sub-text" id="mech-core-sub" aria-hidden="true">
+                    <span class="is-on"><span class="dotspin"></span>Reasoning engine</span>
+                    <span><span class="dotspin"></span>Your business context</span>
+                    <span><span class="dotspin"></span>140+ playbooks</span>
+                    <span><span class="dotspin"></span>Learns from every approval</span>
+                  </span>
+                </div>
+            </div>
+
+            <div class="mech__dest">
+              <p class="mech__col-label">System of action</p>
+              <img src="/assets/logos/braze.svg" alt="Braze" width="51" height="24">
+              <img src="/assets/logos/adobe.svg" alt="Adobe" width="48" height="26">
+              <img src="/assets/logos/salesforce.svg" alt="Salesforce Marketing Cloud" width="71" height="42">
+              <img src="/assets/logos/engage.svg" alt="Capillary Engage+" width="95" height="22">
+              <p class="mech__col-sub">Executes anywhere, in any channel</p>
+            </div>
+
+          </div>
+
+          <ul class="feat__mini mech__points reveal reveal-stagger">
+            <li>
+              <span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,80c0,26.51-39.4,48-88,48S40,106.51,40,80s39.4-48,88-48S216,53.49,216,80Z" opacity="0.2"/><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg></span>
+              <h4>Zero copy</h4>
+              <p>aiRA reads your data in place. No migration, no rebuild.</p>
+            </li>
+            <li>
+              <span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M185,127,127,185a24,24,0,0,1-33.94,0L71,162.91A24,24,0,0,1,71,129L129,71a24,24,0,0,1,33.94,0L185,93.09A24,24,0,0,1,185,127Z" opacity="0.2"/><path d="M237.66,18.34a8,8,0,0,0-11.32,0l-52.4,52.41-5.37-5.38a32.05,32.05,0,0,0-45.26,0L100,88.69l-6.34-6.35A8,8,0,0,0,82.34,93.66L88.69,100,65.37,123.31a32,32,0,0,0,0,45.26l5.38,5.37-52.41,52.4a8,8,0,0,0,11.32,11.32l52.4-52.41,5.37,5.38a32.06,32.06,0,0,0,45.26,0L156,167.31l6.34,6.35a8,8,0,0,0,11.32-11.32L167.31,156l23.32-23.31a32,32,0,0,0,0-45.26l-5.38-5.37,52.41-52.4A8,8,0,0,0,237.66,18.34Zm-116.29,161a16,16,0,0,1-22.62,0L76.69,157.25a16,16,0,0,1,0-22.62L100,111.31,144.69,156Zm57.94-57.94h0L156,144.69,111.31,100l23.32-23.31a16,16,0,0,1,22.62,0l22.06,22a16,16,0,0,1,0,22.63ZM88.57,35A8,8,0,0,1,103.43,29l8,20A8,8,0,0,1,96.57,55ZM24.57,93A8,8,0,0,1,35,88.57l20,8A8,8,0,0,1,49,111.43l-20-8A8,8,0,0,1,24.57,93ZM231.43,163a8,8,0,0,1-10.4,4.46l-20-8A8,8,0,1,1,207,144.57l20,8A8,8,0,0,1,231.43,163Zm-64,58.06A8,8,0,0,1,152.57,227l-8-20A8,8,0,0,1,159.43,201Z"/></svg></span>
+              <h4>Nothing to rip out</h4>
+              <p>It plugs into what you already own and pushes to what you already run.</p>
+            </li>
+            <li>
+              <span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M168,100a60,60,0,1,1-60-60A60,60,0,0,1,168,100Z" opacity="0.2"/><path d="M144,157.68a68,68,0,1,0-71.9,0c-20.65,6.76-39.23,19.39-54.17,37.17a8,8,0,0,0,12.25,10.3C50.25,181.19,77.91,168,108,168s57.75,13.19,77.87,37.15a8,8,0,0,0,12.25-10.3C183.18,177.07,164.6,164.44,144,157.68ZM56,100a52,52,0,1,1,52,52A52.06,52.06,0,0,1,56,100Zm197.66,33.66-32,32a8,8,0,0,1-11.32,0l-16-16a8,8,0,0,1,11.32-11.32L216,148.69l26.34-26.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+              <h4>A person approves</h4>
+              <p>Every move waits on your approval before it goes live.</p>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+
+    <!-- ================= DIFFERENTIATORS ================= -->
+    <section class="section section--wash diff v2-frame" id="difference">
+      <div class="padding-global">
+        <div class="container">
+
+          <div class="section-head section-head--center reveal">
+            <p class="eyebrow">The difference</p>
+            <h2 class="section-heading">
+              What aiRA does <em>that other tools don't.</em>
+            </h2>
+            <p class="section-sub">
+              Most of the shortlist solves the same problem the same way: connect, model,
+              answer. aiRA is built for what happens on either side of that.
+            </p>
+          </div>
+
+          <div class="diff__grid reveal">
+            <div class="acc diff__acc" data-accordion>
+              <div class="acc__item" data-acc-item>
+                <h3 class="acc__head">
+                  <button class="acc__btn" type="button" id="diff-acc-1"
+                          aria-expanded="true" aria-controls="diff-panel-1">
+                    <span class="acc__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M48,72h64V184H48ZM190.64,38.39a8,8,0,0,0-9.5-6.21l-46.81,10a8.07,8.07,0,0,0-6.15,9.57L139.79,107l62.46-13.42Z" opacity="0.2"/><path d="M231.65,194.55,198.46,36.75a16,16,0,0,0-19-12.39L132.65,34.42a16.08,16.08,0,0,0-12.3,19l33.19,157.8A16,16,0,0,0,169.16,224a16.25,16.25,0,0,0,3.38-.36l46.81-10.06A16.09,16.09,0,0,0,231.65,194.55ZM136,50.15c0-.06,0-.09,0-.09l46.8-10,3.33,15.87L139.33,66Zm6.62,31.47,46.82-10.05,3.34,15.9L146,97.53Zm6.64,31.57,46.82-10.06,13.3,63.24-46.82,10.06ZM216,197.94l-46.8,10-3.33-15.87L212.67,182,216,197.85C216,197.91,216,197.94,216,197.94ZM104,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V48A16,16,0,0,0,104,32ZM56,48h48V64H56Zm0,32h48v96H56Zm48,128H56V192h48v16Z"/></svg></span>
+                    <span class="acc__title">They arrive empty. aiRA arrives knowing your category.</span>
+                  </button>
+                </h3>
+                <div class="acc__panel" id="diff-panel-1" role="region" aria-labelledby="diff-acc-1">
+                  <div class="acc__body">
+                    <p>Most agents start blank, and you teach them your tiers and definitions
+                      before they answer anything. aiRA ships with <strong>140+ playbooks tuned
+                      by industry</strong>, so yours layer on top, not from scratch.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="acc__item" data-acc-item>
+                <h3 class="acc__head">
+                  <button class="acc__btn" type="button" id="diff-acc-2"
+                          aria-expanded="false" aria-controls="diff-panel-2">
+                    <span class="acc__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,64V192H128V64Z" opacity="0.2"/><path d="M224,128a8,8,0,0,1-8,8H128a8,8,0,0,1,0-16h88A8,8,0,0,1,224,128ZM128,72h88a8,8,0,0,0,0-16H128a8,8,0,0,0,0,16Zm88,112H128a8,8,0,0,0,0,16h88a8,8,0,0,0,0-16ZM82.34,42.34,56,68.69,45.66,58.34A8,8,0,0,0,34.34,69.66l16,16a8,8,0,0,0,11.32,0l32-32A8,8,0,0,0,82.34,42.34Zm0,64L56,132.69,45.66,122.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32,0l32-32a8,8,0,0,0-11.32-11.32Zm0,64L56,196.69,45.66,186.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32,0l32-32a8,8,0,0,0-11.32-11.32Z"/></svg></span>
+                    <span class="acc__title">They stop at the answer. The work starts after the answer.</span>
+                  </button>
+                </h3>
+                <div class="acc__panel" id="diff-panel-2" role="region" aria-labelledby="diff-acc-2">
+                  <div class="acc__body">
+                    <p>A narrative answer is where your job begins: brief the team, size the
+                      audience, wait for the build. aiRA carries it through to a
+                      <strong>built move, waiting on your approval</strong>.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="acc__item" data-acc-item>
+                <h3 class="acc__head">
+                  <button class="acc__btn" type="button" id="diff-acc-3"
+                          aria-expanded="false" aria-controls="diff-panel-3">
+                    <span class="acc__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M200,152l-40,40L96,176,40,136,72.68,70.63,128,56l55.32,14.63L183.6,72H144L98.34,116.29a8,8,0,0,0,1.38,12.42C117.23,139.9,141,139.13,160,120Z" opacity="0.2"/><path d="M254.3,107.91,228.78,56.85a16,16,0,0,0-21.47-7.15L182.44,62.13,130.05,48.27a8.14,8.14,0,0,0-4.1,0L73.56,62.13,48.69,49.7a16,16,0,0,0-21.47,7.15L1.7,107.9a16,16,0,0,0,7.15,21.47l27,13.51,55.49,39.63a8.06,8.06,0,0,0,2.71,1.25l64,16a8,8,0,0,0,7.6-2.1l55.07-55.08,26.42-13.21a16,16,0,0,0,7.15-21.46Zm-54.89,33.37L165,113.72a8,8,0,0,0-10.68.61C136.51,132.27,116.66,130,104,122L147.24,80h31.81l27.21,54.41ZM41.53,64,62,74.22,36.43,125.27,16,115.06Zm116,119.13L99.42,168.61l-49.2-35.14,28-56L128,64.28l9.8,2.59-45,43.68-.08.09a16,16,0,0,0,2.72,24.81c20.56,13.13,45.37,11,64.91-5L188,152.66Zm62-57.87-25.52-51L214.47,64,240,115.06Zm-87.75,92.67a8,8,0,0,1-7.75,6.06,8.13,8.13,0,0,1-1.95-.24L80.41,213.33a7.89,7.89,0,0,1-2.71-1.25L51.35,193.26a8,8,0,0,1,9.3-13l25.11,17.94L126,208.24A8,8,0,0,1,131.82,217.94Z"/></svg></span>
+                    <span class="acc__title">They are sold to the team that owns the queue. You are in the queue.</span>
+                  </button>
+                </h3>
+                <div class="acc__panel" id="diff-panel-3" role="region" aria-labelledby="diff-acc-3">
+                  <div class="acc__body">
+                    <p>Most platforms are bought by the data team and rolled out after. aiRA is
+                      bought by <strong>the person with the Monday meeting</strong>, no platform
+                      sign-off required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Illustration well: one panel per accordion item, swapped by
+                 js/accordion.js. Drawn panels replace the numbers later. -->
+            <div class="diff__fig" data-acc-figs aria-hidden="true">
+              <div class="diff__fig-panel is-active"><div class="diff__fig-card"><span class="diff__fig-n">01</span></div></div>
+              <div class="diff__fig-panel"><div class="diff__fig-card"><span class="diff__fig-n">02</span></div></div>
+              <div class="diff__fig-panel"><div class="diff__fig-card"><span class="diff__fig-n">03</span></div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= CATEGORY COMPARISON ================= -->
+    <section class="section section--wash compare v2-frame" id="category">
+      <div class="padding-global">
+        <div class="container">
+
+          <div class="section-head section-head--center reveal">
+            <p class="eyebrow">Against the category</p>
+            <h2 class="section-heading">Where aiRA sits against the category.</h2>
+          </div>
+
+          <div class="compare__wrap reveal">
+            <div class="compare__board" role="table" aria-label="aiRA compared with horizontal AI analytics platforms">
+              <div class="compare__cell compare__cell--feat compare__cell--head" role="columnheader">
+                <span class="sr-only">Compared on</span>
+              </div>
+              <div class="compare__cell compare__cell--aira compare__cell--head" role="columnheader">
+                <img src="/assets/brand/aira-white.svg" alt="aiRA" width="62" height="20">
+              </div>
+              <div class="compare__cell compare__cell--other compare__cell--head" role="columnheader">
+                Horizontal AI analytics platforms
+              </div>
+            <div class="compare__cell compare__cell--feat" role="rowheader">
+              <span class="compare__icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"/></svg></span>
+              Bought by
+            </div>
+            <div class="compare__cell compare__cell--aira" role="cell">Marketing, CRM, growth and insights leaders at consumer brands</div>
+            <div class="compare__cell compare__cell--other" role="cell">The data platform team, then rolled out to the business</div>
+            <div class="compare__cell compare__cell--feat" role="rowheader">
+              <span class="compare__icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,75.64V40a16,16,0,0,0-16-16H72A16,16,0,0,0,56,40V76a16.07,16.07,0,0,0,6.4,12.8L114.67,128,62.4,167.2A16.07,16.07,0,0,0,56,180v36a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V180.36a16.09,16.09,0,0,0-6.35-12.77L141.27,128l52.38-39.6A16.05,16.05,0,0,0,200,75.64ZM184,216H72V180l56-42,56,42.35Zm0-140.36L128,118,72,76V40H184Z"/></svg></span>
+              Before the first answer
+            </div>
+            <div class="compare__cell compare__cell--aira" role="cell">Industry playbooks ship pre-built. Your definitions layered on in days</div>
+            <div class="compare__cell compare__cell--other" role="cell">You model the semantic layer first, typically two to four months</div>
+            <div class="compare__cell compare__cell--feat" role="rowheader">
+              <span class="compare__icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M227.32,48.75A8,8,0,0,0,218.76,50c-28,24.22-51.72,12.48-79.21-1.13C111.07,34.76,78.78,18.79,42.76,50A8,8,0,0,0,40,56V224a8,8,0,0,0,16,0V179.77c26.79-21.16,49.87-9.75,76.45,3.41,28.49,14.09,60.77,30.06,96.79-1.13a8,8,0,0,0,2.76-6V56A8,8,0,0,0,227.32,48.75ZM216,71.6v40.65c-14,11.06-27,13.22-40,10.88V79.34A60.05,60.05,0,0,0,216,71.6Zm-56,3.76v43c-6.66-2.67-13.43-6-20.45-9.48-8.82-4.37-18-8.91-27.55-12.18v-43c6.66,2.66,13.43,6,20.45,9.48C141.27,67.55,150.46,72.09,160,75.36ZM96,48.91V92.69a60.06,60.06,0,0,0-40,7.75V59.78C70,48.72,83,46.57,96,48.91ZM86.58,152A60.06,60.06,0,0,0,56,160.43V119.78c14-11.06,27-13.22,40-10.88v43.8A65.61,65.61,0,0,0,86.58,152ZM112,156.67v-43c6.66,2.66,13.43,6,20.45,9.48,8.82,4.37,18,8.9,27.55,12.17v43c-6.66-2.67-13.43-6-20.45-9.48C130.73,164.47,121.54,159.94,112,156.67Zm64,26.45v-43.8a65.61,65.61,0,0,0,9.42.72A60.11,60.11,0,0,0,216,131.57v40.68C202,183.31,189,185.46,176,183.12Z"/></svg></span>
+              Where it ends
+            </div>
+            <div class="compare__cell compare__cell--aira" role="cell">The recommended move, built and pending your approval</div>
+            <div class="compare__cell compare__cell--other" role="cell">A chart, a narrative and an export. The action is a separate brief</div>
+            <div class="compare__cell compare__cell--feat" role="rowheader">
+              <span class="compare__icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M243.32,116.69l-16-16a16,16,0,0,0-20.84-1.53L156.84,49.52a16,16,0,0,0-1.52-20.84l-16-16a16,16,0,0,0-22.63,0l-64,64a16,16,0,0,0,0,22.63l16,16a16,16,0,0,0,20.83,1.52L96.69,124,31.31,189.38A25,25,0,0,0,66.63,224.7L132,159.32l7.17,7.16a16,16,0,0,0,1.52,20.84l16,16a16,16,0,0,0,22.63,0l64-64A16,16,0,0,0,243.32,116.69ZM80,104,64,88l64-64,16,16ZM55.32,213.38a9,9,0,0,1-12.69,0,9,9,0,0,1,0-12.68L108,135.32,120.69,148ZM101,105.66,145.66,61,195,110.34,150.35,155ZM168,192l-16-16,4-4h0l56-56h0l4-4,16,16Z"/></svg></span>
+              Autonomy
+            </div>
+            <div class="compare__cell compare__cell--aira" role="cell">An agent that proposes. A person decides, on an audit trail</div>
+            <div class="compare__cell compare__cell--other" role="cell">Increasingly autonomous investigation, with reading governed more tightly than acting</div>
+            <div class="compare__cell compare__cell--feat" role="rowheader">
+              <span class="compare__icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"/></svg></span>
+              How you pay
+            </div>
+            <div class="compare__cell compare__cell--aira" role="cell">Credits, charged on work done. No per-seat license</div>
+            <div class="compare__cell compare__cell--other" role="cell">Per seat or committed capacity, agreed upfront</div>
+              <div class="compare__brandbg" aria-hidden="true"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+
+
+    <!-- ================= PRICING SHAPE ================= -->
+    <section class="section section--inv price v2-frame" data-nav-dark>
+      <div class="padding-global">
+        <div class="container">
+
+          <div class="price__top reveal">
+            <div class="price__intro">
+              <p class="eyebrow">Pricing</p>
+              <h2 class="section-heading">
+                No per-seat pricing. <em>Pay based on usage.</em>
+              </h2>
+              <p class="section-sub">
+                A credit is consumed when aiRA runs an analysis or builds an action.
+                Nobody pays for a login they never use, and adding the tenth marketer
+                costs nothing.
+              </p>
+            </div>
+            <div class="price__fig" aria-hidden="true">
+              <div class="price__fig-back">
+                <i class="price__fig-back-dot"></i>
+                <i class="price__fig-back-bar price__fig-back-bar--1"></i>
+                <i class="price__fig-back-bar price__fig-back-bar--2"></i>
+                <i class="price__fig-back-bar price__fig-back-bar--3"></i>
+                <i class="price__fig-back-bar price__fig-back-bar--4"></i>
+              </div>
+              <div class="price__fig-card">
+                <div class="price__fig-head">
+                  <img src="/assets/brand/aira-mark.svg" alt="" width="18" height="18">
+                  <span class="price__fig-id">Credit usage</span>
+                </div>
+                <p class="price__fig-amount">1,240<span>credits this month</span></p>
+                <div class="price__ledger">
+                  <div class="price__ledger-row"><span>Segment built</span><span class="price__ledger-n">1 credit</span></div>
+                  <div class="price__ledger-row"><span>Analysis run</span><span class="price__ledger-n">1 credit</span></div>
+                  <div class="price__ledger-row"><span>Seats added</span><span class="price__ledger-n price__ledger-n--zero">0 credits</span></div>
+                </div>
+                <div class="price__fig-foot">
+                  <svg viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>
+                  No per-seat license
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="price__grid reveal reveal-stagger">
+            <div class="price__card">
+              <div class="price__tile">
+                <span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M240,132c0,19.88-35.82,36-80,36-19.6,0-37.56-3.17-51.47-8.44h0C146.76,156.85,176,142,176,124V96.72h0C212.52,100.06,240,114.58,240,132ZM176,84c0-19.88-35.82-36-80-36S16,64.12,16,84s35.82,36,80,36S176,103.88,176,84Z" opacity="0.2"/><path d="M184,89.57V84c0-25.08-37.83-44-88-44S8,58.92,8,84v40c0,20.89,26.25,37.49,64,42.46V172c0,25.08,37.83,44,88,44s88-18.92,88-44V132C248,111.3,222.58,94.68,184,89.57ZM232,132c0,13.22-30.79,28-72,28-3.73,0-7.43-.13-11.08-.37C170.49,151.77,184,139,184,124V105.74C213.87,110.19,232,122.27,232,132ZM72,150.25V126.46A183.74,183.74,0,0,0,96,128a183.74,183.74,0,0,0,24-1.54v23.79A163,163,0,0,1,96,152,163,163,0,0,1,72,150.25Zm96-40.32V124c0,8.39-12.41,17.4-32,22.87V123.5C148.91,120.37,159.84,115.71,168,109.93ZM96,56c41.21,0,72,14.78,72,28s-30.79,28-72,28S24,97.22,24,84,54.79,56,96,56ZM24,124V109.93c8.16,5.78,19.09,10.44,32,13.57v23.37C36.41,141.4,24,132.39,24,124Zm64,48v-4.17c2.63.1,5.29.17,8,.17,3.88,0,7.67-.13,11.39-.35A121.92,121.92,0,0,0,120,171.41v23.46C100.41,189.4,88,180.39,88,172Zm48,26.25V174.4a179.48,179.48,0,0,0,24,1.6,183.74,183.74,0,0,0,24-1.54v23.79a165.45,165.45,0,0,1-48,0Zm64-3.38V171.5c12.91-3.13,23.84-7.79,32-13.57V172C232,180.39,219.59,189.4,200,194.87Z"/></svg></span>
+                <h4>Credits, charged on work done</h4>
+                <p>A credit is consumed when aiRA runs an analysis or builds an action. No per-seat license.</p>
+              </div>
+            </div>
+            <div class="price__card">
+              <div class="price__tile">
+                <span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,48V88H40V48a8,8,0,0,1,8-8H208A8,8,0,0,1,216,48Z" opacity="0.2"/><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Zm-38.34-85.66a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L116,164.69l42.34-42.35A8,8,0,0,1,169.66,122.34Z"/></svg></span>
+                <h4>2 to 4 weeks to a pilot</h4>
+                <p>On your real customer data, with your definitions loaded. No engineering headcount from your side.</p>
+              </div>
+            </div>
+            <div class="price__card">
+              <div class="price__tile">
+                <span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,56v56c0,96-88,120-88,120S40,208,40,112V56a8,8,0,0,1,8-8H208A8,8,0,0,1,216,56Z" opacity="0.2"/><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></svg></span>
+                <h4>Compliant on day one</h4>
+                <p>ISO 27001, SOC 2 Type II, PCI DSS, GDPR. The data-handling brief arrives before the session.</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="price__note reveal">
+            You get a real number in the first conversation. And if credits are the
+            wrong shape for your procurement, we will work with it.
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+
+
+    <!-- ================= BOOK CTA ================= -->
+    <section class="section section--wash book">
+      <div class="book__bggrid" aria-hidden="true"></div>
+      <div class="padding-global">
+        <div class="container">
+
+          <div class="book__card reveal">
+            <div class="book__panel">
+              <p class="book__claim">
+                Ask the question.<br>
+                See the reasoning.<br>
+                Approve the move.
+              </p>
+            </div>
+
+            <div class="book__form-col">
+              <h2 class="book__title">Bring us a real question.</h2>
+              <p class="book__sub">
+                Thirty minutes, your data, one real question. We reply within
+                one business day with a time and the security brief.
+              </p>
+
+              <form class="book__form" action="/book" method="get">
+                <div class="book__row">
+                  <label class="sr-only" for="bk-first">First name</label>
+                  <input class="input" id="bk-first" name="first_name" type="text"
+                         placeholder="First name" autocomplete="given-name" required>
+                  <label class="sr-only" for="bk-last">Last name</label>
+                  <input class="input" id="bk-last" name="last_name" type="text"
+                         placeholder="Last name" autocomplete="family-name" required>
+                </div>
+                <label class="sr-only" for="bk-email">Work email</label>
+                <input class="input" id="bk-email" name="email" type="email"
+                       placeholder="Work email" autocomplete="email" required>
+                <label class="sr-only" for="bk-phone">Phone (optional)</label>
+                <input class="input" id="bk-phone" name="phone" type="tel"
+                       placeholder="Phone (optional)" autocomplete="tel">
+                <label class="sr-only" for="bk-question">What question would you like aiRA to answer?</label>
+                <textarea class="input book__question" id="bk-question" name="question" rows="3"
+                          placeholder="What question would you like aiRA to answer?"></textarea>
+                <button class="btn btn--primary btn--lg book__submit" type="submit">
+                  Book my session
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </button>
+              </form>
+
+              <p class="book__note">
+                By submitting this form you agree to Capillary contacting you about aiRA.
+                See the <a href="/privacy">privacy policy</a>.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= CLOSE ================= -->
+    <section class="section section--inv close" data-nav-dark hidden>
+      <div class="padding-global">
+        <div class="container close__grid">
+
+          <div class="close__main">
+            <p class="eyebrow">
+              <svg class="sparkle" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12,0Q14.6,9.4 24,12Q14.6,14.6 12,24Q9.4,14.6 0,12Q9.4,9.4 12,0Z"/></svg>
+              The working session
+            </p>
+            <h2 class="close__title">
+              You have seen how it works. Bring us the question it has not answered yet.
+            </h2>
+            <p class="close__sub">
+              Thirty minutes, your data, one real question, no deck and no discovery calls
+              stacked in front of it. You leave with the answer, the reasoning behind it and
+              the recommended next move, not a product demo.
+            </p>
+
+            <div class="btn-row close__cta">
+              <a class="btn btn--primary btn--lg" href="/book">
+                Book your working session
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="thread close__thread">
+            <div class="thread__step">
+              <h3 class="thread__title">We reply within one business day.</h3>
+              <p class="thread__body">With a time and the security brief. No demo gauntlet.</p>
+            </div>
+            <div class="thread__step">
+              <h3 class="thread__title">Security brief comes first.</h3>
+              <p class="thread__body">Shared before the session, not after the third call.</p>
+            </div>
+            <div class="thread__step">
+              <h3 class="thread__title">We will tell you where aiRA is the wrong fit.</h3>
+              <p class="thread__body">It happens. Bring your actual shortlist and we will go through it.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-placeholder"></div>
+</body>
+</html>

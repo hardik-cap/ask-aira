@@ -1,0 +1,106 @@
+/* ==========================================================================
+   aiRA — Homepage V3 experiment (index-v3.html)
+   Alternative light treatment. Loads AFTER home.css and only overrides.
+
+   First moves (12 Sep, Workers-hero reference): the page frame's vertical
+   rails come off entirely, and the hero carries a dotted grid falling from
+   the very top and dissolving before the headline.
+   ========================================================================== */
+
+/* No left/right rails anywhere; the joints stay but lose their plus
+   markers, which existed to mark the rail crossings. */
+.page-v3 .section::before,
+.page-v3 .section::after,
+.page-v3 .footer::before,
+.page-v3 .footer::after,
+.page-v3 .joint::before,
+.page-v3 .joint::after {
+  display: none;
+}
+
+/* Left-aligned hero (Laravel reference, 12 Sep). The video frame is gone:
+   the tour opens from a secondary button beside the primary CTA instead
+   (same js/video.js lightbox), so the hero is one ragged-left stack. */
+@media (min-width: 768px) {
+  .page-v3 .hero__inner {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .page-v3 .hero__cta { justify-content: flex-start; }
+}
+
+/* No balancing here: with the short rotating third line, balance rewraps
+   the first line ("and" popped onto its own break) and re-evaluates every
+   word swap. The explicit br's carry the line structure. */
+.page-v3 .hero__title {
+  text-wrap: initial;
+  max-width: none;
+}
+/* Phones re-break line two ("...agent / for {team} teams"): the desktop
+   break after "for" would orphan it at narrow widths. */
+.page-v3 .v3-br-m { display: none; }
+@media (max-width: 640px) {
+  .page-v3 .v3-br-m { display: inline; }
+  .page-v3 .v3-br-d { display: none; }
+  /* The widest word (eCommerce) needs the 32px step at every phone width
+     here, not just below 380px. */
+  .page-v3 .hero__title { font-size: 2rem; }
+}
+
+/* Hero dot grid: full width, weighted to the empty right side of the
+   left-aligned hero (dense right, gone by the left third). This CSS layer
+   is the no-JS fallback; js/hero-dots.js hides it behind an interactive
+   canvas of the same dots that displace away from the pointer. */
+.page-v3 .hero__grad::after {
+  left: 0;
+  right: 0;
+  background-image: radial-gradient(circle,
+    var(--frame-grid) 1.5px, transparent 2px);
+  background-size: 22px 22px;
+  /* One radial does the whole shape for the no-JS layer: anchored to the
+     right, dissolving to the left and at the top and bottom edges. */
+  -webkit-mask-image: radial-gradient(120% 78% at 88% 50%, #000 42%, transparent 74%);
+  mask-image: radial-gradient(120% 78% at 88% 50%, #000 42%, transparent 74%);
+}
+.page-v3 .hero--dotfield .hero__grad::after { display: none; }
+.page-v3 .hero__dotfield {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Every section head goes ragged-left on V3, and the subheader sits
+   OPPOSITE the heading (12 Sep): eyebrow and heading left, supporting copy
+   right with baselines aligned, the .section-head--split shape. */
+.page-v3 .section-head--center {
+  text-align: left;
+  margin-inline: 0;
+  max-width: none;
+}
+.page-v3 .section-head--center .section-heading,
+.page-v3 .section-head--center .section-sub {
+  margin-inline: 0;
+}
+@media (min-width: 992px) {
+  .page-v3 .section-head--center {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    column-gap: var(--sp-20);
+    align-items: start;
+  }
+  /* Eyebrow rides its own full-width row; heading and sub share the row
+     below, top-aligned on the same axis. */
+  .page-v3 .section-head--center .eyebrow { grid-column: 1 / -1; }
+  .page-v3 .section-head--center .section-heading {
+    grid-column: 1;
+    grid-row: 2;
+    margin-bottom: 0;
+  }
+  .page-v3 .section-head--center .section-sub {
+    grid-column: 2;
+    grid-row: 2;
+    /* Optical: drops the sub's first line onto the H2's cap line. */
+    margin-top: var(--sp-2);
+  }
+}

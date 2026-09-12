@@ -39,11 +39,10 @@
       var(--slate-100) 48%,
       var(--bg) 100%);
 }
-/* Subtle blueprint grid over the hero wash. It spans exactly between the
-   page frame's rails and tiles at 80px, so at full container width the
-   columns land on the rails. Masked to two soft corner patches (top right
-   and bottom left, per the recruitpilot reference); the layers add, so the
-   grid surfaces only there and stays out of the headline's way. */
+/* Dot grid over the hero wash (12 Sep, promoted from the V3 experiment;
+   it replaced the corner-masked 80px blueprint squares). It spans exactly
+   between the page frame's rails, falls from the very top and mask-fades
+   out just before the H1. */
 .hero__grad::after {
   content: '';
   position: absolute;
@@ -51,16 +50,11 @@
   bottom: 0;
   left: var(--frame-x);
   right: var(--frame-x);
-  background-image:
-    linear-gradient(to right, var(--frame-grid) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--frame-grid) 1px, transparent 1px);
-  background-size: 80px 80px;
-  -webkit-mask-image:
-    radial-gradient(44% 42% at 88% 10%, #000, transparent 72%),
-    radial-gradient(44% 42% at 12% 88%, #000, transparent 72%);
-  mask-image:
-    radial-gradient(44% 42% at 88% 10%, #000, transparent 72%),
-    radial-gradient(44% 42% at 12% 88%, #000, transparent 72%);
+  background-image: radial-gradient(circle,
+    var(--frame-grid) 1.5px, transparent 2px);
+  background-size: 22px 22px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 120px, transparent 440px);
+  mask-image: linear-gradient(to bottom, #000 120px, transparent 440px);
 }
 
 /* Positioned decor would otherwise paint over the static content wrappers. */
@@ -833,6 +827,9 @@
 .feat__col {
   display: flex;
   flex-direction: column;
+  /* Grid item: without this the cards' min-content widens the 1fr track
+     past the container on phones. */
+  min-width: 0;
   padding: 0 var(--sp-12) 0 0;
 }
 .feat__col + .feat__col {
@@ -902,6 +899,11 @@
   box-shadow: var(--shadow-md);
   padding: var(--sp-5);
 }
+/* Grid items inherit min-content sizing: without these the artifact chip
+   and journey canvas widen the card's track past its own box on phones
+   and spill out of the card. The inner ellipsis rules take over. */
+.feat__card > * { min-width: 0; }
+.feat__path { min-width: 0; }
 .feat__line {
   display: block;
   height: 8px;
@@ -1439,10 +1441,12 @@
 }
 
 
-/* Phones: the qstrings wrap onto extra lines, so the wells get taller and
-   the fade shallower to keep the approval chips clear of it. */
+/* Phones: the cards stack, so equal well heights buy nothing; each well
+   hugs its own card (no dead run-out) and the fade becomes a shallow tail
+   dissolve over the last rows. */
 @media (max-width: 640px) {
-  .feat__fig { height: 472px; }
+  .feat__fig { height: auto; }
+  .feat__fig::after { height: 48px; }
 }
 
 @media (max-width: 991px) {
@@ -2013,3 +2017,18 @@
     radial-gradient(44% 46% at 88% 88%, #000, transparent 72%);
 }
 .book > .padding-global { position: relative; }
+
+/* Narrow cards (must trail the base rules in the cascade): the artifact
+   chip title wraps instead of vanishing behind the state chip, and the
+   canvas nodes trade padding for characters. */
+@media (max-width: 640px) {
+  /* The well's gutter goes to the card: every pixel counts here. */
+  .feat__fig { padding: 0; }
+  .feat__card { border-radius: var(--r-lg) var(--r-lg) 0 0; border: 0; }
+  .feat__artifact { flex-wrap: wrap; }
+  .feat__artifact-t { white-space: normal; }
+  /* The state chip drops to its own row, aligned under the text. */
+  .feat__artifact-state { margin-left: 26px; }
+  .feat__node { padding: 5px 7px; gap: 5px; }
+  .feat__canvas { padding: var(--sp-2); }
+}

@@ -229,6 +229,23 @@
     darkSections.forEach(function (el) { io.observe(el); });
   }
 
+  /* ---- Version switcher (review-only) ----------------------------------- */
+
+  /* Marks the current homepage experiment in the nav's V1/V2/V3 switcher. */
+  function initVersionTabs() {
+    var wrap = document.querySelector('.nav__versions');
+    if (!wrap) return;
+    var path = window.location.pathname;
+    var v = 'v1';
+    if (path.indexOf('index-v2') !== -1) v = 'v2';
+    else if (path.indexOf('index-v3') !== -1) v = 'v3';
+    var current = wrap.querySelector('[data-version="' + v + '"]');
+    if (current) {
+      current.classList.add('is-current');
+      current.setAttribute('aria-current', 'page');
+    }
+  }
+
   /* ---- Boot ----------------------------------------------------------- */
 
   Promise.all([
@@ -238,6 +255,7 @@
     initNav();
     initNavScroll();
     initNavDarkSync();
+    initVersionTabs();
     document.dispatchEvent(new CustomEvent('aira:components-ready'));
   });
 })();

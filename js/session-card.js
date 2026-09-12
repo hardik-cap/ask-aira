@@ -34,7 +34,13 @@
           break;
         }
       }
-    }, { threshold: 0.4 });
+    }, {
+      /* Fire as soon as the card meaningfully enters: on phones the card is
+         taller than half the viewport, and a higher threshold leaves it
+         sitting as a blank white box while the visitor scrolls into it. */
+      threshold: 0.15,
+      rootMargin: '0px 0px -10% 0px'
+    });
     io.observe(card);
   }
 
