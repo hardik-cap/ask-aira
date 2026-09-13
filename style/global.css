@@ -55,7 +55,7 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   border-radius: var(--r-xs);
 }
 
-::selection { background: var(--indigo-200); color: var(--indigo-900); }
+::selection { background: var(--primary-100); color: var(--primary-900); }
 
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
@@ -99,6 +99,16 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   :root { --section-pad: 56px; }
   .section--tight { padding-block: var(--sp-10); }
 }
+/* Phones take a flat 20px gutter instead of the 5% ratio (13 Sep). At 390px
+   5% is already ~19.5px, but it keeps shrinking with the viewport, and this
+   is the last 20px of side margin the layout has once the .container gutter
+   is gone. --frame-x follows the token, so anything measured off the frame
+   stays aligned to the content edge. */
+@media (max-width: 640px) {
+  :root { --pad-x: 20px; }
+  /* The experiment pages keep the 5% ratio they were designed against. */
+  .page-v2, .page-v3 { --pad-x: 5%; }
+}
 
 /* Dark section surface. Opt in per section; the navbar syncs to it via
    the data-nav-dark attribute (see js/components.js). */
@@ -111,10 +121,10 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 .section--wash {
   background:
     radial-gradient(56% 42% at 50% 0%,
-      color-mix(in srgb, var(--indigo-500) 4%, transparent), transparent 70%),
+      color-mix(in srgb, var(--primary-400) 4%, transparent), transparent 70%),
     linear-gradient(180deg, var(--slate-100) 0%, var(--bg) 52%);
 }
-.section--inv .eyebrow { color: var(--indigo-300); }
+.section--inv .eyebrow { color: var(--primary-200); }
 .section--inv .section-heading { color: var(--ink-inv); }
 .section--inv .section-sub { color: var(--ink-inv-2); }
 
@@ -155,14 +165,16 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   pointer-events: none;
 }
 /* A small primary square at each rail crossing (12 Sep; it replaced the
-   masked Phosphor plus). */
+   masked Phosphor plus). Stepped 4px -> 6px on 13 Sep: at 4px it read as
+   a stray dot rather than a deliberate marker. V2 draws its own outlined
+   handle and V3 hides these, so this size is what V1 shows. */
 .joint::before,
 .joint::after {
   content: '';
   position: absolute;
   top: 50%;
-  width: 4px;
-  height: 4px;
+  width: 6px;
+  height: 6px;
   background: var(--brand);
 }
 .joint::before {
@@ -176,6 +188,65 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 /* A joint that is only the line, no plus markers (under the header). */
 .joint--bare::before,
 .joint--bare::after { display: none; }
+
+/* ---- Banded sections -----------------------------------------------------
+   A section can trade its two hairline rails for 112px dot-grid bands sitting
+   INSIDE the frame: an edge line on each side of the strip with the grid
+   filling between, and the content column inset to clear them. Started on V2
+   (Workers reference) and brought to the homepage on 13 Sep; carried by
+   .section--band in the markup, on the mechanism, difference, comparison and
+   pricing sections.
+
+   Wide viewports only. Below 1200px the bands would eat the content column,
+   so the rails go back to plain hairlines and the container to its gutter.
+   The band's edge lines are the page's own rail language: solid here, and
+   home-v2.css re-dots them for V2.
+   ---------------------------------------------------------------------- */
+@media (min-width: 1200px) {
+  .section--band::before,
+  .section--band::after {
+    width: 112px;
+    background:
+      linear-gradient(var(--frame-line), var(--frame-line)) left top / 1px 100% no-repeat,
+      linear-gradient(var(--frame-line), var(--frame-line)) right top / 1px 100% no-repeat,
+      radial-gradient(circle, var(--frame-grid) 1px, transparent 1.5px)
+        left top / 14px 14px repeat;
+  }
+  /* On a dark section the ink-tinted dots and hairlines both vanish. */
+  .section--band.section--inv::before,
+  .section--band.section--inv::after {
+    background:
+      linear-gradient(var(--frame-line-inv), var(--frame-line-inv)) left top / 1px 100% no-repeat,
+      linear-gradient(var(--frame-line-inv), var(--frame-line-inv)) right top / 1px 100% no-repeat,
+      radial-gradient(circle, var(--frame-grid-inv) 1px, transparent 1.5px)
+        left top / 14px 14px repeat;
+  }
+  .section--band .container { padding-inline: 136px; }
+}
+
+/* The frame is a desktop device (13 Sep). Below 992px the rails come off,
+   and with them the crossing squares, which would otherwise float with
+   nothing to mark. The horizontal joints stay: they are the section
+   dividers, and they read on their own.
+
+   The .container gutter goes at the same breakpoint, because that gutter
+   exists for exactly one reason: to keep content 20px clear of the rails.
+   With no rails it was pure waste, stacking a second 20px inside
+   .padding-global's and squeezing phone content into a 311px column. */
+@media (max-width: 991px) {
+  .section::before,
+  .section::after,
+  .footer::before,
+  .footer::after,
+  .joint::before,
+  .joint::after { display: none; }
+
+  .container { padding-inline: 0; }
+  /* V1 only (13 Sep): the experiment pages keep the gutter they were
+     designed against, so their marquee and sections are untouched. */
+  .page-v2 .container,
+  .page-v3 .container { padding-inline: var(--sp-5); }
+}
 
 /* ---- Section typography ------------------------------------------------ */
 
@@ -669,11 +740,11 @@ body:not(.page-v2) .nav.nav-dark .nav__mini:hover {
   background: rgba(255, 255, 255, 0.07);
 }
 body:not(.page-v2) .nav.nav-dark .nav__mini svg { color: var(--ink-inv-3); }
-body:not(.page-v2) .nav.nav-dark .nav__mini:hover svg { color: var(--indigo-300); }
+body:not(.page-v2) .nav.nav-dark .nav__mini:hover svg { color: var(--primary-200); }
 body:not(.page-v2) .nav.nav-dark .nav__aside-rule { background: rgba(255, 255, 255, 0.12); }
 body:not(.page-v2) .nav.nav-dark .nav__item:hover { background: rgba(255, 255, 255, 0.06); }
 body:not(.page-v2) .nav.nav-dark .nav__item-icon { color: var(--ink-inv-3); }
-body:not(.page-v2) .nav.nav-dark .nav__item:hover .nav__item-icon { color: var(--indigo-300); }
+body:not(.page-v2) .nav.nav-dark .nav__item:hover .nav__item-icon { color: var(--primary-200); }
 body:not(.page-v2) .nav.nav-dark .nav__item-label { color: var(--ink-inv); }
 body:not(.page-v2) .nav.nav-dark .nav__item-desc { color: var(--ink-inv-3); }
 
@@ -737,7 +808,10 @@ body:not(.page-v2) .nav.nav-dark .nav__item-desc { color: var(--ink-inv-3); }
   .nav__dd[data-open="true"] .nav__panel { display: block; }
   .nav__panel-grid { flex-direction: column; }
   .nav__panel-card { grid-template-columns: 1fr; box-shadow: none; }
-  .nav__aside { padding: var(--sp-3) var(--sp-2); }
+  /* Stacked, so "right-hand column" has no meaning: the team rail keeps
+     the top spot it was given on 12 Sep rather than sitting under eight
+     category rows. */
+  .nav__aside { padding: var(--sp-3) var(--sp-2); order: -1; }
   body.nav-locked { overflow: hidden; }
   /* With the sheet open, the bar must NOT carry backdrop-filter: a
      backdrop-filter ancestor becomes the containing block for fixed

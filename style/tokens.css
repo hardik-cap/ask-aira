@@ -10,17 +10,21 @@
    ========================================================================== */
 
 :root {
-  /* ---- Raw ramp: indigo (brand) ------------------------------------ */
-  --indigo-50:  #F7F8FF;
-  --indigo-100: #EEF0FE;
-  --indigo-200: #D8DEFD;
-  --indigo-300: #BAC4FB;
-  --indigo-400: #8B9DF9;
-  --indigo-500: #526CF6;  /* brand */
-  --indigo-600: #455CD3;
-  --indigo-700: #384AAC;
-  --indigo-800: #2A3887;
-  --indigo-900: #1E2966;
+  /* ---- Raw ramp: brand primary (OFFICIAL) -------------------------------
+     From the supplied Brand Primary.pdf (13 Sep). P400 is THE brand colour.
+     This ramp REPLACED the hand-rolled --indigo-* scale the same day (user:
+     "stick to official now"); the old scale sat one step darker in name
+     (indigo-500 == primary-400) and muted its dark steps toward slate. */
+  --primary-50:  #E9EBFE;
+  --primary-100: #C7CCFC;
+  --primary-200: #A1ABFA;
+  --primary-300: #768AF8;
+  --primary-400: #526CF6;  /* main brand */
+  --primary-500: #2551F2;
+  --primary-600: #1F48E6;
+  --primary-700: #0C3DD9;
+  --primary-800: #0031CE;
+  --primary-900: #001AB6;
 
   /* Logo gradient endpoints, for the mark and brand gradients only */
   --indigo-grad-from: #6369F6;
@@ -47,7 +51,12 @@
   --capillary-navy:  #142737;
   --capillary-blue:  #26A9E1;
   --capillary-amber: #F4A114;
-  --capillary-ink:   #212121;   /* web-palette ink; V1's primary buttons */
+  /* THE project's black (13 Sep, user's standing rule): "black" on aiRA
+     always means #212121, never #000000. It is the Capillary web palette's
+     ink, so --capillary-ink stays as its provenance-carrying alias; reach
+     for --black in day-to-day work. Pure #000 is not used anywhere. */
+  --black:           #212121;
+  --capillary-ink:   var(--black);
 
   /* Capillary logo-petal colours, the web-palette teal, and the brand
      guide's own aiRA violet (p.9). V3's hero rotator colour-codes the five
@@ -89,6 +98,9 @@
   --frame-line-inv:  rgba(255, 255, 255, 0.14);
   --frame-plus:      var(--slate-500);
   --frame-grid:      rgba(11, 16, 32, 0.07);
+  /* The grid dots on a dark section inside a light page: the ink-tinted
+     --frame-grid above disappears there. */
+  --frame-grid-inv:  rgba(255, 255, 255, 0.06);
 
   /* ---- Semantic: text ---------------------------------------------- */
   --ink:        var(--slate-900);
@@ -100,19 +112,19 @@
   --ink-inv-3:  rgba(255, 255, 255, 0.46);
 
   /* ---- Semantic: brand --------------------------------------------- */
-  --brand:         var(--indigo-500);
-  --brand-hover:   var(--indigo-600);
-  --brand-press:   var(--indigo-700);
-  --brand-subtle:  var(--indigo-100);
-  --brand-line:    var(--indigo-200);
-  --brand-ink:     var(--indigo-700);   /* brand colour used as text on light */
+  --brand:         var(--primary-400);
+  --brand-hover:   var(--primary-500);
+  --brand-press:   var(--primary-600);
+  --brand-subtle:  var(--primary-50);
+  --brand-line:    var(--primary-100);
+  --brand-ink:     var(--primary-700);  /* brand colour used as text on light */
   --on-brand:      #FFFFFF;
 
   /* ---- Semantic: approval grammar ----------------------------------
      aiRA proposes, a person decides. These four states carry that
      promise everywhere it appears in the UI.                          */
-  --pending:      var(--indigo-600);
-  --pending-bg:   var(--indigo-100);
+  --pending:      var(--primary-500);
+  --pending-bg:   var(--primary-50);
   --approve:      #0E8A4F;
   --approve-bg:   #E6F5EC;
   --hold:         #B26A00;
@@ -243,19 +255,19 @@
   --ink-inv-2:  rgba(11, 16, 32, 0.68);
   --ink-inv-3:  rgba(11, 16, 32, 0.46);
 
-  --brand:        #7A8DF9;
-  --brand-hover:  #8B9DF9;
-  --brand-press:  #BAC4FB;
+  --brand:        var(--primary-300);
+  --brand-hover:  var(--primary-200);
+  --brand-press:  var(--primary-100);
   --brand-subtle: rgba(82, 108, 246, 0.16);
   --brand-line:   rgba(82, 108, 246, 0.34);
-  --brand-ink:    #BAC4FB;
+  --brand-ink:    var(--primary-200);
 
   --nav-surface:           rgba(8, 11, 20, 0.92);
   --nav-surface-glass:     rgba(8, 11, 20, 0.60);
   --nav-surface-inv:       rgba(8, 11, 20, 0.92);
   --nav-surface-inv-glass: rgba(8, 11, 20, 0.60);
 
-  --pending:    #8B9DF9;
+  --pending:    var(--primary-300);
   --pending-bg: rgba(82, 108, 246, 0.16);
   --approve:    #4ED18B;
   --approve-bg: rgba(14, 138, 79, 0.18);
@@ -292,14 +304,14 @@
   --ink-3:      #858C9E;
   --ink-faint:  #626878;
 
-  /* True brand indigo, same as light (user call, 13 Sep): no lifted dark
+  /* True brand primary, same as light (user call, 13 Sep): no lifted dark
      variant. Hover/press step LIGHTER since darkening vanishes on dark. */
-  --brand:        var(--indigo-500);
-  --brand-hover:  #6379F7;
-  --brand-press:  #7A8DF9;
+  --brand:        var(--primary-400);
+  --brand-hover:  var(--primary-300);
+  --brand-press:  var(--primary-200);
   --brand-subtle: rgba(82, 108, 246, 0.16);
   --brand-line:   rgba(82, 108, 246, 0.34);
-  --brand-ink:    #BAC4FB;
+  --brand-ink:    var(--primary-200);
 
   /* The wash/footer slates, remapped so the existing gradients read as
      quiet dark tones instead of light grey. */
@@ -311,7 +323,7 @@
   --nav-surface:       rgba(8, 11, 20, 0.94);
   --nav-surface-glass: rgba(8, 11, 20, 0.62);
 
-  --pending:    #8B9DF9;
+  --pending:    var(--primary-300);
   --pending-bg: rgba(82, 108, 246, 0.16);
   --approve:    #4ED18B;
   --approve-bg: rgba(14, 138, 79, 0.18);
@@ -328,4 +340,45 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.30), 0 2px 6px -2px rgba(0, 0, 0, 0.40);
   --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.30), 0 10px 28px -18px rgba(0, 0, 0, 0.60);
   --shadow-lg: 0 1px 2px rgba(0, 0, 0, 0.30), 0 28px 64px -34px rgba(0, 0, 0, 0.70);
+}
+
+/* ==========================================================================
+   V2's product CARDS are a LIGHT island (13 Sep, user call: "the product is
+   literally in white, no need to have dark mode of it"). Rather than
+   restyling every part of the session and journey cards, the card
+   re-declares the tokens .page-v2 remapped, back to their light values, so
+   everything inside renders exactly as it does on V1.
+
+   Scoped to .feat__card, NOT the .feat__fig well around it (revised same
+   day): the well keeps V2's dark ground, so a light product surface sits
+   on the dark page rather than a light panel being pasted over it.
+
+   The four remapped slate steps come first because the semantic tokens
+   below resolve through them; slate-400 and up were never remapped, so
+   the inks can point at the ramp as usual.
+   ========================================================================== */
+
+.page-v2 .feat__card {
+  --slate-50:  #F7F8FB;
+  --slate-100: #EFF1F6;
+  --slate-200: #E2E5EE;
+  --slate-300: #C7CBD9;
+
+  --bg-subtle:     var(--slate-50);
+  --surface:       #FFFFFF;
+  --surface-2:     var(--slate-100);
+
+  --border:        #E7E9F1;
+  --border-strong: var(--slate-200);
+
+  --ink:        var(--slate-900);
+  --ink-2:      var(--slate-600);
+  --ink-3:      var(--slate-500);
+  --ink-faint:  var(--slate-400);
+
+  --approve:    #0E8A4F;
+  --hold:       #B26A00;
+
+  --shadow-xs: 0 1px 2px rgba(11, 16, 32, 0.04);
+  --shadow-md: 0 1px 2px rgba(11, 16, 32, 0.04), 0 10px 28px -18px rgba(11, 16, 32, 0.22);
 }

@@ -21,21 +21,34 @@
    reads as part of the wash while staying fully opaque over the grid. */
 .page-home { --nav-rest: var(--slate-200); }
 
+/* V2's quiet indigo section tints, translated to the light ground (13 Sep,
+   user: "very subtle... try the same in index.html"). Each washed section
+   opens on a slightly indigo slate instead of neutral grey, and the primary
+   radial lifts from the 4% whisper to 8%. V1 only via the :not() guards. */
+.page-home:not(.page-v2):not(.page-v3) .section--wash {
+  background:
+    radial-gradient(56% 42% at 50% 0%,
+      color-mix(in srgb, var(--primary-400) 8%, transparent), transparent 70%),
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--primary-400) 5%, var(--slate-100)) 0%,
+      var(--bg) 52%);
+}
+
 /* Primary buttons on THIS page only (13 Sep, user call): Capillary ink
    black, pill corners. The :not() guards keep V2 (white inverted) and V3
    (standard indigo) on their own treatments, since all three share this
    stylesheet. */
 .page-home:not(.page-v2):not(.page-v3) .btn--primary {
-  background: var(--capillary-ink);
+  background: var(--black);
   border-radius: var(--r-pill);
   /* Flat, no lift (user call, 13 Sep). */
   box-shadow: none;
 }
 .page-home:not(.page-v2):not(.page-v3) .btn--primary:hover {
-  background: color-mix(in srgb, var(--capillary-ink) 86%, white);
+  background: color-mix(in srgb, var(--black) 86%, white);
 }
 .page-home:not(.page-v2):not(.page-v3) .btn--primary:active {
-  background: color-mix(in srgb, var(--capillary-ink) 74%, white);
+  background: color-mix(in srgb, var(--black) 74%, white);
 }
 
 /* Full-bleed vertical gradient: a quiet slate grey at the very top behind
@@ -50,7 +63,7 @@
   pointer-events: none;
   background:
     radial-gradient(64% 52% at 50% 0%,
-      color-mix(in srgb, var(--indigo-500) 7%, transparent), transparent 72%),
+      color-mix(in srgb, var(--primary-400) 7%, transparent), transparent 72%),
     linear-gradient(180deg,
       var(--slate-200) 0%,
       var(--slate-100) 48%,
@@ -191,7 +204,7 @@
   color: var(--on-brand);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.28),
-    0 10px 24px -10px color-mix(in srgb, var(--indigo-500) 65%, transparent);
+    0 10px 24px -10px color-mix(in srgb, var(--primary-400) 65%, transparent);
 }
 .hero__rot-icon svg {
   width: 56%;
@@ -479,6 +492,66 @@
   .proof__logo img { transition: none; }
 }
 
+/* V1 shows the same six marks as a bordered grid instead (13 Sep, user
+   reference): 3 x 2 cells whose hairlines meet with no doubling, each cell
+   a whisper lighter than the section wash so the boxes read without
+   flattening the gradient behind them. V2 and V3 keep the marquee. */
+/* The band is nothing but the grid (13 Sep): the section's vertical rhythm
+   and the container's inner gutter both go to zero, so the cells run edge
+   to edge. --frame-x IS the container edge, so with the gutter gone the
+   outer cells land exactly on the page frame's rails, and the joints above
+   and below close the box. The frame therefore draws the grid's outside
+   and the cells only ever paint their own interior lines.
+
+   V1 ONLY: home.css is shared, and unscoped these two rules stripped the
+   marquee band's rhythm and gutter on V2 and V3 as well. */
+.page-home:not(.page-v2):not(.page-v3) .proof { padding-block: 0; }
+.page-home:not(.page-v2):not(.page-v3) .proof .container { padding-inline: 0; }
+
+.proof__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* The 1px gaps ARE the interior hairlines: opaque cells sit on the
+     grid's own line-coloured ground and leave it showing between them.
+     Borders with nth-child edge rules were tried first and dropped: the
+     "last column" and "last row" change with the column count, so each
+     breakpoint's higher-specificity rules leaked into the next and knocked
+     out real dividers. Gaps are interior by definition, at every width. */
+  gap: 1px;
+  background: var(--border);
+}
+.proof__cell {
+  display: grid;
+  place-items: center;
+  min-height: 132px;
+  padding: var(--sp-6);
+  background: var(--bg);
+  transition: background var(--dur) var(--ease);
+}
+.proof__cell:hover { background: var(--surface); }
+/* The marks were sized for the belt, where 32px read optically equal side
+   by side; the grid's roomier cells take a step up at the same ratio. The
+   square Rack Room badge still needs the 1.5x to match the wordmarks.
+   max-width plus object-fit is the guard: NASCAR is a 6:1 wordmark, so in
+   any cell too narrow for it the mark scales down instead of spilling
+   across the hairline into its neighbour. */
+.proof__cell .proof__logo { max-width: 100%; }
+.proof__cell .proof__logo img {
+  height: 40px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+.proof__cell .proof__logo img[alt="Rack Room Shoes"] { height: 60px; }
+/* The colour layer is matched to its parent's box rather than sized on its
+   own. It carries alt="" (it is decorative), so the per-mark height
+   exception above cannot select it, and Rack Room's hover state was
+   rendering at the default 40px against a 60px grey badge. */
+.proof__cell .proof__logo img.proof__logo-color {
+  width: 100%;
+  height: 100%;
+}
+
 .proof__track {
   flex: none;
   flex-wrap: nowrap;
@@ -496,6 +569,27 @@
   .proof__logo img { height: 24px; width: auto; }
   .proof__logo img[alt="Rack Room Shoes"] { height: 36px; }
   .proof__track { gap: var(--sp-12); padding-right: var(--sp-12); }
+}
+
+/* The grid steps down a column at a time. The 6:1 NASCAR wordmark sets the
+   floor: at 40px tall it needs 240px of clear cell, which three columns
+   stop providing below ~900px, and two columns stop providing on a phone.
+   (These trail the base rules deliberately: equal specificity, later wins.) */
+@media (max-width: 991px) {
+  .proof__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .proof__cell { min-height: 120px; }
+  .proof__cell .proof__logo img { height: 32px; }
+  .proof__cell .proof__logo img[alt="Rack Room Shoes"] { height: 48px; }
+}
+/* Phones hold 2 x 3 (13 Sep): dropping the .container gutter gave the band
+   the full 350px at 390px, so two columns clear the 6:1 NASCAR wordmark at
+   24px with the cell padding trimmed to 12px. Below ~370px object-fit takes
+   a few percent off that one mark rather than letting it spill. */
+@media (max-width: 640px) {
+  .proof__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .proof__cell { min-height: 96px; padding: var(--sp-3); }
+  .proof__cell .proof__logo img { height: 24px; }
+  .proof__cell .proof__logo img[alt="Rack Room Shoes"] { height: 36px; }
 }
 
 /* Reduced motion: one static, centred index; no mask, no duplicates. */
@@ -531,9 +625,9 @@
   pointer-events: none;
   background:
     radial-gradient(80% 64% at 50% 112%,
-      color-mix(in srgb, var(--indigo-500) 14%, transparent), transparent 72%),
+      color-mix(in srgb, var(--primary-400) 14%, transparent), transparent 72%),
     radial-gradient(46% 40% at 16% 116%,
-      color-mix(in srgb, var(--indigo-400) 8%, transparent), transparent 75%);
+      color-mix(in srgb, var(--primary-300) 8%, transparent), transparent 75%);
 }
 
 .mech__diagram {
@@ -607,7 +701,7 @@
   stroke-width: 2;
   stroke-dasharray: none;
 }
-.mech__wires .mech__beamstop-a { stop-color: var(--indigo-400); }
+.mech__wires .mech__beamstop-a { stop-color: var(--primary-300); }
 .mech__wires .mech__beamstop-b { stop-color: var(--violet-400); }
 @media (prefers-reduced-motion: reduce) {
   .mech__wires .mech__beam { display: none; }
@@ -632,7 +726,7 @@
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 0 80px color-mix(in srgb, var(--indigo-500) 28%, transparent);
+  box-shadow: 0 0 80px color-mix(in srgb, var(--primary-400) 28%, transparent);
 }
 .mech__core-node img { width: 40px; height: 40px; }
 
@@ -709,7 +803,7 @@
   width: 2px;
   height: 2px;
   border-radius: 50%;
-  background: var(--indigo-300);
+  background: var(--primary-200);
   opacity: 0.08;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -741,7 +835,7 @@
   pointer-events: none;
   background: conic-gradient(from var(--mech-orbit),
     transparent 0deg 300deg,
-    color-mix(in srgb, var(--indigo-300) 90%, transparent) 330deg,
+    color-mix(in srgb, var(--primary-200) 90%, transparent) 330deg,
     transparent 360deg);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -783,7 +877,6 @@
   border-top: 0;
   padding-top: 0;
 }
-.mech__points.feat__mini .feat__icon { color: var(--indigo-300); }
 .mech__points.feat__mini h4 { color: var(--ink-inv); }
 .mech__points.feat__mini p { color: var(--ink-inv-3); }
 
@@ -880,6 +973,11 @@
 
 /* Brand-lit word inside a section heading (V1's questions head). */
 .section-heading .hl-brand { color: var(--brand); }
+
+/* Icons on dark surfaces ride P200 (user call, 13 Sep): full brand P400
+   sinks on near-black. Covers every .feat__icon inside a dark section
+   (mech points, price tiles). */
+.section--inv .feat__icon { color: var(--primary-200); }
 
 .feat__title,
 .feat__mini h4 {
@@ -1518,7 +1616,7 @@
   min-height: 320px;
   background:
     radial-gradient(120% 90% at 82% 0%,
-      color-mix(in srgb, var(--indigo-500) 16%, transparent), transparent 62%),
+      color-mix(in srgb, var(--primary-400) 16%, transparent), transparent 62%),
     linear-gradient(180deg, var(--slate-100), var(--slate-200));
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
@@ -1622,7 +1720,8 @@
   border-bottom: 1px solid var(--border);
 }
 .compare__icon { flex: none; display: flex; color: var(--brand-ink); }
-.compare__icon svg { width: 16px; height: 16px; }
+/* 20px, matching every other Phosphor glyph on the page (13 Sep). */
+.compare__icon svg { width: 20px; height: 20px; }
 
 .compare__cell--aira {
   padding-inline: var(--sp-6);
@@ -1838,7 +1937,6 @@
 }
 /* Same anatomy as the questions grid and the mech points: 20px duotone
    icon, 16px/600 title, muted body. */
-.price__tile .feat__icon { color: var(--indigo-300); }
 .price__tile h4 {
   font-family: var(--font-display);
   font-size: var(--t-title-sm);
@@ -1874,7 +1972,7 @@
     linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px) 0 0 / 40px 40px,
     linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px) 0 0 / 40px 40px,
     radial-gradient(110% 90% at 78% 12%,
-      color-mix(in srgb, var(--indigo-500) 22%, transparent), transparent 64%),
+      color-mix(in srgb, var(--primary-400) 22%, transparent), transparent 64%),
     color-mix(in srgb, #fff 2%, var(--surface-inv));
   border: 1px solid rgba(255, 255, 255, 0.10);
   border-radius: var(--r-lg);

@@ -38,13 +38,13 @@
 }
 
 /* Dot-grid bands INSIDE the 80rem frame (the reference's page texture):
-   from the questions section down (.v2-frame in the markup), each rail
+   from the questions section down (.section--band in the markup), each rail
    pseudo widens into a strip bounded by dotted lines on both edges with
    the dot grid filling between, and the content column insets to clear
    it. Above 1199px only; phones keep the plain rails. */
 @media (min-width: 1200px) {
-  .page-v2 .v2-frame::before,
-  .page-v2 .v2-frame::after {
+  .page-v2 .section--band::before,
+  .page-v2 .section--band::after {
     width: 112px;
     background:
       repeating-linear-gradient(to bottom,
@@ -54,8 +54,8 @@
       radial-gradient(circle, var(--frame-grid) 1px, transparent 1.5px)
         left top / 14px 14px repeat;
   }
-  .page-v2 .v2-frame.section--inv::before,
-  .page-v2 .v2-frame.section--inv::after {
+  .page-v2 .section--band.section--inv::before,
+  .page-v2 .section--band.section--inv::after {
     background:
       repeating-linear-gradient(to bottom,
         var(--frame-line-inv) 0 3px, transparent 3px 9px) left top / 1px 100% no-repeat,
@@ -65,7 +65,7 @@
         left top / 14px 14px repeat;
   }
   /* The slight layout shift: content clears the bands. */
-  .page-v2 .v2-frame .container { padding-inline: 136px; }
+  .page-v2 .section--band .container { padding-inline: 136px; }
 }
 
 /* ---- Navbar over the dark ground --------------------------------------- */
@@ -97,13 +97,13 @@
 .page-v2 .btn--primary:active { background: var(--brand-press); }
 .page-v2 .btn--secondary {
   background: var(--on-brand);
-  color: var(--capillary-ink);
+  color: var(--black);
   border-color: transparent;
   border-radius: var(--r-pill);
   box-shadow: none;
 }
-.page-v2 .btn--secondary:hover { background: var(--indigo-50); border-color: transparent; }
-.page-v2 .btn--secondary:active { background: var(--indigo-100); }
+.page-v2 .btn--secondary:hover { background: var(--primary-50); border-color: transparent; }
+.page-v2 .btn--secondary:active { background: var(--primary-100); }
 
 /* ---- Workers-flavour accents ------------------------------------------- */
 
@@ -116,22 +116,48 @@
 /* ---- Per-section fixups over the remapped ground ------------------------ */
 
 /* Customer logos ship as #393939 exports: inverted they read as the light
-   grey the reference uses. The colour hover layer stays untouched. */
-.page-v2 .proof__logo > img:first-child { filter: invert(1); opacity: 0.6; }
+   grey the reference uses.
+
+   Hover brightens the mark to WHITE rather than crossfading to its brand
+   colours (13 Sep, user call, this page only): six full-colour marks
+   lighting up against near-black pulls the eye straight off the content.
+   So the colour layer is dropped here entirely and the hover state is the
+   same inverted mark at full strength: invert(1) already lifts #393939 to
+   a light grey, and the brightness pass clamps it the rest of the way. */
+.page-v2 .proof__logo > img:first-child {
+  filter: invert(1);
+  opacity: 0.6;
+  transition: opacity var(--dur) var(--ease), filter var(--dur) var(--ease);
+}
+.page-v2 .proof__logo .proof__logo-color { display: none; }
+.page-v2 .proof__logo:hover > img:first-child {
+  opacity: 1;
+  filter: invert(1) brightness(2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-v2 .proof__logo > img:first-child { transition: none; }
+}
 
 /* The footer wordmark's black strokes flip light. */
 .page-v2 .footer__wordmark img { filter: invert(1); opacity: 0.12; }
 
-/* The white session cards read better as dark surfaces here; every inner
-   token (borders, inks, chips) already remapped. */
-.page-v2 .feat__msg { background: var(--surface-2); }
+/* The illustration wells stay LIGHT on this page (13 Sep, user call): the
+   real product UI is white, so a dark repaint of it would be showing
+   something that does not exist. The wells are token islands instead, see
+   the .page-v2 .feat__fig block at the end of tokens.css; nothing in here
+   needs to restyle their contents.
 
-/* Muted-ink strikethrough tasks stay legible on dark. */
-.page-v2 .feat__task-t { color: var(--ink-faint); }
+   Icons on the dark page ride P200: brand P400 sinks on near-black. Only
+   the icons OUTSIDE the wells, on the dark ground: the feature titles and
+   the capability grid. The ticks and chips inside a well sit on white and
+   keep true P400 through --brand. */
+.page-v2 .feat__icon,
+.page-v2 .acc__icon { color: var(--primary-200); }
 
 /* The compare board's brand panel keeps real brand indigo, not the lifted
    dark-mode accent, so white text keeps its contrast. */
-.page-v2 .compare__brandbg { background: var(--indigo-500); }
+.page-v2 .compare__brandbg { background: var(--primary-400); }
 
 /* Book panel keeps true indigo too. */
-.page-v2 .book__panel { background: var(--indigo-500); }
+.page-v2 .book__panel { background: var(--primary-400); }

@@ -44,7 +44,7 @@
 .rule--center::before { left: 50%; transform: translate(-50%, -50%); }
 .rule--muted::before { background: var(--slate-300); }
 .section--inv .rule { background: rgba(255, 255, 255, 0.12); }
-.section--inv .rule::before { background: var(--indigo-400); }
+.section--inv .rule::before { background: var(--primary-300); }
 
 :root {
   --sparkle-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M12,0Q14.6,9.4 24,12Q14.6,14.6 12,24Q9.4,14.6 0,12Q9.4,9.4 12,0Z'/%3E%3C/svg%3E");
@@ -77,7 +77,7 @@
   width: 1px;
   background: linear-gradient(
     to bottom,
-    var(--indigo-300) 0%,
+    var(--primary-200) 0%,
     var(--border-strong) 58%,
     transparent 100%
   );
@@ -460,7 +460,7 @@ button.chip:hover, a.chip:hover { border-color: var(--brand-line); color: var(--
   width: 12rem;
 }
 .cmp td { color: var(--ink-2); line-height: 1.6; }
-.cmp td.is-aira { color: var(--ink); background: var(--indigo-50); }
+.cmp td.is-aira { color: var(--ink); background: var(--primary-50); }
 .cmp tbody tr:last-child th, .cmp tbody tr:last-child td { border-bottom: 0; }
 
 /* ---- Stat ------------------------------------------------------------- */

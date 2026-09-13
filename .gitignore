@@ -1,18 +1,28 @@
-# Source context and research material, not part of the shipped site.
-# Kept out of the repo per the project brief.
-Contexts/
+# Source context and research material (4GB of client drops), not part of
+# the shipped site. Lowercase matches the folder on disk: an uppercase
+# pattern only matches here because macOS is case-insensitive, and would
+# silently stop ignoring on a case-sensitive checkout.
+contexts/
 
-# Working docs stay local: the repo ships the site only.
+# Working docs stay local: the repo ships the site only. CLAUDE.md sits in
+# the root because Claude Code reads it there; everything else is docs/.
+# The whole directory is ignored, not just its .md files, so a stray asset
+# dropped in there cannot slip into the deploy.
 # content/ is exempted so phase-5 category content can be .md if needed.
+docs/
 *.md
 !content/**/*.md
 
-# Supplied logo originals: 2.4MB of raster sources that must not be
+# Supplied originals: 2.4MB of raster logo sources that must not be
 # committed or deployed. The exported variants in assets/brand/ ship.
+# The *.pdf guard stays even though the brand PDFs now live in contexts/.
 assets/brand/source/
+assets/brand/*.pdf
 
 # Internal brand reference: quotes the Capillary Brand Guide, stays local.
-capillary-brand.html
+# It lives in assets/brand/ with the material it documents; absolute paths
+# mean it still serves correctly from that depth.
+assets/brand/capillary-brand.html
 style/pages/capillary-brand.css
 
 # Working scratch

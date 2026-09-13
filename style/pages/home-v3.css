@@ -18,10 +18,19 @@
 .page-v3 .nav__logo-light { content: url("/assets/brand/aira-indigo.svg"); }
 .page-v3 .nav__logo-dark  { content: url("/assets/brand/aira-white.svg"); }
 
-/* Flat buttons (13 Sep): no lift on either CTA. */
+/* Flat buttons (13 Sep): no lift on either CTA. The primary goes black
+   (--black, the project's #212121), keeping V3's square-ish corners rather
+   than V1's pill. Black cannot darken, so hover and press lighten. */
 .page-v3 .btn--primary,
 .page-v3 .btn--secondary {
   box-shadow: none;
+}
+.page-v3 .btn--primary { background: var(--black); }
+.page-v3 .btn--primary:hover {
+  background: color-mix(in srgb, var(--black) 86%, white);
+}
+.page-v3 .btn--primary:active {
+  background: color-mix(in srgb, var(--black) 74%, white);
 }
 
 /* No left/right rails anywhere; the joints stay but lose their plus
