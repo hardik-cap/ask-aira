@@ -7,6 +7,23 @@
    the very top and dissolving before the headline.
    ========================================================================== */
 
+/* The navbar's raster lockups swap for the vector wordmarks (13 Sep):
+   indigo on light, white while the bar syncs over a dark section. The
+   svgs are 62x20; height 24 keeps the header spec's size. */
+.page-v3 .nav__logo-light,
+.page-v3 .nav__logo-dark {
+  width: auto;
+  height: 24px;
+}
+.page-v3 .nav__logo-light { content: url("/assets/brand/aira-indigo.svg"); }
+.page-v3 .nav__logo-dark  { content: url("/assets/brand/aira-white.svg"); }
+
+/* Flat buttons (13 Sep): no lift on either CTA. */
+.page-v3 .btn--primary,
+.page-v3 .btn--secondary {
+  box-shadow: none;
+}
+
 /* No left/right rails anywhere; the joints stay but lose their plus
    markers, which existed to mark the rail crossings. */
 .page-v3 .section::before,
@@ -46,6 +63,43 @@
      here, not just below 380px. */
   .page-v3 .hero__title { font-size: 2rem; }
 }
+
+/* Colour-coded teams (13 Sep): three Capillary logo-petal colours, the
+   web-palette teal for CRM (logo yellow fails as text on light; the
+   darkened-gold compromise was rejected), and the brand guide's own aiRA
+   violet for Data/BI. js/rotator.js stamps data-team on the tile and the
+   word; only this page maps it to colour. */
+.page-v3 .hero__rot-icon,
+.page-v3 .hero__rot-word { --team-c: var(--brand); }
+.page-v3 [data-team="ecommerce"] { --team-c: var(--capillary-logo-blue); }
+.page-v3 [data-team="growth"]    { --team-c: var(--capillary-logo-green); }
+.page-v3 [data-team="marketing"] { --team-c: var(--capillary-logo-orange); }
+.page-v3 [data-team="crm"]       { --team-c: var(--capillary-teal); }
+.page-v3 [data-team="databi"]    { --team-c: var(--aira-violet); }
+
+.page-v3 .hero__rot-word { color: var(--team-c); }
+.page-v3 .hero__rot-icon {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--team-c) 78%, white), var(--team-c));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 10px 24px -10px color-mix(in srgb, var(--team-c) 65%, transparent);
+}
+
+/* Capillary secondary tints as quiet washes (13 Sep, "use them carefully"):
+   the two feature wells, the diff placeholder well and the announce pill
+   trade their neutral greys for the guide's p.18 tints. The wells route
+   through --fig-tint so each fade overlay dissolves into its own ground. */
+.page-v3 .hero__announce { background: var(--capillary-cream); }
+
+.page-v3 .feat__fig { background: var(--fig-tint, var(--bg-subtle)); }
+.page-v3 .feat__fig::after {
+  background: linear-gradient(to bottom, transparent, var(--fig-tint, var(--bg-subtle)));
+}
+.page-v3 .feat__fig:has(.feat__card--session) { --fig-tint: var(--capillary-tint-teal); }
+.page-v3 .feat__fig:has(.feat__card--journey) { --fig-tint: var(--capillary-tint-orange); }
+
+.page-v3 .diff__fig { background: var(--capillary-tint-green); }
 
 /* Hero dot grid: full width, weighted to the empty right side of the
    left-aligned hero (dense right, gone by the left third). This CSS layer

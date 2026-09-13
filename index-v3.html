@@ -94,8 +94,8 @@
             <span aria-hidden="true">
               On-demand insights<br>
               and analytics agent<br class="v3-br-m"> for<br class="v3-br-d">
-              <span class="hero__rot-icon" id="hero-rot-icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg></span>
-              <span class="hero__rot-word" id="hero-rot-word">eCommerce teams</span>
+              <span class="hero__rot-icon" id="hero-rot-icon" data-team="ecommerce"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg></span>
+              <span class="hero__rot-word" id="hero-rot-word" data-team="ecommerce">eCommerce teams</span>
             </span>
           </h1>
 
@@ -106,15 +106,14 @@
           </p>
 
           <div class="btn-row hero__cta">
-            <span class="btn-frame">
-              <a class="btn btn--primary btn--lg" href="/book">
-                Book a working session
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </a>
-            </span>
-            <!-- Opens the same lightbox the poster frame used (js/video.js). -->
-            <span class="btn-frame"
-                  data-video="https://www.youtube.com/embed/9OHDIi256uQ?si=e6kLUBVmScoQgixV&amp;autoplay=1"
+            <a class="btn btn--primary btn--lg" href="/book">
+              Book a working session
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <!-- Opens the same lightbox the poster frame used (js/video.js).
+                 The unstyled span stays: it carries data-video for the
+                 script, which expects the play button inside it. -->
+            <span data-video="https://www.youtube.com/embed/9OHDIi256uQ?si=e6kLUBVmScoQgixV&amp;autoplay=1"
                   data-video-title="The aiRA product tour">
               <button class="btn btn--secondary btn--lg" type="button" data-video-play>
                 <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"/></svg>
@@ -617,7 +616,6 @@
 
     <!-- ================= BOOK CTA ================= -->
     <section class="section section--wash book">
-      <div class="book__bggrid" aria-hidden="true"></div>
       <div class="padding-global">
         <div class="container">
 

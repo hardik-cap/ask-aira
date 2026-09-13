@@ -47,6 +47,27 @@
   --capillary-navy:  #142737;
   --capillary-blue:  #26A9E1;
   --capillary-amber: #F4A114;
+  --capillary-ink:   #212121;   /* web-palette ink; V1's primary buttons */
+
+  /* Capillary logo-petal colours, the web-palette teal, and the brand
+     guide's own aiRA violet (p.9). V3's hero rotator colour-codes the five
+     teams with these (13 Sep); not part of the aiRA palette proper. Teal
+     stands in for the logo yellow #F3CF02, which cannot be text on light
+     (user call, 13 Sep: the darkened-gold compromise "seems wrong"). */
+  --capillary-logo-blue:   #2080BD;
+  --capillary-logo-green:  #399D49;
+  --capillary-logo-orange: #DB5226;
+  --capillary-teal:        #23959A;
+  --aira-violet:           #6F459B;
+
+  /* The guide's secondary tints (p.18), flattened over white from their
+     printed alpha values (#EB582620 / #2BAC4A34 / #178EAA3A) so they can
+     ground opaque fade overlays. V3 uses them as illustration-well and
+     pill washes (13 Sep). */
+  --capillary-tint-orange: #FDEAE4;
+  --capillary-tint-green:  #D4EEDA;
+  --capillary-tint-teal:   #CAE5EC;
+  --capillary-cream:       #FFF8EC;
 
   /* ---- Semantic: surfaces ------------------------------------------ */
   --bg:          #FBFBFD;

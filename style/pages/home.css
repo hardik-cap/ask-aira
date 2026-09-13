@@ -21,6 +21,23 @@
    reads as part of the wash while staying fully opaque over the grid. */
 .page-home { --nav-rest: var(--slate-200); }
 
+/* Primary buttons on THIS page only (13 Sep, user call): Capillary ink
+   black, pill corners. The :not() guards keep V2 (white inverted) and V3
+   (standard indigo) on their own treatments, since all three share this
+   stylesheet. */
+.page-home:not(.page-v2):not(.page-v3) .btn--primary {
+  background: var(--capillary-ink);
+  border-radius: var(--r-pill);
+  /* Flat, no lift (user call, 13 Sep). */
+  box-shadow: none;
+}
+.page-home:not(.page-v2):not(.page-v3) .btn--primary:hover {
+  background: color-mix(in srgb, var(--capillary-ink) 86%, white);
+}
+.page-home:not(.page-v2):not(.page-v3) .btn--primary:active {
+  background: color-mix(in srgb, var(--capillary-ink) 74%, white);
+}
+
 /* Full-bleed vertical gradient: a quiet slate grey at the very top behind
    the transparent navbar, fading to the page ground before the how-it-fits
    section, with a whisper of brand tint at the top centre. Grey per the
@@ -843,6 +860,27 @@
 }
 .feat__icon svg { width: 20px; height: 20px; }
 
+/* V1 rides the icon INSIDE the title as a prefix (13 Sep): the questions
+   grid and mech points h4s and the two feature-column h3s. The heading
+   flexes only when it holds one, so V2/V3's icon-above markup keeps its
+   stacked shape from the base rules. */
+.feat__mini h4:has(> .feat__icon),
+.price__tile h4:has(> .feat__icon),
+.feat__title:has(> .feat__icon) {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.feat__mini h4 > .feat__icon,
+.price__tile h4 > .feat__icon,
+.feat__title > .feat__icon {
+  display: inline-flex;
+  margin-bottom: 0;
+}
+
+/* Brand-lit word inside a section heading (V1's questions head). */
+.section-heading .hl-brand { color: var(--brand); }
+
 .feat__title,
 .feat__mini h4 {
   font-size: var(--t-title-sm);
@@ -1498,7 +1536,9 @@
 .diff__fig-panel > svg {
   width: 40px;
   height: 40px;
-  color: color-mix(in srgb, var(--ink-faint) 55%, transparent);
+  /* Plain opaque grey (user call, 13 Sep): the translucent ink let the
+     well's tint bleed through the glyph. */
+  color: var(--slate-400);
 }
 .diff__fig-panel > img {
   position: absolute;
@@ -1890,27 +1930,8 @@
 }
 
 
-/* Blueprint grid on the book section's ground, hero-style: tiles between
-   the rails, surfacing only in two soft corner patches. */
-.book__bggrid {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: var(--frame-x);
-  right: var(--frame-x);
-  pointer-events: none;
-  background-image:
-    linear-gradient(to right, var(--frame-grid) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--frame-grid) 1px, transparent 1px);
-  background-size: 80px 80px;
-  -webkit-mask-image:
-    radial-gradient(44% 46% at 12% 12%, #000, transparent 72%),
-    radial-gradient(44% 46% at 88% 88%, #000, transparent 72%);
-  mask-image:
-    radial-gradient(44% 46% at 12% 12%, #000, transparent 72%),
-    radial-gradient(44% 46% at 88% 88%, #000, transparent 72%);
-}
-.book > .padding-global { position: relative; }
+/* The book section's blueprint corner grid (.book__bggrid) was removed on
+   13 Sep (user call): the wash stands alone. */
 
 /* Narrow cards (must trail the base rules in the cascade): the artifact
    chip title wraps instead of vanishing behind the state chip, and the

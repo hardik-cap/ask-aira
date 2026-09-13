@@ -650,6 +650,33 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   border-color: rgba(255, 255, 255, 0.20);
 }
 
+/* The Solutions drawer follows the bar onto dark sections (13 Sep): panel,
+   card and every row retune to the inverse inks. V2 is excluded: its whole
+   token ground is already dark and its inverse tokens point light, so these
+   rules would flip its drawer the wrong way. */
+body:not(.page-v2) .nav.nav-dark .nav__panel {
+  background: color-mix(in srgb, #fff 4%, var(--surface-inv));
+  border-color: rgba(255, 255, 255, 0.12);
+}
+body:not(.page-v2) .nav.nav-dark .nav__panel-card {
+  background: color-mix(in srgb, #fff 7%, var(--surface-inv));
+  border-color: rgba(255, 255, 255, 0.10);
+}
+body:not(.page-v2) .nav.nav-dark .nav__col-title { color: var(--ink-inv-3); }
+body:not(.page-v2) .nav.nav-dark .nav__mini { color: var(--ink-inv-2); }
+body:not(.page-v2) .nav.nav-dark .nav__mini:hover {
+  color: var(--ink-inv);
+  background: rgba(255, 255, 255, 0.07);
+}
+body:not(.page-v2) .nav.nav-dark .nav__mini svg { color: var(--ink-inv-3); }
+body:not(.page-v2) .nav.nav-dark .nav__mini:hover svg { color: var(--indigo-300); }
+body:not(.page-v2) .nav.nav-dark .nav__aside-rule { background: rgba(255, 255, 255, 0.12); }
+body:not(.page-v2) .nav.nav-dark .nav__item:hover { background: rgba(255, 255, 255, 0.06); }
+body:not(.page-v2) .nav.nav-dark .nav__item-icon { color: var(--ink-inv-3); }
+body:not(.page-v2) .nav.nav-dark .nav__item:hover .nav__item-icon { color: var(--indigo-300); }
+body:not(.page-v2) .nav.nav-dark .nav__item-label { color: var(--ink-inv); }
+body:not(.page-v2) .nav.nav-dark .nav__item-desc { color: var(--ink-inv-3); }
+
 @media (max-width: 991px) {
   .nav__burger { display: inline-flex; }
   /* Full-screen sheet under the bar, in the bar's own rest colour so the

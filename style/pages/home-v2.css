@@ -70,19 +70,48 @@
 
 /* ---- Navbar over the dark ground --------------------------------------- */
 
-/* The default (light) logo is near-invisible here; pin the reverse. */
+/* The default (light) logo is near-invisible here; pin the reverse slot
+   and swap its raster lockup for the white vector wordmark (13 Sep). The
+   svg is 62x20; height 24 keeps the header spec's logo size. */
 .page-v2 .nav__logo-light { display: none; }
-.page-v2 .nav__logo-dark { display: block; }
+.page-v2 .nav__logo-dark {
+  display: block;
+  content: url("/assets/brand/aira-white.svg");
+  width: auto;
+  height: 24px;
+}
 .page-v2 .footer__logo-light { display: none; }
 .page-v2 .footer__logo-dark { display: block; }
 
+/* Buttons on the dark ground (13 Sep, revised same day): primary carries
+   the true brand indigo with white text; secondary is the white one with
+   ink text. Both pill-cornered and flat. Hover/press step LIGHTER since
+   darkening vanishes on dark. */
+.page-v2 .btn--primary {
+  background: var(--brand);
+  color: var(--on-brand);
+  border-radius: var(--r-pill);
+  box-shadow: none;
+}
+.page-v2 .btn--primary:hover { background: var(--brand-hover); }
+.page-v2 .btn--primary:active { background: var(--brand-press); }
+.page-v2 .btn--secondary {
+  background: var(--on-brand);
+  color: var(--capillary-ink);
+  border-color: transparent;
+  border-radius: var(--r-pill);
+  box-shadow: none;
+}
+.page-v2 .btn--secondary:hover { background: var(--indigo-50); border-color: transparent; }
+.page-v2 .btn--secondary:active { background: var(--indigo-100); }
+
 /* ---- Workers-flavour accents ------------------------------------------- */
 
-/* The hero video frame goes dashed, like the reference's terminal panels. */
-.page-v2 .hero__video {
-  border: 1px dashed var(--border-strong);
-  background: var(--bg-subtle);
-}
+/* The hero video frame is gone (13 Sep): the tour opens from the secondary
+   CTA instead, via the same js/video.js lightbox. Without the frame's fade
+   the flush hero ended hard on the ASK aiRA FOR pills, so the section gets
+   its breathing room back. */
+.page-v2 .hero.section--flush-bottom { padding-bottom: var(--sp-20); }
 
 /* ---- Per-section fixups over the remapped ground ------------------------ */
 

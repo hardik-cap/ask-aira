@@ -11,6 +11,10 @@ Contexts/
 # committed or deployed. The exported variants in assets/brand/ ship.
 assets/brand/source/
 
+# Internal brand reference: quotes the Capillary Brand Guide, stays local.
+capillary-brand.html
+style/pages/capillary-brand.css
+
 # Working scratch
 _probe.html
 _harness.html
