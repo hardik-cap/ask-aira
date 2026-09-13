@@ -108,7 +108,126 @@
 .page-v3 .feat__fig:has(.feat__card--session) { --fig-tint: var(--capillary-tint-teal); }
 .page-v3 .feat__fig:has(.feat__card--journey) { --fig-tint: var(--capillary-tint-orange); }
 
-.page-v3 .diff__fig { background: var(--capillary-tint-green); }
+/* The difference well keeps the neutral slate ground it has on index.html
+   (13 Sep): a green tint was tried here and dropped. The two feature wells
+   above still take their tints, because those sit under coloured column
+   headings; this one is a lone placeholder and the colour had nothing to
+   pair with. */
+
+/* ---- Colour-coded capability icons (13 Sep) -----------------------------
+   V3's one concession to colour beyond the hero rotator. Eight icons in the
+   questions section each take a different hue from the Capillary palette:
+   the two feature columns first, tied to the tint of the well beneath them
+   so column and illustration read as one object, then the six capability
+   cells cycling through the rest. Everything else in the section stays
+   monochrome, so the colour lands as punctuation rather than decoration.
+
+   Yellow is deliberately absent: the logo yellow #F3CF02 is the one
+   Capillary hue that cannot carry on a light ground (the same reason CRM
+   took teal in the hero rotator).
+   ---------------------------------------------------------------------- */
+.page-v3 .feat__col:nth-child(1) > .feat__icon { color: var(--capillary-teal); }
+.page-v3 .feat__col:nth-child(2) > .feat__icon { color: var(--capillary-logo-orange); }
+
+.page-v3 .feat__mini > li:nth-child(1) .feat__icon { color: var(--capillary-logo-blue); }
+.page-v3 .feat__mini > li:nth-child(2) .feat__icon { color: var(--aira-violet); }
+.page-v3 .feat__mini > li:nth-child(3) .feat__icon { color: var(--capillary-logo-green); }
+/* Amber, nudged toward ink: the raw #F4A114 is the palette's palest hue and
+   washes out at 20px, while navy (tried first) just read as black. */
+.page-v3 .feat__mini > li:nth-child(4) .feat__icon {
+  color: color-mix(in srgb, var(--capillary-amber) 82%, var(--black));
+}
+.page-v3 .feat__mini > li:nth-child(5) .feat__icon { color: var(--capillary-olive); }
+.page-v3 .feat__mini > li:nth-child(6) .feat__icon { color: var(--primary-400); }
+
+/* Section eyebrows carry the colour down the page (13 Sep): one Capillary
+   hue per section instead of brand indigo everywhere, so the palette reads
+   as a system rather than a one-section flourish.
+
+   The eyebrow is a 10px mono label, the smallest type on the page, so each
+   hue is deepened 20% toward --black to clear roughly 5:1 on the light
+   ground; the two dark sections lighten theirs 40% toward white instead,
+   for the same reason in reverse. */
+.page-v3 .asks .eyebrow {
+  color: color-mix(in srgb, var(--capillary-logo-blue) 80%, var(--black));
+}
+.page-v3 .diff .eyebrow {
+  color: color-mix(in srgb, var(--capillary-logo-orange) 80%, var(--black));
+}
+.page-v3 .compare .eyebrow {
+  color: color-mix(in srgb, var(--aira-violet) 90%, var(--black));
+}
+.page-v3 .mech .eyebrow {
+  color: color-mix(in srgb, var(--capillary-teal) 60%, white);
+}
+.page-v3 .price .eyebrow {
+  color: color-mix(in srgb, var(--capillary-logo-green) 60%, white);
+}
+
+/* The same palette carried into the three sections below the questions
+   block (13 Sep). Each section draws its own run of hues rather than
+   repeating one, and no section's icons reuse its eyebrow colour, so the
+   eyebrow stays the section's label and the icons stay the texture.
+
+   Light grounds take the hues at full strength, as the questions grid
+   does: a 20px glyph carries a mid-tone that a 10px eyebrow could not.
+   Pricing sits on the dark section, so its three lighten toward white. */
+
+/* The difference: 3 accordion rows (eyebrow is orange). */
+.page-v3 .diff__acc .acc__item:nth-child(1) .acc__icon { color: var(--capillary-logo-blue); }
+.page-v3 .diff__acc .acc__item:nth-child(2) .acc__icon { color: var(--aira-violet); }
+.page-v3 .diff__acc .acc__item:nth-child(3) .acc__icon { color: var(--capillary-teal); }
+
+/* Against the category: 5 row labels (eyebrow is violet). The board is a
+   FLAT grid, not nested rows: 19 children, a 3-cell header, then five
+   label/aira/other triples, then the brand panel. The label cells that
+   carry an icon therefore land on children 4, 7, 10, 13 and 16. */
+.page-v3 .compare__board > :nth-child(4) .compare__icon { color: var(--capillary-logo-blue); }
+.page-v3 .compare__board > :nth-child(7) .compare__icon { color: var(--capillary-teal); }
+.page-v3 .compare__board > :nth-child(10) .compare__icon { color: var(--capillary-logo-green); }
+.page-v3 .compare__board > :nth-child(13) .compare__icon {
+  color: color-mix(in srgb, var(--capillary-amber) 82%, var(--black));
+}
+.page-v3 .compare__board > :nth-child(16) .compare__icon { color: var(--capillary-logo-orange); }
+
+/* Pricing: 3 tiles on the dark ground (eyebrow is light green). */
+.page-v3 .price__tile:nth-child(1) .feat__icon,
+.page-v3 .price__card:nth-child(1) .feat__icon {
+  color: color-mix(in srgb, var(--capillary-logo-blue) 55%, white);
+}
+.page-v3 .price__card:nth-child(2) .feat__icon {
+  color: color-mix(in srgb, var(--capillary-amber) 70%, white);
+}
+.page-v3 .price__card:nth-child(3) .feat__icon {
+  color: color-mix(in srgb, var(--aira-violet) 55%, white);
+}
+
+/* ---- Tinted icon tiles (13 Sep) -----------------------------------------
+   The colour gets AREA instead of a few hairlines of stroke: each glyph sits
+   in a 32px rounded tile washed with its own hue, so the palette reads as
+   deliberate rather than incidental.
+
+   One rule covers every hue because the tile mixes `currentColor`, which is
+   already the per-icon colour set above. A translucent mix rather than one
+   over white, so the same declaration works on the dark pricing section as
+   on the light ones.
+
+   The comparison board is deliberately excluded: its icons sit inline in a
+   dense scan-line table, where a tile per row would fight the rhythm. */
+.page-v3 .feat__icon,
+.page-v3 .acc__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-sm);
+  background: color-mix(in srgb, currentColor 14%, transparent);
+}
+/* The tile is its own padding now, so the old stroke-to-title gap shrinks. */
+.page-v3 .feat__icon { margin-bottom: var(--sp-3); }
+/* Optical centring against the first line of the accordion title. */
+.page-v3 .acc__icon { margin-top: -4px; }
 
 /* Hero dot grid: full width, weighted to the empty right side of the
    left-aligned hero (dense right, gone by the left third). This CSS layer

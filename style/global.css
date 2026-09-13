@@ -106,8 +106,6 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
    stays aligned to the content edge. */
 @media (max-width: 640px) {
   :root { --pad-x: 20px; }
-  /* The experiment pages keep the 5% ratio they were designed against. */
-  .page-v2, .page-v3 { --pad-x: 5%; }
 }
 
 /* Dark section surface. Opt in per section; the navbar syncs to it via
@@ -242,10 +240,6 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   .joint::after { display: none; }
 
   .container { padding-inline: 0; }
-  /* V1 only (13 Sep): the experiment pages keep the gutter they were
-     designed against, so their marquee and sections are untouched. */
-  .page-v2 .container,
-  .page-v3 .container { padding-inline: var(--sp-5); }
 }
 
 /* ---- Section typography ------------------------------------------------ */
