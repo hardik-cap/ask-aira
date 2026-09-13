@@ -271,9 +271,11 @@
   --ink-3:      #858C9E;
   --ink-faint:  #626878;
 
-  --brand:        #7A8DF9;
-  --brand-hover:  #8B9DF9;
-  --brand-press:  #BAC4FB;
+  /* True brand indigo, same as light (user call, 13 Sep): no lifted dark
+     variant. Hover/press step LIGHTER since darkening vanishes on dark. */
+  --brand:        var(--indigo-500);
+  --brand-hover:  #6379F7;
+  --brand-press:  #7A8DF9;
   --brand-subtle: rgba(82, 108, 246, 0.16);
   --brand-line:   rgba(82, 108, 246, 0.34);
   --brand-ink:    #BAC4FB;

@@ -143,12 +143,8 @@
   margin-bottom: var(--sp-6);
   text-wrap: balance;
 }
-/* "teams" rides in full ink (user call, 11 Sep): the rotating word carries
-   the brand colour, so the fixed word stays black rather than muted. */
-.hero__title em {
-  font-style: normal;
-  color: var(--ink);
-}
+/* "teams" rotates inside the brand-coloured phrase since 13 Sep (user
+   call); no fixed em word remains in the H1. */
 
 /* ---- Rotating team in the H1 ---------------------------------------------
    "Analytics agent for [icon] {team} teams": js/rotator.js swaps the team
@@ -1476,31 +1472,19 @@
   align-items: stretch;
 }
 
+/* Placeholder slots (13 Sep): the drawn cards never landed, so each panel
+   is a plain well with a dim gallery glyph until a real image arrives.
+   When one does, an <img> replaces the panel's svg and fills the well. */
 .diff__fig {
   position: relative;
   min-height: 320px;
-  /* A ground, not a flat well: indigo tint over slate, with the blueprint
-     grid faintly through it (the illustration cards float on top). */
   background:
-    linear-gradient(to right, var(--frame-grid) 1px, transparent 1px) 0 0 / 40px 40px,
-    linear-gradient(to bottom, var(--frame-grid) 1px, transparent 1px) 0 0 / 40px 40px,
     radial-gradient(120% 90% at 82% 0%,
       color-mix(in srgb, var(--indigo-500) 16%, transparent), transparent 62%),
     linear-gradient(180deg, var(--slate-100), var(--slate-200));
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
   overflow: hidden;
-}
-.diff__fig-card {
-  width: min(320px, 72%);
-  min-height: 160px;
-  display: grid;
-  place-items: center;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  box-shadow: var(--shadow-md);
-  padding: var(--sp-8);
 }
 .diff__fig-panel {
   position: absolute;
@@ -1511,12 +1495,17 @@
   transition: opacity 0.25s var(--ease);
 }
 .diff__fig-panel.is-active { opacity: 1; }
-.diff__fig-n {
-  font-family: var(--font-mono);
-  font-size: var(--t-mono);
-  font-weight: 500;
-  letter-spacing: var(--tr-mono);
-  color: var(--ink-faint);
+.diff__fig-panel > svg {
+  width: 40px;
+  height: 40px;
+  color: color-mix(in srgb, var(--ink-faint) 55%, transparent);
+}
+.diff__fig-panel > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .diff__cta { margin-top: var(--sp-10); }
@@ -1850,97 +1839,22 @@
   border: 1px solid rgba(255, 255, 255, 0.10);
   border-radius: var(--r-lg);
 }
-/* Layered drawn composition (Tailark-Pro-dark fidelity): a dimmed invoice
-   skeleton behind, a lit-edge usage card in front. */
+/* Placeholder slot (13 Sep): the drawn credit-usage card is retired. The
+   well waits for a real image; a dim Phosphor image glyph marks the slot.
+   When the asset arrives, an <img> replaces the svg and fills the well. */
 .price__fig { position: relative; overflow: hidden; }
-
-.price__fig-back {
+.price__fig > svg {
+  width: 40px;
+  height: 40px;
+  color: rgba(255, 255, 255, 0.18);
+}
+.price__fig > img {
   position: absolute;
-  top: 14%;
-  right: 10%;
-  width: 160px;
-  padding: var(--sp-4);
-  background: color-mix(in srgb, #fff 3%, var(--surface-inv));
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: var(--r-lg);
-  opacity: 0.75;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
-.price__fig-back i { display: block; border-radius: 999px; background: rgba(255, 255, 255, 0.08); }
-.price__fig-back-dot { width: 20px; height: 20px; margin-bottom: 14px; }
-.price__fig-back-bar { height: 7px; margin-bottom: 10px; }
-.price__fig-back-bar--1 { width: 78%; }
-.price__fig-back-bar--2 { width: 92%; }
-.price__fig-back-bar--3 { width: 60%; }
-.price__fig-back-bar--4 { width: 84%; margin-bottom: 2px; }
-
-.price__fig-card {
-  position: relative;
-  width: min(320px, 86%);
-  padding: var(--sp-6);
-  background: linear-gradient(180deg,
-    color-mix(in srgb, #fff 7%, var(--surface-inv)),
-    color-mix(in srgb, #fff 3%, var(--surface-inv)));
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--r-lg);
-  box-shadow:
-    0 32px 64px -32px rgba(0, 0, 0, 0.7),
-    0 0 64px -20px color-mix(in srgb, var(--indigo-500) 45%, transparent);
-}
-/* Lit top edge, reference-style. */
-.price__fig-card::before {
-  content: '';
-  position: absolute;
-  top: -1px;
-  left: 12%;
-  right: 12%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-}
-
-.price__fig-head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: var(--sp-4);
-}
-.price__fig-head img { width: 18px; height: 18px; }
-.price__fig-id {
-  font-family: var(--font-mono);
-  font-size: var(--t-mono);
-  font-weight: 500;
-  letter-spacing: var(--tr-mono);
-  text-transform: uppercase;
-  color: var(--ink-inv-3);
-}
-.price__fig-amount {
-  font-family: var(--font-display);
-  font-size: var(--t-display-3);
-  font-weight: 600;
-  letter-spacing: var(--tr-title);
-  line-height: 1.2;
-  color: var(--ink-inv);
-  font-variant-numeric: tabular-nums;
-  margin-bottom: var(--sp-4);
-}
-.price__fig-amount span {
-  font-family: var(--font-sans);
-  font-size: var(--t-caption);
-  font-weight: 450;
-  letter-spacing: 0;
-  color: var(--ink-inv-3);
-  margin-left: 8px;
-}
-.price__fig-foot {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: var(--sp-4);
-  padding-top: var(--sp-4);
-  border-top: 1px solid rgba(255, 255, 255, 0.10);
-  font-size: var(--t-caption);
-  color: var(--ink-inv-2);
-}
-.price__fig-foot svg { width: 14px; height: 14px; color: var(--approve); flex: none; }
 
 .price__card {
   display: flex;
@@ -1950,24 +1864,6 @@
   border-left: 1px solid rgba(255, 255, 255, 0.10);
   padding-left: var(--sp-8);
 }
-
-/* Credits: a mini usage ledger. The zero-credit seats row IS the claim. */
-.price__ledger { width: 100%; max-width: 240px; }
-.price__ledger-row {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--sp-4);
-  padding-block: 10px;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.14);
-  font-family: var(--font-mono);
-  font-size: var(--t-mono);
-  letter-spacing: 0.02em;
-  color: var(--ink-inv-2);
-}
-.price__ledger-row span { white-space: nowrap; }
-.price__ledger-row:last-child { border-bottom: 0; }
-.price__ledger-n { color: var(--indigo-300); }
-.price__ledger-n--zero { color: var(--ink-inv-3); }
 
 
 
@@ -1983,8 +1879,6 @@
 @media (max-width: 991px) {
   .price__top { grid-template-columns: 1fr; gap: var(--sp-8); }
   .price__fig { min-height: 240px; padding: var(--sp-5); }
-  .price__fig-card { width: min(300px, 100%); }
-  .price__fig-back { right: 4%; }
 }
 @media (max-width: 767px) {
   .price__grid { grid-template-columns: 1fr; gap: var(--sp-6); }
