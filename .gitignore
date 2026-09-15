@@ -47,3 +47,8 @@ node_modules/
 .wrangler/
 .env
 .env.*
+
+# Retired homepage experiments (V2 dark, V3 colourful light). Archived
+# 15 Sep once V1 was locked as the shipping direction: kept locally as a
+# parts bin, never deployed.
+archive/

@@ -30,14 +30,18 @@
           <a class="nav__link" href="/product">Product</a>
 
           <div class="nav__dd" data-dropdown>
-            <button class="nav__toggle" type="button" aria-expanded="false"
-                    aria-controls="dd-solutions" data-dropdown-toggle>
+            <!-- A link, not a button: on desktop the panel opens on hover, so
+                 the click is free to go to the finder itself. On mobile the
+                 click is the only way to open the drawer accordion, so
+                 components.js suppresses the navigation there. -->
+            <a class="nav__toggle" href="/solutions" aria-expanded="false"
+               aria-controls="dd-solutions" data-dropdown-toggle>
               <span>Solutions</span>
               <svg class="nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M6 9l6 6 6-6"/>
               </svg>
-            </button>
+            </a>
 
             <div class="nav__panel" id="dd-solutions">
               <div class="nav__panel-grid">
@@ -121,13 +125,6 @@
         </div>
 
         <div class="nav__actions">
-          <!-- Review-only switcher between the homepage design experiments;
-               remove before shipping. js/components.js marks the active one. -->
-          <div class="nav__versions" aria-label="Homepage design versions">
-            <a href="/" data-version="v1">V1</a>
-            <a href="/index-v2.html" data-version="v2">V2</a>
-            <a href="/index-v3.html" data-version="v3">V3</a>
-          </div>
           <a class="btn btn--primary btn--sm" href="/book">Book a session</a>
         </div>
       </nav>

@@ -342,7 +342,10 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   letter-spacing: -0.01em;
   line-height: 1;
   padding: 13px 20px;
-  border-radius: var(--r-sm);
+  /* 12px, settled 15 Sep. Every button on the site takes this one radius:
+     the pill (--r-pill) it replaced is retired, and --r-sm was the older
+     default. Page-scoped radius overrides were deleted for this. */
+  border-radius: var(--r-md);
   border: 1px solid transparent;
   white-space: nowrap;
   cursor: pointer;
@@ -507,7 +510,8 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 }
 .nav__link:hover,
 .nav__toggle:hover { color: var(--ink); background: var(--slate-100); }
-.nav__link[aria-current="page"] { color: var(--ink); }
+.nav__link[aria-current="page"],
+.nav__toggle[aria-current="page"] { color: var(--ink); }
 
 .nav__chev {
   width: 13px; height: 13px;
@@ -518,34 +522,6 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 .nav__dd[data-open="true"] .nav__toggle { color: var(--ink); background: var(--slate-100); }
 
 .nav__actions { display: flex; align-items: center; gap: var(--sp-3); margin-left: auto; }
-
-/* Review-only switcher between the homepage design experiments: a small
-   segmented mono control ahead of the CTA. Remove before shipping. */
-.nav__versions {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  padding: 2px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r-pill);
-}
-.nav__versions a {
-  font-family: var(--font-mono);
-  font-size: var(--t-mono);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  padding: 2px 8px;
-  border-radius: var(--r-pill);
-  color: var(--ink-3);
-  transition: color var(--dur-fast) var(--ease),
-              background var(--dur-fast) var(--ease);
-}
-.nav__versions a:hover { color: var(--ink); }
-.nav__versions a.is-current {
-  background: var(--brand);
-  color: var(--on-brand);
-}
 
 /* Dropdown mega-menu (header-three): a muted lip wrapping a bordered card
    of rich links (icon tile, label, description), a plain role column, and
@@ -780,15 +756,6 @@ body:not(.page-v2) .nav.nav-dark .nav__item-desc { color: var(--ink-inv-3); }
     font-size: var(--t-body-lg);
     border-radius: var(--r-md);
   }
-  /* In the sheet the switcher spans the row: each version gets an equal,
-     comfortably tappable segment. */
-  .nav__versions a {
-    flex: 1;
-    justify-content: center;
-    display: inline-flex;
-    padding-block: 8px;
-  }
-
   /* Dropdowns become inline accordions on mobile */
   .nav__panel {
     position: static;

@@ -76,13 +76,35 @@
       });
 
       // Click, both breakpoints. On mobile the panel is an inline accordion.
+      //
+      // A toggle that is a real link (Solutions points at /solutions) still
+      // navigates on DESKTOP, where hover has already made the panel
+      // reachable. On mobile there is no hover, so the click has to stay the
+      // disclosure or everything inside the panel becomes unreachable: the
+      // navigation is suppressed and the accordion opens instead.
       if (toggle) {
+        var href = toggle.getAttribute('href');
+        var isLink = toggle.tagName === 'A' && href && href.charAt(0) !== '#';
+
         toggle.addEventListener('click', function (e) {
+          if (isLink && isDesktop()) return; // let the browser follow it
+          if (isLink) e.preventDefault();
           e.stopPropagation();
           var open = dd.getAttribute('data-open') === 'true';
           closeAll(dd);
           setOpen(dd, !open);
         });
+
+        // Keyboard parity on desktop: the link's own Enter navigates, so the
+        // panel needs another way open for keyboard users who want it.
+        if (isLink) {
+          toggle.addEventListener('keydown', function (e) {
+            if (e.key !== 'ArrowDown' || !isDesktop()) return;
+            e.preventDefault();
+            closeAll(dd);
+            setOpen(dd, true);
+          });
+        }
       }
     });
 
@@ -137,11 +159,20 @@
 
     /* 5. Current page */
 
-    var here = window.location.pathname.replace(/\/+$/, '') || '/';
-    nav.querySelectorAll('.nav__link, .nav__item, .nav__mini').forEach(function (a) {
-      var href = (a.getAttribute('href') || '').split(/[?#]/)[0].replace(/\/+$/, '') || '/';
-      if (href === here) a.setAttribute('aria-current', 'page');
-    });
+    // Cloudflare Pages serves /solutions from solutions.html, so the local
+    // preview's path carries an extension the hrefs never do. Normalising it
+    // away keeps the marking identical in both places.
+    function tidy(path) {
+      return path.split(/[?#]/)[0].replace(/\.html$/, '').replace(/\/+$/, '') || '/';
+    }
+
+    var here = tidy(window.location.pathname);
+    nav.querySelectorAll('.nav__link, .nav__toggle, .nav__item, .nav__mini')
+      .forEach(function (a) {
+        var href = a.getAttribute('href');
+        if (!href) return;
+        if (tidy(href) === here) a.setAttribute('aria-current', 'page');
+      });
   }
 
   /* ---- 3b. Pill condense on scroll ------------------------------------ */
@@ -229,23 +260,6 @@
     darkSections.forEach(function (el) { io.observe(el); });
   }
 
-  /* ---- Version switcher (review-only) ----------------------------------- */
-
-  /* Marks the current homepage experiment in the nav's V1/V2/V3 switcher. */
-  function initVersionTabs() {
-    var wrap = document.querySelector('.nav__versions');
-    if (!wrap) return;
-    var path = window.location.pathname;
-    var v = 'v1';
-    if (path.indexOf('index-v2') !== -1) v = 'v2';
-    else if (path.indexOf('index-v3') !== -1) v = 'v3';
-    var current = wrap.querySelector('[data-version="' + v + '"]');
-    if (current) {
-      current.classList.add('is-current');
-      current.setAttribute('aria-current', 'page');
-    }
-  }
-
   /* ---- Boot ----------------------------------------------------------- */
 
   Promise.all([
@@ -255,7 +269,6 @@
     initNav();
     initNavScroll();
     initNavDarkSync();
-    initVersionTabs();
     document.dispatchEvent(new CustomEvent('aira:components-ready'));
   });
 })();

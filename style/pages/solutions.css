@@ -1,0 +1,484 @@
+/* ==========================================================================
+   aiRA - Solutions finder (/solutions)
+
+   The picker sits IN the hero, Indeed-style: this page exists to route you,
+   so the control is the first thing you meet. Two joined fields plus a go
+   button, the grammar of a flight search, which is the shape the client
+   asked for ("side by side two drop downs", kickoff call, IA §14).
+
+   Industry is required. Team is OPTIONAL and defaults to all five, because
+   the argument this page makes is the CONTRAST: "the same calendar event
+   produces opposite problems by role" (context.md §6). A selector that shows
+   one intersection at a time can assert that but never show it.
+
+   The picker FILTERS visible content rather than gating hidden content.
+   Every intersection stays in the markup: all 75 questions are indexable and
+   the page reads whole with scripts off.
+   ========================================================================== */
+
+/* ---- Buttons: V1's shipping language ------------------------------------
+   The black flat primary is restated here because home.css scopes it to
+   .page-home. The corner radius is NOT restated: it is the base .btn rule's
+   12px, settled 15 Sep for every button on the site. */
+.page-solutions .btn--primary {
+  background: var(--black);
+  box-shadow: none;
+}
+.page-solutions .btn--primary:hover {
+  background: color-mix(in srgb, var(--black) 86%, white);
+}
+.page-solutions .btn--primary:active {
+  background: color-mix(in srgb, var(--black) 74%, white);
+}
+
+/* On the inverse close section a black pill would sink into the ground, so
+   the pair flips the V2 way: white fill, black text. */
+.page-solutions .section--inv .btn--primary {
+  background: var(--on-brand);
+  color: var(--black);
+}
+.page-solutions .section--inv .btn--primary:hover { background: var(--primary-50); }
+.page-solutions .section--inv .btn--primary:active { background: var(--primary-100); }
+
+/* ---- Hero ----------------------------------------------------------------
+   The hero hosts the picker, so it carries more vertical room than a plain
+   section head and a quiet ground for the connector traces to sit on. */
+
+.hero-solutions {
+  position: relative;
+  /* Deliberately NOT overflow:hidden. An open dropdown is taller than the
+     space left under the picker, so clipping here cut the list off after two
+     options. Nothing needs the clip: an outermost <svg> hides its own
+     overflow by default, so the connector field crops itself.
+
+     z-index does two jobs. It lifts the hero above the sections that follow,
+     which are position:relative too and would otherwise paint over an open
+     panel; and it creates the stacking context that keeps .hero-lines at
+     z-index -1 behind the hero's content rather than behind the page. */
+  z-index: 4;
+  padding-block: var(--sp-24) var(--sp-20);
+  background:
+    radial-gradient(58% 46% at 50% 0%,
+      color-mix(in srgb, var(--primary-400) 6%, transparent), transparent 72%),
+    linear-gradient(180deg, var(--bg-subtle), var(--bg) 78%);
+}
+
+.hero-solutions .section-head { margin-bottom: var(--sp-10); }
+.hero-solutions__head { position: relative; }
+
+/* ---- Connector traces ----------------------------------------------------
+   Orthogonal wires with rounded elbows running in from the edges and ending
+   in small nodes: the mechanism section's "data in, action out" idea used as
+   hero texture. Generated as static SVG, no script.
+
+   The mask clears the centre column so the headline and the picker never sit
+   on a line, and the whole field is behind the content via z-index. */
+
+.hero-lines {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(62% 54% at 50% 46%, transparent 24%, #000 78%);
+  mask-image: radial-gradient(62% 54% at 50% 46%, transparent 24%, #000 78%);
+}
+.hero-lines__wires {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+.hero-lines__nodes {
+  fill: var(--bg);
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+}
+.hero-lines__node--on {
+  fill: var(--brand);
+  stroke: var(--brand);
+}
+
+/* ---- The picker ----------------------------------------------------------
+   Flight-search grammar: two fields joined into one bar by hairlines, with
+   the go button attached to the end, so the pair reads as a single control
+   rather than two loose selects.
+
+   The fields are custom listboxes, not native <select>: the OS popup cannot
+   carry the Phosphor icon each industry and team already owns elsewhere on
+   the site, and it paints in the platform's chrome rather than ours. The
+   trade is that accessibility has to be built rather than inherited, so each
+   field follows the ARIA select-only combobox pattern exactly: focus stays
+   on the button, aria-activedescendant moves through the options, and the
+   full key set (arrows, Home/End, Enter, Escape, type-ahead) is handled in
+   js/solutions.js. A hidden input carries the value so the form still has
+   real semantics. */
+
+.pick {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  align-items: stretch;
+  gap: 0;
+  max-width: 46rem;
+  margin-inline: auto;
+  padding: var(--sp-2);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  /* Same 12px as the button it contains, so the bar and the go button share
+     one corner language (user call, 15 Sep). */
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-md);
+}
+
+.pick__field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  padding: 6px var(--sp-5);
+}
+/* The divider is a border on the second field, not a gap, so it runs the
+   full height of the bar regardless of what either field contains. */
+.pick__field + .pick__field { border-left: 1px solid var(--border); }
+
+.pick__label {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ---- The closed control -------------------------------------------------- */
+
+.pick__control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  font-size: var(--t-body-sm);
+  font-weight: 550;
+  line-height: 1.4;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.pick__ic {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: var(--brand);
+}
+.pick__value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.pick__chev {
+  width: 13px;
+  height: 13px;
+  flex: none;
+  color: var(--ink-3);
+  transition: transform var(--dur-fast) var(--ease);
+}
+.pick__control[aria-expanded="true"] .pick__chev { transform: rotate(180deg); }
+
+/* The ring traces the whole labelled cell, the way a focused form row should,
+   rather than just the button text. */
+.pick__field:focus-within {
+  outline: 2px solid var(--brand);
+  outline-offset: -2px;
+  /* The bar's radius less its padding, so the ring sits concentric to it. */
+  border-radius: calc(var(--r-md) - 4px);
+}
+
+/* ---- The open list ------------------------------------------------------- */
+
+.pick__list {
+  position: absolute;
+  top: calc(100% + var(--sp-3));
+  left: 0;
+  right: 0;
+  z-index: 20;
+  margin: 0;
+  padding: var(--sp-2);
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  /* Long lists scroll rather than running off the hero. */
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.pick__opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: var(--r-sm);
+  font-size: var(--t-body-sm);
+  font-weight: 500;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.pick__opt-ic {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  color: var(--ink-3);
+}
+.pick__opt-t {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.pick__opt-tick {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  color: var(--brand);
+  visibility: hidden;
+}
+
+/* Hover and keyboard focus share one look, so there is never a second
+   competing highlight when the pointer rests somewhere while arrowing. */
+.pick__opt:hover,
+.pick__opt.is-active {
+  background: var(--bg-subtle);
+  color: var(--ink);
+}
+.pick__opt:hover .pick__opt-ic,
+.pick__opt.is-active .pick__opt-ic { color: var(--brand); }
+
+.pick__opt[aria-selected="true"] { color: var(--ink); }
+.pick__opt[aria-selected="true"] .pick__opt-ic { color: var(--brand); }
+.pick__opt[aria-selected="true"] .pick__opt-tick { visibility: visible; }
+
+.pick__go {
+  flex: none;
+  align-self: stretch;
+  white-space: nowrap;
+}
+
+/* Without JS a custom listbox cannot open at all, and the GET submit would
+   only reload a page that already shows every group. So the picker is not
+   offered: the stacked document below is the whole content either way. */
+html:not(.js) .pick { display: none; }
+html:not(.js) .hero-solutions .section-head { margin-bottom: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pick__chev { transition: none; }
+}
+
+/* ---- Industry groups ----------------------------------------------------- */
+
+html.js .finder__group { display: none; }
+html.js .finder__group.is-active { display: block; }
+html:not(.js) .finder__group + .finder__group { margin-top: var(--sp-16); }
+
+.finder__group-head { margin-bottom: var(--sp-8); }
+
+.finder__group-t {
+  font-family: var(--font-display);
+  font-size: var(--t-display-3);
+  font-weight: 700;
+  line-height: 1.22;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+  margin-bottom: var(--sp-3);
+  text-wrap: balance;
+}
+
+.finder__group-s {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-3);
+  max-width: 44rem;
+}
+
+/* ---- The five seats ------------------------------------------------------
+   A hairline list, not five cards: five boxes would leave an orphan cell in
+   any even grid and would spend border, fill and radius on rows that are
+   peers. The team identity sits left, its three questions right. */
+
+.seats { border-top: 1px solid var(--border); }
+
+.seat {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.6fr);
+  gap: var(--sp-10);
+  align-items: start;
+  padding-block: var(--sp-8);
+  /* The inline padding exists so the deep-link highlight below reads as a
+     band with air around its content, not a tint flush to the type. */
+  padding-inline: var(--sp-5);
+  margin-inline: calc(var(--sp-5) * -1);
+  border-bottom: 1px solid var(--border);
+  /* No scroll-margin-top here: global.css already sets scroll-padding-top on
+     the root, and the two add up to double the nav clearance. */
+  transition: background var(--dur) var(--ease);
+}
+
+.seat__t {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-family: var(--font-display);
+  font-size: var(--t-title);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+  margin-bottom: var(--sp-3);
+}
+.seat__ic {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--brand);
+}
+
+.seat__hand {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-3);
+  max-width: 34rem;
+}
+
+.seat__qs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--sp-5);
+}
+
+/* Landing from a nav "By team" link (/solutions?role=crm) marks the seat
+   rather than hiding the other four: the contrast is the point, so the
+   highlight points at a row inside it. */
+.seat.is-target {
+  background: color-mix(in srgb, var(--brand) 5%, transparent);
+}
+.seat.is-target .seat__t { color: var(--brand-ink); }
+
+/* ---- Retail categories rail --------------------------------------------- */
+
+.finder__cats { margin-top: var(--sp-10); }
+
+.finder__cats-label {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: var(--sp-4);
+}
+
+.finder__cats-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.finder__cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: var(--t-body-sm);
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--ink-2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.finder__cat:hover {
+  color: var(--ink);
+  border-color: var(--ink-faint);
+}
+.finder__cat--all { color: var(--brand-ink); }
+.finder__cat--all svg { width: 14px; height: 14px; }
+
+/* ---- Footnote ------------------------------------------------------------ */
+
+.finder__note {
+  margin-top: var(--sp-10);
+  font-family: var(--font-mono);
+  font-size: var(--t-caption);
+  line-height: 1.6;
+  color: var(--ink-faint);
+}
+
+/* ---- Close --------------------------------------------------------------- */
+
+.solutions-close__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: var(--sp-16);
+  align-items: start;
+}
+.solutions-close__cta { margin-top: var(--sp-8); }
+
+/* ---- Responsive ---------------------------------------------------------- */
+
+@media (max-width: 991px) {
+  .seat {
+    grid-template-columns: 1fr;
+    gap: var(--sp-5);
+  }
+  .solutions-close__grid {
+    grid-template-columns: 1fr;
+    gap: var(--sp-10);
+  }
+}
+
+/* The joined bar cannot hold two fields plus a button at phone width, so it
+   unpacks into stacked rows: same control, same order, hairlines between. */
+@media (max-width: 720px) {
+  .pick {
+    grid-template-columns: 1fr;
+    padding: var(--sp-3);
+    gap: var(--sp-2);
+  }
+  .pick__field { padding: var(--sp-3) var(--sp-4); }
+  .pick__field + .pick__field {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+  }
+  .pick__field:focus-within { border-radius: var(--r-md); }
+  .pick__go {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-solutions { padding-block: var(--sp-16) var(--sp-12); }
+  .seat {
+    padding-block: var(--sp-6);
+    padding-inline: var(--sp-4);
+    margin-inline: calc(var(--sp-4) * -1);
+  }
+}
+
+/* ---- Reduced motion ------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  .finder__cat,
+  .seat { transition: none; }
+}

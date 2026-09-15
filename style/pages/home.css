@@ -40,8 +40,8 @@
    stylesheet. */
 .page-home:not(.page-v2):not(.page-v3) .btn--primary {
   background: var(--black);
-  border-radius: var(--r-pill);
-  /* Flat, no lift (user call, 13 Sep). */
+  /* Flat, no lift (user call, 13 Sep). The corner radius is NOT set here:
+     it is the base .btn rule's 12px, settled 15 Sep for every button. */
   box-shadow: none;
 }
 .page-home:not(.page-v2):not(.page-v3) .btn--primary:hover {
@@ -72,7 +72,16 @@
 /* Dot grid over the hero wash (12 Sep, promoted from the V3 experiment;
    it replaced the corner-masked 80px blueprint squares). It spans exactly
    between the page frame's rails, falls from the very top and mask-fades
-   out just before the H1. */
+   out just before the H1.
+
+   The three numbers below are declared as custom properties because
+   js/hero-dots.js reads them to build the interactive canvas field on
+   exactly the same lattice and the same fade. Change them here only. */
+.hero__grad {
+  --dot-gap: 22px;
+  --dot-solid: 120px;  /* full strength down to here */
+  --dot-fade: 440px;   /* gone by here: below it there are no dots at all */
+}
 .hero__grad::after {
   content: '';
   position: absolute;
@@ -82,9 +91,37 @@
   right: var(--frame-x);
   background-image: radial-gradient(circle,
     var(--frame-grid) 1.5px, transparent 2px);
-  background-size: 22px 22px;
-  -webkit-mask-image: linear-gradient(to bottom, #000 120px, transparent 440px);
-  mask-image: linear-gradient(to bottom, #000 120px, transparent 440px);
+  background-size: var(--dot-gap) var(--dot-gap);
+  -webkit-mask-image: linear-gradient(to bottom, #000 var(--dot-solid), transparent var(--dot-fade));
+  mask-image: linear-gradient(to bottom, #000 var(--dot-solid), transparent var(--dot-fade));
+}
+
+/* The interactive field (15 Sep, ported from V3 on the user's call): dots
+   are displaced away from the pointer and spring back. The canvas sits on
+   the SAME box as the ::after grid above, rails to rails, so the swap is
+   invisible; hero-dots.js hides the static grid only once the canvas is
+   actually up, which keeps it as the no-JS and no-canvas fallback.
+
+   Interaction is bounded to where dots exist: the script gates the pointer
+   to this box and to --dot-fade, so nothing reacts below the fade or out
+   in the page gutters. */
+.page-home:not(.page-v2):not(.page-v3) .hero--dotfield .hero__grad::after {
+  display: none;
+}
+/* Width and height are set explicitly rather than with left/right + top/bottom:
+   a <canvas> is a REPLACED element, so an auto width against both edges does
+   not stretch it, it keeps its intrinsic 300x150 and the `right` is dropped.
+
+   The canvas is also only as tall as the dots reach, not the whole hero: at
+   --dot-fade there are no dots left, and a full-height field would carry a
+   backing store several times larger than it draws into (device pixels
+   squared on retina) for nothing. */
+.page-home:not(.page-v2):not(.page-v3) .hero__dotfield {
+  position: absolute;
+  top: 0;
+  left: var(--frame-x);
+  width: calc(100% - 2 * var(--frame-x));
+  height: var(--dot-fade);
 }
 
 /* Positioned decor would otherwise paint over the static content wrappers. */
@@ -2044,4 +2081,32 @@
   .feat__artifact-state { margin-left: 26px; }
   .feat__node { padding: 5px 7px; gap: 5px; }
   .feat__canvas { padding: var(--sp-2); }
+}
+
+
+/* ---- Route into the finder ----------------------------------------------
+   Closes the questions section (IA §3). One real button: /solutions is where
+   the whole phase-5 content investment lands, and a quiet text link at the
+   end of a section is exactly how ThoughtSpot orphaned theirs (IA §16).
+
+   It wears the settled homepage button, the rounded black pill, so the page
+   has one button language rather than a second one invented for navigation.
+   ------------------------------------------------------------------------ */
+
+.route {
+  display: grid;
+  gap: var(--sp-6);
+  margin-top: var(--sp-10);
+  padding-top: var(--sp-8);
+  border-top: 1px solid var(--border);
+  justify-items: center;
+  text-align: center;
+}
+
+.route__line {
+  font-size: var(--t-body-lg);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 38rem;
+  text-wrap: pretty;
 }

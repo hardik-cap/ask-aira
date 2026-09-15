@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Built for your team | aiRA</title>
+  <meta name="description" content="Pick your industry and see what aiRA answers in all five seats: marketing, CRM, data and BI, eCommerce and growth. Retail, restaurants and QSR, travel, telecom and fuel.">
+
+  <meta property="og:title" content="Built for your team | aiRA">
+  <meta property="og:description" content="Same calendar, opposite problems. Pick your industry and see the questions aiRA answers in all five seats.">
+  <meta property="og:image" content="https://askaira.ai/assets/og/og-default.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://askaira.ai/solutions">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Built for your team | aiRA">
+  <meta name="twitter:description" content="Same calendar, opposite problems. Pick your industry and see what aiRA answers in all five seats.">
+  <meta name="twitter:image" content="https://askaira.ai/assets/og/og-default.png">
+  <link rel="canonical" href="https://askaira.ai/solutions">
+
+  <link rel="icon" href="/assets/brand/aira-mark.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&amp;family=Geist+Mono:wght@400;500;600&amp;family=Instrument+Sans:ital,wght@0,400..700;1,400..700&amp;display=swap">
+
+  <!-- Order matters: tokens -> global -> components -> page -->
+  <link rel="stylesheet" href="/style/tokens.css">
+  <link rel="stylesheet" href="/style/global.css">
+  <link rel="stylesheet" href="/style/components.css">
+  <link rel="stylesheet" href="/style/pages/solutions.css">
+
+  <!-- One-line JS gate, not a script block: the chip row only filters once
+       .js is on the root element. Without it every industry group stays
+       visible, so the page is a complete readable document either way. -->
+  <script>document.documentElement.classList.add('js');</script>
+
+  <script src="/js/components.js" defer></script>
+  <script src="/js/reveal.js" defer></script>
+  <script src="/js/solutions.js" defer></script>
+</head>
+
+<body class="page-solutions">
+
+  <div id="navbar-placeholder"></div>
+
+  <!-- Page-frame joints: one .joint between each pair of visible sections
+       (see global.css); the header's own bottom border draws the top line. -->
+
+  <main id="main">
+
+    <!-- ================= HERO =================
+         The picker lives IN the hero (15 Sep, user call, Indeed-style): the
+         page's job is to route you, so the control is the first thing you
+         meet rather than something below the fold. Two fields joined into
+         one bar, flight-search style, with the go button attached.
+
+         Industry is required and defaults to Retail; team is optional, and
+         "All five teams" is the default because the contrast between seats
+         is the argument this page makes. -->
+    <section class="section hero-solutions">
+      <svg class="hero-lines" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+    <g class="hero-lines__wires">
+      <path d="M-40 96 L158.0 96.0 Q188 96 188.0 126.0 L188.0 220.0 Q188 250 218.0 250.0 L330 250"/>
+      <path d="M-40 330 L66.0 330.0 Q96 330 96.0 360.0 L96.0 440.0 Q96 470 126.0 470.0 L286 470"/>
+      <path d="M250 760 L250.0 634.0 Q250 604 220.0 604.0 L90.0 604.0 Q60 604 60.0 574.0 L60 520"/>
+      <path d="M300 -40 L300.0 30.0 Q300 60 330.0 60.0 L452 60"/>
+      <path d="M1480 140 L1282.0 140.0 Q1252 140 1252.0 170.0 L1252.0 262.0 Q1252 292 1222.0 292.0 L1096 292"/>
+      <path d="M1480 396 L1374.0 396.0 Q1344 396 1344.0 426.0 L1344.0 510.0 Q1344 540 1314.0 540.0 L1150 540"/>
+      <path d="M1180 -40 L1180.0 48.0 Q1180 78 1150.0 78.0 L1010 78"/>
+      <path d="M1210 760 L1210.0 670.0 Q1210 640 1180.0 640.0 L1020 640"/>
+      <path d="M-40 660 L150 660"/>
+      <path d="M1480 620 L1430.0 620.0 Q1400 620 1400.0 650.0 L1400 700"/>
+    </g>
+    <g class="hero-lines__nodes">
+      <circle cx="330" cy="250" r="4" class="hero-lines__node--on"/>
+      <circle cx="286" cy="470" r="4"/>
+      <circle cx="60" cy="520" r="4"/>
+      <circle cx="452" cy="60" r="4"/>
+      <circle cx="1096" cy="292" r="4"/>
+      <circle cx="1150" cy="540" r="4"/>
+      <circle cx="1010" cy="78" r="4"/>
+      <circle cx="1020" cy="640" r="4"/>
+      <circle cx="150" cy="660" r="4"/>
+      <circle cx="1400" cy="700" r="4"/>
+    </g>
+  </svg>
+
+      <div class="padding-global">
+        <div class="container">
+          <div class="section-head section-head--center hero-solutions__head reveal is-in">
+            <p class="eyebrow">Solutions</p>
+            <h1 class="section-heading">Built for your team.</h1>
+            <p class="section-sub">
+              The same week looks different in every seat. Marketing is pitching the
+              festive plan while the data team drowns in ad hoc pulls. Tell us where
+              you sit, and see the questions aiRA answers in your week.
+            </p>
+          </div>
+
+          <form class="pick reveal is-in" id="pick" action="/solutions" method="get">
+            <div class="pick__field" data-pick="industry">
+              <span class="pick__label" id="pick-industry-label">Industry</span>
+              <button class="pick__control" type="button" id="pick-industry"
+                      role="combobox" aria-haspopup="listbox" aria-expanded="false"
+                      aria-controls="pick-industry-list"
+                      aria-labelledby="pick-industry-label pick-industry-value">
+                <svg class="pick__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,96a7.89,7.89,0,0,0-.3-2.2L217.35,43.6A16.07,16.07,0,0,0,202,32H54A16.07,16.07,0,0,0,38.65,43.6L24.31,93.8A7.89,7.89,0,0,0,24,96h0v16a40,40,0,0,0,16,32v72a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V144a40,40,0,0,0,16-32V96ZM54,48H202l11.42,40H42.61Zm50,56h48v8a24,24,0,0,1-48,0Zm-16,0v8a24,24,0,0,1-35.12,21.26,7.88,7.88,0,0,0-1.82-1.06A24,24,0,0,1,40,112v-8ZM200,208H56V151.2a40.57,40.57,0,0,0,8,.8,40,40,0,0,0,32-16,40,40,0,0,0,64,0,40,40,0,0,0,32,16,40.57,40.57,0,0,0,8-.8Zm4.93-75.8a8.08,8.08,0,0,0-1.8,1.05A24,24,0,0,1,168,112v-8h48v8A24,24,0,0,1,204.93,132.2Z"/></svg>
+                <span class="pick__value" id="pick-industry-value">Retail</span>
+                <svg class="pick__chev" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+              </button>
+              <ul class="pick__list" id="pick-industry-list" role="listbox"
+                  aria-labelledby="pick-industry-label" hidden>
+                  <li class="pick__opt" id="opt-industry-retail" role="option" data-value="retail" aria-selected="true"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,96a7.89,7.89,0,0,0-.3-2.2L217.35,43.6A16.07,16.07,0,0,0,202,32H54A16.07,16.07,0,0,0,38.65,43.6L24.31,93.8A7.89,7.89,0,0,0,24,96h0v16a40,40,0,0,0,16,32v72a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V144a40,40,0,0,0,16-32V96ZM54,48H202l11.42,40H42.61Zm50,56h48v8a24,24,0,0,1-48,0Zm-16,0v8a24,24,0,0,1-35.12,21.26,7.88,7.88,0,0,0-1.82-1.06A24,24,0,0,1,40,112v-8ZM200,208H56V151.2a40.57,40.57,0,0,0,8,.8,40,40,0,0,0,32-16,40,40,0,0,0,64,0,40,40,0,0,0,32,16,40.57,40.57,0,0,0,8-.8Zm4.93-75.8a8.08,8.08,0,0,0-1.8,1.05A24,24,0,0,1,168,112v-8h48v8A24,24,0,0,1,204.93,132.2Z"/></svg><span class="pick__opt-t">Retail</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__opt" id="opt-industry-qsr" role="option" data-value="qsr" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M72,88V40a8,8,0,0,1,16,0V88a8,8,0,0,1-16,0ZM216,40V224a8,8,0,0,1-16,0V176H152a8,8,0,0,1-8-8,268.75,268.75,0,0,1,7.22-56.88c9.78-40.49,28.32-67.63,53.63-78.47A8,8,0,0,1,216,40ZM200,53.9c-32.17,24.57-38.47,84.42-39.7,106.1H200ZM119.89,38.69a8,8,0,1,0-15.78,2.63L112,88.63a32,32,0,0,1-64,0l7.88-47.31a8,8,0,1,0-15.78-2.63l-8,48A8.17,8.17,0,0,0,32,88a48.07,48.07,0,0,0,40,47.32V224a8,8,0,0,0,16,0V135.32A48.07,48.07,0,0,0,128,88a8.17,8.17,0,0,0-.11-1.31Z"/></svg><span class="pick__opt-t">Restaurants &amp; QSR</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__opt" id="opt-industry-travel" role="option" data-value="travel" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M185.33,114.21l29.14-27.42.17-.17a32,32,0,0,0-45.26-45.26c0,.06-.11.11-.17.17L141.79,70.67l-83-30.2a8,8,0,0,0-8.39,1.86l-24,24a8,8,0,0,0,1.22,12.31l63.89,42.59L76.69,136H56a8,8,0,0,0-5.65,2.34l-24,24A8,8,0,0,0,29,175.42l36.82,14.73,14.7,36.75.06.16a8,8,0,0,0,13.18,2.47l23.87-23.88A8,8,0,0,0,120,200V179.31l14.76-14.76,42.59,63.89a8,8,0,0,0,12.31,1.22l24-24a8,8,0,0,0,1.86-8.39Zm-.07,97.23-42.59-63.88A8,8,0,0,0,136.8,144c-.27,0-.53,0-.79,0a8,8,0,0,0-5.66,2.35l-24,24A8,8,0,0,0,104,176v20.69L90.93,209.76,79.43,181A8,8,0,0,0,75,176.57l-28.74-11.5L59.32,152H80a8,8,0,0,0,5.66-2.34l24-24a8,8,0,0,0-1.22-12.32L44.56,70.74l13.5-13.49,83.22,30.26a8,8,0,0,0,8.56-2L180.78,52.6A16,16,0,0,1,203.4,75.23l-32.87,30.93a8,8,0,0,0-2,8.56l30.26,83.22Z"/></svg><span class="pick__opt-t">Travel &amp; Hospitality</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__opt" id="opt-industry-telecom" role="option" data-value="telecom" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,88a40,40,0,1,0,40,40A40,40,0,0,0,128,88Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,152Zm73.71,7.14a80,80,0,0,1-14.08,22.2,8,8,0,0,1-11.92-10.67,63.95,63.95,0,0,0,0-85.33,8,8,0,1,1,11.92-10.67,80.08,80.08,0,0,1,14.08,84.47ZM69,103.09a64,64,0,0,0,11.26,67.58,8,8,0,0,1-11.92,10.67,79.93,79.93,0,0,1,0-106.67A8,8,0,1,1,80.29,85.34,63.77,63.77,0,0,0,69,103.09ZM248,128a119.58,119.58,0,0,1-34.29,84,8,8,0,1,1-11.42-11.2,103.9,103.9,0,0,0,0-145.56A8,8,0,1,1,213.71,44,119.58,119.58,0,0,1,248,128ZM53.71,200.78A8,8,0,1,1,42.29,212a119.87,119.87,0,0,1,0-168,8,8,0,1,1,11.42,11.2,103.9,103.9,0,0,0,0,145.56Z"/></svg><span class="pick__opt-t">Telecom</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__opt" id="opt-industry-fuel" role="option" data-value="fuel" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M241,69.66,221.66,50.34a8,8,0,0,0-11.32,11.32L229.66,81A8,8,0,0,1,232,86.63V168a8,8,0,0,1-16,0V128a24,24,0,0,0-24-24H176V56a24,24,0,0,0-24-24H72A24,24,0,0,0,48,56V208H32a8,8,0,0,0,0,16H192a8,8,0,0,0,0-16H176V120h16a8,8,0,0,1,8,8v40a24,24,0,0,0,48,0V86.63A23.85,23.85,0,0,0,241,69.66ZM64,208V56a8,8,0,0,1,8-8h80a8,8,0,0,1,8,8V208Zm80-96a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h48A8,8,0,0,1,144,112Z"/></svg><span class="pick__opt-t">Fuel &amp; Convenience</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+              </ul>
+              <input type="hidden" name="industry" value="retail">
+            </div>
+
+            <div class="pick__field" data-pick="role">
+              <span class="pick__label" id="pick-role-label">Team</span>
+              <button class="pick__control" type="button" id="pick-role"
+                      role="combobox" aria-haspopup="listbox" aria-expanded="false"
+                      aria-controls="pick-role-list"
+                      aria-labelledby="pick-role-label pick-role-value">
+                <svg class="pick__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>
+                <span class="pick__value" id="pick-role-value">All five teams</span>
+                <svg class="pick__chev" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+              </button>
+              <ul class="pick__list" id="pick-role-list" role="listbox"
+                  aria-labelledby="pick-role-label" hidden>
+                  <li class="pick__opt" id="opt-role-all" role="option" data-value="" aria-selected="true"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg><span class="pick__opt-t">All five teams</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__opt" id="opt-role-marketing" role="option" data-value="marketing" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg><span class="pick__opt-t">Marketing</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__opt" id="opt-role-crm" role="option" data-value="crm" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M83.19,174.4a8,8,0,0,0,11.21-1.6,52,52,0,0,1,83.2,0,8,8,0,1,0,12.8-9.6A67.88,67.88,0,0,0,163,141.51a40,40,0,1,0-53.94,0A67.88,67.88,0,0,0,81.6,163.2,8,8,0,0,0,83.19,174.4ZM112,112a24,24,0,1,1,24,24A24,24,0,0,1,112,112Zm96-88H64A16,16,0,0,0,48,40V64H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v24a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V40A16,16,0,0,0,208,24Zm0,192H64V40H208Z"/></svg><span class="pick__opt-t">CRM</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__opt" id="opt-role-bi" role="option" data-value="bi" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg><span class="pick__opt-t">Business Intelligence</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__opt" id="opt-role-ecommerce" role="option" data-value="ecommerce" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg><span class="pick__opt-t">eCommerce</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__opt" id="opt-role-growth" role="option" data-value="growth" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg><span class="pick__opt-t">Growth</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+              </ul>
+              <input type="hidden" name="role" value="">
+            </div>
+
+            <button class="btn btn--primary pick__go" type="submit">
+              See use cases
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= FINDER =================
+         One choice, five seats: the chip row filters which industry's group
+         of five is on screen. Every intersection is in the markup, so all 75
+         questions are indexable and the page is never empty at rest. -->
+    <section class="section section--wash finder" id="finder">
+      <div class="padding-global">
+        <div class="container">
+
+          <div class="finder__groups">
+            <div class="finder__group is-active" data-industry="retail">
+              <div class="finder__group-head">
+                <h2 class="finder__group-t">One week in Retail, from five seats.</h2>
+                <p class="finder__group-s">Same calendar, opposite problems. That is why the seat matters as much as the industry.</p>
+              </div>
+
+              <div class="seats">
+                <article class="seat" id="retail-marketing" data-role="marketing">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg>Marketing</h3>
+                    <p class="seat__hand">Answers arrive with the reasoning shown, and the next campaign already built, pending your approval.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">How did the summer markdown campaign perform across loyalty tiers, versus last year?</li>
+                    <li class="qstring">Which channel drove the most first-time buyers into the loyalty program this quarter?</li>
+                    <li class="qstring">Compare redemption rates for the March promo across our top 50 stores.</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="retail-crm" data-role="crm">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M83.19,174.4a8,8,0,0,0,11.21-1.6,52,52,0,0,1,83.2,0,8,8,0,1,0,12.8-9.6A67.88,67.88,0,0,0,163,141.51a40,40,0,1,0-53.94,0A67.88,67.88,0,0,0,81.6,163.2,8,8,0,0,0,83.19,174.4ZM112,112a24,24,0,1,1,24,24A24,24,0,0,1,112,112Zm96-88H64A16,16,0,0,0,48,40V64H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v24a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V40A16,16,0,0,0,208,24Zm0,192H64V40H208Z"/></svg>CRM</h3>
+                    <p class="seat__hand">The segment and the journey get built in the same conversation you found them in.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">Build a segment of members who bought once and never came back.</li>
+                    <li class="qstring">Which tier lost the most members in the last 90 days, and what did they stop buying?</li>
+                    <li class="qstring">Create a win-back journey for lapsed high-basket customers, capped at a 10% discount.</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="retail-bi" data-role="bi">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg>Data &amp; BI</h3>
+                    <p class="seat__hand">The query, the chart and the explanation come back together. Any one-off pull can become a dashboard.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">How many members with a negative points balance redeemed a certificate last quarter?</li>
+                    <li class="qstring">Flag duplicate emails and unusual redemption spikes from the last 30 days.</li>
+                    <li class="qstring">Turn yesterday's basket-size pull into a dashboard the trade team can reuse.</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="retail-ecommerce" data-role="ecommerce">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg>eCommerce</h3>
+                    <p class="seat__hand">Anomalies surface the day they happen, not in the month-end review.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">Where in checkout are loyalty members dropping off, compared to guests?</li>
+                    <li class="qstring">Which SKUs sell online but never in store, and who buys them?</li>
+                    <li class="qstring">Run a market basket analysis for our decile-10 buyers this year.</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="retail-growth" data-role="growth">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg>Growth</h3>
+                    <p class="seat__hand">Results read the moment they are significant, with the next move already proposed.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">Which members are most likely to churn in the next 60 days?</li>
+                    <li class="qstring">Did the free-shipping threshold test raise basket size, or just shift when people buy?</li>
+                    <li class="qstring">Which of last year's acquisition cohorts is still compounding, and which never repeated?</li>
+                  </ul>
+                </article>
+              </div>
+
+              <div class="finder__cats">
+                <p class="finder__cats-label">Go deeper by retail category</p>
+                <div class="finder__cats-row">
+                  <a class="finder__cat" href="/solutions/retail/apparel-fashion">Apparel &amp; Fashion</a>
+                  <a class="finder__cat" href="/solutions/retail/supermarkets-grocery">Supermarkets &amp; Grocery</a>
+                  <a class="finder__cat" href="/solutions/retail/hypermarkets-mass">Hypermarkets &amp; Mass Merchants</a>
+                  <a class="finder__cat" href="/solutions/retail/fuel-convenience">Fuel &amp; Convenience</a>
+                  <a class="finder__cat" href="/solutions/retail/food-beverage-qsr">Food, Beverage &amp; QSR</a>
+                  <a class="finder__cat" href="/solutions/retail/health-beauty">Health &amp; Beauty</a>
+                  <a class="finder__cat" href="/solutions/retail/luxury-jewellery">Luxury &amp; Jewellery</a>
+                  <a class="finder__cat" href="/solutions/retail/consumer-electronics">Consumer Durables &amp; Electronics</a>
+                  <a class="finder__cat finder__cat--all" href="/solutions/retail">All retail categories <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="finder__group" data-industry="qsr">
+              <div class="finder__group-head">
+                <h2 class="finder__group-t">One week in Restaurants &amp; QSR, from five seats.</h2>
+                <p class="finder__group-s">Same calendar, opposite problems. That is why the seat matters as much as the industry.</p>
+              </div>
+
+              <div class="seats">
+                <article class="seat" id="qsr-marketing" data-role="marketing">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg>Marketing</h3>
+                    <p class="seat__hand">Answers arrive with the reasoning shown, and the next campaign already built, pending your approval.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">How did the limited-time menu perform by daypart, region by region?</li>
+                    <li class="qstring">Which channel drives app installs that turn into a second order?</li>
+                    <li class="qstring">Compare this year's festive campaign to last year's, location by location.</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="qsr-crm" data-role="crm">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M83.19,174.4a8,8,0,0,0,11.21-1.6,52,52,0,0,1,83.2,0,8,8,0,1,0,12.8-9.6A67.88,67.88,0,0,0,163,141.51a40,40,0,1,0-53.94,0A67.88,67.88,0,0,0,81.6,163.2,8,8,0,0,0,83.19,174.4ZM112,112a24,24,0,1,1,24,24A24,24,0,0,1,112,112Zm96-88H64A16,16,0,0,0,48,40V64H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v24a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V40A16,16,0,0,0,208,24Zm0,192H64V40H208Z"/></svg>CRM</h3>
+                    <p class="seat__hand">The segment and the journey get built in the same conversation you found them in.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">Build a segment of app members who ordered weekly, then went quiet for 30 days.</li>
+                    <li class="qstring">Which lapsed lunch regulars come back on their own, and which need an offer?</li>
+                    <li class="qstring">Create a win-back journey for members who stopped ordering after the price change.</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="qsr-bi" data-role="bi">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg>Data &amp; BI</h3>
+                    <p class="seat__hand">The query, the chart and the explanation come back together. Any one-off pull can become a dashboard.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">Which locations under-index on breakfast against their own trade area?</li>
+                    <li class="qstring">Flag unusual refund and redemption spikes by location from the last 30 days.</li>
+                    <li class="qstring">Turn the weekly menu-mix pull into a report franchisees can read themselves.</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="qsr-ecommerce" data-role="ecommerce">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg>eCommerce</h3>
+                    <p class="seat__hand">Anomalies surface the day they happen, not in the month-end review.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">Where do first-time app users drop off between menu and payment?</li>
+                    <li class="qstring">Which items get abandoned in the cart most often, and at what basket size?</li>
+                    <li class="qstring">Did last weekend's delivery times change this week's reorder rate?</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="qsr-growth" data-role="growth">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg>Growth</h3>
+                    <p class="seat__hand">Results read the moment they are significant, with the next move already proposed.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">Which loyalty members are most likely to stop ordering in the next 60 days?</li>
+                    <li class="qstring">Did the two-for-one test grow visits, or discount visits that were already coming?</li>
+                    <li class="qstring">Which market we opened last year is compounding fastest, and what ran differently there?</li>
+                  </ul>
+                </article>
+              </div>
+            </div>
+
+            <div class="finder__group" data-industry="travel">
+              <div class="finder__group-head">
+                <h2 class="finder__group-t">One week in Travel &amp; Hospitality, from five seats.</h2>
+                <p class="finder__group-s">Same calendar, opposite problems. That is why the seat matters as much as the industry.</p>
+              </div>
+
+              <div class="seats">
+                <article class="seat" id="travel-marketing" data-role="marketing">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg>Marketing</h3>
+                    <p class="seat__hand">Answers arrive with the reasoning shown, and the next campaign already built, pending your approval.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">Which campaigns filled shoulder-season dates, and which just discounted peak demand?</li>
+                    <li class="qstring">Compare offer response between points-heavy members and cash bookers.</li>
+                    <li class="qstring">Which markets book packages, and which only ever take room-only rates?</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="travel-crm" data-role="crm">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M83.19,174.4a8,8,0,0,0,11.21-1.6,52,52,0,0,1,83.2,0,8,8,0,1,0,12.8-9.6A67.88,67.88,0,0,0,163,141.51a40,40,0,1,0-53.94,0A67.88,67.88,0,0,0,81.6,163.2,8,8,0,0,0,83.19,174.4ZM112,112a24,24,0,1,1,24,24A24,24,0,0,1,112,112Zm96-88H64A16,16,0,0,0,48,40V64H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v24a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V40A16,16,0,0,0,208,24Zm0,192H64V40H208Z"/></svg>CRM</h3>
+                    <p class="seat__hand">The segment and the journey get built in the same conversation you found them in.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">Build a segment of members who stayed twice last year and have nothing booked this year.</li>
+                    <li class="qstring">Which members are one stay away from keeping their status this year?</li>
+                    <li class="qstring">Create a win-back journey for lapsed members ahead of the booking season.</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="travel-bi" data-role="bi">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg>Data &amp; BI</h3>
+                    <p class="seat__hand">The query, the chart and the explanation come back together. Any one-off pull can become a dashboard.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">How many members redeemed points for upgrades versus free nights last quarter?</li>
+                    <li class="qstring">Flag duplicate accounts and unusual redemption spikes from the last 30 days.</li>
+                    <li class="qstring">Turn the booking-pace pull into a dashboard revenue managers can reuse.</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="travel-ecommerce" data-role="ecommerce">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg>eCommerce</h3>
+                    <p class="seat__hand">Anomalies surface the day they happen, not in the month-end review.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">Where do bookers drop off between search and payment, by device and market?</li>
+                    <li class="qstring">Which ancillaries attach to which fare classes, and where is attach falling?</li>
+                    <li class="qstring">Did last week's site change lift direct bookings, or move them over from the app?</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="travel-growth" data-role="growth">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg>Growth</h3>
+                    <p class="seat__hand">Results read the moment they are significant, with the next move already proposed.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">Which members are likely to lapse before their next booking window opens?</li>
+                    <li class="qstring">Did the member-rate test grow direct share, or rebook stays we already had?</li>
+                    <li class="qstring">Which acquisition channel brings members who book a second trip?</li>
+                  </ul>
+                </article>
+              </div>
+            </div>
+
+            <div class="finder__group" data-industry="telecom">
+              <div class="finder__group-head">
+                <h2 class="finder__group-t">One week in Telecom, from five seats.</h2>
+                <p class="finder__group-s">Same calendar, opposite problems. That is why the seat matters as much as the industry.</p>
+              </div>
+
+              <div class="seats">
+                <article class="seat" id="telecom-marketing" data-role="marketing">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg>Marketing</h3>
+                    <p class="seat__hand">Answers arrive with the reasoning shown, and the next campaign already built, pending your approval.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">Which plan-upgrade campaigns actually moved ARPU, and which just moved handsets?</li>
+                    <li class="qstring">Compare bundle offer response between the prepaid and postpaid bases.</li>
+                    <li class="qstring">Which regions respond to retention offers before contract end, and how early?</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="telecom-crm" data-role="crm">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M83.19,174.4a8,8,0,0,0,11.21-1.6,52,52,0,0,1,83.2,0,8,8,0,1,0,12.8-9.6A67.88,67.88,0,0,0,163,141.51a40,40,0,1,0-53.94,0A67.88,67.88,0,0,0,81.6,163.2,8,8,0,0,0,83.19,174.4ZM112,112a24,24,0,1,1,24,24A24,24,0,0,1,112,112Zm96-88H64A16,16,0,0,0,48,40V64H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v24a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V40A16,16,0,0,0,208,24Zm0,192H64V40H208Z"/></svg>CRM</h3>
+                    <p class="seat__hand">The segment and the journey get built in the same conversation you found them in.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">Build a segment of subscribers whose data usage halved in the last 60 days.</li>
+                    <li class="qstring">Which customers hit their data cap every month and have never been offered the next plan?</li>
+                    <li class="qstring">Create a save journey for contracts expiring in the next 90 days, ranked by churn risk.</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="telecom-bi" data-role="bi">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg>Data &amp; BI</h3>
+                    <p class="seat__hand">The query, the chart and the explanation come back together. Any one-off pull can become a dashboard.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">How many subscribers downgraded within 30 days of the price change?</li>
+                    <li class="qstring">Flag duplicate accounts and unusual credit or refund spikes from the last 30 days.</li>
+                    <li class="qstring">Turn the monthly churn-by-cohort pull into a dashboard the retention team owns.</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="telecom-ecommerce" data-role="ecommerce">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg>eCommerce</h3>
+                    <p class="seat__hand">Anomalies surface the day they happen, not in the month-end review.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">Where do visitors drop off between comparing plans and checkout, by device?</li>
+                    <li class="qstring">Which add-ons attach to which plans online, and where is attach falling?</li>
+                    <li class="qstring">Did the new plan page lift conversion, or shift orders out of the stores?</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="telecom-growth" data-role="growth">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg>Growth</h3>
+                    <p class="seat__hand">Results read the moment they are significant, with the next move already proposed.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">Which subscribers are most likely to churn in the next 60 days?</li>
+                    <li class="qstring">Did the family-plan test grow net adds, or just migrate existing lines?</li>
+                    <li class="qstring">Which acquisition cohort keeps its second year, and what did they buy first?</li>
+                  </ul>
+                </article>
+              </div>
+            </div>
+
+            <div class="finder__group" data-industry="fuel">
+              <div class="finder__group-head">
+                <h2 class="finder__group-t">One week in Fuel &amp; Convenience, from five seats.</h2>
+                <p class="finder__group-s">Same calendar, opposite problems. That is why the seat matters as much as the industry.</p>
+              </div>
+
+              <div class="seats">
+                <article class="seat" id="fuel-marketing" data-role="marketing">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg>Marketing</h3>
+                    <p class="seat__hand">Answers arrive with the reasoning shown, and the next campaign already built, pending your approval.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">Which fuel promotions pulled members into the store, and which stopped at the pump?</li>
+                    <li class="qstring">Compare app offer redemption by daypart across regions.</li>
+                    <li class="qstring">Which sites respond to car-wash bundles, and which need a different offer?</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="fuel-crm" data-role="crm">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M83.19,174.4a8,8,0,0,0,11.21-1.6,52,52,0,0,1,83.2,0,8,8,0,1,0,12.8-9.6A67.88,67.88,0,0,0,163,141.51a40,40,0,1,0-53.94,0A67.88,67.88,0,0,0,81.6,163.2,8,8,0,0,0,83.19,174.4ZM112,112a24,24,0,1,1,24,24A24,24,0,0,1,112,112Zm96-88H64A16,16,0,0,0,48,40V64H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v24a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V40A16,16,0,0,0,208,24Zm0,192H64V40H208Z"/></svg>CRM</h3>
+                    <p class="seat__hand">The segment and the journey get built in the same conversation you found them in.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">Build a segment of members who fuel weekly but never buy in store.</li>
+                    <li class="qstring">Which morning regulars dropped from five visits a week to one, and when did it start?</li>
+                    <li class="qstring">Create a journey that converts pump-only members to store baskets, one offer a week at most.</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="fuel-bi" data-role="bi">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg>Data &amp; BI</h3>
+                    <p class="seat__hand">The query, the chart and the explanation come back together. Any one-off pull can become a dashboard.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">How many members redeemed a fuel discount with no store purchase last quarter?</li>
+                    <li class="qstring">Flag unusual redemption and refund spikes by site from the last 30 days.</li>
+                    <li class="qstring">Turn the weekly site-performance pull into a report ops can read themselves.</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="fuel-ecommerce" data-role="ecommerce">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg>eCommerce</h3>
+                    <p class="seat__hand">Anomalies surface the day they happen, not in the month-end review.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">Where do app users drop off between activating an offer and redeeming it?</li>
+                    <li class="qstring">Which offers get activated but never redeemed, and at which sites?</li>
+                    <li class="qstring">Did mobile pay change store attach, or just speed up fuel-only visits?</li>
+                  </ul>
+                </article>
+
+                <article class="seat" id="fuel-growth" data-role="growth">
+                  <div class="seat__id">
+                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg>Growth</h3>
+                    <p class="seat__hand">Results read the moment they are significant, with the next move already proposed.</p>
+                  </div>
+                  <ul class="seat__qs">
+                    <li class="qstring">Which members are most likely to lapse from the program in the next 60 days?</li>
+                    <li class="qstring">Did the points-multiplier test grow visits, or reward visits that were already happening?</li>
+                    <li class="qstring">Which new-site cohort builds a weekly habit, and how long does that take?</li>
+                  </ul>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <p class="finder__note">
+            Questions are representative of real usage patterns across live aiRA
+            accounts, not exact client queries.
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= CLOSE ================= -->
+    <section class="section section--inv solutions-close" data-nav-dark>
+      <div class="padding-global">
+        <div class="container solutions-close__grid">
+
+          <div class="solutions-close__main">
+            <p class="eyebrow">The working session</p>
+            <h2 class="section-heading">Bring us the question your team is still waiting on.</h2>
+            <p class="section-sub">
+              Thirty minutes, your data, one real question, no deck and no discovery
+              calls stacked in front of it. You leave with the answer, the reasoning
+              behind it and the recommended next move, not a product demo.
+            </p>
+            <div class="btn-row solutions-close__cta">
+              <a class="btn btn--primary btn--lg" href="/book">
+                Book a working session
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="thread solutions-close__thread">
+            <div class="thread__step">
+              <h3 class="thread__title">We reply within one business day.</h3>
+              <p class="thread__body">With a time and the security brief. No demo gauntlet.</p>
+            </div>
+            <div class="thread__step">
+              <h3 class="thread__title">Security brief comes first.</h3>
+              <p class="thread__body">Shared before the session, not after the third call.</p>
+            </div>
+            <div class="thread__step">
+              <h3 class="thread__title">We will tell you where aiRA is the wrong fit.</h3>
+              <p class="thread__body">It happens. Bring your actual shortlist and we will go through it.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+  </main>
+
+  <div id="footer-placeholder"></div>
+</body>
+</html>
