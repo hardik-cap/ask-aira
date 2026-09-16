@@ -1,0 +1,107 @@
+{
+  "slug": "health-beauty",
+  "name": "Health & Beauty",
+  "title": "aiRA for health and beauty · Questions your team asks every week",
+  "description": "Replenishment you can date, two margin models under one roof, and the strictest data rules in retail. aiRA answers what health and beauty teams ask, then builds the move and waits for approval.",
+
+  "hero": {
+    "h1": "A missed refill is<br>churn you can date.",
+    "sub": "A thirty-day supply runs out on a day you can calculate, which makes the next purchase the most predictable in retail and a missed one the clearest signal. aiRA reads the warehouse you already have, answers in plain language with the reasoning shown, and hands back the segment or the journey already built."
+  },
+
+  "shape": {
+    "eyebrow": "The shape of it",
+    "heading": "Routines, not seasons. Rules, not preferences.",
+    "sub": "Four things about health and beauty data that make a generic analytics answer the wrong answer.",
+    "facets": [
+      {
+        "t": "Frequency",
+        "d": "Set by the product rather than the mood. Replenishment cycles are countable, so the next purchase has a date on it and a late one is a dated event rather than a rolling average."
+      },
+      {
+        "t": "Margin",
+        "d": "Two businesses under one roof. Beauty carries the margin and moves on newness; the dispensary and everyday health lines are regulated, thin and not up for negotiation."
+      },
+      {
+        "t": "Seasonality",
+        "d": "Regimens rather than quarters. Demand moves when a customer's routine changes, and that happens on their calendar, not the trading one."
+      },
+      {
+        "t": "What the data misses",
+        "d": "What you are not permitted to use. This is the most restricted customer data in retail, so the boundary has to hold in the tooling rather than in a policy document, on every single query."
+      }
+    ]
+  },
+
+  "seats": {
+    "heading": "The same week, five different problems.",
+    "sub": "Marketing is launching into a base that mostly buys the same three products, while the data team has a governance question attached to every pull. Here is what each seat asks, and what aiRA hands back."
+  },
+
+  "roles": {
+    "marketing": {
+      "problem": "Half the range sells on newness and half sells on habit, and the customer file mixes them together. A launch campaign aimed at the whole base spends most of its budget on people who have bought the same routine for four years.",
+      "questions": [
+        { "cap": "Audience builder", "q": "Separate the routine buyers from the newness buyers in the beauty file." },
+        { "cap": "Ad hoc analytics", "q": "Which launches last year found genuinely new customers rather than moving existing ones across?" },
+        { "cap": "Advanced analytics", "q": "Run a basket analysis on the customers who bought into the new range: what did it replace?" },
+        { "cap": "Journey orchestration", "q": "Draft the sampling follow-up for routine buyers whose category has a new entry." }
+      ],
+      "returns": "The two audiences separated and saved, the launch read on recruitment rather than volume, and the follow-up drafted in the same conversation. Nothing sends until you approve it."
+    },
+
+    "crm": {
+      "problem": "Replenishment makes lapse predictable, which is the advantage. The hard part is acting inside the window between a missed refill and the moment the customer restocks somewhere else, because that window is days.",
+      "questions": [
+        { "cap": "Predictive models", "q": "Which customers are overdue on a repeat purchase we can time from their last one?" },
+        { "cap": "Audience builder", "q": "Build a segment of members whose regimen has dropped a product in the last three months." },
+        { "cap": "Ad hoc analytics", "q": "How long after a missed refill does a customer stop coming back at all?" },
+        { "cap": "Journey orchestration", "q": "Create the refill reminder for the overdue group and hold it for my approval." }
+      ],
+      "returns": "Overdue scored per product cycle rather than per customer average, and the reminder drafted and waiting on a person, never sent autonomously."
+    },
+
+    "bi": {
+      "problem": "Regulated categories, restricted fields and a business that has to be able to show what it did with customer data. Every ad hoc pull carries a governance question, and that is what makes a simple request slow.",
+      "questions": [
+        { "cap": "Knowledge base Q&A", "q": "Which customer fields are we permitted to use for marketing under our current consent model?" },
+        { "cap": "Data quality & fraud checks", "q": "Flag duplicate accounts and unusual redemption spikes from the last 30 days." },
+        { "cap": "Ad hoc analytics", "q": "Reconcile front-of-store sales against the loyalty ledger for last week." },
+        { "cap": "Advanced analytics", "q": "Give the category team a repeat-purchase view by regimen they can read without me." }
+      ],
+      "returns": "Answers with the reasoning and the query shown, personal data masked before it ever reaches the model, and an audit trail behind every action. The governance answer arrives with the number rather than after it."
+    },
+
+    "ecommerce": {
+      "problem": "Subscription and repeat ordering should be the easiest win in retail here, and mostly they are not. People buy the refill wherever they happen to be standing when they notice the bottle is empty.",
+      "questions": [
+        { "cap": "Ad hoc analytics", "q": "Which repeat purchases move online and which stay in store, by category?" },
+        { "cap": "Predictive models", "q": "Which subscribers are likely to cancel before their next shipment?" },
+        { "cap": "Audience builder", "q": "Find the customers buying the same item every eight weeks who have never subscribed." },
+        { "cap": "Advanced analytics", "q": "What is a subscriber worth against an equivalent repeat buyer who never signs up?" }
+      ],
+      "returns": "The subscription case argued in your own numbers, and the customers already behaving like subscribers identified before they are asked to become one."
+    },
+
+    "growth": {
+      "problem": "Growth comes from the regimen getting longer, not from more visits. One more product inside an established routine is worth more than one more trip, and it compounds, because routines are sticky once they set.",
+      "questions": [
+        { "cap": "Advanced analytics", "q": "Which second product most often turns a single-product buyer into a routine?" },
+        { "cap": "Predictive models", "q": "Which customers are most likely to add a category they have never bought?" },
+        { "cap": "Ad hoc analytics", "q": "Where does a routine break: price, availability or a change of recommendation?" },
+        { "cap": "Audience builder", "q": "Build the cohort that has bought the same single product for a year and nothing else." }
+      ],
+      "returns": "The specific next product that extends a routine, ranked on your own data, with the audience for it already built."
+    }
+  },
+
+  "back": {
+    "t": "Health and beauty is not the only shape retail takes.",
+    "d": "Grocery, fashion and furniture each break the pattern somewhere else. All eight are on the retail page."
+  },
+
+  "close": {
+    "heading": "Bring the question your health and beauty team is still waiting on.",
+    "sub": "Forty-five minutes, your data, your consent model. The security brief comes before the session, not after the third call. You leave with the answer and the move built, or you leave knowing aiRA is not the fit."
+  }
+}

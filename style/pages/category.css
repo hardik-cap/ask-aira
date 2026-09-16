@@ -1,0 +1,225 @@
+/* ==========================================================================
+   aiRA - Retail category pages (/solutions/retail/<category>)
+
+   The eight pages the project exists to produce (IA §3). Anatomy: hero, the
+   shape of the category, five role sections as ANCHORS (#marketing, #crm,
+   #bi, #ecommerce, #growth), proof where one is cleared, close.
+
+   These load pages/solutions.css and pages/industry.css the way the hubs do,
+   so the hero, the close card and the section furniture are inherited. Only
+   what is new to a category page lives here: the breadcrumb, the four-facet
+   shape grid, and the role blocks built on the .qledger component that was
+   kept back for exactly this page (components.css).
+
+   Role sections are anchors rather than tabs on purpose. The questions are
+   the page: all fifteen stay in the markup, readable and indexable, with no
+   script needed to reach any of them. Tabs are the hub's device, where the
+   job is comparison; here the job is depth.
+   ========================================================================== */
+
+/* ---- Breadcrumb -----------------------------------------------------------
+   A category page is two levels down, and it is the page most likely to be
+   entered cold from search, so it states where it sits before it says
+   anything else. */
+
+.crumb {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-5);
+  font-size: var(--t-body-sm);
+  color: var(--ink-faint);
+}
+.crumb a {
+  color: var(--ink-3);
+  transition: color var(--dur-fast) var(--ease);
+}
+.crumb a:hover { color: var(--brand-ink); }
+.crumb span { color: var(--frame-plus); }
+
+/* ---- The shape ------------------------------------------------------------
+   Four facets, not three: frequency, margin, seasonality and the data that is
+   missing (the content model's own fields, IA §6). Four across keeps them a
+   set to be read in one pass, which is what forces each one to stay short. */
+
+.shape-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.shape-grid--4 .shape__t { font-size: var(--t-title-sm); }
+
+@media (max-width: 1100px) {
+  .shape-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .shape-grid--4 { grid-template-columns: 1fr; }
+}
+
+/* ---- Role blocks ----------------------------------------------------------
+   Five per page, stacked and anchored. Each is a heading, the problem in that
+   seat, the questions themselves, and what comes back. */
+
+.catrole + .catrole {
+  margin-top: var(--sp-16);
+  padding-top: var(--sp-16);
+  border-top: 1px solid var(--border);
+}
+
+/* The anchor lands under the floating header: scroll-padding-top on :root
+   already accounts for the bar, and this adds the breathing room a heading
+   wants above it. */
+.catrole { scroll-margin-top: calc(var(--nav-h) + var(--nav-float) + var(--sp-10)); }
+
+.catrole__head {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--sp-4) var(--sp-12);
+  align-items: start;
+  margin-bottom: var(--sp-8);
+}
+
+.catrole__t {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-family: var(--font-display);
+  font-size: var(--t-display-3);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+}
+.catrole__t svg {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  color: var(--brand);
+}
+
+.catrole__p {
+  font-size: var(--t-body-lg);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 40rem;
+  text-wrap: pretty;
+}
+
+/* What aiRA hands back. It closes the block rather than opening it: the
+   questions have to land before the answer means anything. */
+.catrole__back {
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  gap: var(--sp-2) var(--sp-8);
+  padding-top: var(--sp-6);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 62rem;
+}
+.catrole__back-l {
+  font-family: var(--font-display);
+  font-size: var(--t-mono);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+.catrole__back p { text-wrap: pretty; }
+
+@media (max-width: 900px) {
+  .catrole__head { grid-template-columns: 1fr; gap: var(--sp-4); }
+  .catrole + .catrole { margin-top: var(--sp-12); padding-top: var(--sp-12); }
+}
+@media (max-width: 768px) {
+  /* Match the ledger's own stacked layout so the label column lines up. */
+  .catrole__back { grid-template-columns: 2.75rem minmax(0, 1fr); }
+}
+
+/* ---- Proof ----------------------------------------------------------------
+   Only on the pages where a cleared case study genuinely covers the category.
+   Five of the eight carry no proof block at all rather than a hedged one:
+   the anonymised studies are cleared as written, and nothing else is. */
+
+.cproof__card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: var(--sp-10) var(--sp-16);
+  align-items: center;
+  padding: var(--sp-12);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-float);
+}
+.cproof__claim {
+  font-family: var(--font-display);
+  font-size: var(--t-display-3);
+  font-weight: 600;
+  line-height: var(--lh-title);
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+  text-wrap: balance;
+}
+.cproof__who {
+  margin-top: var(--sp-4);
+  font-size: var(--t-body-sm);
+  color: var(--ink-3);
+}
+.cproof__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+.cproof__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+}
+.cproof__item svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  margin-top: 3px;
+  color: var(--brand);
+}
+.cproof__note {
+  margin-top: var(--sp-6);
+  font-size: var(--t-caption);
+  color: var(--ink-faint);
+}
+
+@media (max-width: 900px) {
+  .cproof__card { grid-template-columns: 1fr; padding: var(--sp-8); }
+}
+
+/* ---- Back to the eight ----------------------------------------------------
+   Siblings are reached THROUGH the hub, never as a list on every page
+   (IA §5), so this is one link rather than seven. */
+
+.catback {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-5);
+  padding: var(--sp-8);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--bg-subtle);
+}
+.catback__t {
+  font-family: var(--font-display);
+  font-size: var(--t-title);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+}
+.catback__d {
+  margin-top: 4px;
+  font-size: var(--t-body-sm);
+  color: var(--ink-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crumb a { transition: none; }
+}

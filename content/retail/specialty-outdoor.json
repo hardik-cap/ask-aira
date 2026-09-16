@@ -1,0 +1,107 @@
+{
+  "slug": "specialty-outdoor",
+  "name": "Specialty & Outdoor Retail",
+  "title": "aiRA for specialty and outdoor retail · Questions your team asks every week",
+  "description": "Short seasons, deep ranges, and a gift buyer who looks nothing like the enthusiast beside them. aiRA answers what specialty retail teams ask, then builds the move and waits for approval.",
+
+  "hero": {
+    "h1": "The season is short.<br>The inventory is not.",
+    "sub": "Depth of range is the reason enthusiasts come to you, and it is also capital sitting still through the off-season. aiRA reads the warehouse you already have, answers in plain language with the reasoning shown, and hands back the segment or the journey already built."
+  },
+
+  "shape": {
+    "eyebrow": "The shape of it",
+    "heading": "Two customers, one door, four months of trading.",
+    "sub": "Four things about specialty data that make a generic analytics answer the wrong answer.",
+    "facets": [
+      {
+        "t": "Frequency",
+        "d": "Bunched, not spread. A customer can buy four times inside one season and nothing for the next nine months, so a rolling twelve-month average describes a person who does not exist."
+      },
+      {
+        "t": "Margin",
+        "d": "Healthy per item and slow to release. The range depth that earns the customer's trust is the same range depth that holds capital on a shelf until the season comes round again."
+      },
+      {
+        "t": "Seasonality",
+        "d": "Short and unforgiving. A season that opens two weeks late compresses the entire year, and the gifting peak brings a completely different buyer through the same door."
+      },
+      {
+        "t": "What the data misses",
+        "d": "Who the product is for. Gifting breaks the link between the buyer and the user, and club, team or trade purchases sit under one account that behaves like nobody in particular."
+      }
+    ]
+  },
+
+  "seats": {
+    "heading": "The same week, five different problems.",
+    "sub": "Marketing is writing for an expert and a gift buyer at once while the data team compares a season that started late with one that did not. Here is what each seat asks, and what aiRA hands back."
+  },
+
+  "roles": {
+    "marketing": {
+      "problem": "Two audiences come through the same door: the enthusiast who knows the range better than the team does, and the gift buyer who needs telling what to get. One set of campaigns has to serve both without patronising the first.",
+      "questions": [
+        { "cap": "Audience builder", "q": "Separate the enthusiasts from the gift buyers in last season's customer file." },
+        { "cap": "Ad hoc analytics", "q": "Which of the gift-season buyers came back in their own right the following year?" },
+        { "cap": "Advanced analytics", "q": "Run a basket analysis on the opening weeks of the season: what predicts a second trip?" },
+        { "cap": "Journey orchestration", "q": "Draft the pre-season invite for last year's early buyers and hold it for approval." }
+      ],
+      "returns": "The two audiences split out of one file, the gift buyers who converted into real customers identified, and the pre-season invite drafted in the same conversation."
+    },
+
+    "crm": {
+      "problem": "Nine months of silence is normal here, so standard lapse rules fire on perfectly healthy customers. The real signal is subtler: missing the opening of a season this customer has never once missed.",
+      "questions": [
+        { "cap": "Predictive models", "q": "Which customers missed the opening of a season they have bought in every year?" },
+        { "cap": "Audience builder", "q": "Build a segment of members who own the entry product and never upgraded." },
+        { "cap": "Ad hoc analytics", "q": "What does a customer's second season look like compared with their first?" },
+        { "cap": "Journey orchestration", "q": "Set up the pre-season reminder for the lapsed season-openers." }
+      ],
+      "returns": "Lapse defined against each customer's own season rather than a rolling window, so the list is short, specific and worth contacting."
+    },
+
+    "bi": {
+      "problem": "Deep ranges turn every question into a hierarchy question, and no two seasons start on the same date, so the comparison is never quite like for like. The pulls all arrive during the short window when the season is actually happening.",
+      "questions": [
+        { "cap": "Ad hoc analytics", "q": "Compare this season's opening weeks with last year's, adjusted for when the season actually started." },
+        { "cap": "Advanced analytics", "q": "Which categories recruit the customers who go on to buy across several?" },
+        { "cap": "Data quality & fraud checks", "q": "Flag the accounts behaving like trade or club buyers inside the consumer file." },
+        { "cap": "Knowledge base Q&A", "q": "How do we define an active customer for a category that only trades four months a year?" }
+      ],
+      "returns": "The season-adjusted comparison with the adjustment shown, so the trading meeting can argue with the assumption rather than guess at it."
+    },
+
+    "ecommerce": {
+      "problem": "Online is where the research happens and the specification questions get asked, and a lot of it finishes in a store with a person. Attribution that stops at the last click credits the wrong half of that journey.",
+      "questions": [
+        { "cap": "Ad hoc analytics", "q": "Which online-first buyers later bought in store, and what brought them in?" },
+        { "cap": "Advanced analytics", "q": "What does the path from research to purchase look like on the high-consideration lines?" },
+        { "cap": "Audience builder", "q": "Find the visitors who configured a high-ticket item and never ordered." },
+        { "cap": "Predictive models", "q": "Which baskets are likely to need a fitting or a conversation before they convert?" }
+      ],
+      "returns": "The research-to-store journey measured end to end, and the high-intent visitors who stalled separated out while the season is still open."
+    },
+
+    "growth": {
+      "problem": "Growth is either more seasons per customer or more categories per customer, and the two need completely different moves. Buying new customers into a short season mostly means paying twice for the people you already had.",
+      "questions": [
+        { "cap": "Predictive models", "q": "Which first-season customers come back for a second season?" },
+        { "cap": "Advanced analytics", "q": "What would extending into an adjacent category be worth, given how customers cross today?" },
+        { "cap": "Ad hoc analytics", "q": "Which acquisition channel brings enthusiasts rather than one-off gift buyers?" },
+        { "cap": "Audience builder", "q": "Build the cohort that buys every season in one category and nothing else." }
+      ],
+      "returns": "Channel quality judged on whether a customer returns for a second season, and the adjacency case sized against your own crossover rather than a category benchmark."
+    }
+  },
+
+  "back": {
+    "t": "Specialty is not the only shape retail takes.",
+    "d": "Grocery, fuel and furniture each break the pattern somewhere else. All eight are on the retail page."
+  },
+
+  "close": {
+    "heading": "Bring the question your specialty team is still waiting on.",
+    "sub": "Forty-five minutes, your data, your definition of a season. You leave with the answer and the move built, or you leave knowing aiRA is not the fit. Both are useful."
+  }
+}

@@ -52,3 +52,8 @@ node_modules/
 # 15 Sep once V1 was locked as the shipping direction: kept locally as a
 # parts bin, never deployed.
 archive/
+
+# Page generator for the retail category pages. The content it reads
+# (content/retail/*.json) ships; the script that stamps it into HTML is
+# build tooling, and this repo deploys whatever it contains.
+tools/

@@ -1,0 +1,107 @@
+{
+  "slug": "grocery-supermarket",
+  "name": "Grocery & Supermarket",
+  "title": "aiRA for grocery and supermarket · Questions your team asks every week",
+  "description": "Weekly baskets, thin margins and a lapse you can see in days. aiRA answers what grocery marketing, CRM, data, eCommerce and growth teams ask, then builds the move and waits for approval.",
+
+  "hero": {
+    "h1": "A missed week is<br>a signal, not a blip.",
+    "sub": "No other kind of retail sees its customer this often, so a change in behaviour shows up in days rather than quarters. aiRA reads the warehouse you already have, answers in plain language with the reasoning shown, and hands back the segment or the journey already built."
+  },
+
+  "shape": {
+    "eyebrow": "The shape of it",
+    "heading": "Weekly rhythm, thin margin, quiet churn.",
+    "sub": "Four things about grocery data that make a generic analytics answer the wrong answer.",
+    "facets": [
+      {
+        "t": "Frequency",
+        "d": "Weekly, often more. The upside is the richest behavioural record in retail. The cost is volume: every question is asked against millions of small transactions rather than a few large ones."
+      },
+      {
+        "t": "Margin",
+        "d": "Among the thinnest anywhere. Promotional depth and supplier funding decide the quarter, so the real question is rarely whether a promotion sold units, but whether it sold units that were not coming anyway."
+      },
+      {
+        "t": "Seasonality",
+        "d": "A weekly rhythm sitting under the annual one: the big shop, the top-up, the weekend. Fresh and ambient move on different clocks, and an average across both describes neither."
+      },
+      {
+        "t": "What the data misses",
+        "d": "Baskets are rich and identity is thin. Unscanned trips, one card shared across a household and cash at the kiosk all mean the person behind the basket is often inferred rather than known."
+      }
+    ]
+  },
+
+  "seats": {
+    "heading": "The same week, five different problems.",
+    "sub": "Trading is chasing the promo read while the data team is three days into an ad hoc queue. Here is what each seat asks, and what aiRA hands back."
+  },
+
+  "roles": {
+    "marketing": {
+      "problem": "Promotions are the profit and loss in grocery. The plan is committed weeks out with supplier money attached, and the honest read on whether it worked usually arrives after the next plan has already been signed off.",
+      "questions": [
+        { "cap": "Ad hoc analytics", "q": "Which of last week's promotions grew units, and which pulled forward sales we were going to get anyway?" },
+        { "cap": "Advanced analytics", "q": "Run a basket analysis on shoppers who bought the front-page line: what else moved with it, and at what margin?" },
+        { "cap": "Audience builder", "q": "Find the households that switched to own label in one category but stayed with brands everywhere else." },
+        { "cap": "Journey orchestration", "q": "Draft next month's offer for that group and show me the margin before it goes." }
+      ],
+      "returns": "The promotional read while the next plan is still open, the cohort it points at saved as a segment, and the follow-up drafted in the same conversation. Nothing sends until you approve it."
+    },
+
+    "crm": {
+      "problem": "A grocery lapse is quiet. Nobody cancels and nobody complains, they just start doing the big shop somewhere else, and by the time a monthly report shows the gap the habit has already moved.",
+      "questions": [
+        { "cap": "Predictive models", "q": "Which households have missed their normal weekly shop three weeks running?" },
+        { "cap": "Audience builder", "q": "Build a segment of members still visiting weekly whose basket has shrunk by a third." },
+        { "cap": "Ad hoc analytics", "q": "Of the shoppers we won back last quarter, what did they actually respond to?" },
+        { "cap": "Journey orchestration", "q": "Set up a win-back for the three-week absentees and hold it for my sign-off." }
+      ],
+      "returns": "Churn scored against your own definition of a normal shop rather than a generic lapse window, the audience built from it, and the journey drafted with the approval gate already in place."
+    },
+
+    "bi": {
+      "problem": "Trading, category and marketing all want the same week cut a different way, and the ad hoc queue eats the week the team meant to spend keeping the model honest. Grocery volumes make every one of those pulls slow.",
+      "questions": [
+        { "cap": "Ad hoc analytics", "q": "Reconcile last week's till totals against the loyalty ledger and show me where they diverge, by store." },
+        { "cap": "Data quality & fraud checks", "q": "Flag stores issuing points faster than they are taking sales in the last 30 days." },
+        { "cap": "Knowledge base Q&A", "q": "What counts as an active household under our current programme rules?" },
+        { "cap": "Advanced analytics", "q": "Give the trade team a weekly basket-size view by region they can read without me." }
+      ],
+      "returns": "The one-off pulls answer themselves, with the query and the reasoning shown so you can check the working. The queue stops being the job, and the definitions stay yours."
+    },
+
+    "ecommerce": {
+      "problem": "Online grocery is the same customer on a different cost base. Picking and delivery mean an online basket is worth a different amount than the identical basket in store, and substitutions quietly decide whether the next order happens at all.",
+      "questions": [
+        { "cap": "Ad hoc analytics", "q": "Is click and collect adding trips, or moving trips we already had off delivery?" },
+        { "cap": "Advanced analytics", "q": "Which substitutions cost us the next order, and which ones nobody minds?" },
+        { "cap": "Audience builder", "q": "Find the online-first households that have never shopped a store inside their own catchment." },
+        { "cap": "Predictive models", "q": "Which delivery slots are filling with baskets too small to pay for the van?" }
+      ],
+      "returns": "The online basket read at its real cost to serve rather than at headline value, and the cohorts that need a different offer separated out and ready to act on."
+    },
+
+    "growth": {
+      "problem": "Acquisition in grocery is cheap and shallow. Sign-ups at the till are easy to count and easy to celebrate, and the number that matters is how many of them are still doing a full weekly shop a year later.",
+      "questions": [
+        { "cap": "Predictive models", "q": "Which acquisition channel produces households still shopping with us at month twelve?" },
+        { "cap": "Advanced analytics", "q": "Model what moving the points threshold would do to redemption and to margin before we move it." },
+        { "cap": "Ad hoc analytics", "q": "Where does basket growth stall first: range, price or availability?" },
+        { "cap": "Audience builder", "q": "Build the cohort that joined in the last year and never came back for a second full shop." }
+      ],
+      "returns": "Channel quality measured on a year of behaviour instead of a sign-up count, and threshold changes simulated before they reach a member."
+    }
+  },
+
+  "back": {
+    "t": "Grocery is not the only shape retail takes.",
+    "d": "Fuel, fashion and furniture each break the pattern in a different place. All eight are on the retail page."
+  },
+
+  "close": {
+    "heading": "Bring the question your grocery team is still waiting on.",
+    "sub": "Forty-five minutes, your data, your definition of an active household. You leave with the answer and the move built, or you leave knowing aiRA is not the fit. Both are useful."
+  }
+}

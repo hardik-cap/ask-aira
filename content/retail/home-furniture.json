@@ -1,0 +1,107 @@
+{
+  "slug": "home-furniture",
+  "name": "Home & Furniture",
+  "title": "aiRA for home and furniture · Questions your team asks every week",
+  "description": "Years between purchases, high tickets eaten from both ends, and a project the data records as fifteen unrelated transactions. aiRA answers what home and furniture teams ask, then builds the move and waits for approval.",
+
+  "hero": {
+    "h1": "The purchase is rare.<br>The project is not.",
+    "sub": "A kitchen is one decision and fifteen transactions across months and channels, and the data records only the transactions. aiRA reads the warehouse you already have, answers in plain language with the reasoning shown, and hands back the segment or the journey already built."
+  },
+
+  "shape": {
+    "eyebrow": "The shape of it",
+    "heading": "Out of market for years, then urgent for a fortnight.",
+    "sub": "Four things about home and furniture data that make a generic analytics answer the wrong answer.",
+    "facets": [
+      {
+        "t": "Frequency",
+        "d": "Years, not months. Most of the file is out of market on any given day, and the few who are in market look identical to everyone else until roughly a week before they buy."
+      },
+      {
+        "t": "Margin",
+        "d": "High ticket, eaten from both ends. Delivery, assembly, bulky returns and financing all sit between the price on the tag and what actually lands."
+      },
+      {
+        "t": "Seasonality",
+        "d": "Tied to life events more than to the trading calendar: moving, renovating, a new arrival. The peaks are real, but the trigger is personal and invisible in the sales data."
+      },
+      {
+        "t": "What the data misses",
+        "d": "The project. One renovation shows up as a series of unrelated orders across months, channels and sometimes two names, so the most valuable unit of demand is the one nothing in the stack records."
+      }
+    ]
+  },
+
+  "seats": {
+    "heading": "The same week, five different problems.",
+    "sub": "Marketing is spending against a database that is mostly out of market while the data team reconciles orders taken against orders delivered. Here is what each seat asks, and what aiRA hands back."
+  },
+
+  "roles": {
+    "marketing": {
+      "problem": "The audience is tiny at any one moment and enormous over a year. Spending against everyone wastes most of the budget, and the people actually in market are indistinguishable from the rest until the week they decide.",
+      "questions": [
+        { "cap": "Predictive models", "q": "Which customers are showing the pattern that usually comes before a room purchase?" },
+        { "cap": "Ad hoc analytics", "q": "What did the customers who bought a sofa last quarter do in the eight weeks before?" },
+        { "cap": "Audience builder", "q": "Find the buyers who furnished one room and never came back for the next." },
+        { "cap": "Journey orchestration", "q": "Draft the follow-up for recent buyers, timed to when the next room usually starts." }
+      ],
+      "returns": "In-market signals built from what your own buyers did before they bought, and the follow-up drafted against that timing. Nothing sends until you approve it."
+    },
+
+    "crm": {
+      "problem": "A satisfied furniture customer looks exactly like a lost one for two years. The database is mostly people who are not in market, so the job is finding the few who are without irritating everyone else.",
+      "questions": [
+        { "cap": "Audience builder", "q": "Build a segment of customers who bought a bed and no mattress, or a table and no chairs." },
+        { "cap": "Predictive models", "q": "Which past buyers are most likely to be starting a second room this year?" },
+        { "cap": "Ad hoc analytics", "q": "How long is the real gap between a first and a second purchase, by category?" },
+        { "cap": "Journey orchestration", "q": "Create the attach journey for the incomplete rooms and hold it for sign-off." }
+      ],
+      "returns": "The incomplete rooms found as a segment rather than as a hunch, and the gap measured on your own history instead of a category rule of thumb."
+    },
+
+    "bi": {
+      "problem": "Revenue lands on delivery, orders change after they are placed, and a cancelled kitchen can move a month. Reconciling what was sold against what was delivered is a weekly job nobody ever asked for.",
+      "questions": [
+        { "cap": "Ad hoc analytics", "q": "Reconcile orders taken against orders delivered for last month, and show me where the gap sits." },
+        { "cap": "Data quality & fraud checks", "q": "Flag the order lines most likely to be amended after they are placed." },
+        { "cap": "Advanced analytics", "q": "Which showrooms convert quotes into delivered orders best, and what do they do differently?" },
+        { "cap": "Knowledge base Q&A", "q": "What counts as a completed sale in our reporting when delivery slips into the next month?" }
+      ],
+      "returns": "The reconciliation and the definition in the same answer, with the query shown, so the month-end conversation is about the exceptions rather than the method."
+    },
+
+    "ecommerce": {
+      "problem": "Online is where the research and the configuring happen, and a good share of it closes in a showroom. Big items also carry a delivery cost that makes a headline conversion rate meaningless on its own.",
+      "questions": [
+        { "cap": "Ad hoc analytics", "q": "Which online researchers bought in a showroom, and how long did they take to get there?" },
+        { "cap": "Advanced analytics", "q": "What does real margin look like by product once delivery and returns are in?" },
+        { "cap": "Audience builder", "q": "Find the visitors who built a configuration and never ordered it." },
+        { "cap": "Predictive models", "q": "Which orders are likely to be refused or returned at the door?" }
+      ],
+      "returns": "Online credited for the showroom sales it started, and product margin restated after the costs that only big items carry."
+    },
+
+    "growth": {
+      "problem": "With years between purchases, growth cannot come from frequency. It comes from attach at the moment of purchase and from being remembered when the next project starts, and those are two completely different programmes.",
+      "questions": [
+        { "cap": "Advanced analytics", "q": "What is a customer worth across a whole project rather than a single order?" },
+        { "cap": "Predictive models", "q": "Which acquisition channel brings customers who come back for a second room?" },
+        { "cap": "Ad hoc analytics", "q": "Where does attach fall away: at the quote, at the order or at delivery?" },
+        { "cap": "Audience builder", "q": "Build the cohort that furnished a whole room in one go, and tell me what they have in common." }
+      ],
+      "returns": "Customer value measured across the project instead of the order, and the point in the sale where attach is actually being lost."
+    }
+  },
+
+  "back": {
+    "t": "Furniture is not the only shape retail takes.",
+    "d": "Grocery, fuel and fashion each break the pattern somewhere else. All eight are on the retail page."
+  },
+
+  "close": {
+    "heading": "Bring the question your home team is still waiting on.",
+    "sub": "Forty-five minutes, your data, your definition of a completed sale. You leave with the answer and the move built, or you leave knowing aiRA is not the fit. Both are useful."
+  }
+}

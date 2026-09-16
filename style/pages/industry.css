@@ -144,3 +144,15 @@
 @media (max-width: 991px) {
   .shape-grid { grid-template-columns: 1fr; gap: var(--sp-8); }
 }
+
+
+/* ---- Seats -----------------------------------------------------------------
+   Every hub reuses the finder's seat machinery from pages/solutions.css and
+   wraps it in .rseats. These two rules were in pages/retail.css, which only
+   the retail hub loads, so the other three hubs were spacing their tab bar
+   differently; they belong with the shared hub styles. */
+
+/* The section head already says what the panel is, so the group's own heading
+   would be a second title on the same thought. */
+.rseats .finder__group-head { display: none; }
+.rseats .seatbar { margin-top: var(--sp-10); }
