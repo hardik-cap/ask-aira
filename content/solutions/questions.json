@@ -1,0 +1,202 @@
+{
+  "retail-marketing": {
+    "role": "marketing",
+    "questions": [
+      "How did the summer markdown campaign perform across loyalty tiers, versus last year?",
+      "Which channel drove the most first-time buyers into the loyalty program this quarter?",
+      "Compare redemption rates for the March promo across our top 50 stores."
+    ]
+  },
+  "retail-crm": {
+    "role": "crm",
+    "questions": [
+      "Build a segment of members who bought once and never came back.",
+      "Which tier lost the most members in the last 90 days, and what did they stop buying?",
+      "Create a win-back journey for lapsed high-basket customers, capped at a 10% discount."
+    ]
+  },
+  "retail-bi": {
+    "role": "bi",
+    "questions": [
+      "How many members with a negative points balance redeemed a certificate last quarter?",
+      "Flag duplicate emails and unusual redemption spikes from the last 30 days.",
+      "Turn yesterday's basket-size pull into a dashboard the trade team can reuse."
+    ]
+  },
+  "retail-ecommerce": {
+    "role": "ecommerce",
+    "questions": [
+      "Where in checkout are loyalty members dropping off, compared to guests?",
+      "Which SKUs sell online but never in store, and who buys them?",
+      "Run a market basket analysis for our decile-10 buyers this year."
+    ]
+  },
+  "retail-growth": {
+    "role": "growth",
+    "questions": [
+      "Which members are most likely to churn in the next 60 days?",
+      "Did the free-shipping threshold test raise basket size, or just shift when people buy?",
+      "Which of last year's acquisition cohorts is still compounding, and which never repeated?"
+    ]
+  },
+  "qsr-marketing": {
+    "role": "marketing",
+    "questions": [
+      "How did the limited-time menu perform by daypart, region by region?",
+      "Which channel drives app installs that turn into a second order?",
+      "Compare this year's festive campaign to last year's, location by location."
+    ]
+  },
+  "qsr-crm": {
+    "role": "crm",
+    "questions": [
+      "Build a segment of app members who ordered weekly, then went quiet for 30 days.",
+      "Which lapsed lunch regulars come back on their own, and which need an offer?",
+      "Create a win-back journey for members who stopped ordering after the price change."
+    ]
+  },
+  "qsr-bi": {
+    "role": "bi",
+    "questions": [
+      "Which locations under-index on breakfast against their own trade area?",
+      "Flag unusual refund and redemption spikes by location from the last 30 days.",
+      "Turn the weekly menu-mix pull into a report franchisees can read themselves."
+    ]
+  },
+  "qsr-ecommerce": {
+    "role": "ecommerce",
+    "questions": [
+      "Where do first-time app users drop off between menu and payment?",
+      "Which items get abandoned in the cart most often, and at what basket size?",
+      "Did last weekend's delivery times change this week's reorder rate?"
+    ]
+  },
+  "qsr-growth": {
+    "role": "growth",
+    "questions": [
+      "Which loyalty members are most likely to stop ordering in the next 60 days?",
+      "Did the two-for-one test grow visits, or discount visits that were already coming?",
+      "Which market we opened last year is compounding fastest, and what ran differently there?"
+    ]
+  },
+  "travel-marketing": {
+    "role": "marketing",
+    "questions": [
+      "Which campaigns filled shoulder-season dates, and which just discounted peak demand?",
+      "Compare offer response between points-heavy members and cash bookers.",
+      "Which markets book packages, and which only ever take room-only rates?"
+    ]
+  },
+  "travel-crm": {
+    "role": "crm",
+    "questions": [
+      "Build a segment of members who stayed twice last year and have nothing booked this year.",
+      "Which members are one stay away from keeping their status this year?",
+      "Create a win-back journey for lapsed members ahead of the booking season."
+    ]
+  },
+  "travel-bi": {
+    "role": "bi",
+    "questions": [
+      "How many members redeemed points for upgrades versus free nights last quarter?",
+      "Flag duplicate accounts and unusual redemption spikes from the last 30 days.",
+      "Turn the booking-pace pull into a dashboard revenue managers can reuse."
+    ]
+  },
+  "travel-ecommerce": {
+    "role": "ecommerce",
+    "questions": [
+      "Where do bookers drop off between search and payment, by device and market?",
+      "Which ancillaries attach to which fare classes, and where is attach falling?",
+      "Did last week's site change lift direct bookings, or move them over from the app?"
+    ]
+  },
+  "travel-growth": {
+    "role": "growth",
+    "questions": [
+      "Which members are likely to lapse before their next booking window opens?",
+      "Did the member-rate test grow direct share, or rebook stays we already had?",
+      "Which acquisition channel brings members who book a second trip?"
+    ]
+  },
+  "telecom-marketing": {
+    "role": "marketing",
+    "questions": [
+      "Which plan-upgrade campaigns actually moved ARPU, and which just moved handsets?",
+      "Compare bundle offer response between the prepaid and postpaid bases.",
+      "Which regions respond to retention offers before contract end, and how early?"
+    ]
+  },
+  "telecom-crm": {
+    "role": "crm",
+    "questions": [
+      "Build a segment of subscribers whose data usage halved in the last 60 days.",
+      "Which customers hit their data cap every month and have never been offered the next plan?",
+      "Create a save journey for contracts expiring in the next 90 days, ranked by churn risk."
+    ]
+  },
+  "telecom-bi": {
+    "role": "bi",
+    "questions": [
+      "How many subscribers downgraded within 30 days of the price change?",
+      "Flag duplicate accounts and unusual credit or refund spikes from the last 30 days.",
+      "Turn the monthly churn-by-cohort pull into a dashboard the retention team owns."
+    ]
+  },
+  "telecom-ecommerce": {
+    "role": "ecommerce",
+    "questions": [
+      "Where do visitors drop off between comparing plans and checkout, by device?",
+      "Which add-ons attach to which plans online, and where is attach falling?",
+      "Did the new plan page lift conversion, or shift orders out of the stores?"
+    ]
+  },
+  "telecom-growth": {
+    "role": "growth",
+    "questions": [
+      "Which subscribers are most likely to churn in the next 60 days?",
+      "Did the family-plan test grow net adds, or just migrate existing lines?",
+      "Which acquisition cohort keeps its second year, and what did they buy first?"
+    ]
+  },
+  "fuel-marketing": {
+    "role": "marketing",
+    "questions": [
+      "Which fuel promotions pulled members into the store, and which stopped at the pump?",
+      "Compare app offer redemption by daypart across regions.",
+      "Which sites respond to car-wash bundles, and which need a different offer?"
+    ]
+  },
+  "fuel-crm": {
+    "role": "crm",
+    "questions": [
+      "Build a segment of members who fuel weekly but never buy in store.",
+      "Which morning regulars dropped from five visits a week to one, and when did it start?",
+      "Create a journey that converts pump-only members to store baskets, one offer a week at most."
+    ]
+  },
+  "fuel-bi": {
+    "role": "bi",
+    "questions": [
+      "How many members redeemed a fuel discount with no store purchase last quarter?",
+      "Flag unusual redemption and refund spikes by site from the last 30 days.",
+      "Turn the weekly site-performance pull into a report ops can read themselves."
+    ]
+  },
+  "fuel-ecommerce": {
+    "role": "ecommerce",
+    "questions": [
+      "Where do app users drop off between activating an offer and redeeming it?",
+      "Which offers get activated but never redeemed, and at which sites?",
+      "Did mobile pay change store attach, or just speed up fuel-only visits?"
+    ]
+  },
+  "fuel-growth": {
+    "role": "growth",
+    "questions": [
+      "Which members are most likely to lapse from the program in the next 60 days?",
+      "Did the points-multiplier test grow visits, or reward visits that were already happening?",
+      "Which new-site cohort builds a weekly habit, and how long does that take?"
+    ]
+  }
+}

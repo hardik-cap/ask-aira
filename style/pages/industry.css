@@ -1,0 +1,146 @@
+/* ==========================================================================
+   aiRA - Industry hub pages (/solutions/retail, /solutions/restaurants-qsr,
+   /solutions/travel-hospitality, /solutions/telecom)
+
+   The split hero and its media slot are shared by all four hubs, so they live
+   here once rather than four times; each page keeps its own stylesheet for
+   what is genuinely its own (retail's category grid, each page's shape cards).
+   Loaded AFTER pages/solutions.css (the seat machinery) and before the page's
+   own file.
+   ========================================================================== */
+
+/* ---- Hero -----------------------------------------------------------------
+   Split, MoEngage-style: the industry is already chosen by arriving here, so
+   the hero leads with the claim and keeps the two routes beside it. */
+
+.hero-ind {
+  position: relative;
+  /* Run the ground up behind the floating header and its gap, then give the
+     top pad back, so the page has no strip of bare background above the bar. */
+  margin-top: calc(-1 * (var(--nav-h) + var(--nav-float) + 2px));
+  padding-block: calc(var(--sp-20) + var(--nav-h) + var(--nav-float) + 2px) var(--sp-20);
+  background:
+    radial-gradient(58% 46% at 50% 0%,
+      color-mix(in srgb, var(--primary-400) 5%, transparent), transparent 72%),
+    linear-gradient(180deg, var(--bg-subtle), var(--bg) 78%);
+}
+
+.hero-ind__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: var(--sp-16);
+  align-items: center;
+}
+
+.hero-ind__t {
+  font-family: var(--font-display);
+  /* --t-display-1 (32 to 60), not the 70px hero token: this headline lives in
+     half the width, and at the full hero size it broke to three lines and the
+     <br> stopped meaning anything. */
+  font-size: var(--t-display-1);
+  /* 500, the locked H1 weight, same as the homepage hero. */
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+  margin-bottom: var(--sp-5);
+}
+
+.hero-ind__sub {
+  font-size: var(--t-body-lg);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 34rem;
+}
+
+.hero-ind__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-top: var(--sp-8);
+}
+
+.hero-ind__note {
+  margin-top: var(--sp-6);
+  font-size: var(--t-caption);
+  color: var(--ink-faint);
+}
+
+/* The hero figure is the same placeholder slot the seats use, so when real
+   screenshots arrive they drop into one treatment rather than two. */
+.hero-ind__shot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-float);
+  background-color: var(--surface);
+  background-image:
+    repeating-linear-gradient(to right, var(--frame-grid) 0 1px, transparent 1px 22px),
+    repeating-linear-gradient(to bottom, var(--frame-grid) 0 1px, transparent 1px 22px);
+}
+.hero-ind__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+.hero-ind__shot:has(img) {
+  background-image: none;
+  padding: 0;
+}
+.hero-ind__shot:has(img) .seat__shot-ic { display: none; }
+
+
+@media (max-width: 991px) {
+  .hero-ind {
+    padding-block: calc(var(--sp-16) + var(--nav-h) + var(--nav-float) + 2px) var(--sp-16);
+  }
+  .hero-ind__grid {
+    grid-template-columns: 1fr;
+    gap: var(--sp-10);
+  }
+  /* The figure is a placeholder; below the split it earns less height. */
+  .hero-ind__shot { aspect-ratio: 16 / 10; }
+}
+
+@media (max-width: 640px) {
+  .hero-ind__cta .btn { width: 100%; justify-content: center; }
+}
+
+/* ---- The shape of the industry ---------------------------------------------
+   The differentiator section: three structural truths about this vertical.
+   Hairline-topped open columns rather than boxed cards, the questions-grid
+   language from the homepage, because these are claims to read rather than
+   destinations to click. */
+
+.shape-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-10);
+  margin-top: var(--sp-12);
+}
+
+.shape {
+  border-top: 1px solid var(--border-strong);
+  padding-top: var(--sp-5);
+}
+.shape__t {
+  font-family: var(--font-display);
+  font-size: var(--t-title);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+  margin-bottom: var(--sp-3);
+}
+.shape__d {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+}
+
+@media (max-width: 991px) {
+  .shape-grid { grid-template-columns: 1fr; gap: var(--sp-8); }
+}

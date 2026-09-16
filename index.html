@@ -36,7 +36,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Geist+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:wght@300..800&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,300..800&display=swap">
 
   <!-- Order matters: tokens -> global -> components -> page -->
   <link rel="stylesheet" href="/style/tokens.css">
@@ -45,6 +45,7 @@
   <link rel="stylesheet" href="/style/pages/home.css">
 
   <script src="/js/components.js" defer></script>
+  <script src="/js/wordmark.js" defer></script>
   <script src="/js/reveal.js" defer></script>
   <script src="/js/diagram.js" defer></script>
   <script src="/js/rotator.js" defer></script>
@@ -169,51 +170,96 @@
     <div class="joint" aria-hidden="true"></div>
 
     <!-- ================= PROOF: logo cloud ================= -->
-    <!-- The band IS the grid: no section padding and no wash, so the cells
-         run rail to rail between the two joints. V2 and V3 still marquee. -->
-    <section class="section proof">
+    <!-- The sliding belt, brought back from V2 on 16 Sep and retuned for
+         light: the supplied grey exports at 55% on the page ground, each
+         mark's full-colour original crossfading in on hover. -->
+    <section class="section section--tight proof">
       <div class="padding-global">
         <div class="container">
-          <!-- Six customer marks as a bordered grid (13 Sep; it replaced the
-               marquee belt here. V2 and V3 still run the marquee). -->
-          <ul class="proof__grid">
-            <li class="proof__cell">
+          <!-- Three identical tracks so the belt stays covered at container
+               width; only the first is exposed to assistive tech. The edge
+               mask dissolves the marks before they reach the rails, so the
+               band needs no cells of its own to look contained. -->
+          <div class="proof__marquee">
+            <div class="logo-wall proof__track">
               <span class="proof__logo">
                 <img src="/assets/logos/nascar.svg" alt="NASCAR" width="192" height="32">
                 <img class="proof__logo-color" src="/assets/logos/nascar-color.svg" alt="" aria-hidden="true" width="192" height="32">
               </span>
-            </li>
-            <li class="proof__cell">
               <span class="proof__logo">
                 <img src="/assets/logos/hertz.svg" alt="Hertz" width="90" height="32">
                 <img class="proof__logo-color" src="/assets/logos/hertz-color.svg" alt="" aria-hidden="true" width="90" height="32">
               </span>
-            </li>
-            <li class="proof__cell">
               <span class="proof__logo">
                 <img src="/assets/logos/rack-room-shoes.svg" alt="Rack Room Shoes" width="48" height="48">
                 <img class="proof__logo-color" src="/assets/logos/rack-room-shoes-color.svg" alt="" aria-hidden="true" width="48" height="48">
               </span>
-            </li>
-            <li class="proof__cell">
               <span class="proof__logo">
                 <img src="/assets/logos/racetrac.svg" alt="RaceTrac" width="142" height="32">
                 <img class="proof__logo-color" src="/assets/logos/racetrac-color.svg" alt="" aria-hidden="true" width="142" height="32">
               </span>
-            </li>
-            <li class="proof__cell">
               <span class="proof__logo">
                 <img src="/assets/logos/walgreens.svg" alt="Walgreens" width="154" height="32">
                 <img class="proof__logo-color" src="/assets/logos/walgreens-color.svg" alt="" aria-hidden="true" width="154" height="32">
               </span>
-            </li>
-            <li class="proof__cell">
               <span class="proof__logo">
                 <img src="/assets/logos/cochran.svg" alt="Cochran" width="114" height="32">
                 <img class="proof__logo-color" src="/assets/logos/cochran-color.svg" alt="" aria-hidden="true" width="114" height="32">
               </span>
-            </li>
-          </ul>
+            </div>
+            <div class="logo-wall proof__track" aria-hidden="true">
+              <span class="proof__logo">
+                <img src="/assets/logos/nascar.svg" alt="" aria-hidden="true" width="192" height="32">
+                <img class="proof__logo-color" src="/assets/logos/nascar-color.svg" alt="" aria-hidden="true" width="192" height="32">
+              </span>
+              <span class="proof__logo">
+                <img src="/assets/logos/hertz.svg" alt="" aria-hidden="true" width="90" height="32">
+                <img class="proof__logo-color" src="/assets/logos/hertz-color.svg" alt="" aria-hidden="true" width="90" height="32">
+              </span>
+              <span class="proof__logo">
+                <img src="/assets/logos/rack-room-shoes.svg" alt="" aria-hidden="true" width="48" height="48">
+                <img class="proof__logo-color" src="/assets/logos/rack-room-shoes-color.svg" alt="" aria-hidden="true" width="48" height="48">
+              </span>
+              <span class="proof__logo">
+                <img src="/assets/logos/racetrac.svg" alt="" aria-hidden="true" width="142" height="32">
+                <img class="proof__logo-color" src="/assets/logos/racetrac-color.svg" alt="" aria-hidden="true" width="142" height="32">
+              </span>
+              <span class="proof__logo">
+                <img src="/assets/logos/walgreens.svg" alt="" aria-hidden="true" width="154" height="32">
+                <img class="proof__logo-color" src="/assets/logos/walgreens-color.svg" alt="" aria-hidden="true" width="154" height="32">
+              </span>
+              <span class="proof__logo">
+                <img src="/assets/logos/cochran.svg" alt="" aria-hidden="true" width="114" height="32">
+                <img class="proof__logo-color" src="/assets/logos/cochran-color.svg" alt="" aria-hidden="true" width="114" height="32">
+              </span>
+            </div>
+            <div class="logo-wall proof__track" aria-hidden="true">
+              <span class="proof__logo">
+                <img src="/assets/logos/nascar.svg" alt="" aria-hidden="true" width="192" height="32">
+                <img class="proof__logo-color" src="/assets/logos/nascar-color.svg" alt="" aria-hidden="true" width="192" height="32">
+              </span>
+              <span class="proof__logo">
+                <img src="/assets/logos/hertz.svg" alt="" aria-hidden="true" width="90" height="32">
+                <img class="proof__logo-color" src="/assets/logos/hertz-color.svg" alt="" aria-hidden="true" width="90" height="32">
+              </span>
+              <span class="proof__logo">
+                <img src="/assets/logos/rack-room-shoes.svg" alt="" aria-hidden="true" width="48" height="48">
+                <img class="proof__logo-color" src="/assets/logos/rack-room-shoes-color.svg" alt="" aria-hidden="true" width="48" height="48">
+              </span>
+              <span class="proof__logo">
+                <img src="/assets/logos/racetrac.svg" alt="" aria-hidden="true" width="142" height="32">
+                <img class="proof__logo-color" src="/assets/logos/racetrac-color.svg" alt="" aria-hidden="true" width="142" height="32">
+              </span>
+              <span class="proof__logo">
+                <img src="/assets/logos/walgreens.svg" alt="" aria-hidden="true" width="154" height="32">
+                <img class="proof__logo-color" src="/assets/logos/walgreens-color.svg" alt="" aria-hidden="true" width="154" height="32">
+              </span>
+              <span class="proof__logo">
+                <img src="/assets/logos/cochran.svg" alt="" aria-hidden="true" width="114" height="32">
+                <img class="proof__logo-color" src="/assets/logos/cochran-color.svg" alt="" aria-hidden="true" width="114" height="32">
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -1,9 +1,10 @@
 /* Solutions finder.
 
    The control is the picker in the hero: two dropdowns plus a go button,
-   flight-search style. Industry is required; team is optional, and leaving it
-   on "All five teams" is the normal case, because the contrast between the
-   five seats is the argument the page makes.
+   flight-search style. Industry is required; team is optional and opens on a
+   "Select your team" placeholder, and LEAVING IT ALONE is the normal case: an
+   empty role means all five teams, because the contrast between the five
+   seats is the argument the page makes.
 
    Every industry group and every seat already exists in the markup. Submitting
    only decides which group is on screen, which seat is marked, and what the
@@ -85,6 +86,9 @@
       el.setAttribute('aria-selected', 'true');
       input.value = el.getAttribute('data-value');
       valueEl.textContent = el.querySelector('.pick__opt-t').textContent;
+      /* The first field opens on a placeholder, so the first commit also
+         drops the muted treatment. */
+      valueEl.classList.remove('is-empty');
       /* Mirror the chosen option's glyph into the closed control. */
       var src = el.querySelector('.pick__opt-ic path');
       var dest = iconEl.querySelector('path');
@@ -98,8 +102,21 @@
       setOpen(!open);
     });
 
+    /* Which input committed the value. The ring is a KEYBOARD affordance, and
+       :focus-visible alone cannot be trusted here: the pattern deliberately
+       returns focus to the button after a commit, and a programmatic focus()
+       is judged by a browser heuristic rather than by what the user did. This
+       flag says it outright, and CSS reads it. */
+    function ringFor(mode) {
+      if (mode === 'pointer') field.dataset.ring = 'off';
+      else delete field.dataset.ring;
+    }
+
+    button.addEventListener('pointerdown', function () { ringFor('pointer'); });
+
     button.addEventListener('keydown', function (e) {
       var k = e.key;
+      ringFor('key');
 
       if (!open) {
         if (k === 'ArrowDown' || k === 'ArrowUp' || k === 'Enter' || k === ' ') {
@@ -150,6 +167,7 @@
       opt.addEventListener('mousedown', function (e) {
         e.preventDefault();
         e.stopPropagation();
+        ringFor('pointer');
         commit(i);
         setOpen(false);
         button.focus();
@@ -183,6 +201,24 @@
   var industryBox = boxes[0];
   var roleBox = boxes[1];
 
+  /* The business cards are a second way to choose, for people who would
+     rather scan twelve options than open a control. A card sets the picker,
+     so the two never disagree, then submits it, so the page behaves exactly
+     as if the go button had been pressed.
+
+     Every business is an option in the dropdown, so a card selects itself.
+     The card becomes a plain href once its page is written, and this handler
+     goes with it. */
+  var cards = document.querySelectorAll('.biz[data-biz]');
+  for (var c = 0; c < cards.length; c++) {
+    (function (card) {
+      card.addEventListener('click', function () {
+        if (!industryBox.set(card.getAttribute('data-biz'))) return;
+        form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+      });
+    })(cards[c]);
+  }
+
   /* ====================================================================
      The page under the picker
      ==================================================================== */
@@ -190,19 +226,65 @@
   var groups = finder.querySelectorAll('.finder__group');
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+  /* Seat tabs live in js/seat-tabs.js, shared with /solutions/retail. It
+     self-initialises and registers one API per group, keyed by industry. */
+  var tabsOf = window.aiRaSeatTabs || {};
+
+
+  /* The first dropdown names a BUSINESS. The page below is written per
+     industry, so each option carries data-group: the content it can actually
+     show today. For the four non-retail businesses the two are the same. For
+     the eight retail categories the group is retail, because their own pages
+     are not written yet, and the page says so rather than passing retail's
+     questions off as apparel's. */
+  var groupOf = {};
+  var bizLabel = {};
+  var industryOpts = document.querySelectorAll('#pick-industry-list .pick__opt');
+  for (var o = 0; o < industryOpts.length; o++) {
+    var opt = industryOpts[o];
+    groupOf[opt.getAttribute('data-value')] = opt.getAttribute('data-group');
+    bizLabel[opt.getAttribute('data-value')] =
+      opt.querySelector('.pick__opt-t').textContent.trim();
+  }
+
   var DEFAULT_INDUSTRY = 'retail';
-  var state = { industry: DEFAULT_INDUSTRY, role: '' };
+  var state = { industry: '', role: '' };
 
   function render() {
+    var want = groupOf[state.industry] || state.industry || DEFAULT_INDUSTRY;
     var active = null;
     for (var i = 0; i < groups.length; i++) {
-      var hit = groups[i].getAttribute('data-industry') === state.industry;
+      var hit = groups[i].getAttribute('data-industry') === want;
       groups[i].classList.toggle('is-active', hit);
       if (hit) active = groups[i];
     }
 
-    /* The role marks one seat inside the visible group; the other four stay
-       put, because the contrast between them is the point. */
+    /* When someone picks a business narrower than the content we have, say
+       so on the page. Silently showing retail's questions under an apparel
+       heading would be the exact failure this page argues against. */
+    if (active) {
+      var note = active.querySelector('.finder__pending');
+      var narrower = state.industry && groupOf[state.industry] !== state.industry;
+      if (note) {
+        note.hidden = !narrower;
+        if (narrower) {
+          note.textContent = 'Written for ' + bizLabel[state.industry] +
+            ' is still to come. These are the retail-wide questions in the meantime.';
+        }
+      }
+    }
+
+    /* The role opens that seat's tab in the visible group; without one the
+       group keeps whichever tab it was on. Either way the mark re-measures,
+       because the group may only just have become visible. */
+    if (active) {
+      var tb = tabsOf[active.getAttribute('data-industry')];
+      if (tb) {
+        if (state.role) tb.selectRole(state.role);
+        tb.refresh();
+      }
+    }
+
     var seats = finder.querySelectorAll('.seat');
     for (var k = 0; k < seats.length; k++) {
       seats[k].classList.remove('is-target');
@@ -216,9 +298,7 @@
 
   function syncUrl() {
     var params = new URLSearchParams();
-    if (state.industry && state.industry !== DEFAULT_INDUSTRY) {
-      params.set('industry', state.industry);
-    }
+    if (state.industry) params.set('industry', state.industry);
     if (state.role) params.set('role', state.role);
     var q = params.toString();
     try {
@@ -246,7 +326,7 @@
     e.preventDefault();
     closeOthers(null);
 
-    state.industry = industryBox.value || DEFAULT_INDUSTRY;
+    state.industry = industryBox.value || '';
     state.role = roleBox.value || '';
 
     var active = render();

@@ -8,7 +8,7 @@
   <meta name="description" content="Pick your industry and see what aiRA answers in all five seats: marketing, CRM, data and BI, eCommerce and growth. Retail, restaurants and QSR, travel, telecom and fuel.">
 
   <meta property="og:title" content="Built for your team | aiRA">
-  <meta property="og:description" content="Same calendar, opposite problems. Pick your industry and see the questions aiRA answers in all five seats.">
+  <meta property="og:description" content="Same calendar, opposite problems. Pick your business and see what aiRA does in all five seats.">
   <meta property="og:image" content="https://askaira.ai/assets/og/og-default.png">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://askaira.ai/solutions">
@@ -22,7 +22,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&amp;family=Geist+Mono:wght@400;500;600&amp;family=Instrument+Sans:ital,wght@0,400..700;1,400..700&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:wght@300..800&amp;family=Geist+Mono:wght@400;500;600&amp;family=Google+Sans+Flex:opsz,wght@6..144,300..800&amp;display=swap">
 
   <!-- Order matters: tokens -> global -> components -> page -->
   <link rel="stylesheet" href="/style/tokens.css">
@@ -36,7 +36,9 @@
   <script>document.documentElement.classList.add('js');</script>
 
   <script src="/js/components.js" defer></script>
+  <script src="/js/wordmark.js" defer></script>
   <script src="/js/reveal.js" defer></script>
+  <script src="/js/seat-tabs.js" defer></script>
   <script src="/js/solutions.js" defer></script>
 </head>
 
@@ -59,32 +61,76 @@
          "All five teams" is the default because the contrast between seats
          is the argument this page makes. -->
     <section class="section hero-solutions">
-      <svg class="hero-lines" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-    <g class="hero-lines__wires">
-      <path d="M-40 96 L158.0 96.0 Q188 96 188.0 126.0 L188.0 220.0 Q188 250 218.0 250.0 L330 250"/>
-      <path d="M-40 330 L66.0 330.0 Q96 330 96.0 360.0 L96.0 440.0 Q96 470 126.0 470.0 L286 470"/>
-      <path d="M250 760 L250.0 634.0 Q250 604 220.0 604.0 L90.0 604.0 Q60 604 60.0 574.0 L60 520"/>
-      <path d="M300 -40 L300.0 30.0 Q300 60 330.0 60.0 L452 60"/>
-      <path d="M1480 140 L1282.0 140.0 Q1252 140 1252.0 170.0 L1252.0 262.0 Q1252 292 1222.0 292.0 L1096 292"/>
-      <path d="M1480 396 L1374.0 396.0 Q1344 396 1344.0 426.0 L1344.0 510.0 Q1344 540 1314.0 540.0 L1150 540"/>
-      <path d="M1180 -40 L1180.0 48.0 Q1180 78 1150.0 78.0 L1010 78"/>
-      <path d="M1210 760 L1210.0 670.0 Q1210 640 1180.0 640.0 L1020 640"/>
-      <path d="M-40 660 L150 660"/>
-      <path d="M1480 620 L1430.0 620.0 Q1400 620 1400.0 650.0 L1400 700"/>
-    </g>
-    <g class="hero-lines__nodes">
-      <circle cx="330" cy="250" r="4" class="hero-lines__node--on"/>
-      <circle cx="286" cy="470" r="4"/>
-      <circle cx="60" cy="520" r="4"/>
-      <circle cx="452" cy="60" r="4"/>
-      <circle cx="1096" cy="292" r="4"/>
-      <circle cx="1150" cy="540" r="4"/>
-      <circle cx="1010" cy="78" r="4"/>
-      <circle cx="1020" cy="640" r="4"/>
-      <circle cx="150" cy="660" r="4"/>
-      <circle cx="1400" cy="700" r="4"/>
-    </g>
-  </svg>
+      <svg class="hero-lines" viewBox="0 0 1280 500" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <!-- Clerk-hero language (user reference, 16 Sep): a whisper-faint
+             circuit board fading out behind the headline, with ONE focal pair
+             kept from the previous composition: the level wires running into
+             each end of the picker, ending in the brand nodes. The texture
+             group is masked (clear at the centre, present at the edges); the
+             focal pair is not. Spans rail to rail; x=0 and x=1280 ARE the
+             rails. The mask's #000/#fff are luminance data, not palette. -->
+        <defs>
+          <radialGradient id="hl-clear" cx="50%" cy="42%" r="62%">
+            <stop offset="0" stop-color="#000"/>
+            <stop offset="0.42" stop-color="#000"/>
+            <stop offset="1" stop-color="#fff"/>
+          </radialGradient>
+          <mask id="hl-mask">
+            <rect x="0" y="0" width="1280" height="500" fill="url(#hl-clear)"/>
+          </mask>
+        </defs>
+
+        <g class="hero-lines__tex" mask="url(#hl-mask)">
+          <path d="M0 60 L240 60 Q264 60 264 84 L264 140"/>
+          <path d="M120 0 L120 70 Q120 94 144 94 L206 94"/>
+          <path d="M1280 70 L1080 70 Q1056 70 1056 94 L1056 150"/>
+          <path d="M1180 0 L1180 56 Q1180 80 1156 80 L1084 80"/>
+          <path d="M0 210 L138 210"/>
+          <path d="M1280 230 L1150 230 Q1126 230 1126 254 L1126 300"/>
+          <path d="M0 330 L90 330 Q114 330 114 354 L114 418"/>
+          <path d="M60 500 L60 442"/>
+          <path d="M1280 400 L1182 400"/>
+          <path d="M1220 500 L1220 430 Q1220 406 1196 406 L1134 406"/>
+          <path d="M420 0 L420 38"/>
+          <path d="M900 0 L900 60 Q900 84 924 84 L976 84"/>
+          <path d="M320 500 L320 470 Q320 446 344 446 L416 446"/>
+          <path d="M954 470 L1010 470"/>
+          <rect class="hero-lines__pad" x="260.5" y="144.5" width="7" height="7"/>
+          <rect class="hero-lines__pad" x="212.5" y="90.5" width="7" height="7"/>
+          <rect class="hero-lines__pad" x="1052.5" y="154.5" width="7" height="7"/>
+          <rect class="hero-lines__pad" x="1080.5" y="76.5" width="7" height="7"/>
+          <rect class="hero-lines__pad" x="1122.5" y="304.5" width="7" height="7"/>
+          <rect class="hero-lines__pad" x="976.5" y="80.5" width="7" height="7"/>
+          <rect class="hero-lines__pad" x="416.5" y="442.5" width="7" height="7"/>
+          <rect class="hero-lines__pad" x="1130.5" y="402.5" width="7" height="7"/>
+          <rect class="hero-lines__pad" x="144.5" y="206.5" width="7" height="7" transform="rotate(45 148 210)"/>
+          <rect class="hero-lines__pad" x="1178.5" y="396.5" width="7" height="7" transform="rotate(45 1182 400)"/>
+          <g class="hero-lines__dots">
+            <circle cx="109" cy="428" r="1.2"/><circle cx="114" cy="428" r="1.2"/><circle cx="119" cy="428" r="1.2"/>
+            <circle cx="109" cy="433" r="1.2"/><circle cx="114" cy="433" r="1.2"/><circle cx="119" cy="433" r="1.2"/>
+            <circle cx="109" cy="438" r="1.2"/><circle cx="114" cy="438" r="1.2"/><circle cx="119" cy="438" r="1.2"/>
+            <circle cx="855" cy="31" r="1.2"/><circle cx="860" cy="31" r="1.2"/><circle cx="865" cy="31" r="1.2"/>
+            <circle cx="855" cy="36" r="1.2"/><circle cx="860" cy="36" r="1.2"/><circle cx="865" cy="36" r="1.2"/>
+            <circle cx="855" cy="41" r="1.2"/><circle cx="860" cy="41" r="1.2"/><circle cx="865" cy="41" r="1.2"/>
+            <circle cx="1195" cy="175" r="1.2"/><circle cx="1200" cy="175" r="1.2"/><circle cx="1205" cy="175" r="1.2"/>
+            <circle cx="1195" cy="180" r="1.2"/><circle cx="1200" cy="180" r="1.2"/><circle cx="1205" cy="180" r="1.2"/>
+            <circle cx="1195" cy="185" r="1.2"/><circle cx="1200" cy="185" r="1.2"/><circle cx="1205" cy="185" r="1.2"/>
+          </g>
+          <rect class="hero-lines__sq" x="58" y="436" width="4" height="4"/>
+          <rect class="hero-lines__sq" x="418" y="40" width="4" height="4"/>
+          <rect class="hero-lines__sq" x="946" y="468" width="4" height="4"/>
+          <rect class="hero-lines__sq" x="238" y="248" width="4" height="4"/>
+        </g>
+
+        <g class="hero-lines__wires">
+          <path d="M0 383 L244 383"/>
+          <path d="M1280 383 L1036 383"/>
+        </g>
+        <g class="hero-lines__nodes">
+          <circle cx="244" cy="383" r="4" class="hero-lines__node--on"/>
+          <circle cx="1036" cy="383" r="4" class="hero-lines__node--on"/>
+        </g>
+      </svg>
 
       <div class="padding-global">
         <div class="container">
@@ -94,30 +140,38 @@
             <p class="section-sub">
               The same week looks different in every seat. Marketing is pitching the
               festive plan while the data team drowns in ad hoc pulls. Tell us where
-              you sit, and see the questions aiRA answers in your week.
+              you sit, and see what aiRA does in your week.
             </p>
           </div>
 
           <form class="pick reveal is-in" id="pick" action="/solutions" method="get">
             <div class="pick__field" data-pick="industry">
-              <span class="pick__label" id="pick-industry-label">Industry</span>
+              <span class="pick__label" id="pick-industry-label">Your business</span>
               <button class="pick__control" type="button" id="pick-industry"
                       role="combobox" aria-haspopup="listbox" aria-expanded="false"
                       aria-controls="pick-industry-list"
                       aria-labelledby="pick-industry-label pick-industry-value">
                 <svg class="pick__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,96a7.89,7.89,0,0,0-.3-2.2L217.35,43.6A16.07,16.07,0,0,0,202,32H54A16.07,16.07,0,0,0,38.65,43.6L24.31,93.8A7.89,7.89,0,0,0,24,96h0v16a40,40,0,0,0,16,32v72a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V144a40,40,0,0,0,16-32V96ZM54,48H202l11.42,40H42.61Zm50,56h48v8a24,24,0,0,1-48,0Zm-16,0v8a24,24,0,0,1-35.12,21.26,7.88,7.88,0,0,0-1.82-1.06A24,24,0,0,1,40,112v-8ZM200,208H56V151.2a40.57,40.57,0,0,0,8,.8,40,40,0,0,0,32-16,40,40,0,0,0,64,0,40,40,0,0,0,32,16,40.57,40.57,0,0,0,8-.8Zm4.93-75.8a8.08,8.08,0,0,0-1.8,1.05A24,24,0,0,1,168,112v-8h48v8A24,24,0,0,1,204.93,132.2Z"/></svg>
-                <span class="pick__value" id="pick-industry-value">Retail</span>
+                <span class="pick__value is-empty" id="pick-industry-value">Select your business</span>
                 <svg class="pick__chev" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
               </button>
               <ul class="pick__list" id="pick-industry-list" role="listbox"
                   aria-labelledby="pick-industry-label" hidden>
-                  <li class="pick__opt" id="opt-industry-retail" role="option" data-value="retail" aria-selected="true"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,96a7.89,7.89,0,0,0-.3-2.2L217.35,43.6A16.07,16.07,0,0,0,202,32H54A16.07,16.07,0,0,0,38.65,43.6L24.31,93.8A7.89,7.89,0,0,0,24,96h0v16a40,40,0,0,0,16,32v72a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V144a40,40,0,0,0,16-32V96ZM54,48H202l11.42,40H42.61Zm50,56h48v8a24,24,0,0,1-48,0Zm-16,0v8a24,24,0,0,1-35.12,21.26,7.88,7.88,0,0,0-1.82-1.06A24,24,0,0,1,40,112v-8ZM200,208H56V151.2a40.57,40.57,0,0,0,8,.8,40,40,0,0,0,32-16,40,40,0,0,0,64,0,40,40,0,0,0,32,16,40.57,40.57,0,0,0,8-.8Zm4.93-75.8a8.08,8.08,0,0,0-1.8,1.05A24,24,0,0,1,168,112v-8h48v8A24,24,0,0,1,204.93,132.2Z"/></svg><span class="pick__opt-t">Retail</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
-                  <li class="pick__opt" id="opt-industry-qsr" role="option" data-value="qsr" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M72,88V40a8,8,0,0,1,16,0V88a8,8,0,0,1-16,0ZM216,40V224a8,8,0,0,1-16,0V176H152a8,8,0,0,1-8-8,268.75,268.75,0,0,1,7.22-56.88c9.78-40.49,28.32-67.63,53.63-78.47A8,8,0,0,1,216,40ZM200,53.9c-32.17,24.57-38.47,84.42-39.7,106.1H200ZM119.89,38.69a8,8,0,1,0-15.78,2.63L112,88.63a32,32,0,0,1-64,0l7.88-47.31a8,8,0,1,0-15.78-2.63l-8,48A8.17,8.17,0,0,0,32,88a48.07,48.07,0,0,0,40,47.32V224a8,8,0,0,0,16,0V135.32A48.07,48.07,0,0,0,128,88a8.17,8.17,0,0,0-.11-1.31Z"/></svg><span class="pick__opt-t">Restaurants &amp; QSR</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
-                  <li class="pick__opt" id="opt-industry-travel" role="option" data-value="travel" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M185.33,114.21l29.14-27.42.17-.17a32,32,0,0,0-45.26-45.26c0,.06-.11.11-.17.17L141.79,70.67l-83-30.2a8,8,0,0,0-8.39,1.86l-24,24a8,8,0,0,0,1.22,12.31l63.89,42.59L76.69,136H56a8,8,0,0,0-5.65,2.34l-24,24A8,8,0,0,0,29,175.42l36.82,14.73,14.7,36.75.06.16a8,8,0,0,0,13.18,2.47l23.87-23.88A8,8,0,0,0,120,200V179.31l14.76-14.76,42.59,63.89a8,8,0,0,0,12.31,1.22l24-24a8,8,0,0,0,1.86-8.39Zm-.07,97.23-42.59-63.88A8,8,0,0,0,136.8,144c-.27,0-.53,0-.79,0a8,8,0,0,0-5.66,2.35l-24,24A8,8,0,0,0,104,176v20.69L90.93,209.76,79.43,181A8,8,0,0,0,75,176.57l-28.74-11.5L59.32,152H80a8,8,0,0,0,5.66-2.34l24-24a8,8,0,0,0-1.22-12.32L44.56,70.74l13.5-13.49,83.22,30.26a8,8,0,0,0,8.56-2L180.78,52.6A16,16,0,0,1,203.4,75.23l-32.87,30.93a8,8,0,0,0-2,8.56l30.26,83.22Z"/></svg><span class="pick__opt-t">Travel &amp; Hospitality</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
-                  <li class="pick__opt" id="opt-industry-telecom" role="option" data-value="telecom" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,88a40,40,0,1,0,40,40A40,40,0,0,0,128,88Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,152Zm73.71,7.14a80,80,0,0,1-14.08,22.2,8,8,0,0,1-11.92-10.67,63.95,63.95,0,0,0,0-85.33,8,8,0,1,1,11.92-10.67,80.08,80.08,0,0,1,14.08,84.47ZM69,103.09a64,64,0,0,0,11.26,67.58,8,8,0,0,1-11.92,10.67,79.93,79.93,0,0,1,0-106.67A8,8,0,1,1,80.29,85.34,63.77,63.77,0,0,0,69,103.09ZM248,128a119.58,119.58,0,0,1-34.29,84,8,8,0,1,1-11.42-11.2,103.9,103.9,0,0,0,0-145.56A8,8,0,1,1,213.71,44,119.58,119.58,0,0,1,248,128ZM53.71,200.78A8,8,0,1,1,42.29,212a119.87,119.87,0,0,1,0-168,8,8,0,1,1,11.42,11.2,103.9,103.9,0,0,0,0,145.56Z"/></svg><span class="pick__opt-t">Telecom</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
-                  <li class="pick__opt" id="opt-industry-fuel" role="option" data-value="fuel" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M241,69.66,221.66,50.34a8,8,0,0,0-11.32,11.32L229.66,81A8,8,0,0,1,232,86.63V168a8,8,0,0,1-16,0V128a24,24,0,0,0-24-24H176V56a24,24,0,0,0-24-24H72A24,24,0,0,0,48,56V208H32a8,8,0,0,0,0,16H192a8,8,0,0,0,0-16H176V120h16a8,8,0,0,1,8,8v40a24,24,0,0,0,48,0V86.63A23.85,23.85,0,0,0,241,69.66ZM64,208V56a8,8,0,0,1,8-8h80a8,8,0,0,1,8,8V208Zm80-96a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h48A8,8,0,0,1,144,112Z"/></svg><span class="pick__opt-t">Fuel &amp; Convenience</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__group" role="presentation">Retail</li>
+                  <li class="pick__opt" id="opt-industry-grocery-supermarket" role="option" data-value="grocery-supermarket" data-group="retail" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg><span class="pick__opt-t">Grocery &amp; Supermarket</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__opt" id="opt-industry-fashion-apparel" role="option" data-value="fashion-apparel" data-group="retail" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M247.59,61.22,195.83,33A8,8,0,0,0,192,32H160a8,8,0,0,0-8,8,24,24,0,0,1-48,0,8,8,0,0,0-8-8H64a8,8,0,0,0-3.84,1L8.41,61.22A15.76,15.76,0,0,0,1.82,82.48l19.27,36.81A16.37,16.37,0,0,0,35.67,128H56v80a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V128h20.34a16.37,16.37,0,0,0,14.58-8.71l19.27-36.81A15.76,15.76,0,0,0,247.59,61.22ZM35.67,112a.62.62,0,0,1-.41-.13L16.09,75.26,56,53.48V112ZM184,208H72V48h16.8a40,40,0,0,0,78.38,0H184Zm36.75-96.14a.55.55,0,0,1-.41.14H200V53.48l39.92,21.78Z"/></svg><span class="pick__opt-t">Fashion &amp; Apparel</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__opt" id="opt-industry-specialty-outdoor" role="option" data-value="specialty-outdoor" data-group="retail" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M164,80a28,28,0,1,0-28-28A28,28,0,0,0,164,80Zm0-40a12,12,0,1,1-12,12A12,12,0,0,1,164,40Zm90.88,155.92-54.56-92.08A15.87,15.87,0,0,0,186.55,96h0a15.85,15.85,0,0,0-13.76,7.84L146.63,148l-44.84-76.1a16,16,0,0,0-27.58,0L1.11,195.94A8,8,0,0,0,8,208H248a8,8,0,0,0,6.88-12.08ZM88,80l23.57,40H64.43ZM22,192l33-56h66l18.74,31.8,0,0L154,192Zm150.57,0-16.66-28.28L186.55,112,234,192Z"/></svg><span class="pick__opt-t">Specialty &amp; Outdoor Retail</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__opt" id="opt-industry-home-furniture" role="option" data-value="home-furniture" data-group="retail" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,88.8V72a40,40,0,0,0-40-40H80A40,40,0,0,0,40,72V88.8a40,40,0,0,0,0,78.4V200a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V167.2a40,40,0,0,0,0-78.4ZM80,48h96a24,24,0,0,1,24,24V88.8A40.07,40.07,0,0,0,168,128H88A40.07,40.07,0,0,0,56,88.8V72A24,24,0,0,1,80,48ZM208.39,152H208a8,8,0,0,0-8,8v40H56V160a8,8,0,0,0-8-8h-.39A24,24,0,1,1,72,128v40a8,8,0,0,0,16,0V144h80v24a8,8,0,0,0,16,0V128a24,24,0,1,1,24.39,24Z"/></svg><span class="pick__opt-t">Home &amp; Furniture</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__opt" id="opt-industry-convenience-fuel" role="option" data-value="convenience-fuel" data-group="retail" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M241,69.66,221.66,50.34a8,8,0,0,0-11.32,11.32L229.66,81A8,8,0,0,1,232,86.63V168a8,8,0,0,1-16,0V128a24,24,0,0,0-24-24H176V56a24,24,0,0,0-24-24H72A24,24,0,0,0,48,56V208H32a8,8,0,0,0,0,16H192a8,8,0,0,0,0-16H176V120h16a8,8,0,0,1,8,8v40a24,24,0,0,0,48,0V86.63A23.85,23.85,0,0,0,241,69.66ZM64,208V56a8,8,0,0,1,8-8h80a8,8,0,0,1,8,8V208Zm80-96a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h48A8,8,0,0,1,144,112Z"/></svg><span class="pick__opt-t">Convenience &amp; Fuel</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__opt" id="opt-industry-health-beauty" role="option" data-value="health-beauty" data-group="retail" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40ZM128,214.8C109.74,204.16,32,155.69,32,102A46.06,46.06,0,0,1,78,56c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,155.61,146.24,204.15,128,214.8Z"/></svg><span class="pick__opt-t">Health &amp; Beauty</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__opt" id="opt-industry-department-discount" role="option" data-value="department-discount" data-group="retail" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM176,88a48,48,0,0,1-96,0,8,8,0,0,1,16,0,32,32,0,0,0,64,0,8,8,0,0,1,16,0Z"/></svg><span class="pick__opt-t">Department &amp; Discount</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__opt" id="opt-industry-other-retail" role="option" data-value="other-retail" data-group="retail" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z"/></svg><span class="pick__opt-t">Other Retail</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__group" role="presentation">Other industries</li>
+                  <li class="pick__opt" id="opt-industry-restaurants-qsr" role="option" data-value="restaurants-qsr" data-group="restaurants-qsr" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M72,88V40a8,8,0,0,1,16,0V88a8,8,0,0,1-16,0ZM216,40V224a8,8,0,0,1-16,0V176H152a8,8,0,0,1-8-8,268.75,268.75,0,0,1,7.22-56.88c9.78-40.49,28.32-67.63,53.63-78.47A8,8,0,0,1,216,40ZM200,53.9c-32.17,24.57-38.47,84.42-39.7,106.1H200ZM119.89,38.69a8,8,0,1,0-15.78,2.63L112,88.63a32,32,0,0,1-64,0l7.88-47.31a8,8,0,1,0-15.78-2.63l-8,48A8.17,8.17,0,0,0,32,88a48.07,48.07,0,0,0,40,47.32V224a8,8,0,0,0,16,0V135.32A48.07,48.07,0,0,0,128,88a8.17,8.17,0,0,0-.11-1.31Z"/></svg><span class="pick__opt-t">Restaurants &amp; QSR</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__opt" id="opt-industry-travel-hospitality" role="option" data-value="travel-hospitality" data-group="travel-hospitality" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M185.33,114.21l29.14-27.42.17-.17a32,32,0,0,0-45.26-45.26c0,.06-.11.11-.17.17L141.79,70.67l-83-30.2a8,8,0,0,0-8.39,1.86l-24,24a8,8,0,0,0,1.22,12.31l63.89,42.59L76.69,136H56a8,8,0,0,0-5.65,2.34l-24,24A8,8,0,0,0,29,175.42l36.82,14.73,14.7,36.75.06.16a8,8,0,0,0,13.18,2.47l23.87-23.88A8,8,0,0,0,120,200V179.31l14.76-14.76,42.59,63.89a8,8,0,0,0,12.31,1.22l24-24a8,8,0,0,0,1.86-8.39Zm-.07,97.23-42.59-63.88A8,8,0,0,0,136.8,144c-.27,0-.53,0-.79,0a8,8,0,0,0-5.66,2.35l-24,24A8,8,0,0,0,104,176v20.69L90.93,209.76,79.43,181A8,8,0,0,0,75,176.57l-28.74-11.5L59.32,152H80a8,8,0,0,0,5.66-2.34l24-24a8,8,0,0,0-1.22-12.32L44.56,70.74l13.5-13.49,83.22,30.26a8,8,0,0,0,8.56-2L180.78,52.6A16,16,0,0,1,203.4,75.23l-32.87,30.93a8,8,0,0,0-2,8.56l30.26,83.22Z"/></svg><span class="pick__opt-t">Travel &amp; Hospitality</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__opt" id="opt-industry-telecom" role="option" data-value="telecom" data-group="telecom" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,88a40,40,0,1,0,40,40A40,40,0,0,0,128,88Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,152Zm73.71,7.14a80,80,0,0,1-14.08,22.2,8,8,0,0,1-11.92-10.67,63.95,63.95,0,0,0,0-85.33,8,8,0,1,1,11.92-10.67,80.08,80.08,0,0,1,14.08,84.47ZM69,103.09a64,64,0,0,0,11.26,67.58,8,8,0,0,1-11.92,10.67,79.93,79.93,0,0,1,0-106.67A8,8,0,1,1,80.29,85.34,63.77,63.77,0,0,0,69,103.09ZM248,128a119.58,119.58,0,0,1-34.29,84,8,8,0,1,1-11.42-11.2,103.9,103.9,0,0,0,0-145.56A8,8,0,1,1,213.71,44,119.58,119.58,0,0,1,248,128ZM53.71,200.78A8,8,0,1,1,42.29,212a119.87,119.87,0,0,1,0-168,8,8,0,1,1,11.42,11.2,103.9,103.9,0,0,0,0,145.56Z"/></svg><span class="pick__opt-t">Telecom</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
               </ul>
-              <input type="hidden" name="industry" value="retail">
+              <input type="hidden" name="industry" value="">
             </div>
 
             <div class="pick__field" data-pick="role">
@@ -127,12 +181,12 @@
                       aria-controls="pick-role-list"
                       aria-labelledby="pick-role-label pick-role-value">
                 <svg class="pick__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>
-                <span class="pick__value" id="pick-role-value">All five teams</span>
+                <span class="pick__value is-empty" id="pick-role-value">Select your team</span>
                 <svg class="pick__chev" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
               </button>
               <ul class="pick__list" id="pick-role-list" role="listbox"
                   aria-labelledby="pick-role-label" hidden>
-                  <li class="pick__opt" id="opt-role-all" role="option" data-value="" aria-selected="true"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg><span class="pick__opt-t">All five teams</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
+                  <li class="pick__opt" id="opt-role-all" role="option" data-value="" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg><span class="pick__opt-t">All five teams</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
                   <li class="pick__opt" id="opt-role-marketing" role="option" data-value="marketing" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg><span class="pick__opt-t">Marketing</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
                   <li class="pick__opt" id="opt-role-crm" role="option" data-value="crm" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M83.19,174.4a8,8,0,0,0,11.21-1.6,52,52,0,0,1,83.2,0,8,8,0,1,0,12.8-9.6A67.88,67.88,0,0,0,163,141.51a40,40,0,1,0-53.94,0A67.88,67.88,0,0,0,81.6,163.2,8,8,0,0,0,83.19,174.4ZM112,112a24,24,0,1,1,24,24A24,24,0,0,1,112,112Zm96-88H64A16,16,0,0,0,48,40V64H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v24a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V40A16,16,0,0,0,208,24Zm0,192H64V40H208Z"/></svg><span class="pick__opt-t">CRM</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
                   <li class="pick__opt" id="opt-role-bi" role="option" data-value="bi" aria-selected="false"><svg class="pick__opt-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg><span class="pick__opt-t">Business Intelligence</span><svg class="pick__opt-tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z"/></svg></li>
@@ -161,88 +215,199 @@
       <div class="padding-global">
         <div class="container">
 
+          <div class="pickgrid reveal is-in">
+            <div class="section-head section-head--center">
+              <h2 class="section-heading">Whatever you sell, aiRA already knows its shape.</h2>
+              <p class="section-sub">
+                Eight kinds of retail, each with its own buying rhythm, margin and season.
+                Pick the one that is yours, or jump to your industry below.
+              </p>
+            </div>
+
+            
+            <div class="biz-grid">
+              <button class="biz" type="button" data-biz="grocery-supermarket" data-picks="retail">
+                <span class="biz__ic"><svg class="" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg></span>
+                <span class="biz__t">Grocery &amp; Supermarket</span>
+                <span class="biz__d">Weekly trips, thin margins. Small basket and frequency shifts move the whole number.</span>
+                <span class="biz__go">See it by team <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+              </button>
+              <button class="biz" type="button" data-biz="fashion-apparel" data-picks="retail">
+                <span class="biz__ic"><svg class="" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M247.59,61.22,195.83,33A8,8,0,0,0,192,32H160a8,8,0,0,0-8,8,24,24,0,0,1-48,0,8,8,0,0,0-8-8H64a8,8,0,0,0-3.84,1L8.41,61.22A15.76,15.76,0,0,0,1.82,82.48l19.27,36.81A16.37,16.37,0,0,0,35.67,128H56v80a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V128h20.34a16.37,16.37,0,0,0,14.58-8.71l19.27-36.81A15.76,15.76,0,0,0,247.59,61.22ZM35.67,112a.62.62,0,0,1-.41-.13L16.09,75.26,56,53.48V112ZM184,208H72V48h16.8a40,40,0,0,0,78.38,0H184Zm36.75-96.14a.55.55,0,0,1-.41.14H200V53.48l39.92,21.78Z"/></svg></span>
+                <span class="biz__t">Fashion &amp; Apparel</span>
+                <span class="biz__d">Drops and seasons spike demand, returns eat margin. Repeat buyers decide the year.</span>
+                <span class="biz__go">See it by team <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+              </button>
+              <button class="biz" type="button" data-biz="specialty-outdoor" data-picks="retail">
+                <span class="biz__ic"><svg class="" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M164,80a28,28,0,1,0-28-28A28,28,0,0,0,164,80Zm0-40a12,12,0,1,1-12,12A12,12,0,0,1,164,40Zm90.88,155.92-54.56-92.08A15.87,15.87,0,0,0,186.55,96h0a15.85,15.85,0,0,0-13.76,7.84L146.63,148l-44.84-76.1a16,16,0,0,0-27.58,0L1.11,195.94A8,8,0,0,0,8,208H248a8,8,0,0,0,6.88-12.08ZM88,80l23.57,40H64.43ZM22,192l33-56h66l18.74,31.8,0,0L154,192Zm150.57,0-16.66-28.28L186.55,112,234,192Z"/></svg></span>
+                <span class="biz__t">Specialty &amp; Outdoor Retail</span>
+                <span class="biz__d">Big-ticket enthusiasts who shop in seasons. Who returns between peaks matters most.</span>
+                <span class="biz__go">See it by team <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+              </button>
+              <button class="biz" type="button" data-biz="home-furniture" data-picks="retail">
+                <span class="biz__ic"><svg class="" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,88.8V72a40,40,0,0,0-40-40H80A40,40,0,0,0,40,72V88.8a40,40,0,0,0,0,78.4V200a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V167.2a40,40,0,0,0,0-78.4ZM80,48h96a24,24,0,0,1,24,24V88.8A40.07,40.07,0,0,0,168,128H88A40.07,40.07,0,0,0,56,88.8V72A24,24,0,0,1,80,48ZM208.39,152H208a8,8,0,0,0-8,8v40H56V160a8,8,0,0,0-8-8h-.39A24,24,0,1,1,72,128v40a8,8,0,0,0,16,0V144h80v24a8,8,0,0,0,16,0V128a24,24,0,1,1,24.39,24Z"/></svg></span>
+                <span class="biz__t">Home &amp; Furniture</span>
+                <span class="biz__d">High tickets, years between purchases. The work is staying relevant in the gap.</span>
+                <span class="biz__go">See it by team <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+              </button>
+              <button class="biz" type="button" data-biz="convenience-fuel" data-picks="retail">
+                <span class="biz__ic"><svg class="" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M241,69.66,221.66,50.34a8,8,0,0,0-11.32,11.32L229.66,81A8,8,0,0,1,232,86.63V168a8,8,0,0,1-16,0V128a24,24,0,0,0-24-24H176V56a24,24,0,0,0-24-24H72A24,24,0,0,0,48,56V208H32a8,8,0,0,0,0,16H192a8,8,0,0,0,0-16H176V120h16a8,8,0,0,1,8,8v40a24,24,0,0,0,48,0V86.63A23.85,23.85,0,0,0,241,69.66ZM64,208V56a8,8,0,0,1,8-8h80a8,8,0,0,1,8,8V208Zm80-96a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h48A8,8,0,0,1,144,112Z"/></svg></span>
+                <span class="biz__t">Convenience &amp; Fuel</span>
+                <span class="biz__d">One customer, two datasets: forecourt and store. The margin lives inside the shop.</span>
+                <span class="biz__go">See it by team <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+              </button>
+              <button class="biz" type="button" data-biz="health-beauty" data-picks="retail">
+                <span class="biz__ic"><svg class="" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40ZM128,214.8C109.74,204.16,32,155.69,32,102A46.06,46.06,0,0,1,78,56c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,155.61,146.24,204.15,128,214.8Z"/></svg></span>
+                <span class="biz__t">Health &amp; Beauty</span>
+                <span class="biz__d">Replenishment you can set a clock by. A missed refill window is churn seen early.</span>
+                <span class="biz__go">See it by team <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+              </button>
+              <button class="biz" type="button" data-biz="department-discount" data-picks="retail">
+                <span class="biz__ic"><svg class="" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM176,88a48,48,0,0,1-96,0,8,8,0,0,1,16,0,32,32,0,0,0,64,0,8,8,0,0,1,16,0Z"/></svg></span>
+                <span class="biz__t">Department &amp; Discount</span>
+                <span class="biz__d">Wide assortments, thin margins. Cross-category movement decides who becomes loyal.</span>
+                <span class="biz__go">See it by team <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+              </button>
+              <button class="biz" type="button" data-biz="other-retail" data-picks="retail">
+                <span class="biz__ic"><svg class="" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z"/></svg></span>
+                <span class="biz__t">Other Retail</span>
+                <span class="biz__d">Electronics, marketplaces and D2C. Different catalogues, same need: answers fast.</span>
+                <span class="biz__go">See it by team <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+              </button>
+            </div>
+
+          </div>
+
           <div class="finder__groups">
             <div class="finder__group is-active" data-industry="retail">
               <div class="finder__group-head">
                 <h2 class="finder__group-t">One week in Retail, from five seats.</h2>
                 <p class="finder__group-s">Same calendar, opposite problems. That is why the seat matters as much as the industry.</p>
+                <p class="finder__pending" hidden></p>
               </div>
 
-              <div class="seats">
-                <article class="seat" id="retail-marketing" data-role="marketing">
-                  <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg>Marketing</h3>
-                    <p class="seat__hand">Answers arrive with the reasoning shown, and the next campaign already built, pending your approval.</p>
+              <!-- One seat on screen at a time, Attio platform-page style: five tabs
+                   over a ruler of ticks, the mark sliding to the chosen seat. The bar
+                   only shows once js/solutions.js wires it; with scripts off the five
+                   panels read stacked, so nothing is lost to a control that cannot
+                   work. -->
+              <div class="seatbar">
+                <div class="seatbar__in">
+                  <div class="seatbar__tabs" role="tablist" aria-label="Teams">
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-retail-marketing"
+                          aria-controls="retail-marketing" aria-selected="true" tabindex="0">Marketing</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-retail-crm"
+                          aria-controls="retail-crm" aria-selected="false" tabindex="-1">CRM</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-retail-bi"
+                          aria-controls="retail-bi" aria-selected="false" tabindex="-1">Data &amp; BI</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-retail-ecommerce"
+                          aria-controls="retail-ecommerce" aria-selected="false" tabindex="-1">eCommerce</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-retail-growth"
+                          aria-controls="retail-growth" aria-selected="false" tabindex="-1">Growth</button>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">How did the summer markdown campaign perform across loyalty tiers, versus last year?</li>
-                    <li class="qstring">Which channel drove the most first-time buyers into the loyalty program this quarter?</li>
-                    <li class="qstring">Compare redemption rates for the March promo across our top 50 stores.</li>
-                  </ul>
-                </article>
-
-                <article class="seat" id="retail-crm" data-role="crm">
-                  <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M83.19,174.4a8,8,0,0,0,11.21-1.6,52,52,0,0,1,83.2,0,8,8,0,1,0,12.8-9.6A67.88,67.88,0,0,0,163,141.51a40,40,0,1,0-53.94,0A67.88,67.88,0,0,0,81.6,163.2,8,8,0,0,0,83.19,174.4ZM112,112a24,24,0,1,1,24,24A24,24,0,0,1,112,112Zm96-88H64A16,16,0,0,0,48,40V64H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v24a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V40A16,16,0,0,0,208,24Zm0,192H64V40H208Z"/></svg>CRM</h3>
-                    <p class="seat__hand">The segment and the journey get built in the same conversation you found them in.</p>
-                  </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">Build a segment of members who bought once and never came back.</li>
-                    <li class="qstring">Which tier lost the most members in the last 90 days, and what did they stop buying?</li>
-                    <li class="qstring">Create a win-back journey for lapsed high-basket customers, capped at a 10% discount.</li>
-                  </ul>
-                </article>
-
-                <article class="seat" id="retail-bi" data-role="bi">
-                  <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg>Data &amp; BI</h3>
-                    <p class="seat__hand">The query, the chart and the explanation come back together. Any one-off pull can become a dashboard.</p>
-                  </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">How many members with a negative points balance redeemed a certificate last quarter?</li>
-                    <li class="qstring">Flag duplicate emails and unusual redemption spikes from the last 30 days.</li>
-                    <li class="qstring">Turn yesterday's basket-size pull into a dashboard the trade team can reuse.</li>
-                  </ul>
-                </article>
-
-                <article class="seat" id="retail-ecommerce" data-role="ecommerce">
-                  <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg>eCommerce</h3>
-                    <p class="seat__hand">Anomalies surface the day they happen, not in the month-end review.</p>
-                  </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">Where in checkout are loyalty members dropping off, compared to guests?</li>
-                    <li class="qstring">Which SKUs sell online but never in store, and who buys them?</li>
-                    <li class="qstring">Run a market basket analysis for our decile-10 buyers this year.</li>
-                  </ul>
-                </article>
-
-                <article class="seat" id="retail-growth" data-role="growth">
-                  <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg>Growth</h3>
-                    <p class="seat__hand">Results read the moment they are significant, with the next move already proposed.</p>
-                  </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">Which members are most likely to churn in the next 60 days?</li>
-                    <li class="qstring">Did the free-shipping threshold test raise basket size, or just shift when people buy?</li>
-                    <li class="qstring">Which of last year's acquisition cohorts is still compounding, and which never repeated?</li>
-                  </ul>
-                </article>
-              </div>
-
-              <div class="finder__cats">
-                <p class="finder__cats-label">Go deeper by retail category</p>
-                <div class="finder__cats-row">
-                  <a class="finder__cat" href="/solutions/retail/apparel-fashion">Apparel &amp; Fashion</a>
-                  <a class="finder__cat" href="/solutions/retail/supermarkets-grocery">Supermarkets &amp; Grocery</a>
-                  <a class="finder__cat" href="/solutions/retail/hypermarkets-mass">Hypermarkets &amp; Mass Merchants</a>
-                  <a class="finder__cat" href="/solutions/retail/fuel-convenience">Fuel &amp; Convenience</a>
-                  <a class="finder__cat" href="/solutions/retail/food-beverage-qsr">Food, Beverage &amp; QSR</a>
-                  <a class="finder__cat" href="/solutions/retail/health-beauty">Health &amp; Beauty</a>
-                  <a class="finder__cat" href="/solutions/retail/luxury-jewellery">Luxury &amp; Jewellery</a>
-                  <a class="finder__cat" href="/solutions/retail/consumer-electronics">Consumer Durables &amp; Electronics</a>
-                  <a class="finder__cat finder__cat--all" href="/solutions/retail">All retail categories <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+                  <div class="seatbar__ruler" aria-hidden="true"><span class="seatbar__mark"></span></div>
                 </div>
+              </div>
+              <div class="seats">
+                <article class="seat" id="retail-marketing" role="tabpanel" aria-labelledby="tab-retail-marketing" tabindex="0" data-role="marketing">
+                  <div class="seat__id">
+                    <h3 class="seat__t">Marketing</h3>
+                    <p class="seat__hand">Answers arrive with the reasoning shown, and the next campaign already built, pending your approval.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>Audience builder</h4>
+                        <p class="seat__cap-d">One conversation finds the cohort and saves it as a segment.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M80,176a32,32,0,1,1-32-32A32,32,0,0,1,80,176Z" opacity="0.2"/><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg>Journey orchestration</h4>
+                        <p class="seat__cap-d">The play comes back drafted and waits on your approval.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="seat__shot" data-shot="retail-marketing">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
+                </article>
+
+                <article class="seat" id="retail-crm" role="tabpanel" aria-labelledby="tab-retail-crm" tabindex="0" data-role="crm">
+                  <div class="seat__id">
+                    <h3 class="seat__t">CRM</h3>
+                    <p class="seat__hand">The segment and the journey get built in the same conversation you found them in.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg>Predictive models</h4>
+                        <p class="seat__cap-d">Churn risk scored on your own members, against your own definition of lapsed.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>Audience builder</h4>
+                        <p class="seat__cap-d">A segment that holds its definition, so the pull matches the brief.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="seat__shot" data-shot="retail-crm">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
+                </article>
+
+                <article class="seat" id="retail-bi" role="tabpanel" aria-labelledby="tab-retail-bi" tabindex="0" data-role="bi">
+                  <div class="seat__id">
+                    <h3 class="seat__t">Data &amp; BI</h3>
+                    <p class="seat__hand">The query, the chart and the explanation come back together. Any one-off pull can become a dashboard.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg>Ad hoc analytics</h4>
+                        <p class="seat__cap-d">The one-off pull answers itself, so the queue stops growing.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,56v56c0,96-88,120-88,120S40,208,40,112V56a8,8,0,0,1,8-8H208A8,8,0,0,1,216,56Z" opacity="0.2"/><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></svg>Data quality &amp; fraud checks</h4>
+                        <p class="seat__cap-d">Duplicates and redemption spikes surface before anyone acts on them.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="seat__shot" data-shot="retail-bi">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
+                </article>
+
+                <article class="seat" id="retail-ecommerce" role="tabpanel" aria-labelledby="tab-retail-ecommerce" tabindex="0" data-role="ecommerce">
+                  <div class="seat__id">
+                    <h3 class="seat__t">eCommerce</h3>
+                    <p class="seat__hand">Anomalies surface the day they happen, not in the month-end review.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V200H224A8,8,0,0,1,232,208ZM132,160a12,12,0,1,0-12-12A12,12,0,0,0,132,160Zm-24-56A12,12,0,1,0,96,92,12,12,0,0,0,108,104ZM76,176a12,12,0,1,0-12-12A12,12,0,0,0,76,176Zm96-48a12,12,0,1,0-12-12A12,12,0,0,0,172,128Zm24-40a12,12,0,1,0-12-12A12,12,0,0,0,196,88Zm-20,76a12,12,0,1,0,12-12A12,12,0,0,0,176,164Z"/></svg>Advanced analytics</h4>
+                        <p class="seat__cap-d">Basket and cohort analysis run on your own transactions.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg>Predictive models</h4>
+                        <p class="seat__cap-d">Who is about to lapse, scored while there is still time to act.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="seat__shot" data-shot="retail-ecommerce">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
+                </article>
+
+                <article class="seat" id="retail-growth" role="tabpanel" aria-labelledby="tab-retail-growth" tabindex="0" data-role="growth">
+                  <div class="seat__id">
+                    <h3 class="seat__t">Growth</h3>
+                    <p class="seat__hand">Results read the moment they are significant, with the next move already proposed.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg>Ad hoc analytics</h4>
+                        <p class="seat__cap-d">Every test question answered at the speed you can ask the next one.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V200H224A8,8,0,0,1,232,208ZM132,160a12,12,0,1,0-12-12A12,12,0,0,0,132,160Zm-24-56A12,12,0,1,0,96,92,12,12,0,0,0,108,104ZM76,176a12,12,0,1,0-12-12A12,12,0,0,0,76,176Zm96-48a12,12,0,1,0-12-12A12,12,0,0,0,172,128Zm24-40a12,12,0,1,0-12-12A12,12,0,0,0,196,88Zm-20,76a12,12,0,1,0,12-12A12,12,0,0,0,176,164Z"/></svg>Advanced analytics</h4>
+                        <p class="seat__cap-d">The lift behind a number, with the working shown.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="seat__shot" data-shot="retail-growth">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
+                </article>
               </div>
             </div>
 
@@ -250,67 +415,130 @@
               <div class="finder__group-head">
                 <h2 class="finder__group-t">One week in Restaurants &amp; QSR, from five seats.</h2>
                 <p class="finder__group-s">Same calendar, opposite problems. That is why the seat matters as much as the industry.</p>
+                <p class="finder__pending" hidden></p>
               </div>
 
+              <!-- One seat on screen at a time, Attio platform-page style: five tabs
+                   over a ruler of ticks, the mark sliding to the chosen seat. The bar
+                   only shows once js/solutions.js wires it; with scripts off the five
+                   panels read stacked, so nothing is lost to a control that cannot
+                   work. -->
+              <div class="seatbar">
+                <div class="seatbar__in">
+                  <div class="seatbar__tabs" role="tablist" aria-label="Teams">
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-qsr-marketing"
+                          aria-controls="qsr-marketing" aria-selected="true" tabindex="0">Marketing</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-qsr-crm"
+                          aria-controls="qsr-crm" aria-selected="false" tabindex="-1">CRM</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-qsr-bi"
+                          aria-controls="qsr-bi" aria-selected="false" tabindex="-1">Data &amp; BI</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-qsr-ecommerce"
+                          aria-controls="qsr-ecommerce" aria-selected="false" tabindex="-1">eCommerce</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-qsr-growth"
+                          aria-controls="qsr-growth" aria-selected="false" tabindex="-1">Growth</button>
+                  </div>
+                  <div class="seatbar__ruler" aria-hidden="true"><span class="seatbar__mark"></span></div>
+                </div>
+              </div>
               <div class="seats">
-                <article class="seat" id="qsr-marketing" data-role="marketing">
+                <article class="seat" id="qsr-marketing" role="tabpanel" aria-labelledby="tab-qsr-marketing" tabindex="0" data-role="marketing">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg>Marketing</h3>
+                    <h3 class="seat__t">Marketing</h3>
                     <p class="seat__hand">Answers arrive with the reasoning shown, and the next campaign already built, pending your approval.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>Audience builder</h4>
+                        <p class="seat__cap-d">One conversation finds the cohort and saves it as a segment.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M80,176a32,32,0,1,1-32-32A32,32,0,0,1,80,176Z" opacity="0.2"/><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg>Journey orchestration</h4>
+                        <p class="seat__cap-d">The play comes back drafted and waits on your approval.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">How did the limited-time menu perform by daypart, region by region?</li>
-                    <li class="qstring">Which channel drives app installs that turn into a second order?</li>
-                    <li class="qstring">Compare this year's festive campaign to last year's, location by location.</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="qsr-marketing">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
 
-                <article class="seat" id="qsr-crm" data-role="crm">
+                <article class="seat" id="qsr-crm" role="tabpanel" aria-labelledby="tab-qsr-crm" tabindex="0" data-role="crm">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M83.19,174.4a8,8,0,0,0,11.21-1.6,52,52,0,0,1,83.2,0,8,8,0,1,0,12.8-9.6A67.88,67.88,0,0,0,163,141.51a40,40,0,1,0-53.94,0A67.88,67.88,0,0,0,81.6,163.2,8,8,0,0,0,83.19,174.4ZM112,112a24,24,0,1,1,24,24A24,24,0,0,1,112,112Zm96-88H64A16,16,0,0,0,48,40V64H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v24a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V40A16,16,0,0,0,208,24Zm0,192H64V40H208Z"/></svg>CRM</h3>
+                    <h3 class="seat__t">CRM</h3>
                     <p class="seat__hand">The segment and the journey get built in the same conversation you found them in.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg>Predictive models</h4>
+                        <p class="seat__cap-d">Churn risk scored on your own members, against your own definition of lapsed.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>Audience builder</h4>
+                        <p class="seat__cap-d">A segment that holds its definition, so the pull matches the brief.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">Build a segment of app members who ordered weekly, then went quiet for 30 days.</li>
-                    <li class="qstring">Which lapsed lunch regulars come back on their own, and which need an offer?</li>
-                    <li class="qstring">Create a win-back journey for members who stopped ordering after the price change.</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="qsr-crm">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
 
-                <article class="seat" id="qsr-bi" data-role="bi">
+                <article class="seat" id="qsr-bi" role="tabpanel" aria-labelledby="tab-qsr-bi" tabindex="0" data-role="bi">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg>Data &amp; BI</h3>
+                    <h3 class="seat__t">Data &amp; BI</h3>
                     <p class="seat__hand">The query, the chart and the explanation come back together. Any one-off pull can become a dashboard.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg>Ad hoc analytics</h4>
+                        <p class="seat__cap-d">The one-off pull answers itself, so the queue stops growing.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,56v56c0,96-88,120-88,120S40,208,40,112V56a8,8,0,0,1,8-8H208A8,8,0,0,1,216,56Z" opacity="0.2"/><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></svg>Data quality &amp; fraud checks</h4>
+                        <p class="seat__cap-d">Duplicates and redemption spikes surface before anyone acts on them.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">Which locations under-index on breakfast against their own trade area?</li>
-                    <li class="qstring">Flag unusual refund and redemption spikes by location from the last 30 days.</li>
-                    <li class="qstring">Turn the weekly menu-mix pull into a report franchisees can read themselves.</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="qsr-bi">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
 
-                <article class="seat" id="qsr-ecommerce" data-role="ecommerce">
+                <article class="seat" id="qsr-ecommerce" role="tabpanel" aria-labelledby="tab-qsr-ecommerce" tabindex="0" data-role="ecommerce">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg>eCommerce</h3>
+                    <h3 class="seat__t">eCommerce</h3>
                     <p class="seat__hand">Anomalies surface the day they happen, not in the month-end review.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V200H224A8,8,0,0,1,232,208ZM132,160a12,12,0,1,0-12-12A12,12,0,0,0,132,160Zm-24-56A12,12,0,1,0,96,92,12,12,0,0,0,108,104ZM76,176a12,12,0,1,0-12-12A12,12,0,0,0,76,176Zm96-48a12,12,0,1,0-12-12A12,12,0,0,0,172,128Zm24-40a12,12,0,1,0-12-12A12,12,0,0,0,196,88Zm-20,76a12,12,0,1,0,12-12A12,12,0,0,0,176,164Z"/></svg>Advanced analytics</h4>
+                        <p class="seat__cap-d">Basket and cohort analysis run on your own transactions.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg>Predictive models</h4>
+                        <p class="seat__cap-d">Who is about to lapse, scored while there is still time to act.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">Where do first-time app users drop off between menu and payment?</li>
-                    <li class="qstring">Which items get abandoned in the cart most often, and at what basket size?</li>
-                    <li class="qstring">Did last weekend's delivery times change this week's reorder rate?</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="qsr-ecommerce">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
 
-                <article class="seat" id="qsr-growth" data-role="growth">
+                <article class="seat" id="qsr-growth" role="tabpanel" aria-labelledby="tab-qsr-growth" tabindex="0" data-role="growth">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg>Growth</h3>
+                    <h3 class="seat__t">Growth</h3>
                     <p class="seat__hand">Results read the moment they are significant, with the next move already proposed.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg>Ad hoc analytics</h4>
+                        <p class="seat__cap-d">Every test question answered at the speed you can ask the next one.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V200H224A8,8,0,0,1,232,208ZM132,160a12,12,0,1,0-12-12A12,12,0,0,0,132,160Zm-24-56A12,12,0,1,0,96,92,12,12,0,0,0,108,104ZM76,176a12,12,0,1,0-12-12A12,12,0,0,0,76,176Zm96-48a12,12,0,1,0-12-12A12,12,0,0,0,172,128Zm24-40a12,12,0,1,0-12-12A12,12,0,0,0,196,88Zm-20,76a12,12,0,1,0,12-12A12,12,0,0,0,176,164Z"/></svg>Advanced analytics</h4>
+                        <p class="seat__cap-d">The lift behind a number, with the working shown.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">Which loyalty members are most likely to stop ordering in the next 60 days?</li>
-                    <li class="qstring">Did the two-for-one test grow visits, or discount visits that were already coming?</li>
-                    <li class="qstring">Which market we opened last year is compounding fastest, and what ran differently there?</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="qsr-growth">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
               </div>
             </div>
@@ -319,67 +547,130 @@
               <div class="finder__group-head">
                 <h2 class="finder__group-t">One week in Travel &amp; Hospitality, from five seats.</h2>
                 <p class="finder__group-s">Same calendar, opposite problems. That is why the seat matters as much as the industry.</p>
+                <p class="finder__pending" hidden></p>
               </div>
 
+              <!-- One seat on screen at a time, Attio platform-page style: five tabs
+                   over a ruler of ticks, the mark sliding to the chosen seat. The bar
+                   only shows once js/solutions.js wires it; with scripts off the five
+                   panels read stacked, so nothing is lost to a control that cannot
+                   work. -->
+              <div class="seatbar">
+                <div class="seatbar__in">
+                  <div class="seatbar__tabs" role="tablist" aria-label="Teams">
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-travel-marketing"
+                          aria-controls="travel-marketing" aria-selected="true" tabindex="0">Marketing</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-travel-crm"
+                          aria-controls="travel-crm" aria-selected="false" tabindex="-1">CRM</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-travel-bi"
+                          aria-controls="travel-bi" aria-selected="false" tabindex="-1">Data &amp; BI</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-travel-ecommerce"
+                          aria-controls="travel-ecommerce" aria-selected="false" tabindex="-1">eCommerce</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-travel-growth"
+                          aria-controls="travel-growth" aria-selected="false" tabindex="-1">Growth</button>
+                  </div>
+                  <div class="seatbar__ruler" aria-hidden="true"><span class="seatbar__mark"></span></div>
+                </div>
+              </div>
               <div class="seats">
-                <article class="seat" id="travel-marketing" data-role="marketing">
+                <article class="seat" id="travel-marketing" role="tabpanel" aria-labelledby="tab-travel-marketing" tabindex="0" data-role="marketing">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg>Marketing</h3>
+                    <h3 class="seat__t">Marketing</h3>
                     <p class="seat__hand">Answers arrive with the reasoning shown, and the next campaign already built, pending your approval.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>Audience builder</h4>
+                        <p class="seat__cap-d">One conversation finds the cohort and saves it as a segment.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M80,176a32,32,0,1,1-32-32A32,32,0,0,1,80,176Z" opacity="0.2"/><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg>Journey orchestration</h4>
+                        <p class="seat__cap-d">The play comes back drafted and waits on your approval.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">Which campaigns filled shoulder-season dates, and which just discounted peak demand?</li>
-                    <li class="qstring">Compare offer response between points-heavy members and cash bookers.</li>
-                    <li class="qstring">Which markets book packages, and which only ever take room-only rates?</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="travel-marketing">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
 
-                <article class="seat" id="travel-crm" data-role="crm">
+                <article class="seat" id="travel-crm" role="tabpanel" aria-labelledby="tab-travel-crm" tabindex="0" data-role="crm">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M83.19,174.4a8,8,0,0,0,11.21-1.6,52,52,0,0,1,83.2,0,8,8,0,1,0,12.8-9.6A67.88,67.88,0,0,0,163,141.51a40,40,0,1,0-53.94,0A67.88,67.88,0,0,0,81.6,163.2,8,8,0,0,0,83.19,174.4ZM112,112a24,24,0,1,1,24,24A24,24,0,0,1,112,112Zm96-88H64A16,16,0,0,0,48,40V64H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v24a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V40A16,16,0,0,0,208,24Zm0,192H64V40H208Z"/></svg>CRM</h3>
+                    <h3 class="seat__t">CRM</h3>
                     <p class="seat__hand">The segment and the journey get built in the same conversation you found them in.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg>Predictive models</h4>
+                        <p class="seat__cap-d">Churn risk scored on your own members, against your own definition of lapsed.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>Audience builder</h4>
+                        <p class="seat__cap-d">A segment that holds its definition, so the pull matches the brief.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">Build a segment of members who stayed twice last year and have nothing booked this year.</li>
-                    <li class="qstring">Which members are one stay away from keeping their status this year?</li>
-                    <li class="qstring">Create a win-back journey for lapsed members ahead of the booking season.</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="travel-crm">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
 
-                <article class="seat" id="travel-bi" data-role="bi">
+                <article class="seat" id="travel-bi" role="tabpanel" aria-labelledby="tab-travel-bi" tabindex="0" data-role="bi">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg>Data &amp; BI</h3>
+                    <h3 class="seat__t">Data &amp; BI</h3>
                     <p class="seat__hand">The query, the chart and the explanation come back together. Any one-off pull can become a dashboard.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg>Ad hoc analytics</h4>
+                        <p class="seat__cap-d">The one-off pull answers itself, so the queue stops growing.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,56v56c0,96-88,120-88,120S40,208,40,112V56a8,8,0,0,1,8-8H208A8,8,0,0,1,216,56Z" opacity="0.2"/><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></svg>Data quality &amp; fraud checks</h4>
+                        <p class="seat__cap-d">Duplicates and redemption spikes surface before anyone acts on them.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">How many members redeemed points for upgrades versus free nights last quarter?</li>
-                    <li class="qstring">Flag duplicate accounts and unusual redemption spikes from the last 30 days.</li>
-                    <li class="qstring">Turn the booking-pace pull into a dashboard revenue managers can reuse.</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="travel-bi">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
 
-                <article class="seat" id="travel-ecommerce" data-role="ecommerce">
+                <article class="seat" id="travel-ecommerce" role="tabpanel" aria-labelledby="tab-travel-ecommerce" tabindex="0" data-role="ecommerce">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg>eCommerce</h3>
+                    <h3 class="seat__t">eCommerce</h3>
                     <p class="seat__hand">Anomalies surface the day they happen, not in the month-end review.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V200H224A8,8,0,0,1,232,208ZM132,160a12,12,0,1,0-12-12A12,12,0,0,0,132,160Zm-24-56A12,12,0,1,0,96,92,12,12,0,0,0,108,104ZM76,176a12,12,0,1,0-12-12A12,12,0,0,0,76,176Zm96-48a12,12,0,1,0-12-12A12,12,0,0,0,172,128Zm24-40a12,12,0,1,0-12-12A12,12,0,0,0,196,88Zm-20,76a12,12,0,1,0,12-12A12,12,0,0,0,176,164Z"/></svg>Advanced analytics</h4>
+                        <p class="seat__cap-d">Basket and cohort analysis run on your own transactions.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg>Predictive models</h4>
+                        <p class="seat__cap-d">Who is about to lapse, scored while there is still time to act.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">Where do bookers drop off between search and payment, by device and market?</li>
-                    <li class="qstring">Which ancillaries attach to which fare classes, and where is attach falling?</li>
-                    <li class="qstring">Did last week's site change lift direct bookings, or move them over from the app?</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="travel-ecommerce">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
 
-                <article class="seat" id="travel-growth" data-role="growth">
+                <article class="seat" id="travel-growth" role="tabpanel" aria-labelledby="tab-travel-growth" tabindex="0" data-role="growth">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg>Growth</h3>
+                    <h3 class="seat__t">Growth</h3>
                     <p class="seat__hand">Results read the moment they are significant, with the next move already proposed.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg>Ad hoc analytics</h4>
+                        <p class="seat__cap-d">Every test question answered at the speed you can ask the next one.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V200H224A8,8,0,0,1,232,208ZM132,160a12,12,0,1,0-12-12A12,12,0,0,0,132,160Zm-24-56A12,12,0,1,0,96,92,12,12,0,0,0,108,104ZM76,176a12,12,0,1,0-12-12A12,12,0,0,0,76,176Zm96-48a12,12,0,1,0-12-12A12,12,0,0,0,172,128Zm24-40a12,12,0,1,0-12-12A12,12,0,0,0,196,88Zm-20,76a12,12,0,1,0,12-12A12,12,0,0,0,176,164Z"/></svg>Advanced analytics</h4>
+                        <p class="seat__cap-d">The lift behind a number, with the working shown.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">Which members are likely to lapse before their next booking window opens?</li>
-                    <li class="qstring">Did the member-rate test grow direct share, or rebook stays we already had?</li>
-                    <li class="qstring">Which acquisition channel brings members who book a second trip?</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="travel-growth">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
               </div>
             </div>
@@ -388,67 +679,130 @@
               <div class="finder__group-head">
                 <h2 class="finder__group-t">One week in Telecom, from five seats.</h2>
                 <p class="finder__group-s">Same calendar, opposite problems. That is why the seat matters as much as the industry.</p>
+                <p class="finder__pending" hidden></p>
               </div>
 
+              <!-- One seat on screen at a time, Attio platform-page style: five tabs
+                   over a ruler of ticks, the mark sliding to the chosen seat. The bar
+                   only shows once js/solutions.js wires it; with scripts off the five
+                   panels read stacked, so nothing is lost to a control that cannot
+                   work. -->
+              <div class="seatbar">
+                <div class="seatbar__in">
+                  <div class="seatbar__tabs" role="tablist" aria-label="Teams">
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-telecom-marketing"
+                          aria-controls="telecom-marketing" aria-selected="true" tabindex="0">Marketing</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-telecom-crm"
+                          aria-controls="telecom-crm" aria-selected="false" tabindex="-1">CRM</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-telecom-bi"
+                          aria-controls="telecom-bi" aria-selected="false" tabindex="-1">Data &amp; BI</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-telecom-ecommerce"
+                          aria-controls="telecom-ecommerce" aria-selected="false" tabindex="-1">eCommerce</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-telecom-growth"
+                          aria-controls="telecom-growth" aria-selected="false" tabindex="-1">Growth</button>
+                  </div>
+                  <div class="seatbar__ruler" aria-hidden="true"><span class="seatbar__mark"></span></div>
+                </div>
+              </div>
               <div class="seats">
-                <article class="seat" id="telecom-marketing" data-role="marketing">
+                <article class="seat" id="telecom-marketing" role="tabpanel" aria-labelledby="tab-telecom-marketing" tabindex="0" data-role="marketing">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg>Marketing</h3>
+                    <h3 class="seat__t">Marketing</h3>
                     <p class="seat__hand">Answers arrive with the reasoning shown, and the next campaign already built, pending your approval.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>Audience builder</h4>
+                        <p class="seat__cap-d">One conversation finds the cohort and saves it as a segment.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M80,176a32,32,0,1,1-32-32A32,32,0,0,1,80,176Z" opacity="0.2"/><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg>Journey orchestration</h4>
+                        <p class="seat__cap-d">The play comes back drafted and waits on your approval.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">Which plan-upgrade campaigns actually moved ARPU, and which just moved handsets?</li>
-                    <li class="qstring">Compare bundle offer response between the prepaid and postpaid bases.</li>
-                    <li class="qstring">Which regions respond to retention offers before contract end, and how early?</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="telecom-marketing">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
 
-                <article class="seat" id="telecom-crm" data-role="crm">
+                <article class="seat" id="telecom-crm" role="tabpanel" aria-labelledby="tab-telecom-crm" tabindex="0" data-role="crm">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M83.19,174.4a8,8,0,0,0,11.21-1.6,52,52,0,0,1,83.2,0,8,8,0,1,0,12.8-9.6A67.88,67.88,0,0,0,163,141.51a40,40,0,1,0-53.94,0A67.88,67.88,0,0,0,81.6,163.2,8,8,0,0,0,83.19,174.4ZM112,112a24,24,0,1,1,24,24A24,24,0,0,1,112,112Zm96-88H64A16,16,0,0,0,48,40V64H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v24a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V40A16,16,0,0,0,208,24Zm0,192H64V40H208Z"/></svg>CRM</h3>
+                    <h3 class="seat__t">CRM</h3>
                     <p class="seat__hand">The segment and the journey get built in the same conversation you found them in.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg>Predictive models</h4>
+                        <p class="seat__cap-d">Churn risk scored on your own members, against your own definition of lapsed.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>Audience builder</h4>
+                        <p class="seat__cap-d">A segment that holds its definition, so the pull matches the brief.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">Build a segment of subscribers whose data usage halved in the last 60 days.</li>
-                    <li class="qstring">Which customers hit their data cap every month and have never been offered the next plan?</li>
-                    <li class="qstring">Create a save journey for contracts expiring in the next 90 days, ranked by churn risk.</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="telecom-crm">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
 
-                <article class="seat" id="telecom-bi" data-role="bi">
+                <article class="seat" id="telecom-bi" role="tabpanel" aria-labelledby="tab-telecom-bi" tabindex="0" data-role="bi">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg>Data &amp; BI</h3>
+                    <h3 class="seat__t">Data &amp; BI</h3>
                     <p class="seat__hand">The query, the chart and the explanation come back together. Any one-off pull can become a dashboard.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg>Ad hoc analytics</h4>
+                        <p class="seat__cap-d">The one-off pull answers itself, so the queue stops growing.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,56v56c0,96-88,120-88,120S40,208,40,112V56a8,8,0,0,1,8-8H208A8,8,0,0,1,216,56Z" opacity="0.2"/><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></svg>Data quality &amp; fraud checks</h4>
+                        <p class="seat__cap-d">Duplicates and redemption spikes surface before anyone acts on them.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">How many subscribers downgraded within 30 days of the price change?</li>
-                    <li class="qstring">Flag duplicate accounts and unusual credit or refund spikes from the last 30 days.</li>
-                    <li class="qstring">Turn the monthly churn-by-cohort pull into a dashboard the retention team owns.</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="telecom-bi">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
 
-                <article class="seat" id="telecom-ecommerce" data-role="ecommerce">
+                <article class="seat" id="telecom-ecommerce" role="tabpanel" aria-labelledby="tab-telecom-ecommerce" tabindex="0" data-role="ecommerce">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg>eCommerce</h3>
+                    <h3 class="seat__t">eCommerce</h3>
                     <p class="seat__hand">Anomalies surface the day they happen, not in the month-end review.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V200H224A8,8,0,0,1,232,208ZM132,160a12,12,0,1,0-12-12A12,12,0,0,0,132,160Zm-24-56A12,12,0,1,0,96,92,12,12,0,0,0,108,104ZM76,176a12,12,0,1,0-12-12A12,12,0,0,0,76,176Zm96-48a12,12,0,1,0-12-12A12,12,0,0,0,172,128Zm24-40a12,12,0,1,0-12-12A12,12,0,0,0,196,88Zm-20,76a12,12,0,1,0,12-12A12,12,0,0,0,176,164Z"/></svg>Advanced analytics</h4>
+                        <p class="seat__cap-d">Basket and cohort analysis run on your own transactions.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg>Predictive models</h4>
+                        <p class="seat__cap-d">Who is about to lapse, scored while there is still time to act.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">Where do visitors drop off between comparing plans and checkout, by device?</li>
-                    <li class="qstring">Which add-ons attach to which plans online, and where is attach falling?</li>
-                    <li class="qstring">Did the new plan page lift conversion, or shift orders out of the stores?</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="telecom-ecommerce">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
 
-                <article class="seat" id="telecom-growth" data-role="growth">
+                <article class="seat" id="telecom-growth" role="tabpanel" aria-labelledby="tab-telecom-growth" tabindex="0" data-role="growth">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg>Growth</h3>
+                    <h3 class="seat__t">Growth</h3>
                     <p class="seat__hand">Results read the moment they are significant, with the next move already proposed.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg>Ad hoc analytics</h4>
+                        <p class="seat__cap-d">Every test question answered at the speed you can ask the next one.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V200H224A8,8,0,0,1,232,208ZM132,160a12,12,0,1,0-12-12A12,12,0,0,0,132,160Zm-24-56A12,12,0,1,0,96,92,12,12,0,0,0,108,104ZM76,176a12,12,0,1,0-12-12A12,12,0,0,0,76,176Zm96-48a12,12,0,1,0-12-12A12,12,0,0,0,172,128Zm24-40a12,12,0,1,0-12-12A12,12,0,0,0,196,88Zm-20,76a12,12,0,1,0,12-12A12,12,0,0,0,176,164Z"/></svg>Advanced analytics</h4>
+                        <p class="seat__cap-d">The lift behind a number, with the working shown.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">Which subscribers are most likely to churn in the next 60 days?</li>
-                    <li class="qstring">Did the family-plan test grow net adds, or just migrate existing lines?</li>
-                    <li class="qstring">Which acquisition cohort keeps its second year, and what did they buy first?</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="telecom-growth">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
               </div>
             </div>
@@ -457,76 +811,135 @@
               <div class="finder__group-head">
                 <h2 class="finder__group-t">One week in Fuel &amp; Convenience, from five seats.</h2>
                 <p class="finder__group-s">Same calendar, opposite problems. That is why the seat matters as much as the industry.</p>
+                <p class="finder__pending" hidden></p>
               </div>
 
+              <!-- One seat on screen at a time, Attio platform-page style: five tabs
+                   over a ruler of ticks, the mark sliding to the chosen seat. The bar
+                   only shows once js/solutions.js wires it; with scripts off the five
+                   panels read stacked, so nothing is lost to a control that cannot
+                   work. -->
+              <div class="seatbar">
+                <div class="seatbar__in">
+                  <div class="seatbar__tabs" role="tablist" aria-label="Teams">
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-fuel-marketing"
+                          aria-controls="fuel-marketing" aria-selected="true" tabindex="0">Marketing</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-fuel-crm"
+                          aria-controls="fuel-crm" aria-selected="false" tabindex="-1">CRM</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-fuel-bi"
+                          aria-controls="fuel-bi" aria-selected="false" tabindex="-1">Data &amp; BI</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-fuel-ecommerce"
+                          aria-controls="fuel-ecommerce" aria-selected="false" tabindex="-1">eCommerce</button>
+                  <button class="seatbar__tab" type="button" role="tab" id="tab-fuel-growth"
+                          aria-controls="fuel-growth" aria-selected="false" tabindex="-1">Growth</button>
+                  </div>
+                  <div class="seatbar__ruler" aria-hidden="true"><span class="seatbar__mark"></span></div>
+                </div>
+              </div>
               <div class="seats">
-                <article class="seat" id="fuel-marketing" data-role="marketing">
+                <article class="seat" id="fuel-marketing" role="tabpanel" aria-labelledby="tab-fuel-marketing" tabindex="0" data-role="marketing">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z"/></svg>Marketing</h3>
+                    <h3 class="seat__t">Marketing</h3>
                     <p class="seat__hand">Answers arrive with the reasoning shown, and the next campaign already built, pending your approval.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>Audience builder</h4>
+                        <p class="seat__cap-d">One conversation finds the cohort and saves it as a segment.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M80,176a32,32,0,1,1-32-32A32,32,0,0,1,80,176Z" opacity="0.2"/><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg>Journey orchestration</h4>
+                        <p class="seat__cap-d">The play comes back drafted and waits on your approval.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">Which fuel promotions pulled members into the store, and which stopped at the pump?</li>
-                    <li class="qstring">Compare app offer redemption by daypart across regions.</li>
-                    <li class="qstring">Which sites respond to car-wash bundles, and which need a different offer?</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="fuel-marketing">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
 
-                <article class="seat" id="fuel-crm" data-role="crm">
+                <article class="seat" id="fuel-crm" role="tabpanel" aria-labelledby="tab-fuel-crm" tabindex="0" data-role="crm">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M83.19,174.4a8,8,0,0,0,11.21-1.6,52,52,0,0,1,83.2,0,8,8,0,1,0,12.8-9.6A67.88,67.88,0,0,0,163,141.51a40,40,0,1,0-53.94,0A67.88,67.88,0,0,0,81.6,163.2,8,8,0,0,0,83.19,174.4ZM112,112a24,24,0,1,1,24,24A24,24,0,0,1,112,112Zm96-88H64A16,16,0,0,0,48,40V64H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v24a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V40A16,16,0,0,0,208,24Zm0,192H64V40H208Z"/></svg>CRM</h3>
+                    <h3 class="seat__t">CRM</h3>
                     <p class="seat__hand">The segment and the journey get built in the same conversation you found them in.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg>Predictive models</h4>
+                        <p class="seat__cap-d">Churn risk scored on your own members, against your own definition of lapsed.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>Audience builder</h4>
+                        <p class="seat__cap-d">A segment that holds its definition, so the pull matches the brief.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">Build a segment of members who fuel weekly but never buy in store.</li>
-                    <li class="qstring">Which morning regulars dropped from five visits a week to one, and when did it start?</li>
-                    <li class="qstring">Create a journey that converts pump-only members to store baskets, one offer a week at most.</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="fuel-crm">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
 
-                <article class="seat" id="fuel-bi" data-role="bi">
+                <article class="seat" id="fuel-bi" role="tabpanel" aria-labelledby="tab-fuel-bi" tabindex="0" data-role="bi">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg>Data &amp; BI</h3>
+                    <h3 class="seat__t">Data &amp; BI</h3>
                     <p class="seat__hand">The query, the chart and the explanation come back together. Any one-off pull can become a dashboard.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg>Ad hoc analytics</h4>
+                        <p class="seat__cap-d">The one-off pull answers itself, so the queue stops growing.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,56v56c0,96-88,120-88,120S40,208,40,112V56a8,8,0,0,1,8-8H208A8,8,0,0,1,216,56Z" opacity="0.2"/><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></svg>Data quality &amp; fraud checks</h4>
+                        <p class="seat__cap-d">Duplicates and redemption spikes surface before anyone acts on them.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">How many members redeemed a fuel discount with no store purchase last quarter?</li>
-                    <li class="qstring">Flag unusual redemption and refund spikes by site from the last 30 days.</li>
-                    <li class="qstring">Turn the weekly site-performance pull into a report ops can read themselves.</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="fuel-bi">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
 
-                <article class="seat" id="fuel-ecommerce" data-role="ecommerce">
+                <article class="seat" id="fuel-ecommerce" role="tabpanel" aria-labelledby="tab-fuel-ecommerce" tabindex="0" data-role="ecommerce">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg>eCommerce</h3>
+                    <h3 class="seat__t">eCommerce</h3>
                     <p class="seat__hand">Anomalies surface the day they happen, not in the month-end review.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V200H224A8,8,0,0,1,232,208ZM132,160a12,12,0,1,0-12-12A12,12,0,0,0,132,160Zm-24-56A12,12,0,1,0,96,92,12,12,0,0,0,108,104ZM76,176a12,12,0,1,0-12-12A12,12,0,0,0,76,176Zm96-48a12,12,0,1,0-12-12A12,12,0,0,0,172,128Zm24-40a12,12,0,1,0-12-12A12,12,0,0,0,196,88Zm-20,76a12,12,0,1,0,12-12A12,12,0,0,0,176,164Z"/></svg>Advanced analytics</h4>
+                        <p class="seat__cap-d">Basket and cohort analysis run on your own transactions.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg>Predictive models</h4>
+                        <p class="seat__cap-d">Who is about to lapse, scored while there is still time to act.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">Where do app users drop off between activating an offer and redeeming it?</li>
-                    <li class="qstring">Which offers get activated but never redeemed, and at which sites?</li>
-                    <li class="qstring">Did mobile pay change store attach, or just speed up fuel-only visits?</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="fuel-ecommerce">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
 
-                <article class="seat" id="fuel-growth" data-role="growth">
+                <article class="seat" id="fuel-growth" role="tabpanel" aria-labelledby="tab-fuel-growth" tabindex="0" data-role="growth">
                   <div class="seat__id">
-                    <h3 class="seat__t"><svg class="seat__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg>Growth</h3>
+                    <h3 class="seat__t">Growth</h3>
                     <p class="seat__hand">Results read the moment they are significant, with the next move already proposed.</p>
+                    <div class="seat__pair">
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg>Ad hoc analytics</h4>
+                        <p class="seat__cap-d">Every test question answered at the speed you can ask the next one.</p>
+                      </div>
+                      <div class="seat__cap">
+                        <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V200H224A8,8,0,0,1,232,208ZM132,160a12,12,0,1,0-12-12A12,12,0,0,0,132,160Zm-24-56A12,12,0,1,0,96,92,12,12,0,0,0,108,104ZM76,176a12,12,0,1,0-12-12A12,12,0,0,0,76,176Zm96-48a12,12,0,1,0-12-12A12,12,0,0,0,172,128Zm24-40a12,12,0,1,0-12-12A12,12,0,0,0,196,88Zm-20,76a12,12,0,1,0,12-12A12,12,0,0,0,176,164Z"/></svg>Advanced analytics</h4>
+                        <p class="seat__cap-d">The lift behind a number, with the working shown.</p>
+                      </div>
+                    </div>
                   </div>
-                  <ul class="seat__qs">
-                    <li class="qstring">Which members are most likely to lapse from the program in the next 60 days?</li>
-                    <li class="qstring">Did the points-multiplier test grow visits, or reward visits that were already happening?</li>
-                    <li class="qstring">Which new-site cohort builds a weekly habit, and how long does that take?</li>
-                  </ul>
+                  <div class="seat__shot" data-shot="fuel-growth">
+                    <svg class="seat__shot-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+                    </div>
                 </article>
               </div>
             </div>
           </div>
 
-          <p class="finder__note">
-            Questions are representative of real usage patterns across live aiRA
-            accounts, not exact client queries.
-          </p>
 
         </div>
       </div>
@@ -534,10 +947,53 @@
 
     <div class="joint" aria-hidden="true"></div>
 
-    <!-- ================= CLOSE ================= -->
-    <section class="section section--inv solutions-close" data-nav-dark>
+    <!-- ================= BY INDUSTRY ================= -->
+    <!-- Its own dark band (17 Sep, user reference): industries are
+         DESTINATIONS with their own hub pages, so their cards carry a photo
+         slot and a link, where the sub-industry entries above filter this
+         page. The two must not look like the same thing. -->
+    <section class="section section--inv indband" data-nav-dark>
       <div class="padding-global">
-        <div class="container solutions-close__grid">
+        <div class="container">
+          <div class="section-head section-head--center reveal">
+            <p class="eyebrow">By industry</p>
+            <h2 class="section-heading">Not retail? aiRA is already there.</h2>
+            <p class="section-sub">
+              The playbooks ship tuned per industry, and each one has its own
+              page: what changes, what aiRA does about it, seat by seat.
+            </p>
+          </div>
+          <div class="ind-grid reveal reveal-stagger">
+            <a class="indcard" href="/solutions/restaurants-qsr">
+              <span class="indcard__media" data-shot="ind-restaurants-qsr" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg></span>
+              <span class="indcard__t">Restaurants &amp; QSR</span>
+              <span class="indcard__d">Dayparts, menus and franchisees</span>
+              <span class="indcard__go" aria-hidden="true">Learn more <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+            </a>
+            <a class="indcard" href="/solutions/travel-hospitality">
+              <span class="indcard__media" data-shot="ind-travel-hospitality" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg></span>
+              <span class="indcard__t">Travel &amp; Hospitality</span>
+              <span class="indcard__d">Low frequency, high ticket</span>
+              <span class="indcard__go" aria-hidden="true">Learn more <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+            </a>
+            <a class="indcard" href="/solutions/telecom">
+              <span class="indcard__media" data-shot="ind-telecom" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg></span>
+              <span class="indcard__t">Telecom</span>
+              <span class="indcard__d">Contracts, plans and churn</span>
+              <span class="indcard__go" aria-hidden="true">Learn more <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <section class="section solutions-close">
+      <div class="padding-global">
+        <div class="container">
+          <div class="solutions-close__card reveal">
+            <div class="solutions-close__grid">
 
           <div class="solutions-close__main">
             <p class="eyebrow">The working session</p>
@@ -570,6 +1026,8 @@
             </div>
           </div>
 
+            </div>
+          </div>
         </div>
       </div>
     </section>

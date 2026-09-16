@@ -102,6 +102,11 @@
   /* The grid dots on a dark section inside a light page: the ink-tinted
      --frame-grid above disappears there. */
   --frame-grid-inv:  rgba(255, 255, 255, 0.06);
+  /* Graph paper behind the nav drawer's glyphs. Same family as --frame-grid
+     but stronger: the drawer's squares are 10px, and at that size the page
+     grid's 7% line does not survive a 1x screen. */
+  --nav-graph:       rgba(11, 16, 32, 0.13);
+  --nav-graph-inv:   rgba(255, 255, 255, 0.13);
 
   /* ---- Semantic: text ---------------------------------------------- */
   --ink:        var(--slate-900);
@@ -136,9 +141,14 @@
   /* ---- Nav surfaces ---------------------------------------------------
      Solid-ish fallback, and the glass pair used where backdrop-filter is
      supported (header-three: bg/95, supports-backdrop-filter:bg/50).    */
-  /* Rest-state bar colour: opaque, and matched per page to whatever sits
-     at the very top behind the bar (the homepage sets it to the hero
-     wash's top tone), so the bar blends without any transparency. */
+  /* Gap between the floating bar and the viewport top (16 Sep). */
+  --nav-float:             12px;
+  /* Opaque fallback for the floating bar, and the colour of the mobile sheet.
+     Until 16 Sep this was matched per page to whatever sat behind the bar so
+     it blended away; the floating card reads as its own surface instead. The
+     page ground rather than pure white: over the hero's tinted wash a #FFF
+     card reads as a hard white slab. Where backdrop-filter is supported the
+     bar goes translucent over this and picks up the wash. */
   --nav-rest:              var(--bg);
   --nav-surface:           rgba(251, 251, 253, 0.95);
   --nav-surface-glass:     rgba(251, 251, 253, 0.55);
@@ -153,6 +163,29 @@
   --shadow-sm: 0 1px 2px rgba(11, 16, 32, 0.04), 0 2px 6px -2px rgba(11, 16, 32, 0.06);
   --shadow-md: 0 1px 2px rgba(11, 16, 32, 0.04), 0 10px 28px -18px rgba(11, 16, 32, 0.22);
   --shadow-lg: 0 1px 2px rgba(11, 16, 32, 0.04), 0 28px 64px -34px rgba(11, 16, 32, 0.28);
+  /* Buttons (16 Sep, Clerk direction): a floating chip, not a flat fill.
+     Neutral ink, never a brand-tinted glow: the old primary carried a
+     rgba(82,108,246,.6) halo that was one of the largest indigo moments on
+     any page. Hover lifts the pool, press collapses it to the contact line. */
+  --shadow-btn:       0 1px 2px rgba(11, 16, 32, 0.08),
+                      0 2px 6px -2px rgba(11, 16, 32, 0.10);
+  /* Hover LIFTS, it does not bloom. The pool moves down (y 2 -> 4) and is
+     pulled in by a bigger negative spread rather than growing outward in
+     every direction, which is what made the button look like it scaled up
+     (user, 17 Sep) even though its box never changes size. */
+  --shadow-btn-hover: 0 1px 2px rgba(11, 16, 32, 0.10),
+                      0 4px 10px -4px rgba(11, 16, 32, 0.15);
+  --shadow-btn-press: 0 1px 2px rgba(11, 16, 32, 0.10);
+
+  /* THE floating-surface shadow (16 Sep). Any panel that should read as
+     lifted off the page takes this one: the header card, the mobile menu,
+     the comparison board's brand panel. Heavier than --shadow-md, but on a
+     wide low-opacity blur so it kisses the page rather than stamping on it:
+     a contact line, a soft ambient pool, and a short spread for weight.
+     Named --shadow-nav until it turned out to be the general case. */
+  --shadow-float: 0 1px 2px rgba(11, 16, 32, 0.05),
+                  0 4px 10px -4px rgba(11, 16, 32, 0.08),
+                  0 14px 32px -12px rgba(11, 16, 32, 0.16);
 
   /* ---- Radius ------------------------------------------------------ */
   --r-xs:   4px;
@@ -163,14 +196,23 @@
   --r-pill: 999px;
 
   /* ---- Type families -------------------------------------------------
-     Locked 11 Sep: headings always Instrument Sans, body always Inter.
+     Locked 11 Sep, display face swapped 16 Sep: headings always Google
+     Sans Flex, body always Inter.
      Jakarta is out. Inter loads as a variable font (300..800) so the
      450 body weight is a true instance, not a synthesized one.          */
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system,
                'Segoe UI', sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo,
                'Liberation Mono', monospace;
-  --font-display: 'Instrument Sans', ui-sans-serif, system-ui, -apple-system,
+  /* Handwriting, for section eyebrows only (16 Sep). Cursive as the
+     generic fallback so a failed load still reads as an aside rather
+     than as body copy. */
+  --font-script: 'Caveat', ui-rounded, 'Segoe Print', cursive;
+  /* Google Sans Flex (16 Sep), replacing Instrument Sans. SIL OFL, so it is
+     free to ship. Loaded with the opsz axis as well as wght, which Instrument
+     Sans had no equivalent for: the 70px hero and a 16px card title now get
+     genuinely different drawings rather than one outline scaled. */
+  --font-display: 'Google Sans Flex', ui-sans-serif, system-ui, -apple-system,
                   'Segoe UI', sans-serif;
 
   /* ---- Type scale --------------------------------------------------
@@ -182,6 +224,7 @@
   --t-display-2: clamp(1.875rem, 1.6rem + 1.12vw, 2.5rem);    /* 30 -> 40, H2 */
   --t-display-3: clamp(1.5rem, 1.39rem + 0.45vw, 1.75rem);    /* 24 -> 28, H3 */
   --t-title:     1.125rem;    /* 18 */
+  --t-title-lg:  1.25rem;     /* 20, list-entry titles (.biz__t) */
   --t-title-sm:  1rem;        /* 16 */
   --t-body-lg:   1rem;        /* 16, subheader / lede */
   --t-body:      0.875rem;    /* 14 */
@@ -206,7 +249,9 @@
   /* ---- Layout ------------------------------------------------------ */
   /* One vertical rhythm for every major block: sections pad with it and
      the footer gaps with it. global.css steps it down per breakpoint. */
-  --section-pad: var(--sp-24);
+  /* 80px since 17 Sep (was 96). Drives every .section's vertical rhythm and
+     the footer's top gap. */
+  --section-pad: var(--sp-20);
   --container:   80rem;   /* 1280 */
   --container-narrow: 46rem;
   --pad-x:       5%;

@@ -17,9 +17,9 @@
    bottom (section--flush-bottom in the markup) so the video frame's fade
    runs straight into the joint below it. */
 
-/* The bar's rest colour matches the hero wash's top tone, so the header
-   reads as part of the wash while staying fully opaque over the grid. */
-.page-home { --nav-rest: var(--slate-200); }
+/* The bar floated on 16 Sep, so it stopped needing to disappear into the
+   hero wash: --nav-rest is the shared white surface now (tokens.css), and
+   this page-level match was removed with the flush bar it was built for. */
 
 /* V2's quiet indigo section tints, translated to the light ground (13 Sep,
    user: "very subtle... try the same in index.html"). Each washed section
@@ -34,22 +34,12 @@
       var(--bg) 52%);
 }
 
-/* Primary buttons on THIS page only (13 Sep, user call): Capillary ink
-   black, pill corners. The :not() guards keep V2 (white inverted) and V3
-   (standard indigo) on their own treatments, since all three share this
-   stylesheet. */
-.page-home:not(.page-v2):not(.page-v3) .btn--primary {
-  background: var(--black);
-  /* Flat, no lift (user call, 13 Sep). The corner radius is NOT set here:
-     it is the base .btn rule's 12px, settled 15 Sep for every button. */
-  box-shadow: none;
-}
-.page-home:not(.page-v2):not(.page-v3) .btn--primary:hover {
-  background: color-mix(in srgb, var(--black) 86%, white);
-}
-.page-home:not(.page-v2):not(.page-v3) .btn--primary:active {
-  background: color-mix(in srgb, var(--black) 74%, white);
-}
+/* The black primary that lived here is the GLOBAL default since 16 Sep, so
+   this page-scoped copy is gone. Its `box-shadow: none` went with it: the
+   13 Sep "flat, no lift" call was superseded the day the user asked for
+   buttons with "a bit of shadow and floaty look and feel". The :not(.page-v2)
+   :not(.page-v3) guards went with it and are not needed: both archived pages
+   set their own .btn--primary in their own stylesheets. */
 
 /* Full-bleed vertical gradient: a quiet slate grey at the very top behind
    the transparent navbar, fading to the page ground before the how-it-fits
@@ -57,9 +47,11 @@
    10 Sep direction change; indigo is accent-only on this page. */
 .hero__grad {
   position: absolute;
-  /* Overshoot the nav-height bleed by 2px: the nav is nav-h plus a 1px
-     bottom border, and an exact bleed leaves a 1px page-bg line at y=0. */
-  inset: calc(-1 * var(--nav-h) - 2px) 0 0;
+  /* Bleed up past the WHOLE header placeholder, not just the bar: since the
+     bar started floating (16 Sep) the placeholder is nav-h + the 12px float
+     gap + the card's 2px of border, and a bleed that stopped at the card's
+     top edge left a strip of page background above it. */
+  inset: calc(-1 * (var(--nav-h) + var(--nav-float) + 2px)) 0 0;
   pointer-events: none;
   background:
     radial-gradient(64% 52% at 50% 0%,
@@ -286,9 +278,14 @@
   .hero__rot-icon { display: none; }
 }
 /* Below ~380px the 36px clamp floor still wraps the widest word (and at
-   360 even the first line), so the title steps down to 32px there. */
+   360 even the first line), so the title steps down. 30px, not the 32px it
+   was under Instrument Sans: Google Sans Flex is the wider face, and at 32px
+   it took the title to a fourth line here (16 Sep). font-stretch would have
+   been the tidier fix, since the new face carries a wdth axis, but the axis
+   is not in the font request and adding it costs a second variable axis on
+   every page for one breakpoint. */
 @media (max-width: 380px) {
-  .hero__title { font-size: 2rem; }
+  .hero__title { font-size: 1.875rem; }
 }
 
 .hero__sub {
@@ -487,162 +484,6 @@
   .hero__video-btn {
     background: var(--brand);
     color: var(--on-brand);
-  }
-}
-
-/* ---- Proof: customer logo cloud ------------------------------------------
-   A marquee strip (Magic UI Marquee, logo-cloud-three) sitting between two
-   frame joints. Three identical tracks form the belt so it stays covered at
-   container width; each slides one track-width per loop, and an edge mask
-   dissolves the names before they reach the rails. Mono-caps names hold the
-   seats until the customer brand marks arrive.
-   ---------------------------------------------------------------------- */
-
-.proof__marquee {
-  display: flex;
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right,
-    transparent, #000 16%, #000 84%, transparent);
-  mask-image: linear-gradient(to right,
-    transparent, #000 16%, #000 84%, transparent);
-}
-
-/* Each mark is a stacked pair of supplied files: the grey export shows by
-   default, the full-colour original crossfades in on hover (11 Sep). The
-   belt pauses while hovered so a moving logo can actually be hovered. */
-.proof__logo {
-  position: relative;
-  display: block;
-}
-.proof__logo img { display: block; opacity: 0.55; transition: opacity var(--dur) var(--ease); }
-.proof__logo .proof__logo-color {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-}
-.proof__logo:hover img { opacity: 0; }
-.proof__logo:hover .proof__logo-color { opacity: 1; }
-/* No-JS fallback only: with js/marquee.js driving, hover slows instead. */
-.proof__marquee:hover .proof__track { animation-play-state: paused; }
-.proof__marquee--js .proof__track { animation: none; }
-@media (prefers-reduced-motion: reduce) {
-  .proof__logo img { transition: none; }
-}
-
-/* V1 shows the same six marks as a bordered grid instead (13 Sep, user
-   reference): 3 x 2 cells whose hairlines meet with no doubling, each cell
-   a whisper lighter than the section wash so the boxes read without
-   flattening the gradient behind them. V2 and V3 keep the marquee. */
-/* The band is nothing but the grid (13 Sep): the section's vertical rhythm
-   and the container's inner gutter both go to zero, so the cells run edge
-   to edge. --frame-x IS the container edge, so with the gutter gone the
-   outer cells land exactly on the page frame's rails, and the joints above
-   and below close the box. The frame therefore draws the grid's outside
-   and the cells only ever paint their own interior lines.
-
-   V1 ONLY: home.css is shared, and unscoped these two rules stripped the
-   marquee band's rhythm and gutter on V2 and V3 as well. */
-.page-home:not(.page-v2):not(.page-v3) .proof { padding-block: 0; }
-.page-home:not(.page-v2):not(.page-v3) .proof .container { padding-inline: 0; }
-
-.proof__grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  /* The 1px gaps ARE the interior hairlines: opaque cells sit on the
-     grid's own line-coloured ground and leave it showing between them.
-     Borders with nth-child edge rules were tried first and dropped: the
-     "last column" and "last row" change with the column count, so each
-     breakpoint's higher-specificity rules leaked into the next and knocked
-     out real dividers. Gaps are interior by definition, at every width. */
-  gap: 1px;
-  background: var(--border);
-}
-.proof__cell {
-  display: grid;
-  place-items: center;
-  min-height: 132px;
-  padding: var(--sp-6);
-  background: var(--bg);
-  transition: background var(--dur) var(--ease);
-}
-.proof__cell:hover { background: var(--surface); }
-/* The marks were sized for the belt, where 32px read optically equal side
-   by side; the grid's roomier cells take a step up at the same ratio. The
-   square Rack Room badge still needs the 1.5x to match the wordmarks.
-   max-width plus object-fit is the guard: NASCAR is a 6:1 wordmark, so in
-   any cell too narrow for it the mark scales down instead of spilling
-   across the hairline into its neighbour. */
-.proof__cell .proof__logo { max-width: 100%; }
-.proof__cell .proof__logo img {
-  height: 40px;
-  width: auto;
-  max-width: 100%;
-  object-fit: contain;
-}
-.proof__cell .proof__logo img[alt="Rack Room Shoes"] { height: 60px; }
-/* The colour layer is matched to its parent's box rather than sized on its
-   own. It carries alt="" (it is decorative), so the per-mark height
-   exception above cannot select it, and Rack Room's hover state was
-   rendering at the default 40px against a 60px grey badge. */
-.proof__cell .proof__logo img.proof__logo-color {
-  width: 100%;
-  height: 100%;
-}
-
-.proof__track {
-  flex: none;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: var(--sp-20);
-  /* Trailing pad keeps the loop seam the same width as the item gap. */
-  padding-right: var(--sp-20);
-  animation: proof-marquee 36s linear infinite;
-}
-@keyframes proof-marquee {
-  to { transform: translateX(-100%); }
-}
-
-@media (max-width: 640px) {
-  .proof__logo img { height: 24px; width: auto; }
-  .proof__logo img[alt="Rack Room Shoes"] { height: 36px; }
-  .proof__track { gap: var(--sp-12); padding-right: var(--sp-12); }
-}
-
-/* The grid steps down a column at a time. The 6:1 NASCAR wordmark sets the
-   floor: at 40px tall it needs 240px of clear cell, which three columns
-   stop providing below ~900px, and two columns stop providing on a phone.
-   (These trail the base rules deliberately: equal specificity, later wins.) */
-@media (max-width: 991px) {
-  .proof__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .proof__cell { min-height: 120px; }
-  .proof__cell .proof__logo img { height: 32px; }
-  .proof__cell .proof__logo img[alt="Rack Room Shoes"] { height: 48px; }
-}
-/* Phones hold 2 x 3 (13 Sep): dropping the .container gutter gave the band
-   the full 350px at 390px, so two columns clear the 6:1 NASCAR wordmark at
-   24px with the cell padding trimmed to 12px. Below ~370px object-fit takes
-   a few percent off that one mark rather than letting it spill. */
-@media (max-width: 640px) {
-  .proof__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .proof__cell { min-height: 96px; padding: var(--sp-3); }
-  .proof__cell .proof__logo img { height: 24px; }
-  .proof__cell .proof__logo img[alt="Rack Room Shoes"] { height: 36px; }
-}
-
-/* Reduced motion: one static, centred index; no mask, no duplicates. */
-@media (prefers-reduced-motion: reduce) {
-  .proof__track {
-    animation: none;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding-right: 0;
-  }
-  .proof__track[aria-hidden="true"] { display: none; }
-  .proof__marquee {
-    /* The lone track is max-content wide, so the wrapper centres it. */
-    justify-content: center;
-    -webkit-mask-image: none;
-    mask-image: none;
   }
 }
 
@@ -1722,7 +1563,10 @@
   margin-block: calc(-1 * var(--sp-6));
   background: var(--brand);
   border-radius: var(--r-lg);
-  box-shadow: var(--shadow-md);
+  /* The site's one floating-surface shadow, same as the header card: this
+     panel overhangs the board top and bottom, so it should read as lifted
+     off it rather than printed on it. */
+  box-shadow: var(--shadow-float);
   z-index: 0;
 }
 
@@ -1774,10 +1618,10 @@
 }
 
 .compare__cell--head {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--t-mono);
-  font-weight: 500;
-  letter-spacing: var(--tr-mono);
+  font-weight: 600;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink-faint);
 }
@@ -1883,14 +1727,21 @@
   -webkit-mask: url('/assets/brand/aira-mark.svg') center / contain no-repeat;
   mask: url('/assets/brand/aira-mark.svg') center / contain no-repeat;
 }
+/* Caveat (16 Sep, user call): the three-line promise is the one place on the
+   page that is a human aside rather than a claim, so it takes the eyebrow's
+   handwriting face. It steps UP to --t-display-1, the reserve display size,
+   because Caveat's x-height is about half its em and at the H2 size it read
+   smaller than the sans it replaced. Tracking goes to 0: --tr-display's
+   -0.035em crowds a joined script, and the line-height opens to 1.24 to
+   clear three lines of ascenders and descenders. */
 .book__claim {
   position: relative;
   z-index: 1;
-  font-family: var(--font-display);
-  font-size: var(--t-display-2);
-  font-weight: 500;
-  line-height: 1.16;
-  letter-spacing: var(--tr-display);
+  font-family: var(--font-script);
+  font-size: var(--t-display-1);
+  font-weight: 600;
+  line-height: 1.24;
+  letter-spacing: 0;
   color: #fff;
 }
 
@@ -1944,7 +1795,7 @@
   .book__form-col { padding: var(--sp-8); }
 }
 @media (max-width: 640px) {
-  .book__claim { font-size: var(--t-display-3); }
+  .book__claim { font-size: var(--t-display-2); }
   .book__row { grid-template-columns: 1fr; }
   /* Compact panel: content height instead of the tall well, and the
      watermark scaled into the corner so it reads as the mark rather

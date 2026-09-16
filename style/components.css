@@ -132,12 +132,14 @@
 .qstring {
   position: relative;
   padding-left: var(--sp-4);
-  font-family: var(--font-mono);
-  font-size: var(--t-mono-lg);
-  font-weight: 400;
+  /* Inter since 15 Sep: mono is confined to eyebrows and the drawn
+     illustrations. The brand bar stays; it is the mark that makes a
+     question a question. */
+  font-family: var(--font-sans);
+  font-size: var(--t-body-sm);
+  font-weight: 500;
   line-height: 1.62;
   color: var(--ink);
-  letter-spacing: -0.005em;
 }
 .qstring::before {
   content: '';
@@ -153,13 +155,16 @@
 .qstring--muted::before { background: var(--slate-300); }
 .section--inv .qstring { color: var(--ink-inv); }
 
-/* ---- Mono micro-label -------------------------------------------------- */
+/* ---- Micro-label ---------------------------------------------------------
+   The class name is historical: these were Geist Mono until 15 Sep, when
+   mono was confined to eyebrows and illustration. Caps labels are now
+   the display face at 600. */
 
 .mono {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--t-mono);
-  font-weight: 500;
-  letter-spacing: var(--tr-mono);
+  font-weight: 600;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink-3);
 }
@@ -214,13 +219,14 @@ a.card:hover, .card--link:hover {
   box-shadow: var(--shadow-md);
 }
 
-/* Numbered argument card. The index is a mono figure, not a circle badge. */
+/* Numbered argument card. The index is a bare figure, not a circle badge. */
 .card--argued { padding-top: var(--sp-5); }
 .card__index {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--t-mono);
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
   color: var(--brand);
   margin-bottom: var(--sp-4);
   display: block;
@@ -291,10 +297,10 @@ button.chip:hover, a.chip:hover { border-color: var(--brand-line); color: var(--
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--t-mono);
-  font-weight: 500;
-  letter-spacing: var(--tr-mono);
+  font-weight: 600;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--brand-ink);
   background: var(--surface);
@@ -444,10 +450,10 @@ button.chip:hover, a.chip:hover { border-color: var(--brand-line); color: var(--
   vertical-align: top;
 }
 .cmp thead th {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--t-mono);
-  font-weight: 500;
-  letter-spacing: var(--tr-mono);
+  font-weight: 600;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink-faint);
   border-bottom-color: var(--border-strong);
@@ -496,10 +502,10 @@ button.chip:hover, a.chip:hover { border-color: var(--brand-line); color: var(--
   gap: var(--sp-4) var(--sp-10);
 }
 .logo-wall span {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--t-mono-lg);
-  font-weight: 500;
-  letter-spacing: 0.14em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-3);
   white-space: nowrap;
@@ -679,14 +685,40 @@ body.modal-open { overflow: hidden; }
   display: flex;
   align-items: flex-start;
   gap: var(--sp-4);
-  width: 100%;
-  padding: var(--sp-5) 0;
+  /* The row is padded and pulled back out by the same amount, so the hover
+     wash reaches past the text to the accordion's own edges instead of
+     stopping at the first and last glyph. */
+  width: calc(100% + var(--sp-4) * 2);
+  padding: var(--sp-5) var(--sp-4);
+  margin-inline: calc(-1 * var(--sp-4));
   background: none;
   border: 0;
+  border-radius: var(--r-sm);
   text-align: left;
   cursor: pointer;
   font: inherit;
   color: var(--ink);
+  transition: background var(--dur-fast) var(--ease),
+              color var(--dur-fast) var(--ease);
+}
+/* Hover and open are kept as separate signals (user call, 16 Sep). Hover is
+   the P50 wash and NOTHING else, so it reads as "you can click this"; the
+   open row is the one that recolours its title. The open row also refuses
+   the wash: a pointer hint on the thing already chosen says nothing, and
+   with both on, hovering the open row looked like a third state.
+
+   P50 rather than the P100/P200 first floated: heavier fills read as
+   selection rather than a pointer hint, which is exactly the confusion this
+   split is avoiding. */
+.acc__item:not(.is-open) .acc__btn:hover,
+.acc__item:not(.is-open) .acc__btn:focus-visible {
+  background: var(--primary-50);
+}
+.acc__item.is-open .acc__title { color: var(--brand-ink); }
+.acc__item.is-open .acc__chev { color: var(--brand); }
+
+@media (prefers-reduced-motion: reduce) {
+  .acc__btn { transition: none; }
 }
 
 .acc__icon {
@@ -699,10 +731,11 @@ body.modal-open { overflow: hidden; }
 
 .acc__n {
   flex: none;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--t-mono);
-  font-weight: 500;
-  letter-spacing: var(--tr-mono);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
   color: var(--ink-faint);
 }
 
@@ -746,4 +779,95 @@ body.modal-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .acc__panel { transition: none; }
   .acc__chev { transition: none; }
+}
+
+
+/* ==========================================================================
+   Proof marquee
+   MOVED here from pages/home.css on 17 Sep. index.html and /solutions/retail
+   both carry the band, so it is a component rather than a page rule. Until
+   this moved, the retail page rendered the three belt tracks as three
+   stacked rows, because it does not load home.css.
+   ========================================================================== */
+
+/* ---- Proof: customer logo cloud ------------------------------------------
+   A marquee strip (Magic UI Marquee, logo-cloud-three) sitting between two
+   frame joints. Three identical tracks form the belt so it stays covered at
+   container width; each slides one track-width per loop, and an edge mask
+   dissolves the names before they reach the rails. Mono-caps names hold the
+   seats until the customer brand marks arrive.
+   ---------------------------------------------------------------------- */
+
+.proof__marquee {
+  display: flex;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right,
+    transparent, #000 16%, #000 84%, transparent);
+  mask-image: linear-gradient(to right,
+    transparent, #000 16%, #000 84%, transparent);
+}
+
+/* Each mark is a stacked pair of supplied files: the grey export shows by
+   default, the full-colour original crossfades in on hover (11 Sep). The
+   belt pauses while hovered so a moving logo can actually be hovered. */
+.proof__logo {
+  position: relative;
+  display: block;
+}
+.proof__logo img { display: block; opacity: 0.55; transition: opacity var(--dur) var(--ease); }
+.proof__logo .proof__logo-color {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.proof__logo:hover img { opacity: 0; }
+.proof__logo:hover .proof__logo-color { opacity: 1; }
+/* No-JS fallback only: with js/marquee.js driving, hover slows instead. */
+.proof__marquee:hover .proof__track { animation-play-state: paused; }
+.proof__marquee--js .proof__track { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .proof__logo img { transition: none; }
+}
+
+/* Light-mode tuning for the belt (16 Sep, marquee restored to V1 from V2).
+   V2 ran this on a dark ground with the grey exports inverted; here the
+   supplied greys sit at 55% straight on the page ground, and the colour
+   original crossfades in on hover. The edge mask dissolves each mark into
+   that same ground, so the band reads contained without a box: it needs a
+   FLAT ground to fade into, which is why this section takes no wash. */
+.proof__track {
+  flex: none;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--sp-20);
+  /* Trailing pad keeps the loop seam the same width as the item gap. */
+  padding-right: var(--sp-20);
+  animation: proof-marquee 36s linear infinite;
+}
+@keyframes proof-marquee {
+  to { transform: translateX(-100%); }
+}
+
+@media (max-width: 640px) {
+  .proof__logo img { height: 24px; width: auto; }
+  .proof__logo img[alt="Rack Room Shoes"] { height: 36px; }
+  .proof__track { gap: var(--sp-12); padding-right: var(--sp-12); }
+}
+
+
+/* Reduced motion: one static, centred index; no mask, no duplicates. */
+@media (prefers-reduced-motion: reduce) {
+  .proof__track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-right: 0;
+  }
+  .proof__track[aria-hidden="true"] { display: none; }
+  .proof__marquee {
+    /* The lone track is max-content wide, so the wrapper centres it. */
+    justify-content: center;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
 }
