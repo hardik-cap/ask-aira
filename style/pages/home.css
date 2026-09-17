@@ -311,22 +311,18 @@
    eyebrow in the same move, so this wrapper carries the top gap the video
    used to carry itself. */
 .hero__asks { margin-top: var(--sp-16); }
-/* Body face (Inter), not mono, per the 11 Sep call; caps typed in the markup
-   so the brand name keeps its casing. */
-/* Caveat, like the section eyebrows (17 Sep, user call), in brand P400.
-   Two things travel with that face and are not optional: it sets at 20px
-   because Caveat's x-height is about half its em, so 12px would render far
-   smaller than the caps label it replaces; and the tracking goes to zero,
-   because a handwriting face in spaced caps stops reading as handwriting.
-   The copy drops to sentence case for the same reason. It stays typed rather
-   than transformed, so the brand never renders as AIRA. */
+/* Geist Mono caps, the eyebrow spec, since 17 Sep ("we are not using caveat
+   typeface in this project"): this label is the tour's eyebrow, so it reads
+   in the eyebrow voice, in brand P400 rather than the eyebrow's P700. The
+   caps are TYPED in the markup, never text-transformed, so the brand never
+   renders as AIRA. */
 .hero__asks-label {
   text-align: center;
   margin-bottom: var(--sp-4);
-  font-family: var(--font-script);
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: 0;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
   line-height: 1;
   color: var(--brand);
 }
@@ -388,9 +384,19 @@
   /* Five scattered pills collide once the frame is narrower than this, so the
      belt drops out of the overlay and back into normal flow under the video,
      which is the row (and, below 640, the ticker) it was before the move. */
+  /* In flow the belt rides ABOVE the video (17 Sep, user call): directly
+     under the "ASK aiRA FOR" label, with the tour below it. Flex order does
+     the move so the markup keeps the belt inside the tour for the desktop
+     overlay. The video returns to being the hero's last element, so its
+     fade meets the joint again and the belt needs no bottom clearance. */
+  .hero__tour {
+    display: flex;
+    flex-direction: column;
+  }
   .hero__askbelt {
     position: static;
-    margin-top: var(--sp-5);
+    order: -1;
+    margin-block: 0 var(--sp-5);
     display: flex;
     justify-content: center;
     width: 100%;
@@ -414,6 +420,13 @@
   .hero__askbelt {
     justify-content: flex-start;
     overflow: hidden;
+    /* The clip cuts the pills' float shadow flat at the belt's edges, so the
+       shadow gets its room INSIDE the clip: --shadow-float's largest layer
+       reaches ~34px below the pill (14px offset + 32px blur - 12px spread),
+       so 16px was still cutting it. 40px covers it, and the negative block
+       margins reclaim the same room so the belt's outer rhythm stays put. */
+    padding-block: var(--sp-10);
+    margin-block: calc(-1 * var(--sp-8)) calc(-1 * var(--sp-4));
     -webkit-mask-image: linear-gradient(to right,
       transparent, #000 12%, #000 88%, transparent);
     mask-image: linear-gradient(to right,
@@ -1610,9 +1623,41 @@
 
 .diff__cta { margin-top: var(--sp-10); }
 
+/* The per-item figure clones (js/accordion.js). Desktop keeps the side well,
+   so they stay dormant until the well drops out. */
+.diff__acc .acc__fig { display: none; }
+
 @media (max-width: 991px) {
   .diff__grid { grid-template-columns: 1fr; }
   .diff__fig { display: none; }
+  /* The open item shows its own figure below the body copy instead: the
+     same well treatment, one item at a time. */
+  .diff__acc .acc__fig {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 200px;
+    margin-top: var(--sp-5);
+    background:
+      radial-gradient(120% 90% at 82% 0%,
+        color-mix(in srgb, var(--primary-400) 16%, transparent), transparent 62%),
+      linear-gradient(180deg, var(--slate-100), var(--slate-200));
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    overflow: hidden;
+  }
+  .diff__acc .acc__fig > svg {
+    width: 32px;
+    height: 32px;
+    color: var(--slate-400);
+  }
+  .diff__acc .acc__fig > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1811,22 +1856,19 @@
   -webkit-mask: url('/assets/brand/aira-mark.svg') center / contain no-repeat;
   mask: url('/assets/brand/aira-mark.svg') center / contain no-repeat;
 }
-/* Caveat (16 Sep, user call): the three-line promise is the one place on the
-   page that is a human aside rather than a claim, so it takes the eyebrow's
-   handwriting face. It steps UP to --t-display-1, the reserve display size,
-   because Caveat's x-height is about half its em and at the H2 size it read
-   smaller than the sans it replaced. Tracking goes to 0: --tr-display's
-   -0.035em crowds a joined script, and the line-height opens to 1.24 to
-   clear three lines of ascenders and descenders. */
+/* Google Sans Flex since 17 Sep, closing the one-day Caveat detour ("we are
+   not using caveat typeface in this project"). Back at the H2 scale and
+   weight: the step up to --t-display-1 existed only to compensate Caveat's
+   half-em x-height, so it went with the face. */
 .book__claim {
   position: relative;
   z-index: 1;
-  font-family: var(--font-script);
-  font-size: var(--t-display-1);
-  font-weight: 600;
-  line-height: 1.24;
-  letter-spacing: 0;
-  color: #fff;
+  font-family: var(--font-display);
+  font-size: var(--t-display-2);
+  font-weight: 500;
+  line-height: 1.16;
+  letter-spacing: var(--tr-display);
+  color: var(--ink-inv);
 }
 
 .book__form-col { padding: var(--sp-12); }

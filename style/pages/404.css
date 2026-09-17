@@ -1,0 +1,47 @@
+/* ==========================================================================
+   aiRA - 404 (/404.html, served by Cloudflare Pages for any missing route)
+
+   One centred statement and the way home. The code is set in the eyebrow's
+   mono voice rather than as a giant numeral: the page states its status and
+   moves on, it does not celebrate it.
+   ========================================================================== */
+
+.notfound {
+  /* First band on the page: clear the floating header, then hold the centre
+     of the viewport so the footer does not ride up under the message. */
+  padding-block: calc(var(--nav-h) + var(--nav-float) + var(--sp-24)) var(--sp-24);
+  min-height: 62vh;
+  display: grid;
+  align-items: center;
+  text-align: center;
+}
+.notfound .container { max-width: 44rem; }
+
+/* The code IS the page. Display face with tabular numerals (a display
+   figure, so never mono), huge, with the statement reading under it. */
+.notfound__code {
+  font-family: var(--font-display);
+  font-size: var(--t-display-giant);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  letter-spacing: var(--tr-display);
+  color: var(--brand);
+  margin-bottom: var(--sp-4);
+}
+
+.notfound__t {
+  font-family: var(--font-display);
+  font-size: var(--t-display-2);
+  font-weight: 500;
+  line-height: 1.16;
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.notfound__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--sp-8);
+}

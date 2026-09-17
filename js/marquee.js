@@ -67,4 +67,21 @@
   var clone = list.cloneNode(true);
   clone.setAttribute('aria-hidden', 'true');
   belt.appendChild(clone);
+
+  /* Match the logo cloud's pace (17 Sep, user call): the proof belt travels
+     one track width per 36s, so the ticker's duration is its own width at
+     that same px/s. The CSS 26s stays as the no-proof fallback. */
+  function pace() {
+    var proof = document.querySelector('.proof__track');
+    if (!proof) return;
+    var pxPerSec = proof.getBoundingClientRect().width / 36;
+    var w = list.getBoundingClientRect().width;
+    if (!(pxPerSec > 0) || !(w > 0)) return;
+    var d = (w / pxPerSec).toFixed(2) + 's';
+    list.style.animationDuration = d;
+    clone.style.animationDuration = d;
+  }
+  pace();
+  window.addEventListener('resize', pace);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(pace);
 })();

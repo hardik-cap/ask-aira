@@ -29,6 +29,19 @@
       });
     });
 
+    /* The side well is hidden below 992px, so each item carries a clone of
+       its figure inside its own panel, revealed by the page CSS at phone
+       widths. Cloned once at init, so a real <img> dropped into the well
+       later travels with it. */
+    figs.forEach(function (fig, i) {
+      var body = items[i] && items[i].querySelector('.acc__body');
+      if (!body) return;
+      var clone = fig.cloneNode(true);
+      clone.className = 'acc__fig';
+      clone.setAttribute('aria-hidden', 'true');
+      body.appendChild(clone);
+    });
+
     setOpen(0);
   });
 })();

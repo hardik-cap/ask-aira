@@ -249,24 +249,32 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 
 /* ---- Section typography ------------------------------------------------ */
 
-/* Section eyebrow. Caveat in the primary colour since 16 Sep (user call),
-   replacing Geist Mono caps with a "/" prefix; the slash went with it. Every
-   section carries one except the hero, the logo cloud and the footer.
-   Sparkles in older markup stay hidden.
+/* Section eyebrow. Geist Mono caps since 17 Sep (user call: "caveat didnt
+   work out"), returning from the 16 Sep Caveat experiment, at the 12px mono
+   micro-label spec rather than the old 10px (the 12px floor has no
+   exceptions). No "/" prefix. Every section carries one except the hero, the
+   logo cloud and the footer. Sparkles in older markup stay hidden.
 
-   Sentence case, no tracking: a handwriting face set in spaced caps stops
-   looking handwritten. The size is up from 10px to 20px because Caveat's
-   x-height is roughly half its em, so it reads at about the same optical
-   size the 10px mono caps did while sitting well clear of the 12px floor
-   (which makes the old 10px exception to that floor unnecessary). */
+   The copy is sentence case in the markup and uppercased here; no eyebrow
+   contains "aiRA", which the transform would break, and any future one that
+   does must be typed in caps instead.
+
+   The "/" prefix returned on 17 Sep (user call), drawn as a pseudo so no
+   page's markup carries it; the flex gap spaces it. The empty alt text keeps
+   it out of the accessible name where the syntax is supported. */
+.eyebrow::before {
+  content: '/';
+  content: '/' / '';
+}
 .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  font-family: var(--font-script);
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: 0;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
   line-height: 1;
   color: var(--brand-ink);
   margin-bottom: var(--sp-4);

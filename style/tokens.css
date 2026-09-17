@@ -204,10 +204,6 @@
                'Segoe UI', sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo,
                'Liberation Mono', monospace;
-  /* Handwriting, for section eyebrows only (16 Sep). Cursive as the
-     generic fallback so a failed load still reads as an aside rather
-     than as body copy. */
-  --font-script: 'Caveat', ui-rounded, 'Segoe Print', cursive;
   /* Google Sans Flex (16 Sep), replacing Instrument Sans. SIL OFL, so it is
      free to ship. Loaded with the opsz axis as well as wght, which Instrument
      Sans had no equivalent for: the 70px hero and a 16px card title now get
@@ -219,6 +215,9 @@
      Locked 11 Sep: even pixel sizes only, 12px minimum, site-wide.
      Display sizes are fluid but cap at the locked size; body sizes are
      fixed so line length and rhythm stay predictable.                 */
+  /* Oversize numeral, currently only the 404 page's code. Even px at both
+     ends per the type rules (96 -> 180). */
+  --t-display-giant: clamp(6rem, 3.9rem + 8.6vw, 11.25rem);
   --t-display-0: clamp(2.25rem, 1.42rem + 3.4vw, 4.375rem); /* 36 -> 70px, cap ~1390px */  /* 44 -> 70, hero H1 */
   --t-display-1: clamp(2rem, 1.23rem + 3.15vw, 3.75rem);      /* 32 -> 60, reserve */
   --t-display-2: clamp(1.875rem, 1.6rem + 1.12vw, 2.5rem);    /* 30 -> 40, H2 */
