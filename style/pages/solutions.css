@@ -348,7 +348,10 @@ html:not(.js) .hero-solutions .section-head { margin-bottom: 0; }
    then a grid of twelve links would be a grid of twelve 404s.
    ------------------------------------------------------------------------ */
 
-.pickgrid { margin-bottom: var(--sp-16); }
+/* No bottom gap: this separated the grid from the five finder groups that
+   used to sit under it, and they came out when the picker started navigating
+   (IA §28). The section's own padding is the whole gap now. */
+.pickgrid { margin-bottom: 0; }
 .pickgrid .section-head { margin-bottom: var(--sp-10); }
 
 

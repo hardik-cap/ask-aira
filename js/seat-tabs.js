@@ -82,5 +82,34 @@
   /* Tab widths settle when the webfont does. */
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(refreshAll);
 
+  /* A team arriving from the /solutions picker: ?role=crm opens that seat.
+     The hubs tab their five seats, so there is no anchor to land on the way
+     a category page has, and this is the equivalent. Scrolling waits for
+     js/components.js to inject the header, or the landing sits short by the
+     bar's height. */
+  (function initFromUrl() {
+    var role = new URLSearchParams(location.search).get('role');
+    if (!role) return;
+    var opened = null;
+    for (var k in registry) {
+      if (registry[k].selectRole(role)) opened = registry[k];
+    }
+    if (!opened) return;
+
+    var bar = document.querySelector('.finder__group.is-tabbed .seatbar');
+    if (!bar) return;
+    function land() {
+      refreshAll();
+      /* A position, not a motion: 'instant' rather than 'auto', which would
+         defer to html { scroll-behavior: smooth } and animate the whole way
+         down the page on arrival. */
+      bar.scrollIntoView({ behavior: 'instant', block: 'start' });
+    }
+    if (document.getElementById('navbar-placeholder') &&
+        document.getElementById('navbar-placeholder').children.length) { land(); return; }
+    document.addEventListener('aira:components-ready', land, { once: true });
+    setTimeout(land, 1500);
+  })();
+
   window.aiRaSeatTabs = registry;
 })();

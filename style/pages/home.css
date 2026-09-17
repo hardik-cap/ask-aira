@@ -304,41 +304,113 @@
 
 /* Capability index: a mono label over a row of pill chips, in the same
    pill language as the announcement pill and the mechanism sources. */
-.hero__asks {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+/* The tour, and the capability pills on it (17 Sep, user call). The pills
+   left the copy column and now ride ON the poster, scattered rather than
+   lined up, so they read as things the product is being asked for rather
+   than as a feature list under the CTA. The Caveat label became the tour's
+   eyebrow in the same move, so this wrapper carries the top gap the video
+   used to carry itself. */
+.hero__asks { margin-top: var(--sp-16); }
 /* Body face (Inter), not mono, per the 11 Sep call; caps typed in the markup
    so the brand name keeps its casing. */
+/* Caveat, like the section eyebrows (17 Sep, user call), in brand P400.
+   Two things travel with that face and are not optional: it sets at 20px
+   because Caveat's x-height is about half its em, so 12px would render far
+   smaller than the caps label it replaces; and the tracking goes to zero,
+   because a handwriting face in spaced caps stops reading as handwriting.
+   The copy drops to sentence case for the same reason. It stays typed rather
+   than transformed, so the brand never renders as AIRA. */
 .hero__asks-label {
+  text-align: center;
   margin-bottom: var(--sp-4);
-  font-size: var(--t-caption);
+  font-family: var(--font-script);
+  font-size: 20px;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--ink-faint);
+  letter-spacing: 0;
+  line-height: 1;
+  color: var(--brand);
 }
 
 /* The belt is inert at desktop widths (one centred wrapped list, the JS
    clone hidden); on phones it becomes the ticker viewport. */
+/* Decorative: pointer-events off so the poster underneath stays a single
+   click target for the video facade. */
+/* The tour wraps the frame and the pills so the overlay can be sized to the
+   poster exactly, and so the pills can leave the overlay and flow normally
+   below it on phones without breaking out of the frame's aspect-ratio box. */
+.hero__tour {
+  position: relative;
+  max-width: 54rem;
+  margin: 0 auto;
+}
+
+/* Decorative: pointer-events off so the poster underneath stays a single
+   click target for the video facade. */
 .hero__askbelt {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 .hero__askbelt .hero__asklist[aria-hidden="true"] { display: none; }
 
 .hero__asklist {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--sp-2);
+  display: block;
+  position: static;
+}
+
+/* Scattered, not random: each pill clears the centred play badge and the
+   other four, weighted two left, two right, one low. Percentages, so the
+   arrangement holds as the 16:9 frame scales.
+
+   Three of the five straddle the frame edge rather than sitting politely
+   inside it (17 Sep, user call: "can be half out too"), which is what stops
+   the group reading as a caption layer and makes it read as labels pinned on
+   the product. The overhang is bounded: the tour is 54rem inside an 80rem
+   container, so even the deepest sits well short of the page rails. */
+.hero__asklist li { position: absolute; }
+.hero__asklist li:nth-child(1) { top:  7%; left:  -6%; }
+.hero__asklist li:nth-child(2) { top: 19%; right: -5%; }
+.hero__asklist li:nth-child(3) { top: 48%; left:  -5%; }
+.hero__asklist li:nth-child(4) { top: 63%; right: -7%; }
+.hero__asklist li:nth-child(5) { top: 84%; left:  22%; }
+
+/* Below this the 54rem frame stops clearing the page gutter, so the overhang
+   would push the whole page sideways. The three straddling pills tuck back
+   inside; the arrangement is unchanged otherwise. */
+@media (max-width: 1100px) {
+  .hero__asklist li:nth-child(1) { left:  3%; }
+  .hero__asklist li:nth-child(2) { right: 3%; }
+  .hero__asklist li:nth-child(3) { left:  3%; }
+  .hero__asklist li:nth-child(4) { right: 3%; }
+}
+
+@media (max-width: 900px) {
+  /* Five scattered pills collide once the frame is narrower than this, so the
+     belt drops out of the overlay and back into normal flow under the video,
+     which is the row (and, below 640, the ticker) it was before the move. */
+  .hero__askbelt {
+    position: static;
+    margin-top: var(--sp-5);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    pointer-events: auto;
+  }
+  .hero__asklist {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--sp-2);
+  }
+  .hero__asklist li {
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+  }
 }
 
 @media (max-width: 640px) {
-  /* hero__inner centres children at content width, so the nowrap belt
-     would grow to the list's full width without this clamp. */
-  .hero__asks { width: 100%; }
   .hero__askbelt {
     justify-content: flex-start;
     overflow: hidden;
@@ -362,8 +434,15 @@
 @keyframes hero-ask-scroll {
   to { transform: translateX(-100%); }
 }
+/* Reduced motion: the ticker stops and wraps. Safe unscoped, because above
+   900px the list is display:block and these flex resets are inert, so the
+   desktop scatter is untouched. */
 @media (prefers-reduced-motion: reduce) {
-  .hero__askbelt { overflow: visible; -webkit-mask-image: none; mask-image: none; }
+  .hero__askbelt {
+    overflow: visible;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
   .hero__askbelt .hero__asklist {
     animation: none;
     flex-wrap: wrap;
@@ -381,7 +460,12 @@
   background: var(--surface);
   border: 1px solid var(--border-strong);
   border-radius: var(--r-pill);
-  box-shadow: var(--shadow-xs);
+  /* Over a screenshot now rather than the page ground, so they take the
+     floating shadow the header and cards use, plus a light backdrop blur
+     so a busy patch of UI underneath never muddies the label. */
+  box-shadow: var(--shadow-float);
+  backdrop-filter: blur(6px) saturate(130%);
+  -webkit-backdrop-filter: blur(6px) saturate(130%);
   font-size: var(--t-body-sm);
   font-weight: 550;
   color: var(--ink-2);
@@ -404,8 +488,8 @@
 
 .hero__video {
   position: relative;
-  max-width: 54rem;
-  margin: var(--sp-16) auto 0;
+  max-width: none;
+  margin: 0;
   aspect-ratio: 16 / 9;
   border: 1px solid var(--border-strong);
   border-radius: var(--r-xl);

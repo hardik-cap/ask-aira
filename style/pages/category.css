@@ -17,44 +17,174 @@
    job is comparison; here the job is depth.
    ========================================================================== */
 
-/* ---- Breadcrumb -----------------------------------------------------------
+/* ---- Breadcrumb strip -------------------------------------------------------
    A category page is two levels down, and it is the page most likely to be
    entered cold from search, so it states where it sits before it says
-   anything else. */
+   anything else. The trail is chrome rather than content: it rides its own
+   slim band above the hero, closed by a full-width joint, and the page's
+   opening claim starts on a clean line below. The arrow returns to the
+   solutions finder. */
+
+/* The strip is the first band on a category page, so it takes over the
+   hero's job of running the ground up behind the floating header
+   (industry.css); the hero itself returns to normal flow below the joint. */
+.crumb-strip {
+  /* Where the rule sits: clear of the floating header by the same 12px the
+     header floats below the page top. Flush with the card's bottom edge the
+     line was invisible, reading as part of the card's own border. */
+  --crumb-rule: calc(var(--nav-h) + var(--nav-float) * 2 + 2px);
+  margin-top: calc(-1 * (var(--nav-h) + var(--nav-float) + 2px));
+  padding-block: calc(var(--crumb-rule) + var(--sp-6)) var(--sp-6);
+  /* The hairline closing the band at the top is painted as a background
+     layer, NOT a pseudo-element: .section::before and ::after are the page
+     frame's two vertical rails, so a ::before here would replace the left
+     rail rather than add a line. The joint closes the band at the bottom. */
+  background-color: var(--bg-subtle);
+  background-image: linear-gradient(var(--frame-line), var(--frame-line));
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  background-position: 0 var(--crumb-rule);
+}
+.page-category .hero-ind {
+  margin-top: 0;
+  padding-block: var(--sp-16) var(--sp-20);
+}
+
+/* One centred column (17 Sep, user call): the hero figure came out, and with
+   it the split, so the claim is centred on the page rather than hanging off
+   the left rail with nothing opposite it. The hubs keep their split hero;
+   this is category pages only.
+
+   The ground is flat. The shared hero carries a brand radial over a
+   bg-subtle-to-bg fade, which on a category page has the crumb band directly
+   above it: the tint read as a smudge under the floating header and the fade
+   ended mid-section, so neither edge met its neighbour cleanly. A single
+   ground and the joints do that job instead. */
+.page-category .hero-ind { background: var(--bg); }
+.page-category .hero-ind__grid { grid-template-columns: minmax(0, 1fr); }
+.page-category .hero-ind__copy {
+  max-width: 46rem;
+  margin-inline: auto;
+  text-align: center;
+}
+.page-category .hero-ind__sub {
+  max-width: 40rem;
+  margin-inline: auto;
+}
+.page-category .hero-ind__cta { justify-content: center; }
+@media (max-width: 991px) {
+  .page-category .hero-ind { padding-block: var(--sp-12) var(--sp-16); }
+}
 
 .crumb {
   display: flex;
   align-items: center;
-  gap: var(--sp-2);
-  margin-bottom: var(--sp-5);
+  gap: var(--sp-3);
   font-size: var(--t-body-sm);
-  color: var(--ink-faint);
+  color: var(--frame-plus);
 }
 .crumb a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-weight: 500;
   color: var(--ink-3);
   transition: color var(--dur-fast) var(--ease);
 }
 .crumb a:hover { color: var(--brand-ink); }
-.crumb span { color: var(--frame-plus); }
+.crumb__back svg { width: 14px; height: 14px; flex: none; }
 
 /* ---- The shape ------------------------------------------------------------
-   Four facets, not three: frequency, margin, seasonality and the data that is
-   missing (the content model's own fields, IA §6). Four across keeps them a
-   set to be read in one pass, which is what forces each one to stay short. */
+   Four facets: frequency, margin, seasonality and the data that is missing
+   (the content model's own fields, IA §6). Since 17 Sep they sit as a
+   two-by-two of soft floating cards (Clerk reference): copy at the top and
+   a well below it reserved for a clean illustration per facet. The wells
+   are the data-fig slots; illustrations drop in later, and the space is
+   held now so the cards do not reflow when they land. */
 
-.shape-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.shape-grid--4 .shape__t { font-size: var(--t-title-sm); }
+/* Bento, per the Clerk reference (17 Sep): two tall cards flanking a stacked
+   pair, which is exactly what four facets want. The outer two lead with copy
+   and hand the rest of their height to the well; the middle two lead with the
+   well, so the column does not read as two identical blocks stacked. */
+.shape-grid--4 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-2);
+  align-items: stretch;
+}
+.shape-grid--4 .shape:nth-child(1) { grid-column: 1; grid-row: 1 / span 2; }
+.shape-grid--4 .shape:nth-child(2) { grid-column: 2; grid-row: 1; }
+.shape-grid--4 .shape:nth-child(3) { grid-column: 2; grid-row: 2; }
+.shape-grid--4 .shape:nth-child(4) { grid-column: 3; grid-row: 1 / span 2; }
 
+/* The middle pair put the illustration first and keep it a fixed band, so
+   the two cards stack to about the height of one tall card beside them. */
+.shape-grid--4 .shape:nth-child(2) .shape__fig,
+.shape-grid--4 .shape:nth-child(3) .shape__fig {
+  order: -1;
+  flex: none;
+  min-height: 104px;
+  margin-top: 0;
+  margin-bottom: var(--sp-5);
+}
+.shape-grid--4 .shape {
+  display: flex;
+  flex-direction: column;
+  border-top: 0;
+  padding: var(--sp-6);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-float);
+}
+.shape-grid--4 .shape__t {
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+}
+.shape-grid--4 .shape__d { max-width: 44rem; }
+.shape-grid--4 .shape__fig {
+  flex: 1;
+  min-height: 120px;
+  margin-top: var(--sp-5);
+  border-radius: var(--r-md);
+  background: radial-gradient(var(--frame-grid) 1px, transparent 1px) 0 0 / 22px 22px;
+}
+
+/* Below the bento's width the three columns crush the copy, so the explicit
+   placement is dropped and the four fall back to an even pair of rows. */
 @media (max-width: 1100px) {
   .shape-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .shape-grid--4 .shape:nth-child(n) { grid-column: auto; grid-row: auto; }
+  .shape-grid--4 .shape:nth-child(2) .shape__fig,
+  .shape-grid--4 .shape:nth-child(3) .shape__fig {
+    order: 0;
+    flex: 1;
+    margin-top: var(--sp-6);
+    margin-bottom: 0;
+  }
 }
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .shape-grid--4 { grid-template-columns: 1fr; }
+  .shape-grid--4 .shape { padding: var(--sp-6); }
+  .shape-grid--4 .shape__fig { min-height: 140px; }
 }
 
 /* ---- Role blocks ----------------------------------------------------------
-   Five per page, stacked and anchored. Each is a heading, the problem in that
-   seat, the questions themselves, and what comes back. */
+   Five per page, stacked and anchored. Since 17 Sep each block is a split
+   pane: the seat's copy and its question ledger on one side, a reserved
+   image frame on the other, alternating sides down the page. The frame is
+   deliberately empty: real product shots drop into the .catrole__shot slots
+   later, and the space is held now so nothing reflows when they land. */
+
+.catrole {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  gap: var(--sp-10) var(--sp-16);
+  align-items: center;
+  /* The anchor lands under the floating header: scroll-padding-top on :root
+     already accounts for the bar, and this adds the breathing room a heading
+     wants above it. */
+  scroll-margin-top: calc(var(--nav-h) + var(--nav-float) + var(--sp-10));
+}
 
 .catrole + .catrole {
   margin-top: var(--sp-16);
@@ -62,37 +192,24 @@
   border-top: 1px solid var(--border);
 }
 
-/* The anchor lands under the floating header: scroll-padding-top on :root
-   already accounts for the bar, and this adds the breathing room a heading
-   wants above it. */
-.catrole { scroll-margin-top: calc(var(--nav-h) + var(--nav-float) + var(--sp-10)); }
+/* Every second seat swaps sides so the page does not read as one long
+   left-hand rail. The copy stays first in the DOM either way. */
+.catrole--flip { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr); }
+.catrole--flip .catrole__body { order: 2; }
+.catrole--flip .catrole__fig  { order: 1; }
 
-.catrole__head {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: var(--sp-4) var(--sp-12);
-  align-items: start;
-  margin-bottom: var(--sp-8);
-}
+.catrole__head { margin-bottom: var(--sp-6); }
 
 .catrole__t {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
   font-family: var(--font-display);
   font-size: var(--t-display-3);
   font-weight: 600;
   letter-spacing: var(--tr-title);
   color: var(--ink);
 }
-.catrole__t svg {
-  width: 24px;
-  height: 24px;
-  flex: none;
-  color: var(--brand);
-}
 
 .catrole__p {
+  margin-top: var(--sp-3);
   font-size: var(--t-body-lg);
   line-height: var(--lh-body);
   color: var(--ink-2);
@@ -100,36 +217,74 @@
   text-wrap: pretty;
 }
 
-/* What aiRA hands back. It closes the block rather than opening it: the
-   questions have to land before the answer means anything. */
-.catrole__back {
+/* The ledger is an open two-by-two grid, the reference block's feature-grid
+   anatomy carried over from the homepage questions section: each capability
+   leads with its own duotone icon inside the title, and the seat's real
+   question is the sentence beneath. No card, no ruling: the cells float
+   on the wash. */
+.catrole .qledger {
+  border-top: 0;
   display: grid;
-  grid-template-columns: 2.75rem minmax(0, 1fr);
-  gap: var(--sp-2) var(--sp-8);
-  padding-top: var(--sp-6);
-  font-size: var(--t-body);
-  line-height: var(--lh-body);
-  color: var(--ink-2);
-  max-width: 62rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-8) var(--sp-8);
+  padding-top: var(--sp-2);
 }
-.catrole__back-l {
+.catrole .qledger__cap {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
   font-family: var(--font-display);
-  font-size: var(--t-mono);
+  font-size: var(--t-title-sm);
   font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  white-space: nowrap;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
 }
-.catrole__back p { text-wrap: pretty; }
+.catrole .qledger__icon {
+  display: inline-flex;
+  flex: none;
+  color: var(--brand);
+}
+.catrole .qledger__icon svg { width: 20px; height: 20px; }
+.catrole .qledger__q {
+  margin-top: var(--sp-2);
+  font-size: var(--t-body-sm);
+  line-height: var(--lh-body);
+  color: var(--ink-3);
+  text-wrap: pretty;
+}
+
+/* The reserved frame: a hairline that dissolves downward around an empty
+   surface, so the slot reads as intentional rather than unfinished. */
+.catrole__fig {
+  padding: 1px;
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, var(--border-strong), transparent);
+}
+.catrole__shot {
+  aspect-ratio: 67 / 34;
+  border-radius: calc(var(--r-lg) - 1px);
+  background:
+    radial-gradient(var(--frame-grid) 1px, transparent 1px) 0 0 / 22px 22px,
+    var(--surface);
+  box-shadow: var(--shadow-float);
+}
+.catrole__shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
 
 @media (max-width: 900px) {
-  .catrole__head { grid-template-columns: 1fr; gap: var(--sp-4); }
+  .catrole,
+  .catrole--flip { grid-template-columns: 1fr; }
+  .catrole--flip .catrole__body,
+  .catrole--flip .catrole__fig { order: 0; }
   .catrole + .catrole { margin-top: var(--sp-12); padding-top: var(--sp-12); }
 }
-@media (max-width: 768px) {
-  /* Match the ledger's own stacked layout so the label column lines up. */
-  .catrole__back { grid-template-columns: 2.75rem minmax(0, 1fr); }
+@media (max-width: 560px) {
+  .catrole .qledger { grid-template-columns: 1fr; gap: var(--sp-6); }
 }
 
 /* ---- Proof ----------------------------------------------------------------
@@ -190,34 +345,6 @@
 
 @media (max-width: 900px) {
   .cproof__card { grid-template-columns: 1fr; padding: var(--sp-8); }
-}
-
-/* ---- Back to the eight ----------------------------------------------------
-   Siblings are reached THROUGH the hub, never as a list on every page
-   (IA §5), so this is one link rather than seven. */
-
-.catback {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-5);
-  padding: var(--sp-8);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  background: var(--bg-subtle);
-}
-.catback__t {
-  font-family: var(--font-display);
-  font-size: var(--t-title);
-  font-weight: 600;
-  letter-spacing: var(--tr-title);
-  color: var(--ink);
-}
-.catback__d {
-  margin-top: 4px;
-  font-size: var(--t-body-sm);
-  color: var(--ink-3);
 }
 
 @media (prefers-reduced-motion: reduce) {

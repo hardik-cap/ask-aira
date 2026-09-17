@@ -621,9 +621,12 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 .nav__panel {
   position: absolute;
   top: calc(100% + 8px);
+  /* Full header width (17 Sep, user call): pinned to both edges of the nav
+     row rather than sized to its contents, so the panel lines up with the
+     floating card above it and the links get the room to arrange properly. */
   left: 0;
+  right: 0;
   z-index: 30;
-  max-width: 100%;
   padding: 4px;
   background: var(--surface-2);
   border: 1px solid var(--border);
@@ -642,9 +645,23 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 
 .nav__panel-grid { display: flex; align-items: stretch; gap: 4px; }
 
+/* Three across (17 Sep, user call). The eight run 3 + 3 + 2, which also fills
+   the card's height against the rail beside it far better than two rows did.
+   Below the breakpoint a column drops under the 243px a row actually needs
+   (the longest label, "Specialty & Outdoor Retail", runs 175px at 14px/500
+   and the row spends 68px on padding, icon and gap) and the labels are hard
+   nowrap by design, so they would clip rather than wrap: two columns there. */
 .nav__panel-card {
+  flex: 1;
+  min-width: 0;
   display: grid;
-  grid-template-columns: repeat(2, minmax(276px, 1fr));
+  /* The card stretches to the rail's height, and by default that slack is
+     shared out across every row: it put the 12px group label in a 53px box
+     and each 56px item row at 105px. align-content keeps every row at its
+     own content height and leaves the slack at the foot of the card, where
+     it reads as padding rather than as stretched rows. */
+  align-content: start;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 2px;
   padding: var(--sp-3);
   background: var(--surface);
@@ -653,6 +670,12 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   box-shadow: var(--shadow-sm);
 }
 .nav__panel-card > .nav__col-title { grid-column: 1 / -1; padding-bottom: 0; }
+
+/* Measured cutoff: at 1100px a column is 244px, a hair over the 243px a row
+   needs; by 1050px it is 229px and labels start clipping. Two columns below. */
+@media (max-width: 1100px) {
+  .nav__panel-card { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 
 .nav__item {
   display: flex;
@@ -713,7 +736,10 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 }
 
 .nav__aside {
-  min-width: 200px;
+  /* Sized to its own longest label rather than generously, so the category
+     card keeps enough width for a fourth column at common laptop sizes. */
+  flex: none;
+  width: 212px;
   padding: var(--sp-3);
   display: flex;
   flex-direction: column;
