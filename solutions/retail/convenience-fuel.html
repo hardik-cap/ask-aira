@@ -101,6 +101,127 @@
 
     <div class="joint" aria-hidden="true"></div>
 
+    <!-- ================= ANALYSE / DECIDE / ACT ================= -->
+    <!-- Source: the client capabilities deck (IA §29). The LIVE flag marks what
+         the deck flags as supported by aiRA playbooks today. Phosphor regular. -->
+    <section class="section runs" id="runs">
+      <div class="padding-global">
+        <div class="container">
+          <div class="section-head section-head--split reveal">
+            <div>
+              <p class="eyebrow">What it runs here</p>
+              <h2 class="section-heading">Fifteen things aiRA runs on forecourt data.</h2>
+            </div>
+            <p class="section-sub">In the order you would actually use them, with what each one gives back.</p>
+          </div>
+          <div class="runs-grid reveal reveal-stagger">
+            <div class="runs__col">
+              <p class="runs__n">01</p>
+              <h3 class="runs__t">Analyse</h3>
+              <p class="runs__d">See what is happening, and why.</p>
+              <ul class="runs__list">
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M192,112a80,80,0,1,1-80-80A80,80,0,0,1,192,112Z" opacity="0.2"/><path d="M229.66,218.34,179.6,168.28a88.21,88.21,0,1,0-11.32,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
+                  <p class="runs__name">RCA Deep <span class="runs__nb">Dive<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">The real reasons fill-ups or shop visits changed, site by site.</p>
+                </li>
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M209.94,113.94l-96,96a48,48,0,0,1-67.88-67.88l96-96a48,48,0,0,1,67.88,67.88Z" opacity="0.2"/><path d="M165.66,90.34a8,8,0,0,1,0,11.32l-64,64a8,8,0,0,1-11.32-11.32l64-64A8,8,0,0,1,165.66,90.34ZM215.6,40.4a56,56,0,0,0-79.2,0L106.34,70.45a8,8,0,0,0,11.32,11.32l30.06-30a40,40,0,0,1,56.57,56.56l-30.07,30.06a8,8,0,0,0,11.31,11.32L215.6,119.6a56,56,0,0,0,0-79.2ZM138.34,174.22l-30.06,30.06a40,40,0,1,1-56.56-56.57l30.05-30.05a8,8,0,0,0-11.32-11.32L40.4,136.4a56,56,0,0,0,79.2,79.2l30.06-30.07a8,8,0,0,0-11.32-11.31Z"/></svg>
+                  <p class="runs__name">Attach-rate <span class="runs__nb">Analysis<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">Which drivers also come inside, at which hour, and which never do.</p>
+                </li>
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M240,120v64a8,8,0,0,1-8,8H208a24,24,0,0,0-32-22.63h0A24,24,0,0,0,160,192H96a24,24,0,0,0-48,0H24a8,8,0,0,1-8-8V144H176V120Z" opacity="0.2"/><path d="M247.42,117l-14-35A15.93,15.93,0,0,0,218.58,72H184V64a8,8,0,0,0-8-8H24A16,16,0,0,0,8,72V184a16,16,0,0,0,16,16H41a32,32,0,0,0,62,0h50a32,32,0,0,0,62,0h17a16,16,0,0,0,16-16V120A7.94,7.94,0,0,0,247.42,117ZM184,88h34.58l9.6,24H184ZM24,72H168v64H24ZM72,208a16,16,0,1,1,16-16A16,16,0,0,1,72,208Zm81-24H103a32,32,0,0,0-62,0H24V152H168v12.31A32.11,32.11,0,0,0,153,184Zm31,24a16,16,0,1,1,16-16A16,16,0,0,1,184,208Zm48-24H215a32.06,32.06,0,0,0-31-24V128h48Z"/></svg>
+                  <p class="runs__name">Fleet <span class="runs__nb">Profiling<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">The volume and the value behind each fleet account.</p>
+                </li>
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,56v58.77c0,84.18-71.31,112.07-85.54,116.8a7.54,7.54,0,0,1-4.92,0C111.31,226.86,40,199,40,114.79V56a8,8,0,0,1,8-8H208A8,8,0,0,1,216,56Z" opacity="0.2"/><path d="M208,40H48A16,16,0,0,0,32,56v58.77c0,89.62,75.82,119.34,91,124.38a15.44,15.44,0,0,0,10,0c15.2-5.05,91-34.77,91-124.39V56A16,16,0,0,0,208,40Zm0,74.79c0,78.42-66.34,104.62-80,109.18-13.53-4.5-80-30.68-80-109.18V56l160,0ZM120,136V96a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm-4,36a12,12,0,1,1,12,12A12,12,0,0,1,116,172Z"/></svg>
+                  <p class="runs__name">Fraud <span class="runs__nb">Detection<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">Spots unusual pump and points activity before it compounds.</p>
+                </li>
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M192.8,165.12,43.93,105.57A110.88,110.88,0,0,1,61.47,82.38a8,8,0,0,1,8.67-1.81L95.52,90.85a16,16,0,0,0,20.82-9l21-53.1c4.15-10,15.47-15.33,25.63-11.53a20,20,0,0,1,11.51,26.39L153.13,96.71a16,16,0,0,0,8.93,20.75L187,127.3a8,8,0,0,1,5,7.43V152A104.58,104.58,0,0,0,192.8,165.12Z" opacity="0.2"/><path d="M235.5,216.81c-22.56-11-35.5-34.58-35.5-64.8V134.73a15.94,15.94,0,0,0-10.09-14.87L165,110a8,8,0,0,1-4.48-10.34l21.32-53a28,28,0,0,0-16.1-37,28.14,28.14,0,0,0-35.82,16,.61.61,0,0,0,0,.12L108.9,79a8,8,0,0,1-10.37,4.49L73.11,73.14A15.89,15.89,0,0,0,55.74,76.8C34.68,98.45,24,123.75,24,152a111.45,111.45,0,0,0,31.18,77.53A8,8,0,0,0,61,232H232a8,8,0,0,0,3.5-15.19ZM67.14,88l25.41,10.3a24,24,0,0,0,31.23-13.45l21-53c2.56-6.11,9.47-9.27,15.43-7a12,12,0,0,1,6.88,15.92L145.69,93.76a24,24,0,0,0,13.43,31.14L184,134.73V152c0,.33,0,.66,0,1L55.77,101.71A108.84,108.84,0,0,1,67.14,88Zm48,128a87.53,87.53,0,0,1-24.34-42,8,8,0,0,0-15.49,4,105.16,105.16,0,0,0,18.36,38H64.44A95.54,95.54,0,0,1,40,152a85.9,85.9,0,0,1,7.73-36.29l137.8,55.12c3,18,10.56,33.48,21.89,45.16Z"/></svg>
+                  <p class="runs__name">Data Quality <span class="runs__nb">Review<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">Cleans pump, app and card data so the three agree on one customer.</p>
+                </li>
+              </ul>
+            </div>
+            <div class="runs__col">
+              <p class="runs__n">02</p>
+              <h3 class="runs__t">Decide</h3>
+              <p class="runs__d">Pick the offer and the audience.</p>
+              <ul class="runs__list">
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M176,128a48,48,0,1,1-48-48A48,48,0,0,1,176,128Z" opacity="0.2"/><path d="M221.87,83.16A104.1,104.1,0,1,1,195.67,49l22.67-22.68a8,8,0,0,1,11.32,11.32l-96,96a8,8,0,0,1-11.32-11.32l27.72-27.72a40,40,0,1,0,17.87,31.09,8,8,0,1,1,16-.9,56,56,0,1,1-22.38-41.65L184.3,60.39a87.88,87.88,0,1,0,23.13,29.67,8,8,0,0,1,14.44-6.9Z"/></svg>
+                  <p class="runs__name">Campaign <span class="runs__nb">Strategy<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">Picks the drivers and the fill incentive that works, with the reasoning shown.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,56V216H56V56A16,16,0,0,1,72,40h80A16,16,0,0,1,168,56Z" opacity="0.2"/><path d="M241,69.66,221.66,50.34a8,8,0,0,0-11.32,11.32L229.66,81A8,8,0,0,1,232,86.63V168a8,8,0,0,1-16,0V128a24,24,0,0,0-24-24H176V56a24,24,0,0,0-24-24H72A24,24,0,0,0,48,56V208H32a8,8,0,0,0,0,16H192a8,8,0,0,0,0-16H176V120h16a8,8,0,0,1,8,8v40a24,24,0,0,0,48,0V86.63A23.85,23.85,0,0,0,241,69.66ZM64,208V56a8,8,0,0,1,8-8h80a8,8,0,0,1,8,8V208Zm80-96a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h48A8,8,0,0,1,144,112Z"/></svg>
+                  <p class="runs__name">Fill-frequency Reward</p>
+                  <p class="runs__desc">Earn per litre or per visit, modelled before it is set.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg>
+                  <p class="runs__name">Fuel-grade Upsell</p>
+                  <p class="runs__desc">Incentives built to move a driver up a grade.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,96v16a32,32,0,0,1-64,0V96H96v16a32,32,0,0,1-64,0V96L46.34,45.8A8,8,0,0,1,54,40H202a8,8,0,0,1,7.69,5.8Z" opacity="0.2"/><path d="M232,96a7.89,7.89,0,0,0-.3-2.2L217.35,43.6A16.07,16.07,0,0,0,202,32H54A16.07,16.07,0,0,0,38.65,43.6L24.31,93.8A7.89,7.89,0,0,0,24,96v16a40,40,0,0,0,16,32v64a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V144a40,40,0,0,0,16-32ZM54,48H202l11.42,40H42.61Zm50,56h48v8a24,24,0,0,1-48,0Zm-16,0v8a24,24,0,0,1-48,0v-8ZM200,208H56V151.2a40.57,40.57,0,0,0,8,.8,40,40,0,0,0,32-16,40,40,0,0,0,64,0,40,40,0,0,0,32,16,40.57,40.57,0,0,0,8-.8Zm-8-72a24,24,0,0,1-24-24v-8h48v8A24,24,0,0,1,192,136Z"/></svg>
+                  <p class="runs__name">C-store Attach Offer</p>
+                  <p class="runs__desc">Bundles the fill with what is inside, priced on real margin.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,80l-96,56L32,80l96-56Z" opacity="0.2"/><path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"/></svg>
+                  <p class="runs__name">Fleet Tiering</p>
+                  <p class="runs__desc">Bigger rewards for bigger accounts, sized against what each one actually burns.</p>
+                </li>
+              </ul>
+            </div>
+            <div class="runs__col">
+              <p class="runs__n">03</p>
+              <h3 class="runs__t">Act</h3>
+              <p class="runs__d">Launch it. You approve before it goes live.</p>
+              <ul class="runs__list">
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M237.66,153,153,237.66a8,8,0,0,1-11.31,0L42.34,138.34A8,8,0,0,1,40,132.69V40h92.69a8,8,0,0,1,5.65,2.34l99.32,99.32A8,8,0,0,1,237.66,153Z" opacity="0.2"/><path d="M243.31,136,144,36.69A15.86,15.86,0,0,0,132.69,32H40a8,8,0,0,0-8,8v92.69A15.86,15.86,0,0,0,36.69,144L136,243.31a16,16,0,0,0,22.63,0l84.68-84.68a16,16,0,0,0,0-22.63Zm-96,96L48,132.69V48h84.69L232,147.31ZM96,84A12,12,0,1,1,84,72,12,12,0,0,1,96,84Z"/></svg>
+                  <p class="runs__name">Promotions</p>
+                  <p class="runs__desc">Earn rules and app or card auto-earn, ready to approve.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24a80,80,0,0,0-80,80c0,72,80,128,80,128s80-56,80-128A80,80,0,0,0,128,24Zm0,112a32,32,0,1,1,32-32A32,32,0,0,1,128,136Z" opacity="0.2"/><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></svg>
+                  <p class="runs__name">Location Targeting</p>
+                  <p class="runs__desc">Offers by station and by route rather than nationally.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,152l-40,40L96,176,40,136,72,72l56-16,56,16H144L98.34,116.29a8,8,0,0,0,1.38,12.42C117.23,139.9,141,139.13,160,120Z" opacity="0.2"/><path d="M119.76,217.94A8,8,0,0,1,112,224a8.13,8.13,0,0,1-2-.24l-32-8a8,8,0,0,1-2.5-1.11l-24-16a8,8,0,1,1,8.88-13.31l22.84,15.23,30.66,7.67A8,8,0,0,1,119.76,217.94Zm132.69-96.46a15.89,15.89,0,0,1-8,9.25l-23.68,11.84-55.08,55.09a8,8,0,0,1-7.6,2.1l-64-16a8.06,8.06,0,0,1-2.71-1.25L35.86,142.87,11.58,130.73a16,16,0,0,1-7.16-21.46L29.27,59.58h0a16,16,0,0,1,21.46-7.16l22.06,11,53-15.14a8,8,0,0,1,4.4,0l53,15.14,22.06-11a16,16,0,0,1,21.46,7.16l24.85,49.69A15.9,15.9,0,0,1,252.45,121.48Zm-46.18,12.94L179.06,80H147.24L104,122c12.66,8.09,32.51,10.32,50.32-7.63a8,8,0,0,1,10.68-.61l34.41,27.57Zm-187.54-18,17.69,8.85L61.27,75.58,43.58,66.73ZM188,152.66l-27.71-22.19c-19.54,16-44.35,18.11-64.91,5a16,16,0,0,1-2.72-24.82.6.6,0,0,1,.08-.08L137.6,67.06,128,64.32,77.58,78.73,50.21,133.46l49.2,35.15,58.14,14.53Zm49.24-36.24L212.42,66.73l-17.69,8.85,24.85,49.69Z"/></svg>
+                  <p class="runs__name">Fleet Loyalty</p>
+                  <p class="runs__desc">B2B rewards, and the accounts worth aiming them at.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,120a40,40,0,0,1-40,40H152V80h40A40,40,0,0,1,232,120Z" opacity="0.2"/><path d="M240,120a48.05,48.05,0,0,0-48-48H152.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,24,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,151.12,214l11,7.33A16,16,0,0,0,186.5,212l11.77-44.36A48.07,48.07,0,0,0,240,120ZM40,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C126.65,155,82.84,164.07,40,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM192,152H160V88h32a32,32,0,1,1,0,64Z"/></svg>
+                  <p class="runs__name">Campaigns</p>
+                  <p class="runs__desc">One message across every channel a driver uses.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M80,40v96L32,88Z" opacity="0.2"/><path d="M168,80H88V40a8,8,0,0,0-13.66-5.66l-48,48a8,8,0,0,0,0,11.32l48,48A8,8,0,0,0,88,136V96h80a48,48,0,0,1,0,96H80a8,8,0,0,0,0,16h88a64,64,0,0,0,0-128ZM72,116.69,43.31,88,72,59.31Z"/></svg>
+                  <p class="runs__name">Win-back Journey</p>
+                  <p class="runs__desc">A flow that triggers when the fill-ups stop.</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <p class="runs__key reveal">
+            <span class="runs__flag" aria-hidden="true">Live</span> marks what aiRA playbooks
+            support today. Everything else is on the roadmap.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
     <!-- ================= FIVE SEATS ================= -->
     <!-- Anchors, not tabs (IA §4): every question stays in the markup. -->
     <section class="section section--wash catroles" id="seats">
@@ -209,7 +330,7 @@
           <div class="catrole__body">
             <div class="catrole__head">
               <h3 class="catrole__t">eCommerce</h3>
-              <p class="catrole__p">The app is the forecourt's only digital surface, and its real competitor is the convenience of not opening an app at all. Mobile payment, pre-order and delivery each have to beat a two-minute walk.</p>
+              <p class="catrole__p">The app is the forecourt's only digital surface, and its real competitor is the convenience of not opening an app at all. Mobile payment and pre-order each have to beat a two-minute walk, and a charging bay changes how long that walk lasts.</p>
             </div>
 
             <div class="qledger">
@@ -227,7 +348,7 @@
               </div>
               <div class="qledger__cell">
                 <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg></span>Predictive models</h4>
-                <p class="qledger__q">Which sites have enough app demand to justify delivery?</p>
+                <p class="qledger__q">Which sites are seeing enough electric-vehicle traffic to change what the shop stocks?</p>
               </div>
             </div>
           </div>
@@ -240,7 +361,7 @@
           <div class="catrole__body">
             <div class="catrole__head">
               <h3 class="catrole__t">Growth</h3>
-              <p class="catrole__p">Growth here is not more customers, it is more of the same customer. Nearly everyone in range already drives past, so the only questions that matter are how many stop, and how many of those come inside.</p>
+              <p class="catrole__p">Growth here is not more customers, it is more of the same customer, plus the fleet accounts that never walk through the door at all. Nearly everyone in range already drives past, so the questions that matter are how many stop, how many come inside, and what the discount that got them there actually cost.</p>
             </div>
 
             <div class="qledger">
@@ -254,11 +375,11 @@
               </div>
               <div class="qledger__cell">
                 <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg></span>Ad hoc analytics</h4>
-                <p class="qledger__q">Where does the drop-off happen: pump to door, or door to till?</p>
+                <p class="qledger__q">At what point does the cents-off discount stop paying for itself?</p>
               </div>
               <div class="qledger__cell">
                 <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg></span>Audience builder</h4>
-                <p class="qledger__q">Build the cohort that started buying inside in the last quarter, and tell me what changed.</p>
+                <p class="qledger__q">Build the fleet accounts that fuel with us weekly and have never bought inside.</p>
               </div>
             </div>
           </div>

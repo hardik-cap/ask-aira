@@ -88,11 +88,55 @@
       "questions": [
         { "cap": "Predictive models", "q": "Which acquisition channel produces households still shopping with us at month twelve?" },
         { "cap": "Advanced analytics", "q": "Model what moving the points threshold would do to redemption and to margin before we move it." },
-        { "cap": "Ad hoc analytics", "q": "Where does basket growth stall first: range, price or availability?" },
+        { "cap": "Ad hoc analytics", "q": "Which fresh lines do we mark down faster than they sell, and who buys them anyway?" },
         { "cap": "Audience builder", "q": "Build the cohort that joined in the last year and never came back for a second full shop." }
       ],
       "returns": "Channel quality measured on a year of behaviour instead of a sign-up count, and threshold changes simulated before they reach a member."
     }
+  },
+
+  "runs": {
+    "eyebrow": "What it runs here",
+    "heading": "Fifteen things aiRA runs on grocery data.",
+    "sub": "In the order you would actually use them, with what each one gives back.",
+    "cols": [
+      {
+        "n": "01",
+        "t": "Analyse",
+        "d": "See what is happening, and why.",
+        "items": [
+          { "t": "RCA Deep Dive", "ic": "MagnifyingGlass", "d": "The real reasons baskets or visits moved, not just the fact that they did.", "live": true },
+          { "t": "Category Affinity", "ic": "Basket", "d": "Which aisles a shopper has never bought from, and which ones usually travel together.", "live": true },
+          { "t": "Churn Propensity", "ic": "TrendDown", "d": "Flags the members whose weekly rhythm is slowing before the gap shows in a report.", "live": true },
+          { "t": "Data Quality Review", "ic": "Broom", "d": "Cleans the messy data first, so you are not acting on a broken join.", "live": true },
+          { "t": "Fraud Detection", "ic": "ShieldWarning", "d": "Spots points and coupon abuse early, by store.", "live": true }
+        ]
+      },
+      {
+        "n": "02",
+        "t": "Decide",
+        "d": "Pick the offer and the audience.",
+        "items": [
+          { "t": "Campaign Strategy", "ic": "Target", "d": "Picks the audience and the offer most likely to work, with the reasoning shown.", "live": true },
+          { "t": "Basket-builder Promotion", "ic": "ShoppingCart", "d": "Spend-more and buy-more mechanics aimed at basket size rather than footfall.", "live": false },
+          { "t": "Category Cross-sell", "ic": "ArrowsLeftRight", "d": "Bonus points built to move a shopper into an aisle they have never used.", "live": false },
+          { "t": "Private-label Push", "ic": "Package", "d": "Targeted offers to grow own label without discounting the brands that fund you.", "live": false },
+          { "t": "Redemption Forecast", "ic": "ChartLineUp", "d": "Estimates uptake and cost before you launch, not after.", "live": true }
+        ]
+      },
+      {
+        "n": "03",
+        "t": "Act",
+        "d": "Launch it. You approve before it goes live.",
+        "items": [
+          { "t": "Promotions", "ic": "Tag", "d": "The offer built and waiting for your sign-off.", "live": false },
+          { "t": "Personalised Coupons", "ic": "Ticket", "d": "Codes on the items each shopper actually buys most.", "live": false },
+          { "t": "Win-back Journey", "ic": "ArrowUUpLeft", "d": "A flow that triggers when the weekly shop stops.", "live": false },
+          { "t": "Audiences", "ic": "UsersThree", "d": "The exact segment, built conversationally and saved.", "live": false },
+          { "t": "SmartJourneys", "ic": "FlowArrow", "d": "The lifecycle view, with the next step named for each stage.", "live": true }
+        ]
+      }
+    ]
   },
 
   "back": {

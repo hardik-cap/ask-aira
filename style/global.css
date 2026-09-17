@@ -370,13 +370,10 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
               border-color var(--dur-fast) var(--ease),
               color var(--dur-fast) var(--ease),
               gap var(--dur-fast) var(--ease),
-              box-shadow var(--dur-fast) var(--ease),
-              transform var(--dur-fast) var(--ease);
+              box-shadow var(--dur-fast) var(--ease);
 }
 .btn svg { width: 15px; height: 15px; flex: none; }
 .btn:hover { gap: 11px; }
-/* Wins over the hover lift above: both set transform, this one is later. */
-.btn:active { transform: translateY(0); }
 
 /* Primary is INK, not brand (16 Sep, Clerk direction). Both shipping pages
    already overrode it to black page-side; making that the default deletes
@@ -390,7 +387,6 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 .btn--primary:hover {
   background: color-mix(in srgb, var(--black) 86%, white);
   box-shadow: var(--shadow-btn-hover);
-  transform: translateY(-1px);
 }
 .btn--primary:active {
   background: color-mix(in srgb, var(--black) 74%, white);
@@ -407,7 +403,6 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   border-color: var(--slate-300);
   background: var(--surface);
   box-shadow: var(--shadow-btn-hover);
-  transform: translateY(-1px);
 }
 .btn--secondary:active { box-shadow: var(--shadow-btn-press); }
 
@@ -519,13 +514,6 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
     -webkit-backdrop-filter: blur(14px) saturate(140%);
   }
 }
-/* The buttons' hover lift is motion, so it goes under reduced motion; the
-   shadow change stays, since that is not movement. */
-@media (prefers-reduced-motion: reduce) {
-  .btn--primary:hover,
-  .btn--secondary:hover { transform: none; }
-}
-
 .nav-no-init-transition, .nav-no-init-transition * { transition: none !important; }
 @media (prefers-reduced-motion: reduce) {
   .nav { transition: none; }

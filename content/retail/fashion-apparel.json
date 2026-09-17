@@ -88,7 +88,7 @@
       "questions": [
         { "cap": "Predictive models", "q": "Which acquisition channel brings customers who buy a second time at full price?" },
         { "cap": "Advanced analytics", "q": "Model what changing the free-returns threshold would do to repeat rate and to margin." },
-        { "cap": "Ad hoc analytics", "q": "Where does repeat purchase stall first: fit, range or delivery?" },
+        { "cap": "Ad hoc analytics", "q": "Is the base moving out of formalwear into casual and active, and how fast?" },
         { "cap": "Audience builder", "q": "Build the cohort that bought in one category only and never crossed over." }
       ],
       "returns": "Channel quality judged on a second full-price order rather than a first one, and policy changes simulated before a customer ever sees them."
@@ -108,6 +108,50 @@
       "6.7 times less erosion in average transaction value"
     ],
     "note": "Anonymised case study from a live aiRA deployment, published as written by Capillary."
+  },
+
+  "runs": {
+    "eyebrow": "What it runs here",
+    "heading": "Fifteen things aiRA runs on apparel data.",
+    "sub": "In the order you would actually use them, with what each one gives back.",
+    "cols": [
+      {
+        "n": "01",
+        "t": "Analyse",
+        "d": "See what is happening, and why.",
+        "items": [
+          { "t": "RCA Deep Dive", "ic": "MagnifyingGlass", "d": "The real reasons full-price sell-through or repeat visits shifted.", "live": true },
+          { "t": "Style & Size Affinity", "ic": "TShirt", "d": "The categories and the fits each shopper keeps coming back to.", "live": true },
+          { "t": "Churn Propensity", "ic": "TrendDown", "d": "Flags the shoppers drifting toward inactive, read against your season, not a rolling window.", "live": true },
+          { "t": "Data Quality Review", "ic": "Broom", "d": "Cleans profiles and purchase history before anyone segments on them.", "live": true },
+          { "t": "Reconciliation", "ic": "Scales", "d": "Keeps reward cost balanced across systems while returns are still settling.", "live": true }
+        ]
+      },
+      {
+        "n": "02",
+        "t": "Decide",
+        "d": "Pick the offer and the audience.",
+        "items": [
+          { "t": "Campaign Strategy", "ic": "Target", "d": "Builds the audience and the offer out of what past launches actually did.", "live": true },
+          { "t": "Visit Milestones", "ic": "Medal", "d": "Third and fifth visit rewards, sized on your own repeat curve.", "live": false },
+          { "t": "Seasonal Drop Plan", "ic": "CalendarBlank", "d": "The new collection aimed at the shoppers most likely to buy it at full price.", "live": false },
+          { "t": "Full-price Protection", "ic": "ShieldCheck", "d": "Reward-led demand in place of a blanket markdown.", "live": false },
+          { "t": "Tier Early-access", "ic": "Key", "d": "Who gets first look at a drop, and what that early look is worth.", "live": false }
+        ]
+      },
+      {
+        "n": "03",
+        "t": "Act",
+        "d": "Launch it. You approve before it goes live.",
+        "items": [
+          { "t": "Milestones", "ic": "Flag", "d": "Visit rewards built and ready to approve.", "live": false },
+          { "t": "Promotions", "ic": "Tag", "d": "Drop and VIP-access offers, built for you.", "live": false },
+          { "t": "Audiences", "ic": "UsersThree", "d": "Segments by style and by fit, saved and reusable.", "live": false },
+          { "t": "Post-purchase Journeys", "ic": "PaperPlaneTilt", "d": "Cross-sell and replenishment flows that start after the parcel lands.", "live": false },
+          { "t": "Creatives", "ic": "Image", "d": "On-brand campaign banners generated alongside the plan.", "live": false }
+        ]
+      }
+    ]
   },
 
   "back": {

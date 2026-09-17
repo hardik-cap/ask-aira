@@ -1076,3 +1076,178 @@ body.modal-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .biz, .biz__ic, .biz__go svg { transition: none; }
 }
+
+/* ---- Analyse / Decide / Act ----------------------------------------------
+   The client's own three-step frame, lifted from the capabilities-per-vertical
+   deck (17 Sep, see IA §29): see what happened, pick the move, launch it with
+   a person approving.
+
+   Laid out on the Clerk reference the user supplied (17 Sep): a large column
+   headline, a muted line under it, then a list where a 20px glyph sits left of
+   the item name and the description hangs under the NAME, not under the glyph.
+   That second indent is what makes the list read as two levels instead of one,
+   and it is the whole trick in the reference. Three columns rather than the
+   reference's two, divided by hairlines rather than boxed into cards: the open
+   treatment is the same call already made on .biz-grid.
+
+   Icons are official Phosphor DUOTONE, one per item, in --brand: the same
+   treatment as .seat__cap-ic and .qledger__icon, which sit on these same pages,
+   because these are capability glyphs and that is the site's weight for them.
+   They were regular and ink for one revision, on the reasoning that brand had
+   to be reserved for the "supported today" mark. That reasoning expired when
+   the mark became the word LIVE: a word does not need colour to be found, so
+   the glyphs are free to follow the house treatment. Duotone also needs a hue:
+   its 0.2 layer is a tint of the same colour, which reads as mud in grey.
+
+   The 01/02/03 markers earn their place here, where numbered markers usually
+   do not: this is a real sequence and each column consumes the one before it.
+
+   Items carry data-live. If the roadmap items should come off the page
+   entirely, hide [data-live="false"] rather than editing four pages.
+   -------------------------------------------------------------------------- */
+
+.runs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin-top: var(--sp-12);
+  /* Stretch, not start: the divider is the column's own left border, so an
+     align-items:start grid gives each rule a different length. */
+}
+
+.runs__col {
+  padding-inline: var(--sp-10);
+  border-left: 1px solid var(--border);
+}
+.runs__col:first-child { padding-left: 0; border-left: 0; }
+.runs__col:last-child { padding-right: 0; }
+
+.runs__n {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  color: var(--ink-faint);
+  margin-bottom: var(--sp-4);
+}
+.runs__t {
+  font-size: var(--t-display-3);
+  font-weight: 500;
+  line-height: 1.22;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+}
+.runs__d {
+  margin-top: var(--sp-3);
+  font-size: var(--t-body-lg);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+.runs__list {
+  list-style: none;
+  margin: var(--sp-10) 0 0;
+  padding: 0;
+  display: grid;
+  /* The scale has no --sp-7: it steps 24 -> 32. An invalid value here makes the
+     whole gap declaration invalid, which collapses the list. */
+  gap: var(--sp-8);
+}
+
+/* Two columns: the glyph, then everything that hangs off the name. */
+.runs__item {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  column-gap: var(--sp-3);
+  row-gap: var(--sp-2);
+  align-items: start;
+}
+.runs__ic {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--brand);
+}
+.runs__name {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  /* 16px x 1.25 = 20px, exactly the glyph's box. The icon is top-aligned in the
+     same row, so its box and the name's FIRST line box coincide: the two line up
+     without a nudge, and they stay lined up when a long name wraps, which a
+     centred icon would not. */
+  line-height: 1.25;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+}
+.runs__desc {
+  grid-column: 2;
+  grid-row: 2;
+  font-size: var(--t-body-sm);
+  line-height: var(--lh-body);
+  color: var(--ink-3);
+  text-wrap: pretty;
+}
+
+/* The "today" marker. A word, not a dot: a dot needs a legend before it means
+   anything, and it would have leant on colour alone to carry the one claim in
+   this section that has to be unambiguous. It is deliberately NOT the .state
+   pill, which is the approval grammar (pending / approve / hold / reject) and
+   must keep meaning only that.
+
+   Inline, so a name that wraps keeps the marker with its last word rather than
+   floating it to the middle of two lines. Caps micro-label spec: display face,
+   12px, 600, +0.06em, which is the treatment set on .nav__col-title. */
+.runs__flag {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: var(--sp-3);
+  font-family: var(--font-display);
+  font-size: var(--t-mono);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+.runs__key .runs__flag { margin-left: 0; }
+/* Keeps the marker with the last word of the name. Without it a name that
+   wraps drops LIVE onto a line of its own, where it reads as an orphan label
+   rather than as part of the name. */
+.runs__nb { white-space: nowrap; }
+
+.runs__key {
+  margin-top: var(--sp-10);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--border);
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+}
+
+/* Two columns then one. The sequence still reads in order when stacked, and
+   the divider moves to the top edge so it never sits at the end of a column. */
+@media (max-width: 1100px) {
+  .runs__col { padding-inline: var(--sp-8); }
+}
+@media (max-width: 991px) {
+  .runs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .runs__col:nth-child(2n+1) { padding-left: 0; border-left: 0; }
+  .runs__col:nth-child(n+3) {
+    margin-top: var(--sp-10);
+    padding-top: var(--sp-10);
+    border-top: 1px solid var(--border);
+  }
+}
+@media (max-width: 640px) {
+  .runs-grid { grid-template-columns: minmax(0, 1fr); }
+  .runs__col { padding-inline: 0; border-left: 0; }
+  .runs__col + .runs__col {
+    margin-top: var(--sp-8);
+    padding-top: var(--sp-8);
+    border-top: 1px solid var(--border);
+  }
+}

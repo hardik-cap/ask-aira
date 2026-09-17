@@ -101,6 +101,127 @@
 
     <div class="joint" aria-hidden="true"></div>
 
+    <!-- ================= ANALYSE / DECIDE / ACT ================= -->
+    <!-- Source: the client capabilities deck (IA §29). The LIVE flag marks what
+         the deck flags as supported by aiRA playbooks today. Phosphor regular. -->
+    <section class="section runs" id="runs">
+      <div class="padding-global">
+        <div class="container">
+          <div class="section-head section-head--split reveal">
+            <div>
+              <p class="eyebrow">What it runs here</p>
+              <h2 class="section-heading">Fifteen things aiRA runs on grocery data.</h2>
+            </div>
+            <p class="section-sub">In the order you would actually use them, with what each one gives back.</p>
+          </div>
+          <div class="runs-grid reveal reveal-stagger">
+            <div class="runs__col">
+              <p class="runs__n">01</p>
+              <h3 class="runs__t">Analyse</h3>
+              <p class="runs__d">See what is happening, and why.</p>
+              <ul class="runs__list">
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M192,112a80,80,0,1,1-80-80A80,80,0,0,1,192,112Z" opacity="0.2"/><path d="M229.66,218.34,179.6,168.28a88.21,88.21,0,1,0-11.32,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
+                  <p class="runs__name">RCA Deep <span class="runs__nb">Dive<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">The real reasons baskets or visits moved, not just the fact that they did.</p>
+                </li>
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M231.93,97.06l-13.87,104a8,8,0,0,1-7.93,6.94H45.87a8,8,0,0,1-7.93-6.94l-13.87-104A8,8,0,0,1,32,88H224A8,8,0,0,1,231.93,97.06Z" opacity="0.2"/><path d="M136,120v56a8,8,0,0,1-16,0V120a8,8,0,0,1,16,0ZM239.86,98.11,226,202.12A16,16,0,0,1,210.13,216H45.87A16,16,0,0,1,30,202.12l-13.87-104A16,16,0,0,1,32,80H68.37L122,18.73a8,8,0,0,1,12,0L187.63,80H224a16,16,0,0,1,15.85,18.11ZM89.63,80h76.74L128,36.15ZM224,96H32L45.87,200H210.13Zm-51.16,23.2-5.6,56A8,8,0,0,0,174.4,184a7.44,7.44,0,0,0,.81,0,8,8,0,0,0,7.95-7.2l5.6-56a8,8,0,0,0-15.92-1.6Zm-89.68,0a8,8,0,0,0-15.92,1.6l5.6,56a8,8,0,0,0,8,7.2,7.44,7.44,0,0,0,.81,0,8,8,0,0,0,7.16-8.76Z"/></svg>
+                  <p class="runs__name">Category <span class="runs__nb">Affinity<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">Which aisles a shopper has never bought from, and which ones usually travel together.</p>
+                </li>
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,136v64H168Z" opacity="0.2"/><path d="M235.06,128.61a8,8,0,0,0-8.72,1.73L200,156.69,141.66,98.34a8,8,0,0,0-11.32,0L96,132.69,29.66,66.34A8,8,0,0,0,18.34,77.66l72,72a8,8,0,0,0,11.32,0L136,115.31,188.69,168l-26.35,26.34A8,8,0,0,0,168,208h64a8,8,0,0,0,8-8V136A8,8,0,0,0,235.06,128.61ZM224,192H187.31L224,155.31Z"/></svg>
+                  <p class="runs__name">Churn <span class="runs__nb">Propensity<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">Flags the members whose weekly rhythm is slowing before the gap shows in a report.</p>
+                </li>
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M192.8,165.12,43.93,105.57A110.88,110.88,0,0,1,61.47,82.38a8,8,0,0,1,8.67-1.81L95.52,90.85a16,16,0,0,0,20.82-9l21-53.1c4.15-10,15.47-15.33,25.63-11.53a20,20,0,0,1,11.51,26.39L153.13,96.71a16,16,0,0,0,8.93,20.75L187,127.3a8,8,0,0,1,5,7.43V152A104.58,104.58,0,0,0,192.8,165.12Z" opacity="0.2"/><path d="M235.5,216.81c-22.56-11-35.5-34.58-35.5-64.8V134.73a15.94,15.94,0,0,0-10.09-14.87L165,110a8,8,0,0,1-4.48-10.34l21.32-53a28,28,0,0,0-16.1-37,28.14,28.14,0,0,0-35.82,16,.61.61,0,0,0,0,.12L108.9,79a8,8,0,0,1-10.37,4.49L73.11,73.14A15.89,15.89,0,0,0,55.74,76.8C34.68,98.45,24,123.75,24,152a111.45,111.45,0,0,0,31.18,77.53A8,8,0,0,0,61,232H232a8,8,0,0,0,3.5-15.19ZM67.14,88l25.41,10.3a24,24,0,0,0,31.23-13.45l21-53c2.56-6.11,9.47-9.27,15.43-7a12,12,0,0,1,6.88,15.92L145.69,93.76a24,24,0,0,0,13.43,31.14L184,134.73V152c0,.33,0,.66,0,1L55.77,101.71A108.84,108.84,0,0,1,67.14,88Zm48,128a87.53,87.53,0,0,1-24.34-42,8,8,0,0,0-15.49,4,105.16,105.16,0,0,0,18.36,38H64.44A95.54,95.54,0,0,1,40,152a85.9,85.9,0,0,1,7.73-36.29l137.8,55.12c3,18,10.56,33.48,21.89,45.16Z"/></svg>
+                  <p class="runs__name">Data Quality <span class="runs__nb">Review<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">Cleans the messy data first, so you are not acting on a broken join.</p>
+                </li>
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,56v58.77c0,84.18-71.31,112.07-85.54,116.8a7.54,7.54,0,0,1-4.92,0C111.31,226.86,40,199,40,114.79V56a8,8,0,0,1,8-8H208A8,8,0,0,1,216,56Z" opacity="0.2"/><path d="M208,40H48A16,16,0,0,0,32,56v58.77c0,89.62,75.82,119.34,91,124.38a15.44,15.44,0,0,0,10,0c15.2-5.05,91-34.77,91-124.39V56A16,16,0,0,0,208,40Zm0,74.79c0,78.42-66.34,104.62-80,109.18-13.53-4.5-80-30.68-80-109.18V56l160,0ZM120,136V96a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm-4,36a12,12,0,1,1,12,12A12,12,0,0,1,116,172Z"/></svg>
+                  <p class="runs__name">Fraud <span class="runs__nb">Detection<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">Spots points and coupon abuse early, by store.</p>
+                </li>
+              </ul>
+            </div>
+            <div class="runs__col">
+              <p class="runs__n">02</p>
+              <h3 class="runs__t">Decide</h3>
+              <p class="runs__d">Pick the offer and the audience.</p>
+              <ul class="runs__list">
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M176,128a48,48,0,1,1-48-48A48,48,0,0,1,176,128Z" opacity="0.2"/><path d="M221.87,83.16A104.1,104.1,0,1,1,195.67,49l22.67-22.68a8,8,0,0,1,11.32,11.32l-96,96a8,8,0,0,1-11.32-11.32l27.72-27.72a40,40,0,1,0,17.87,31.09,8,8,0,1,1,16-.9,56,56,0,1,1-22.38-41.65L184.3,60.39a87.88,87.88,0,1,0,23.13,29.67,8,8,0,0,1,14.44-6.9Z"/></svg>
+                  <p class="runs__name">Campaign <span class="runs__nb">Strategy<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">Picks the audience and the offer most likely to work, with the reasoning shown.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,64l-12.16,66.86A16,16,0,0,1,188.1,144H62.55L48,64Z" opacity="0.2"/><path d="M222.14,58.87A8,8,0,0,0,216,56H54.68L49.79,29.14A16,16,0,0,0,34.05,16H16a8,8,0,0,0,0,16h18L59.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,152,204a28,28,0,1,0,28-28H83.17a8,8,0,0,1-7.87-6.57L72.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,222.14,58.87ZM96,204a12,12,0,1,1-12-12A12,12,0,0,1,96,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,192,204Zm4-74.57A8,8,0,0,1,188.1,136H69.22L57.59,72H206.41Z"/></svg>
+                  <p class="runs__name">Basket-builder Promotion</p>
+                  <p class="runs__desc">Spend-more and buy-more mechanics aimed at basket size rather than footfall.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,176l-32,32V144ZM80,112V48L48,80Z" opacity="0.2"/><path d="M213.66,170.34l-32-32A8,8,0,0,0,168,144v24H48a8,8,0,0,0,0,16H168v24a8,8,0,0,0,13.66,5.66l32-32A8,8,0,0,0,213.66,170.34ZM184,188.69V163.31L196.69,176Zm-109.66-71A8,8,0,0,0,88,112V88H208a8,8,0,0,0,0-16H88V48a8,8,0,0,0-13.66-5.66l-32,32a8,8,0,0,0,0,11.32ZM72,67.31V92.69L59.31,80Z"/></svg>
+                  <p class="runs__name">Category Cross-sell</p>
+                  <p class="runs__desc">Bonus points built to move a shopper into an aisle they have never used.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,129.09V232a8,8,0,0,1-3.84-1l-88-48.18a8,8,0,0,1-4.16-7V80.18a8,8,0,0,1,.7-3.25Z" opacity="0.2"/><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z"/></svg>
+                  <p class="runs__name">Private-label Push</p>
+                  <p class="runs__desc">Targeted offers to grow own label without discounting the brands that fund you.</p>
+                </li>
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56V208H32V48H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg>
+                  <p class="runs__name">Redemption <span class="runs__nb">Forecast<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">Estimates uptake and cost before you launch, not after.</p>
+                </li>
+              </ul>
+            </div>
+            <div class="runs__col">
+              <p class="runs__n">03</p>
+              <h3 class="runs__t">Act</h3>
+              <p class="runs__d">Launch it. You approve before it goes live.</p>
+              <ul class="runs__list">
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M237.66,153,153,237.66a8,8,0,0,1-11.31,0L42.34,138.34A8,8,0,0,1,40,132.69V40h92.69a8,8,0,0,1,5.65,2.34l99.32,99.32A8,8,0,0,1,237.66,153Z" opacity="0.2"/><path d="M243.31,136,144,36.69A15.86,15.86,0,0,0,132.69,32H40a8,8,0,0,0-8,8v92.69A15.86,15.86,0,0,0,36.69,144L136,243.31a16,16,0,0,0,22.63,0l84.68-84.68a16,16,0,0,0,0-22.63Zm-96,96L48,132.69V48h84.69L232,147.31ZM96,84A12,12,0,1,1,84,72,12,12,0,0,1,96,84Z"/></svg>
+                  <p class="runs__name">Promotions</p>
+                  <p class="runs__desc">The offer built and waiting for your sign-off.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,128a32,32,0,0,0,25.6,31.36,8,8,0,0,1,6.4,7.83V192a8,8,0,0,1-8,8H96V56H224a8,8,0,0,1,8,8V88.81a8,8,0,0,1-6.4,7.83A32,32,0,0,0,200,128Z" opacity="0.2"/><path d="M227.19,104.48A16,16,0,0,0,240,88.81V64a16,16,0,0,0-16-16H32A16,16,0,0,0,16,64V88.81a16,16,0,0,0,12.81,15.67,24,24,0,0,1,0,47A16,16,0,0,0,16,167.19V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V167.19a16,16,0,0,0-12.81-15.67,24,24,0,0,1,0-47ZM32,167.2a40,40,0,0,0,0-78.39V64H88V192H32Zm192,0V192H104V64H224V88.8a40,40,0,0,0,0,78.39Z"/></svg>
+                  <p class="runs__name">Personalised Coupons</p>
+                  <p class="runs__desc">Codes on the items each shopper actually buys most.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M80,40v96L32,88Z" opacity="0.2"/><path d="M168,80H88V40a8,8,0,0,0-13.66-5.66l-48,48a8,8,0,0,0,0,11.32l48,48A8,8,0,0,0,88,136V96h80a48,48,0,0,1,0,96H80a8,8,0,0,0,0,16h88a64,64,0,0,0,0-128ZM72,116.69,43.31,88,72,59.31Z"/></svg>
+                  <p class="runs__name">Win-back Journey</p>
+                  <p class="runs__desc">A flow that triggers when the weekly shop stops.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>
+                  <p class="runs__name">Audiences</p>
+                  <p class="runs__desc">The exact segment, built conversationally and saved.</p>
+                </li>
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M80,176a32,32,0,1,1-32-32A32,32,0,0,1,80,176Z" opacity="0.2"/><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H192a74.49,74.49,0,0,0-28.35,6.73c-13.62,6.29-30.83,19.71-35.54,48-5.32,31.93-29.1,39.22-41,40.86a40,40,0,1,0,.18,16.06A71.65,71.65,0,0,0,108.13,178C121.75,172,139,158.6,143.89,129.31,150.65,88.77,190.34,88,192,88h28.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg>
+                  <p class="runs__name"><span class="runs__nb">SmartJourneys<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">The lifecycle view, with the next step named for each stage.</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <p class="runs__key reveal">
+            <span class="runs__flag" aria-hidden="true">Live</span> marks what aiRA playbooks
+            support today. Everything else is on the roadmap.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
     <!-- ================= FIVE SEATS ================= -->
     <!-- Anchors, not tabs (IA §4): every question stays in the markup. -->
     <section class="section section--wash catroles" id="seats">
@@ -254,7 +375,7 @@
               </div>
               <div class="qledger__cell">
                 <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg></span>Ad hoc analytics</h4>
-                <p class="qledger__q">Where does basket growth stall first: range, price or availability?</p>
+                <p class="qledger__q">Which fresh lines do we mark down faster than they sell, and who buys them anyway?</p>
               </div>
               <div class="qledger__cell">
                 <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg></span>Audience builder</h4>

@@ -508,8 +508,12 @@ html:not(.js) .finder__group + .finder__group { margin-top: var(--sp-16); }
 }
 
 /* The two capabilities this seat leans on: the qledger cell anatomy from the
-   category pages. Same pair in every industry, because the capability does
-   not change with the vertical; the questions on the category pages do. */
+   category pages. The PAIRING is the same in every industry, because the
+   capability is a product feature and does not change with the vertical. What
+   it hands back does, so the descriptions underneath are written per industry
+   (17 Sep, once the playbook registry landed: see IA §29). Before that they
+   were one shared set of ten lines, which made a section headed "the same
+   week looks different in every chair" read identically on all four pages. */
 .seat__pair {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -694,13 +698,11 @@ html:not(.js) .finder__group + .finder__group { margin-top: var(--sp-16); }
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--r-lg);
   transition: border-color var(--dur-fast) var(--ease),
-              background var(--dur-fast) var(--ease),
-              transform var(--dur-fast) var(--ease);
+              background var(--dur-fast) var(--ease);
 }
 .indcard:hover {
   background: rgba(255, 255, 255, 0.07);
   border-color: rgba(255, 255, 255, 0.22);
-  transform: translateY(-2px);
 }
 
 .indcard__media {
@@ -761,5 +763,4 @@ html:not(.js) .finder__group + .finder__group { margin-top: var(--sp-16); }
 }
 @media (prefers-reduced-motion: reduce) {
   .indcard, .indcard__go svg { transition: none; }
-  .indcard:hover { transform: none; }
 }

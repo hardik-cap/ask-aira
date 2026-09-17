@@ -547,12 +547,10 @@
   background: var(--nav-surface);
   color: var(--brand);
   box-shadow: var(--shadow-lg);
-  transition: transform var(--dur-fast) var(--ease),
-              background var(--dur-fast) var(--ease),
+  transition: background var(--dur-fast) var(--ease),
               color var(--dur-fast) var(--ease);
 }
 .hero__video-poster:hover .hero__video-btn {
-  transform: scale(1.08);
   background: var(--brand);
   color: var(--on-brand);
 }

@@ -178,6 +178,127 @@
 
     <div class="joint" aria-hidden="true"></div>
 
+    <!-- ================= ANALYSE / DECIDE / ACT ================= -->
+    <!-- Source: the client capabilities deck (IA §29). The LIVE flag marks what
+         the deck flags as supported by aiRA playbooks today. Phosphor regular. -->
+    <section class="section runs" id="runs">
+      <div class="padding-global">
+        <div class="container">
+          <div class="section-head section-head--split reveal">
+            <div>
+              <p class="eyebrow">What it runs here</p>
+              <h2 class="section-heading">Fifteen things aiRA runs on airline and hotel data.</h2>
+            </div>
+            <p class="section-sub">In the order you would actually use them, with what each one gives back.</p>
+          </div>
+          <div class="runs-grid reveal reveal-stagger">
+            <div class="runs__col">
+              <p class="runs__n">01</p>
+              <h3 class="runs__t">Analyse</h3>
+              <p class="runs__d">See what is happening, and why.</p>
+              <ul class="runs__list">
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M192,112a80,80,0,1,1-80-80A80,80,0,0,1,192,112Z" opacity="0.2"/><path d="M229.66,218.34,179.6,168.28a88.21,88.21,0,1,0-11.32,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
+                  <p class="runs__name">RCA Deep <span class="runs__nb">Dive<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">The real reasons stays, bookings or add-on revenue changed.</p>
+                </li>
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M160,72V216L96,184V40Z" opacity="0.2"/><path d="M228.92,49.69a8,8,0,0,0-6.86-1.45L160.93,63.52,99.58,32.84a8,8,0,0,0-5.52-.6l-64,16A8,8,0,0,0,24,56V200a8,8,0,0,0,9.94,7.76l61.13-15.28,61.35,30.68A8.15,8.15,0,0,0,160,224a8,8,0,0,0,1.94-.24l64-16A8,8,0,0,0,232,200V56A8,8,0,0,0,228.92,49.69ZM104,52.94l48,24V203.06l-48-24ZM40,62.25l48-12v127.5l-48,12Zm176,131.5-48,12V78.25l48-12Z"/></svg>
+                  <p class="runs__name">Route &amp; Property <span class="runs__nb">Analysis<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">How members actually travel, by route, cabin, property and market.</p>
+                </li>
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z"/></svg>
+                  <p class="runs__name">Status &amp; Lapse <span class="runs__nb">Risk<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">Who is about to miss a tier, and who is drifting away from rebooking.</p>
+                </li>
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,56v58.77c0,84.18-71.31,112.07-85.54,116.8a7.54,7.54,0,0,1-4.92,0C111.31,226.86,40,199,40,114.79V56a8,8,0,0,1,8-8H208A8,8,0,0,1,216,56Z" opacity="0.2"/><path d="M208,40H48A16,16,0,0,0,32,56v58.77c0,89.62,75.82,119.34,91,124.38a15.44,15.44,0,0,0,10,0c15.2-5.05,91-34.77,91-124.39V56A16,16,0,0,0,208,40Zm0,74.79c0,78.42-66.34,104.62-80,109.18-13.53-4.5-80-30.68-80-109.18V56l160,0ZM120,136V96a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm-4,36a12,12,0,1,1,12,12A12,12,0,0,1,116,172Z"/></svg>
+                  <p class="runs__name">Fraud <span class="runs__nb">Detection<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">Unusual earn and redemption activity, including retro-claim abuse.</p>
+                </li>
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M56,88l32,80c0,17.67-20,24-32,24s-32-6.33-32-24ZM200,56l-32,80c0,17.67,20,24,32,24s32-6.33,32-24Z" opacity="0.2"/><path d="M239.43,133l-32-80h0a8,8,0,0,0-9.16-4.84L136,62V40a8,8,0,0,0-16,0V65.58L54.26,80.19A8,8,0,0,0,48.57,85h0v.06L16.57,165a7.92,7.92,0,0,0-.57,3c0,23.31,24.54,32,40,32s40-8.69,40-32a7.92,7.92,0,0,0-.57-3L66.92,93.77,120,82V208H104a8,8,0,0,0,0,16h48a8,8,0,0,0,0-16H136V78.42L187,67.1,160.57,133a7.92,7.92,0,0,0-.57,3c0,23.31,24.54,32,40,32s40-8.69,40-32A7.92,7.92,0,0,0,239.43,133ZM56,184c-7.53,0-22.76-3.61-23.93-14.64L56,109.54l23.93,59.82C78.76,180.39,63.53,184,56,184Zm144-32c-7.53,0-22.76-3.61-23.93-14.64L200,77.54l23.93,59.82C222.76,148.39,207.53,152,200,152Z"/></svg>
+                  <p class="runs__name"><span class="runs__nb">Reconciliation<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">Keeps miles and rewards balanced across partners and properties.</p>
+                </li>
+              </ul>
+            </div>
+            <div class="runs__col">
+              <p class="runs__n">02</p>
+              <h3 class="runs__t">Decide</h3>
+              <p class="runs__d">Pick the offer and the audience.</p>
+              <ul class="runs__list">
+                <li class="runs__item" data-live="true">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M176,128a48,48,0,1,1-48-48A48,48,0,0,1,176,128Z" opacity="0.2"/><path d="M221.87,83.16A104.1,104.1,0,1,1,195.67,49l22.67-22.68a8,8,0,0,1,11.32,11.32l-96,96a8,8,0,0,1-11.32-11.32l27.72-27.72a40,40,0,1,0,17.87,31.09,8,8,0,1,1,16-.9,56,56,0,1,1-22.38-41.65L184.3,60.39a87.88,87.88,0,1,0,23.13,29.67,8,8,0,0,1,14.44-6.9Z"/></svg>
+                  <p class="runs__name">Campaign <span class="runs__nb">Strategy<span class="runs__flag">Live<span class="sr-only"> today</span></span></span></p>
+                  <p class="runs__desc">Picks the members and the offer that fit how they already travel.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M240,132c0,19.88-35.82,36-80,36-19.6,0-37.56-3.17-51.47-8.44h0C146.76,156.85,176,142,176,124V96.72h0C212.52,100.06,240,114.58,240,132ZM176,84c0-19.88-35.82-36-80-36S16,64.12,16,84s35.82,36,80,36S176,103.88,176,84Z" opacity="0.2"/><path d="M184,89.57V84c0-25.08-37.83-44-88-44S8,58.92,8,84v40c0,20.89,26.25,37.49,64,42.46V172c0,25.08,37.83,44,88,44s88-18.92,88-44V132C248,111.3,222.58,94.68,184,89.57ZM232,132c0,13.22-30.79,28-72,28-3.73,0-7.43-.13-11.08-.37C170.49,151.77,184,139,184,124V105.74C213.87,110.19,232,122.27,232,132ZM72,150.25V126.46A183.74,183.74,0,0,0,96,128a183.74,183.74,0,0,0,24-1.54v23.79A163,163,0,0,1,96,152,163,163,0,0,1,72,150.25Zm96-40.32V124c0,8.39-12.41,17.4-32,22.87V123.5C148.91,120.37,159.84,115.71,168,109.93ZM96,56c41.21,0,72,14.78,72,28s-30.79,28-72,28S24,97.22,24,84,54.79,56,96,56ZM24,124V109.93c8.16,5.78,19.09,10.44,32,13.57v23.37C36.41,141.4,24,132.39,24,124Zm64,48v-4.17c2.63.1,5.29.17,8,.17,3.88,0,7.67-.13,11.39-.35A121.92,121.92,0,0,0,120,171.41v23.46C100.41,189.4,88,180.39,88,172Zm48,26.25V174.4a179.48,179.48,0,0,0,24,1.6,183.74,183.74,0,0,0,24-1.54v23.79a165.45,165.45,0,0,1-48,0Zm64-3.38V171.5c12.91-3.13,23.84-7.79,32-13.57V172C232,180.39,219.59,189.4,200,194.87Z"/></svg>
+                  <p class="runs__name">Earn &amp; Burn Design</p>
+                  <p class="runs__desc">Earning and redemption by night, stay or flown segment, modelled first.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M96,240l16-80L48,136,160,16,144,96l64,24Z" opacity="0.2"/><path d="M215.79,118.17a8,8,0,0,0-5-5.66L153.18,90.9l14.66-73.33a8,8,0,0,0-13.69-7l-112,120a8,8,0,0,0,3,13l57.63,21.61L88.16,238.43a8,8,0,0,0,13.69,7l112-120A8,8,0,0,0,215.79,118.17ZM109.37,214l10.47-52.38a8,8,0,0,0-5-9.06L62,132.71l84.62-90.66L136.16,94.43a8,8,0,0,0,5,9.06l52.8,19.8Z"/></svg>
+                  <p class="runs__name">Tier Fast-track</p>
+                  <p class="runs__desc">Clear milestones to the next tier, and the upgrades that come with it.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M40,64H88V208H40a8,8,0,0,1-8-8V72A8,8,0,0,1,40,64Zm176,0H168V208h48a8,8,0,0,0,8-8V72A8,8,0,0,0,216,64Z" opacity="0.2"/><path d="M216,56H176V48a24,24,0,0,0-24-24H104A24,24,0,0,0,80,48v8H40A16,16,0,0,0,24,72V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V72A16,16,0,0,0,216,56ZM96,48a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm64,24V200H96V72ZM40,72H80V200H40ZM216,200H176V72h40V200Z"/></svg>
+                  <p class="runs__name">Ancillary Attach</p>
+                  <p class="runs__desc">Seat, bag, lounge, dining and spa offers aimed at the trips that take them.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M240,112l-36,40H40a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8H204Z" opacity="0.2"/><path d="M246,106.65l-36-40A8,8,0,0,0,204,64H136V32a8,8,0,0,0-16,0V64H40A16,16,0,0,0,24,80v64a16,16,0,0,0,16,16h80v64a8,8,0,0,0,16,0V160h68a8,8,0,0,0,5.95-2.65l36-40A8,8,0,0,0,246,106.65ZM200.44,144H40V80H200.44l28.8,32Z"/></svg>
+                  <p class="runs__name">Direct-booking Incentive</p>
+                  <p class="runs__desc">A reward-led shift away from the OTA, costed against the commission it saves.</p>
+                </li>
+              </ul>
+            </div>
+            <div class="runs__col">
+              <p class="runs__n">03</p>
+              <h3 class="runs__t">Act</h3>
+              <p class="runs__d">Launch it. You approve before it goes live.</p>
+              <ul class="runs__list">
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M237.66,153,153,237.66a8,8,0,0,1-11.31,0L42.34,138.34A8,8,0,0,1,40,132.69V40h92.69a8,8,0,0,1,5.65,2.34l99.32,99.32A8,8,0,0,1,237.66,153Z" opacity="0.2"/><path d="M243.31,136,144,36.69A15.86,15.86,0,0,0,132.69,32H40a8,8,0,0,0-8,8v92.69A15.86,15.86,0,0,0,36.69,144L136,243.31a16,16,0,0,0,22.63,0l84.68-84.68a16,16,0,0,0,0-22.63Zm-96,96L48,132.69V48h84.69L232,147.31ZM96,84A12,12,0,1,1,84,72,12,12,0,0,1,96,84Z"/></svg>
+                  <p class="runs__name">Promotions</p>
+                  <p class="runs__desc">Earn, burn and bonus offers, ready to approve.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,48V168c-64,55.43-112-55.43-176,0V48C104-7.43,152,103.43,216,48Z" opacity="0.2"/><path d="M34.76,42A8,8,0,0,0,32,48V216a8,8,0,0,0,16,0V171.77c26.79-21.16,49.87-9.75,76.45,3.41,16.4,8.11,34.06,16.85,53,16.85,13.93,0,28.54-4.75,43.82-18a8,8,0,0,0,2.76-6V48A8,8,0,0,0,210.76,42c-28,24.23-51.72,12.49-79.21-1.12C103.07,26.76,70.78,10.79,34.76,42ZM208,164.25c-26.79,21.16-49.87,9.74-76.45-3.41-25-12.35-52.81-26.13-83.55-8.4V51.79c26.79-21.16,49.87-9.75,76.45,3.4,25,12.35,52.82,26.13,83.55,8.4Z"/></svg>
+                  <p class="runs__name">Milestones</p>
+                  <p class="runs__desc">Status runs and fast-track qualification, built for you.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M80,40v96L32,88Z" opacity="0.2"/><path d="M168,80H88V40a8,8,0,0,0-13.66-5.66l-48,48a8,8,0,0,0,0,11.32l48,48A8,8,0,0,0,88,136V96h80a48,48,0,0,1,0,96H80a8,8,0,0,0,0,16h88a64,64,0,0,0,0-128ZM72,116.69,43.31,88,72,59.31Z"/></svg>
+                  <p class="runs__name">Win-back Journey</p>
+                  <p class="runs__desc">A flow that triggers when a member stops booking.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>
+                  <p class="runs__name">Audiences</p>
+                  <p class="runs__desc">Segments by route, cabin, property and status.</p>
+                </li>
+                <li class="runs__item" data-live="false">
+                  <svg class="runs__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,120a40,40,0,0,1-40,40H152V80h40A40,40,0,0,1,232,120Z" opacity="0.2"/><path d="M240,120a48.05,48.05,0,0,0-48-48H152.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,24,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,151.12,214l11,7.33A16,16,0,0,0,186.5,212l11.77-44.36A48.07,48.07,0,0,0,240,120ZM40,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C126.65,155,82.84,164.07,40,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM192,152H160V88h32a32,32,0,1,1,0,64Z"/></svg>
+                  <p class="runs__name">Campaigns</p>
+                  <p class="runs__desc">One message across every channel a traveller uses.</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <p class="runs__key reveal">
+            <span class="runs__flag" aria-hidden="true">Live</span> marks what aiRA playbooks
+            support today. Everything else is on the roadmap.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
     <!-- ================= FIVE SEATS ================= -->
     <section class="section section--wash rseats" id="seats">
       <div class="padding-global">
@@ -200,11 +321,11 @@
                 <div class="seat__pair">
                   <div class="seat__cap">
                     <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>Audience builder</h4>
-                    <p class="seat__cap-d">One conversation finds the cohort and saves it as a segment.</p>
+                    <p class="seat__cap-d">The members one stay or one segment short of status, saved while the qualification window is still open.</p>
                   </div>
                   <div class="seat__cap">
                     <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M80,176a32,32,0,1,1-32-32A32,32,0,0,1,80,176Z" opacity="0.2"/><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg>Journey orchestration</h4>
-                    <p class="seat__cap-d">The play comes back drafted and waits on your approval.</p>
+                    <p class="seat__cap-d">The shoulder-season play drafted against booking windows rather than send dates, waiting on your approval.</p>
                   </div>
                 </div>
               </div>
@@ -219,11 +340,11 @@
                 <div class="seat__pair">
                   <div class="seat__cap">
                     <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg>Predictive models</h4>
-                    <p class="seat__cap-d">Churn risk scored on your own members, against your own definition of lapsed.</p>
+                    <p class="seat__cap-d">Churn scored as the risk of the next trip going to a competitor, not as silence between bookings.</p>
                   </div>
                   <div class="seat__cap">
                     <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>Audience builder</h4>
-                    <p class="seat__cap-d">A segment that holds its definition, so the pull matches the brief.</p>
+                    <p class="seat__cap-d">Dormant members separated from members who are simply between seasons, with the definition held.</p>
                   </div>
                 </div>
               </div>
@@ -238,11 +359,11 @@
                 <div class="seat__pair">
                   <div class="seat__cap">
                     <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg>Ad hoc analytics</h4>
-                    <p class="seat__cap-d">The one-off pull answers itself, so the queue stops growing.</p>
+                    <p class="seat__cap-d">What loyalty contributes to RevPAR, or to revenue per passenger, without a week of reconciliation first.</p>
                   </div>
                   <div class="seat__cap">
                     <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,56v56c0,96-88,120-88,120S40,208,40,112V56a8,8,0,0,1,8-8H208A8,8,0,0,1,216,56Z" opacity="0.2"/><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></svg>Data quality &amp; fraud checks</h4>
-                    <p class="seat__cap-d">Duplicates and redemption spikes surface before anyone acts on them.</p>
+                    <p class="seat__cap-d">Duplicate profiles, retro claims and missing-point disputes surfaced before a member has to chase them.</p>
                   </div>
                 </div>
               </div>
@@ -257,11 +378,11 @@
                 <div class="seat__pair">
                   <div class="seat__cap">
                     <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V200H224A8,8,0,0,1,232,208ZM132,160a12,12,0,1,0-12-12A12,12,0,0,0,132,160Zm-24-56A12,12,0,1,0,96,92,12,12,0,0,0,108,104ZM76,176a12,12,0,1,0-12-12A12,12,0,0,0,76,176Zm96-48a12,12,0,1,0-12-12A12,12,0,0,0,172,128Zm24-40a12,12,0,1,0-12-12A12,12,0,0,0,196,88Zm-20,76a12,12,0,1,0,12-12A12,12,0,0,0,176,164Z"/></svg>Advanced analytics</h4>
-                    <p class="seat__cap-d">Basket and cohort analysis run on your own transactions.</p>
+                    <p class="seat__cap-d">Direct booking read against OTA at true channel economics, after commission and after loyalty cost.</p>
                   </div>
                   <div class="seat__cap">
                     <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg>Predictive models</h4>
-                    <p class="seat__cap-d">Who is about to lapse, scored while there is still time to act.</p>
+                    <p class="seat__cap-d">Which searches turn into bookings, and which bookings will take an ancillary, by market and fare class.</p>
                   </div>
                 </div>
               </div>
@@ -276,11 +397,11 @@
                 <div class="seat__pair">
                   <div class="seat__cap">
                     <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg>Ad hoc analytics</h4>
-                    <p class="seat__cap-d">Every test question answered at the speed you can ask the next one.</p>
+                    <p class="seat__cap-d">Route, property and market level engagement answered at the speed you can ask the next question.</p>
                   </div>
                   <div class="seat__cap">
                     <h4 class="seat__cap-t"><svg class="seat__cap-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V200H224A8,8,0,0,1,232,208ZM132,160a12,12,0,1,0-12-12A12,12,0,0,0,132,160Zm-24-56A12,12,0,1,0,96,92,12,12,0,0,0,108,104ZM76,176a12,12,0,1,0-12-12A12,12,0,0,0,76,176Zm96-48a12,12,0,1,0-12-12A12,12,0,0,0,172,128Zm24-40a12,12,0,1,0-12-12A12,12,0,0,0,196,88Zm-20,76a12,12,0,1,0,12-12A12,12,0,0,0,176,164Z"/></svg>Advanced analytics</h4>
-                    <p class="seat__cap-d">The lift behind a number, with the working shown.</p>
+                    <p class="seat__cap-d">What a co-brand cardholder or partner earner is worth against a member who only ever books direct.</p>
                   </div>
                 </div>
               </div>

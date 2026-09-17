@@ -19,6 +19,10 @@ docs/
 assets/brand/source/
 assets/brand/*.pdf
 
+# Same pattern for the industry photography: the supplied PNGs stay local,
+# the compressed JPEGs beside them ship. Roughly halves what gets deployed.
+assets/industry/source/
+
 # Internal brand reference: quotes the Capillary Brand Guide, stays local.
 # It lives in assets/brand/ with the material it documents; absolute paths
 # mean it still serves correctly from that depth.
