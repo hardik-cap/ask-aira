@@ -11,12 +11,12 @@
 
   "shape": {
     "eyebrow": "The shape of it",
-    "heading": "Routines, not seasons. Rules, not preferences.",
+    "heading": "The next purchase already has a date on it.",
     "sub": "Four things about health and beauty data that make a generic analytics answer the wrong answer.",
     "facets": [
       {
         "t": "Frequency",
-        "d": "Set by the product rather than the mood. Replenishment cycles are countable, so the next purchase has a date on it and a late one is a dated event rather than a rolling average."
+        "d": "The product sets the interval. Replenishment cycles are countable, so the next purchase has a date on it and a late one is a dated event rather than a rolling average."
       },
       {
         "t": "Margin",
@@ -24,7 +24,7 @@
       },
       {
         "t": "Seasonality",
-        "d": "Regimens rather than quarters. Demand moves when a customer's routine changes, and that happens on their calendar, not the trading one."
+        "d": "Routines set the pace. Demand moves when a customer changes what they use, and that follows their own calendar rather than the trading year."
       },
       {
         "t": "What the data misses",
@@ -84,7 +84,7 @@
     },
 
     "growth": {
-      "problem": "Growth comes from the regimen getting longer, not from more visits. One more product inside an established routine is worth more than one more trip, and it compounds, because routines are sticky once they set.",
+      "problem": "Growth comes from the regimen getting longer. One more product inside an established routine is worth more than one more trip, and it compounds, because routines are sticky once they set.",
       "questions": [
         { "cap": "Advanced analytics", "q": "Which second product most often turns a single-product buyer into a routine?" },
         { "cap": "Predictive models", "q": "Which customers are most likely to add a category they have never bought?" },

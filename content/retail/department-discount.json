@@ -11,7 +11,7 @@
 
   "shape": {
     "eyebrow": "The shape of it",
-    "heading": "One shopper, many missions, no single owner.",
+    "heading": "Your best customer belongs to no department.",
     "sub": "Four things about department and discount data that make a generic analytics answer the wrong answer.",
     "facets": [
       {
@@ -20,11 +20,11 @@
       },
       {
         "t": "Margin",
-        "d": "Thin and highly mixed. Margin varies more between your own departments than between you and a competitor, so a growing basket can quietly be a shrinking contribution."
+        "d": "Thin and highly mixed. Margin varies more between your own departments than between you and a competitor, so a growing basket can still be a shrinking contribution."
       },
       {
         "t": "Seasonality",
-        "d": "Concentrated. A large share of the year lands in a handful of weeks, and the rest of the calendar is judged mostly on whether it set those weeks up."
+        "d": "A few weeks carry most of the year. A large share of it lands in a handful of weeks, and the rest of the calendar is judged mostly on whether it set those weeks up."
       },
       {
         "t": "What the data misses",
@@ -53,7 +53,7 @@
     "crm": {
       "problem": "A customer who stops buying in one department but keeps buying in two others is invisible to a department report and to a churn model alike. Loyalty is held across the store, and it leaks one department at a time.",
       "questions": [
-        { "cap": "Predictive models", "q": "Which customers have quietly dropped a department they used to buy every quarter?" },
+        { "cap": "Predictive models", "q": "Which customers have dropped a department they used to buy every quarter?" },
         { "cap": "Audience builder", "q": "Build a segment of members who only ever shop one department." },
         { "cap": "Ad hoc analytics", "q": "What does the second department a customer adds tell us about how long they stay?" },
         { "cap": "Journey orchestration", "q": "Create the journey that introduces the most likely next department and hold it for approval." }
@@ -84,7 +84,7 @@
     },
 
     "growth": {
-      "problem": "Growth here is a second department, not a second visit. Getting a customer to cross is the single move that changes what they are worth, and it is the hardest thing to brief because it belongs to nobody.",
+      "problem": "A second department is worth more here than a second visit. Getting a customer to cross is the single move that changes what they are worth, and it is the hardest thing to brief because it belongs to nobody.",
       "questions": [
         { "cap": "Advanced analytics", "q": "What is a two-department customer worth against a one-department customer?" },
         { "cap": "Predictive models", "q": "Which single-department customers are most likely to cross, and into what?" },

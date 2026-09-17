@@ -292,16 +292,29 @@
    Five of the eight carry no proof block at all rather than a hedged one:
    the anonymised studies are cleared as written, and nothing else is. */
 
+/* Split card (17 Sep): the claim cell wears the brand, the one place on the
+   page where indigo is a surface rather than an accent, because this is the
+   page's proudest sentence. The results list stays on white beside it, each
+   KPI led by a check in a brand-tinted circle. The faint white dot field on
+   the panel is the inverse frame token, keeping it in the drawn language. */
 .cproof__card {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
-  gap: var(--sp-10) var(--sp-16);
-  align-items: center;
-  padding: var(--sp-12);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  align-items: stretch;
+  overflow: hidden;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-float);
+}
+.cproof__card > div:first-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--sp-12) var(--sp-10);
+  background:
+    radial-gradient(var(--frame-grid-inv) 1px, transparent 1px) 0 0 / 22px 22px,
+    linear-gradient(160deg, var(--primary-600), var(--primary-700));
 }
 .cproof__claim {
   font-family: var(--font-display);
@@ -309,33 +322,37 @@
   font-weight: 600;
   line-height: var(--lh-title);
   letter-spacing: var(--tr-title);
-  color: var(--ink);
+  color: var(--ink-inv);
   text-wrap: balance;
 }
 .cproof__who {
   margin-top: var(--sp-4);
   font-size: var(--t-body-sm);
-  color: var(--ink-3);
+  color: var(--primary-200);
 }
 .cproof__list {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-4);
+  justify-content: center;
+  gap: var(--sp-5);
+  padding: var(--sp-10);
 }
 .cproof__item {
   display: flex;
   align-items: flex-start;
-  gap: var(--sp-3);
+  gap: var(--sp-4);
   font-size: var(--t-body);
   line-height: var(--lh-body);
   color: var(--ink-2);
 }
 .cproof__item svg {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   flex: none;
-  margin-top: 3px;
-  color: var(--brand);
+  padding: 4px;
+  background: var(--primary-50);
+  border-radius: var(--r-pill);
+  color: var(--brand-ink);
 }
 .cproof__note {
   margin-top: var(--sp-6);
@@ -344,7 +361,9 @@
 }
 
 @media (max-width: 900px) {
-  .cproof__card { grid-template-columns: 1fr; padding: var(--sp-8); }
+  .cproof__card { grid-template-columns: 1fr; }
+  .cproof__card > div:first-child { padding: var(--sp-8); }
+  .cproof__list { padding: var(--sp-8); }
 }
 
 @media (prefers-reduced-motion: reduce) {

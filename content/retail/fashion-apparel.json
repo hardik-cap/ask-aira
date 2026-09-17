@@ -5,13 +5,13 @@
   "description": "Drops, markdown cadence and returns that land weeks after the sale. aiRA answers what fashion marketing, CRM, data, eCommerce and growth teams ask, then builds the move and waits for approval.",
 
   "hero": {
-    "h1": "Full price is a window,<br>not a price.",
+    "h1": "Full price has<br>an expiry date.",
     "sub": "Every week a style sits is margin coming off, and returns take a second bite after the sale is already booked. aiRA reads the warehouse you already have, answers in plain language with the reasoning shown, and hands back the segment or the journey already built."
   },
 
   "shape": {
     "eyebrow": "The shape of it",
-    "heading": "Short windows, long silences, late numbers.",
+    "heading": "The clock starts the day a line lands.",
     "sub": "Four things about apparel data that make a generic analytics answer the wrong answer.",
     "facets": [
       {
@@ -24,11 +24,11 @@
       },
       {
         "t": "Seasonality",
-        "d": "Collections, not quarters. The calendar repeats but the assortment never does, so last year's comparison is against product that no longer exists."
+        "d": "Collections set the calendar. It repeats but the assortment never does, so last year's comparison is against product that no longer exists."
       },
       {
         "t": "What the data misses",
-        "d": "Fit and intent. A return meaning the item was wrong and a return from someone who ordered three sizes to keep one look identical in the data, and bracketing quietly inflates demand."
+        "d": "Fit and intent. A return meaning the item was wrong and a return from someone who ordered three sizes to keep one look identical in the data, and bracketing inflates apparent demand."
       }
     ]
   },

@@ -122,19 +122,34 @@
   gap: var(--sp-10);
   margin-top: var(--sp-12);
 }
-
-.shape {
-  border-top: 1px solid var(--border-strong);
-  padding-top: var(--sp-5);
+/* On the hubs the three facets take the homepage questions grid's anatomy
+   (17 Sep, user call: same as .feat__mini): one hairline above the row,
+   open cells, a duotone Phosphor icon riding the title as a prefix, the
+   description below. The category pages' four-up variant restyles itself
+   into cards (category.css) and skips the hairline. */
+.shape-grid:not(.shape-grid--4) {
+  border-top: 1px solid var(--border);
+  padding-top: var(--sp-10);
 }
+
+.shape { min-width: 0; }
 .shape__t {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
   font-family: var(--font-display);
-  font-size: var(--t-title);
+  font-size: var(--t-title-sm);
   font-weight: 600;
   letter-spacing: var(--tr-title);
   color: var(--ink);
-  margin-bottom: var(--sp-3);
+  margin-bottom: var(--sp-2);
 }
+.shape__ic {
+  display: inline-flex;
+  flex: none;
+  color: var(--brand);
+}
+.shape__ic svg { width: 20px; height: 20px; }
 .shape__d {
   font-size: var(--t-body);
   line-height: var(--lh-body);
@@ -155,4 +170,3 @@
 /* The section head already says what the panel is, so the group's own heading
    would be a second title on the same thought. */
 .rseats .finder__group-head { display: none; }
-.rseats .seatbar { margin-top: var(--sp-10); }

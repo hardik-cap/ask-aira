@@ -5,13 +5,13 @@
   "description": "Weekly baskets, thin margins and a lapse you can see in days. aiRA answers what grocery marketing, CRM, data, eCommerce and growth teams ask, then builds the move and waits for approval.",
 
   "hero": {
-    "h1": "A missed week is<br>a signal, not a blip.",
+    "h1": "A habit this regular<br>tells you when it breaks.",
     "sub": "No other kind of retail sees its customer this often, so a change in behaviour shows up in days rather than quarters. aiRA reads the warehouse you already have, answers in plain language with the reasoning shown, and hands back the segment or the journey already built."
   },
 
   "shape": {
     "eyebrow": "The shape of it",
-    "heading": "Weekly rhythm, thin margin, quiet churn.",
+    "heading": "The richest record in retail, and the thinnest identity.",
     "sub": "Four things about grocery data that make a generic analytics answer the wrong answer.",
     "facets": [
       {
@@ -73,7 +73,7 @@
     },
 
     "ecommerce": {
-      "problem": "Online grocery is the same customer on a different cost base. Picking and delivery mean an online basket is worth a different amount than the identical basket in store, and substitutions quietly decide whether the next order happens at all.",
+      "problem": "Online grocery is the same customer on a different cost base. Picking and delivery mean an online basket is worth a different amount than the identical basket in store, and substitutions decide whether the next order happens at all.",
       "questions": [
         { "cap": "Ad hoc analytics", "q": "Is click and collect adding trips, or moving trips we already had off delivery?" },
         { "cap": "Advanced analytics", "q": "Which substitutions cost us the next order, and which ones nobody minds?" },

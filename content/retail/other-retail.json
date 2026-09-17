@@ -11,7 +11,7 @@
 
   "shape": {
     "eyebrow": "The shape of it",
-    "heading": "One question, several business models.",
+    "heading": "The model decides what a good customer is.",
     "sub": "Four things these formats have in common that make a generic analytics answer the wrong answer.",
     "facets": [
       {
@@ -24,7 +24,7 @@
       },
       {
         "t": "Seasonality",
-        "d": "Launch-driven or event-driven rather than seasonal. The peak follows a product or a sale event, and it can move by weeks from one year to the next."
+        "d": "Launches and sale events set the peaks. The peak follows a product or a sale event, and it can move by weeks from one year to the next."
       },
       {
         "t": "What the data misses",

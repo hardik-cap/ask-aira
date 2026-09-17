@@ -411,133 +411,56 @@ html:not(.js) .finder__group + .finder__group { margin-top: var(--sp-16); }
 }
 
 /* ---- The five seats ------------------------------------------------------
-   Attio platform-page grammar (user reference, 15 Sep): five tabs spread
-   across the width, a ruler of ticks under them with a solid mark sliding to
-   the active tab, then ONE boxy two-cell panel: copy in the left cell, the
-   media slot in the right. One seat on screen at a time instead of five
-   stacked blocks, which is what took the page height down.
+   Exactly the category pages' .catroles anatomy (user call, 17 Sep: "please
+   dont make them different"): five stacked split panes, hairline-separated,
+   copy on one side and the reserved image frame on the other, sides
+   alternating down the page. The Attio tab bar and its sliding-ruler mark
+   are retired with their markup; all five seats read stacked, in the markup
+   and on screen, which also keeps the SEO posture this page was built
+   around. seat-tabs.js is no longer loaded by any page. */
 
-   The bar is hidden until js/solutions.js adds .is-tabbed to the group, so
-   with scripts off the five panels simply read stacked and nothing sits
-   behind a dead control. The questions are all still in the markup either
-   way, which is the SEO posture this page was built around. */
-
-.seatbar {
-  display: none;
-  margin-top: var(--sp-12);
-  /* Five labels cannot fit at phone width; the bar scrolls instead of
-     wrapping, and the ruler scrolls with it. */
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.seatbar::-webkit-scrollbar { display: none; }
-.finder__group.is-tabbed .seatbar { display: block; }
-
-/* Shrink-to-fit wrapper: as wide as the container, or as wide as the five
-   labels when they overflow it, so tabs and ruler always share one width and
-   the mark's offset maths hold. */
-.seatbar__in {
-  position: relative;
-  display: inline-block;
-  min-width: 100%;
-}
-
-.seatbar__tabs {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--sp-8);
-}
-
-.seatbar__tab {
-  padding: var(--sp-2) 0 var(--sp-4);
-  font-family: var(--font-sans);
-  font-size: var(--t-body-sm);
-  font-weight: 550;
-  color: var(--ink-3);
-  white-space: nowrap;
-  cursor: pointer;
-  transition: color var(--dur-fast) var(--ease);
-}
-.seatbar__tab:hover { color: var(--ink-2); }
-.seatbar__tab[aria-selected="true"] { color: var(--ink); }
-
-/* The ruler: uniform hairline ticks the full width, and one taller solid
-   mark that slides under the chosen tab. */
-.seatbar__ruler {
-  position: relative;
-  height: 14px;
-  background: repeating-linear-gradient(
-    to right,
-    var(--border-strong) 0 1px,
-    transparent 1px 14px
-  );
-  background-size: 100% 8px;
-  background-repeat: no-repeat;
-}
-.seatbar__mark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 2px;
-  height: 14px;
-  background: var(--ink);
-  transition: left 320ms var(--ease);
-}
-
-/* ---- The panel ------------------------------------------------------------ */
-
-.seats {
-  display: grid;
-  gap: var(--sp-10);
-  margin-top: var(--sp-8);
-}
-/* Tabbed, only the open seat renders; scriptless, all five stack. */
-.finder__group.is-tabbed .seat:not(.is-open) { display: none; }
+.seats { margin-top: var(--sp-12); }
 
 .seat {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: stretch;
-  padding: 0;
-  overflow: hidden;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  /* Square, per the Attio platform page: the panel reads as a band the page
-     frame runs through, not as a card sitting on it. */
-  border-radius: 0;
-  transition: none;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  gap: var(--sp-10) var(--sp-16);
+  align-items: center;
+  scroll-margin-top: calc(var(--nav-h) + var(--nav-float) + var(--sp-10));
+}
+.seat + .seat {
+  margin-top: var(--sp-16);
+  padding-top: var(--sp-16);
+  border-top: 1px solid var(--border);
 }
 
-/* Title and lede sit at the top, the capability pair at the very bottom, with
-   the space between them left open. That gap IS the Attio layout: the claim
-   and its footnote hold opposite ends of the cell rather than stacking. */
-.seat__id {
-  display: flex;
-  flex-direction: column;
-  padding: var(--sp-10);
-  min-width: 0;
-  min-height: 420px;
-}
+/* Every second seat swaps sides, the copy staying first in the DOM. */
+.seat:nth-child(even) { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr); }
+.seat:nth-child(even) .seat__id { order: 2; }
+.seat:nth-child(even) .seat__shot { order: 1; }
 
-/* The media slot fills the right cell, hairline-divided from the copy.
+.seat__id { min-width: 0; }
 
-   PLACEHOLDER. There is no per-seat screenshot yet, so the slot shows what it
-   is: graph paper and a picture glyph, no invented UI and no caption. Drop an
-   <img> in and the glyph steps aside; the data-shot attribute names the seat
-   the shot belongs to. This does not ship in this state. */
+/* The media slot, exactly the category pages' reserved frame: a gradient
+   hairline dissolving downward around an empty dotted surface (one-element
+   border-box trick so the markup keeps its single slot div). Still a
+   PLACEHOLDER: drop an <img> in and the glyph steps aside; the data-shot
+   attribute names the seat the shot belongs to. */
 .seat__shot {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 380px;
-  border-left: 1px solid var(--border);
-  /* A dot field rather than graph paper (17 Sep, Attio reference): ruled lines
-     read as a drawing surface, dots read as an empty stage, which is what an
-     unfilled slot should say. Same 22px pitch as the hero's field. */
-  background-color: var(--bg-subtle);
-  background-image: radial-gradient(var(--frame-grid) 1.1px, transparent 1.1px);
-  background-size: 22px 22px;
-  background-position: 11px 11px;
+  aspect-ratio: 67 / 34;
+  border: 1px solid transparent;
+  border-radius: var(--r-lg);
+  background-image:
+    radial-gradient(var(--frame-grid) 1px, transparent 1px),
+    linear-gradient(var(--surface), var(--surface)),
+    linear-gradient(180deg, var(--border-strong), transparent);
+  background-size: 22px 22px, auto, auto;
+  background-origin: padding-box, padding-box, border-box;
+  background-clip: padding-box, padding-box, border-box;
+  box-shadow: var(--shadow-float);
 }
 .seat__shot-ic {
   width: 40px;
@@ -548,19 +471,25 @@ html:not(.js) .finder__group + .finder__group { margin-top: var(--sp-16); }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: calc(var(--r-lg) - 1px);
 }
-/* Once a real screenshot lands it fills the cell edge to edge. */
-.seat__shot:has(img) { background-image: none; }
+/* Once a real screenshot lands it fills the frame edge to edge. */
+.seat__shot:has(img) {
+  background-image:
+    linear-gradient(var(--surface), var(--surface)),
+    linear-gradient(180deg, var(--border-strong), transparent);
+  background-size: auto, auto;
+  background-origin: padding-box, border-box;
+  background-clip: padding-box, border-box;
+}
 .seat__shot:has(img) .seat__shot-ic { display: none; }
 
 .seat__t {
   font-family: var(--font-display);
   font-size: var(--t-display-3);
-  font-weight: 700;
-  line-height: 1.2;
+  font-weight: 600;
   letter-spacing: var(--tr-title);
   color: var(--ink);
-  margin-bottom: var(--sp-4);
 }
 .seat__ic {
   width: 24px;
@@ -570,31 +499,31 @@ html:not(.js) .finder__group + .finder__group { margin-top: var(--sp-16); }
 }
 
 .seat__hand {
+  margin-top: var(--sp-3);
   font-size: var(--t-body-lg);
   line-height: var(--lh-body);
   color: var(--ink-2);
-  max-width: 34rem;
+  max-width: 40rem;
+  text-wrap: pretty;
 }
 
-/* The two capabilities this seat leans on. Same pair in every industry,
-   because the capability does not change with the vertical; the questions
-   in the figure do, and those are written per industry. */
+/* The two capabilities this seat leans on: the qledger cell anatomy from the
+   category pages. Same pair in every industry, because the capability does
+   not change with the vertical; the questions on the category pages do. */
 .seat__pair {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--sp-6);
-  /* auto, not a fixed gap: this is what pushes the pair to the cell's floor. */
-  margin-top: auto;
-  padding-top: var(--sp-10);
+  gap: var(--sp-8);
+  margin-top: var(--sp-8);
 }
 .seat__cap-t {
   display: flex;
   align-items: center;
-  gap: var(--sp-2);
-  font-family: var(--font-sans);
-  font-size: var(--t-body-sm);
+  gap: var(--sp-3);
+  font-family: var(--font-display);
+  font-size: var(--t-title-sm);
   font-weight: 600;
-  letter-spacing: 0;
+  letter-spacing: var(--tr-title);
   color: var(--ink);
   margin-bottom: var(--sp-2);
 }
@@ -686,15 +615,13 @@ html:not(.js) .finder__group + .finder__group { margin-top: var(--sp-16); }
 /* ---- Responsive ---------------------------------------------------------- */
 
 @media (max-width: 991px) {
-  /* The panel stacks: copy above, media slot below, divided by the same
-     hairline turned horizontal. */
-  .seat { grid-template-columns: 1fr; }
-  .seat__id { padding: var(--sp-8); }
-  .seat__shot {
-    min-height: 240px;
-    border-left: 0;
-    border-top: 1px solid var(--border);
-  }
+  /* The pane stacks: copy above, the reserved frame below, keeping its own
+     aspect and float. The alternation resets so copy always leads. */
+  .seat,
+  .seat:nth-child(even) { grid-template-columns: 1fr; }
+  .seat:nth-child(even) .seat__id,
+  .seat:nth-child(even) .seat__shot { order: 0; }
+  .seat + .seat { margin-top: var(--sp-12); padding-top: var(--sp-12); }
 
   .solutions-close__card { padding: var(--sp-10); }
   .solutions-close__grid {
@@ -741,7 +668,6 @@ html:not(.js) .finder__group + .finder__group { margin-top: var(--sp-16); }
 
 @media (prefers-reduced-motion: reduce) {
   .seat { transition: none; }
-  .seatbar__mark { transition: none; }
 }
 
 /* ---- By industry: the dark band -------------------------------------------
