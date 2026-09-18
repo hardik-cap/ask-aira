@@ -60,7 +60,19 @@
    above it: the tint read as a smudge under the floating header and the fade
    ended mid-section, so neither edge met its neighbour cleanly. A single
    ground and the joints do that job instead. */
-.page-category .hero-ind { background: var(--bg); }
+/* The ground stays effectively flat, but since 18 Sep the claim carries a
+   whisper of the analogous pair behind it: T300 sky left of centre,
+   accent-400 purple right, both radials that die out well before the
+   section's edges so the old smudge-under-the-header problem cannot
+   return. */
+.page-category .hero-ind {
+  background:
+    radial-gradient(30rem 16rem at 38% 44%,
+      color-mix(in srgb, var(--t-300) 6%, transparent), transparent 72%),
+    radial-gradient(30rem 16rem at 62% 44%,
+      color-mix(in srgb, var(--accent-400) 5%, transparent), transparent 72%),
+    var(--bg);
+}
 .page-category .hero-ind__grid { grid-template-columns: minmax(0, 1fr); }
 .page-category .hero-ind__copy {
   max-width: 46rem;
@@ -74,6 +86,141 @@
 .page-category .hero-ind__cta { justify-content: center; }
 @media (max-width: 991px) {
   .page-category .hero-ind { padding-block: var(--sp-12) var(--sp-16); }
+}
+
+/* ---- Hero orbits ------------------------------------------------------------
+   Concentric hairline rings centred on the hero claim, with the seven
+   capability icons riding them as satellites (MoEngage reference, 18 Sep).
+   Alternate rings spin opposite ways; each chip counter-spins at the same
+   period so its icon stays upright. The whole field is masked so it clears
+   the centre where the claim sits, and everything is CSS: with reduced
+   motion the satellites simply hold their positions. */
+
+.orbits {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  /* Two mask layers intersected: the ellipse clears the centre for the
+     claim, and the vertical band fades the field out at the hero's top and
+     bottom edges so rings never end on a hard clip line. */
+  -webkit-mask-image:
+    radial-gradient(ellipse 40rem 15rem at 50% 50%, transparent 62%, #000 88%),
+    linear-gradient(180deg, transparent, #000 10% 90%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(ellipse 40rem 15rem at 50% 50%, transparent 62%, #000 88%),
+    linear-gradient(180deg, transparent, #000 10% 90%, transparent);
+  mask-composite: intersect;
+}
+/* The annular bands between the rings carry the analogous pair as whisper
+   fills: sky between the first and second orbit, purple between the second
+   and third, each stopping exactly on a ring's hairline so the rings read
+   as the bands' edges. The container's mask fades them with everything
+   else. */
+.orbits::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle,
+    transparent 260px,
+    color-mix(in srgb, var(--t-300) 5%, transparent) 260px 420px,
+    color-mix(in srgb, var(--accent-400) 4%, transparent) 420px 580px,
+    transparent 580px);
+}
+
+/* The copy paints above the field (rails sit at z 1, so the copy takes 2). */
+.page-category .hero-ind > .padding-global {
+  position: relative;
+  z-index: 2;
+}
+
+.orbits__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  animation: orbit-spin linear infinite;
+}
+/* Centred by margins, not translate: the spin animation owns transform. */
+.orbits__ring--1 { width: 520px;  height: 520px;  margin: -260px 0 0 -260px; animation-duration: 46s; }
+.orbits__ring--2 { width: 840px;  height: 840px;  margin: -420px 0 0 -420px; animation-duration: 70s; animation-name: orbit-spin-rev; }
+.orbits__ring--3 { width: 1160px; height: 1160px; margin: -580px 0 0 -580px; animation-duration: 94s; }
+
+.orbits__sat {
+  position: absolute;
+  inset: 0;
+  display: block;
+  transform: rotate(var(--a, 0deg));
+}
+.orbits__ring--1 .orbits__sat:nth-child(1) { --a: 25deg; }
+.orbits__ring--1 .orbits__sat:nth-child(2) { --a: 205deg; }
+.orbits__ring--2 .orbits__sat:nth-child(1) { --a: 335deg; }
+.orbits__ring--2 .orbits__sat:nth-child(2) { --a: 95deg; }
+.orbits__ring--2 .orbits__sat:nth-child(3) { --a: 215deg; }
+.orbits__ring--3 .orbits__sat:nth-child(1) { --a: 65deg; }
+.orbits__ring--3 .orbits__sat:nth-child(2) { --a: 285deg; }
+
+.orbits__pos {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: block;
+  transform: translate(-50%, -50%) rotate(calc(-1 * var(--a, 0deg)));
+}
+.orbits__chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow-float);
+  color: var(--brand);
+  animation: orbit-spin-rev linear infinite;
+}
+.orbits__ring--1 .orbits__chip { animation-duration: 46s; }
+.orbits__ring--2 .orbits__chip { animation-duration: 70s; animation-name: orbit-spin; }
+.orbits__ring--3 .orbits__chip { animation-duration: 94s; }
+.orbits__chip svg { width: 20px; height: 20px; }
+
+/* The analogous trio rides the satellites (18 Sep, user call): every chip
+   takes one of the three sibling hues, T300 sky, P400 brand, accent-400
+   purple, tinting its ground and border and carrying its glyph, so the
+   family reads around the orbit rather than hiding in the wash. */
+.orbits__ring--1 .orbits__sat:nth-child(1) .orbits__chip,
+.orbits__ring--2 .orbits__sat:nth-child(2) .orbits__chip,
+.orbits__ring--3 .orbits__sat:nth-child(2) .orbits__chip {
+  color: var(--t-300);
+  background: color-mix(in srgb, var(--t-300) 12%, var(--surface));
+  border-color: color-mix(in srgb, var(--t-300) 34%, var(--border));
+}
+.orbits__ring--1 .orbits__sat:nth-child(2) .orbits__chip,
+.orbits__ring--2 .orbits__sat:nth-child(3) .orbits__chip,
+.orbits__ring--3 .orbits__sat:nth-child(1) .orbits__chip {
+  color: var(--accent-400);
+  background: color-mix(in srgb, var(--accent-400) 10%, var(--surface));
+  border-color: color-mix(in srgb, var(--accent-400) 30%, var(--border));
+}
+.orbits__ring--2 .orbits__sat:nth-child(1) .orbits__chip {
+  background: color-mix(in srgb, var(--brand) 9%, var(--surface));
+  border-color: color-mix(in srgb, var(--brand) 26%, var(--border));
+}
+
+@keyframes orbit-spin     { to { transform: rotate(360deg); } }
+@keyframes orbit-spin-rev { to { transform: rotate(-360deg); } }
+
+/* The field needs room to mean anything; phones keep a clean hero. */
+@media (max-width: 991px) {
+  .orbits { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbits__ring,
+  .orbits__chip { animation: none; }
 }
 
 .crumb {
@@ -106,67 +253,74 @@
    pair, which is exactly what four facets want. The outer two lead with copy
    and hand the rest of their height to the well; the middle two lead with the
    well, so the column does not read as two identical blocks stacked. */
-.shape-grid--4 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--sp-2);
-  align-items: stretch;
-}
-.shape-grid--4 .shape:nth-child(1) { grid-column: 1; grid-row: 1 / span 2; }
-.shape-grid--4 .shape:nth-child(2) { grid-column: 2; grid-row: 1; }
-.shape-grid--4 .shape:nth-child(3) { grid-column: 2; grid-row: 2; }
-.shape-grid--4 .shape:nth-child(4) { grid-column: 3; grid-row: 1 / span 2; }
+/* ---- The shape of it: four facets ---------------------------------------
+   Flat four-column list, hairline-divided, no cards (18 Sep, user reference:
+   Clerk's security row). It replaced a bento of boxed cards with illustration
+   wells, because only one of the eight category pages ever got illustrations
+   drawn and we are not drawing them for all eight. The four retired drawings
+   and their stylesheet are in archive/facet-illustrations/.
 
-/* The middle pair put the illustration first and keep it a fixed band, so
-   the two cards stack to about the height of one tall card beside them. */
-.shape-grid--4 .shape:nth-child(2) .shape__fig,
-.shape-grid--4 .shape:nth-child(3) .shape__fig {
-  order: -1;
-  flex: none;
-  min-height: 104px;
-  margin-top: 0;
-  margin-bottom: var(--sp-5);
+   Icon and title share a line; the description starts under the ICON, not the
+   title, which is what the reference does and what separates this from the
+   .runs list, where the description hangs under the name instead. */
+.shape-grid--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
 }
 .shape-grid--4 .shape {
-  display: flex;
-  flex-direction: column;
+  display: block;
+  padding: 0 var(--sp-8);
   border-top: 0;
-  padding: var(--sp-6);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  box-shadow: var(--shadow-float);
+  border-left: 1px solid var(--border);
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
 }
+.shape-grid--4 .shape:first-child { padding-left: 0; border-left: 0; }
+.shape-grid--4 .shape:last-child { padding-right: 0; }
+
 .shape-grid--4 .shape__t {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
   font-size: var(--t-title-sm);
   font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
 }
-.shape-grid--4 .shape__d { max-width: 44rem; }
-.shape-grid--4 .shape__fig {
-  flex: 1;
-  min-height: 120px;
-  margin-top: var(--sp-5);
-  border-radius: var(--r-md);
-  background: radial-gradient(var(--frame-grid) 1px, transparent 1px) 0 0 / 22px 22px;
+.shape__ic {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--brand);
+}
+.shape-grid--4 .shape__d {
+  margin-top: var(--sp-4);
+  max-width: none;
 }
 
-/* Below the bento's width the three columns crush the copy, so the explicit
-   placement is dropped and the four fall back to an even pair of rows. */
 @media (max-width: 1100px) {
+  .shape-grid--4 .shape { padding-inline: var(--sp-6); }
+}
+@media (max-width: 900px) {
   .shape-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .shape-grid--4 .shape:nth-child(n) { grid-column: auto; grid-row: auto; }
-  .shape-grid--4 .shape:nth-child(2) .shape__fig,
-  .shape-grid--4 .shape:nth-child(3) .shape__fig {
-    order: 0;
-    flex: 1;
-    margin-top: var(--sp-6);
-    margin-bottom: 0;
+  .shape-grid--4 .shape:nth-child(2n+1) { padding-left: 0; border-left: 0; }
+  .shape-grid--4 .shape:nth-child(n+3) {
+    margin-top: var(--sp-8);
+    padding-top: var(--sp-8);
+    border-top: 1px solid var(--border);
   }
 }
-@media (max-width: 768px) {
-  .shape-grid--4 { grid-template-columns: 1fr; }
-  .shape-grid--4 .shape { padding: var(--sp-6); }
-  .shape-grid--4 .shape__fig { min-height: 140px; }
+@media (max-width: 560px) {
+  .shape-grid--4 { grid-template-columns: minmax(0, 1fr); }
+  .shape-grid--4 .shape { padding-inline: 0; border-left: 0; }
+  .shape-grid--4 .shape + .shape {
+    margin-top: var(--sp-6);
+    padding-top: var(--sp-6);
+    border-top: 1px solid var(--border);
+  }
 }
+
 
 /* ---- Role blocks ----------------------------------------------------------
    Five per page, stacked and anchored. Since 17 Sep each block is a split
@@ -292,29 +446,41 @@
    Five of the eight carry no proof block at all rather than a hedged one:
    the anonymised studies are cleared as written, and nothing else is. */
 
-/* Split card (17 Sep): the claim cell wears the brand, the one place on the
-   page where indigo is a surface rather than an accent, because this is the
-   page's proudest sentence. The results list stays on white beside it, each
-   KPI led by a check in a brand-tinted circle. The faint white dot field on
-   the panel is the inverse frame token, keeping it in the drawn language. */
+/* One dark card (18 Sep, replacing the flat indigo slab the user rejected):
+   the whole card rides the site's ink register, the same near-black the
+   dark runs band and the primary buttons wear, with the analogous pair
+   breathing in its corners: T300 sky top-left, accent-400 purple
+   bottom-right. T300 is the dark-surface colour (7.8:1 on ink, per the
+   token notes), so it also carries the KPI checks. A soft white hairline
+   divides claim from results. */
 .cproof__card {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
   align-items: stretch;
   overflow: hidden;
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--surface-inv);
   border-radius: var(--r-lg);
-  box-shadow: var(--shadow-float);
+  box-shadow: var(--shadow-lg);
+}
+.cproof__card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(520px 340px at 8% -12%,
+      color-mix(in srgb, var(--t-300) 14%, transparent), transparent 70%),
+    radial-gradient(560px 360px at 94% 112%,
+      color-mix(in srgb, var(--accent-400) 14%, transparent), transparent 70%),
+    radial-gradient(var(--frame-grid-inv) 1px, transparent 1px) 0 0 / 22px 22px;
 }
 .cproof__card > div:first-child {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: var(--sp-12) var(--sp-10);
-  background:
-    radial-gradient(var(--frame-grid-inv) 1px, transparent 1px) 0 0 / 22px 22px,
-    linear-gradient(160deg, var(--primary-600), var(--primary-700));
 }
 .cproof__claim {
   font-family: var(--font-display);
@@ -328,14 +494,16 @@
 .cproof__who {
   margin-top: var(--sp-4);
   font-size: var(--t-body-sm);
-  color: var(--primary-200);
+  color: var(--ink-inv-3);
 }
 .cproof__list {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: var(--sp-5);
   padding: var(--sp-10);
+  border-left: 1px solid rgba(255, 255, 255, 0.10);
 }
 .cproof__item {
   display: flex;
@@ -343,27 +511,26 @@
   gap: var(--sp-4);
   font-size: var(--t-body);
   line-height: var(--lh-body);
-  color: var(--ink-2);
+  color: var(--ink-inv-2);
 }
 .cproof__item svg {
   width: 16px;
   height: 16px;
   flex: none;
   padding: 4px;
-  background: var(--primary-50);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: var(--r-pill);
-  color: var(--brand-ink);
-}
-.cproof__note {
-  margin-top: var(--sp-6);
-  font-size: var(--t-caption);
-  color: var(--ink-faint);
+  color: var(--t-300);
 }
 
 @media (max-width: 900px) {
   .cproof__card { grid-template-columns: 1fr; }
   .cproof__card > div:first-child { padding: var(--sp-8); }
-  .cproof__list { padding: var(--sp-8); }
+  .cproof__list {
+    padding: var(--sp-8);
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

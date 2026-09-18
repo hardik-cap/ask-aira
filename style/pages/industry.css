@@ -19,7 +19,14 @@
      top pad back, so the page has no strip of bare background above the bar. */
   margin-top: calc(-1 * (var(--nav-h) + var(--nav-float) + 2px));
   padding-block: calc(var(--sp-20) + var(--nav-h) + var(--nav-float) + 2px) var(--sp-20);
+  /* Analogous halo (18 Sep): the brand tint at top centre with its two
+     client-supplied flanks breathing either side of it, T300 sky to the
+     left, accent-400 purple to the right. All three stay whispers. */
   background:
+    radial-gradient(42% 44% at 24% 0%,
+      color-mix(in srgb, var(--t-300) 7%, transparent), transparent 70%),
+    radial-gradient(42% 44% at 76% 0%,
+      color-mix(in srgb, var(--accent-400) 6%, transparent), transparent 70%),
     radial-gradient(58% 46% at 50% 0%,
       color-mix(in srgb, var(--primary-400) 5%, transparent), transparent 72%),
     linear-gradient(180deg, var(--bg-subtle), var(--bg) 78%);

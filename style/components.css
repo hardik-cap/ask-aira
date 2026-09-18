@@ -1194,40 +1194,6 @@ body.modal-open { overflow: hidden; }
   text-wrap: pretty;
 }
 
-/* The "today" marker. A word, not a dot: a dot needs a legend before it means
-   anything, and it would have leant on colour alone to carry the one claim in
-   this section that has to be unambiguous. It is deliberately NOT the .state
-   pill, which is the approval grammar (pending / approve / hold / reject) and
-   must keep meaning only that.
-
-   Inline, so a name that wraps keeps the marker with its last word rather than
-   floating it to the middle of two lines. Caps micro-label spec: display face,
-   12px, 600, +0.06em, which is the treatment set on .nav__col-title. */
-.runs__flag {
-  display: inline-block;
-  vertical-align: middle;
-  margin-left: var(--sp-3);
-  font-family: var(--font-display);
-  font-size: var(--t-mono);
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--brand);
-}
-.runs__key .runs__flag { margin-left: 0; }
-/* Keeps the marker with the last word of the name. Without it a name that
-   wraps drops LIVE onto a line of its own, where it reads as an orphan label
-   rather than as part of the name. */
-.runs__nb { white-space: nowrap; }
-
-.runs__key {
-  margin-top: var(--sp-10);
-  padding-top: var(--sp-5);
-  border-top: 1px solid var(--border);
-  font-size: var(--t-caption);
-  color: var(--ink-3);
-}
-
 /* Two columns then one. The sequence still reads in order when stacked, and
    the divider moves to the top edge so it never sits at the end of a column. */
 @media (max-width: 1100px) {
@@ -1251,3 +1217,21 @@ body.modal-open { overflow: hidden; }
     border-top: 1px solid var(--border);
   }
 }
+
+/* Dark variant (18 Sep, user call): the section wears .section--inv and
+   every register retunes. Icons and flags ride P200, the dark-surface
+   accent, because full brand P400 sinks on near-black. Placed after the
+   responsive blocks so the longhand border colours win over the media
+   rules' shorthands at every width. */
+.section--inv .runs__col {
+  border-left-color: rgba(255, 255, 255, 0.14);
+  border-top-color: rgba(255, 255, 255, 0.14);
+}
+.section--inv .runs__n { color: var(--ink-inv-3); }
+.section--inv .runs__t { color: var(--ink-inv); }
+.section--inv .runs__d { color: var(--ink-inv-2); }
+/* Light, not brand (user call, 18 Sep): the icons sit in the same register
+   as the names beside them rather than adding a violet accent per row. */
+.section--inv .runs__ic { color: var(--ink-inv-2); }
+.section--inv .runs__name { color: var(--ink-inv); }
+.section--inv .runs__desc { color: var(--ink-inv-3); }

@@ -33,6 +33,40 @@
   /* Violet accent: the blue-to-purple sweep in the mechanism beams */
   --violet-400: #A78BFA;
 
+  /* ---- Analogous accents, flanking the brand (18 Sep) -------------------
+     Two client-supplied hues that sit either side of P400. They are not
+     approximate neighbours: all three are the SAME colour at three hues.
+
+         T300        #52BFF6   rgb( 82, 191, 246)   hue 200   sky
+         P400        #526CF6   rgb( 82, 108, 246)   hue 230   brand
+         accent-400  #8952F6   rgb(137,  82, 246)   hue 260   purple
+
+     Saturation is 90% and lightness 64% in all three, and the hues are
+     exactly 30 degrees apart. Blue is pinned at 246 and the minimum channel
+     at 82 in every one. So the family rule is simply: S 90, L 64, step the
+     hue by 30. Any further theme colour the client sends should satisfy that,
+     and it is worth checking each one against it on arrival.
+
+     (An earlier note here read "hold 82 and 246, move green". That was
+     inferred from T300 alone and is only its special case; accent-400 moves
+     red instead. The S/L/hue rule above is the one that holds.)
+
+     Contrast, which differs sharply across the three despite identical
+     lightness, because luminance is green-weighted:
+
+         on white   T300 2.07:1    P400 4.34:1    accent-400 4.56:1
+         on ink     T300 7.78:1    P400 3.71:1    accent-400 3.53:1
+
+     accent-400 is the only one of the three that clears 4.5:1 for body text
+     on white. T300 is a dark-surface colour and must not carry text on light.
+
+     NAMING: the client's own designations are kept verbatim. Note they are
+     inconsistent with each other, T300 against accent-400, despite being
+     symmetric flanks of the same brand step; and --t-* is otherwise the TYPE
+     scale in this file. Worth reconciling into one ramp if more arrive. */
+  --t-300:      #52BFF6;
+  --accent-400: #8952F6;
+
   /* ---- Raw ramp: slate (cool neutrals, hue-aligned to the indigo) --- */
   --slate-50:  #F7F8FB;
   --slate-100: #EFF1F6;
