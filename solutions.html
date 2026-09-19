@@ -37,6 +37,7 @@
 
   <script src="/js/components.js" defer></script>
   <script src="/js/reveal.js" defer></script>
+  <script type="module" src="/js/globe.js"></script>
   <script src="/js/seat-tabs.js" defer></script>
   <script src="/js/solutions.js" defer></script>
 </head>
@@ -339,19 +340,8 @@
             </div>
           </div>
 
-          <div class="thread solutions-close__thread">
-            <div class="thread__step">
-              <h3 class="thread__title">We reply within one business day.</h3>
-              <p class="thread__body">With a time and the security brief. No demo gauntlet.</p>
-            </div>
-            <div class="thread__step">
-              <h3 class="thread__title">Security brief comes first.</h3>
-              <p class="thread__body">Shared before the session, not after the third call.</p>
-            </div>
-            <div class="thread__step">
-              <h3 class="thread__title">We will tell you where aiRA is the wrong fit.</h3>
-              <p class="thread__body">It happens. Bring your actual shortlist and we will go through it.</p>
-            </div>
+          <div class="close-globe" aria-hidden="true">
+            <canvas class="close-globe__canvas" width="1200" height="1200"></canvas>
           </div>
 
             </div>

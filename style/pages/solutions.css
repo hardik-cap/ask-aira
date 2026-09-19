@@ -616,6 +616,27 @@ html:not(.js) .finder__group + .finder__group { margin-top: var(--sp-16); }
 }
 .solutions-close__cta { margin-top: var(--sp-8); }
 
+/* ---- The globe (19 Sep) -----------------------------------------------------
+   A cobe globe replaces the close card's thread: it rises out of the card's
+   bottom-right corner, clipped by the card's own overflow, rotating slowly
+   with markers on the cities the customer logos actually come from
+   (js/globe.js; still under reduced motion). Decoration only, so it takes
+   no pointer: without JS or WebGL the corner simply stays quiet. The box is
+   absolute, so the grid's right column just holds the space open. */
+.close-globe {
+  position: absolute;
+  right: -80px;
+  bottom: -300px;
+  width: 600px;
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+.close-globe__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 /* ---- Responsive ---------------------------------------------------------- */
 
 @media (max-width: 991px) {
@@ -632,6 +653,15 @@ html:not(.js) .finder__group + .finder__group { margin-top: var(--sp-16); }
     grid-template-columns: 1fr;
     gap: var(--sp-10);
   }
+  /* Stacked, the globe shrinks into the corner under the copy; the card's
+     extra bottom padding is the room its visible half needs. */
+  .solutions-close__card { padding-bottom: 200px; }
+  .close-globe { width: 420px; right: -70px; bottom: -220px; }
+}
+
+@media (max-width: 640px) {
+  .solutions-close__card { padding-bottom: var(--sp-10); }
+  .close-globe { display: none; }
 }
 
 /* The joined bar cannot hold two fields plus a button at phone width, so it

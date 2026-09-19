@@ -79,7 +79,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 4 / 3;
+  /* 16/10 since 19 Sep: 4/3 gave the photo more height than the hero copy
+     beside it could answer. */
+  aspect-ratio: 16 / 10;
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-float);
@@ -99,6 +101,48 @@
   padding: 0;
 }
 .hero-ind__shot:has(img) .seat__shot-ic { display: none; }
+
+/* ---- Floating UI cards on the hero photo (19 Sep, moengage.com role-page
+   reference): two small drawn-UI cards ride the photo's edges, an audience
+   card top-left and the proposed move bottom-right, so the approval grammar
+   is visible before the first scroll. Drawn in CSS like every product
+   surface without a screenshot, and aria-hidden: they illustrate, the copy
+   beside them explains. */
+.hero-ind__fig { position: relative; }
+.hero-float {
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  gap: 4px;
+  justify-items: start;
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-float);
+}
+.hero-float--aud { top: 20px; left: -28px; }
+.hero-float--move { bottom: 24px; right: -20px; }
+.hero-float__t {
+  font-family: var(--font-display);
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+}
+.hero-float__n {
+  font-size: var(--t-body);
+  color: var(--ink-2);
+}
+@media (max-width: 991px) {
+  /* Full-width figure below the split: the cards tuck inside the photo's
+     edges instead of overhanging a gap that no longer exists. */
+  .hero-float--aud { left: 12px; }
+  .hero-float--move { right: 12px; }
+}
+@media (max-width: 640px) {
+  .hero-float { display: none; }
+}
 
 
 @media (max-width: 991px) {
@@ -177,3 +221,31 @@
 /* The section head already says what the panel is, so the group's own heading
    would be a second title on the same thought. */
 .rseats .finder__group-head { display: none; }
+
+/* ---- The asks (19 Sep) -------------------------------------------------------
+   The teams section came out on Hardik's call; what stands in its place
+   follows the solution-first turn: three real asks for the industry, each
+   taken from the opening question through the drill-down it earns to the
+   move held for approval. The question is a .qstring, the sequence is the
+   .thread trace, the promise is the .state badge. */
+
+.askthreads {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-12);
+  margin-top: var(--sp-12);
+}
+.askthread { min-width: 0; }
+/* The opening ask leads the column at the subheader size; the steps below
+   stay at body scale so the question keeps the room. */
+.askthread > .qstring {
+  font-size: var(--t-body-lg);
+  margin-bottom: var(--sp-6);
+}
+.askthread .thread { gap: var(--sp-6); }
+.askthread .state { margin-top: var(--sp-2); }
+
+@media (max-width: 991px) {
+  .askthreads { grid-template-columns: 1fr; gap: var(--sp-10); }
+  .askthread > .qstring { max-width: 32rem; }
+}

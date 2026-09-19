@@ -226,16 +226,15 @@
       industryOpts[o].getAttribute('data-group');
   }
 
-  /* A team lands you on that team's section. The two page types reach it
-     differently and each uses its own native mechanism: a category page
-     stacks its five roles as anchors, so #crm needs no script at all; a
-     hub tabs them, so ?role=crm is read by js/seat-tabs.js. */
+  /* The team sections came out of every hub and category page on 19 Sep
+     (Hardik's call), so a chosen team no longer has a section to land on:
+     every route resolves to the page itself and the role choice only
+     narrows what the visitor had in mind. */
   function urlFor(biz, role) {
     if (!biz) return null;
-    var retail = groupOf[biz] === 'retail';
-    var base = retail ? '/solutions/retail/' + biz : '/solutions/' + biz;
-    if (!role) return base;
-    return retail ? base + '#' + role : base + '?role=' + role;
+    return groupOf[biz] === 'retail'
+      ? '/solutions/retail/' + biz
+      : '/solutions/' + biz;
   }
 
   form.addEventListener('submit', function (e) {

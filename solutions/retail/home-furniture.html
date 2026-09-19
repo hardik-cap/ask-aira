@@ -21,6 +21,7 @@
 
   <script src="/js/components.js" defer></script>
   <script src="/js/reveal.js" defer></script>
+  <script type="module" src="/js/globe.js"></script>
 </head>
 <body class="page-solutions page-category">
 
@@ -71,7 +72,7 @@
             <p class="hero-ind__sub">A kitchen is one decision and fifteen transactions across months and channels, and the data records only the transactions. aiRA reads the warehouse you already have, answers in plain language with the reasoning shown, and hands back the segment or the journey already built.</p>
             <div class="hero-ind__cta">
               <a class="btn btn--primary btn--lg" href="/book">Book a working session</a>
-              <a class="btn btn--secondary btn--lg" href="#marketing">See the questions</a>
+              <a class="btn btn--secondary btn--lg" href="#runs">See the questions</a>
             </div>
           </div>
         </div>
@@ -112,176 +113,6 @@
       </div>
     </section>
 
-    <div class="joint" aria-hidden="true"></div>
-
-    <!-- ================= FIVE SEATS ================= -->
-    <!-- Anchors, not tabs (IA §4): every question stays in the markup. -->
-    <section class="section section--wash catroles" id="seats">
-      <div class="padding-global">
-        <div class="container">
-          <div class="section-head section-head--center reveal">
-            <p class="eyebrow">Five seats</p>
-            <h2 class="section-heading">The same week, five different problems.</h2>
-            <p class="section-sub">Marketing is spending against a database that is mostly out of market while the data team reconciles orders taken against orders delivered. Here is what each seat asks, and what aiRA hands back.</p>
-          </div>
-
-        <div class="catrole" id="marketing">
-          <div class="catrole__body">
-            <div class="catrole__head">
-              <h3 class="catrole__t">Marketing</h3>
-              <p class="catrole__p">The audience is tiny at any one moment and enormous over a year. Spending against everyone wastes most of the budget, and the people actually in market are indistinguishable from the rest until the week they decide.</p>
-            </div>
-
-            <div class="qledger">
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg></span>Predictive models</h4>
-                <p class="qledger__q">Which customers are showing the pattern that usually comes before a room purchase?</p>
-              </div>
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg></span>Ad hoc analytics</h4>
-                <p class="qledger__q">What did the customers who bought a sofa last quarter do in the eight weeks before?</p>
-              </div>
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg></span>Audience builder</h4>
-                <p class="qledger__q">Find the buyers who furnished one room and never came back for the next.</p>
-              </div>
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M80,176a32,32,0,1,1-32-32A32,32,0,0,1,80,176Z" opacity="0.2"/><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg></span>Journey orchestration</h4>
-                <p class="qledger__q">Draft the follow-up for recent buyers, timed to when the next room usually starts.</p>
-              </div>
-            </div>
-          </div>
-          <div class="catrole__fig" aria-hidden="true">
-            <div class="catrole__shot" data-shot="home-furniture-marketing"></div>
-          </div>
-        </div>
-
-        <div class="catrole catrole--flip" id="crm">
-          <div class="catrole__body">
-            <div class="catrole__head">
-              <h3 class="catrole__t">CRM</h3>
-              <p class="catrole__p">A satisfied furniture customer looks exactly like a lost one for two years. The database is mostly people who are not in market, so the job is finding the few who are without irritating everyone else.</p>
-            </div>
-
-            <div class="qledger">
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg></span>Audience builder</h4>
-                <p class="qledger__q">Build a segment of customers who bought a bed and no mattress, or a table and no chairs.</p>
-              </div>
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg></span>Predictive models</h4>
-                <p class="qledger__q">Which past buyers are most likely to be starting a second room this year?</p>
-              </div>
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg></span>Ad hoc analytics</h4>
-                <p class="qledger__q">How long is the real gap between a first and a second purchase, by category?</p>
-              </div>
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M80,176a32,32,0,1,1-32-32A32,32,0,0,1,80,176Z" opacity="0.2"/><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg></span>Journey orchestration</h4>
-                <p class="qledger__q">Create the attach journey for the incomplete rooms and hold it for sign-off.</p>
-              </div>
-            </div>
-          </div>
-          <div class="catrole__fig" aria-hidden="true">
-            <div class="catrole__shot" data-shot="home-furniture-crm"></div>
-          </div>
-        </div>
-
-        <div class="catrole" id="bi">
-          <div class="catrole__body">
-            <div class="catrole__head">
-              <h3 class="catrole__t">Data &amp; BI</h3>
-              <p class="catrole__p">Revenue lands on delivery, orders change after they are placed, and a cancelled kitchen can move a month. Reconciling what was sold against what was delivered is a weekly job nobody ever asked for.</p>
-            </div>
-
-            <div class="qledger">
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg></span>Ad hoc analytics</h4>
-                <p class="qledger__q">Reconcile orders taken against orders delivered for last month, and show me where the gap sits.</p>
-              </div>
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,56v56c0,96-88,120-88,120S40,208,40,112V56a8,8,0,0,1,8-8H208A8,8,0,0,1,216,56Z" opacity="0.2"/><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></svg></span>Data quality &amp; fraud checks</h4>
-                <p class="qledger__q">Flag the order lines most likely to be amended after they are placed.</p>
-              </div>
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V200H224A8,8,0,0,1,232,208ZM132,160a12,12,0,1,0-12-12A12,12,0,0,0,132,160Zm-24-56A12,12,0,1,0,96,92,12,12,0,0,0,108,104ZM76,176a12,12,0,1,0-12-12A12,12,0,0,0,76,176Zm96-48a12,12,0,1,0-12-12A12,12,0,0,0,172,128Zm24-40a12,12,0,1,0-12-12A12,12,0,0,0,196,88Zm-20,76a12,12,0,1,0,12-12A12,12,0,0,0,176,164Z"/></svg></span>Advanced analytics</h4>
-                <p class="qledger__q">Which showrooms convert quotes into delivered orders best, and what do they do differently?</p>
-              </div>
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,56V200H160a32,32,0,0,0-32,32,32,32,0,0,0-32-32H24V56H96a32,32,0,0,1,32,32,32,32,0,0,1,32-32Z" opacity="0.2"/><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></svg></span>Knowledge base Q&amp;A</h4>
-                <p class="qledger__q">What counts as a completed sale in our reporting when delivery slips into the next month?</p>
-              </div>
-            </div>
-          </div>
-          <div class="catrole__fig" aria-hidden="true">
-            <div class="catrole__shot" data-shot="home-furniture-bi"></div>
-          </div>
-        </div>
-
-        <div class="catrole catrole--flip" id="ecommerce">
-          <div class="catrole__body">
-            <div class="catrole__head">
-              <h3 class="catrole__t">eCommerce</h3>
-              <p class="catrole__p">Online is where the research and the configuring happen, and a good share of it closes in a showroom. Big items also carry a delivery cost that makes a headline conversion rate meaningless on its own.</p>
-            </div>
-
-            <div class="qledger">
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg></span>Ad hoc analytics</h4>
-                <p class="qledger__q">Which online researchers bought in a showroom, and how long did they take to get there?</p>
-              </div>
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V200H224A8,8,0,0,1,232,208ZM132,160a12,12,0,1,0-12-12A12,12,0,0,0,132,160Zm-24-56A12,12,0,1,0,96,92,12,12,0,0,0,108,104ZM76,176a12,12,0,1,0-12-12A12,12,0,0,0,76,176Zm96-48a12,12,0,1,0-12-12A12,12,0,0,0,172,128Zm24-40a12,12,0,1,0-12-12A12,12,0,0,0,196,88Zm-20,76a12,12,0,1,0,12-12A12,12,0,0,0,176,164Z"/></svg></span>Advanced analytics</h4>
-                <p class="qledger__q">What does real margin look like by product once delivery and returns are in?</p>
-              </div>
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg></span>Audience builder</h4>
-                <p class="qledger__q">Find the visitors who built a configuration and never ordered it.</p>
-              </div>
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg></span>Predictive models</h4>
-                <p class="qledger__q">Which orders are likely to be refused or returned at the door?</p>
-              </div>
-            </div>
-          </div>
-          <div class="catrole__fig" aria-hidden="true">
-            <div class="catrole__shot" data-shot="home-furniture-ecommerce"></div>
-          </div>
-        </div>
-
-        <div class="catrole" id="growth">
-          <div class="catrole__body">
-            <div class="catrole__head">
-              <h3 class="catrole__t">Growth</h3>
-              <p class="catrole__p">With years between purchases, growth cannot come from frequency. It comes from attach at the moment of purchase and from being remembered when the next project starts, and those are two completely different programmes.</p>
-            </div>
-
-            <div class="qledger">
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V200H224A8,8,0,0,1,232,208ZM132,160a12,12,0,1,0-12-12A12,12,0,0,0,132,160Zm-24-56A12,12,0,1,0,96,92,12,12,0,0,0,108,104ZM76,176a12,12,0,1,0-12-12A12,12,0,0,0,76,176Zm96-48a12,12,0,1,0-12-12A12,12,0,0,0,172,128Zm24-40a12,12,0,1,0-12-12A12,12,0,0,0,196,88Zm-20,76a12,12,0,1,0,12-12A12,12,0,0,0,176,164Z"/></svg></span>Advanced analytics</h4>
-                <p class="qledger__q">What is a customer worth across a whole project rather than a single order?</p>
-              </div>
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg></span>Predictive models</h4>
-                <p class="qledger__q">Which acquisition channel brings customers who come back for a second room?</p>
-              </div>
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg></span>Ad hoc analytics</h4>
-                <p class="qledger__q">Where does attach fall away: at the quote, at the order or at delivery?</p>
-              </div>
-              <div class="qledger__cell">
-                <h4 class="qledger__cap"><span class="qledger__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg></span>Audience builder</h4>
-                <p class="qledger__q">Build the cohort that furnished a whole room in one go, and tell me what they have in common.</p>
-              </div>
-            </div>
-          </div>
-          <div class="catrole__fig" aria-hidden="true">
-            <div class="catrole__shot" data-shot="home-furniture-growth"></div>
-          </div>
-        </div>
-        </div>
-      </div>
-    </section>
 
     <div class="joint" aria-hidden="true"></div>
 
@@ -299,20 +130,9 @@
                   <a class="btn btn--primary btn--lg" href="/book">Book a working session <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
                 </div>
               </div>
-              <ul class="thread">
-                <li class="thread__step">
-                  <p class="thread__label">Zero copy</p>
-                  <p class="thread__title">aiRA reads where your data already sits.</p>
-                </li>
-                <li class="thread__step">
-                  <p class="thread__label">Nothing to rip out</p>
-                  <p class="thread__title">Your warehouse and your channels stay exactly as they are.</p>
-                </li>
-                <li class="thread__step">
-                  <p class="thread__label">A person approves</p>
-                  <p class="thread__title">aiRA proposes. You decide, on an audit trail.</p>
-                </li>
-              </ul>
+              <div class="close-globe" aria-hidden="true">
+                <canvas class="close-globe__canvas" width="1200" height="1200"></canvas>
+              </div>
             </div>
           </div>
         </div>

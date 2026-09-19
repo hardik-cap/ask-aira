@@ -851,34 +851,22 @@ body.modal-open { overflow: hidden; }
     transparent, #000 16%, #000 84%, transparent);
 }
 
-/* Each mark is a stacked pair of supplied files: the grey export shows by
-   default, the full-colour original crossfades in on hover (11 Sep). The
-   belt pauses while hovered so a moving logo can actually be hovered. */
+/* Each mark is the full-colour original at rest: the grey-at-rest,
+   colour-on-hover pair was retired site-wide on 19 Sep. The belt pauses
+   while hovered so a moving logo can still be read. */
 .proof__logo {
   position: relative;
   display: block;
 }
-.proof__logo img { display: block; opacity: 0.55; transition: opacity var(--dur) var(--ease); }
-.proof__logo .proof__logo-color {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-}
-.proof__logo:hover img { opacity: 0; }
-.proof__logo:hover .proof__logo-color { opacity: 1; }
+.proof__logo img { display: block; }
 /* No-JS fallback only: with js/marquee.js driving, hover slows instead. */
 .proof__marquee:hover .proof__track { animation-play-state: paused; }
 .proof__marquee--js .proof__track { animation: none; }
-@media (prefers-reduced-motion: reduce) {
-  .proof__logo img { transition: none; }
-}
 
 /* Light-mode tuning for the belt (16 Sep, marquee restored to V1 from V2).
-   V2 ran this on a dark ground with the grey exports inverted; here the
-   supplied greys sit at 55% straight on the page ground, and the colour
-   original crossfades in on hover. The edge mask dissolves each mark into
-   that same ground, so the band reads contained without a box: it needs a
-   FLAT ground to fade into, which is why this section takes no wash. */
+   The edge mask dissolves each mark into the page ground, so the band reads
+   contained without a box: it needs a FLAT ground to fade into, which is
+   why this section takes no wash. */
 .proof__track {
   flex: none;
   flex-wrap: nowrap;

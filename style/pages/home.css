@@ -2179,9 +2179,16 @@
    underline rides, so the row reads as the control deck of the panel under
    it: pick a tab and the stage re-writes. The arrow pair is gone; the deck
    itself is the whole control. */
+/* A segmented control since 19 Sep: the wide cards had drifted into looking
+   like the .biz category cells below them, so the picker now sits in its own
+   bordered tray on the grey ground, and the active industry rides a raised
+   white seat. A control you are inside of, not content you read. */
 .inds__bar {
   position: relative;
-  border-bottom: 1px solid var(--border);
+  padding: 4px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
 }
 
 .inds__grid {
@@ -2196,34 +2203,51 @@
 }
 .inds__grid::-webkit-scrollbar { display: none; }
 
+/* Wide cards since 19 Sep (user call: the nowrap text-tab row read like
+   product chrome): each industry is a left-aligned card with its icon, its
+   name and one line of its own claim, split by hairlines so the row reads
+   as the site's frame language rather than a tab bar. Still real links. */
 .inds__card {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--sp-2);
   flex: 1 1 0;
+  min-width: 0;
   position: relative;
   z-index: 1;
-  padding: var(--sp-4);
+  padding: var(--sp-3) var(--sp-5);
   text-decoration: none;
-  white-space: nowrap;
   color: var(--ink-3);
   cursor: pointer;
-  transition: color var(--dur) var(--ease);
+  transition: color var(--dur) var(--ease), background-color var(--dur) var(--ease);
 }
+.inds__card { border-radius: var(--r-sm); }
 .inds__card:hover { color: var(--ink); }
 .inds__card:focus-visible { outline: 2px solid var(--brand); outline-offset: -2px; }
 .inds__card.is-active { color: var(--brand-ink); }
 
-/* The brand mark travels between tabs on the deck's hairline; the script
-   measures the open tab and places it. */
+.inds__top {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+/* The white seat travels between segments; the script measures the open tab
+   and places it (it only ever sets width and translateX, so the underline it
+   used to drive became this full-height seat with no JS change). */
 .inds__thumb {
   position: absolute;
+  /* The bar's own 4px padding is the inset; inside the grid the seat runs
+     full height. */
+  top: 0;
   bottom: 0;
   left: 0;
   width: 0;
-  height: 2px;
-  background: var(--brand);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  box-shadow: var(--shadow-sm);
   pointer-events: none;
   transition: transform 360ms var(--ease), width 360ms var(--ease);
 }
@@ -2237,14 +2261,14 @@
 
 .inds__t {
   font-family: var(--font-sans);
-  font-size: var(--t-body-sm);
+  font-size: var(--t-title-sm);
   font-weight: 550;
   letter-spacing: 0;
 }
 
-@media (max-width: 640px) {
-  /* The row scrolls on a phone rather than crushing four labels. */
-  .inds__card { flex: 0 0 auto; padding: var(--sp-3) var(--sp-4); }
+@media (max-width: 991px) {
+  /* The row scrolls rather than crushing four cards. */
+  .inds__card { flex: 0 0 240px; padding: var(--sp-3) var(--sp-5); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2266,7 +2290,6 @@
    thing that reduces it to one at a time. So nothing here depends on the
    script to be read or indexed. */
 .inds__stage {
-  --stage-h: 660px;
   position: relative;
   overflow: hidden;
   isolation: isolate;
@@ -2279,12 +2302,13 @@
      section ground is deliberately quiet so the drawing reads over it, and a
      second tinted box on top of it undid exactly that. */
   background: none;
-  min-height: var(--stage-h);
 }
+/* No min-height: it held every panel to 660px and the shorter ones read as
+   random padding below their content (user, 19 Sep). Panels are their
+   content's height; the section accepts the jump between tabs. */
 .stage__panel {
   position: relative;
   z-index: 1;
-  min-height: var(--stage-h);
   padding: 0;
 }
 .stage__panel[hidden] { display: none; }
@@ -2509,12 +2533,10 @@
 /* ---- the content below the head ---- */
 
 @media (max-width: 991px) {
-  .inds__stage { --stage-h: 570px; }
   .stage__panel { padding: var(--sp-8) var(--sp-8) 0; }
   .stage__media { max-height: 300px; }
 }
 @media (max-width: 640px) {
-  .inds__stage { --stage-h: 440px; }
   .stage__panel { padding: var(--sp-6) var(--sp-5) 0; }
   .cue { margin-top: var(--sp-8); }
   .stage__media { max-height: 220px; }
@@ -3043,20 +3065,40 @@
   align-items: center;
   gap: var(--sp-4);
 }
+
+/* The route onward (19 Sep): under each tab's video card, one arrow link
+   into that industry's hub page. */
+.vdemo__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--t-body-sm);
+  font-weight: 600;
+  color: var(--brand-ink);
+  text-decoration: none;
+  transition: gap var(--dur-fast) var(--ease);
+}
+.vdemo__more svg { width: 14px; height: 14px; flex: none; }
+.vdemo__more:hover { gap: 10px; }
+@media (prefers-reduced-motion: reduce) {
+  .vdemo__more { transition: none; }
+}
 /* The same words on every tab: the card's own title names the industry, so
    this says what the thing below it IS, which is the product actually
-   running. It wears .eyebrow, so the mono face, the 12px caps spec and the
-   "/" prefix all come from the one rule in global.css rather than a second
-   copy here; only the colour and the spacing are this label's own. Safe to
-   uppercase in CSS because the copy carries no "aiRA" to flatten to AIRA. */
+   running. Restyled 19 Sep to match .lgrid__label (user call): the quiet
+   16px sans line in --ink-2, undoing the eyebrow's mono caps spec and its
+   "/" prefix, so the two proof-strip labels share one voice. */
 .vdemo__label {
-  /* Purple/400, the light-surface anchor of the trio: it is the one that
-     holds as text on a near-white ground, where Teal/300 sat at 1.95:1 and
-     read as a tint. 4.30:1 on this slate ground, 4.57 on true white. */
-  color: var(--purple-400);
+  font-family: var(--font-sans);
+  font-size: var(--t-body-lg);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-2);
   /* The flex column's gap already spaces it off the card. */
   margin-bottom: 0;
 }
+.vdemo__label::before { content: none; }
 .vdemo__btn {
   display: flex;
   align-items: center;
@@ -3228,18 +3270,35 @@
    marquee belt: the grid's own ground is the hairline colour and the tiles
    sit on it with a 1px gap and small radii, so the gaps draw the grid the
    way the reference's half-pixel padding does. Tiles are slightly
-   translucent over the section ground; logos keep the belt's grey-at-rest,
-   colour-on-hover pair. js/logo-grid.js resettles one mark every few
-   seconds; without it the grid is simply still. */
+   translucent over the section ground; logos sit in full colour at rest
+   (the grey-at-rest, colour-on-hover pair retired 19 Sep). js/logo-grid.js
+   resettles one mark every few seconds; without it the grid is simply
+   still. */
 
+/* This container drops its 20px inline gutter so the tiles run right up to
+   the page frame's rails, promptwatch-style. */
+.lgrid .container {
+  padding-inline: 0;
+}
+
+/* The reference's quiet centred line: plain body sans in the muted ink, no
+   eyebrow, sitting in its own row above the grid. */
+.lgrid__label {
+  text-align: center;
+  font-size: var(--t-body-lg);
+  color: var(--ink-2);
+  margin-bottom: var(--sp-6);
+}
+
+/* Square, promptwatch-style: white tiles split by 1px hairlines (the grid's
+   gap over the border colour), closed by hairlines above and below. The
+   sides stay open; the page frame's rails draw those lines. */
 .lgrid__grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 1px;
-  padding: 1px;
   background: var(--border);
-  border-radius: var(--r-lg);
-  overflow: hidden;
+  border-block: 1px solid var(--border);
 }
 
 .lgrid__tile {
@@ -3247,8 +3306,7 @@
   align-items: center;
   justify-content: center;
   min-height: 104px;
-  background: color-mix(in srgb, var(--surface) 82%, transparent);
-  border-radius: 4px;
+  background: var(--surface);
 }
 
 .lgrid__logo {
@@ -3256,25 +3314,19 @@
   display: inline-flex;
   transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
 }
+/* One height per SHAPE, not one height for all: at a single 26px a wide
+   wordmark reads huge while a squarish mark reads tiny, so each logo's span
+   carries the class of its aspect-ratio band (from the SVG viewBox):
+   over 4:1 wide, 2.4-4 default, 1.7-2.4 mid, under 1.7 badge. */
 .lgrid__logo img {
   display: block;
   height: 26px;
   width: auto;
-  opacity: 0.55;
-  transition: opacity var(--dur) var(--ease);
 }
-/* The square badge reads optically smaller at the shared height. */
+.lgrid__logo--wide img { height: 22px; }
+.lgrid__logo--mid img { height: 32px; }
 .lgrid__logo--badge img { height: 40px; }
-
-/* The colour original sits over the grey export and crossfades in on hover,
-   the belt's pattern carried over. */
-.lgrid__logo-c {
-  position: absolute;
-  inset: 0;
-}
-.lgrid__logo .lgrid__logo-c { opacity: 0; }
-.lgrid__tile:hover .lgrid__logo img { opacity: 0; }
-.lgrid__tile:hover .lgrid__logo .lgrid__logo-c { opacity: 1; }
+.lgrid__logo--sq img { height: 48px; }
 
 /* The resettle: js/logo-grid.js fades a mark out of one seat and into the
    next. */
@@ -3289,8 +3341,14 @@
   .lgrid__tile { min-height: 88px; }
 }
 
+/* Below the rails' breakpoint the frame is gone, so the grid pulls itself
+   out of .padding-global's gutter and runs to the screen edges; the label
+   above keeps its inset. */
+@media (max-width: 991px) {
+  .lgrid__grid { margin-inline: calc(-1 * var(--pad-x)); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .lgrid__logo,
-  .lgrid__logo img { transition: none; }
+  .lgrid__logo { transition: none; }
   .lgrid__logo.is-in { animation: none; }
 }
