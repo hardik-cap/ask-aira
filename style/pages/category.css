@@ -68,9 +68,9 @@
 .page-category .hero-ind {
   background:
     radial-gradient(30rem 16rem at 38% 44%,
-      color-mix(in srgb, var(--t-300) 6%, transparent), transparent 72%),
+      color-mix(in srgb, var(--teal-300) 6%, transparent), transparent 72%),
     radial-gradient(30rem 16rem at 62% 44%,
-      color-mix(in srgb, var(--accent-400) 5%, transparent), transparent 72%),
+      color-mix(in srgb, var(--purple-400) 5%, transparent), transparent 72%),
     var(--bg);
 }
 .page-category .hero-ind__grid { grid-template-columns: minmax(0, 1fr); }
@@ -124,8 +124,8 @@
   inset: 0;
   background: radial-gradient(circle,
     transparent 260px,
-    color-mix(in srgb, var(--t-300) 5%, transparent) 260px 420px,
-    color-mix(in srgb, var(--accent-400) 4%, transparent) 420px 580px,
+    color-mix(in srgb, var(--teal-300) 5%, transparent) 260px 420px,
+    color-mix(in srgb, var(--purple-400) 4%, transparent) 420px 580px,
     transparent 580px);
 }
 
@@ -189,22 +189,22 @@
 .orbits__chip svg { width: 20px; height: 20px; }
 
 /* The analogous trio rides the satellites (18 Sep, user call): every chip
-   takes one of the three sibling hues, T300 sky, P400 brand, accent-400
+   takes one of the three sibling hues, Teal/300, Primary/400, Purple/400
    purple, tinting its ground and border and carrying its glyph, so the
    family reads around the orbit rather than hiding in the wash. */
 .orbits__ring--1 .orbits__sat:nth-child(1) .orbits__chip,
 .orbits__ring--2 .orbits__sat:nth-child(2) .orbits__chip,
 .orbits__ring--3 .orbits__sat:nth-child(2) .orbits__chip {
-  color: var(--t-300);
-  background: color-mix(in srgb, var(--t-300) 12%, var(--surface));
-  border-color: color-mix(in srgb, var(--t-300) 34%, var(--border));
+  color: var(--teal-300);
+  background: color-mix(in srgb, var(--teal-300) 12%, var(--surface));
+  border-color: color-mix(in srgb, var(--teal-300) 34%, var(--border));
 }
 .orbits__ring--1 .orbits__sat:nth-child(2) .orbits__chip,
 .orbits__ring--2 .orbits__sat:nth-child(3) .orbits__chip,
 .orbits__ring--3 .orbits__sat:nth-child(1) .orbits__chip {
-  color: var(--accent-400);
-  background: color-mix(in srgb, var(--accent-400) 10%, var(--surface));
-  border-color: color-mix(in srgb, var(--accent-400) 30%, var(--border));
+  color: var(--purple-400);
+  background: color-mix(in srgb, var(--purple-400) 10%, var(--surface));
+  border-color: color-mix(in srgb, var(--purple-400) 30%, var(--border));
 }
 .orbits__ring--2 .orbits__sat:nth-child(1) .orbits__chip {
   background: color-mix(in srgb, var(--brand) 9%, var(--surface));
@@ -470,9 +470,9 @@
   pointer-events: none;
   background:
     radial-gradient(520px 340px at 8% -12%,
-      color-mix(in srgb, var(--t-300) 14%, transparent), transparent 70%),
+      color-mix(in srgb, var(--teal-300) 14%, transparent), transparent 70%),
     radial-gradient(560px 360px at 94% 112%,
-      color-mix(in srgb, var(--accent-400) 14%, transparent), transparent 70%),
+      color-mix(in srgb, var(--purple-400) 14%, transparent), transparent 70%),
     radial-gradient(var(--frame-grid-inv) 1px, transparent 1px) 0 0 / 22px 22px;
 }
 .cproof__card > div:first-child {
@@ -520,7 +520,7 @@
   padding: 4px;
   background: rgba(255, 255, 255, 0.08);
   border-radius: var(--r-pill);
-  color: var(--t-300);
+  color: var(--teal-300);
 }
 
 @media (max-width: 900px) {

@@ -55,6 +55,16 @@
   color: var(--ink-faint);
 }
 
+/* The three colour ramps share ONE anchor step: Teal/300, Primary/400 and
+   Purple/400 are the same colour at three hues. The ring marks it, because
+   the step numbers do not line up and the pairing is otherwise invisible:
+   teal anchors a hundred lower than the other two. */
+.g-swatch--anchor .g-swatch__chip {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 3px var(--ink);
+}
+.g-swatch--anchor .g-swatch__name { color: var(--ink); font-weight: 600; }
+
 .g-semantic { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); }
 .g-semantic__row {
   display: flex; align-items: center; gap: 10px;

@@ -11,10 +11,10 @@
 
 :root {
   /* ---- Raw ramp: brand primary (OFFICIAL) -------------------------------
-     From the supplied Brand Primary.pdf (13 Sep). P400 is THE brand colour.
-     This ramp REPLACED the hand-rolled --indigo-* scale the same day (user:
-     "stick to official now"); the old scale sat one step darker in name
-     (indigo-500 == primary-400) and muted its dark steps toward slate. */
+     From the supplied Brand Primary.pdf (13 Sep). Primary/400 is THE brand
+     colour. This ramp REPLACED the hand-rolled --indigo-* scale the same day
+     (user: "stick to official now"); the old scale sat one step darker in
+     name (indigo-500 == primary-400) and muted its dark steps toward slate. */
   --primary-50:  #E9EBFE;
   --primary-100: #C7CCFC;
   --primary-200: #A1ABFA;
@@ -33,39 +33,72 @@
   /* Violet accent: the blue-to-purple sweep in the mechanism beams */
   --violet-400: #A78BFA;
 
-  /* ---- Analogous accents, flanking the brand (18 Sep) -------------------
-     Two client-supplied hues that sit either side of P400. They are not
-     approximate neighbours: all three are the SAME colour at three hues.
+  /* ---- Analogous ramps: teal and purple (18 Sep) -----------------------
+     Client-supplied. Two full ramps flanking the brand, replacing the single
+     --t-300 / --accent-400 pair that landed earlier the same day.
 
-         T300        #52BFF6   rgb( 82, 191, 246)   hue 200   sky
-         P400        #526CF6   rgb( 82, 108, 246)   hue 230   brand
-         accent-400  #8952F6   rgb(137,  82, 246)   hue 260   purple
+     THE FAMILY RULE. The three anchor steps are the same colour at three
+     hues, exactly 30 degrees apart:
 
-     Saturation is 90% and lightness 64% in all three, and the hues are
-     exactly 30 degrees apart. Blue is pinned at 246 and the minimum channel
-     at 82 in every one. So the family rule is simply: S 90, L 64, step the
-     hue by 30. Any further theme colour the client sends should satisfy that,
-     and it is worth checking each one against it on arrival.
+         Teal/300     #52BFF6   rgb( 82, 191, 246)   H 200  S 90  L 64
+         Primary/400  #526CF6   rgb( 82, 108, 246)   H 230  S 90  L 64
+         Purple/400   #8952F6   rgb(137,  82, 246)   H 260  S 90  L 64
 
-     (An earlier note here read "hold 82 and 246, move green". That was
-     inferred from T300 alone and is only its special case; accent-400 moves
-     red instead. The S/L/hue rule above is the one that holds.)
+     Saturation 90 and lightness 64 in all three, minimum channel pinned at
+     82, blue pinned at 246. Any further theme ramp the client sends should
+     satisfy S 90 / L 64 at its anchor, and it is worth checking on arrival.
 
-     Contrast, which differs sharply across the three despite identical
-     lightness, because luminance is green-weighted:
+     THE STEP NUMBERS DO NOT LINE UP, which is the trap in this file. Teal
+     anchors at 300 and the other two anchor at 400, so teal runs one step
+     lighter than its number suggests the whole way up. Lightness per step:
 
-         on white   T300 2.07:1    P400 4.34:1    accent-400 4.56:1
-         on ink     T300 7.78:1    P400 3.71:1    accent-400 3.53:1
+         teal      94  85  75  64  58  53  50  46  41  34
+         primary   95  88  81  72  64  55  51  45  40  36
+         purple    95  88  80  71  64  56  54  51  48  42
 
-     accent-400 is the only one of the three that clears 4.5:1 for body text
-     on white. T300 is a dark-surface colour and must not carry text on light.
+     Purple and primary track each other within a point or two at every step
+     and can be swapped by number. Teal cannot: --teal-400 is a step DARKER
+     than --primary-400, not its sibling. Teal/n sits roughly where
+     Primary/(n+100) sits. Pair teal off this table, never off the number.
 
-     NAMING: the client's own designations are kept verbatim. Note they are
-     inconsistent with each other, T300 against accent-400, despite being
-     symmetric flanks of the same brand step; and --t-* is otherwise the TYPE
-     scale in this file. Worth reconciling into one ramp if more arrive. */
-  --t-300:      #52BFF6;
-  --accent-400: #8952F6;
+     CONTRAST, which differs sharply across the three despite identical
+     lightness at the anchors, because luminance is green-weighted:
+
+                       on white    on dark ground (--bg #080B14)
+         Teal/300        2.07:1        9.49:1
+         Primary/400     4.34:1        4.53:1
+         Purple/400      4.56:1        4.31:1
+
+     So the split is: teal is the dark-surface colour, purple is the light-
+     surface one. Teal carries no body text on white until Teal/800 (5.00:1);
+     Teal/700 is 4.05:1, large text and UI only. Purple/400 is the only
+     anchor clearing 4.5:1 on white. Going the other way, teal's dark steps
+     fail on the dark ground: Teal/900 is 2.54:1 there.
+
+     NAMING. The client's ramp names are kept verbatim, so the sky-blue ramp
+     is Teal. The earlier --t-300 name is gone for a second reason: --t-* is
+     the TYPE scale further down this file, and the collision was real. */
+  --teal-50:  #E1F4FE;
+  --teal-100: #B3E3FC;
+  --teal-200: #82D1FA;
+  --teal-300: #52BFF6;  /* pairs with Primary/400 */
+  --teal-400: #32B2F4;
+  --teal-500: #1FA4F1;
+  --teal-600: #1E96E2;
+  --teal-700: #1C83CE;
+  --teal-800: #1973BA;
+  --teal-900: #155397;
+
+  --purple-50:  #F0E7FD;
+  --purple-100: #D7C5FB;
+  --purple-200: #BD9EF9;
+  --purple-300: #A174F8;
+  --purple-400: #8952F6;  /* pairs with Primary/400 */
+  --purple-500: #6F2DF3;
+  --purple-600: #6228EC;
+  --purple-700: #501FE3;
+  --purple-800: #3B17DE;
+  --purple-900: #0B06CF;
 
   /* ---- Raw ramp: slate (cool neutrals, hue-aligned to the indigo) --- */
   --slate-50:  #F7F8FB;
@@ -117,6 +150,31 @@
   --bg:          #FBFBFD;
   --bg-subtle:   var(--slate-50);
   --surface:     #FFFFFF;
+  /* Section grounds (19 Sep, re-derived by measuring sequencehq.com rather
+     than eyeballing it). Two things came out of that measurement and both
+     changed the answer:
+
+     1. THEIR TINTS ARE MUCH DEEPER THAN OURS WERE. Their tinted section is
+        #E7EBF0, relative luminance 0.827, against a page ground at 0.966.
+        Ours sat at 0.914 and read as very nearly the page itself. These land
+        at 0.825.
+     2. THEIR TINTS ARE GREY FIRST, HUE SECOND. #E7EBF0 spans only 9 values
+        between its lowest and highest channel. Mixing a ramp into the near
+        white ground at this depth gave a saturated wash instead, so these mix
+        into --slate-100, which darkens and desaturates at the same time.
+
+     The percentages are NOT equal and must not be equalised: they are chosen
+     so all three land on one luminance, and luminance is green-weighted, so
+     teal needs nearly twice the primary's share. Same trap as the ramps' own
+     anchor steps. Re-derive, do not guess, if a ramp is re-supplied. */
+  --wash-primary: color-mix(in srgb, var(--primary-400) 4.9%, var(--slate-100));
+  --wash-teal:    color-mix(in srgb, var(--teal-300)    9%,   var(--slate-100));
+  --wash-purple:  color-mix(in srgb, var(--purple-400)  4.7%, var(--slate-100));
+  /* For a section whose own illustration carries the colour. Sequence's ring
+     drawing sits on #F9F9F9, a near neutral, and that is why its line work
+     reads: the drawing is the only coloured thing in the frame. A coloured
+     drawing on a coloured ground is what buried ours. */
+  --wash-quiet:   var(--slate-50);
   --surface-2:   var(--slate-100);
   --surface-inv: var(--slate-900);
 

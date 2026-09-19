@@ -4,11 +4,13 @@
    Two fields share this script because they are the same object with
    different geometry:
 
-   - index.html (V1, shipping): the dots span rail to rail and fade top to
-     bottom, so the canvas is positioned on exactly the ::after grid's box
-     and the fade is a function of y alone. Interaction is bounded to where
-     dots actually exist, per the 15 Sep call: outside the box, or below
-     --dot-fade, the pointer is ignored entirely and the field relaxes.
+   - index.html (V1, shipping): the dots fill the open middle of the hero's
+     square grid and clear away from the text, so the canvas sits on exactly
+     the ::after field's box and the strength is an elliptical falloff from
+     that box's centre (19 Sep; it was a rail-to-rail field fading top to
+     bottom before). Interaction is bounded to where dots actually exist,
+     per the 15 Sep call: outside the box, or inside the cleared ellipse,
+     the pointer is ignored entirely and the field relaxes.
    - index-v3.html: the field is weighted to the empty right side of that
      page's left-aligned hero, dissolving left and at the top and bottom.
 
@@ -40,8 +42,9 @@
   var PUSH = 18;     /* max displacement in px */
 
   var GAP = 22;      /* lattice pitch; V1 reads it from CSS below */
-  var SOLID = 120;   /* V1 only: full strength down to here */
-  var FADE = 440;    /* V1 only: no dots at all below here */
+  /* V1 only: the ellipse the dots clear for the text, in fractions of the
+     canvas box. Defaults mirror the CSS mask and are overwritten from it. */
+  var CX = 0.5, CY = 0.44, RX = 0.62, RY = 0.74, CLEAR = 0.36;
 
   var W = 0, H = 0, dots = [];
   var base = { r: 11, g: 16, b: 32, a: 0.16 };
@@ -76,11 +79,27 @@
 
     if (isV3) return;
     var gap = parseFloat(cs.getPropertyValue('--dot-gap'));
-    var solid = parseFloat(cs.getPropertyValue('--dot-solid'));
-    var fade = parseFloat(cs.getPropertyValue('--dot-fade'));
     if (gap > 0) GAP = gap;
-    if (solid >= 0) SOLID = solid;
-    if (fade > SOLID) FADE = fade;
+    /* Only overwrite on a real number: a property the stylesheet has not
+       set reads as an empty string, and NaN here would blank the field. */
+    function frac(name, current) {
+      var v = parseFloat(cs.getPropertyValue(name));
+      return isNaN(v) ? current : v;
+    }
+    CX = frac('--dot-cx', CX);
+    CY = frac('--dot-cy', CY);
+    RX = frac('--dot-rx', RX);
+    RY = frac('--dot-ry', RY);
+    CLEAR = frac('--dot-clear', CLEAR);
+  }
+
+  /* Distance from the clear ellipse's centre in its own units: 0 at the
+     centre, 1 on the ellipse. The same number the CSS mask's gradient is
+     evaluating, which is what keeps the two fields identical. */
+  function ellipse(x, y) {
+    var dx = (x - CX * W) / (RX * W);
+    var dy = (y - CY * H) / (RY * H);
+    return Math.sqrt(dx * dx + dy * dy);
   }
 
   /* Per-dot strength, matching each page's mask so the swap is invisible. */
@@ -90,9 +109,10 @@
       var yr = Math.min(1, y / 150) * Math.min(1, (H - y) / 150);
       return xr * yr;
     }
-    if (y <= SOLID) return 1;
-    if (y >= FADE) return 0;
-    return 1 - (y - SOLID) / (FADE - SOLID);
+    var d = ellipse(x, y);
+    if (d <= CLEAR) return 0;
+    if (d >= 1) return 1;
+    return (d - CLEAR) / (1 - CLEAR);
   }
 
   function build() {
@@ -111,7 +131,7 @@
     /* V1's lattice is anchored to the box's top-left corner, the same origin
        background-size uses, so the canvas dots land on the CSS dots exactly. */
     var start = isV3 ? GAP / 2 : 0;
-    var stop = isV3 ? H : Math.min(H, FADE);
+    var stop = H;
     for (var y = start; y < stop; y += GAP) {
       for (var x = start; x < W; x += GAP) {
         var a = weightAt(x, y);
@@ -193,12 +213,13 @@
     }
   }
 
-  /* The field is only live where dots are: inside the canvas box, and above
-     the fade. Anywhere else the pointer reads as absent and the dots relax,
-     so the interactive area and the visible area are the same shape. */
+  /* The field is only live where dots are: inside the canvas box, and on V1
+     outside the ellipse cleared for the text. Anywhere else the pointer
+     reads as absent and the dots relax, so the interactive area and the
+     visible area are the same shape. */
   function inField(px, py) {
-    if (px < 0 || px > W || py < 0) return false;
-    return py < (isV3 ? H : FADE);
+    if (px < 0 || px > W || py < 0 || py > H) return false;
+    return isV3 ? true : ellipse(px, py) > CLEAR;
   }
 
   hero.addEventListener('mousemove', function (e) {

@@ -714,7 +714,16 @@ body.modal-open { overflow: hidden; }
 .acc__item { border-top: 1px solid var(--border); }
 .acc__item:last-child { border-bottom: 1px solid var(--border); }
 
-.acc__head { margin: 0; }
+/* .acc__btn takes `font: inherit`, so this h3 sets the type for the whole
+   disclosure row. A row is not a section heading, so it opts out of the
+   universal h3 size deliberately and says so. It declared nothing at all
+   before, which is why it was rendering at the UA default's 16.38px. */
+.acc__head {
+  margin: 0;
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  line-height: var(--lh-title);
+}
 
 .acc__btn {
   display: flex;
@@ -737,12 +746,12 @@ body.modal-open { overflow: hidden; }
               color var(--dur-fast) var(--ease);
 }
 /* Hover and open are kept as separate signals (user call, 16 Sep). Hover is
-   the P50 wash and NOTHING else, so it reads as "you can click this"; the
+   the Primary/50 wash and NOTHING else, so it reads as "you can click this"; the
    open row is the one that recolours its title. The open row also refuses
    the wash: a pointer hint on the thing already chosen says nothing, and
    with both on, hovering the open row looked like a third state.
 
-   P50 rather than the P100/P200 first floated: heavier fills read as
+   Primary/50 rather than the Primary/100 or /200 first floated: heavier fills read as
    selection rather than a pointer hint, which is exactly the confusion this
    split is avoiding. */
 .acc__item:not(.is-open) .acc__btn:hover,
@@ -980,6 +989,13 @@ body.modal-open { overflow: hidden; }
   border-top: 1px solid var(--border);
   border-left: 1px solid var(--border);
 }
+/* Static variant (18 Sep): the homepage runs this grid for all four
+   industries, but only retail has pages behind its categories. The other
+   three render as entries rather than links, so they must not offer a
+   pointer, a hover or a trailing "go" line that leads nowhere. */
+.biz--static { cursor: default; }
+.biz--static:hover .biz__ic { color: var(--ink-3); }
+
 .biz:focus-visible {
   outline: 2px solid var(--brand);
   outline-offset: 4px;
@@ -991,10 +1007,14 @@ body.modal-open { overflow: hidden; }
    at its own edges, glyph ink-3 at rest and brand on the card's hover. */
 .biz__ic {
   position: relative;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  width: 40px;
+  /* The ROW is the card's full width, the TILE is the 40px square at its left
+     end (drawn by ::before). They were the same box until 19 Sep, when the
+     hover arrow moved to the far end of this row: the arrow needs a right
+     edge to sit against, and the card's own edge is the only one that lines
+     up with the text below. */
+  width: 100%;
   height: 40px;
   margin-bottom: var(--sp-4);
   color: var(--ink-3);
@@ -1003,7 +1023,10 @@ body.modal-open { overflow: hidden; }
 .biz__ic::before {
   content: "";
   position: absolute;
-  inset: 0;
+  left: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
   background-image:
     repeating-linear-gradient(to right, var(--nav-graph) 0 1px, transparent 1px 10px),
     repeating-linear-gradient(to bottom, var(--nav-graph) 0 1px, transparent 1px 10px);
@@ -1012,7 +1035,9 @@ body.modal-open { overflow: hidden; }
   mask-image: radial-gradient(closest-side, #000 52%, transparent 100%);
 }
 .biz:hover .biz__ic { color: var(--brand); }
-.biz__ic svg { position: relative; width: 24px; height: 24px; }
+/* (40 - 24) / 2: centres the glyph in the tile, which the row no longer
+   does for it. */
+.biz__ic svg { position: relative; width: 24px; height: 24px; margin-left: 8px; }
 
 .biz__t {
   font-family: var(--font-display);
@@ -1026,25 +1051,42 @@ body.modal-open { overflow: hidden; }
   font-size: var(--t-body-sm);
   line-height: 1.5;
   color: var(--ink-3);
-  /* The row of cards keeps one baseline for its links however long the
-     description runs. */
-  flex: 1;
-  margin-bottom: var(--sp-5);
+  /* Two allowances for the trailing "See the questions" link came out with it
+     on 19 Sep: the grow that held one baseline for the links across a row, and
+     the 20px gap above them. The description is the last child of every card
+     now, so both were reserving space for nothing and every card carried the
+     20px. The grow was a no-op on its own (a last child that grows still sets
+     its text from the top), the margin was the height. */
+  margin-bottom: 0;
 }
-.biz__go {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: var(--t-body-sm);
-  font-weight: 600;
-  color: var(--brand-ink);
+/* The whole card is the link, and the affordance arrives on demand: on hover
+   or keyboard focus an arrow slides in at the far end of the icon row,
+   opposite the category glyph, which stays exactly where it is. Same 24px as
+   the glyph, so the row reads as one line with a start and an end. Scoped to
+   a.biz, so a card that is not a link never offers a route it does not have.
+   The %23000 in the mask is alpha, not a colour: the arrow paints in the
+   row's own currentColor, which the card's hover has already taken to
+   brand. */
+a.biz .biz__ic::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -12px;
+  width: 24px;
+  height: 24px;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
 }
-.biz__go svg {
-  width: 14px;
-  height: 14px;
-  transition: transform var(--dur) var(--ease);
+a.biz:hover .biz__ic::after,
+a.biz:focus-visible .biz__ic::after {
+  opacity: 1;
+  transform: none;
 }
-.biz:hover .biz__go svg { transform: translateX(3px); }
 
 @media (max-width: 1100px) {
   .biz-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1074,7 +1116,7 @@ body.modal-open { overflow: hidden; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .biz, .biz__ic, .biz__go svg { transition: none; }
+  .biz, .biz__ic, .biz__ic::after { transition: none; }
 }
 
 /* ---- Analyse / Decide / Act ----------------------------------------------
@@ -1219,8 +1261,8 @@ body.modal-open { overflow: hidden; }
 }
 
 /* Dark variant (18 Sep, user call): the section wears .section--inv and
-   every register retunes. Icons and flags ride P200, the dark-surface
-   accent, because full brand P400 sinks on near-black. Placed after the
+   every register retunes. Icons and flags ride Primary/200, the dark-surface
+   accent, because full brand Primary/400 sinks on near-black. Placed after the
    responsive blocks so the longhand border colours win over the media
    rules' shorthands at every width. */
 .section--inv .runs__col {

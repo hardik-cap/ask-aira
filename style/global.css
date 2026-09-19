@@ -40,6 +40,23 @@ body {
    section eyebrows and the drawn illustrations; caps micro-labels are
    the display face at 600 / +0.06em. */
 h1, h2, h3, h4, h5, h6 { margin: 0; font-family: var(--font-display); font-weight: 700; }
+/* THE universal h3 (19 Sep, user: "we need to settle on a universal h3 font
+   size ... the hierarchy is bad"). Every section-level h3 on the site was
+   already --t-display-3 at 600 (.seat__t, .catrole__t, .runs__t), so this
+   states the rule the site was mostly keeping rather than inventing a new
+   one. Two had drifted off it: .stage__t was set at --t-display-2, the H2
+   size, which is what flattened the hierarchy, and .acc__head declared no
+   size at all and fell through to the browser's 1.17em default at 16.38px,
+   an odd fractional value in a scale that is even-only with a 12px floor.
+   Declaring it here means a new h3 lands on the settled size without being
+   told; a component that genuinely wants a smaller title (a card, a footer
+   column, a disclosure row) still overrides it explicitly. */
+h3 {
+  font-size: var(--t-display-3);
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: var(--tr-title);
+}
 p, ul, ol, figure, blockquote { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
 img, svg, video { display: block; max-width: 100%; height: auto; }
@@ -116,14 +133,12 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   background: var(--surface-inv);
   color: var(--ink-inv);
 }
-/* Light sections carry the hero's quiet wash rather than flat page bg: a
-   slate top fading to the ground, plus a whisper of indigo at top centre. */
-.section--wash {
-  background:
-    radial-gradient(56% 42% at 50% 0%,
-      color-mix(in srgb, var(--primary-400) 4%, transparent), transparent 70%),
-    linear-gradient(180deg, var(--slate-100) 0%, var(--bg) 52%);
-}
+/* A light section that is not the page ground takes a SOLID tint (19 Sep,
+   user: "the difference section gradient looks bad, can we have proper solid
+   color"). It was a slate-to-ground fade under a radial indigo whisper, and
+   three gradients stacked to produce what reads as one flat colour was both
+   the wrong result and an expensive way to get it. */
+.section--wash { background: var(--wash-primary); }
 .section--inv .eyebrow { color: var(--primary-200); }
 .section--inv .section-heading { color: var(--ink-inv); }
 .section--inv .section-sub { color: var(--ink-inv-2); }
@@ -164,6 +179,18 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   background: var(--frame-line);
   pointer-events: none;
 }
+/* Between two dark sections the light hairline would glow; this variant
+   keeps the boundary in the inverse frame language instead. */
+/* A joint sits BETWEEN two sections, which means it sits on the body, not on
+   either section. --frame-line-inv is translucent white, which is right for
+   the rails drawn INSIDE a dark section and wrong here: over the light page
+   ground the transparency showed the page through, and the hairline between
+   two dark sections rendered as a solid white bar (19 Sep). These are the
+   same two colours composited against the inverse surface by hand, so they
+   are opaque and land where they were always meant to. */
+.joint--inv { background: color-mix(in srgb, var(--ink-inv) 14%, var(--surface-inv)); }
+.joint--inv::before,
+.joint--inv::after { background: color-mix(in srgb, var(--ink-inv) 26%, var(--surface-inv)); }
 /* A small primary square at each rail crossing (12 Sep; it replaced the
    masked Phosphor plus). Stepped 4px -> 6px on 13 Sep: at 4px it read as
    a stray dot rather than a deliberate marker. V2 draws its own outlined
@@ -580,9 +607,14 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   align-items: center;
   gap: 5px;
   font-family: var(--font-display);
+  /* .nav__toggle is a <button> since 19 Sep, so it needs the UA chrome off.
+     Harmless on .nav__link, which is an <a> with none of it to begin with. */
   font-size: var(--t-body-sm);
   font-weight: 550;
   color: var(--ink-2);
+  background: none;
+  border: 0;
+  cursor: pointer;
   padding: 8px 12px;
   border-radius: var(--r-sm);
   transition: color var(--dur-fast) var(--ease),
@@ -1072,19 +1104,15 @@ body:not(.page-v2) .nav.nav-dark .nav__item-desc { color: var(--ink-inv-3); }
 }
 .footer__bottom-links a:hover { color: var(--ink); }
 
-/* The closing wordmark, lit by a torch (user call, 17 Sep). Two layers over
-   one copy of the geometry: an outline that is always drawn, and a filled
-   copy revealed only inside a soft circle that follows the cursor, so moving
-   across the word lights the letters under the pointer and nothing else.
+/* The closing wordmark. A light indigo gradient that fades out at its foot,
+   so the mark sinks into the page rather than stopping on a line. No stroke:
+   the outline read as a drawn border around the letters, and the fill is the
+   whole effect now.
 
-   The mask is a CSS radial-gradient rather than an SVG <mask> because it is
-   positioned in the ELEMENT's own pixel box, which is exactly what a pointer
-   event reports; js/wordmark.js only has to write two custom properties.
-   With no JS, no pointer, or reduced motion, the glow layer never appears and
-   the outline is the whole effect. */
+   The pointer torch that lit letters on hover was removed on 19 Sep along with
+   js/wordmark.js, which existed only to feed it two custom properties. */
 .footer__wordmark {
-  padding-block: var(--sp-10) var(--sp-6);
-  color: var(--ink);
+  padding-block: var(--sp-10) 0;
 }
 .footer__wordmark-stack { position: relative; }
 
@@ -1093,48 +1121,18 @@ body:not(.page-v2) .nav.nav-dark .nav__item-desc { color: var(--ink-inv-3); }
   width: 100%;
   height: auto;
 }
-/* Hairline outline. stroke-width is in viewBox units and the mark renders at
-   roughly 0.75 scale, so 1 lands near half a device pixel: 2 was reading as a
-   drawn border rather than a ghost of the mark. */
-.footer__wordmark-line use {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1;
-  stroke-opacity: 0.22;
+.footer__wordmark-fill use {
+  fill: url(#aira-wordmark-fade);
+  stroke: none;
 }
-
-.footer__wordmark-glow {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 260ms var(--ease);
-  /* Solid core, then a long falloff: a hard-edged circle would read as a
-     cut-out disc travelling over the word rather than as light on it. */
-  -webkit-mask-image: radial-gradient(circle var(--torch-r, 150px)
-    at var(--torch-x, -999px) var(--torch-y, -999px),
-    #000 0%, #000 34%, transparent 78%);
-  mask-image: radial-gradient(circle var(--torch-r, 150px)
-    at var(--torch-x, -999px) var(--torch-y, -999px),
-    #000 0%, #000 34%, transparent 78%);
+/* Set here rather than on the SVG so the raw colour stays in tokens.css. */
+.footer__wordmark-svg linearGradient stop:first-child {
+  stop-color: var(--primary-300);
+  stop-opacity: 0.42;
 }
-/* Lit letters come up in the brand, not in ink: the torch is the one moment
-   the wordmark is anything but a watermark, so it is worth the colour. The
-   stroke matches the fill so a lit letter reads as one object. */
-.footer__wordmark-glow use {
-  fill: var(--brand);
-  fill-opacity: 0.30;
-  stroke: var(--brand);
-  stroke-width: 1;
-  stroke-opacity: 0.55;
-}
-.footer__wordmark.is-lit .footer__wordmark-glow { opacity: 1; }
-
-@media (prefers-reduced-motion: reduce) {
-  .footer__wordmark-glow { transition: none; }
-}
-/* No hover on touch: there is no pointer to follow. */
-@media (hover: none) {
-  .footer__wordmark-glow { display: none; }
+.footer__wordmark-svg linearGradient stop:last-child {
+  stop-color: var(--primary-300);
+  stop-opacity: 0;
 }
 
 @media (max-width: 991px) {

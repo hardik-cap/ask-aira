@@ -45,15 +45,17 @@
   <link rel="stylesheet" href="/style/pages/home.css">
 
   <script src="/js/components.js" defer></script>
-  <script src="/js/wordmark.js" defer></script>
   <script src="/js/reveal.js" defer></script>
   <script src="/js/diagram.js" defer></script>
   <script src="/js/rotator.js" defer></script>
   <script src="/js/video.js" defer></script>
   <script src="/js/accordion.js" defer></script>
   <script src="/js/marquee.js" defer></script>
+  <script src="/js/logo-grid.js" defer></script>
   <script src="/js/session-card.js" defer></script>
   <script src="/js/hero-dots.js" defer></script>
+  <script src="/js/industries.js" defer></script>
+  <script src="/js/prompt-cue.js" defer></script>
 </head>
 
 <body class="page-home">
@@ -68,7 +70,7 @@
   <main id="main">
 
     <!-- ================= HERO ================= -->
-    <section class="section section--flush-bottom hero">
+    <section class="section hero">
       <div class="hero__grad" aria-hidden="true"></div>
 
       <div class="padding-global">
@@ -115,313 +117,438 @@
         </div>
       </div>
 
-      <!-- Product tour: the screenshot as the poster of a click-to-load
-           facade (js/video.js); the YouTube iframe loads only on click. -->
-      <div class="padding-global">
-        <div class="container hero__asks">
-          <!-- Typed caps, never text-transform: the transform would render
-               the brand as AIRA. -->
-          <p class="hero__asks-label">ASK aiRA FOR</p>
-          <div class="hero__tour">
-            <div class="hero__video"
-                 data-video="https://www.youtube.com/embed/9OHDIi256uQ?si=e6kLUBVmScoQgixV&amp;autoplay=1"
-                 data-video-title="The aiRA product tour">
-            <button class="hero__video-poster" type="button" data-video-play
-                    aria-label="Play the aiRA product tour video">
-              <img src="/assets/product/hero-product.png"
-                   alt="" width="2600" height="1401">
-              <span class="hero__video-fade" aria-hidden="true"></span>
-              <span class="hero__video-btn" aria-hidden="true">
-                <svg viewBox="0 0 256 256" fill="currentColor"><path d="M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z"/></svg>
-              </span>
-              </button>
-            </div>
-
-            <!-- Decorative, pointer-events off, so the poster stays one click
-            target for the video facade. Scattered on desktop; on phones
-            the scatter would collide, so it becomes the ticker it was. -->
-              <div class="hero__askbelt">
-                <ul class="hero__asklist">
-                  <li>
-                    <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg>
-                    Ad hoc analytics
-                  </li>
-                  <li>
-                    <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg>
-                    Predictive models
-                  </li>
-                  <li>
-                    <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>
-                    Audience builder
-                  </li>
-                  <li>
-                    <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M80,176a32,32,0,1,1-32-32A32,32,0,0,1,80,176Z" opacity="0.2"/><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg>
-                    Journey orchestration
-                  </li>
-                  <li>
-                    <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M176,96a48,48,0,1,1-48-48A48,48,0,0,1,176,96Z" opacity="0.2"/><path d="M216,96A88,88,0,1,0,72,163.83V240a8,8,0,0,0,11.58,7.16L128,225l44.43,22.21A8.07,8.07,0,0,0,176,248a8,8,0,0,0,8-8V163.83A87.85,87.85,0,0,0,216,96ZM56,96a72,72,0,1,1,72,72A72.08,72.08,0,0,1,56,96ZM168,227.06l-36.43-18.21a8,8,0,0,0-7.16,0L88,227.06V174.37a87.89,87.89,0,0,0,80,0ZM128,152A56,56,0,1,0,72,96,56.06,56.06,0,0,0,128,152Zm0-96A40,40,0,1,1,88,96,40,40,0,0,1,128,56Z"/></svg>
-                    Loyalty &amp; rewards
-                  </li>
-                </ul>
-              </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <div class="joint" aria-hidden="true"></div>
 
-    <!-- ================= PROOF: logo cloud ================= -->
-    <!-- The sliding belt, brought back from V2 on 16 Sep and retuned for
-         light: the supplied grey exports at 55% on the page ground, each
-         mark's full-colour original crossfading in on hover. -->
-    <section class="section section--tight proof">
+    <!-- ================= PROOF: logo grid ================= -->
+    <!-- The promptwatch book-a-demo grid (19 Sep), replacing the marquee
+         belt: hairline-gapped tiles, two columns on phones and five from
+         768px, logos resettling from tile to tile (js/logo-grid.js). The
+         empty tiles are deliberate: they are the seats the rotation moves
+         into today, and the seats the next drop of logos fills. New marks
+         go into the bench div at the bottom (same grey + colour pair the
+         belt used) and the script folds them into the rotation unaided. -->
+    <section class="section section--tight lgrid">
       <div class="padding-global">
         <div class="container">
-          <!-- Three identical tracks so the belt stays covered at container
-               width; only the first is exposed to assistive tech. The edge
-               mask dissolves the marks before they reach the rails, so the
-               band needs no cells of its own to look contained. -->
-          <div class="proof__marquee">
-            <div class="logo-wall proof__track">
-              <span class="proof__logo">
+          <h2 class="sr-only">Customer brands live with aiRA</h2>
+          <div class="lgrid__grid" data-logo-grid>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo">
                 <img src="/assets/logos/nascar.svg" alt="NASCAR" width="192" height="32">
-                <img class="proof__logo-color" src="/assets/logos/nascar-color.svg" alt="" aria-hidden="true" width="192" height="32">
+                <img class="lgrid__logo-c" src="/assets/logos/nascar-color.svg" alt="" aria-hidden="true" width="192" height="32">
               </span>
-              <span class="proof__logo">
+            </div>
+            <div class="lgrid__tile"></div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo">
                 <img src="/assets/logos/hertz.svg" alt="Hertz" width="90" height="32">
-                <img class="proof__logo-color" src="/assets/logos/hertz-color.svg" alt="" aria-hidden="true" width="90" height="32">
+                <img class="lgrid__logo-c" src="/assets/logos/hertz-color.svg" alt="" aria-hidden="true" width="90" height="32">
               </span>
-              <span class="proof__logo">
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo lgrid__logo--badge">
                 <img src="/assets/logos/rack-room-shoes.svg" alt="Rack Room Shoes" width="48" height="48">
-                <img class="proof__logo-color" src="/assets/logos/rack-room-shoes-color.svg" alt="" aria-hidden="true" width="48" height="48">
+                <img class="lgrid__logo-c" src="/assets/logos/rack-room-shoes-color.svg" alt="" aria-hidden="true" width="48" height="48">
               </span>
-              <span class="proof__logo">
+            </div>
+            <div class="lgrid__tile"></div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo">
                 <img src="/assets/logos/racetrac.svg" alt="RaceTrac" width="142" height="32">
-                <img class="proof__logo-color" src="/assets/logos/racetrac-color.svg" alt="" aria-hidden="true" width="142" height="32">
+                <img class="lgrid__logo-c" src="/assets/logos/racetrac-color.svg" alt="" aria-hidden="true" width="142" height="32">
               </span>
-              <span class="proof__logo">
+            </div>
+            <div class="lgrid__tile"></div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo">
                 <img src="/assets/logos/walgreens.svg" alt="Walgreens" width="154" height="32">
-                <img class="proof__logo-color" src="/assets/logos/walgreens-color.svg" alt="" aria-hidden="true" width="154" height="32">
+                <img class="lgrid__logo-c" src="/assets/logos/walgreens-color.svg" alt="" aria-hidden="true" width="154" height="32">
               </span>
-              <span class="proof__logo">
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo">
                 <img src="/assets/logos/cochran.svg" alt="Cochran" width="114" height="32">
-                <img class="proof__logo-color" src="/assets/logos/cochran-color.svg" alt="" aria-hidden="true" width="114" height="32">
+                <img class="lgrid__logo-c" src="/assets/logos/cochran-color.svg" alt="" aria-hidden="true" width="114" height="32">
               </span>
             </div>
-            <div class="logo-wall proof__track" aria-hidden="true">
-              <span class="proof__logo">
-                <img src="/assets/logos/nascar.svg" alt="" aria-hidden="true" width="192" height="32">
-                <img class="proof__logo-color" src="/assets/logos/nascar-color.svg" alt="" aria-hidden="true" width="192" height="32">
-              </span>
-              <span class="proof__logo">
-                <img src="/assets/logos/hertz.svg" alt="" aria-hidden="true" width="90" height="32">
-                <img class="proof__logo-color" src="/assets/logos/hertz-color.svg" alt="" aria-hidden="true" width="90" height="32">
-              </span>
-              <span class="proof__logo">
-                <img src="/assets/logos/rack-room-shoes.svg" alt="" aria-hidden="true" width="48" height="48">
-                <img class="proof__logo-color" src="/assets/logos/rack-room-shoes-color.svg" alt="" aria-hidden="true" width="48" height="48">
-              </span>
-              <span class="proof__logo">
-                <img src="/assets/logos/racetrac.svg" alt="" aria-hidden="true" width="142" height="32">
-                <img class="proof__logo-color" src="/assets/logos/racetrac-color.svg" alt="" aria-hidden="true" width="142" height="32">
-              </span>
-              <span class="proof__logo">
-                <img src="/assets/logos/walgreens.svg" alt="" aria-hidden="true" width="154" height="32">
-                <img class="proof__logo-color" src="/assets/logos/walgreens-color.svg" alt="" aria-hidden="true" width="154" height="32">
-              </span>
-              <span class="proof__logo">
-                <img src="/assets/logos/cochran.svg" alt="" aria-hidden="true" width="114" height="32">
-                <img class="proof__logo-color" src="/assets/logos/cochran-color.svg" alt="" aria-hidden="true" width="114" height="32">
-              </span>
-            </div>
-            <div class="logo-wall proof__track" aria-hidden="true">
-              <span class="proof__logo">
-                <img src="/assets/logos/nascar.svg" alt="" aria-hidden="true" width="192" height="32">
-                <img class="proof__logo-color" src="/assets/logos/nascar-color.svg" alt="" aria-hidden="true" width="192" height="32">
-              </span>
-              <span class="proof__logo">
-                <img src="/assets/logos/hertz.svg" alt="" aria-hidden="true" width="90" height="32">
-                <img class="proof__logo-color" src="/assets/logos/hertz-color.svg" alt="" aria-hidden="true" width="90" height="32">
-              </span>
-              <span class="proof__logo">
-                <img src="/assets/logos/rack-room-shoes.svg" alt="" aria-hidden="true" width="48" height="48">
-                <img class="proof__logo-color" src="/assets/logos/rack-room-shoes-color.svg" alt="" aria-hidden="true" width="48" height="48">
-              </span>
-              <span class="proof__logo">
-                <img src="/assets/logos/racetrac.svg" alt="" aria-hidden="true" width="142" height="32">
-                <img class="proof__logo-color" src="/assets/logos/racetrac-color.svg" alt="" aria-hidden="true" width="142" height="32">
-              </span>
-              <span class="proof__logo">
-                <img src="/assets/logos/walgreens.svg" alt="" aria-hidden="true" width="154" height="32">
-                <img class="proof__logo-color" src="/assets/logos/walgreens-color.svg" alt="" aria-hidden="true" width="154" height="32">
-              </span>
-              <span class="proof__logo">
-                <img src="/assets/logos/cochran.svg" alt="" aria-hidden="true" width="114" height="32">
-                <img class="proof__logo-color" src="/assets/logos/cochran-color.svg" alt="" aria-hidden="true" width="114" height="32">
-              </span>
-            </div>
+            <div class="lgrid__tile"></div>
           </div>
+          <!-- Benched logos rotate into the grid; ships empty until the
+               next batch of cleared marks arrives. -->
+          <div class="lgrid__bench" hidden data-logo-bench></div>
         </div>
       </div>
     </section>
 
     <div class="joint" aria-hidden="true"></div>
 
-    <!-- ================= QUESTIONS ================= -->
-    <section class="section section--wash asks" id="questions">
+    <!-- ================= INDUSTRIES ================= -->
+    <!-- The solution-first turn (18 Sep): pick the industry here and the
+         questions section below re-writes itself around it. The cards ship
+         as plain links into the hub pages, so with JS off the section still
+         navigates and the four question sets stack below, each under its own
+         name; js/industries.js upgrades the pair into tabs and panels. -->
+    <section class="section inds" id="industries">
       <div class="padding-global">
         <div class="container">
 
-          <div class="section-head section-head--center reveal">
-            <p class="eyebrow">In practice</p>
-            <h2 class="section-heading">What people actually ask <span class="hl-brand">aiRA</span>.</h2>
-            <p class="section-sub">
-              Real question shapes across aiRA's core capabilities, grounded in how teams
-              actually use it, not hypothetical demo copy.
-            </p>
-          </div>
-
-          <!-- The audience builder -> journey orchestration pair is one
-               continuous thread on /lp, so it carries the two illustration
-               columns; the other five capability question pairs follow. -->
-          <div class="feat reveal">
-            <div class="feat__col">
-              <h3 class="feat__title"><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg></span>Audience builder</h3>
-              <p class="feat__body">
-                Describe the audience the way you would say it out loud, and aiRA
-                builds the segment from your live data.
-              </p>
-              <div class="feat__fig">
-                <div class="feat__card feat__card--session">
-                  <p class="feat__msg">Build a segment of members who bought once and never came back.</p>
-                  <div class="feat__tasks" aria-hidden="true">
-                    <p class="feat__tasks-head">
-                      <svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
-                      Building the segment
-                    </p>
-                    <div class="feat__tasks-list"><div class="feat__tasks-listin">
-                    <div class="feat__task">
-                      <span class="feat__task-icon"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span>
-                      <span class="feat__task-t">Querying the CDP snapshot</span>
-                      <span class="feat__task-meta">1.2s</span>
-                    </div>
-                    <div class="feat__task">
-                      <span class="feat__task-icon"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span>
-                      <span class="feat__task-t">Pulling spend, frequency, recency</span>
-                      <span class="feat__task-meta">0.9s</span>
-                    </div>
-                    <div class="feat__task">
-                      <span class="feat__task-icon"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span>
-                      <span class="feat__task-t">Matching one-time buyers</span>
-                      <span class="feat__task-meta">1.4s</span>
-                    </div>
-                    </div></div>
-                  </div>
-                  <div class="feat__artifact" aria-hidden="true">
-                    <span class="feat__artifact-icon"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg></span>
-                    <span class="feat__artifact-body">
-                      <span class="feat__artifact-t">Lapsed once-buyers</span>
-                      <span class="feat__artifact-m">Segment &middot; 12,408 members &middot; v1</span>
-                    </span>
-                  </div>
-                  <div class="feat__chartwrap" aria-hidden="true">
-                    <svg class="feat__chart" viewBox="0 0 240 56" preserveAspectRatio="none">
-                      <path class="feat__chart-grid" d="M2 18H238M2 32H238M2 46H238"/>
-                      <path class="feat__chart-area" d="M2 44L36 34L70 38L104 24L138 28L172 16L206 20L238 8L238 54L2 54Z"/>
-                      <path class="feat__chart-line" d="M2 44L36 34L70 38L104 24L138 28L172 16L206 20L238 8" pathLength="100"/>
-                    </svg>
-                    <i class="feat__chart-end"></i>
-                  </div>
-                </div>
-              </div>
+          <div class="inds__head reveal">
+            <div class="inds__head-text">
+              <p class="eyebrow">Industries</p>
+              <h2 class="section-heading">
+                Retail is not one business, <em>and neither is telecom.</em>
+              </h2>
             </div>
-
-            <div class="feat__col">
-              <h3 class="feat__title"><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M80,176a32,32,0,1,1-32-32A32,32,0,0,1,80,176Z" opacity="0.2"/><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg></span>Journey orchestration</h3>
-              <p class="feat__body">
-                The follow-up move on that segment arrives already built, and nothing
-                goes live until a person approves it.
-              </p>
-              <div class="feat__fig">
-                <div class="feat__card feat__card--journey">
-                  <p class="feat__msg">Create a win-back journey for the lapsed members in that segment.</p>
-                  <div class="feat__artifact" aria-hidden="true">
-                    <span class="feat__artifact-icon"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg></span>
-                    <span class="feat__artifact-body">
-                      <span class="feat__artifact-t">Lapsed win-back journey</span>
-                      <span class="feat__artifact-m">Journey &middot; 14 steps &middot; 2 paths &middot; v1</span>
-                    </span>
-                    <span class="state state--pending feat__artifact-state">Pending</span>
-                  </div>
-                  <div class="feat__canvas" aria-hidden="true">
-                    <div class="feat__node feat__node--entry"><i class="feat__nodedot feat__nodedot--audience"></i><span class="feat__node-t">Entry &middot; no purchase 60 days</span></div>
-                    <div class="feat__split"></div>
-                    <div class="feat__paths">
-                      <div class="feat__path">
-                        <div class="feat__node"><i class="feat__nodedot feat__nodedot--sms"></i><span class="feat__node-t">SMS &middot; VIP win-back</span></div>
-                        <div class="feat__node"><i class="feat__nodedot feat__nodedot--wait"></i><span class="feat__node-t">Wait 2 days</span></div>
-                        <div class="feat__node"><i class="feat__nodedot feat__nodedot--email"></i><span class="feat__node-t">Email &middot; 25% off</span></div>
-                      </div>
-                      <div class="feat__path">
-                        <div class="feat__node"><i class="feat__nodedot feat__nodedot--sms"></i><span class="feat__node-t">SMS &middot; reminder</span></div>
-                        <div class="feat__node"><i class="feat__nodedot feat__nodedot--wait"></i><span class="feat__node-t">Wait 3 days</span></div>
-                        <div class="feat__node"><i class="feat__nodedot feat__nodedot--email"></i><span class="feat__node-t">Email &middot; 10% off</span></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <!-- The one heading's subheading. Generic on purpose: it is a
+                 claim about the industries themselves, not a caption for the
+                 tabs, so it holds while they change what sits underneath. -->
+            <p class="inds__claim">
+              A grocer and a fashion chain sit in the same industry and ask
+              almost nothing in common. aiRA knows the categories underneath
+              each one, and the questions that come with them.
+            </p>
+              <div class="cats__deco" aria-hidden="true">
+              <span class="cats__rule"></span>
+              <svg class="cats__rings" viewBox="0 0 1000 1000" fill="none" focusable="false">
+                <!-- Quiet colour inside the rings: three concentric zones in
+                     the ramp trio, painted before the strokes. -->
+                <g class="cats__fills">
+                  <circle class="cats__fill cats__fill--purple" cx="500" cy="500" r="470"/>
+                  <circle class="cats__fill cats__fill--teal" cx="500" cy="500" r="257"/>
+                  <circle class="cats__fill cats__fill--brand" cx="500" cy="500" r="102"/>
+                </g>
+                <g class="cats__orbits">
+                  <circle cx="500" cy="500" r="102"/>
+                  <circle cx="500" cy="500" r="172"/>
+                  <circle cx="500" cy="500" r="257"/>
+                  <circle cx="500" cy="500" r="355"/>
+                  <circle cx="500" cy="500" r="470"/>
+                </g>
+                <!-- The vertical and the two diagonals through the centre;
+                     the horizontal is .cats__rule, which crosses the whole
+                     frame at this same height. Endpoints sit on the outer
+                     ring (500 +/- 470, and +/- 470/sqrt2 = 332 for the
+                     diagonals). -->
+                <g class="cats__axes">
+                  <line x1="500" y1="30" x2="500" y2="970"/>
+                  <line x1="168" y1="168" x2="832" y2="832"/>
+                  <line x1="832" y1="168" x2="168" y2="832"/>
+                </g>
+                <!-- Travellers: dots drifting slowly along the axes, one per
+                     line, on negative delays so they are mid-journey when
+                     the drawing assembles. -->
+                <g class="cats__trav" aria-hidden="true">
+                  <circle class="cats__tr cats__tr--h" cx="60" cy="500" r="7"/>
+                  <circle class="cats__tr cats__tr--v" cx="500" cy="140" r="7"/>
+                  <circle class="cats__tr cats__tr--d1" cx="200" cy="200" r="7"/>
+                  <circle class="cats__tr cats__tr--d2" cx="800" cy="200" r="7"/>
+                </g>
+                <circle class="cats__pip cats__pip--brand" cx="500" cy="500" r="6"/>
+                <circle class="cats__pip cats__pip--purple" cx="243" cy="500" r="6"/>
+                <circle class="cats__pip" cx="757" cy="500" r="6"/>
+                <circle class="cats__pip cats__pip--teal" cx="572" cy="572" r="6"/>
+                <circle class="cats__pip cats__pip--purple" cx="751" cy="249" r="6"/>
+              </svg>
             </div>
           </div>
 
-          <ul class="feat__mini reveal reveal-stagger">
-            <li>
-              <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg></span>Ad hoc analytics</h4>
-              <p>How many members with a negative points balance redeemed a certificate last quarter?</p>
-            </li>
-            <li>
-              <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V200H224A8,8,0,0,1,232,208ZM132,160a12,12,0,1,0-12-12A12,12,0,0,0,132,160Zm-24-56A12,12,0,1,0,96,92,12,12,0,0,0,108,104ZM76,176a12,12,0,1,0-12-12A12,12,0,0,0,76,176Zm96-48a12,12,0,1,0-12-12A12,12,0,0,0,172,128Zm24-40a12,12,0,1,0-12-12A12,12,0,0,0,196,88Zm-20,76a12,12,0,1,0,12-12A12,12,0,0,0,176,164Z"/></svg></span>Advanced analytics</h4>
-              <p>Run a market basket analysis for our decile&#8209;10 buyers this year.</p>
-            </li>
-            <li>
-              <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,56v56c0,96-88,120-88,120S40,208,40,112V56a8,8,0,0,1,8-8H208A8,8,0,0,1,216,56Z" opacity="0.2"/><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></svg></span>Data quality &amp; fraud checks</h4>
-              <p>Flag duplicate emails and unusual redemption spikes from the last 30 days.</p>
-            </li>
-            <li>
-              <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg></span>Predictive models</h4>
-              <p>Which members are most likely to churn in the next 60 days?</p>
-            </li>
-            <li>
-              <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,56V200H160a32,32,0,0,0-32,32,32,32,0,0,0-32-32H24V56H96a32,32,0,0,1,32,32,32,32,0,0,1,32-32Z" opacity="0.2"/><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></svg></span>Knowledge base Q&amp;A</h4>
-              <p>What counts as an active member under our current program rules?</p>
-            </li>
-            <li>
-              <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M176,96a48,48,0,1,1-48-48A48,48,0,0,1,176,96Z" opacity="0.2"/><path d="M216,96A88,88,0,1,0,72,163.83V240a8,8,0,0,0,11.58,7.16L128,225l44.43,22.21A8.07,8.07,0,0,0,176,248a8,8,0,0,0,8-8V163.83A87.85,87.85,0,0,0,216,96ZM56,96a72,72,0,1,1,72,72A72.08,72.08,0,0,1,56,96ZM168,227.06l-36.43-18.21a8,8,0,0,0-7.16,0L88,227.06V174.37a87.89,87.89,0,0,0,80,0ZM128,152A56,56,0,1,0,72,96,56.06,56.06,0,0,0,128,152Zm0-96A40,40,0,1,1,88,96,40,40,0,0,1,128,56Z"/></svg></span>Loyalty &amp; rewards</h4>
-              <p>Which rewards actually change repeat behaviour, and which just cost margin?</p>
-            </li>
-          </ul>
+          <!-- One panel: the strip controls the stage directly below it, so
+               they share a border rather than sitting as separate blocks.
+               The stage is empty on purpose; the prompt treatment is open. -->
+          <!-- The picker, on the tryplayground.com bar: one tinted track with
+               the open industry lifted out of it as a white pill, and a prev
+               and next pair on the right. The cards stay real links into the
+               hub pages, so the bar still works with JS off. -->
+          <div class="inds__panel reveal">
+            <div class="inds__bar">
+              <div class="inds__grid">
+                <span class="inds__thumb" aria-hidden="true"></span>
+                <a class="inds__card is-active" id="ind-tab-retail" href="/solutions/retail" data-industry="retail">
+                  <span class="inds__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,96v16a32,32,0,0,1-64,0V96H96v16a32,32,0,0,1-64,0V96L46.34,45.8A8,8,0,0,1,54,40H202a8,8,0,0,1,7.69,5.8Z" opacity="0.2"/><path d="M231.69,93.81,217.35,43.6A16.07,16.07,0,0,0,202,32H54A16.07,16.07,0,0,0,38.65,43.6L24.31,93.81A7.94,7.94,0,0,0,24,96v16a40,40,0,0,0,16,32v72a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V144a40,40,0,0,0,16-32V96A7.94,7.94,0,0,0,231.69,93.81ZM54,48H202l11.42,40H42.61Zm98,56v8a24,24,0,0,1-48,0v-8ZM51.06,132.2A24,24,0,0,1,40,112v-8H88v8a24,24,0,0,1-35.12,21.26A7.88,7.88,0,0,0,51.06,132.2ZM200,208H56V151.2a40.57,40.57,0,0,0,8,.8,40,40,0,0,0,32-16,40,40,0,0,0,64,0,40,40,0,0,0,32,16,40.57,40.57,0,0,0,8-.8Zm16-96a24,24,0,0,1-11.07,20.2,8.08,8.08,0,0,0-1.8,1.05A24,24,0,0,1,168,112v-8h48Z"/></svg></span>
+                  <span class="inds__t">Retail</span>
+                </a>
+                <a class="inds__card" id="ind-tab-restaurants-qsr" href="/solutions/restaurants-qsr" data-industry="restaurants-qsr">
+                  <span class="inds__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,40V168H152S152,64,208,40Z" opacity="0.2"/><path d="M72,88V40a8,8,0,0,1,16,0V88a8,8,0,0,1-16,0ZM216,40V224a8,8,0,0,1-16,0V176H152a8,8,0,0,1-8-8,268.75,268.75,0,0,1,7.22-56.88c9.78-40.49,28.32-67.63,53.63-78.47A8,8,0,0,1,216,40ZM200,53.9c-32.17,24.57-38.47,84.42-39.7,106.1H200ZM119.89,38.69a8,8,0,1,0-15.78,2.63L112,88.63a32,32,0,0,1-64,0l7.88-47.31a8,8,0,1,0-15.78-2.63l-8,48A8.17,8.17,0,0,0,32,88a48.07,48.07,0,0,0,40,47.32V224a8,8,0,0,0,16,0V135.32A48.07,48.07,0,0,0,128,88a8.17,8.17,0,0,0-.11-1.31Z"/></svg></span>
+                  <span class="inds__t">Restaurants &amp; QSR</span>
+                </a>
+                <a class="inds__card" id="ind-tab-travel-hospitality" href="/solutions/travel-hospitality" data-industry="travel-hospitality">
+                  <span class="inds__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M209,81l-33,31,32,88-24,24-48-72-24,24v24L88,224,72,184,32,168l24-24H80l24-24L32,72,56,48l88,32,31-33A24,24,0,0,1,209,81Z" opacity="0.2"/><path d="M185.33,114.21l29.14-27.43.17-.16a32,32,0,0,0-45.26-45.26l-.16.17L141.79,70.67l-83-30.2a8,8,0,0,0-8.39,1.86l-24,24a8,8,0,0,0,1.22,12.31l63.89,42.59L76.69,136H56a8,8,0,0,0-5.65,2.34l-24,24A8,8,0,0,0,29,175.42l36.82,14.73,14.7,36.75.06.16a8,8,0,0,0,13.18,2.47l23.87-23.88A8,8,0,0,0,120,200V179.31l14.76-14.76,42.59,63.89a8,8,0,0,0,12.31,1.22l24-24a8,8,0,0,0,1.86-8.39Zm-.07,97.23-42.59-63.89A8,8,0,0,0,136.8,144a7.09,7.09,0,0,0-.79,0,8,8,0,0,0-5.66,2.34l-24,24A8,8,0,0,0,104,176v20.69L90.93,209.76,79.43,181A8,8,0,0,0,75,176.57l-28.74-11.5L59.32,152H80a8,8,0,0,0,5.66-2.34l24-24a8,8,0,0,0-1.22-12.32L44.56,70.74l13.5-13.49,83.22,30.26a8,8,0,0,0,8.56-2l30.94-32.88A16,16,0,0,1,203.4,75.22l-32.87,30.94a8,8,0,0,0-2,8.56l30.26,83.22Z"/></svg></span>
+                  <span class="inds__t">Travel &amp; Hospitality</span>
+                </a>
+                <a class="inds__card" id="ind-tab-telecom" href="/solutions/telecom" data-industry="telecom">
+                  <span class="inds__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M160,128a32,32,0,1,1-32-32A32,32,0,0,1,160,128Z" opacity="0.2"/><path d="M128,88a40,40,0,1,0,40,40A40,40,0,0,0,128,88Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,152Zm73.71,7.14a80,80,0,0,1-14.08,22.2,8,8,0,0,1-11.92-10.67,63.95,63.95,0,0,0,0-85.33,8,8,0,1,1,11.92-10.67,80.08,80.08,0,0,1,14.08,84.47ZM69,103.09a64,64,0,0,0,11.26,67.58,8,8,0,0,1-11.92,10.67,79.93,79.93,0,0,1,0-106.67A8,8,0,1,1,80.29,85.34,63.77,63.77,0,0,0,69,103.09ZM248,128a119.58,119.58,0,0,1-34.29,84,8,8,0,1,1-11.42-11.2,103.9,103.9,0,0,0,0-145.56A8,8,0,1,1,213.71,44,119.58,119.58,0,0,1,248,128ZM53.71,200.78A8,8,0,1,1,42.29,212a119.87,119.87,0,0,1,0-168,8,8,0,1,1,11.42,11.2,103.9,103.9,0,0,0,0,145.56Z"/></svg></span>
+                  <span class="inds__t">Telecom</span>
+                </a>
+              </div>
+            </div>
 
-          <!-- The route into the finder (15 Sep). IA §3 always had this
-               section ending here; it was the one page-body link to
-               /solutions and it did not exist.
+            <div class="inds__stage" data-stage>
 
-               A real button, not a text link: /solutions is where the whole
-               phase-5 content investment lands, and a quiet link at the end of
-               a section is how ThoughtSpot orphaned theirs (IA §16). Secondary,
-               not the black pill, which stays with /book. The five ?role=
-               shortcuts that briefly sat under it were removed on the user's
-               call; the nav drawer still carries those deep links. -->
-          <div class="route reveal">
-            <p class="route__line">
-              Marketing in QSR is not marketing in retail. The questions change
-              with your industry and your team.
-            </p>
+              <div class="stage__panel" data-industry="retail">
+                <div class="cue" data-cue>
+                  <img class="cue__mark" src="/assets/brand/aira-mark.svg" alt="" width="16" height="16" aria-hidden="true">
+                  <ol class="cue__list" aria-label="Questions retail teams ask aiRA">
+                    <li class="cue__item is-on">Find the members who installed the app and have never paid with it.</li>
+                    <li class="cue__item">What is a fuel-only customer worth against one who also shops inside?</li>
+                    <li class="cue__item">Find the online customers who have never been matched to a store visit.</li>
+                    <li class="cue__item">Which customers have dropped a department they used to buy every quarter?</li>
+                    <li class="cue__item">Which first orders are likely to be returned in full before we ship them?</li>
+                    <li class="cue__item">Is the base moving out of formalwear into casual and active, and how fast?</li>
+                    <li class="cue__item">Which delivery slots are filling with baskets too small to pay for the van?</li>
+                    <li class="cue__item">Of the shoppers we won back last quarter, what did they actually respond to?</li>
+                    <li class="cue__item">Reconcile front-of-store sales against the loyalty ledger for last week.</li>
+                    <li class="cue__item">Which repeat purchases move online and which stay in store, by category?</li>
+                    <li class="cue__item">Find the buyers who furnished one room and never came back for the next.</li>
+                    <li class="cue__item">Which past buyers are most likely to be starting a second room this year?</li>
+                    <li class="cue__item">Where does repeat purchase stall first: price, range or delivery?</li>
+                    <li class="cue__item">What counts as an active customer under our current programme rules?</li>
+                    <li class="cue__item">Which online-first buyers later bought in store, and what brought them in?</li>
+                    <li class="cue__item">Separate the enthusiasts from the gift buyers in last season's customer file.</li>
+                  </ol>
+                </div>
+                <div class="biz-grid reveal">
+                  <a class="biz" href="/solutions/retail/grocery-supermarket">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,64l-12.16,66.86A16,16,0,0,1,196.1,144H70.55L56,64Z" opacity="0.2"/><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg></span>
+                    <span class="biz__t">Grocery &amp; Supermarket</span>
+                    <span class="biz__d">Weekly trips, thin margins. Small basket and frequency shifts move the whole number.</span>
+                  </a>
+                  <a class="biz" href="/solutions/retail/fashion-apparel">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M247.11,78.77l-19.27,36.81a8.44,8.44,0,0,1-7.5,4.42H192V40l51.78,28.25A7.81,7.81,0,0,1,247.11,78.77Zm-238.22,0,19.27,36.81a8.44,8.44,0,0,0,7.5,4.42H64V40L12.22,68.25A7.81,7.81,0,0,0,8.89,78.77Z" opacity="0.2"/><path d="M247.59,61.22,195.83,33A8,8,0,0,0,192,32H160a8,8,0,0,0-8,8,24,24,0,0,1-48,0,8,8,0,0,0-8-8H64a8,8,0,0,0-3.84,1L8.41,61.22A15.76,15.76,0,0,0,1.82,82.48l19.27,36.81A16.37,16.37,0,0,0,35.67,128H56v80a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V128h20.34a16.37,16.37,0,0,0,14.58-8.71l19.27-36.81A15.76,15.76,0,0,0,247.59,61.22ZM35.67,112a.62.62,0,0,1-.41-.13L16.09,75.26,56,53.48V112ZM184,208H72V48h16.8a40,40,0,0,0,78.38,0H184Zm36.75-96.14a.55.55,0,0,1-.41.14H200V53.48l39.92,21.78Z"/></svg></span>
+                    <span class="biz__t">Fashion &amp; Apparel</span>
+                    <span class="biz__d">Drops and seasons spike demand, returns eat margin. Repeat buyers decide the year.</span>
+                  </a>
+                  <a class="biz" href="/solutions/retail/specialty-outdoor">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M144,52a20,20,0,1,1,20,20A20,20,0,0,1,144,52Zm49.44,55.92a8,8,0,0,0-13.77,0l-33,55.75-21-35.67H50.35L8,200H248Z" opacity="0.2"/><path d="M164,80a28,28,0,1,0-28-28A28,28,0,0,0,164,80Zm0-40a12,12,0,1,1-12,12A12,12,0,0,1,164,40Zm90.88,155.92-54.56-92.08A15.87,15.87,0,0,0,186.55,96h0a15.85,15.85,0,0,0-13.76,7.84L146.63,148l-44.84-76.1a16,16,0,0,0-27.58,0L1.11,195.94A8,8,0,0,0,8,208H248a8,8,0,0,0,6.88-12.08ZM88,80l23.57,40H64.43ZM22,192l33-56h66l33,56Zm150.57,0-16.66-28.28L186.55,112,234,192Z"/></svg></span>
+                    <span class="biz__t">Specialty &amp; Outdoor Retail</span>
+                    <span class="biz__d">Big-ticket enthusiasts who shop in seasons. Who returns between peaks matters most.</span>
+                  </a>
+                  <a class="biz" href="/solutions/retail/home-furniture">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M240,128a32,32,0,0,1-32,32v40a8,8,0,0,1-8,8H56a8,8,0,0,1-8-8V160a32,32,0,0,1,0-64V72A32,32,0,0,1,80,40h96a32,32,0,0,1,32,32V96A32,32,0,0,1,240,128Z" opacity="0.2"/><path d="M216,88.8V72a40,40,0,0,0-40-40H80A40,40,0,0,0,40,72V88.8a40,40,0,0,0,0,78.4V200a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V167.2a40,40,0,0,0,0-78.4ZM80,48h96a24,24,0,0,1,24,24V88.8A40.07,40.07,0,0,0,168,128H88A40.07,40.07,0,0,0,56,88.8V72A24,24,0,0,1,80,48ZM208.39,152H208a8,8,0,0,0-8,8v40H56V160a8,8,0,0,0-8-8h-.39A24,24,0,1,1,72,128v40a8,8,0,0,0,16,0V144h80v24a8,8,0,0,0,16,0V128a24,24,0,1,1,24.39,24Z"/></svg></span>
+                    <span class="biz__t">Home &amp; Furniture</span>
+                    <span class="biz__d">High tickets, years between purchases. The work is staying relevant in the gap.</span>
+                  </a>
+                  <a class="biz" href="/solutions/retail/convenience-fuel">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M168,56V216H56V56A16,16,0,0,1,72,40h80A16,16,0,0,1,168,56Z" opacity="0.2"/><path d="M241,69.66,221.66,50.34a8,8,0,0,0-11.32,11.32L229.66,81A8,8,0,0,1,232,86.63V168a8,8,0,0,1-16,0V128a24,24,0,0,0-24-24H176V56a24,24,0,0,0-24-24H72A24,24,0,0,0,48,56V208H32a8,8,0,0,0,0,16H192a8,8,0,0,0,0-16H176V120h16a8,8,0,0,1,8,8v40a24,24,0,0,0,48,0V86.63A23.85,23.85,0,0,0,241,69.66ZM64,208V56a8,8,0,0,1,8-8h80a8,8,0,0,1,8,8V208Zm80-96a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h48A8,8,0,0,1,144,112Z"/></svg></span>
+                    <span class="biz__t">Convenience &amp; Fuel</span>
+                    <span class="biz__d">One customer, two datasets: forecourt and store. The margin lives inside the shop.</span>
+                  </a>
+                  <a class="biz" href="/solutions/retail/health-beauty">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,102c0,66-104,122-104,122S24,168,24,102A54,54,0,0,1,78,48c22.59,0,41.94,12.31,50,32,8.06-19.69,27.41-32,50-32A54,54,0,0,1,232,102Z" opacity="0.2"/><path d="M178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40ZM128,214.8C109.74,204.16,32,155.69,32,102A46.06,46.06,0,0,1,78,56c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,155.61,146.24,204.15,128,214.8Z"/></svg></span>
+                    <span class="biz__t">Health &amp; Beauty</span>
+                    <span class="biz__d">Replenishment you can set a clock by. A missed refill window is churn seen early.</span>
+                  </a>
+                  <a class="biz" href="/solutions/retail/department-discount">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,56V200a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM176,88a48,48,0,0,1-96,0,8,8,0,0,1,16,0,32,32,0,0,0,64,0,8,8,0,0,1,16,0Z"/></svg></span>
+                    <span class="biz__t">Department &amp; Discount</span>
+                    <span class="biz__d">Wide assortments, thin margins. Cross-category movement decides who becomes loyal.</span>
+                  </a>
+                  <a class="biz" href="/solutions/retail/other-retail">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M112,56v48a8,8,0,0,1-8,8H56a8,8,0,0,1-8-8V56a8,8,0,0,1,8-8h48A8,8,0,0,1,112,56Zm88-8H152a8,8,0,0,0-8,8v48a8,8,0,0,0,8,8h48a8,8,0,0,0,8-8V56A8,8,0,0,0,200,48Zm-96,96H56a8,8,0,0,0-8,8v48a8,8,0,0,0,8,8h48a8,8,0,0,0,8-8V152A8,8,0,0,0,104,144Zm96,0H152a8,8,0,0,0-8,8v48a8,8,0,0,0,8,8h48a8,8,0,0,0,8-8V152A8,8,0,0,0,200,144Z" opacity="0.2"/><path d="M200,136H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48ZM104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Z"/></svg></span>
+                    <span class="biz__t">Other Retail</span>
+                    <span class="biz__d">Electronics, marketplaces and D2C. Different catalogues, same need: answers fast.</span>
+                  </a>
+                </div>
+                <div class="vdemo" data-video="https://www.youtube.com/embed/9OHDIi256uQ?si=e6kLUBVmScoQgixV&amp;autoplay=1" data-video-title="The aiRA product tour">
+                  <p class="eyebrow vdemo__label">In the product</p>
+          <button class="vdemo__btn" type="button" data-video-play>
+                    <span class="vdemo__shot" aria-hidden="true">
+                      <img src="/assets/industry/retail-hero.jpg" alt="" width="1800" height="1125" loading="lazy" decoding="async">
+                      <span class="vdemo__play"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z"/></svg></span>
+                    </span>
+                    <span class="vdemo__txt">
+                      <span class="vdemo__t">See aiRA answer a retail question</span>
+                      <span class="vdemo__d">Basket, frequency and who is lapsing</span>
+                    </span>
+                  </button>
+                </div>
+              </div>
 
-            <a class="btn btn--secondary btn--lg route__cta" href="/solutions">
-              See the questions for your team
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
+              <div class="stage__panel" data-industry="restaurants-qsr">
+                <div class="cue" data-cue>
+                  <img class="cue__mark" src="/assets/brand/aira-mark.svg" alt="" width="16" height="16" aria-hidden="true">
+                  <ol class="cue__list" aria-label="Questions restaurant and QSR teams ask aiRA">
+                    <li class="cue__item is-on">How did last month's limited-time offer read by daypart, region and location?</li>
+                    <li class="cue__item">Which menu items actually travelled together at lunch, and at what margin?</li>
+                    <li class="cue__item">Which regulars have broken a weekly habit this month, not just missed a week?</li>
+                    <li class="cue__item">Separate the habitual customers from the occasional ones, and keep that definition for next time.</li>
+                  </ol>
+                </div>
+                <div class="biz-grid reveal">
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M188,176l20-7.27V184a32,32,0,0,1-32,32H80a32,32,0,0,1-32-32V167.27L68,160l40,16,40-16Zm27.82-89.72C209.32,55.55,172.48,32,128,32S46.68,55.55,40.18,86.28A8,8,0,0,0,48.07,96H207.93A8,8,0,0,0,215.82,86.28Z" opacity="0.2"/><path d="M48.07,104H207.93a16,16,0,0,0,15.72-19.38C216.22,49.5,176,24,128,24S39.78,49.5,32.35,84.62A16,16,0,0,0,48.07,104ZM128,40c39.82,0,74.21,20.61,79.93,48H48.07L48,87.93C53.79,60.61,88.18,40,128,40ZM229.26,152.48l-41.13,15L151,152.57a8,8,0,0,0-5.94,0l-37,14.81L71,152.57a8,8,0,0,0-5.7-.09l-44,16a8,8,0,0,0,5.47,15L40,178.69V184a40,40,0,0,0,40,40h96a40,40,0,0,0,40-40v-9.67l18.73-6.81a8,8,0,1,0-5.47-15ZM200,184a24,24,0,0,1-24,24H80a24,24,0,0,1-24-24V172.88l11.87-4.32L105,183.43a8,8,0,0,0,5.94,0l37-14.81,37,14.81a8,8,0,0,0,5.7.09l9.27-3.37ZM16,128a8,8,0,0,1,8-8H232a8,8,0,0,1,0,16H24A8,8,0,0,1,16,128Z"/></svg></span>
+                    <span class="biz__t">Quick Service</span>
+                    <span class="biz__d">Speed is the product. Frequency is counted in visits a week, not trips a month.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,112a96,96,0,0,1-56,87.3V208a8,8,0,0,1-8,8H96a8,8,0,0,1-8-8v-8.7A96,96,0,0,1,32,112Z" opacity="0.2"/><path d="M224,104h-8.37a88,88,0,0,0-175.26,0H32a8,8,0,0,0-8,8,104.35,104.35,0,0,0,56,92.28V208a16,16,0,0,0,16,16h64a16,16,0,0,0,16-16v-3.72A104.35,104.35,0,0,0,232,112,8,8,0,0,0,224,104ZM173.48,56.23q2.75,2.25,5.27,4.75a87.92,87.92,0,0,0-49.15,43H100.1A72.26,72.26,0,0,1,168,56C169.83,56,171.66,56.09,173.48,56.23Zm15.91,18.2A71.45,71.45,0,0,1,199.54,104H148.12A71.84,71.84,0,0,1,189.39,74.43ZM128,40a71.87,71.87,0,0,1,19,2.57A88.36,88.36,0,0,0,83.33,104H56.46A72.08,72.08,0,0,1,128,40Zm36.66,152A8,8,0,0,0,160,199.3V208H96v-8.7A8,8,0,0,0,91.34,192a88.29,88.29,0,0,1-51-72H215.63A88.29,88.29,0,0,1,164.66,192Z"/></svg></span>
+                    <span class="biz__t">Fast Casual</span>
+                    <span class="biz__d">Higher ticket, same hurry. The app is where the relationship actually lives.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,40V168H152S152,64,208,40Z" opacity="0.2"/><path d="M72,88V40a8,8,0,0,1,16,0V88a8,8,0,0,1-16,0ZM216,40V224a8,8,0,0,1-16,0V176H152a8,8,0,0,1-8-8,268.75,268.75,0,0,1,7.22-56.88c9.78-40.49,28.32-67.63,53.63-78.47A8,8,0,0,1,216,40ZM200,53.9c-32.17,24.57-38.47,84.42-39.7,106.1H200ZM119.89,38.69a8,8,0,1,0-15.78,2.63L112,88.63a32,32,0,0,1-64,0l7.88-47.31a8,8,0,1,0-15.78-2.63l-8,48A8.17,8.17,0,0,0,32,88a48.07,48.07,0,0,0,40,47.32V224a8,8,0,0,0,16,0V135.32A48.07,48.07,0,0,0,128,88a8.17,8.17,0,0,0-.11-1.31Z"/></svg></span>
+                    <span class="biz__t">Casual Dining</span>
+                    <span class="biz__d">Occasion-led and booking-led. The regular who stops coming rarely says why.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg></span>
+                    <span class="biz__t">Family Dining</span>
+                    <span class="biz__d">Groups, not covers. One household going quiet takes four seats with it.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,88A88,88,0,0,1,40,88Z" opacity="0.2"/><path d="M224,88h0a95.63,95.63,0,0,0-15.53-52.37,8,8,0,0,0-6.7-3.63H54.23a8,8,0,0,0-6.7,3.63A95.63,95.63,0,0,0,32,88h0a96.12,96.12,0,0,0,88,95.66V216H88a8,8,0,0,0,0,16h80a8,8,0,0,0,0-16H136V183.66A96.12,96.12,0,0,0,224,88ZM58.7,48H197.3a79.52,79.52,0,0,1,10.3,32H48.4A79.52,79.52,0,0,1,58.7,48ZM128,168A80.11,80.11,0,0,1,48.4,96H207.6A80.11,80.11,0,0,1,128,168Z"/></svg></span>
+                    <span class="biz__t">Fine Dining</span>
+                    <span class="biz__d">Few visits, high value. Being recognised matters more than any discount.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,88v48a88,88,0,0,1-51.3,80H83.3A88,88,0,0,1,32,136V88Z" opacity="0.2"/><path d="M80,56V24a8,8,0,0,1,16,0V56a8,8,0,0,1-16,0Zm40,8a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,120,64Zm32,0a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,152,64Zm96,56v8a40,40,0,0,1-37.51,39.91,96.59,96.59,0,0,1-27,40.09H208a8,8,0,0,1,0,16H32a8,8,0,0,1,0-16H56.54A96.3,96.3,0,0,1,24,136V88a8,8,0,0,1,8-8H208A40,40,0,0,1,248,120ZM200,96H40v40a80.27,80.27,0,0,0,45.12,72h69.76A80.27,80.27,0,0,0,200,136Zm32,24a24,24,0,0,0-16-22.62V136a95.78,95.78,0,0,1-1.2,15A24,24,0,0,0,232,128Z"/></svg></span>
+                    <span class="biz__t">Coffee &amp; Beverage</span>
+                    <span class="biz__d">A daily habit on a tiny ticket. The model rests on the streak holding.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M104,48c0-24,24-40,24-40s24,16,24,40a24,24,0,0,1-48,0ZM208,96H48a16,16,0,0,0-16,16v23.33c0,17.44,13.67,32.18,31.1,32.66A32,32,0,0,0,96,136a32,32,0,0,0,64,0,32,32,0,0,0,32.9,32c17.43-.48,31.1-15.22,31.1-32.66V112A16,16,0,0,0,208,96Z" opacity="0.2"/><path d="M232,112a24,24,0,0,0-24-24H136V79a32.06,32.06,0,0,0,24-31c0-28-26.44-45.91-27.56-46.66a8,8,0,0,0-8.88,0C122.44,2.09,96,20,96,48a32.06,32.06,0,0,0,24,31v9H48a24,24,0,0,0-24,24v23.33a40.84,40.84,0,0,0,8,24.24V200a24,24,0,0,0,24,24H200a24,24,0,0,0,24-24V159.57a40.84,40.84,0,0,0,8-24.24ZM112,48c0-13.57,10-24.46,16-29.79,6,5.33,16,16.22,16,29.79a16,16,0,0,1-32,0ZM40,112a8,8,0,0,1,8-8H208a8,8,0,0,1,8,8v23.33c0,13.25-10.46,24.31-23.32,24.66A24,24,0,0,1,168,136a8,8,0,0,0-16,0,24,24,0,0,1-48,0,8,8,0,0,0-16,0,24,24,0,0,1-24.68,24C50.46,159.64,40,148.58,40,135.33Zm160,96H56a8,8,0,0,1-8-8V172.56A38.77,38.77,0,0,0,62.88,176a39.69,39.69,0,0,0,29-11.31A40.36,40.36,0,0,0,96,160a40,40,0,0,0,64,0,40.36,40.36,0,0,0,4.13,4.67A39.67,39.67,0,0,0,192,176c.38,0,.76,0,1.14,0A38.77,38.77,0,0,0,208,172.56V200A8,8,0,0,1,200,208Z"/></svg></span>
+                    <span class="biz__t">Bakery &amp; Dessert</span>
+                    <span class="biz__d">Impulse and occasion in one basket. Demand moves with the calendar.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M136,32V216H40V85.35a8,8,0,0,1,3.56-6.66l80-53.33A8,8,0,0,1,136,32Z" opacity="0.2"/><path d="M240,208H224V96a16,16,0,0,0-16-16H144V32a16,16,0,0,0-24.88-13.32L39.12,72A16,16,0,0,0,32,85.34V208H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM208,96V208H144V96ZM48,85.34,128,32V208H48ZM112,112v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm-32,0v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm0,56v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Zm32,0v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Z"/></svg></span>
+                    <span class="biz__t">Franchise Groups</span>
+                    <span class="biz__d">One brand, many owners. The data is split before anyone can read it whole.</span>
+                  </div>
+                </div>
+                <div class="vdemo" data-video="https://www.youtube.com/embed/9OHDIi256uQ?si=e6kLUBVmScoQgixV&amp;autoplay=1" data-video-title="The aiRA product tour">
+                  <p class="eyebrow vdemo__label">In the product</p>
+          <button class="vdemo__btn" type="button" data-video-play>
+                    <span class="vdemo__shot" aria-hidden="true">
+                      <img src="/assets/industry/ind-restaurants-qsr.jpg" alt="" width="1800" height="1125" loading="lazy" decoding="async">
+                      <span class="vdemo__play"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z"/></svg></span>
+                    </span>
+                    <span class="vdemo__txt">
+                      <span class="vdemo__t">See aiRA answer a QSR question</span>
+                      <span class="vdemo__d">Dayparts, attach rate and regulars</span>
+                    </span>
+                  </button>
+                </div>
+              </div>
+              <div class="stage__panel" data-industry="travel-hospitality">
+                <div class="cue" data-cue>
+                  <img class="cue__mark" src="/assets/brand/aira-mark.svg" alt="" width="16" height="16" aria-hidden="true">
+                  <ol class="cue__list" aria-label="Questions travel and hospitality teams ask aiRA">
+                    <li class="cue__item is-on">Which members are one stay or one segment short of status while the qualification window is still open?</li>
+                    <li class="cue__item">Of last year's shoulder-season bookings, which came from campaigns and which were coming anyway?</li>
+                    <li class="cue__item">Which dormant members are actually churning, and which are simply between trips?</li>
+                    <li class="cue__item">What did the members we re-engaged last year book first when they came back?</li>
+                  </ol>
+                </div>
+                <div class="biz-grid reveal">
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M240,112v56H104V80H208A32,32,0,0,1,240,112Z" opacity="0.2"/><path d="M208,72H24V48A8,8,0,0,0,8,48V208a8,8,0,0,0,16,0V176H232v32a8,8,0,0,0,16,0V112A40,40,0,0,0,208,72ZM24,88H96v72H24Zm88,72V88h96a24,24,0,0,1,24,24v48Z"/></svg></span>
+                    <span class="biz__t">Hotels &amp; Resorts</span>
+                    <span class="biz__d">Nights, not transactions. Status and rate plan decide what a guest is worth.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,136a48,48,0,0,1-79.55,36.18L160,224H96l15.55-51.82A48,48,0,0,1,32,136c0-64,96-112,96-112S224,72,224,136Z" opacity="0.2"/><path d="M131.58,16.85a8,8,0,0,0-7.16,0C120.32,18.9,24,67.84,24,136a56,56,0,0,0,74.15,53L88.34,221.7A8,8,0,0,0,96,232h64a8,8,0,0,0,7.66-10.3L157.85,189A56,56,0,0,0,232,136C232,67.84,135.68,18.9,131.58,16.85ZM176,176a40,40,0,0,1-26.29-9.85,8,8,0,0,0-12.92,8.33L149.25,216h-42.5l12.46-41.52a8,8,0,0,0-12.92-8.33A40,40,0,0,1,40,136c0-29.88,24.41-56.55,44.89-73.66A279.13,279.13,0,0,1,128,33.06a279.13,279.13,0,0,1,43.11,29.28C208.21,93.34,216,119.51,216,136A40,40,0,0,1,176,176Z"/></svg></span>
+                    <span class="biz__t">Casinos &amp; Gaming</span>
+                    <span class="biz__d">Play, stay and dine on one card. The tier is the whole relationship.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M209,81l-33,31,32,88-24,24-48-72-24,24v24L88,224,72,184,32,168l24-24H80l24-24L32,72,56,48l88,32,31-33A24,24,0,0,1,209,81Z" opacity="0.2"/><path d="M185.33,114.21l29.14-27.43.17-.16a32,32,0,0,0-45.26-45.26l-.16.17L141.79,70.67l-83-30.2a8,8,0,0,0-8.39,1.86l-24,24a8,8,0,0,0,1.22,12.31l63.89,42.59L76.69,136H56a8,8,0,0,0-5.65,2.34l-24,24A8,8,0,0,0,29,175.42l36.82,14.73,14.7,36.75.06.16a8,8,0,0,0,13.18,2.47l23.87-23.88A8,8,0,0,0,120,200V179.31l14.76-14.76,42.59,63.89a8,8,0,0,0,12.31,1.22l24-24a8,8,0,0,0,1.86-8.39Zm-.07,97.23-42.59-63.89A8,8,0,0,0,136.8,144a7.09,7.09,0,0,0-.79,0,8,8,0,0,0-5.66,2.34l-24,24A8,8,0,0,0,104,176v20.69L90.93,209.76,79.43,181A8,8,0,0,0,75,176.57l-28.74-11.5L59.32,152H80a8,8,0,0,0,5.66-2.34l24-24a8,8,0,0,0-1.22-12.32L44.56,70.74l13.5-13.49,83.22,30.26a8,8,0,0,0,8.56-2l30.94-32.88A16,16,0,0,1,203.4,75.22l-32.87,30.94a8,8,0,0,0-2,8.56l30.26,83.22Z"/></svg></span>
+                    <span class="biz__t">Airlines</span>
+                    <span class="biz__d">Miles outlive the trip. Status chasing is the most predictable behaviour there is.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,125.82V160.1c-14.57,51.07-82.23,68.91-94.19,71.69a7.91,7.91,0,0,1-3.62,0C114.23,229,46.57,211.17,32,160.1V125.82a8,8,0,0,1,5.47-7.6L128,88l90.53,30.22A8,8,0,0,1,224,125.82Z" opacity="0.2"/><path d="M221.06,110.63,208,106.27V56a16,16,0,0,0-16-16H136V24a8,8,0,0,0-16,0V40H64A16,16,0,0,0,48,56v50.27l-13.06,4.36A16,16,0,0,0,24,125.82V160.1a7.73,7.73,0,0,0,.31,2.19c15.72,55.09,86.12,74.06,100.07,77.3a16.19,16.19,0,0,0,7.24,0c13.95-3.24,84.35-22.21,100.07-77.3a7.73,7.73,0,0,0,.31-2.19V125.82A16,16,0,0,0,221.06,110.63ZM64,56H192v44.93L130.53,80.41a8,8,0,0,0-5.06,0L64,100.93ZM216,158.94c-5.78,19-20.55,35.17-43.95,48.12A181.7,181.7,0,0,1,128,224a181.7,181.7,0,0,1-44-16.94C60.56,194.11,45.78,177.93,40,158.94V125.81l80-26.7V168a8,8,0,0,0,16,0V99.11l80,26.71Z"/></svg></span>
+                    <span class="biz__t">Cruise</span>
+                    <span class="biz__d">One booking a year at most. The gap between sailings is where loyalty is lost.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M200,128a32,32,0,0,0,25.6,31.36,8,8,0,0,1,6.4,7.83V192a8,8,0,0,1-8,8H96V56H224a8,8,0,0,1,8,8V88.81a8,8,0,0,1-6.4,7.83A32,32,0,0,0,200,128Z" opacity="0.2"/><path d="M227.19,104.48A16,16,0,0,0,240,88.81V64a16,16,0,0,0-16-16H32A16,16,0,0,0,16,64V88.81a16,16,0,0,0,12.81,15.67,24,24,0,0,1,0,47A16,16,0,0,0,16,167.19V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V167.19a16,16,0,0,0-12.81-15.67,24,24,0,0,1,0-47ZM32,167.2a40,40,0,0,0,0-78.39V64H88V192H32Zm192,0V192H104V64H224V88.8a40,40,0,0,0,0,78.39Z"/></svg></span>
+                    <span class="biz__t">Theme Parks</span>
+                    <span class="biz__d">Season passes and single-day visitors behave nothing alike.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M184,184h40v24a8,8,0,0,1-8,8H192a8,8,0,0,1-8-8ZM32,208a8,8,0,0,0,8,8H64a8,8,0,0,0,8-8V184H32ZM194.11,52.75A8,8,0,0,0,186.8,48H69.2a8,8,0,0,0-7.31,4.75L32,120H224Z" opacity="0.2"/><path d="M240,112H229.2L201.42,49.5A16,16,0,0,0,186.8,40H69.2a16,16,0,0,0-14.62,9.5L26.8,112H16a8,8,0,0,0,0,16h8v80a16,16,0,0,0,16,16H64a16,16,0,0,0,16-16V192h96v16a16,16,0,0,0,16,16h24a16,16,0,0,0,16-16V128h8a8,8,0,0,0,0-16ZM69.2,56H186.8l24.89,56H44.31ZM64,208H40V192H64Zm128,0V192h24v16Zm24-32H40V128H216ZM56,152a8,8,0,0,1,8-8H80a8,8,0,0,1,0,16H64A8,8,0,0,1,56,152Zm112,0a8,8,0,0,1,8-8h16a8,8,0,0,1,0,16H176A8,8,0,0,1,168,152Z"/></svg></span>
+                    <span class="biz__t">Car Rental</span>
+                    <span class="biz__d">Booked late and compared hard. Loyalty here is convenience before affinity.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,115.54V216H152V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v56H40V115.54a8,8,0,0,1,2.62-5.92l80-75.54a8,8,0,0,1,10.77,0l80,75.54A8,8,0,0,1,216,115.54Z" opacity="0.2"/><path d="M240,208H224V115.55a16,16,0,0,0-5.17-11.78l-80-75.48a1.14,1.14,0,0,1-.11-.11,16,16,0,0,0-21.53,0l-.11.11L37.17,103.77A16,16,0,0,0,32,115.55V208H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM48,115.55l.11-.1L128,40l79.9,75.43.11.1V208H160V160a16,16,0,0,0-16-16H112a16,16,0,0,0-16,16v48H48ZM144,208H112V160h32Z"/></svg></span>
+                    <span class="biz__t">Vacation Ownership</span>
+                    <span class="biz__d">Bought once, used for decades. Engagement is the product after the sale.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M136,32V216H40V85.35a8,8,0,0,1,3.56-6.66l80-53.33A8,8,0,0,1,136,32Z" opacity="0.2"/><path d="M240,208H224V96a16,16,0,0,0-16-16H144V32a16,16,0,0,0-24.88-13.32L39.12,72A16,16,0,0,0,32,85.34V208H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM208,96V208H144V96ZM48,85.34,128,32V208H48ZM112,112v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm-32,0v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm0,56v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Zm32,0v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Z"/></svg></span>
+                    <span class="biz__t">Hospitality Groups</span>
+                    <span class="biz__d">Many flags, one guest. Recognising them across brands is the hard part.</span>
+                  </div>
+                </div>
+                <div class="vdemo" data-video="https://www.youtube.com/embed/9OHDIi256uQ?si=e6kLUBVmScoQgixV&amp;autoplay=1" data-video-title="The aiRA product tour">
+                  <p class="eyebrow vdemo__label">In the product</p>
+          <button class="vdemo__btn" type="button" data-video-play>
+                    <span class="vdemo__shot" aria-hidden="true">
+                      <img src="/assets/industry/ind-travel-hospitality.jpg" alt="" width="1800" height="1125" loading="lazy" decoding="async">
+                      <span class="vdemo__play"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z"/></svg></span>
+                    </span>
+                    <span class="vdemo__txt">
+                      <span class="vdemo__t">See aiRA answer a travel question</span>
+                      <span class="vdemo__d">Season, shoulder and the gap between trips</span>
+                    </span>
+                  </button>
+                </div>
+              </div>
+              <div class="stage__panel" data-industry="telecom">
+                <div class="cue" data-cue>
+                  <img class="cue__mark" src="/assets/brand/aira-mark.svg" alt="" width="16" height="16" aria-hidden="true">
+                  <ol class="cue__list" aria-label="Questions telecom teams ask aiRA">
+                    <li class="cue__item is-on">Did last quarter's upgrade campaign move ARPU, or just move spend between plans?</li>
+                    <li class="cue__item">Split that by prepaid and postpaid, and show me where the lift actually came from.</li>
+                    <li class="cue__item">Which lines look like churn under our own definition of lapsed, not a generic inactivity window?</li>
+                    <li class="cue__item">Which usage drops in the last 30 days are real risk, and which are seasonal?</li>
+                  </ol>
+                </div>
+                <div class="biz-grid reveal">
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M238.2,87.69l-104,125.43a8,8,0,0,1-12.3,0L17.8,87.69a7.79,7.79,0,0,1,1.31-11.21,180.75,180.75,0,0,1,217.78,0A7.79,7.79,0,0,1,238.2,87.69Z" opacity="0.2"/><path d="M247.89,80.91a15.93,15.93,0,0,0-6.17-10.81A186.67,186.67,0,0,0,128,32,186.67,186.67,0,0,0,14.28,70.1,15.93,15.93,0,0,0,8.11,80.91,15.65,15.65,0,0,0,11.65,92.8l104,125.43A15.93,15.93,0,0,0,128,224h0a15.93,15.93,0,0,0,12.31-5.77l104-125.43A15.65,15.65,0,0,0,247.89,80.91ZM128,208,24.09,82.74A170.76,170.76,0,0,1,128,48,170.76,170.76,0,0,1,231.91,82.74Z"/></svg></span>
+                    <span class="biz__t">Cable &amp; Broadband</span>
+                    <span class="biz__d">One line per household. Churn arrives as a phone call, not as a trend.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M80,176a32,32,0,1,1-32-32A32,32,0,0,1,80,176Z" opacity="0.2"/><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H192a74.49,74.49,0,0,0-28.35,6.73c-13.62,6.29-30.83,19.71-35.54,48-5.32,31.93-29.1,39.22-41,40.86a40,40,0,1,0,.18,16.06A71.65,71.65,0,0,0,108.13,178C121.75,172,139,158.6,143.89,129.31,150.65,88.77,190.34,88,192,88h28.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg></span>
+                    <span class="biz__t">Fiber</span>
+                    <span class="biz__d">Overbuild and switch. The first ninety days decide the next five years.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M160,128a32,32,0,1,1-32-32A32,32,0,0,1,160,128Z" opacity="0.2"/><path d="M128,88a40,40,0,1,0,40,40A40,40,0,0,0,128,88Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,152Zm73.71,7.14a80,80,0,0,1-14.08,22.2,8,8,0,0,1-11.92-10.67,63.95,63.95,0,0,0,0-85.33,8,8,0,1,1,11.92-10.67,80.08,80.08,0,0,1,14.08,84.47ZM69,103.09a64,64,0,0,0,11.26,67.58,8,8,0,0,1-11.92,10.67,79.93,79.93,0,0,1,0-106.67A8,8,0,1,1,80.29,85.34,63.77,63.77,0,0,0,69,103.09ZM248,128a119.58,119.58,0,0,1-34.29,84,8,8,0,1,1-11.42-11.2,103.9,103.9,0,0,0,0-145.56A8,8,0,1,1,213.71,44,119.58,119.58,0,0,1,248,128ZM53.71,200.78A8,8,0,1,1,42.29,212a119.87,119.87,0,0,1,0-168,8,8,0,1,1,11.42,11.2,103.9,103.9,0,0,0,0,145.56Z"/></svg></span>
+                    <span class="biz__t">Wireless Carriers</span>
+                    <span class="biz__d">Devices, plans and family lines. ARPU moves for reasons the plan never shows.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M176,120v72H80V120Z" opacity="0.2"/><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM200,216H56V40h92.69L200,91.31V216ZM176,112H80a8,8,0,0,0-8,8v72a8,8,0,0,0,8,8h96a8,8,0,0,0,8-8V120A8,8,0,0,0,176,112Zm-8,72H152V152a8,8,0,0,0-16,0v32H120V152a8,8,0,0,0-16,0v32H88V128h80Z"/></svg></span>
+                    <span class="biz__t">MVNO</span>
+                    <span class="biz__d">Thin margins on prepaid habits. A missed top-up is a customer half gone.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM101.63,168h52.74C149,186.34,140,202.87,128,215.89,116,202.87,107,186.34,101.63,168ZM98,152a145.72,145.72,0,0,1,0-48h60a145.72,145.72,0,0,1,0,48ZM40,128a87.61,87.61,0,0,1,3.33-24H81.79a161.79,161.79,0,0,0,0,48H43.33A87.61,87.61,0,0,1,40,128ZM154.37,88H101.63C107,69.66,116,53.13,128,40.11,140,53.13,149,69.66,154.37,88Zm19.84,16h38.46a88.15,88.15,0,0,1,0,48H174.21a161.79,161.79,0,0,0,0-48Zm32.16-16H170.94a142.39,142.39,0,0,0-20.26-45A88.37,88.37,0,0,1,206.37,88ZM105.32,43A142.39,142.39,0,0,0,85.06,88H49.63A88.37,88.37,0,0,1,105.32,43ZM49.63,168H85.06a142.39,142.39,0,0,0,20.26,45A88.37,88.37,0,0,1,49.63,168Zm101.05,45a142.39,142.39,0,0,0,20.26-45h35.43A88.37,88.37,0,0,1,150.68,213Z"/></svg></span>
+                    <span class="biz__t">Satellite</span>
+                    <span class="biz__d">Coverage where nothing else reaches. Retention is the only growth lever.</span>
+                  </div>
+                </div>
+                <div class="vdemo" data-video="https://www.youtube.com/embed/9OHDIi256uQ?si=e6kLUBVmScoQgixV&amp;autoplay=1" data-video-title="The aiRA product tour">
+                  <p class="eyebrow vdemo__label">In the product</p>
+          <button class="vdemo__btn" type="button" data-video-play>
+                    <span class="vdemo__shot" aria-hidden="true">
+                      <img src="/assets/industry/ind-telecom.jpg" alt="" width="1800" height="1125" loading="lazy" decoding="async">
+                      <span class="vdemo__play"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z"/></svg></span>
+                    </span>
+                    <span class="vdemo__txt">
+                      <span class="vdemo__t">See aiRA answer a telecom question</span>
+                      <span class="vdemo__d">Upgrade windows, plan fit and save offers</span>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -435,7 +562,10 @@
          add a joint above it so every visible boundary keeps its line. -->
 
     <!-- ================= MECHANISM ================= -->
-    <section class="section section--inv mech section--band" id="how" data-nav-dark>
+    <!-- Parked, not deleted (18 Sep): the solution-first homepage rests the
+         how-it-fits diagram for now. To restore it, remove `hidden` here and
+         on the joint that follows the section. -->
+    <section class="section section--inv mech section--band" id="how" data-nav-dark hidden>
       <div class="mech__glow" aria-hidden="true"></div>
       <div class="padding-global">
         <div class="container">
@@ -509,7 +639,8 @@
       </div>
     </section>
 
-    <div class="joint" aria-hidden="true"></div>
+    <!-- Hidden with the mech section above: restore the two together. -->
+    <div class="joint" aria-hidden="true" hidden></div>
 
 
     <!-- ================= DIFFERENTIATORS ================= -->
@@ -599,7 +730,9 @@
     <div class="joint" aria-hidden="true"></div>
 
     <!-- ================= CATEGORY COMPARISON ================= -->
-    <section class="section section--wash compare section--band" id="category">
+    <!-- Dark since 19 Sep, so the board and the pricing section read as one
+         continuous dark passage rather than two blocks trading grounds. -->
+    <section class="section section--inv compare section--band" id="category" data-nav-dark>
       <div class="padding-global">
         <div class="container">
 
@@ -657,7 +790,7 @@
       </div>
     </section>
 
-    <div class="joint" aria-hidden="true"></div>
+    <div class="joint joint--inv" aria-hidden="true"></div>
 
 
 
@@ -677,10 +810,6 @@
                 Nobody pays for a login they never use, and adding the tenth marketer
                 costs nothing.
               </p>
-            </div>
-            <!-- Placeholder slot: a real image replaces the glyph here. -->
-            <div class="price__fig" aria-hidden="true">
-              <svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
             </div>
           </div>
 
@@ -712,7 +841,49 @@
 
     <div class="joint" aria-hidden="true"></div>
 
+    <!-- ================= NASCAR PROOF ================= -->
+    <!-- The customer story from the 15 Sep call: NASCAR, last section, beside
+         the form. One contained card inside the container (never full bleed):
+         the trackside photograph under an ink overlay on the left, the
+         Riverside take on the right, playing in place with its own first
+         frame as the thumbnail. The clip is the raw "AI tool learns NASCAR's
+         nuances" take, shipped on the 19 Sep call; when Hardik's edited cut
+         lands, swap the src and nothing else. No quote and no numbers in the
+         copy: the testimonial text is still unapproved (context.md paragraph
+         5), and nothing placeholder ships. -->
+    <section class="section nproof">
+      <div class="padding-global">
+        <div class="container">
+          <!-- section--inv on the card, not the section: the dark ground and
+               its text flips stay inside the max-width bounds. -->
+          <div class="nproof__card section--inv reveal">
+            <div class="nproof__bg" aria-hidden="true"></div>
+            <div class="nproof__main">
+              <p class="eyebrow">Customer story</p>
+              <h2 class="section-heading nproof__t">
+                Fan loyalty that lives<br>between race weekends.
+              </h2>
+              <p class="section-sub nproof__sub">
+                A season is a handful of race weekends, and the relationship has
+                to survive the months between them. That fan-loyalty work runs on
+                Capillary, with aiRA live for the marketing and CRM teams behind it.
+              </p>
+              <img class="nproof__mark" src="/assets/logos/nascar.svg" alt="NASCAR"
+                   width="192" height="32" loading="lazy">
+            </div>
+            <div class="nproof__media">
+              <video class="nproof__video"
+                     src="/assets/video/nascar-nuances.mp4"
+                     controls preload="metadata" playsinline
+                     aria-label="The NASCAR story"></video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    </section>
 
+    <div class="joint" aria-hidden="true"></div>
 
     <!-- ================= BOOK CTA ================= -->
     <section class="section section--wash book">

@@ -71,18 +71,36 @@
         </div>
       </div>
 
+      <div class="footer__bottom">
+
+        <!-- Direct children of .footer__bottom, not wrapped: the row is
+             space-between, so a wrapper would keep them bunched on the left. -->
+        <p class="footer__legal">
+          &copy; 2026 aiRA by Capillary Technologies. All rights reserved.
+        </p>
+        <ul class="footer__bottom-links">
+          <li><a href="/terms">Terms</a></li>
+          <li><a href="/privacy">Privacy</a></li>
+        </ul>
+      </div>
+
       <!-- Inlined, not an <img>: the torch effect has to reach the paths, and
            an <img> gives CSS and JS nothing to hold. Geometry is the eight
            paths of /assets/brand/aira-footer.svg verbatim; if that file is
            ever redrawn, re-paste its paths into the <defs> group below. -->
       <div class="footer__wordmark" aria-hidden="true">
         <div class="footer__wordmark-stack">
-          <!-- One copy of the geometry in <defs>, drawn twice by <use>: the
-               outline layer always, and the filled layer only where the torch
-               mask lets it through. fill/stroke are inherited from each <use>,
-               which is why the paths carry no presentation attributes. -->
-          <svg class="footer__wordmark-svg footer__wordmark-line" viewBox="0 0 1476 476" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <!-- One copy of the geometry in <defs>, drawn once by <use>. The
+                 fill is inherited from the <use>, which is why the paths
+                 carry no presentation attributes of their own. -->
+          <svg class="footer__wordmark-svg footer__wordmark-fill" viewBox="0 0 1476 476" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
             <defs>
+              <!-- Stop colours are set in CSS so the only raw values stay in
+                   tokens.css. Vertical, so the mark fades out at its foot. -->
+              <linearGradient id="aira-wordmark-fade" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0"/>
+                <stop offset="1"/>
+              </linearGradient>
               <g id="aira-wordmark">
             <path d="M978.594 116.718C978.781 134.737 978.832 152.758 978.753 170.778V170.782C978.746 180.283 979.142 193.698 978.625 202.814L978.565 203.856L979.608 203.871C996.555 204.116 1013.44 203.997 1030.36 203.968C1038.4 203.953 1044.94 203.574 1051.05 201.764C1057.18 199.947 1062.81 196.707 1069.08 191.067L1069.14 191.017L1069.18 190.961C1085.47 171.254 1086.24 141.619 1065.89 124.528L1065.41 124.127C1061.21 120.675 1056.27 118.255 1050.98 117.061L1050.97 117.06L1050.27 116.916C1046.68 116.223 1041.71 115.965 1036.74 115.873C1031.43 115.775 1025.99 115.866 1022.13 115.851H1022.13L979.598 115.707L978.584 115.703L978.594 116.718ZM913.23 301.802L912.941 206.881C912.927 160.985 911.721 109.138 913.183 63.6179C955.584 64.7288 998.371 64.2542 1040.76 65.0662C1057.48 65.3866 1070.17 64.4221 1086.14 69.3962H1086.14C1107.94 76.1747 1126.1 91.4317 1136.55 111.74L1136.55 111.745C1151.34 140.102 1151.09 181.097 1134.78 208.721C1124.95 225.369 1111.72 235.621 1094.78 244.414L1093.86 244.894L1094.38 245.799C1097.6 251.416 1100.93 257.638 1103.89 263.408V263.409C1112.24 279.656 1121.24 295.786 1130.15 311.92C1138.83 327.627 1147.43 343.342 1155.3 359.205C1149.34 359.663 1140.92 359.489 1135.07 359.554H1135.07C1124.35 359.691 1113.63 359.964 1102.91 360.375C1096.87 360.359 1090.58 360.544 1084.53 360.652C1067.62 327.064 1046.83 290.379 1028.91 257.073L1028.69 256.657L1028.23 256.566L1026.62 256.26C1010.16 253.221 996.469 253.85 979.636 255.709L978.701 255.812L978.747 256.752C979.185 265.74 978.587 280.181 978.551 289.761L978.28 359.68L913.297 359.59C912.78 341.147 913.237 320.401 913.23 301.805V301.802Z"/>
             <path d="M1360.48 64.1128C1365.34 75.8275 1370.28 90.4477 1374.71 102.556H1374.71L1400.66 173.485L1468.71 359.624L1401.01 359.92L1377.87 294.562L1377.64 293.909L1376.94 293.896L1359.8 293.584H1359.8C1356.84 293.476 1353.79 293.503 1350.85 293.491C1336.18 293.428 1321.52 293.196 1306.85 292.97C1292.18 292.744 1277.51 292.523 1262.83 292.481L1262.07 292.479L1261.86 293.204C1257.11 309.665 1246.07 342.49 1239.91 358.856C1218.3 359.733 1193.05 359.294 1171.73 360.968C1176.94 344.721 1184 326.494 1189.81 310.407V310.406L1223.46 217.126V217.125L1259.19 117.934C1265.48 100.504 1272.13 80.7268 1278.96 63.6577L1360.48 64.1128ZM1318.27 132.887L1292.96 205.348C1288.98 216.747 1284.49 231.006 1280.16 241.823L1279.59 243.231L1281.11 243.194C1285.54 243.088 1292.97 242.677 1300.16 242.346C1307.4 242.013 1314.36 241.763 1317.93 241.964L1317.98 241.966L1318.02 241.965L1357.77 240.578L1359.14 240.53L1358.67 239.241L1331.57 163.769V163.768L1329.43 157.723C1328.41 154.845 1327.16 151.328 1325.9 147.851C1324.65 144.375 1323.39 140.933 1322.36 138.205C1321.84 136.841 1321.37 135.65 1320.99 134.719C1320.62 133.814 1320.3 133.089 1320.07 132.708L1318.98 130.855L1318.27 132.887Z"/>
@@ -96,23 +114,7 @@
             </defs>
             <use href="#aira-wordmark"/>
           </svg>
-          <svg class="footer__wordmark-svg footer__wordmark-glow" viewBox="0 0 1476 476" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-            <use href="#aira-wordmark"/>
-          </svg>
         </div>
-      </div>
-
-      <div class="footer__bottom">
-
-        <!-- Direct children of .footer__bottom, not wrapped: the row is
-             space-between, so a wrapper would keep them bunched on the left. -->
-        <p class="footer__legal">
-          &copy; 2026 aiRA by Capillary Technologies. All rights reserved.
-        </p>
-        <ul class="footer__bottom-links">
-          <li><a href="/terms">Terms</a></li>
-          <li><a href="/privacy">Privacy</a></li>
-        </ul>
       </div>
 
 

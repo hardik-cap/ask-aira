@@ -77,34 +77,20 @@
 
       // Click, both breakpoints. On mobile the panel is an inline accordion.
       //
-      // A toggle that is a real link (Solutions points at /solutions) still
-      // navigates on DESKTOP, where hover has already made the panel
-      // reachable. On mobile there is no hover, so the click has to stay the
-      // disclosure or everything inside the panel becomes unreachable: the
-      // navigation is suppressed and the accordion opens instead.
+      // The toggle is a <button> since 19 Sep, so the click is only ever the
+      // disclosure: it opens on mobile, where there is no hover to open it,
+      // and it closes an open panel on desktop. It used to be an <a> pointing
+      // at /solutions and the navigation was suppressed here on mobile only;
+      // a toggle that must never navigate is a button, not a link with a
+      // preventDefault, which is also what keeps Enter and Space working
+      // without any keyboard code of our own.
       if (toggle) {
-        var href = toggle.getAttribute('href');
-        var isLink = toggle.tagName === 'A' && href && href.charAt(0) !== '#';
-
         toggle.addEventListener('click', function (e) {
-          if (isLink && isDesktop()) return; // let the browser follow it
-          if (isLink) e.preventDefault();
           e.stopPropagation();
           var open = dd.getAttribute('data-open') === 'true';
           closeAll(dd);
           setOpen(dd, !open);
         });
-
-        // Keyboard parity on desktop: the link's own Enter navigates, so the
-        // panel needs another way open for keyboard users who want it.
-        if (isLink) {
-          toggle.addEventListener('keydown', function (e) {
-            if (e.key !== 'ArrowDown' || !isDesktop()) return;
-            e.preventDefault();
-            closeAll(dd);
-            setOpen(dd, true);
-          });
-        }
       }
     });
 
