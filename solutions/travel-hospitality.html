@@ -10,7 +10,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,300..800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,300..800&family=Roboto:wght@400;500;600;700&display=swap">
 
   <link rel="stylesheet" href="/style/tokens.css">
   <link rel="stylesheet" href="/style/global.css">
@@ -20,6 +20,7 @@
 
   <script src="/js/components.js" defer></script>
   <script src="/js/reveal.js" defer></script>
+  <script src="/js/askstory.js" defer></script>
   <script type="module" src="/js/globe.js"></script>
 </head>
 <body class="page-solutions page-industry">
@@ -75,7 +76,7 @@
         <div class="container">
           <div class="section-head section-head--center reveal">
             <p class="eyebrow">Why it is different here</p>
-            <h2 class="section-heading">The year has two bookings in it.</h2>
+            <h2 class="section-heading">The year has <em>two bookings</em> in it.</h2>
             <p class="section-sub">Daily-frequency playbooks fail here. Three things aiRA is built around when the purchase cycle is measured in seasons.</p>
           </div>
           <div class="shape-grid reveal reveal-stagger">
@@ -107,7 +108,7 @@
           <div class="section-head section-head--split reveal">
             <div>
               <p class="eyebrow">What it runs here</p>
-              <h2 class="section-heading">Fifteen things aiRA runs on airline and hotel data.</h2>
+              <h2 class="section-heading"><em>Fifteen things</em> aiRA runs on airline and hotel data.</h2>
             </div>
             <p class="section-sub">In the order you would actually use them, with what each one gives back.</p>
           </div>
@@ -220,75 +221,93 @@
          the solution-first turn made literal: three real asks for this
          industry, each taken from the opening question through the
          drill-down it earns to the move held for approval. -->
-    <section class="section section--wash rasks" id="asks">
+    <section class="section section--wash rasks section--band" id="asks">
       <div class="padding-global">
         <div class="container">
           <div class="section-head section-head--center reveal">
             <p class="eyebrow">Asked in travel</p>
-            <h2 class="section-heading">One question, taken <em>all the way to a decision.</em></h2>
+            <h2 class="section-heading">One question, taken <em>all the way</em> to a decision.</h2>
             <p class="section-sub">
               Every answer arrives with the reasoning shown, earns the next
               question, and ends as a move built and waiting on a person.
             </p>
           </div>
 
-          <div class="askthreads">
-            <article class="askthread reveal">
-              <p class="qstring">Which members are inside their booking window right now?</p>
-              <div class="thread">
-                <div class="thread__step">
-                  <p class="thread__label">The answer</p>
-                  <p class="thread__body">Everyone whose booking pace says a decision is near, ranked by the value of their next likely trip.</p>
-                </div>
-                <div class="thread__step">
-                  <p class="thread__label">The drill-down</p>
-                  <p class="qstring">Keep the ones who slipped a tier this year. What would a points top-up cost?</p>
-                </div>
-                <div class="thread__step">
-                  <p class="thread__label">The move</p>
-                  <p class="thread__body">A tier save timed to the booking window, with its cost shown first.</p>
-                  <span class="state state--pending">Pending approval</span>
+          <!-- Frigade-style walkthrough (19 Sep): the three stages as a left
+               rail whose active step fills a timer bar, driving one framed
+               stage on the right. js/askstory.js advances it; without JS the
+               three panels simply stack and read whole. -->
+          <div class="askstory" data-askstory>
+            <div class="askstory__rail" role="tablist" aria-label="How aiRA works here">
+              <button class="askstory__step is-active" type="button" role="tab"
+                      id="askstep-1" aria-controls="askpanel-1" aria-selected="true">
+                <span class="askstory__bar" aria-hidden="true"></span>
+                <span class="askstory__n">01 Analyse</span>
+                <span class="askstory__t">Grounded in your own warehouse</span>
+                <span class="askstory__d">See what is happening, and why, with the reasoning shown.</span>
+              </button>
+              <button class="askstory__step" type="button" role="tab"
+                      id="askstep-2" aria-controls="askpanel-2" aria-selected="false">
+                <span class="askstory__bar" aria-hidden="true"></span>
+                <span class="askstory__n">02 Decide</span>
+                <span class="askstory__t">Narrowed to the names worth it</span>
+                <span class="askstory__d">Pick the offer and the audience, saved as a real segment.</span>
+              </button>
+              <button class="askstory__step" type="button" role="tab"
+                      id="askstep-3" aria-controls="askpanel-3" aria-selected="false">
+                <span class="askstory__bar" aria-hidden="true"></span>
+                <span class="askstory__n">03 Act</span>
+                <span class="askstory__t">Built, and held for approval</span>
+                <span class="askstory__d">The move is built and launches only once a person approves it.</span>
+              </button>
+            </div>
+            <div class="askstory__stage">
+              <div class="askstory__panel is-active" role="tabpanel"
+                   id="askpanel-1" aria-labelledby="askstep-1">
+                <p class="chat__q">Which members are inside their booking window right now?</p>
+              <div class="chat__a">
+                <p>Reading booking pace and loyalty together, ranked by the value of the next likely trip.</p>
+              </div>
+              <div class="chat__tools" aria-hidden="true">
+                <div class="chat__tool"><span class="chat__tool-c" aria-hidden="true">&rsaquo;</span><svg class="chat__tool-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,80l-96,56L32,80l96-56Z" opacity="0.2"/><path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"/></svg><span class="chat__tool-t">Discovering documents · booking_schema</span><span class="chat__tool-m">8 found</span></div>
+                <div class="chat__tool"><span class="chat__tool-c" aria-hidden="true">&rsaquo;</span><svg class="chat__tool-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,80c0,26.51-39.4,48-88,48S40,106.51,40,80s39.4-48,88-48S216,53.49,216,80Z" opacity="0.2"/><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg><span class="chat__tool-t">Running SparkSQL · booking-window scan</span><span class="chat__tool-m">2.1s</span></div>
+              </div>
+              <div class="chat__kpis" aria-hidden="true">
+                <div class="chat__kpis-head"><span class="mono mono--faint">Headline KPIs</span><span class="chat__ver">V1</span></div>
+                <div class="chat__kpi"><span class="chat__kpi-l">In window now</span><span class="chat__kpi-n">6,340</span><span class="chat__kpi-s">&#9650; 9% vs August</span></div>
+                <div class="chat__kpi"><span class="chat__kpi-l">Tier slipped</span><span class="chat__kpi-n">1,210</span></div>
+              </div>
+              </div>
+              <div class="askstory__panel" role="tabpanel"
+                   id="askpanel-2" aria-labelledby="askstep-2">
+                <p class="chat__q">Keep the ones who slipped a tier this year. What would a points top-up cost?</p>
+              <div class="chat__a">
+                <p>Held to slipped tiers still inside the window, with the top-up cost shown first.</p>
+              </div>
+              <div class="chat__aud" aria-hidden="true">
+                <p class="mono mono--faint">Saved audience</p>
+                <p class="chat__aud-t">Tier-slipped, in window</p>
+                <p class="chat__aud-n">1,210 members</p>
+                <div class="chat__chips"><span>Booking window</span><span>Tier slipped</span><span>High lifetime value</span></div>
+              </div>
+              </div>
+              <div class="askstory__panel" role="tabpanel"
+                   id="askpanel-3" aria-labelledby="askstep-3">
+                <div class="chat__a">
+                <p>The move comes back built. Nothing sends until a person approves it.</p>
+              </div>
+              <div class="chat__move" aria-hidden="true">
+                <p class="mono mono--faint">Proposed move</p>
+                <p class="chat__move-t">Tier save, timed to the window</p>
+                <p class="chat__move-d">1,210 members · cost shown before it sends</p>
+                <span class="state state--pending">Pending approval</span>
+                <div class="chat__act">
+                  <span class="chat__act-a">Approve</span>
+                  <span class="chat__act-h">Hold</span>
                 </div>
               </div>
-            </article>
-
-            <article class="askthread reveal">
-              <p class="qstring">Which one-stay guests looked like future regulars?</p>
-              <div class="thread">
-                <div class="thread__step">
-                  <p class="thread__label">The answer</p>
-                  <p class="thread__body">High-spend first stays that never returned, with the properties and seasons they favoured.</p>
-                </div>
-                <div class="thread__step">
-                  <p class="thread__label">The drill-down</p>
-                  <p class="qstring">Which of them sit within reach of a property with open shoulder-season capacity?</p>
-                </div>
-                <div class="thread__step">
-                  <p class="thread__label">The move</p>
-                  <p class="thread__body">A return-stay offer set against the capacity that needs it.</p>
-                  <span class="state state--pending">Pending approval</span>
-                </div>
               </div>
-            </article>
-
-            <article class="askthread reveal">
-              <p class="qstring">Where do redemptions stall between search and booking?</p>
-              <div class="thread">
-                <div class="thread__step">
-                  <p class="thread__label">The answer</p>
-                  <p class="thread__body">The redemption funnel step by step, down to the point where members give up on their points.</p>
-                </div>
-                <div class="thread__step">
-                  <p class="thread__label">The drill-down</p>
-                  <p class="qstring">Is it award availability or the points price that stops them?</p>
-                </div>
-                <div class="thread__step">
-                  <p class="thread__label">The move</p>
-                  <p class="thread__body">A redemption fix ranked by the bookings it would release.</p>
-                  <span class="state state--pending">Pending approval</span>
-                </div>
-              </div>
-            </article>
+            </div>
           </div>
 
         </div>
@@ -304,7 +323,7 @@
           <div class="solutions-close__card reveal">
             <div class="solutions-close__grid">
               <div class="reveal">
-                <h2 class="section-heading">Bring the question your revenue team is still waiting on.</h2>
+                <h2 class="section-heading">Bring the question your revenue team is <em>still waiting on</em>.</h2>
                 <p class="section-sub">
                   Forty-five minutes, your data, your definitions. You leave with
                   the answer and the move built, or you leave knowing aiRA is not

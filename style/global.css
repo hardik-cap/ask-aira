@@ -139,7 +139,10 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
    three gradients stacked to produce what reads as one flat colour was both
    the wrong result and an expensive way to get it. */
 .section--wash { background: var(--wash-primary); }
-.section--inv .eyebrow { color: var(--primary-200); }
+/* The inverse partner to the light eyebrow's muted grey. #767C91 itself is
+   too dark to read on the inverse ground, so this is the same muted role at
+   inverse contrast rather than the same hex. */
+.section--inv .eyebrow { color: var(--ink-inv-2); }
 .section--inv .section-heading { color: var(--ink-inv); }
 .section--inv .section-sub { color: var(--ink-inv-2); }
 
@@ -303,7 +306,9 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   letter-spacing: var(--tr-mono);
   text-transform: uppercase;
   line-height: 1;
-  color: var(--brand-ink);
+  /* Muted grey since 19 Sep, off the brand colour: the brand now appears
+     once per section head, on the heading's highlighted word, not twice. */
+  color: var(--ink-3);
   margin-bottom: var(--sp-4);
 }
 .eyebrow .sparkle { display: none; }
@@ -318,14 +323,23 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   margin-bottom: var(--sp-4);
   text-wrap: balance;
 }
-/* The second phrase of a heading mutes rather than turning brand blue.
-   A coloured half-headline is the loudest template tell there is; the
-   brand lives in the sparkle, the rules and the approval grammar instead. */
+/* The highlight (19 Sep, user call, promptwatch reference). The heading is
+   one colour throughout and the <em> marks the one or two words carrying the
+   claim, in brand primary under a dashed rule. This replaces the muted
+   trailing phrase that ran here until 19 Sep: that treatment greyed a whole
+   clause, where this picks out a word. The offset and thickness are in em so
+   they track the heading's clamp rather than fixing to one size. */
 .section-heading em {
   font-style: normal;
-  color: var(--ink-3);
+  color: var(--primary-400);
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.07em;
+  text-underline-offset: 0.16em;
+  text-decoration-skip-ink: none;
 }
-.section--inv .section-heading em { color: var(--ink-inv-3); }
+/* P400 does not hold on the dark ground; P200 is the inverse anchor. */
+.section--inv .section-heading em { color: var(--primary-200); }
 
 .section-sub {
   font-size: var(--t-body-lg);
@@ -399,7 +413,7 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
               gap var(--dur-fast) var(--ease),
               box-shadow var(--dur-fast) var(--ease);
 }
-.btn svg { width: 15px; height: 15px; flex: none; }
+.btn svg { width: 20px; height: 20px; flex: none; }
 .btn:hover { gap: 11px; }
 
 /* Primary is INK, not brand (16 Sep, Clerk direction). Both shipping pages
@@ -745,7 +759,7 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   mask-image: radial-gradient(closest-side, #000 52%, transparent 100%);
 }
 .nav__item:hover .nav__item-icon { color: var(--brand); }
-.nav__item-icon svg { position: relative; width: 24px; height: 24px; }
+.nav__item-icon svg { position: relative; width: 20px; height: 20px; }
 .nav__item-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
 .nav__item-label {
   font-size: var(--t-body-sm);
@@ -800,7 +814,7 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
 }
 .nav__mini:hover { color: var(--ink); background: var(--slate-100); }
-.nav__mini svg { width: 16px; height: 16px; color: var(--ink-3); flex: none; }
+.nav__mini svg { width: 20px; height: 20px; color: var(--ink-3); flex: none; }
 .nav__mini:hover svg { color: var(--brand); }
 .nav__aside-rule {
   height: 1px;

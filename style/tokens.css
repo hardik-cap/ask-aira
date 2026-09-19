@@ -166,10 +166,17 @@
      The percentages are NOT equal and must not be equalised: they are chosen
      so all three land on one luminance, and luminance is green-weighted, so
      teal needs nearly twice the primary's share. Same trap as the ramps' own
-     anchor steps. Re-derive, do not guess, if a ramp is re-supplied. */
-  --wash-primary: color-mix(in srgb, var(--primary-400) 4.9%, var(--slate-100));
-  --wash-teal:    color-mix(in srgb, var(--teal-300)    9%,   var(--slate-100));
-  --wash-purple:  color-mix(in srgb, var(--purple-400)  4.7%, var(--slate-100));
+     anchor steps. Re-derive, do not guess, if a ramp is re-supplied.
+
+     Re-derived 19 Sep: the set read dull, a grey-lavender rather than a tinted
+     white. The base moved from Slate/100 to Slate/50 and the primary's share
+     went 4.9% -> 8%, which lifts the trio from L 0.828 to L 0.849 and gives
+     the hue somewhere to show. The other two were re-solved against the new
+     primary, NOT nudged by eye, so the one-luminance rule above still holds
+     to within 2e-4. Primary now lands #EAEDFB, was #E7EAF6. */
+  --wash-primary: color-mix(in srgb, var(--primary-400) 8%,    var(--slate-50));
+  --wash-teal:    color-mix(in srgb, var(--teal-300)    14.4%, var(--slate-50));
+  --wash-purple:  color-mix(in srgb, var(--purple-400)  7.6%,  var(--slate-50));
   /* For a section whose own illustration carries the colour. Sequence's ring
      drawing sits on #F9F9F9, a near neutral, and that is why its line work
      reads: the drawing is the only coloured thing in the frame. A coloured
@@ -302,6 +309,12 @@
      genuinely different drawings rather than one outline scaled. */
   --font-display: 'Google Sans Flex', ui-sans-serif, system-ui, -apple-system,
                   'Segoe UI', sans-serif;
+  /* Roboto (19 Sep): the face the aiRA product itself renders in. Only the
+     drawn product UI wears it (the walkthrough stage on the hubs), so those
+     illustrations read as the product rather than as the site. Pages that
+     use it must load Roboto in their own font request. */
+  --font-product: 'Roboto', ui-sans-serif, system-ui, -apple-system,
+                  'Segoe UI', sans-serif;
 
   /* ---- Type scale --------------------------------------------------
      Locked 11 Sep: even pixel sizes only, 12px minimum, site-wide.
@@ -317,6 +330,7 @@
   --t-title:     1.125rem;    /* 18 */
   --t-title-lg:  1.25rem;     /* 20, list-entry titles (.biz__t) */
   --t-title-sm:  1rem;        /* 16 */
+  --t-lede:      1.25rem;     /* 20, a lede set above the subheader */
   --t-body-lg:   1rem;        /* 16, subheader / lede */
   --t-body:      0.875rem;    /* 14 */
   --t-body-sm:   0.875rem;    /* 14, nav links, buttons, UI */

@@ -174,13 +174,16 @@
   margin-top: var(--sp-12);
 }
 /* On the hubs the three facets take the homepage questions grid's anatomy
-   (17 Sep, user call: same as .feat__mini): one hairline above the row,
-   open cells, a duotone Phosphor icon riding the title as a prefix, the
-   description below. The category pages' four-up variant restyles itself
-   into cards (category.css) and skips the hairline. */
+   (17 Sep, user call: same as .feat__mini): open cells, a duotone Phosphor
+   icon riding the title as a prefix, the description below. The hairline
+   above the row came off on 19 Sep along with the space either side of it:
+   the margin the user asked to drop, and the padding that only existed to
+   clear the line. The row now sits flush under the section head.
+   Scoped away from the category pages' four-up variant, which loads this
+   file as well and keeps its own spacing (it restyles into cards in
+   category.css and never had the hairline). */
 .shape-grid:not(.shape-grid--4) {
-  border-top: 1px solid var(--border);
-  padding-top: var(--sp-10);
+  margin-top: 0;
 }
 
 .shape { min-width: 0; }
@@ -229,23 +232,437 @@
    move held for approval. The question is a .qstring, the sequence is the
    .thread trace, the promise is the .state badge. */
 
-.askthreads {
+/* Since 19 Sep (evening) each thread is drawn as the product's own chat: the
+   ask as a user bubble, the answer under the sparkle, the follow-up bubble,
+   and the proposed move as a card wearing the approval badge. The three
+   panels share hairlines with no gap, lgrid-style, so the grid's own lines
+   connect them into one board. */
+/* Frigade-style walkthrough (19 Sep, rebuilt the same evening to the
+   frigade.com reference). ONE BOARD split 36/64: a left rail of three
+   numbered steps driving the stage beside it. The steps divide on hairlines
+   with no gap, and the open one takes a wash tint plus a brand rule down its
+   left edge which doubles as the timer js/askstory.js advances on. The band
+   still runs rail to rail, and every line in it is --frame-line: the page's
+   own rail colour, so the board matches the frame around it. It was Slate/300
+   until 19 Sep, which read a shade heavier and bluer than every other border
+   on the page. Without the script .is-live never
+   lands and the three panels simply stack and read whole. */
+.askstory {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--sp-12);
+  grid-template-columns: minmax(0, 36fr) minmax(0, 64fr);
+  gap: 0;
+  align-items: stretch;
   margin-top: var(--sp-12);
+  /* Breaks the container's gutter so the band's top and bottom hairlines
+     reach the frame's own lines instead of stopping short of them. */
+  margin-inline: calc(-1 * var(--sp-5));
+  border-block: 1px solid var(--frame-line);
 }
-.askthread { min-width: 0; }
-/* The opening ask leads the column at the subheader size; the steps below
-   stay at body scale so the question keeps the room. */
-.askthread > .qstring {
-  font-size: var(--t-body-lg);
-  margin-bottom: var(--sp-6);
+/* The section wears .section--band from 19 Sep, so above 1200px the container
+   pads 136px and the dot bands take the first 112px of it. Pulling only the
+   remaining 24px puts the board's edges on the bands' inner lines: it meets
+   the dots without running under them. Same arithmetic as the homepage's
+   difference board. */
+@media (min-width: 1200px) {
+  .askstory { margin-inline: -24px; }
 }
-.askthread .thread { gap: var(--sp-6); }
-.askthread .state { margin-top: var(--sp-2); }
+
+.askstory__rail {
+  display: flex;
+  flex-direction: column;
+  /* The column divider. Each step's own rule butts into it, so every
+     horizontal line runs from the board's left edge to this one. */
+  border-right: 1px solid var(--frame-line);
+}
+.askstory__step {
+  position: relative;
+  /* Equal thirds of the stage's height, so the rail's lines sit at fixed
+     points rather than wherever the copy happens to end. */
+  flex: 1 1 0;
+  display: grid;
+  align-content: center;
+  gap: var(--sp-2);
+  justify-items: start;
+  padding: var(--sp-6);
+  background: none;
+  border: 0;
+  border-top: 1px solid var(--frame-line);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease);
+}
+/* The band's own top hairline already draws this one. */
+.askstory__step:first-child { border-top: 0; }
+/* Three steps of light off the section wash. Closed steps carry no fill at
+   all; hover puts a quarter of white over the wash; the open one lands on
+   Slate/50. The open step was pure white until 19 Sep and read too hot next
+   to a ground this light, so it came down one step on the ramp, which also
+   leaves hover somewhere to sit between the two. */
+.askstory__step.is-active { background: var(--slate-50); }
+@media (hover: hover) {
+  .askstory__step:not(.is-active):hover {
+    background: color-mix(in srgb, var(--surface) 25%, transparent);
+  }
+}
+/* Inset, so the ring does not sit on the board's hairlines. */
+.askstory__step:focus-visible { outline: 2px solid var(--brand); outline-offset: -3px; }
+
+/* The timer: a 3px rule down the open step's left edge, filling top to
+   bottom while that step holds the stage. The closed steps carry no track,
+   so the bar reads as the marker for the open one rather than as a gauge
+   sitting under all three. */
+.askstory__bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  overflow: hidden;
+}
+.askstory__bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--brand);
+  transform: scaleY(0);
+  transform-origin: top;
+}
+/* With the script off nothing animates, so the open step still needs its
+   marker: the bar rests full height. Once .is-live lands the script owns the
+   bar, and it parks at zero until .is-running says the clock is actually
+   going. The keyframe names its own start so the fill always runs 0 -> 1
+   whatever the resting value underneath it is. */
+.askstory__step.is-active .askstory__bar::after { transform: scaleY(1); }
+.is-live .askstory__step.is-active .askstory__bar::after { transform: scaleY(0); }
+/* .is-running is set in the same frame as the setTimeout, so the line and
+   the advance are one clock rather than two that drift apart. */
+.askstory.is-running .askstory__step.is-active .askstory__bar::after {
+  animation: askstory-fill 6000ms linear forwards;
+}
+.askstory.is-held .askstory__step.is-active .askstory__bar::after {
+  animation-play-state: paused;
+}
+@keyframes askstory-fill {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+
+/* The step's own eyebrow. Geist Mono at 10px, set directly by the user on
+   19 Sep and knowingly against two standing rules: the 12px floor, which has
+   no other exception anywhere on the site, and mono's confinement to section
+   eyebrows and drawn illustrations. Both rules still hold everywhere else.
+   The size is literal rather than a token because no 10px token exists and
+   adding one would invite the floor to be broken again. */
+.askstory__n {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--ink-3);
+}
+.askstory__t {
+  font-family: var(--font-display);
+  font-size: var(--t-title-sm);
+  font-weight: 500;
+  line-height: var(--lh-title);
+  letter-spacing: var(--tr-title);
+  color: var(--ink-3);
+  transition: color var(--dur) var(--ease);
+}
+.askstory__step.is-active .askstory__t { color: var(--ink); }
+.askstory__d {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-3);
+  transition: color var(--dur) var(--ease);
+}
+.askstory__step.is-active .askstory__d { color: var(--ink-2); }
+
+/* The stage: the board's right cell, not a box of its own. Panels stack in
+   the same cell so it holds the tallest story's height and never jumps. */
+.askstory__stage {
+  display: grid;
+  align-content: center;
+  gap: var(--sp-10);
+  padding: var(--sp-10) var(--sp-8);
+  background: var(--bg-subtle);
+}
+.askstory__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  width: 100%;
+  max-width: 34rem;
+  margin-inline: auto;
+  min-width: 0;
+}
+.is-live .askstory__panel {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s var(--ease), visibility 0.35s;
+}
+.is-live .askstory__panel.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Everything on the stage is the product, so it renders in the product's
+   own face (user call, 19 Sep): Roboto for every register inside the frame,
+   including the pieces that carry display or mono elsewhere on the site.
+   Sizes, weights and tracking stay as they are; only the face changes. */
+.askstory__stage,
+.askstory__stage .chat__tool-t,
+.askstory__stage .chat__tool-m,
+.askstory__stage .chat__kpi-l,
+.askstory__stage .chat__kpi-n,
+.askstory__stage .chat__aud-t,
+.askstory__stage .chat__aud-n,
+.askstory__stage .chat__move-t,
+.askstory__stage .chat__ver,
+.askstory__stage .mono,
+.askstory__stage .state {
+  font-family: var(--font-product);
+}
+
+/* The person's side: a white bubble off the right edge. */
+.chat__q {
+  align-self: flex-end;
+  max-width: 90%;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  font-size: var(--t-body);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+/* aiRA's side: plain text, the way the product itself answers. */
+.chat__a {
+  align-self: flex-start;
+  max-width: 94%;
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+}
+
+/* Since late 19 Sep the three panels are three DIFFERENT slices of the
+   product (Attio platform-page reference): the ask ends in tool-step rows
+   and KPI tiles, the drill-down in a saved-audience card, the move in a
+   proposal card wearing the approval grammar. Everything below the chat
+   lines is drawn product UI, so Geist Mono may carry the metas; figures
+   stay tabular in the display face. */
+
+/* Tool-step rows, straight from the product: label left, meta right. */
+.chat__tools {
+  display: grid;
+  gap: var(--sp-2);
+}
+.chat__tool {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  min-width: 0;
+}
+.chat__tool-c {
+  flex: none;
+  font-size: var(--t-body);
+  line-height: 1;
+  color: var(--ink-faint);
+}
+/* Illustration micro-glyph, so it keeps the product's own 16px and the
+   purple the real tool rows use. */
+.chat__tool-ic {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--purple-400);
+}
+.chat__tool-t {
+  flex: 1;
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.chat__tool-m {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  color: var(--ink-3);
+}
+
+/* KPI tiles: the artifact the answer hands back. */
+.chat__kpis {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-2);
+}
+.chat__kpis-head {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+}
+.chat__ver {
+  padding: 2px 8px;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  color: var(--ink-3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+}
+.chat__kpi {
+  display: grid;
+  gap: 4px;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+/* The tile's movement line: amber, because every one of these tracks a
+   cohort growing the wrong way. */
+.chat__kpi-s {
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--hold);
+}
+.chat__kpi-l {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.chat__kpi-n {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+/* The saved-audience card. */
+.chat__aud {
+  margin-top: auto;
+  display: grid;
+  gap: var(--sp-2);
+  justify-items: start;
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.chat__aud-t {
+  font-family: var(--font-display);
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+}
+.chat__aud-n {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.chat__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chat__chips span {
+  padding: 3px 10px;
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--ink-2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+}
+
+/* The move: a proposal card pinned to the panel's foot, approval grammar
+   visible down to the decision row. The row is drawn, not interactive:
+   spans styled like the product's decide pills, inside the aria-hidden
+   artifact. */
+.chat__move {
+  margin-top: auto;
+  display: grid;
+  gap: var(--sp-2);
+  justify-items: start;
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.chat__move-t {
+  font-family: var(--font-display);
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+}
+.chat__move-d {
+  font-size: var(--t-caption);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.chat__act {
+  display: flex;
+  gap: 6px;
+  margin-top: var(--sp-1, 4px);
+}
+.chat__act span {
+  font-size: var(--t-caption);
+  font-weight: 600;
+  border-radius: var(--r-pill);
+  padding: 6px 13px;
+}
+.chat__act-a { color: var(--approve); background: var(--approve-bg); }
+.chat__act-h { color: var(--hold); background: var(--hold-bg); }
+
+.chat__chips span { background: var(--bg-subtle); }
 
 @media (max-width: 991px) {
-  .askthreads { grid-template-columns: 1fr; gap: var(--sp-10); }
-  .askthread > .qstring { max-width: 32rem; }
+  .askstory {
+    grid-template-columns: 1fr;
+    /* No rails below the frame's breakpoint: the band pulls out of
+       .padding-global instead and runs to the screen edges. The cells carry
+       the gutter now, so it moves onto them rather than onto the board. */
+    margin-inline: calc(-1 * var(--pad-x));
+  }
+  /* Stacked: the divider turns horizontal so the run of lines stays whole. */
+  .askstory__rail {
+    border-right: 0;
+    border-bottom: 1px solid var(--frame-line);
+  }
+  .askstory__step { padding: var(--sp-6) var(--pad-x); }
+  .askstory__stage { padding: var(--sp-8) var(--pad-x); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* No clock at all, so the bar goes back to being a plain marker for the
+     open step rather than parking empty. */
+  .is-live .askstory__step.is-active .askstory__bar::after {
+    animation: none;
+    transform: scaleY(1);
+  }
+  .askstory__step, .askstory__t, .askstory__d { transition: none; }
+  .is-live .askstory__panel { transition: none; }
 }

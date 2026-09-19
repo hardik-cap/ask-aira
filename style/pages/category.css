@@ -239,7 +239,7 @@
   transition: color var(--dur-fast) var(--ease);
 }
 .crumb a:hover { color: var(--brand-ink); }
-.crumb__back svg { width: 14px; height: 14px; flex: none; }
+.crumb__back svg { width: 20px; height: 20px; flex: none; }
 
 /* ---- The shape ------------------------------------------------------------
    Four facets: frequency, margin, seasonality and the data that is missing
@@ -446,91 +446,150 @@
    Five of the eight carry no proof block at all rather than a hedged one:
    the anonymised studies are cleared as written, and nothing else is. */
 
-/* One dark card (18 Sep, replacing the flat indigo slab the user rejected):
-   the whole card rides the site's ink register, the same near-black the
-   dark runs band and the primary buttons wear, with the analogous pair
-   breathing in its corners: T300 sky top-left, accent-400 purple
-   bottom-right. T300 is the dark-surface colour (7.8:1 on ink, per the
-   token notes), so it also carries the KPI checks. A soft white hairline
-   divides claim from results. */
+/* Two columns on the page's own ground (19 Sep, reference supplied by the
+   user): the argument as text on the left, one image on the right fading
+   out into the page. It replaces the dark slab that ran here from 18 Sep,
+   with its teal and purple corner glows; the numbers carry the section now,
+   so the card stopped being a box and became a layout. */
 .cproof__card {
-  position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
-  align-items: stretch;
-  overflow: hidden;
-  background: var(--surface-inv);
-  border-radius: var(--r-lg);
-  box-shadow: var(--shadow-lg);
+  grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
+  gap: var(--sp-12);
+  align-items: center;
 }
-.cproof__card::before {
+.cproof__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+/* 20px, the user's call, on its own token: the scale had 16 and 24 and
+   nothing between them. Body weight, not display: this is a paragraph that
+   sets up the figures, not a second heading competing with the H2 above. */
+.cproof__claim {
+  font-size: var(--t-lede);
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: 0;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+/* The figures are the argument, so they lead and the sentence sits under
+   each one. Two up, because these pages carry four and five results and a
+   single stack ran the column far past the image beside it.
+
+   The lines are INTERNAL only: every cell draws its own top and left rule,
+   and the first row and first column drop theirs. On a four-result page
+   that leaves one vertical and one horizontal crossing in the middle, which
+   is the plus. A five-result page gets the same rule set and simply carries
+   the extra row's line. The gap is zero because the cells' own padding does
+   the spacing; with a gap the rules would break into segments. */
+.cproof__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin-top: var(--sp-10);
+}
+.cproof__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  min-width: 0;
+  padding: var(--sp-6);
+  border-top: 1px solid var(--frame-line);
+  border-left: 1px solid var(--frame-line);
+}
+/* Top row and first column sit against the block's edges, so they carry no
+   rule and no padding on that side: the figures stay flush with the claim. */
+.cproof__item:nth-child(-n+2) { border-top: 0; padding-top: 0; }
+.cproof__item:nth-child(odd) { border-left: 0; padding-left: 0; }
+/* An odd final result has no partner, so it spans the row. Without this its
+   top rule stopped halfway across and the vertical rule ended in mid-air. */
+.cproof__item:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.cproof__val {
+  font-family: var(--font-display);
+  font-size: var(--t-display-2);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: var(--tr-display);
+  /* Geist Mono gives a comma its own cell, so figures stay in the sans face
+     with tabular numerals. Ink, not teal: teal carries no text on white
+     until Teal/800. */
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.cproof__lbl {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+.cproof__who {
+  margin-top: var(--sp-10);
+  font-size: var(--t-body-sm);
+  color: var(--ink-3);
+}
+
+/* The image, fading out into the page down its left edge and along the
+   bottom so it meets the text rather than butting against it as a block. */
+.cproof__media {
+  position: relative;
+  margin: 0;
+  align-self: stretch;
+  min-height: 420px;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.cproof__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cproof__media::after {
   content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(520px 340px at 8% -12%,
-      color-mix(in srgb, var(--teal-300) 14%, transparent), transparent 70%),
-    radial-gradient(560px 360px at 94% 112%,
-      color-mix(in srgb, var(--purple-400) 14%, transparent), transparent 70%),
-    radial-gradient(var(--frame-grid-inv) 1px, transparent 1px) 0 0 / 22px 22px;
-}
-.cproof__card > div:first-child {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: var(--sp-12) var(--sp-10);
-}
-.cproof__claim {
-  font-family: var(--font-display);
-  font-size: var(--t-display-3);
-  font-weight: 600;
-  line-height: var(--lh-title);
-  letter-spacing: var(--tr-title);
-  color: var(--ink-inv);
-  text-wrap: balance;
-}
-.cproof__who {
-  margin-top: var(--sp-4);
-  font-size: var(--t-body-sm);
-  color: var(--ink-inv-3);
-}
-.cproof__list {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: var(--sp-5);
-  padding: var(--sp-10);
-  border-left: 1px solid rgba(255, 255, 255, 0.10);
-}
-.cproof__item {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--sp-4);
-  font-size: var(--t-body);
-  line-height: var(--lh-body);
-  color: var(--ink-inv-2);
-}
-.cproof__item svg {
-  width: 16px;
-  height: 16px;
-  flex: none;
-  padding: 4px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: var(--r-pill);
-  color: var(--teal-300);
+    linear-gradient(to right,
+      var(--bg) 0%,
+      color-mix(in srgb, var(--bg) 88%, transparent) 12%,
+      color-mix(in srgb, var(--bg) 46%, transparent) 34%,
+      transparent 68%),
+    linear-gradient(to top,
+      var(--bg) 0%,
+      color-mix(in srgb, var(--bg) 62%, transparent) 12%,
+      transparent 46%),
+    /* A light veil over the whole frame so a bright photograph sits behind
+       the figures rather than shouting past them. */
+    linear-gradient(color-mix(in srgb, var(--bg) 22%, transparent),
+                    color-mix(in srgb, var(--bg) 22%, transparent));
 }
 
 @media (max-width: 900px) {
-  .cproof__card { grid-template-columns: 1fr; }
-  .cproof__card > div:first-child { padding: var(--sp-8); }
-  .cproof__list {
-    padding: var(--sp-8);
-    border-left: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.10);
+  .cproof__card { grid-template-columns: 1fr; gap: var(--sp-10); }
+  .cproof__media { min-height: 260px; order: -1; }
+  /* Stacked, the left-edge fade has nothing to fade into, so it runs
+     bottom-only and the image reads as a header for the block. */
+  .cproof__media::after {
+    background: linear-gradient(to top,
+      var(--bg) 0%,
+      color-mix(in srgb, var(--bg) 40%, transparent) 12%,
+      transparent 40%);
   }
+}
+@media (max-width: 560px) {
+  /* One column: the plus collapses to a plain stack of rules, so the
+     nth-child rules above have to be undone rather than inherited. */
+  .cproof__list { grid-template-columns: 1fr; }
+  .cproof__item {
+    border-left: 0;
+    padding: var(--sp-6) 0 0;
+    border-top: 1px solid var(--frame-line);
+  }
+  .cproof__item:first-child { border-top: 0; padding-top: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

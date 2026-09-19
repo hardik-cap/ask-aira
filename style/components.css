@@ -585,7 +585,7 @@ button.chip:hover, a.chip:hover { border-color: var(--brand-line); color: var(--
   white-space: nowrap;
   transition: gap var(--dur-fast) var(--ease);
 }
-.qledger__go svg { width: 14px; height: 14px; flex: none; }
+.qledger__go svg { width: 20px; height: 20px; flex: none; }
 a.qledger__more:hover .qledger__go { gap: 10px; }
 a.qledger__more:hover .qledger__cap { color: var(--brand); }
 
@@ -697,7 +697,7 @@ body.modal-open { overflow: hidden; }
   transition: background var(--dur-fast) var(--ease);
 }
 .vmodal__close:hover { background: rgba(255, 255, 255, 0.22); }
-.vmodal__close svg { width: 16px; height: 16px; }
+.vmodal__close svg { width: 20px; height: 20px; }
 
 @media (prefers-reduced-motion: reduce) {
   .vmodal { animation: none; }
@@ -1025,7 +1025,7 @@ body.modal-open { overflow: hidden; }
 .biz:hover .biz__ic { color: var(--brand); }
 /* (40 - 24) / 2: centres the glyph in the tile, which the row no longer
    does for it. */
-.biz__ic svg { position: relative; width: 24px; height: 24px; margin-left: 8px; }
+.biz__ic svg { position: relative; width: 20px; height: 20px; margin-left: 8px; }
 
 .biz__t {
   font-family: var(--font-display);

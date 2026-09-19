@@ -21,6 +21,7 @@
 
   <script src="/js/components.js" defer></script>
   <script src="/js/reveal.js" defer></script>
+  <script src="/js/cproof-count.js" defer></script>
   <script type="module" src="/js/globe.js"></script>
 </head>
 <body class="page-solutions page-category">
@@ -34,7 +35,7 @@
       <div class="padding-global">
         <div class="container">
           <nav class="crumb" aria-label="Breadcrumb">
-            <a class="crumb__back" href="/solutions"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg>Solutions</a>
+            <a class="crumb__back" href="/solutions"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M112,56V200L40,128Z" opacity="0.2"/><path d="M216,120H120V56a8,8,0,0,0-13.66-5.66l-72,72a8,8,0,0,0,0,11.32l72,72A8,8,0,0,0,120,200V136h96a8,8,0,0,0,0-16ZM104,180.69,51.31,128,104,75.31Z"/></svg>Solutions</a>
             <span aria-hidden="true">/</span>
             <a href="/solutions/retail">Retail</a>
           </nav>
@@ -88,7 +89,7 @@
         <div class="container">
           <div class="section-head section-head--center reveal">
             <p class="eyebrow">The shape of it</p>
-            <h2 class="section-heading">The clock starts the day a line lands.</h2>
+            <h2 class="section-heading">The clock starts the day <em>a line lands</em>.</h2>
             <p class="section-sub">Four things about apparel data that make a generic analytics answer the wrong answer.</p>
           </div>
           <div class="shape-grid shape-grid--4 reveal reveal-stagger">
@@ -124,7 +125,7 @@
           <div class="section-head section-head--split reveal">
             <div>
               <p class="eyebrow">What it runs here</p>
-              <h2 class="section-heading">Fifteen things aiRA runs on apparel data.</h2>
+              <h2 class="section-heading"><em>Fifteen things</em> aiRA runs on apparel data.</h2>
             </div>
             <p class="section-sub">In the order you would actually use them, with what each one gives back.</p>
           </div>
@@ -239,20 +240,26 @@
         <div class="container">
           <div class="section-head section-head--center reveal">
             <p class="eyebrow">Proof</p>
-            <h2 class="section-heading">Head to head with a dedicated analytics agency.</h2>
+            <h2 class="section-heading"><em>Head to head</em> with a dedicated analytics agency.</h2>
           </div>
           <div class="cproof__card reveal">
-            <div>
-              <p class="cproof__claim">aiRA beat a specialist analytics agency on eight of nine KPIs across a five-week Ramadan campaign.</p>
-              <p class="cproof__who">Value-fashion retailer, Saudi Arabia. 14.7 million customer base, weeks 34 to 38.</p>
-            </div>
-            <ul class="cproof__list">
-              <li class="cproof__item"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M104,192a8,8,0,0,1-5.66-2.34l-56-56a8,8,0,0,1,11.32-11.32L104,172.69,210.34,66.34a8,8,0,0,1,11.32,11.32l-112,112A8,8,0,0,1,104,192Z"/></svg><span>SAR 233M net sales, up 4% year on year</span></li>
-              <li class="cproof__item"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M104,192a8,8,0,0,1-5.66-2.34l-56-56a8,8,0,0,1,11.32-11.32L104,172.69,210.34,66.34a8,8,0,0,1,11.32,11.32l-112,112A8,8,0,0,1,104,192Z"/></svg><span>New customers up 29.4%</span></li>
-              <li class="cproof__item"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M104,192a8,8,0,0,1-5.66-2.34l-56-56a8,8,0,0,1,11.32-11.32L104,172.69,210.34,66.34a8,8,0,0,1,11.32,11.32l-112,112A8,8,0,0,1,104,192Z"/></svg><span>Revenue per delivered contact up 11.6%</span></li>
-              <li class="cproof__item"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M104,192a8,8,0,0,1-5.66-2.34l-56-56a8,8,0,0,1,11.32-11.32L104,172.69,210.34,66.34a8,8,0,0,1,11.32,11.32l-112,112A8,8,0,0,1,104,192Z"/></svg><span>Regional growth gap closed from 9.6 points behind to 2.2</span></li>
-              <li class="cproof__item"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M104,192a8,8,0,0,1-5.66-2.34l-56-56a8,8,0,0,1,11.32-11.32L104,172.69,210.34,66.34a8,8,0,0,1,11.32,11.32l-112,112A8,8,0,0,1,104,192Z"/></svg><span>6.7 times less erosion in average transaction value</span></li>
+              <div class="cproof__text">
+                <p class="cproof__claim">aiRA beat a specialist analytics agency on eight of nine KPIs across a five-week Ramadan campaign.</p>
+                <ul class="cproof__list">
+              <li class="cproof__item"><span class="cproof__val">SAR 233M</span><span class="cproof__lbl">Net sales, up 4% year on year</span></li>
+              <li class="cproof__item"><span class="cproof__val">+29.4%</span><span class="cproof__lbl">New customers</span></li>
+              <li class="cproof__item"><span class="cproof__val">+11.6%</span><span class="cproof__lbl">Revenue per delivered contact</span></li>
+              <li class="cproof__item"><span class="cproof__val" data-from="9.6">2.2 pts</span><span class="cproof__lbl">Regional growth gap, closed from 9.6 points behind</span></li>
+              <li class="cproof__item"><span class="cproof__val">6.7x</span><span class="cproof__lbl">Less erosion in average transaction value</span></li>
             </ul>
+                <p class="cproof__who">Value-fashion retailer, Saudi Arabia. 14.7 million customer base, weeks 34 to 38.</p>
+              </div>
+              <!-- Decorative: the claim beside it carries the meaning, so the
+                   image takes an empty alt rather than a description. -->
+              <figure class="cproof__media">
+                <img src="/assets/industry/retail-hero.jpg" alt="" width="1800" height="1125"
+                     loading="lazy" decoding="async">
+              </figure>
           </div>
         </div>
       </div>
@@ -268,10 +275,10 @@
             <div class="solutions-close__grid">
               <div>
                 <p class="eyebrow">The working session</p>
-                <h2 class="section-heading">Bring the question your fashion team is still waiting on.</h2>
+                <h2 class="section-heading">Bring the question your fashion team is <em>still waiting on</em>.</h2>
                 <p class="section-sub">Forty-five minutes, your data, your definition of a full-price customer. You leave with the answer and the move built, or you leave knowing aiRA is not the fit. Both are useful.</p>
                 <div class="btn-row solutions-close__cta">
-                  <a class="btn btn--primary btn--lg" href="/book">Book a working session <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+                  <a class="btn btn--primary btn--lg" href="/book">Book a working session <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,128l-72,72V56Z" opacity="0.2"/><path d="M221.66,122.34l-72-72A8,8,0,0,0,136,56v64H40a8,8,0,0,0,0,16h96v64a8,8,0,0,0,13.66,5.66l72-72A8,8,0,0,0,221.66,122.34ZM152,180.69V75.31L204.69,128Z"/></svg></a>
                 </div>
               </div>
               <div class="close-globe" aria-hidden="true">

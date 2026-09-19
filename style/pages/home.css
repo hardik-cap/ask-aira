@@ -1672,97 +1672,229 @@
 }
 
 /* ---- Differentiators ----------------------------------------------------
-   Three arguments as an accordion (see .acc in components.css) synced to an
-   illustration well on the right. The well's panels are placeholders until
-   the drawn illustrations land.
+   One board split 60/40: an illustration pane on the left, three claims
+   stacked down the right. Every division is a hairline inside a single
+   frame, so no line stops short of an edge and none of them are separated
+   by a gap.
    ---------------------------------------------------------------------- */
 
 .diff__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: var(--sp-12);
+  /* 55/45 (19 Sep): the pane keeps the wider share, but only just. */
+  grid-template-columns: minmax(0, 55fr) minmax(0, 45fr);
+  gap: 0;
   align-items: stretch;
-}
-
-/* Placeholder slots (13 Sep): the drawn cards never landed, so each panel
-   is a plain well with a dim gallery glyph until a real image arrives.
-   When one does, an <img> replaces the panel's svg and fills the well. */
-.diff__fig {
-  position: relative;
-  min-height: 320px;
-  background:
-    radial-gradient(120% 90% at 82% 0%,
-      color-mix(in srgb, var(--primary-400) 16%, transparent), transparent 62%),
-    linear-gradient(180deg, var(--slate-100), var(--slate-200));
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
+  /* The board breaks the container's gutter so its edges land on the
+     nearest frame line instead of stopping short of it. Where there are no
+     bands that line is the rail, so the pull is the whole gutter. */
+  margin-inline: calc(var(--sp-5) * -1);
+  /* The frame lives here, once. The cells inside carry no box of their own.
+     Square corners: an edge-to-edge board has no corner to round.
+     --frame-line, not --border: the board's edges meet the frame's own
+     lines, and --border is invisible against the wash (both near #E7E9F1). */
+  border: 1px solid var(--frame-line);
+  border-radius: 0;
   overflow: hidden;
 }
-.diff__fig-panel {
-  position: absolute;
-  inset: 0;
+
+/* The pane holds the artifact now (19 Sep), not a placeholder well: one
+   question, the shape of the answer it returns, and the move it produced
+   waiting on the approval badge. The .qstring and .state pieces are the
+   site's own signature components from components.css, so this draws the
+   product in the page's existing vocabulary rather than a new one. */
+.diff__fig {
+  position: relative;
   display: grid;
-  place-items: center;
-  opacity: 0;
-  transition: opacity 0.25s var(--ease);
+  align-content: center;
+  min-height: 400px;
+  padding: var(--sp-10);
+  background: var(--bg-subtle);
+  overflow: hidden;
 }
-.diff__fig-panel.is-active { opacity: 1; }
-.diff__fig-panel > svg {
-  width: 40px;
-  height: 40px;
-  /* Plain opaque grey (user call, 13 Sep): the translucent ink let the
-     well's tint bleed through the glyph. */
-  color: var(--slate-400);
+.diff__demo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  max-width: 30rem;
+  /* Roboto (20 Sep): the pane is the product's own window, so it renders in
+     the product's face, same as the hubs' walkthrough stage. Every register
+     inside inherits or is pinned to it below. */
+  font-family: var(--font-product);
 }
-.diff__fig-panel > img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.diff__demo .mono,
+.diff__demo .state,
+.diff__demo .diff__move-t { font-family: var(--font-product); }
+
+/* The person's side: a bubble off the right edge, the product's chat shape
+   (same treatment as the hubs' walkthrough stage). */
+.diff__q {
+  align-self: flex-end;
+  max-width: 92%;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--surface);
+  border: 1px solid var(--frame-line);
+  border-radius: var(--r-sm);
+  box-shadow: var(--shadow-sm);
+  font-size: var(--t-body);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--ink);
 }
+
+/* Tool-step rows, straight from the product: caret, purple glyph, label,
+   mono meta. */
+.diff__tools {
+  display: grid;
+  gap: var(--sp-2);
+}
+.diff__tool {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--surface);
+  border: 1px solid var(--frame-line);
+  border-radius: var(--r-sm);
+  min-width: 0;
+}
+.diff__tool-c {
+  flex: none;
+  font-size: var(--t-body);
+  line-height: 1;
+  color: var(--ink-faint);
+}
+.diff__tool-ic {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--purple-400);
+}
+.diff__tool-t {
+  flex: 1;
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.diff__tool-m {
+  flex: none;
+  font-size: var(--t-mono);
+  color: var(--ink-3);
+}
+
+/* The drawn decision row: the product's decide pills as spans. */
+.diff__act {
+  display: flex;
+  gap: 6px;
+  margin-top: var(--sp-1);
+}
+.diff__act span {
+  font-size: var(--t-caption);
+  font-weight: 600;
+  border-radius: var(--r-pill);
+  padding: 6px 13px;
+}
+.diff__act-a { color: var(--approve); background: var(--approve-bg); }
+.diff__act-h { color: var(--hold); background: var(--hold-bg); }
+.diff__ans {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+/* The proposal, drawn as the product's own card. */
+.diff__move {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  padding: var(--sp-5);
+  background: var(--bg-subtle);
+  border: 1px solid var(--frame-line);
+  border-radius: var(--r-sm);
+}
+.diff__move-l { margin-bottom: var(--sp-1); }
+.diff__move-t {
+  font-family: var(--font-display);
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  line-height: var(--lh-title);
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+}
+.diff__move-d {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+}
+.diff__move .state { margin-top: var(--sp-2); }
 
 .diff__cta { margin-top: var(--sp-10); }
 
-/* The per-item figure clones (js/accordion.js). Desktop keeps the side well,
-   so they stay dormant until the well drops out. */
-.diff__acc .acc__fig { display: none; }
+/* The three claims, static since 19 Sep (promptwatch reference). They stack
+   with no gap and divide on a single hairline each, the way the reference's
+   feature list does. The three share the pane's height equally. */
+.diff__points {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  /* The column divider. Each claim's own rule butts into it, so every
+     horizontal line runs the full width from here to the board's edge. */
+  border-left: 1px solid var(--frame-line);
+}
+.diff__point {
+  flex: 1 1 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--sp-4);
+  row-gap: var(--sp-2);
+  align-items: start;
+  align-content: center;
+  padding: var(--sp-6) var(--sp-8);
+  /* No fill: the claims read on the section's wash, against the white pane. */
+  border-top: 1px solid var(--frame-line);
+}
+/* The board's own top edge already draws this one. */
+.diff__point:first-child { border-top: 0; }
+.diff__point-ic {
+  display: inline-flex;
+  color: var(--black);
+  margin-top: 1px;
+}
+.diff__point-ic svg { width: 20px; height: 20px; }
+/* The universal h3 is section scale; a pointer inside a cell is a title. */
+.diff__point-t {
+  font-size: var(--t-title-sm);
+  font-weight: 500;
+  line-height: var(--lh-title);
+  letter-spacing: var(--tr-title);
+}
+.diff__point-d {
+  grid-column: 2;
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+}
+.diff__point-d strong { color: var(--ink); font-weight: 600; }
+
+/* Banded: the container pads by 136px and the dot band occupies the first
+   112px of that. Pulling the remaining 24px lands the board's edges on the
+   bands' INNER lines, so it meets the dots without covering them. */
+@media (min-width: 1200px) {
+  .diff__grid { margin-inline: -24px; }
+}
 
 @media (max-width: 991px) {
   .diff__grid { grid-template-columns: 1fr; }
-  .diff__fig { display: none; }
-  /* The open item shows its own figure below the body copy instead: the
-     same well treatment, one item at a time. */
-  .diff__acc .acc__fig {
-    position: relative;
-    display: grid;
-    place-items: center;
-    min-height: 200px;
-    margin-top: var(--sp-5);
-    background:
-      radial-gradient(120% 90% at 82% 0%,
-        color-mix(in srgb, var(--primary-400) 16%, transparent), transparent 62%),
-      linear-gradient(180deg, var(--slate-100), var(--slate-200));
-    border: 1px solid var(--border);
-    border-radius: var(--r-md);
-    overflow: hidden;
-  }
-  .diff__acc .acc__fig > svg {
-    width: 32px;
-    height: 32px;
-    color: var(--slate-400);
-  }
-  .diff__acc .acc__fig > img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .diff__fig-panel { transition: none; }
+  /* No rails below 992px, so .container drops its gutter and there is
+     nothing left to pull against. */
+  .diff__grid { margin-inline: 0; }
+  .diff__fig { min-height: 220px; }
+  /* Stacked: the divider turns horizontal so the board stays one
+     continuous run of lines. */
+  .diff__points { border-left: 0; border-top: 1px solid var(--frame-line); }
 }
 
 /* ---- Category comparison -------------------------------------------------
@@ -1870,7 +2002,9 @@
   border-bottom-color: color-mix(in srgb, var(--ink-inv) 12%, transparent);
 }
 .section--inv .compare__cell--head { color: var(--ink-inv-3); }
-.section--inv .compare__icon { color: var(--primary-200); }
+/* White, not the P200 accent (user call, 19 Sep): the feature icons read as
+   part of the label, so they take the label's ink. */
+.section--inv .compare__icon { color: var(--ink-inv); }
 
 
 /* Phones: the board keeps all three columns and scrolls sideways inside
@@ -2066,14 +2200,18 @@
    card chrome, the values carry it.
    ---------------------------------------------------------------------- */
 
-.price__grid {
+/* The security section (19 Sep) shares this anatomy rather than forking a
+   second three-up: one rule set, two honest names. */
+.price__grid,
+.sec__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--sp-8);
 }
 /* Same anatomy as the questions grid and the mech points: 20px duotone
    icon, 16px/600 title, muted body. */
-.price__tile h4 {
+.price__tile h4,
+.sec__tile h4 {
   font-family: var(--font-display);
   font-size: var(--t-title-sm);
   font-weight: 600;
@@ -2081,7 +2219,8 @@
   color: var(--ink-inv);
   margin-bottom: var(--sp-2);
 }
-.price__tile p {
+.price__tile p,
+.sec__tile p {
   font-size: var(--t-body-sm);
   line-height: 1.65;
   color: var(--ink-inv-3);
@@ -2091,21 +2230,28 @@
    the three icon cells below on hairline dividers. */
 /* Single column since the figure slot came out: a two-column head with one
    child leaves half the row empty. */
-.price__top { margin-bottom: var(--sp-16); }
-.price__intro .section-sub { margin-top: var(--sp-4); max-width: 34rem; }
+.price__top,
+.sec__top { margin-bottom: var(--sp-16); }
+.price__intro .section-sub,
+.sec__intro .section-sub { margin-top: var(--sp-4); max-width: 34rem; }
 
-.price__card {
+.price__card,
+.sec__card {
   display: flex;
   flex-direction: column;
 }
-.price__card + .price__card {
+.price__card + .price__card,
+.sec__card + .sec__card {
   border-left: 1px solid rgba(255, 255, 255, 0.10);
   padding-left: var(--sp-8);
 }
 
 
 
-.price__note {
+/* The certification line. A supporting strip, so one quiet label rather than
+   an eyebrow and a heading of its own. */
+.price__note,
+.sec__note {
   margin-top: var(--sp-10);
   padding-top: var(--sp-6);
   border-top: 1px solid var(--frame-line-inv);
@@ -2117,8 +2263,10 @@
 @media (max-width: 991px) {
 }
 @media (max-width: 767px) {
-  .price__grid { grid-template-columns: 1fr; gap: var(--sp-6); }
-  .price__card + .price__card {
+  .price__grid,
+  .sec__grid { grid-template-columns: 1fr; gap: var(--sp-6); }
+  .price__card + .price__card,
+  .sec__card + .sec__card {
     border-left: 0;
     border-top: 1px solid rgba(255, 255, 255, 0.10);
     padding: var(--sp-6) 0 0;
@@ -2257,7 +2405,7 @@
 /* Inherits the card's colour, so the glyph turns brand with its label rather
    than needing a rule of its own for every state. */
 .inds__ic { display: inline-flex; flex: none; color: inherit; }
-.inds__ic svg { width: 18px; height: 18px; }
+.inds__ic svg { width: 20px; height: 20px; }
 
 .inds__t {
   font-family: var(--font-sans);
@@ -3058,8 +3206,9 @@
 .vdemo {
   margin-top: var(--sp-10);
   /* The flex parent does the centring, so the card itself never has to be
-     width-constrained to sit in the middle. A column since 19 Sep, to carry
-     the label above the card. */
+     width-constrained to sit in the middle. A column since 19 Sep: it carried
+     an "In the product" label above the card until that came off on 19 Sep,
+     and it still stacks the card over the route link. */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3078,27 +3227,11 @@
   text-decoration: none;
   transition: gap var(--dur-fast) var(--ease);
 }
-.vdemo__more svg { width: 14px; height: 14px; flex: none; }
+.vdemo__more svg { width: 20px; height: 20px; flex: none; }
 .vdemo__more:hover { gap: 10px; }
 @media (prefers-reduced-motion: reduce) {
   .vdemo__more { transition: none; }
 }
-/* The same words on every tab: the card's own title names the industry, so
-   this says what the thing below it IS, which is the product actually
-   running. Restyled 19 Sep to match .lgrid__label (user call): the quiet
-   16px sans line in --ink-2, undoing the eyebrow's mono caps spec and its
-   "/" prefix, so the two proof-strip labels share one voice. */
-.vdemo__label {
-  font-family: var(--font-sans);
-  font-size: var(--t-body-lg);
-  font-weight: 400;
-  letter-spacing: 0;
-  text-transform: none;
-  color: var(--ink-2);
-  /* The flex column's gap already spaces it off the card. */
-  margin-bottom: 0;
-}
-.vdemo__label::before { content: none; }
 .vdemo__btn {
   display: flex;
   align-items: center;
@@ -3146,7 +3279,7 @@
   transition: transform var(--dur) var(--ease);
 }
 /* Optical centring: a triangle's mass sits left of its bounding box. */
-.vdemo__play svg { width: 13px; height: 13px; margin-left: 1px; }
+.vdemo__play svg { width: 20px; height: 20px; margin-left: 1px; }
 .vdemo__btn:hover .vdemo__play { transform: scale(1.08); }
 
 .vdemo__txt {
