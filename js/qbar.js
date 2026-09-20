@@ -233,6 +233,31 @@
       held = false; arm();
     });
 
+    /* DRAGGING the tab row holds it too. On a phone the row is wider than the
+       screen and has to be scrolled to reach the last tab, so an advance
+       landing mid-drag would yank the row out from under the thumb. The
+       release is delayed because momentum scrolling keeps running after the
+       finger lifts. */
+    var settle = null;
+    tabs.addEventListener('pointerdown', function () {
+      if (settle) { clearTimeout(settle); settle = null; }
+      held = true; arm();
+    });
+    function release() {
+      if (settle) clearTimeout(settle);
+      settle = setTimeout(function () {
+        settle = null;
+        /* A TAP already released the hold in the click handler and re-armed on
+           the tab it chose. Re-arming again here would clear that clock and
+           restart the fill 1.2s in, so the tapped tab would run 7.2s and its
+           bar would visibly snap back. Only a drag is still held by now. */
+        if (!held) return;
+        held = false; arm();
+      }, 1200);
+    }
+    tabs.addEventListener('pointerup', release);
+    tabs.addEventListener('pointercancel', release);
+
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {
         onScreen = entries[0].isIntersecting;

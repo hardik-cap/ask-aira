@@ -752,8 +752,12 @@ button.chip:hover, a.chip:hover { border-color: var(--brand-line); color: var(--
 .qbar__tab {
   position: relative;
   /* The fill is a pseudo sweeping the whole pill, so it has to be clipped by
-     the pill's own corners. */
+     the pill's own corners. This costs the pill its automatic minimum size:
+     a flex item whose overflow is not visible floors at 0 instead of
+     min-content, so in the mobile row (nowrap) every pill collapsed onto its
+     icon and clipped its own label. flex: none is what holds them out. */
   overflow: hidden;
+  flex: none;
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -824,10 +828,25 @@ button.chip:hover, a.chip:hover { border-color: var(--brand-line); color: var(--
     justify-content: flex-start;
     overflow-x: auto;
     scrollbar-width: none;
+    /* width:auto, not the base rule's 100%: with an explicit 100% the box
+       stays as wide as the container while the negative margins shift it, so
+       the row sat 20px left of the content and stopped 20px short of the
+       right edge. Letting it stretch is what makes the bleed symmetrical. */
+    width: auto;
     margin-inline: calc(var(--sp-5) * -1);
     padding-inline: var(--sp-5);
+    /* The bleed IS the affordance: the last pill is cut by the screen edge
+       rather than tidily contained, which is what says the row scrolls. The
+       scroll padding keeps an auto-advanced tab off that edge. */
+    scroll-padding-inline: var(--sp-5);
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
   }
   .qbar__tabs::-webkit-scrollbar { display: none; }
+  /* 44px, the touch minimum. At the desktop padding these are 34px tall and
+     sit under a thumb. The icon is what sets the content height, so the
+     padding is solved against 18px, not the 14px label. */
+  .qbar__tab { padding: 12px 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

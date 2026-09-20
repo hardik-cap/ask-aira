@@ -2831,9 +2831,9 @@
    The customer story beside the form, as one contained card: never full
    bleed, the dark ground stops at the container. The trackside photograph
    sits under an ink overlay that is heaviest behind the words and eases
-   toward the video; the Riverside take plays in place on the right, its own
-   first frame as the thumbnail (preload="metadata" is what shows it without
-   pulling the 18MB file up front). */
+   toward the video; the Riverside take sits on the right as its supplied
+   still with a play badge, and opens in the lightbox (20 Sep), so the 18MB
+   file is only ever fetched on a click. */
 
 .nproof__card {
   position: relative;
@@ -2883,16 +2883,55 @@
   opacity: 0.85;
 }
 
-.nproof__video {
+/* The poster. The still is shown at its own 1354x794 ratio rather than
+   cropped to 16:9, because the NASCAR wordmark burned into it sits in the
+   bottom-left corner and a crop takes it. */
+.nproof__btn {
+  position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: var(--r-md);
+  padding: 0;
   border: 1px solid color-mix(in srgb, var(--ink-inv) 22%, transparent);
+  border-radius: var(--r-md);
+  overflow: hidden;
   background: var(--black);
   box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
 }
+.nproof__btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+
+.nproof__shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform var(--dur-slow) var(--ease);
+}
+
+/* Same badge language as the industry stills' .vdemo__play, one step larger
+   because this still is a whole column rather than a 128px chip. The glyph
+   itself stays 20px. */
+.nproof__play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ink-inv) 92%, transparent);
+  color: var(--black);
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--black) 34%, transparent);
+  transition: transform var(--dur) var(--ease);
+}
+/* Optical centring: a triangle's mass sits left of its bounding box. */
+.nproof__play svg { width: 20px; height: 20px; margin-left: 2px; }
+
+.nproof__btn:hover .nproof__play { transform: scale(1.08); }
+.nproof__btn:hover .nproof__shot { transform: scale(1.02); }
 
 @media (max-width: 991px) {
   .nproof__card {
@@ -2901,6 +2940,13 @@
     padding: var(--sp-8) var(--sp-6);
   }
   .nproof__mark { width: 144px; height: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nproof__shot,
+  .nproof__play { transition: none; }
+  .nproof__btn:hover .nproof__play,
+  .nproof__btn:hover .nproof__shot { transform: none; }
 }
 
 
@@ -2930,8 +2976,9 @@
 /* The column border: a third rail at the seam, running the full section
    height (the pseudo reaches through --section-pad) so it meets the joints
    above and below exactly where the page rails do. Desktop only, with the
-   rails. */
-.faq__list { position: relative; padding-left: var(--sp-12); }
+   rails. The list pads off the page's right rail by the same sp-12 it pads
+   off the seam (user, 20 Sep: the rows sat against the rail). */
+.faq__list { position: relative; padding-inline: var(--sp-12); }
 @media (min-width: 992px) {
   .faq__list::before {
     content: '';
@@ -2941,6 +2988,13 @@
     bottom: calc(-1 * var(--section-pad));
     width: 1px;
     background: var(--frame-line);
+  }
+  /* The intro rides along while the longer list scrolls (user, 20 Sep),
+     parking just under the floating nav. The grid already aligns items
+     start, which is what lets a grid child stick at all. */
+  .faq__intro {
+    position: sticky;
+    top: calc(var(--nav-h) + var(--nav-float) + var(--sp-8));
   }
 }
 
@@ -2972,16 +3026,19 @@
 .acc__caret svg { width: 20px; height: 20px; }
 .faq .acc__item.is-open .acc__caret { transform: rotate(180deg); color: var(--ink); }
 
-/* The open card, lifted out of the row rhythm on its own margins. The
-   component's button pulls itself out of the row by sp-4 for the hover
-   wash, so sp-6 of item padding leaves the text inset by sp-6 exactly. */
+/* The open card, lifted out of the row rhythm on its own margins. The box
+   sits on the BUTTON's footprint (user, 20 Sep): the button already reaches
+   sp-4 past the text for its hover wash, so the card pulls out by that same
+   sp-4 and pads straight back in. The open row's text lands on exactly the
+   same left edge as every closed row; opening never indents or narrows. */
 .faq .acc__item.is-open {
   background: var(--surface);
   border: 1px solid var(--border-strong);
   border-radius: var(--r-md);
   box-shadow: var(--shadow-md);
   margin-block: var(--sp-3);
-  padding-inline: var(--sp-6);
+  margin-inline: calc(-1 * var(--sp-4));
+  padding-inline: var(--sp-4);
 }
 /* The box replaces the row's own hairline sides. */
 .faq .acc__item.is-open + .acc__item { border-top-color: var(--border); }
@@ -2997,20 +3054,21 @@
 @media (max-width: 991px) {
   .faq__grid { grid-template-columns: 1fr; gap: var(--sp-8); }
   .faq__intro { padding-right: 0; }
-  .faq__list { padding-left: 0; }
+  .faq__list { padding-inline: 0; }
 }
 
-/* The open card pulls out instead of padding in (user, 20 Sep). Its inset is
-   what put the open question 24px right of every closed one: the card sits on
-   the container edge and pads its contents inward, which on desktop reads as
-   a card lifting out of a list that is already inset 48px, and on a phone,
-   where the list is flush to the page edge, reads as one row that has moved.
-   Pulling by the same amount it pads keeps the white box around the text and
-   lands the text back on the same left edge as the rest. 12 rather than 24 so
-   the card's edges stop 8px short of the screen instead of touching it. */
+/* On a phone the list is flush to the page's 20px gutter, so the full sp-4
+   outset would leave the card only 4px from the screen edge. The button's
+   reach and the card step down to sp-3 TOGETHER, so the text still never
+   moves when a row opens. */
 @media (max-width: 640px) {
+  .faq .acc__btn {
+    width: calc(100% + var(--sp-3) * 2);
+    padding-inline: var(--sp-3);
+    margin-inline: calc(-1 * var(--sp-3));
+  }
   .faq .acc__item.is-open {
-    margin-inline: calc(var(--sp-3) * -1);
+    margin-inline: calc(-1 * var(--sp-3));
     padding-inline: var(--sp-3);
   }
 }

@@ -1126,6 +1126,29 @@ body:not(.page-v2) .nav.nav-dark .nav__item-desc { color: var(--ink-inv-3); }
 }
 .footer__col-list a:hover { color: var(--ink); }
 
+/* Column rails in the link band (20 Sep, promptwatch reference): a hairline
+   at each column seam, splitting the gap, running the full band from the
+   joint above the footer to the legal row's rule so it meets a horizontal
+   line at both ends, the page frame's language. Desktop only, with the
+   rails; below 992px the grid stacks. */
+@media (min-width: 992px) {
+  .footer__cols,
+  .footer__col { position: relative; }
+  .footer__cols::before,
+  .footer__col + .footer__col::before {
+    content: '';
+    position: absolute;
+    top: calc(-1 * (var(--sp-10) + var(--section-pad)));
+    bottom: calc(-1 * var(--sp-10));
+    width: 1px;
+    background: var(--frame-line);
+  }
+  /* Each seam's line sits at the middle of that seam's own gap: sp-10
+     between the brand block and the columns, sp-6 between columns. */
+  .footer__cols::before { left: calc(-0.5 * var(--sp-10)); }
+  .footer__col + .footer__col::before { left: calc(-0.5 * var(--sp-6)); }
+}
+
 /* Legal row: the footer's last band, under the wordmark and separated from it
    by a hairline. Copyright left, legal links right. */
 .footer__bottom {

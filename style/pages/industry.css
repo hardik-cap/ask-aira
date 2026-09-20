@@ -436,18 +436,52 @@
 @media (max-width: 991px) {
   .askstory {
     grid-template-columns: 1fr;
-    /* No rails below the frame's breakpoint: the band pulls out of
-       .padding-global instead and runs to the screen edges. The cells carry
-       the gutter now, so it moves onto them rather than onto the board. */
-    margin-inline: calc(-1 * var(--pad-x));
+    /* The board KEEPS the page's 20px gutter (user, 20 Sep: full bleed put
+       the open step's progress rule on the screen edge), and side hairlines
+       close the box that the rail-to-rail band never needed. */
+    margin-inline: 0;
+    border: 1px solid var(--frame-line);
   }
-  /* Stacked: the divider turns horizontal so the run of lines stays whole. */
-  .askstory__rail {
-    border-right: 0;
-    border-bottom: 1px solid var(--frame-line);
-  }
+  /* Stacked, the board reads as an accordion (20 Sep, user call): each
+     step's illustration plays RIGHT BELOW its step, not on one far stage
+     under all three. display: contents lifts the six cells into the board's
+     own grid so order can interleave them; the rail and stage boxes (and
+     their borders) stop rendering, and the panels carry the stage's wash
+     and gutter themselves. */
+  .askstory__rail,
+  .askstory__stage { display: contents; }
+  .askstory__step:nth-of-type(1) { order: 1; }
+  .askstory__panel:nth-of-type(1) { order: 2; }
+  .askstory__step:nth-of-type(2) { order: 3; }
+  .askstory__panel:nth-of-type(2) { order: 4; }
+  .askstory__step:nth-of-type(3) { order: 5; }
+  .askstory__panel:nth-of-type(3) { order: 6; }
+  .askstory__rail { border-right: 0; }
   .askstory__step { padding: var(--sp-6) var(--pad-x); }
-  .askstory__stage { padding: var(--sp-8) var(--pad-x); }
+  /* The open step stays on the section wash here (user, 20 Sep: its Slate/50
+     fill and the illustration's light ground read as one white slab): the
+     brand bar and the ink shift mark it, accordion-style, and the light
+     ground below is the illustration's alone, cut off by a hairline. */
+  .askstory__step.is-active { background: none; }
+  .askstory__panel {
+    /* The stage's old inline padding, still capping the story at 34rem and
+       centring it on a tablet. */
+    padding: var(--sp-8) max(var(--pad-x), calc(50% - 17rem));
+    max-width: none;
+    background: var(--bg-subtle);
+    border-top: 1px solid var(--frame-line);
+  }
+  /* Live, the closed stories leave the flow entirely so the accordion
+     collapses; visibility and the desktop cross-fade are stage mechanics
+     and come off with it. */
+  .is-live .askstory__panel {
+    grid-area: auto;
+    display: none;
+    opacity: 1;
+    visibility: visible;
+    transition: none;
+  }
+  .is-live .askstory__panel.is-active { display: flex; }
 }
 
 @media (prefers-reduced-motion: reduce) {

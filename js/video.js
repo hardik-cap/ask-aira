@@ -91,8 +91,9 @@
   }
 
   function open(box, opener) {
-    var src   = box.getAttribute('data-video');
-    var title = box.getAttribute('data-video-title') || 'Video player';
+    var src    = box.getAttribute('data-video');
+    var title  = box.getAttribute('data-video-title') || 'Video player';
+    var poster = box.getAttribute('data-video-poster');
     var id    = ytId(src);
 
     var overlay = document.createElement('div');
@@ -219,6 +220,9 @@
       v.autoplay = true;
       v.playsInline = true;
       v.preload = 'auto';
+      /* The poster the trigger already shows, so the popup opens on the
+         picture rather than a black rectangle while 18MB buffers. */
+      if (poster) v.poster = poster;
       stage.appendChild(v);
       api = {
         toggle:  function () { v.paused ? v.play() : v.pause(); },
