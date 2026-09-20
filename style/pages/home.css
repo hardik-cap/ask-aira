@@ -25,7 +25,7 @@
    varied (19 Sep). The three ramps still appear across the page's grounds,
    but as three SOLID tints on different sections rather than three radials
    layered inside one: .section--wash takes --wash-primary from global.css
-   and #industries takes --wash-teal below, so the reader meets the ramps in
+   and #industries takes --wash-tertiary below, so the reader meets the ramps in
    sequence down the page instead of all at once in a single wash. */
 
 /* The black primary that lived here is the GLOBAL default since 16 Sep, so
@@ -49,7 +49,13 @@
   pointer-events: none;
   background:
     radial-gradient(64% 52% at 50% 0%,
-      color-mix(in srgb, var(--primary-400) 7%, transparent), transparent 72%),
+      color-mix(in srgb, var(--brand) 7%, transparent), transparent 72%),
+    /* The bloom (20 Sep, user reference): a soft brand pool low and to the
+       right, under the densest part of the lattice. It is what stops the
+       texture reading as evenly-spread wallpaper, and it sits BELOW the
+       lattice layer so the squares pick the tint up rather than sit on it. */
+    radial-gradient(46% 58% at 88% 96%,
+      color-mix(in srgb, var(--brand) 9%, transparent), transparent 70%),
     linear-gradient(180deg,
       var(--slate-200) 0%,
       var(--slate-100) 48%,
@@ -75,11 +81,14 @@
 .hero__grad {
   --cell: var(--section-pad);
   --hero-top: calc(var(--nav-h) + var(--nav-float) + 2px);
-  --dot-gap: 22px;
+  /* 16 divides --cell (80) exactly five times; see the lattice rule below.
+     The square is a quarter of the pitch, which is the proportion the
+     reference holds. */
+  --dot-gap: 16px;
+  --dot-size: 4px;
+  --dot-ink: var(--frame-grid);
   /* The clear ellipse around the text, as fractions of the inner box, so one
-     set of numbers holds at every hero size. js/hero-dots.js reads all five
-     to build the interactive field on the same lattice with the same
-     falloff, so change them here only. */
+     set of numbers holds at every hero size. */
   --dot-cx: 0.5;
   --dot-cy: 0.44;
   --dot-rx: 0.62;
@@ -132,9 +141,28 @@
   background-repeat: no-repeat;
 }
 
-/* ---- the dot field, inside the open middle ----
-   Same box as the content, and the elliptical mask takes the dots away from
-   the text and leaves them around it. */
+/* ---- the lattice, inside the open middle (20 Sep, user reference) --------
+   A field of small SQUARES on a regular pitch, dissolving away from the copy
+   and densest at the edges. It replaces the round dot field and the canvas
+   that used to sit on top of it: the pointer-displacement effect is gone on
+   the user's call, so this is one static layer with nothing to keep in sync.
+
+   THE PITCH DIVIDES THE CELL, and that is the fix for the frame reading as
+   broken. --cell is --section-pad, 80px, and the old 22px dot gap went into
+   it 3.64 times, so the lattice met the band's cell lines at a different
+   place on every column and the boundary between the two looked like a
+   mis-drawn grid rather than an edge. 16 goes into 80 exactly five times, so
+   every fifth square now lands on a cell line at every size, and at the
+   56px step below 768 it is three and a half, which is close enough to read
+   as registered because the bands there are only two.
+
+   Squares, not circles: a conic gradient centred on the corner of the tile
+   paints one quadrant, which inside a 16px tile is exactly the 4px square at
+   its origin. radial-gradient can only give a disc.
+
+   The mask is unchanged in shape: an ellipse around the text, transparent
+   through --dot-clear and ramping to opaque at its edge, so the copy sits in
+   clean ground and the texture gathers at the corners. */
 .hero__grad::after {
   content: '';
   position: absolute;
@@ -142,45 +170,29 @@
   bottom: var(--cell);
   left: calc(var(--frame-x) + var(--cell));
   right: calc(var(--frame-x) + var(--cell));
-  background-image: radial-gradient(circle,
-    var(--frame-grid) 1.5px, transparent 2px);
+  background-image:
+    conic-gradient(at var(--dot-size) var(--dot-size),
+      transparent 0 270deg, var(--dot-ink) 270deg 360deg);
   background-size: var(--dot-gap) var(--dot-gap);
   -webkit-mask-image: radial-gradient(
     calc(var(--dot-rx) * 100%) calc(var(--dot-ry) * 100%)
     at calc(var(--dot-cx) * 100%) calc(var(--dot-cy) * 100%),
-    transparent 0 calc(var(--dot-clear) * 100%), #000 100%);
+    transparent 0 calc(var(--dot-clear) * 100%),
+    rgba(0, 0, 0, 0.45) 72%, #000 100%);
   mask-image: radial-gradient(
     calc(var(--dot-rx) * 100%) calc(var(--dot-ry) * 100%)
     at calc(var(--dot-cx) * 100%) calc(var(--dot-cy) * 100%),
-    transparent 0 calc(var(--dot-clear) * 100%), #000 100%);
+    transparent 0 calc(var(--dot-clear) * 100%),
+    rgba(0, 0, 0, 0.45) 72%, #000 100%);
 }
 
-/* The interactive field (15 Sep, ported from V3 on the user's call): dots
-   are displaced away from the pointer and spring back. The canvas sits on
-   the SAME box as the ::after grid above, rails to rails, so the swap is
-   invisible; hero-dots.js hides the static grid only once the canvas is
-   actually up, which keeps it as the no-JS and no-canvas fallback.
+/* The interactive canvas field that used to sit on this box was removed on
+   20 Sep with js/hero-dots.js: the user asked for the pointer effect to go
+   and a flat pattern to take its place, so there is one layer here now and
+   nothing to keep in sync with it. The script and its CSS still live on for
+   index-v3.html, which loads its own copy of both.
 
-   Interaction is bounded to where dots exist: the script gates the pointer
-   to this box and to --dot-fade, so nothing reacts below the fade or out
-   in the page gutters. */
-.page-home:not(.page-v2):not(.page-v3) .hero--dotfield .hero__grad::after {
-  display: none;
-}
-/* Width and height are set explicitly rather than with left/right + top/bottom:
-   a <canvas> is a REPLACED element, so an auto width against both edges does
-   not stretch it, it keeps its intrinsic 300x150 and the `right` is dropped.
-
-   The box is the open middle, the same one .hero__grad::after uses, so the
-   swap from the static field to the canvas is invisible and the backing
-   store covers only where dots actually are. */
-.page-home:not(.page-v2):not(.page-v3) .hero__dotfield {
-  position: absolute;
-  top: calc(var(--hero-top) + var(--cell));
-  left: calc(var(--frame-x) + var(--cell));
-  width: calc(100% - 2 * (var(--frame-x) + var(--cell)));
-  height: calc(100% - var(--hero-top) - 2 * var(--cell));
-}
+*/
 
 /* Below the rails the side bands would eat a quarter of a phone's width and
    the headline would cross them, so the ring drops to two bands: the grid
@@ -200,10 +212,6 @@
     left: var(--frame-x);
     right: var(--frame-x);
   }
-  .page-home:not(.page-v2):not(.page-v3) .hero__dotfield {
-    left: var(--frame-x);
-    width: calc(100% - 2 * var(--frame-x));
-  }
 }
 
 /* No dot field on a phone (user, 20 Sep). At this width the open middle IS
@@ -214,10 +222,7 @@
    hidden, since either one can be the live layer. The script bails on a
    zero-sized canvas, so nothing keeps drawing behind this. */
 @media (max-width: 640px) {
-  .hero__grad::after,
-  .page-home:not(.page-v2):not(.page-v3) .hero__dotfield {
-    display: none;
-  }
+  .hero__grad::after { display: none; }
 }
 
 /* Positioned decor would otherwise paint over the static content wrappers. */
@@ -350,7 +355,7 @@
   color: var(--on-brand);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.28),
-    0 10px 24px -10px color-mix(in srgb, var(--primary-400) 65%, transparent);
+    0 10px 24px -10px color-mix(in srgb, var(--brand) 65%, transparent);
 }
 .hero__rot-icon svg {
   width: 56%;
@@ -1798,7 +1803,7 @@
    The colour here comes from the drawing and its four ramp pips, which is
    enough.
    The page's light grounds now step: proof on the page ground, industries
-   quiet, difference on --wash-primary, book on --wash-purple. */
+   quiet, difference on --wash-primary, book on --wash-secondary. */
 .inds {
   background: var(--wash-quiet);
   /* clip, not hidden: hidden on an ancestor breaks position: sticky. */
@@ -2273,8 +2278,8 @@
    homepage teal and purple appear beside the brand at the same lightness. */
 .cats__pip { fill: var(--ink-faint); stroke: none; }
 .cats__pip--brand  { fill: var(--brand); stroke: none; }
-.cats__pip--teal   { fill: var(--teal-300); stroke: none; }
-.cats__pip--purple { fill: var(--purple-300); stroke: none; }
+.cats__pip--teal   { fill: var(--tertiary-300); stroke: none; }
+.cats__pip--purple { fill: var(--secondary-300); stroke: none; }
 
 /* ---- The deco and the retail grid inside the stage ------------------------
    The ring drawing sits behind the panels with its centre line on --deco-y,
@@ -2289,9 +2294,9 @@
      the same mask as the geometry it grounds. */
   background:
     radial-gradient(340px 300px at calc(100% - 300px) var(--deco-y),
-      color-mix(in srgb, var(--teal-100) 30%, transparent), transparent 72%),
+      color-mix(in srgb, var(--tertiary-100) 30%, transparent), transparent 72%),
     radial-gradient(300px 260px at calc(100% - 90px) calc(var(--deco-y) - 90px),
-      color-mix(in srgb, var(--purple-100) 22%, transparent), transparent 70%);
+      color-mix(in srgb, var(--secondary-100) 22%, transparent), transparent 70%);
 }
 .inds__head .cats__rings {
   top: var(--deco-y);
@@ -2339,12 +2344,12 @@
 .inds__head .cats__pip { r: 10; }
 /* Sequence gives its markers a soft same-hue bloom; ours take one per ramp.
    The plain slate pip stays matte. */
-.inds__head .cats__pip--brand { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--primary-400) 55%, transparent)); }
-.inds__head .cats__pip--teal { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--teal-300) 55%, transparent)); }
-.inds__head .cats__pip--purple { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--purple-300) 55%, transparent)); }
+.inds__head .cats__pip--brand { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--brand) 55%, transparent)); }
+.inds__head .cats__pip--teal { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--tertiary-300) 55%, transparent)); }
+.inds__head .cats__pip--purple { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--secondary-300) 55%, transparent)); }
 .inds__head .cats__tr--h,
-.inds__head .cats__tr--d2 { filter: drop-shadow(0 0 7px color-mix(in srgb, var(--teal-300) 60%, transparent)); }
-.inds__head .cats__tr--v { filter: drop-shadow(0 0 7px color-mix(in srgb, var(--purple-300) 60%, transparent)); }
+.inds__head .cats__tr--d2 { filter: drop-shadow(0 0 7px color-mix(in srgb, var(--tertiary-300) 60%, transparent)); }
+.inds__head .cats__tr--v { filter: drop-shadow(0 0 7px color-mix(in srgb, var(--secondary-300) 60%, transparent)); }
 .inds__head .cats__tr--d1 { filter: drop-shadow(0 0 7px color-mix(in srgb, var(--primary-300) 60%, transparent)); }
 .inds__head .cats__rule {
   top: var(--deco-y);
@@ -2433,10 +2438,10 @@
    each mid-journey on arrival; reduced motion parks them entirely (the
    seated pips already carry the still composition). */
 .cats__tr { opacity: 0; }
-.cats__tr--h  { fill: var(--teal-300);    animation: cats-tr-h  26s linear -6s infinite; }
-.cats__tr--v  { fill: var(--purple-300);  animation: cats-tr-v  32s linear -20s infinite; }
+.cats__tr--h  { fill: var(--tertiary-300);    animation: cats-tr-h  26s linear -6s infinite; }
+.cats__tr--v  { fill: var(--secondary-300);  animation: cats-tr-v  32s linear -20s infinite; }
 .cats__tr--d1 { fill: var(--primary-300); animation: cats-tr-d1 38s linear -11s infinite; }
-.cats__tr--d2 { fill: var(--teal-300);    animation: cats-tr-d2 30s linear -25s infinite; }
+.cats__tr--d2 { fill: var(--tertiary-300);    animation: cats-tr-d2 30s linear -25s infinite; }
 
 @keyframes cats-tr-h {
   0%   { transform: translate(0, 0); opacity: 0; }

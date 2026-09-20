@@ -68,9 +68,9 @@
 .page-category .hero-ind {
   background:
     radial-gradient(30rem 16rem at 38% 44%,
-      color-mix(in srgb, var(--teal-300) 6%, transparent), transparent 72%),
+      color-mix(in srgb, var(--tertiary-300) 6%, transparent), transparent 72%),
     radial-gradient(30rem 16rem at 62% 44%,
-      color-mix(in srgb, var(--purple-400) 5%, transparent), transparent 72%),
+      color-mix(in srgb, var(--secondary-400) 5%, transparent), transparent 72%),
     var(--bg);
 }
 .page-category .hero-ind__grid { grid-template-columns: minmax(0, 1fr); }
@@ -124,8 +124,8 @@
   inset: 0;
   background: radial-gradient(circle,
     transparent 260px,
-    color-mix(in srgb, var(--teal-300) 5%, transparent) 260px 420px,
-    color-mix(in srgb, var(--purple-400) 4%, transparent) 420px 580px,
+    color-mix(in srgb, var(--tertiary-300) 5%, transparent) 260px 420px,
+    color-mix(in srgb, var(--secondary-400) 4%, transparent) 420px 580px,
     transparent 580px);
 }
 
@@ -195,16 +195,16 @@
 .orbits__ring--1 .orbits__sat:nth-child(1) .orbits__chip,
 .orbits__ring--2 .orbits__sat:nth-child(2) .orbits__chip,
 .orbits__ring--3 .orbits__sat:nth-child(2) .orbits__chip {
-  color: var(--teal-300);
-  background: color-mix(in srgb, var(--teal-300) 12%, var(--surface));
-  border-color: color-mix(in srgb, var(--teal-300) 34%, var(--border));
+  color: var(--tertiary-300);
+  background: color-mix(in srgb, var(--tertiary-300) 12%, var(--surface));
+  border-color: color-mix(in srgb, var(--tertiary-300) 34%, var(--border));
 }
 .orbits__ring--1 .orbits__sat:nth-child(2) .orbits__chip,
 .orbits__ring--2 .orbits__sat:nth-child(3) .orbits__chip,
 .orbits__ring--3 .orbits__sat:nth-child(1) .orbits__chip {
-  color: var(--purple-400);
-  background: color-mix(in srgb, var(--purple-400) 10%, var(--surface));
-  border-color: color-mix(in srgb, var(--purple-400) 30%, var(--border));
+  color: var(--secondary-400);
+  background: color-mix(in srgb, var(--secondary-400) 10%, var(--surface));
+  border-color: color-mix(in srgb, var(--secondary-400) 30%, var(--border));
 }
 .orbits__ring--2 .orbits__sat:nth-child(1) .orbits__chip {
   background: color-mix(in srgb, var(--brand) 9%, var(--surface));
@@ -610,7 +610,9 @@
 .asked .qledger__cap {
   font-family: var(--font-display);
   font-size: var(--t-mono);
-  font-weight: 600;
+  /* 500, not 600: the prompt owns the row (20 Sep), so the index and the
+     capability meta stay quiet. */
+  font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }

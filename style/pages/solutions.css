@@ -52,7 +52,7 @@
   padding-block: calc(var(--sp-24) + var(--nav-h) + var(--nav-float) + 2px) var(--sp-20);
   background:
     radial-gradient(58% 46% at 50% 0%,
-      color-mix(in srgb, var(--primary-400) 6%, transparent), transparent 72%),
+      color-mix(in srgb, var(--brand) 6%, transparent), transparent 72%),
     linear-gradient(180deg, var(--bg-subtle), var(--bg) 78%);
 }
 

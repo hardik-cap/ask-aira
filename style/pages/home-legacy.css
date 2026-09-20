@@ -42,9 +42,9 @@
 .page-home:not(.page-v2):not(.page-v3) .section--wash {
   background:
     radial-gradient(56% 42% at 50% 0%,
-      color-mix(in srgb, var(--primary-400) 8%, transparent), transparent 70%),
+      color-mix(in srgb, var(--brand) 8%, transparent), transparent 70%),
     linear-gradient(180deg,
-      color-mix(in srgb, var(--primary-400) 5%, var(--slate-100)) 0%,
+      color-mix(in srgb, var(--brand) 5%, var(--slate-100)) 0%,
       var(--bg) 52%);
 }
 
@@ -77,7 +77,7 @@
   pointer-events: none;
   background:
     radial-gradient(64% 52% at 50% 0%,
-      color-mix(in srgb, var(--primary-400) 7%, transparent), transparent 72%),
+      color-mix(in srgb, var(--brand) 7%, transparent), transparent 72%),
     linear-gradient(180deg,
       var(--slate-200) 0%,
       var(--slate-100) 48%,
@@ -255,7 +255,7 @@
   color: var(--on-brand);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.28),
-    0 10px 24px -10px color-mix(in srgb, var(--primary-400) 65%, transparent);
+    0 10px 24px -10px color-mix(in srgb, var(--brand) 65%, transparent);
 }
 .hero__rot-icon svg {
   width: 56%;
@@ -676,7 +676,7 @@
   pointer-events: none;
   background:
     radial-gradient(80% 64% at 50% 112%,
-      color-mix(in srgb, var(--primary-400) 14%, transparent), transparent 72%),
+      color-mix(in srgb, var(--brand) 14%, transparent), transparent 72%),
     radial-gradient(46% 40% at 16% 116%,
       color-mix(in srgb, var(--primary-300) 8%, transparent), transparent 75%);
 }
@@ -777,7 +777,7 @@
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 0 80px color-mix(in srgb, var(--primary-400) 28%, transparent);
+  box-shadow: 0 0 80px color-mix(in srgb, var(--brand) 28%, transparent);
 }
 .mech__core-node img { width: 40px; height: 40px; }
 
@@ -1667,7 +1667,7 @@
   min-height: 320px;
   background:
     radial-gradient(120% 90% at 82% 0%,
-      color-mix(in srgb, var(--primary-400) 16%, transparent), transparent 62%),
+      color-mix(in srgb, var(--brand) 16%, transparent), transparent 62%),
     linear-gradient(180deg, var(--slate-100), var(--slate-200));
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
@@ -2055,7 +2055,7 @@
     linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px) 0 0 / 40px 40px,
     linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px) 0 0 / 40px 40px,
     radial-gradient(110% 90% at 78% 12%,
-      color-mix(in srgb, var(--primary-400) 22%, transparent), transparent 64%),
+      color-mix(in srgb, var(--brand) 22%, transparent), transparent 64%),
     color-mix(in srgb, #fff 2%, var(--surface-inv));
   border: 1px solid rgba(255, 255, 255, 0.10);
   border-radius: var(--r-lg);

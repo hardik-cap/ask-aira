@@ -24,11 +24,11 @@
      left, accent-400 purple to the right. All three stay whispers. */
   background:
     radial-gradient(42% 44% at 24% 0%,
-      color-mix(in srgb, var(--teal-300) 7%, transparent), transparent 70%),
+      color-mix(in srgb, var(--tertiary-300) 7%, transparent), transparent 70%),
     radial-gradient(42% 44% at 76% 0%,
-      color-mix(in srgb, var(--purple-400) 6%, transparent), transparent 70%),
+      color-mix(in srgb, var(--secondary-400) 6%, transparent), transparent 70%),
     radial-gradient(58% 46% at 50% 0%,
-      color-mix(in srgb, var(--primary-400) 5%, transparent), transparent 72%),
+      color-mix(in srgb, var(--brand) 5%, transparent), transparent 72%),
     linear-gradient(180deg, var(--bg-subtle), var(--bg) 78%);
 }
 

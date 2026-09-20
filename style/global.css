@@ -331,7 +331,7 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
    they track the heading's clamp rather than fixing to one size. */
 .section-heading em {
   font-style: normal;
-  color: var(--primary-400);
+  color: var(--brand);
   text-decoration-line: underline;
   text-decoration-style: dashed;
   text-decoration-thickness: 0.07em;

@@ -10,7 +10,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,300..800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,300..800&family=Roboto:wght@400;500;600;700&display=swap">
 
   <link rel="stylesheet" href="/style/tokens.css">
   <link rel="stylesheet" href="/style/global.css">
@@ -21,6 +21,7 @@
 
   <script src="/js/components.js" defer></script>
   <script src="/js/reveal.js" defer></script>
+  <script src="/js/qbar.js" defer></script>
   <script type="module" src="/js/globe.js"></script>
 </head>
 <body class="page-solutions page-category">
@@ -125,66 +126,45 @@
       <div class="padding-global">
         <div class="container">
 
-          <div class="section-head reveal">
+          <div class="section-head section-head--center reveal">
             <p class="eyebrow">The questions</p>
             <h2 class="section-heading">Asked in <em>health and beauty</em>.</h2>
-            <p class="section-sub">Eight real shapes of ask in this category's vocabulary. Each comes back answered, with the reasoning shown and the move built, waiting on approval.</p>
+            <p class="section-sub">Five real shapes of ask in this category's vocabulary. Each comes back answered, with the reasoning shown and the move built, waiting on approval.</p>
           </div>
 
           <div class="qledger reveal">
-            <div class="qledger__row">
-              <span class="qledger__n">01</span>
-              <span class="qledger__cap">Predictive models</span>
-              <p class="qstring">Which customers are overdue on a repeat purchase we can time from their last one?</p>
+            <div class="qledger__grid" data-qbar-logos="walgreens-color,hoya,swiss-arabian,optum,malabar,matahari">
+            <div class="qledger__item">
+              <div class="qledger__frame">
+                <p class="chat__q">Which launches last year found genuinely new customers rather than moving existing ones across?</p>
+              </div>
+              <p class="qledger__cap">Ad hoc analytics</p>
             </div>
-            <div class="qledger__row">
-              <span class="qledger__n">02</span>
-              <span class="qledger__cap">Audience builder</span>
-              <p class="qstring">Build a segment of members whose regimen has dropped a product in the last three months.</p>
+            <div class="qledger__item">
+              <div class="qledger__frame">
+                <p class="chat__q">Run a basket analysis on the customers who bought into the new range: what did it replace?</p>
+              </div>
+              <p class="qledger__cap">Advanced analytics</p>
             </div>
-            <div class="qledger__row">
-              <span class="qledger__n">03</span>
-              <span class="qledger__cap">Journey orchestration</span>
-              <p class="qstring">Create the refill reminder for the overdue group and hold it for my approval.</p>
+            <div class="qledger__item">
+              <div class="qledger__frame">
+                <p class="chat__q">Which customers are overdue on a repeat purchase we can time from their last one?</p>
+              </div>
+              <p class="qledger__cap">Predictive models</p>
             </div>
-            <div class="qledger__row">
-              <span class="qledger__n">04</span>
-              <span class="qledger__cap">Advanced analytics</span>
-              <p class="qstring">Run a basket analysis on the customers who bought into the new range: what did it replace?</p>
+            <div class="qledger__item">
+              <div class="qledger__frame">
+                <p class="chat__q">Build a segment of members whose regimen has dropped a product in the last three months.</p>
+              </div>
+              <p class="qledger__cap">Audience builder</p>
             </div>
-            <div class="qledger__row">
-              <span class="qledger__n">05</span>
-              <span class="qledger__cap">Ad hoc analytics</span>
-              <p class="qstring">Which launches last year found genuinely new customers rather than moving existing ones across?</p>
+            <div class="qledger__item">
+              <div class="qledger__frame">
+                <p class="chat__q">Create the refill reminder for the overdue group and hold it for my approval.</p>
+              </div>
+              <p class="qledger__cap">Journey orchestration</p>
             </div>
-            <div class="qledger__row">
-              <span class="qledger__n">06</span>
-              <span class="qledger__cap">Audience builder</span>
-              <p class="qstring">Find the customers buying the same item every eight weeks who have never subscribed.</p>
             </div>
-            <div class="qledger__row">
-              <span class="qledger__n">07</span>
-              <span class="qledger__cap">Data quality &amp; fraud checks</span>
-              <p class="qstring">Flag duplicate accounts and unusual redemption spikes from the last 30 days.</p>
-            </div>
-            <div class="qledger__row">
-              <span class="qledger__n">08</span>
-              <span class="qledger__cap">Knowledge base Q&amp;A</span>
-              <p class="qstring">Which customer fields are we permitted to use for marketing under our current consent model?</p>
-            </div>
-            <a class="qledger__more" href="/book">
-              <span class="qledger__n">09</span>
-              <span class="qledger__cap">Your question</span>
-              <p class="qledger__more-t">
-                <strong>The ninth question is yours.</strong>
-                Bring the one this page does not answer to a thirty-minute
-                working session on your own data.
-                <span class="qledger__go">
-                  Book a working session
-                  <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,128l-72,72V56Z" opacity="0.2"/><path d="M221.66,122.34l-72-72A8,8,0,0,0,136,56v64H40a8,8,0,0,0,0,16h96v64a8,8,0,0,0,13.66,5.66l72-72A8,8,0,0,0,221.66,122.34ZM152,180.69V75.31L204.69,128Z"/></svg>
-                </span>
-              </p>
-            </a>
           </div>
 
         </div>

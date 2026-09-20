@@ -185,10 +185,10 @@
 
 /* The compare board's brand panel keeps real brand indigo, not the lifted
    dark-mode accent, so white text keeps its contrast. */
-.page-v2 .compare__brandbg { background: var(--primary-400); }
+.page-v2 .compare__brandbg { background: var(--brand); }
 
 /* Book panel keeps true indigo too. */
-.page-v2 .book__panel { background: var(--primary-400); }
+.page-v2 .book__panel { background: var(--brand); }
 
 /* ==========================================================================
    V2 experiment ground (index-v2.html): the Workers-style dark fill,
@@ -214,11 +214,11 @@
 
   /* True brand primary, same as light (user call, 13 Sep): no lifted dark
      variant. Hover/press step LIGHTER since darkening vanishes on dark. */
-  --brand:        var(--primary-400);
+  --brand:        var(--brand);
   --brand-hover:  var(--primary-300);
   --brand-press:  var(--primary-200);
-  --brand-subtle: rgba(82, 108, 246, 0.16);
-  --brand-line:   rgba(82, 108, 246, 0.34);
+  --brand-subtle: rgba(51, 56, 210, 0.16);
+  --brand-line:   rgba(51, 56, 210, 0.34);
   --brand-ink:    var(--primary-200);
 
   /* The wash/footer slates, remapped so the existing gradients read as
@@ -233,16 +233,16 @@
      --slate-50 is still light, so remapping the slate above never reaches
      them (verified 20 Sep: .section--wash computed to the light mix on this
      page). Redeclared here, same mix proportions over the dark slate. */
-  --wash-primary: color-mix(in srgb, var(--primary-400) 8%,    #0B0F19);
-  --wash-teal:    color-mix(in srgb, var(--teal-300)    14.4%, #0B0F19);
-  --wash-purple:  color-mix(in srgb, var(--purple-400)  7.6%,  #0B0F19);
+  --wash-primary: color-mix(in srgb, var(--brand) 8%,    #0B0F19);
+  --wash-tertiary:    color-mix(in srgb, var(--tertiary-300)    14.4%, #0B0F19);
+  --wash-secondary:  color-mix(in srgb, var(--secondary-400)  7.6%,  #0B0F19);
   --wash-quiet:   #0B0F19;
 
   --nav-surface:       rgba(8, 11, 20, 0.94);
   --nav-surface-glass: rgba(8, 11, 20, 0.62);
 
   --pending:    var(--primary-300);
-  --pending-bg: rgba(82, 108, 246, 0.16);
+  --pending-bg: rgba(51, 56, 210, 0.16);
   --approve:    #4ED18B;
   --approve-bg: rgba(14, 138, 79, 0.18);
   --hold:       #E5A93F;

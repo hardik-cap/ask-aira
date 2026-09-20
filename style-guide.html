@@ -43,14 +43,18 @@
         <div class="g-block__head">
           <h2 class="g-block__title">Colour</h2>
           <p class="g-block__note">
-            The brand anchor is <strong>#526CF6</strong>, sampled from the aiRA logo mark.
-            The mark runs a horizontal gradient from #6369F6 to #436FF6 and centres here.
-            This supersedes the violet product pill in the 2026 Capillary brand guide,
-            which predates the current logo. Teal and purple are client-supplied ramps
-            flanking the brand: their anchor steps are the same colour at three hues,
-            30 degrees apart, at S&nbsp;90 and L&nbsp;64. Teal is the dark-surface
-            accent and purple the light-surface one, because teal carries no body text
-            on white until its 800 step. Neutrals are cool and hue-aligned to the brand
+            The brand anchor is <strong>Primary/600 #3338D2</strong>, set with the
+            P&nbsp;/&nbsp;S&nbsp;/&nbsp;T palette on 20 September 2026. It no longer
+            matches the logo mark, whose gradient runs #6369F6 to #436FF6; that is an
+            open question with Capillary rather than a drift in this file. Secondary and
+            Tertiary are client-supplied ramps flanking the brand, and all three anchor
+            at <strong>Tertiary/600, Primary/600 and Secondary/500</strong>, ringed
+            below: the same colour at three hues, S&nbsp;63.9 and L&nbsp;51.2 in all
+            three, sitting 30.2 and 29.8 degrees either side of Primary. The step
+            numbers do NOT line up, so pair by the ringed chip and never by the number.
+            Contrast splits the two accents: Secondary is the light-surface one at
+            6.41:1 on white, Tertiary the dark-surface one at 8.41:1 on the dark ground
+            from its 300 step, and Tertiary carries no body text on white. Neutrals are cool and hue-aligned to the brand
             so greys never read warm against it. Every chip below is drawn from its
             token, so this page cannot drift from tokens.css; the hex beside it is
             transcribed for handoff.
@@ -62,162 +66,162 @@
             <div class="g-swatch">
               <div class="g-swatch__chip" style="background: var(--primary-50)"></div>
               <span class="g-swatch__name">Primary/50</span>
-              <span class="g-swatch__hex">#E9EBFE</span>
+              <span class="g-swatch__hex">#ECE7FA</span>
             </div>
             <div class="g-swatch">
               <div class="g-swatch__chip" style="background: var(--primary-100)"></div>
               <span class="g-swatch__name">Primary/100</span>
-              <span class="g-swatch__hex">#C7CCFC</span>
+              <span class="g-swatch__hex">#CDC4F3</span>
             </div>
             <div class="g-swatch">
               <div class="g-swatch__chip" style="background: var(--primary-200)"></div>
               <span class="g-swatch__name">Primary/200</span>
-              <span class="g-swatch__hex">#A1ABFA</span>
+              <span class="g-swatch__hex">#AA9EEB</span>
             </div>
             <div class="g-swatch">
               <div class="g-swatch__chip" style="background: var(--primary-300)"></div>
               <span class="g-swatch__name">Primary/300</span>
-              <span class="g-swatch__hex">#768AF8</span>
+              <span class="g-swatch__hex">#8676E4</span>
             </div>
-            <div class="g-swatch g-swatch--anchor">
+            <div class="g-swatch">
               <div class="g-swatch__chip" style="background: var(--primary-400)"></div>
               <span class="g-swatch__name">Primary/400</span>
-              <span class="g-swatch__hex">#526CF6</span>
+              <span class="g-swatch__hex">#6759DF</span>
             </div>
             <div class="g-swatch">
               <div class="g-swatch__chip" style="background: var(--primary-500)"></div>
               <span class="g-swatch__name">Primary/500</span>
-              <span class="g-swatch__hex">#2551F2</span>
+              <span class="g-swatch__hex">#423DD8</span>
             </div>
-            <div class="g-swatch">
+            <div class="g-swatch g-swatch--anchor">
               <div class="g-swatch__chip" style="background: var(--primary-600)"></div>
               <span class="g-swatch__name">Primary/600</span>
-              <span class="g-swatch__hex">#1F48E6</span>
+              <span class="g-swatch__hex">#3338D2</span>
             </div>
             <div class="g-swatch">
               <div class="g-swatch__chip" style="background: var(--primary-700)"></div>
               <span class="g-swatch__name">Primary/700</span>
-              <span class="g-swatch__hex">#0C3DD9</span>
+              <span class="g-swatch__hex">#1331C9</span>
             </div>
             <div class="g-swatch">
               <div class="g-swatch__chip" style="background: var(--primary-800)"></div>
               <span class="g-swatch__name">Primary/800</span>
-              <span class="g-swatch__hex">#0031CE</span>
+              <span class="g-swatch__hex">#002BC2</span>
             </div>
             <div class="g-swatch">
               <div class="g-swatch__chip" style="background: var(--primary-900)"></div>
               <span class="g-swatch__name">Primary/900</span>
-              <span class="g-swatch__hex">#001AB6</span>
+              <span class="g-swatch__hex">#0020B7</span>
             </div>
         </div>
 
-        <p class="g-sub">Teal, analogous below the brand</p>
-        <p class="g-sm" style="margin: calc(var(--sp-2) * -1) 0 var(--sp-4)">Named Teal by the client; it reads as sky. Note the anchor sits at 300, not 400, so <strong>Teal/400 is a step darker than Primary/400</strong>, not its sibling. Pair teal by the ringed step, never by the number.</p>
+        <p class="g-sub">Tertiary, analogous below the brand</p>
+        <p class="g-sm" style="margin: calc(var(--sp-2) * -1) 0 var(--sp-4)">The dark-surface accent, labelled T by the client. Its anchor is Tertiary/600, matching Primary/600. Which step a component wants is a separate question from where the anchor is: the anchor is only 5.04:1 on the dark ground, so reach for Tertiary/300, or better, for <code>--accent-on-dark</code>.</p>
         <div class="g-swatches">
             <div class="g-swatch">
-              <div class="g-swatch__chip" style="background: var(--teal-50)"></div>
-              <span class="g-swatch__name">Teal/50</span>
-              <span class="g-swatch__hex">#E1F4FE</span>
+              <div class="g-swatch__chip" style="background: var(--tertiary-50)"></div>
+              <span class="g-swatch__name">Tertiary/50</span>
+              <span class="g-swatch__hex">#E4F2FA</span>
             </div>
             <div class="g-swatch">
-              <div class="g-swatch__chip" style="background: var(--teal-100)"></div>
-              <span class="g-swatch__name">Teal/100</span>
-              <span class="g-swatch__hex">#B3E3FC</span>
+              <div class="g-swatch__chip" style="background: var(--tertiary-100)"></div>
+              <span class="g-swatch__name">Tertiary/100</span>
+              <span class="g-swatch__hex">#BDDEF5</span>
             </div>
             <div class="g-swatch">
-              <div class="g-swatch__chip" style="background: var(--teal-200)"></div>
-              <span class="g-swatch__name">Teal/200</span>
-              <span class="g-swatch__hex">#82D1FA</span>
+              <div class="g-swatch__chip" style="background: var(--tertiary-200)"></div>
+              <span class="g-swatch__name">Tertiary/200</span>
+              <span class="g-swatch__hex">#94C9EF</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: var(--tertiary-300)"></div>
+              <span class="g-swatch__name">Tertiary/300</span>
+              <span class="g-swatch__hex">#6DB4E7</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: var(--tertiary-400)"></div>
+              <span class="g-swatch__name">Tertiary/400</span>
+              <span class="g-swatch__hex">#52A4E3</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: var(--tertiary-500)"></div>
+              <span class="g-swatch__name">Tertiary/500</span>
+              <span class="g-swatch__hex">#3A95DF</span>
             </div>
             <div class="g-swatch g-swatch--anchor">
-              <div class="g-swatch__chip" style="background: var(--teal-300)"></div>
-              <span class="g-swatch__name">Teal/300</span>
-              <span class="g-swatch__hex">#52BFF6</span>
+              <div class="g-swatch__chip" style="background: var(--tertiary-600)"></div>
+              <span class="g-swatch__name">Tertiary/600</span>
+              <span class="g-swatch__hex">#3388D2</span>
             </div>
             <div class="g-swatch">
-              <div class="g-swatch__chip" style="background: var(--teal-400)"></div>
-              <span class="g-swatch__name">Teal/400</span>
-              <span class="g-swatch__hex">#32B2F4</span>
+              <div class="g-swatch__chip" style="background: var(--tertiary-700)"></div>
+              <span class="g-swatch__name">Tertiary/700</span>
+              <span class="g-swatch__hex">#2A76C0</span>
             </div>
             <div class="g-swatch">
-              <div class="g-swatch__chip" style="background: var(--teal-500)"></div>
-              <span class="g-swatch__name">Teal/500</span>
-              <span class="g-swatch__hex">#1FA4F1</span>
+              <div class="g-swatch__chip" style="background: var(--tertiary-800)"></div>
+              <span class="g-swatch__name">Tertiary/800</span>
+              <span class="g-swatch__hex">#2466AE</span>
             </div>
             <div class="g-swatch">
-              <div class="g-swatch__chip" style="background: var(--teal-600)"></div>
-              <span class="g-swatch__name">Teal/600</span>
-              <span class="g-swatch__hex">#1E96E2</span>
-            </div>
-            <div class="g-swatch">
-              <div class="g-swatch__chip" style="background: var(--teal-700)"></div>
-              <span class="g-swatch__name">Teal/700</span>
-              <span class="g-swatch__hex">#1C83CE</span>
-            </div>
-            <div class="g-swatch">
-              <div class="g-swatch__chip" style="background: var(--teal-800)"></div>
-              <span class="g-swatch__name">Teal/800</span>
-              <span class="g-swatch__hex">#1973BA</span>
-            </div>
-            <div class="g-swatch">
-              <div class="g-swatch__chip" style="background: var(--teal-900)"></div>
-              <span class="g-swatch__name">Teal/900</span>
-              <span class="g-swatch__hex">#155397</span>
+              <div class="g-swatch__chip" style="background: var(--tertiary-900)"></div>
+              <span class="g-swatch__name">Tertiary/900</span>
+              <span class="g-swatch__hex">#18498F</span>
             </div>
         </div>
 
-        <p class="g-sub">Purple, analogous above the brand</p>
-        <p class="g-sm" style="margin: calc(var(--sp-2) * -1) 0 var(--sp-4)">Purple tracks primary step for step, so the two can be swapped by number.</p>
+        <p class="g-sub">Secondary, analogous above the brand</p>
+        <p class="g-sm" style="margin: calc(var(--sp-2) * -1) 0 var(--sp-4)">The light-surface accent, labelled S by the client. <strong>It anchors at 500, not 600</strong>: Secondary/500 is the chip that matches Primary/600 on saturation and lightness, and Secondary/600 is a shade darker than the family row. So <code>Secondary/n</code> sits where <code>Primary/(n+100)</code> sits. At 6.41:1 on white it can carry text there, unlike Tertiary; <code>--accent-on-light</code> points at it.</p>
         <div class="g-swatches">
             <div class="g-swatch">
-              <div class="g-swatch__chip" style="background: var(--purple-50)"></div>
-              <span class="g-swatch__name">Purple/50</span>
-              <span class="g-swatch__hex">#F0E7FD</span>
+              <div class="g-swatch__chip" style="background: var(--secondary-50)"></div>
+              <span class="g-swatch__name">Secondary/50</span>
+              <span class="g-swatch__hex">#F0E8FA</span>
             </div>
             <div class="g-swatch">
-              <div class="g-swatch__chip" style="background: var(--purple-100)"></div>
-              <span class="g-swatch__name">Purple/100</span>
-              <span class="g-swatch__hex">#D7C5FB</span>
+              <div class="g-swatch__chip" style="background: var(--secondary-100)"></div>
+              <span class="g-swatch__name">Secondary/100</span>
+              <span class="g-swatch__hex">#D8C5F2</span>
             </div>
             <div class="g-swatch">
-              <div class="g-swatch__chip" style="background: var(--purple-200)"></div>
-              <span class="g-swatch__name">Purple/200</span>
-              <span class="g-swatch__hex">#BD9EF9</span>
+              <div class="g-swatch__chip" style="background: var(--secondary-200)"></div>
+              <span class="g-swatch__name">Secondary/200</span>
+              <span class="g-swatch__hex">#BF9EE9</span>
             </div>
             <div class="g-swatch">
-              <div class="g-swatch__chip" style="background: var(--purple-300)"></div>
-              <span class="g-swatch__name">Purple/300</span>
-              <span class="g-swatch__hex">#A174F8</span>
+              <div class="g-swatch__chip" style="background: var(--secondary-300)"></div>
+              <span class="g-swatch__name">Secondary/300</span>
+              <span class="g-swatch__hex">#A675E1</span>
+            </div>
+            <div class="g-swatch">
+              <div class="g-swatch__chip" style="background: var(--secondary-400)"></div>
+              <span class="g-swatch__name">Secondary/400</span>
+              <span class="g-swatch__hex">#9255DA</span>
             </div>
             <div class="g-swatch g-swatch--anchor">
-              <div class="g-swatch__chip" style="background: var(--purple-400)"></div>
-              <span class="g-swatch__name">Purple/400</span>
-              <span class="g-swatch__hex">#8952F6</span>
+              <div class="g-swatch__chip" style="background: var(--secondary-500)"></div>
+              <span class="g-swatch__name">Secondary/500</span>
+              <span class="g-swatch__hex">#7D33D2</span>
             </div>
             <div class="g-swatch">
-              <div class="g-swatch__chip" style="background: var(--purple-500)"></div>
-              <span class="g-swatch__name">Purple/500</span>
-              <span class="g-swatch__hex">#6F2DF3</span>
+              <div class="g-swatch__chip" style="background: var(--secondary-600)"></div>
+              <span class="g-swatch__name">Secondary/600</span>
+              <span class="g-swatch__hex">#732ECC</span>
             </div>
             <div class="g-swatch">
-              <div class="g-swatch__chip" style="background: var(--purple-600)"></div>
-              <span class="g-swatch__name">Purple/600</span>
-              <span class="g-swatch__hex">#6228EC</span>
+              <div class="g-swatch__chip" style="background: var(--secondary-700)"></div>
+              <span class="g-swatch__name">Secondary/700</span>
+              <span class="g-swatch__hex">#6524C3</span>
             </div>
             <div class="g-swatch">
-              <div class="g-swatch__chip" style="background: var(--purple-700)"></div>
-              <span class="g-swatch__name">Purple/700</span>
-              <span class="g-swatch__hex">#501FE3</span>
+              <div class="g-swatch__chip" style="background: var(--secondary-800)"></div>
+              <span class="g-swatch__name">Secondary/800</span>
+              <span class="g-swatch__hex">#581DBC</span>
             </div>
             <div class="g-swatch">
-              <div class="g-swatch__chip" style="background: var(--purple-800)"></div>
-              <span class="g-swatch__name">Purple/800</span>
-              <span class="g-swatch__hex">#3B17DE</span>
-            </div>
-            <div class="g-swatch">
-              <div class="g-swatch__chip" style="background: var(--purple-900)"></div>
-              <span class="g-swatch__name">Purple/900</span>
-              <span class="g-swatch__hex">#0B06CF</span>
+              <div class="g-swatch__chip" style="background: var(--secondary-900)"></div>
+              <span class="g-swatch__name">Secondary/900</span>
+              <span class="g-swatch__hex">#4309B1</span>
             </div>
         </div>
 

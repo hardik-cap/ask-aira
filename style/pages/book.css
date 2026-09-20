@@ -36,7 +36,7 @@
    restated here because this h1 is not a section heading. */
 .bhero__t em {
   font-style: normal;
-  color: var(--primary-400);
+  color: var(--brand);
   text-decoration-line: underline;
   text-decoration-style: dashed;
   text-decoration-thickness: 0.07em;

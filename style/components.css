@@ -547,54 +547,345 @@ button.chip:hover, a.chip:hover { border-color: var(--brand-line); color: var(--
 }
 
 /* ---- Question ledger ----------------------------------------------------
-   Questions set as a numbered index, not a grid of cards. Each row is a
-   figure, a capability, and the question itself as a .qstring. Reused on
-   category pages for the per-role question sets.
+   Settled 20 Sep: the FIVE core capability shapes, all on the page at once
+   (the pager came off the same day it went on; user call). Each prompt is
+   the product's chat bubble in a framed well with the capability captioned
+   below, in loop order: ad hoc and advanced (Analyse), predictive and
+   audience (Decide), then journey (Act) closing on the full-width frame.
+   The sixth-question strip below carries the /book route.
    ---------------------------------------------------------------------- */
 
-.qledger { border-top: 1px solid var(--border-strong); }
+/* ---- The question bar (20 Sep, user reference) ---------------------------
+   The five prompts collapse into one. A bar that looks like the product's
+   own composer carries whichever question is chosen, and the capability
+   labels become a row of tabs under it. js/qbar.js builds this from the
+   .qledger__grid markup below and stows the grid; with the script off the
+   grid is the page, exactly as before.
+   ------------------------------------------------------------------------- */
 
-.qledger__row,
-.qledger__more {
-  display: grid;
-  grid-template-columns: 2.75rem 13rem minmax(0, 1fr);
-  gap: var(--sp-2) var(--sp-8);
-  align-items: baseline;
-  padding-block: var(--sp-5);
-  border-bottom: 1px solid var(--border);
+.qledger__grid.is-stowed { display: none; }
+
+.qbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  width: 100%;
 }
 
-.qledger__n { color: var(--ink-faint); }
-.qledger__cap { color: var(--brand-ink); }
-.qledger .qstring { max-width: 46rem; }
-
-.qledger__more-t {
-  font-size: var(--t-body-sm);
-  line-height: 1.68;
-  color: var(--ink-2);
-  max-width: 46rem;
-  text-wrap: pretty;
+/* ---- the drifting brand row ---------------------------------------------
+   One row of the SUB-INDUSTRY's own customer marks, each at its natural
+   width, sliding behind the bar and masked away at the sides and at the
+   bottom so the bar emerges out of it. Texture, not content: aria-hidden,
+   and the marks are listed properly on the pages that credit them.
+   ------------------------------------------------------------------------- */
+.qbar__field {
+  position: relative;
+  /* 720 and centred, so the row sits over the bar rather than running the
+     container end to end (user, 20 Sep). The cap goes HERE, on the window the
+     marks travel through, not on .qbar__run: the run has to stay wider than
+     the window or there is nothing for it to scroll, so capping the run would
+     stop the belt rather than shorten it. */
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
+  /* Pulled DOWN under the bar so the fade ends behind the pill rather than
+     above it, and the row's own height is what the padding restores. Less pull
+     than before: the marks were sitting on the bar's shoulder. */
+  margin-bottom: -38px;
+  padding-bottom: 62px;
+  overflow: hidden;
+  /* Two masks multiplied: the sides so marks dissolve before the rails, the
+     bottom so the row is gone by the time the bar starts. */
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent),
+    linear-gradient(180deg, #000 30%, transparent 86%);
+  mask-image:
+    linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent),
+    linear-gradient(180deg, #000 30%, transparent 86%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
-.qledger__more-t strong { color: var(--ink); font-weight: 600; }
-.qledger__go {
+.qbar__row { overflow: hidden; }
+.qbar__run {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-12);
+  width: max-content;
+  animation: qbar-drift 72s linear infinite;
+}
+@keyframes qbar-drift {
+  to { transform: translateX(-50%); }
+}
+/* Natural size (user, 20 Sep): no tile, no square. The marks are wordmarks of
+   every aspect, so they are held to a common HEIGHT and keep their own width,
+   which is what lets each read as itself. Full colour, always. */
+.qbar__mark {
+  flex: none;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-weight: 600;
-  color: var(--brand-ink);
-  white-space: nowrap;
-  transition: gap var(--dur-fast) var(--ease);
 }
-.qledger__go svg { width: 20px; height: 20px; flex: none; }
-a.qledger__more:hover .qledger__go { gap: 10px; }
-a.qledger__more:hover .qledger__cap { color: var(--brand); }
+.qbar__mark img {
+  height: 26px;
+  width: auto;
+  /* A guard for the widest wordmarks, so one of them cannot own the row. */
+  max-width: 148px;
+  object-fit: contain;
+}
+/* SQUARE BADGES GET MORE HEIGHT. A common height is the right rule for
+   wordmarks, which are all roughly the same proportion, and the wrong one for
+   a badge: Shell's pecten and Petron's shield are as tall as they are wide, so
+   at 26px they occupy a sixth of the area of the wordmark beside them and read
+   as half-loaded. Same optical correction the homepage logo grid makes for the
+   Rack Room Shoes badge. Matched on the filename because the markup is
+   generated from a name list and carries nothing else to hook on. */
+.qbar__mark img[src*="shell"],
+.qbar__mark img[src*="petron"],
+.qbar__mark img[src*="tata"],
+.qbar__mark img[src*="rack-room-shoes"],
+.qbar__mark img[src*="1-india-family-mart"] {
+  height: 40px;
+}
 
-@media (max-width: 768px) {
-  .qledger__row,
-  .qledger__more { grid-template-columns: 2.75rem minmax(0, 1fr); }
-  .qledger__row .qstring,
-  .qledger__more-t { grid-column: 2; }
+/* The bar keeps the narrow measure; the field and the tabs do not. An input
+   the width of the container reads as a banner (user call), but a tab row
+   capped at the same width wraps to two lines for no reason. */
+.qbar__box {
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
 }
+
+/* The bar is the product's own ask bar, the same anatomy as the homepage
+   difference loop's (20 Sep, user call): a white pill with plus, the
+   question, mic, and the round P200 send. 24px, not --r-pill: the bar grows
+   when the question wraps, and a half-height radius on a tall box stops
+   reading as the product's bar. */
+.qbar__box {
+  position: relative;   /* above the field it emerges from */
+  z-index: 1;
+  display: flex;
+  /* Three lines tall and FIXED (user, 20 Sep). The questions run from one
+     line to three, and a box that grew with each one made the tabs below it
+     jump every time a tab was pressed. 3 x 1.5 x 14px of text plus the
+     padding; the text block centres itself inside whatever it does not use. */
+  min-height: 79px;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: 8px 8px 8px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: var(--shadow-md);
+}
+.qbar__text {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  /* Three lines' worth reserved, so the pill is the same height on the
+     one-line questions as on the three-line ones. */
+  min-height: calc(3 * 1.5em);
+  display: flex;
+  align-items: center;
+  /* The bar is product UI, so it takes the product's face, same call as
+     the bubble in the well below it. */
+  font-family: var(--font-product);
+  font-size: var(--t-body);
+  line-height: 1.5;
+  color: var(--ink);
+  /* Wraps rather than truncates: the whole question stays readable and the
+     pill grows taller instead, same rule as the difference loop's bar. */
+  overflow-wrap: break-word;
+}
+/* One flex item, so the caret below can stay inline inside it. */
+.qbar__line { display: block; width: 100%; }
+
+/* A caret, so the line reads as being typed rather than as a heading that
+   happens to change. It rides the end of the text because it is a sibling
+   span, not a pseudo on the box. */
+.qbar__caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: var(--brand);
+  animation: qbar-blink 1.05s step-end infinite;
+}
+@keyframes qbar-blink { 50% { opacity: 0; } }
+
+.qbar__plus,
+.qbar__mic {
+  display: inline-flex;
+  flex: none;
+  color: var(--ink-3);
+}
+.qbar__plus svg,
+.qbar__mic svg { width: 20px; height: 20px; }
+/* The product's own send: the round P200 circle with the regular up arrow.
+   Decorative, so the low-contrast white-on-periwinkle arrow is fine. */
+.qbar__send {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-pill);
+  background: var(--primary-200);
+  color: var(--on-brand);
+}
+.qbar__send svg { width: 20px; height: 20px; }
+
+/* ---- the capability tabs ---- */
+.qbar__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-2);
+  /* No max-width: all five fit on one line at the container's full width,
+     and capping them at the bar's 720 pushed the fifth onto its own row. */
+  width: 100%;
+  /* On top of .qbar's own 16px gap (user, 20 Sep): the tabs sat tight under
+     the pill and read as part of it rather than as the thing that drives it. */
+  margin-top: var(--sp-4);
+}
+.qbar__tab {
+  position: relative;
+  /* The fill is a pseudo sweeping the whole pill, so it has to be clipped by
+     the pill's own corners. */
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--ink-2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease),
+              border-color var(--dur-fast) var(--ease),
+              background var(--dur-fast) var(--ease);
+}
+.qbar__tab svg { width: 18px; height: 18px; flex: none; color: var(--ink-3); }
+@media (hover: hover) {
+  .qbar__tab:hover { color: var(--ink); border-color: var(--border-strong); }
+  .qbar__tab:hover svg { color: var(--ink-2); }
+}
+.qbar__tab.is-on {
+  color: var(--ink);
+  background: var(--brand-subtle);
+  border-color: var(--brand-line);
+}
+.qbar__tab.is-on svg { color: var(--brand); }
+
+/* ---- the six-second fill ------------------------------------------------
+   The open tab fills left to right over the time it has left. The bar and the
+   advance are ONE clock: this keys off .is-running, which js/qbar.js adds in
+   the same frame it sets the six-second timeout, so the fill can never be
+   ahead of or behind the change. 6s here and HOLD there are the same number
+   and must move together.
+   ------------------------------------------------------------------------- */
+.qbar__tab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: color-mix(in srgb, var(--brand) 14%, transparent);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.qbar.is-running .qbar__tab.is-on::before {
+  animation: qbar-fill 6s linear forwards;
+}
+@keyframes qbar-fill {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+/* The label rides above the fill. Without this the pseudo paints over the
+   icon and the text, because a positioned pseudo beats static content. */
+.qbar__tab > * { position: relative; z-index: 1; }
+.qbar__tab:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  /* One scrolling row rather than four stacked lines of pills, which took
+     more height than the bar they belong to. Back to flex-start: a centred
+     row that overflows clips its own left edge out of reach. */
+  .qbar__tabs {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-inline: calc(var(--sp-5) * -1);
+    padding-inline: var(--sp-5);
+  }
+  .qbar__tabs::-webkit-scrollbar { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qbar__caret { animation: none; }
+  .qbar__tab { transition: none; }
+  /* The field holds still. It keeps its full width, so the row reads as a
+     static wall of marks rather than a belt frozen mid-slide. */
+  .qbar__run { animation: none; }
+  /* No fill either: the script does not advance the tabs under reduced
+     motion, so a bar counting down to nothing would be a lie. */
+  .qbar.is-running .qbar__tab.is-on::before { animation: none; }
+}
+
+.qledger__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-6);
+  align-items: stretch;
+}
+
+.qledger__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  min-width: 0;
+}
+/* The odd fifth: the journey frame spans the row, the move closing the loop. */
+.qledger__item:last-child { grid-column: 1 / -1; }
+.qledger__item:last-child .chat__q { max-width: 34rem; }
+
+/* The frame space: a quiet well with the product bubble riding its right
+   edge, the way an ask sits in the real product. Equal heights so each pair
+   reads as one exhibit whatever the questions' lengths. */
+.qledger__frame {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: 140px;
+  padding: var(--sp-6);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-md);
+}
+.qledger__frame .chat__q {
+  margin-left: auto;
+  max-width: 92%;
+  /* The bubble is drawn product UI, so it wears the product's face. */
+  font-family: var(--font-product);
+}
+
+/* The caption: the capability, quiet and second to the prompt. */
+.qledger__cap { color: var(--ink-2); }
+
+@media (max-width: 767px) {
+  .qledger__grid { grid-template-columns: minmax(0, 1fr); }
+  .qledger__frame { min-height: 0; padding: var(--sp-5); }
+}
+
 
 /* ---- Footnote ---------------------------------------------------------- */
 
@@ -650,6 +941,13 @@ a.qledger__more:hover .qledger__cap { color: var(--brand); }
 
 body.modal-open { overflow: hidden; }
 
+/* ---- Video lightbox (rebuilt 20 Sep, user reference) --------------------
+   Nearly full viewport, the film rounded and clipped, and aiRA's own control
+   bar riding on the picture over a gradient scrim rather than a solid strip.
+   Driven by js/video.js, which drives either a <video> or a YouTube iframe
+   through the same bar.
+   ------------------------------------------------------------------------- */
+
 .vmodal {
   position: fixed;
   inset: 0;
@@ -657,47 +955,215 @@ body.modal-open { overflow: hidden; }
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--sp-16) var(--sp-5) var(--sp-5);
-  background: rgba(11, 16, 32, 0.80);
+  /* Was 64px of top padding to clear a close button that hung ABOVE the box.
+     The button sits inside the picture now, so the popup can use the room. */
+  padding: var(--sp-5);
+  background: rgba(11, 16, 32, 0.86);
   animation: vmodal-in var(--dur) var(--ease);
 }
 @keyframes vmodal-in {
   from { opacity: 0; }
 }
 
+/* Height-first, not width-first. A 16:9 box sized off the width overflows a
+   short laptop window, which is why the old one capped at 1080 and still sat
+   small on a large screen. Sizing off BOTH and letting min() pick means the
+   film is as large as the window can actually hold, either way round. */
 .vmodal__box {
   position: relative;
-  width: min(1080px, 100%);
+  width: min(1680px, 100%, (100vh - 2 * var(--sp-5)) * 16 / 9);
   aspect-ratio: 16 / 9;
-  max-height: 100%;
-  background: var(--slate-900);
+  background: #000;
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-lg);
+  overflow: hidden;
 }
-.vmodal__box iframe {
-  display: block;
+.vp__stage,
+.vp__stage > * {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
-  border-radius: inherit;
+  display: block;
+  object-fit: contain;
+}
+
+/* The two scrims. Controls read on any frame, and the picture reads through
+   them, which a solid bar does not allow. */
+.vp__scrim {
+  position: absolute;
+  left: 0; right: 0;
+  pointer-events: none;
+}
+.vp__scrim--top {
+  top: 0; height: 96px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent);
+}
+.vp__scrim--bot {
+  bottom: 0; height: 132px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.62), transparent);
 }
 
 .vmodal__close {
   position: absolute;
-  top: -44px;
-  right: 0;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
-  color: var(--ink-inv);
+  border: 0;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
   transition: background var(--dur-fast) var(--ease);
 }
-.vmodal__close:hover { background: rgba(255, 255, 255, 0.22); }
+.vmodal__close:hover { background: rgba(255, 255, 255, 0.16); }
 .vmodal__close svg { width: 20px; height: 20px; }
+
+/* ---- the control bar ---- */
+.vp__bar {
+  position: absolute;
+  z-index: 2;
+  left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-4) var(--sp-5);
+  color: #fff;
+}
+.vp__btn {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.86;
+  transition: opacity var(--dur-fast) var(--ease),
+              background var(--dur-fast) var(--ease);
+}
+.vp__btn:hover { opacity: 1; background: rgba(255, 255, 255, 0.14); }
+.vp__btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.vp__btn svg { width: 20px; height: 20px; }
+
+/* Tabular figures, or the bar shuffles sideways every time the seconds tick
+   over from 1 to 2 digits. */
+.vp__time {
+  flex: none;
+  font-size: var(--t-caption);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.82);
+  white-space: nowrap;
+}
+
+/* The scrubber is a real range input, so it arrives with keyboard support
+   and a correct a11y role for free. --p is the played fraction, written by
+   the script; the track paints it as a two-stop gradient. */
+.vp__seek {
+  flex: 1;
+  min-width: 0;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.vp__seek::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(to right,
+    #fff 0 var(--p, 0%), rgba(255, 255, 255, 0.32) var(--p, 0%) 100%);
+}
+.vp__seek::-moz-range-track {
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(to right,
+    #fff 0 var(--p, 0%), rgba(255, 255, 255, 0.32) var(--p, 0%) 100%);
+}
+/* The handle appears on hover and focus only: at rest the reference shows a
+   bare line, and a permanent dot on a one-minute film reads as clutter. */
+.vp__seek::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  margin-top: -4.5px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+.vp__seek::-moz-range-thumb {
+  width: 12px; height: 12px;
+  border: 0; border-radius: 50%;
+  background: #fff;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+.vp__seek:hover::-webkit-slider-thumb,
+.vp__seek:focus-visible::-webkit-slider-thumb { opacity: 1; }
+.vp__seek:hover::-moz-range-thumb,
+.vp__seek:focus-visible::-moz-range-thumb { opacity: 1; }
+.vp__seek:focus-visible { outline: 2px solid #fff; outline-offset: 4px; border-radius: 2px; }
+
+/* ---- the speed menu ---- */
+.vp__menu-wrap { position: relative; flex: none; display: flex; }
+.vp__menu {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  right: 0;
+  z-index: 3;
+  min-width: 128px;
+  padding: 4px;
+  background: rgba(20, 24, 38, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-lg);
+}
+.vp__menu[hidden] { display: none; }
+.vp__rate {
+  display: block;
+  width: 100%;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.82);
+  font: inherit;
+  font-size: var(--t-caption);
+  text-align: left;
+  cursor: pointer;
+}
+.vp__rate:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+.vp__rate.is-on { color: #fff; font-weight: 600; }
+
+@media (max-width: 640px) {
+  .vmodal { padding: var(--sp-3); }
+  .vp__bar { gap: var(--sp-3); padding: var(--sp-3); }
+  /* The time reading is the first thing to go: the scrubber carries the same
+     information and needs the room more. */
+  .vp__time { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vmodal { animation: none; }
+  .vp__btn, .vp__seek::-webkit-slider-thumb, .vp__seek::-moz-range-thumb,
+  .vmodal__close { transition: none; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .vmodal { animation: none; }
@@ -1394,7 +1860,7 @@ a.biz:focus-visible .biz__ic::after {
   pointer-events: none;
   background:
     radial-gradient(80% 64% at 50% 112%,
-      color-mix(in srgb, var(--primary-400) 14%, transparent), transparent 72%),
+      color-mix(in srgb, var(--brand) 14%, transparent), transparent 72%),
     radial-gradient(46% 40% at 16% 116%,
       color-mix(in srgb, var(--primary-300) 8%, transparent), transparent 75%);
 }
@@ -1495,7 +1961,7 @@ a.biz:focus-visible .biz__ic::after {
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 0 80px color-mix(in srgb, var(--primary-400) 28%, transparent);
+  box-shadow: 0 0 80px color-mix(in srgb, var(--brand) 28%, transparent);
 }
 .mech__core-node img { width: 40px; height: 40px; }
 
@@ -1826,7 +2292,7 @@ a.biz:focus-visible .biz__ic::after {
 
 /* Purple rather than the --wash-primary that .section--wash hands it, so the
    last light section on the page is not a repeat of the difference section. */
-.book { background: var(--wash-purple); }
+.book { background: var(--wash-secondary); }
 
 /* The dotted side rails the box sits between. */
 /* The section wears .section--band, so the page's own dot-grid side bands
@@ -1993,7 +2459,7 @@ a.biz:focus-visible .biz__ic::after {
   flex: none;
   width: 16px;
   height: 16px;
-  color: var(--purple-400);
+  color: var(--secondary-400);
 }
 .chat__tool-t {
   flex: 1;
@@ -2201,7 +2667,10 @@ a.biz:focus-visible .biz__ic::after {
 .chat__act span {
   font-size: var(--t-caption);
   font-weight: 600;
-  border-radius: var(--r-pill);
+  /* 8px (--r-sm), user 20 Sep. Set on the shared rule because both -a and -h
+     take it; a pill read as two status chips rather than as the decision pair
+     the card is asking for. */
+  border-radius: var(--r-sm);
   padding: 5px 13px;
   border: 1px solid transparent;
 }

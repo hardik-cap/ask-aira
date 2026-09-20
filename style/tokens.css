@@ -3,102 +3,116 @@
    The only file allowed to contain raw colour values. Everything else
    references these custom properties.
 
-   Brand anchor: #526CF6, sampled from the aiRA logo mark.
-   The mark runs a horizontal gradient #6369F6 -> #436FF6, centring here.
-   This supersedes the #6F459B violet in the 2026 Capillary brand guide,
+   Brand anchor: Primary/600 #3338D2, set by the user with the P/S/T palette
+   on 20 September 2026 (Collors.pdf; see docs/context.md §17).
+
+   OPEN: it no longer matches the logo. The anchor used to be #526CF6,
+   sampled from the mark, whose horizontal gradient runs #6369F6 -> #436FF6
+   and centres there. #3338D2 is darker and bluer than both endpoints, so
+   either the mark is being redrawn with the palette or the site's brand
+   colour and the logo's own blue have diverged. Ask Capillary.
+
+   Both supersede the #6F459B violet in the 2026 Capillary brand guide,
    which predates the current logo.
    ========================================================================== */
 
 :root {
-  /* ---- Raw ramp: brand primary (OFFICIAL) -------------------------------
-     From the supplied Brand Primary.pdf (13 Sep). Primary/400 is THE brand
-     colour. This ramp REPLACED the hand-rolled --indigo-* scale the same day
-     (user: "stick to official now"); the old scale sat one step darker in
-     name (indigo-500 == primary-400) and muted its dark steps toward slate. */
-  --primary-50:  #E9EBFE;
-  --primary-100: #C7CCFC;
-  --primary-200: #A1ABFA;
-  --primary-300: #768AF8;
-  --primary-400: #526CF6;  /* main brand */
-  --primary-500: #2551F2;
-  --primary-600: #1F48E6;
-  --primary-700: #0C3DD9;
-  --primary-800: #0031CE;
-  --primary-900: #001AB6;
+  /* ---- Primitive: Primary (the P ramp) -----------------------------------
+     From Collors.pdf (20 Sep). **Primary/600 #3338D2 is THE brand colour**,
+     set by the user with the palette. This replaced the 13 Sep ramp whose
+     anchor was Primary/400 #526CF6, which in turn replaced the hand-rolled
+     --indigo-* scale; neither is coming back.
+
+     THE ANCHOR MOVED FROM 400 TO 600 and that is the one thing to hold on to
+     when reading old code: a --primary-400 in a rule written before 20 Sep
+     meant "the brand", and it does not any more. Use var(--brand). */
+  --primary-50:  #ECE7FA;
+  --primary-100: #CDC4F3;
+  --primary-200: #AA9EEB;
+  --primary-300: #8676E4;
+  --primary-400: #6759DF;
+  --primary-500: #423DD8;
+  --primary-600: #3338D2;  /* main brand */
+  --primary-700: #1331C9;
+  --primary-800: #002BC2;
+  --primary-900: #0020B7;
 
   /* Logo gradient endpoints, for the mark and brand gradients only */
   --indigo-grad-from: #6369F6;
   --indigo-grad-to:   #436FF6;
 
-  /* Violet accent: the blue-to-purple sweep in the mechanism beams */
+  /* Violet accent: the blue-to-purple sweep in the mechanism beams. OFF
+     PALETTE, and the only raw hue left outside the three ramps. Secondary/300
+     #A675E1 is within a couple of values of it; fold this into that token
+     when the mechanism section comes back off `hidden`, rather than now,
+     because the section is not on screen to check the beams against. */
   --violet-400: #A78BFA;
 
-  /* ---- Analogous ramps: teal and purple (18 Sep) -----------------------
-     Client-supplied. Two full ramps flanking the brand, replacing the single
-     --t-300 / --accent-400 pair that landed earlier the same day.
+  /* ---- Primitives: Secondary and Tertiary (the S and T ramps) -----------
+     Collors.pdf, 20 Sep, supplied with Primary. Two full ramps flanking the
+     brand: Secondary is purple, Tertiary is a true blue. They replace the
+     18 Sep Teal and Purple ramps entirely.
 
-     THE FAMILY RULE. The three anchor steps are the same colour at three
-     hues, exactly 30 degrees apart:
+     THE FAMILY RULE. The three anchors are the same colour at three hues,
+     and the third one is NOT on the same step (user correction, 20 Sep):
 
-         Teal/300     #52BFF6   rgb( 82, 191, 246)   H 200  S 90  L 64
-         Primary/400  #526CF6   rgb( 82, 108, 246)   H 230  S 90  L 64
-         Purple/400   #8952F6   rgb(137,  82, 246)   H 260  S 90  L 64
+         Tertiary/600   #3388D2   H 207.9   S 63.9   L 51.2
+         Primary/600    #3338D2   H 238.1   S 63.9   L 51.2
+         Secondary/500  #7D33D2   H 267.9   S 63.9   L 51.2
 
-     Saturation 90 and lightness 64 in all three, minimum channel pinned at
-     82, blue pinned at 246. Any further theme ramp the client sends should
-     satisfy S 90 / L 64 at its anchor, and it is worth checking on arrival.
+     Saturation spread 0.0, lightness spread 0.0, hues -30.2 and +29.8 either
+     side of Primary. All three are identical in S and L to one decimal
+     place, which is as exact as the rule gets. Check any further ramp the
+     client sends by SOLVING for the step that matches S 63.9 / L 51.2,
+     not by reading 600 off the other two.
 
-     THE STEP NUMBERS DO NOT LINE UP, which is the trap in this file. Teal
-     anchors at 300 and the other two anchor at 400, so teal runs one step
-     lighter than its number suggests the whole way up. Lightness per step:
+     THE STEP NUMBERS DO NOT LINE UP, and this file was briefly wrong about
+     that. Secondary/600 #732ECC is L 49.0 and only +28.1 degrees out, so
+     pairing by number gives a purple that is a shade too dark and a touch
+     too close in hue. Secondary runs one step lighter than its number
+     suggests against the other two: Secondary/n sits where Primary/(n+100)
+     sits. This is the same trap the previous palette had with Teal at 300,
+     moved to a different ramp.
 
-         teal      94  85  75  64  58  53  50  46  41  34
-         primary   95  88  81  72  64  55  51  45  40  36
-         purple    95  88  80  71  64  56  54  51  48  42
+     CONTRAST still splits their roles, because luminance is green-weighted
+     and the three differ sharply despite matching lightness:
 
-     Purple and primary track each other within a point or two at every step
-     and can be swapped by number. Teal cannot: --teal-400 is a step DARKER
-     than --primary-400, not its sibling. Teal/n sits roughly where
-     Primary/(n+100) sits. Pair teal off this table, never off the number.
+                          on white    on dark (--bg)
+         Primary/600        7.96:1        2.38:1
+         Secondary/500      6.41:1        2.95:1
+         Tertiary/600       3.75:1        5.04:1
+         Tertiary/300       2.25:1        8.41:1
 
-     CONTRAST, which differs sharply across the three despite identical
-     lightness at the anchors, because luminance is green-weighted:
+     So Secondary is the light-surface accent and Tertiary the dark-surface
+     one, the same division Purple and Teal had. Tertiary carries no body
+     text on white. Note the step a ROLE wants is not the anchor: the dark
+     surfaces want Tertiary/300, which is why --accent-on-dark exists below
+     rather than every component reaching for the primitive.
 
-                       on white    on dark ground (--bg #080B14)
-         Teal/300        2.07:1        9.49:1
-         Primary/400     4.34:1        4.53:1
-         Purple/400      4.56:1        4.31:1
+     NAMING. The client labels these P, S and T; spelled out per the standing
+     convention that retired the P400 shorthand, they are Primary/n,
+     Secondary/n and Tertiary/n. */
+  --secondary-50:  #F0E8FA;
+  --secondary-100: #D8C5F2;
+  --secondary-200: #BF9EE9;
+  --secondary-300: #A675E1;
+  --secondary-400: #9255DA;
+  --secondary-500: #7D33D2;  /* pairs with Primary/600 */
+  --secondary-600: #732ECC;
+  --secondary-700: #6524C3;
+  --secondary-800: #581DBC;
+  --secondary-900: #4309B1;
 
-     So the split is: teal is the dark-surface colour, purple is the light-
-     surface one. Teal carries no body text on white until Teal/800 (5.00:1);
-     Teal/700 is 4.05:1, large text and UI only. Purple/400 is the only
-     anchor clearing 4.5:1 on white. Going the other way, teal's dark steps
-     fail on the dark ground: Teal/900 is 2.54:1 there.
-
-     NAMING. The client's ramp names are kept verbatim, so the sky-blue ramp
-     is Teal. The earlier --t-300 name is gone for a second reason: --t-* is
-     the TYPE scale further down this file, and the collision was real. */
-  --teal-50:  #E1F4FE;
-  --teal-100: #B3E3FC;
-  --teal-200: #82D1FA;
-  --teal-300: #52BFF6;  /* pairs with Primary/400 */
-  --teal-400: #32B2F4;
-  --teal-500: #1FA4F1;
-  --teal-600: #1E96E2;
-  --teal-700: #1C83CE;
-  --teal-800: #1973BA;
-  --teal-900: #155397;
-
-  --purple-50:  #F0E7FD;
-  --purple-100: #D7C5FB;
-  --purple-200: #BD9EF9;
-  --purple-300: #A174F8;
-  --purple-400: #8952F6;  /* pairs with Primary/400 */
-  --purple-500: #6F2DF3;
-  --purple-600: #6228EC;
-  --purple-700: #501FE3;
-  --purple-800: #3B17DE;
-  --purple-900: #0B06CF;
+  --tertiary-50:  #E4F2FA;
+  --tertiary-100: #BDDEF5;
+  --tertiary-200: #94C9EF;
+  --tertiary-300: #6DB4E7;
+  --tertiary-400: #52A4E3;
+  --tertiary-500: #3A95DF;
+  --tertiary-600: #3388D2;  /* pairs with Primary/600 */
+  --tertiary-700: #2A76C0;
+  --tertiary-800: #2466AE;
+  --tertiary-900: #18498F;
 
   /* ---- Raw ramp: slate (cool neutrals, hue-aligned to the indigo) --- */
   --slate-50:  #F7F8FB;
@@ -173,10 +187,17 @@
      went 4.9% -> 8%, which lifts the trio from L 0.828 to L 0.849 and gives
      the hue somewhere to show. The other two were re-solved against the new
      primary, NOT nudged by eye, so the one-luminance rule above still holds
-     to within 2e-4. Primary now lands #EAEDFB, was #E7EAF6. */
-  --wash-primary: color-mix(in srgb, var(--primary-400) 8%,    var(--slate-50));
-  --wash-teal:    color-mix(in srgb, var(--teal-300)    14.4%, var(--slate-50));
-  --wash-purple:  color-mix(in srgb, var(--purple-400)  7.6%,  var(--slate-50));
+     to within 2e-4. Primary now lands #EAEDFB, was #E7EAF6.
+
+     Re-derived AGAIN 20 Sep for the P/S/T palette. The anchors moved to row
+     600 and are darker (L 51 against the old L 64), so the same percentages
+     would have driven the trio well past the approved depth. Each share was
+     re-solved against the SAME target luminance the 19 Sep set landed on,
+     0.8485, so the grounds read exactly as deep as before with the new hues
+     in them. Holds to 5e-5, tighter than the set it replaces. */
+  --wash-primary:   color-mix(in srgb, var(--primary-600)   5.95%, var(--slate-50));
+  --wash-secondary: color-mix(in srgb, var(--secondary-500) 6.38%, var(--slate-50));
+  --wash-tertiary:  color-mix(in srgb, var(--tertiary-600)  8.70%, var(--slate-50));
   /* For a section whose own illustration carries the colour. Sequence's ring
      drawing sits on #F9F9F9, a near neutral, and that is why its line work
      reads: the drawing is the only coloured thing in the frame. A coloured
@@ -217,12 +238,26 @@
   --ink-inv-3:  rgba(255, 255, 255, 0.46);
 
   /* ---- Semantic: brand --------------------------------------------- */
-  --brand:         var(--primary-400);
-  --brand-hover:   var(--primary-500);
-  --brand-press:   var(--primary-600);
+  /* Re-keyed to the 600 anchor on 20 Sep. Hover and press darken, which is
+     the light-theme convention and what the ramp affords above 600. */
+  --brand:         var(--primary-600);
+  --brand-hover:   var(--primary-700);
+  --brand-press:   var(--primary-800);
   --brand-subtle:  var(--primary-50);
   --brand-line:    var(--primary-100);
-  --brand-ink:     var(--primary-700);  /* brand colour used as text on light */
+  /* The brand IS the ink now. Primary/600 is 7.96:1 on white, which is AAA
+     for normal text; the old anchor managed 4.34 and failed AA, which is the
+     only reason this token ever pointed at a darker step. */
+  --brand-ink:     var(--primary-600);
+
+  /* ---- Semantic: the two accents ------------------------------------
+     Named by the SURFACE they are legible on, not by hue or by step, because
+     the step each role needs is not the family anchor: Tertiary/600 is only
+     5.04:1 on the dark ground where Tertiary/300 is 8.41:1. Note the light
+     accent IS the anchor here, but the anchor is Secondary/500, not 600. Reach for these
+     rather than for a primitive and the contrast rule cannot be got wrong. */
+  --accent-on-light: var(--secondary-500);  /* 6.41:1 on white */
+  --accent-on-dark:  var(--tertiary-300);   /* 8.41:1 on --bg   */
   --on-brand:      #FFFFFF;
 
   /* ---- Semantic: approval grammar ----------------------------------
@@ -255,7 +290,7 @@
   --nav-surface-inv-glass: rgba(11, 16, 32, 0.60);
 
   /* ---- Focus ------------------------------------------------------- */
-  --focus-ring: 0 0 0 3px rgba(82, 108, 246, 0.32);
+  --focus-ring: 0 0 0 3px rgba(51, 56, 210, 0.32);
 
   /* ---- Elevation --------------------------------------------------- */
   --shadow-xs: 0 1px 2px rgba(11, 16, 32, 0.04);
@@ -413,9 +448,17 @@
   --brand:        var(--primary-300);
   --brand-hover:  var(--primary-200);
   --brand-press:  var(--primary-100);
-  --brand-subtle: rgba(82, 108, 246, 0.16);
-  --brand-line:   rgba(82, 108, 246, 0.34);
+  /* rgb(51, 56, 210) is Primary/600's channels. These were rgba(82,108,246)
+     until 20 Sep, which is the RETIRED brand: hard-coded alpha values do not
+     follow a ramp swap, so they are the first thing to go stale. */
+  --brand-subtle: rgba(51, 56, 210, 0.16);
+  --brand-line:   rgba(51, 56, 210, 0.34);
   --brand-ink:    var(--primary-200);
+
+  /* Dark inverts the surface split: on this ground Tertiary is the readable
+     accent and Secondary the quiet one, so the aliases swap targets. */
+  --accent-on-light: var(--secondary-300);
+  --accent-on-dark:  var(--tertiary-300);
 
   --nav-surface:           rgba(8, 11, 20, 0.92);
   --nav-surface-glass:     rgba(8, 11, 20, 0.60);
@@ -423,7 +466,7 @@
   --nav-surface-inv-glass: rgba(8, 11, 20, 0.60);
 
   --pending:    var(--primary-300);
-  --pending-bg: rgba(82, 108, 246, 0.16);
+  --pending-bg: rgba(51, 56, 210, 0.16);
   --approve:    #4ED18B;
   --approve-bg: rgba(14, 138, 79, 0.18);
   --hold:       #E5A93F;
