@@ -1855,15 +1855,33 @@
    redrawn in the token system.
    ---------------------------------------------------------------------- */
 
+/* .book__card is declared TWICE on these pages (fixed 20 Sep). components.css
+   now carries V1's booking card under the same class name: a centred flex
+   column with a brand fill, 80/40 padding, a 20px gap and a radial overlay.
+   It loads before this file, so the properties below win, but the five it
+   declares and this rule did not were still landing on the legacy card: the
+   padding held the blue panel off the card's edges, align-items stopped it
+   filling the cell, the gap split the two columns, and text-align centred
+   both of them. Every one is neutralised here rather than scoped out of
+   components.css, because that would change specificity on the SHIPPING
+   page to fix a review-only one. */
 .book__card {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+  text-align: left;
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
   overflow: hidden;
   background: var(--bg-subtle);
   box-shadow: var(--shadow-sm);
 }
+/* The new card's white radial lift. The legacy panel draws its own blueprint
+   grid and watermark, so this one is pure interference. */
+.book__card::before { content: none; }
 
 .book__panel {
   position: relative;
@@ -1912,8 +1930,13 @@
 .book__title {
   font-size: var(--t-display-3);
   font-weight: 600;
+  line-height: var(--lh-title);
   letter-spacing: var(--tr-title);
   color: var(--ink);
+  /* Same collision: the shipped card caps its title at 24ch and balances the
+     wrap, neither of which this one wants in a form column. */
+  max-width: none;
+  text-wrap: initial;
   margin-bottom: var(--sp-2);
 }
 .book__sub {

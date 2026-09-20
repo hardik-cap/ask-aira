@@ -95,112 +95,50 @@
     0 10px 24px -10px color-mix(in srgb, var(--team-c) 65%, transparent);
 }
 
-/* Capillary secondary tints as quiet washes (13 Sep, "use them carefully"):
-   the two feature wells, the diff placeholder well and the announce pill
-   trade their neutral greys for the guide's p.18 tints. The wells route
-   through --fig-tint so each fade overlay dissolves into its own ground. */
-.page-v3 .hero__announce { background: var(--capillary-cream); }
+/* ==========================================================================
+   THE CLAY PASS (20 Sep, clay.com reference, user ask). The inversion: the
+   page goes quiet and the colour moves into the content. One warm paper
+   ground end to end (remap at the bottom of this file), ink chrome
+   (eyebrows, capability icons, board icons all step off the palette), and
+   the Capillary hues surviving only where they mean something: the per-team
+   hero rotator, the two drawn cards keyed to the loop (Decide amber, Act
+   green), the customer marks in full colour, and the approval grammar. The
+   13 Sep colour-coded eyebrow and icon runs this replaces are in git.
+   ========================================================================== */
 
+/* The announce pill reads as a white surface on the paper. */
+.page-v3 .hero__announce { background: var(--surface); }
+
+/* The two drawn cards keep tinted wells, re-keyed from decoration to the
+   loop's grammar: the session card builds the audience (DECIDE, amber),
+   the journey card stages the move (ACT, green). Analyse stays with the
+   rotator's blue up in the hero. */
 .page-v3 .feat__fig { background: var(--fig-tint, var(--bg-subtle)); }
 .page-v3 .feat__fig::after {
   background: linear-gradient(to bottom, transparent, var(--fig-tint, var(--bg-subtle)));
 }
-.page-v3 .feat__fig:has(.feat__card--session) { --fig-tint: var(--capillary-tint-teal); }
-.page-v3 .feat__fig:has(.feat__card--journey) { --fig-tint: var(--capillary-tint-orange); }
-
-/* The difference well keeps the neutral slate ground it has on index.html
-   (13 Sep): a green tint was tried here and dropped. The two feature wells
-   above still take their tints, because those sit under coloured column
-   headings; this one is a lone placeholder and the colour had nothing to
-   pair with. */
-
-/* ---- Colour-coded capability icons (13 Sep) -----------------------------
-   V3's one concession to colour beyond the hero rotator. Eight icons in the
-   questions section each take a different hue from the Capillary palette:
-   the two feature columns first, tied to the tint of the well beneath them
-   so column and illustration read as one object, then the six capability
-   cells cycling through the rest. Everything else in the section stays
-   monochrome, so the colour lands as punctuation rather than decoration.
-
-   Yellow is deliberately absent: the logo yellow #F3CF02 is the one
-   Capillary hue that cannot carry on a light ground (the same reason CRM
-   took teal in the hero rotator).
-   ---------------------------------------------------------------------- */
-.page-v3 .feat__col:nth-child(1) > .feat__icon { color: var(--capillary-teal); }
-.page-v3 .feat__col:nth-child(2) > .feat__icon { color: var(--capillary-logo-orange); }
-
-.page-v3 .feat__mini > li:nth-child(1) .feat__icon { color: var(--capillary-logo-blue); }
-.page-v3 .feat__mini > li:nth-child(2) .feat__icon { color: var(--aira-violet); }
-.page-v3 .feat__mini > li:nth-child(3) .feat__icon { color: var(--capillary-logo-green); }
-/* Amber, nudged toward ink: the raw #F4A114 is the palette's palest hue and
-   washes out at 20px, while navy (tried first) just read as black. */
-.page-v3 .feat__mini > li:nth-child(4) .feat__icon {
-  color: color-mix(in srgb, var(--capillary-amber) 82%, var(--black));
+.page-v3 .feat__fig:has(.feat__card--session) {
+  --fig-tint: color-mix(in srgb, var(--capillary-amber) 14%, white);
 }
-.page-v3 .feat__mini > li:nth-child(5) .feat__icon { color: var(--capillary-olive); }
-.page-v3 .feat__mini > li:nth-child(6) .feat__icon { color: var(--primary-400); }
-
-/* Section eyebrows carry the colour down the page (13 Sep): one Capillary
-   hue per section instead of brand indigo everywhere, so the palette reads
-   as a system rather than a one-section flourish.
-
-   The eyebrow is a 10px mono label, the smallest type on the page, so each
-   hue is deepened 20% toward --black to clear roughly 5:1 on the light
-   ground; the two dark sections lighten theirs 40% toward white instead,
-   for the same reason in reverse. */
-.page-v3 .asks .eyebrow {
-  color: color-mix(in srgb, var(--capillary-logo-blue) 80%, var(--black));
-}
-.page-v3 .diff .eyebrow {
-  color: color-mix(in srgb, var(--capillary-logo-orange) 80%, var(--black));
-}
-.page-v3 .compare .eyebrow {
-  color: color-mix(in srgb, var(--aira-violet) 90%, var(--black));
-}
-.page-v3 .mech .eyebrow {
-  color: color-mix(in srgb, var(--capillary-teal) 60%, white);
-}
-.page-v3 .price .eyebrow {
-  color: color-mix(in srgb, var(--capillary-logo-green) 60%, white);
+.page-v3 .feat__fig:has(.feat__card--journey) {
+  --fig-tint: color-mix(in srgb, var(--capillary-logo-green) 11%, white);
 }
 
-/* The same palette carried into the three sections below the questions
-   block (13 Sep). Each section draws its own run of hues rather than
-   repeating one, and no section's icons reuse its eyebrow colour, so the
-   eyebrow stays the section's label and the icons stay the texture.
+/* Chrome icons in ink on the light sections; eyebrows already sit in the
+   muted grey the live global.css gives them once the per-section colour
+   runs come off. The dark sections keep Primary/200 (restated below, since
+   this file loads last), and the approval .state pills keep the approval
+   grammar: both are colour-as-meaning already. */
+.page-v3 .feat__icon,
+.page-v3 .compare__icon { color: var(--black); }
+.page-v3 .section--inv .feat__icon { color: var(--primary-200); }
 
-   Light grounds take the hues at full strength, as the questions grid
-   does: a 20px glyph carries a mid-tone that a 10px eyebrow could not.
-   Pricing sits on the dark section, so its three lighten toward white. */
-
-/* The difference: 3 accordion rows (eyebrow is orange). */
-.page-v3 .diff__acc .acc__item:nth-child(1) .acc__icon { color: var(--capillary-logo-blue); }
-.page-v3 .diff__acc .acc__item:nth-child(2) .acc__icon { color: var(--aira-violet); }
-.page-v3 .diff__acc .acc__item:nth-child(3) .acc__icon { color: var(--capillary-teal); }
-
-/* Against the category: 5 row labels (eyebrow is violet). The board is a
-   FLAT grid, not nested rows: 19 children, a 3-cell header, then five
-   label/aira/other triples, then the brand panel. The label cells that
-   carry an icon therefore land on children 4, 7, 10, 13 and 16. */
-.page-v3 .compare__board > :nth-child(4) .compare__icon { color: var(--capillary-logo-blue); }
-.page-v3 .compare__board > :nth-child(7) .compare__icon { color: var(--capillary-teal); }
-.page-v3 .compare__board > :nth-child(10) .compare__icon { color: var(--capillary-logo-green); }
-.page-v3 .compare__board > :nth-child(13) .compare__icon {
-  color: color-mix(in srgb, var(--capillary-amber) 82%, var(--black));
-}
-.page-v3 .compare__board > :nth-child(16) .compare__icon { color: var(--capillary-logo-orange); }
-
-/* Pricing: 3 tiles on the dark ground (eyebrow is light green). */
-.page-v3 .price__tile:nth-child(1) .feat__icon,
-.page-v3 .price__card:nth-child(1) .feat__icon {
-  color: color-mix(in srgb, var(--capillary-logo-blue) 55%, white);
-}
-.page-v3 .price__card:nth-child(2) .feat__icon {
-  color: color-mix(in srgb, var(--capillary-amber) 70%, white);
-}
-.page-v3 .price__card:nth-child(3) .feat__icon {
-  color: color-mix(in srgb, var(--aira-violet) 55%, white);
-}
+/* Customer marks in full colour at rest: the site-wide 19 Sep rule reaches
+   V3, and on the paper ground the marks are where the colour comes from.
+   The grey base img keeps the seat; the colour overlay simply stays on. */
+.page-v3 .proof__logo > img:first-child { opacity: 0; }
+.page-v3 .proof__logo .proof__logo-color { opacity: 1; }
+.page-v3 .proof__logo:hover > img:first-child { opacity: 0; }
 
 /* ---- Tinted icon tiles (13 Sep) -----------------------------------------
    The colour gets AREA instead of a few hairlines of stroke: each glyph sits
@@ -222,7 +160,7 @@
   width: 32px;
   height: 32px;
   border-radius: var(--r-sm);
-  background: color-mix(in srgb, currentColor 14%, transparent);
+  background: color-mix(in srgb, currentColor 8%, transparent);
 }
 /* The tile is its own padding now, so the old stroke-to-title gap shrinks. */
 .page-v3 .feat__icon { margin-bottom: var(--sp-3); }
@@ -285,4 +223,34 @@
     /* Optical: drops the sub's first line onto the H2's cap line. */
     margin-top: var(--sp-2);
   }
+}
+
+/* ==========================================================================
+   V3 experiment ground: ONE WARM PAPER SHEET (clay.com reference, 20 Sep).
+   The washes collapse into the paper, so sections separate on their joints
+   and whitespace rather than on alternating tints; the two .section--inv
+   bands (mechanism, pricing) keep their dark tuning. The --wash-* and
+   --frame-line tokens are redeclared, not reached through the slates: a
+   custom property resolves its var()s where it is DEFINED, so the :root
+   values baked in the light slate (same finding as V2, see home-v2.css).
+   ========================================================================== */
+.page-v3 {
+  --bg:        #F7F5F0;
+  --bg-subtle: #F1EEE6;
+  --surface:   #FFFFFF;
+  --surface-2: #F1EEE6;
+
+  --wash-primary: #F7F5F0;
+  --wash-teal:    #F7F5F0;
+  --wash-purple:  #F7F5F0;
+  --wash-quiet:   #F7F5F0;
+
+  /* Warmed hairlines: the cool slate lines read blue on the paper. */
+  --border:        #E8E3D8;
+  --border-strong: #DBD5C6;
+  --hairline:      rgba(33, 33, 33, 0.10);
+  --frame-line:    rgba(33, 33, 33, 0.12);
+
+  --nav-surface:       rgba(247, 245, 240, 0.94);
+  --nav-surface-glass: rgba(247, 245, 240, 0.62);
 }
