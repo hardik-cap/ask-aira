@@ -188,6 +188,34 @@
       clock = setTimeout(function () { pick((at + 1) % data.length); }, HOLD);
     }
 
+    /* The tab row is one scrolling line on a phone, so the chosen tab has to
+       bring itself into view or the selection lands off screen. This moves the
+       ROW'S OWN scrollLeft and nothing else.
+
+       It replaced scrollIntoView, which was wrong here in a way that only
+       showed on the real page: that method scrolls every scrollable ancestor,
+       the document included, and block:'nearest' on an element below the fold
+       means "scroll the page until it is not". So the init pick(0) threw a
+       visitor arriving on a category page 1496px down the page, into the
+       question bar. A control that is off screen does not need revealing, it
+       needs leaving alone. */
+    function keepInRow(el) {
+      if (!tabs || tabs.scrollWidth <= tabs.clientWidth + 1) return;
+      var r = el.getBoundingClientRect(), c = tabs.getBoundingClientRect();
+      /* Matches the CSS scroll-padding-inline, so a tab never lands flush
+         against the edge it was scrolled away from. */
+      var pad = 20, dx = 0;
+      if (r.left < c.left + pad) dx = r.left - c.left - pad;
+      else if (r.right > c.right - pad) dx = r.right - c.right + pad;
+      if (!dx) return;
+      var to = tabs.scrollLeft + dx;
+      if (tabs.scrollTo) {
+        try { tabs.scrollTo({ left: to, behavior: reduce ? 'auto' : 'smooth' }); return; }
+        catch (err) {}
+      }
+      tabs.scrollLeft = to;
+    }
+
     function pick(i) {
       if (i === at) { arm(); return; }
       at = i;
@@ -195,16 +223,7 @@
         b.classList.toggle('is-on', k === i);
         b.setAttribute('aria-selected', k === i ? 'true' : 'false');
       });
-      /* The tab row is one scrolling line on a phone, so the chosen tab has
-         to bring itself into view or the selection can land off screen.
-         Guarded: scrollIntoView's options object is ignored by older engines,
-         which then jump the whole page to the row. */
-      if (btns[i].scrollIntoView) {
-        try {
-          btns[i].scrollIntoView({ block: 'nearest', inline: 'nearest',
-                                   behavior: reduce ? 'auto' : 'smooth' });
-        } catch (err) {}
-      }
+      keepInRow(btns[i]);
       type(data[i].q);
       arm();
     }
