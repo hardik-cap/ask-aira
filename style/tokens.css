@@ -325,6 +325,10 @@
   --t-display-giant: clamp(6rem, 3.9rem + 8.6vw, 11.25rem);
   --t-display-0: clamp(2.25rem, 1.42rem + 3.4vw, 4.375rem); /* 36 -> 70px, cap ~1390px */  /* 44 -> 70, hero H1 */
   --t-display-1: clamp(2rem, 1.23rem + 3.15vw, 3.75rem);      /* 32 -> 60, reserve */
+  /* 32 -> 48, interior-page H1. Caps at 48 by 992px, which is the width
+     where /book's split hero stacks, so the headline is at full size for
+     every layout that puts something beside it. */
+  --t-display-1s: clamp(2rem, 1.37rem + 2.63vw, 3rem);        /* 32 -> 48, interior H1 */
   --t-display-2: clamp(1.875rem, 1.6rem + 1.12vw, 2.5rem);    /* 30 -> 40, H2 */
   --t-display-3: clamp(1.5rem, 1.39rem + 0.45vw, 1.75rem);    /* 24 -> 28, H3 */
   --t-title:     1.125rem;    /* 18 */

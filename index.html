@@ -55,6 +55,7 @@
   <script src="/js/hero-dots.js" defer></script>
   <script src="/js/industries.js" defer></script>
   <script src="/js/prompt-cue.js" defer></script>
+  <script src="/js/accordion.js" defer></script>
 </head>
 
 <body class="page-home">
@@ -75,7 +76,11 @@
       <div class="padding-global">
         <div class="container hero__inner">
 
-          <a class="hero__announce" href="/product">
+          <!-- Pointed at /solutions while /product is parked (20 Sep). The
+               pill's copy is settled and unchanged; only its destination moved,
+               because the page it pointed at is in /archive. Put /product back
+               here when that page ships. -->
+          <a class="hero__announce" href="/solutions">
             <span class="hero__announce-text">
               <img class="hero__announce-mark" src="/assets/brand/capillary.svg" alt="" aria-hidden="true" width="24" height="18">
               Introducing aiRA by Capillary
@@ -787,10 +792,42 @@
                 <p class="diff__ans">A ranked list, not a chart: who lapsed, the quarter the habit broke, and what they buy now instead. Lapsed means what you already define it to mean, and every step of the working stays on the answer.</p>
                 <div class="diff__move">
                   <p class="mono mono--faint diff__move-l">Proposed move</p>
-                  <p class="diff__move-t">Cross-department win-back</p>
-                  <p class="diff__move-d">Audience resolved, budget and send window set.</p>
-                  <span class="state state--pending">Pending approval</span>
-                  <div class="diff__act" aria-hidden="true"><span class="diff__act-a">Approve</span><span class="diff__act-h">Hold</span></div>
+                  <!-- The product's own approval surface (20 Sep, user
+                       screenshot): the spec table stating what the move would
+                       do, then the decision card naming the risk class, what
+                       approving means in plain words, and the two buttons.
+                       Still no figures in the rows: an invented reach or spend
+                       would be a fabricated metric, and the claim here is the
+                       SHAPE of what comes back, not its size. -->
+                  <div class="diff__spec">
+                    <div class="diff__spec-r">
+                      <span class="diff__spec-k">Audience</span>
+                      <span class="diff__spec-v">Lapsed department buyers</span>
+                    </div>
+                    <div class="diff__spec-r">
+                      <span class="diff__spec-k">Channel</span>
+                      <span class="diff__spec-v">Email, then app push to non-openers</span>
+                    </div>
+                    <div class="diff__spec-r">
+                      <span class="diff__spec-k">Schedule</span>
+                      <span class="diff__spec-v">Starts on approval &middot; one send per member</span>
+                    </div>
+                    <div class="diff__spec-r">
+                      <span class="diff__spec-k">Budget</span>
+                      <span class="diff__spec-v">Within the quarter&rsquo;s win-back allocation</span>
+                    </div>
+                  </div>
+                  <div class="diff__prop">
+                    <div class="diff__prop-h">
+                      <p class="diff__prop-t">Approve &ldquo;Cross-department win-back&rdquo;</p>
+                      <span class="diff__prop-tag">Customer-facing</span>
+                    </div>
+                    <p class="diff__prop-b">This messages real customers. aiRA has resolved the audience and set the window; nothing sends until someone approves it.</p>
+                    <div class="diff__prop-f">
+                      <span class="state state--pending">Pending approval</span>
+                      <div class="diff__act" aria-hidden="true"><span class="diff__act-h">Hold</span><span class="diff__act-a">Approve</span></div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1030,55 +1067,204 @@
       </div>
     </section>
 
-    <!-- ================= BOOK CTA ================= -->
-    <section class="section section--wash book">
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= FAQ ================= -->
+    <!-- The promptwatch two-column FAQ (20 Sep, user reference): the head and
+         the route to /book on the left, a one-open accordion on the right.
+         The open item floats as a boxed card; closed items are hairline rows.
+         Answers restate claims already made on this page and /product, never
+         new ones. With js/accordion.js off, every answer reads open. -->
+    <section class="section faq" id="faq">
+      <div class="padding-global">
+        <div class="container faq__grid">
+
+          <div class="faq__intro reveal">
+            <p class="eyebrow">FAQ</p>
+            <h2 class="section-heading">Frequently asked, <em>plainly answered</em>.</h2>
+            <p class="section-sub">
+              The questions that come up before every evaluation: what aiRA
+              is, where your data goes, and what it costs.
+            </p>
+            <p class="faq__cta">
+              Yours is more specific?
+              <a href="/book">Bring it to a working session</a>.
+            </p>
+          </div>
+
+          <div class="faq__list acc reveal" data-accordion>
+            <div class="acc__item is-open" data-acc-item>
+              <h3 class="acc__head">
+                <button class="acc__btn" type="button" aria-expanded="true">
+                  What is aiRA?
+                  <span class="acc__caret" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+                </button>
+              </h3>
+              <div class="acc__panel">
+                <div class="acc__body">
+                  <p>
+                    aiRA is Capillary's on-demand insights and analytics agent.
+                    You ask in plain language; it reads your warehouse, answers
+                    with the reasoning shown, and hands back the segment or the
+                    journey already built, waiting on your approval.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="acc__item" data-acc-item>
+              <h3 class="acc__head">
+                <button class="acc__btn" type="button" aria-expanded="false">
+                  Does our data have to move?
+                  <span class="acc__caret" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+                </button>
+              </h3>
+              <div class="acc__panel">
+                <div class="acc__body">
+                  <p>
+                    No. aiRA reads it where it already sits, in Databricks,
+                    Snowflake, BigQuery or Redshift. No migration, no rebuild,
+                    and every query runs sandboxed and read-only.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="acc__item" data-acc-item>
+              <h3 class="acc__head">
+                <button class="acc__btn" type="button" aria-expanded="false">
+                  Can aiRA change anything on its own?
+                  <span class="acc__caret" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+                </button>
+              </h3>
+              <div class="acc__panel">
+                <div class="acc__body">
+                  <p>
+                    No. Every customer-impacting move stops at an approval
+                    gate, on an audit trail. aiRA proposes, a person decides,
+                    and that holds for every playbook it runs.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="acc__item" data-acc-item>
+              <h3 class="acc__head">
+                <button class="acc__btn" type="button" aria-expanded="false">
+                  Where is our data processed?
+                  <span class="acc__caret" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+                </button>
+              </h3>
+              <div class="acc__panel">
+                <div class="acc__body">
+                  <p>
+                    Through Anthropic Claude on AWS Bedrock inside your own
+                    region, with PII masked ahead of every call. Zero
+                    retention, stateless, and Capillary never trains on your
+                    data. SOC 2 Type II, ISO 27001, PCI DSS, GDPR, CCPA and
+                    PDPA.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="acc__item" data-acc-item>
+              <h3 class="acc__head">
+                <button class="acc__btn" type="button" aria-expanded="false">
+                  How long until the first answer?
+                  <span class="acc__caret" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+                </button>
+              </h3>
+              <div class="acc__panel">
+                <div class="acc__body">
+                  <p>
+                    Days, not months. Industry playbooks ship pre-built and
+                    your definitions layer on rather than being modelled from
+                    scratch. A pilot on your real customer data takes two to
+                    four weeks.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="acc__item" data-acc-item>
+              <h3 class="acc__head">
+                <button class="acc__btn" type="button" aria-expanded="false">
+                  How is it priced?
+                  <span class="acc__caret" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+                </button>
+              </h3>
+              <div class="acc__panel">
+                <div class="acc__body">
+                  <p>
+                    Credits, charged on work done. A credit is consumed when
+                    aiRA runs an analysis or builds an action, every credit is
+                    written to an immutable ledger, and there is no per-seat
+                    license.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="acc__item" data-acc-item>
+              <h3 class="acc__head">
+                <button class="acc__btn" type="button" aria-expanded="false">
+                  Which industries does aiRA know?
+                  <span class="acc__caret" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+                </button>
+              </h3>
+              <div class="acc__panel">
+                <div class="acc__body">
+                  <p>
+                    Retail across eight categories, restaurants and QSR,
+                    travel and hospitality, and telecom. Each comes with the
+                    vocabulary and the playbooks of that industry, not a blank
+                    prompt box.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="acc__item" data-acc-item>
+              <h3 class="acc__head">
+                <button class="acc__btn" type="button" aria-expanded="false">
+                  What happens in the working session?
+                  <span class="acc__caret" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+                </button>
+              </h3>
+              <div class="acc__panel">
+                <div class="acc__body">
+                  <p>
+                    Thirty minutes, your data, one real question. You leave
+                    with the answer and the move built, or you leave knowing
+                    aiRA is the wrong fit. We will tell you which. It happens.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= BOOK CTA =================
+         One brand-filled box between dotted rails (20 Sep, frigade.com
+         reference). The contact form moved out; /book will carry it. -->
+    <section class="section section--wash book section--band">
       <div class="padding-global">
         <div class="container">
 
-          <div class="book__card reveal">
-            <div class="book__panel">
-              <p class="book__claim">
-                Ask the question.<br>
-                See the reasoning.<br>
-                Approve the move.
-              </p>
-            </div>
-
-            <div class="book__form-col">
-              <h2 class="book__title">Bring us a real question.</h2>
+          <div class="book__frame reveal">
+            <div class="book__card">
+              <span class="book__float book__float--1" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,128A96,96,0,0,1,79.93,211.11h0L42.54,223.58a8,8,0,0,1-10.12-10.12l12.47-37.39h0A96,96,0,1,1,224,128Z" opacity="0.2"/><path d="M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-4-1.08,7.85,7.85,0,0,0-2.53.42L40,216,52.47,178.6a8,8,0,0,0-.66-6.54A88,88,0,1,1,128,216Zm12-88a12,12,0,1,1-12-12A12,12,0,0,1,140,128Zm-44,0a12,12,0,1,1-12-12A12,12,0,0,1,96,128Zm88,0a12,12,0,1,1-12-12A12,12,0,0,1,184,128Z"/></svg></span>
+              <span class="book__float book__float--2" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg></span>
+              <span class="book__float book__float--3" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg></span>
+              <span class="book__float book__float--4" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M223.69,42.18l-58.22,192a8,8,0,0,1-14.92,1.25L108,148,20.58,105.45a8,8,0,0,1,1.25-14.92l192-58.22A8,8,0,0,1,223.69,42.18Z" opacity="0.2"/><path d="M227.32,28.68a16,16,0,0,0-15.66-4.08l-.15,0L19.57,82.84a16,16,0,0,0-2.49,29.8L102,154l41.3,84.87A15.86,15.86,0,0,0,157.74,248q.69,0,1.38-.06a15.88,15.88,0,0,0,14-11.51l58.2-191.94c0-.05,0-.1,0-.15A16,16,0,0,0,227.32,28.68ZM157.83,231.85l-.05.14,0-.07-40.06-82.3,48-48a8,8,0,0,0-11.31-11.31l-48,48L24.08,98.25l-.07,0,.14,0L216,40Z"/></svg></span>
+              <h2 class="book__title">Bring aiRA a real question.</h2>
               <p class="book__sub">
                 Thirty minutes, your data, one real question. We reply within
                 one business day with a time and the security brief.
               </p>
-
-              <form class="book__form" action="/book" method="get">
-                <div class="book__row">
-                  <label class="sr-only" for="bk-first">First name</label>
-                  <input class="input" id="bk-first" name="first_name" type="text"
-                         placeholder="First name" autocomplete="given-name" required>
-                  <label class="sr-only" for="bk-last">Last name</label>
-                  <input class="input" id="bk-last" name="last_name" type="text"
-                         placeholder="Last name" autocomplete="family-name" required>
-                </div>
-                <label class="sr-only" for="bk-email">Work email</label>
-                <input class="input" id="bk-email" name="email" type="email"
-                       placeholder="Work email" autocomplete="email" required>
-                <label class="sr-only" for="bk-phone">Phone (optional)</label>
-                <input class="input" id="bk-phone" name="phone" type="tel"
-                       placeholder="Phone (optional)" autocomplete="tel">
-                <label class="sr-only" for="bk-question">What question would you like aiRA to answer?</label>
-                <textarea class="input book__question" id="bk-question" name="question" rows="3"
-                          placeholder="What question would you like aiRA to answer?"></textarea>
-                <button class="btn btn--primary btn--lg book__submit" type="submit">
-                  Book my session
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                </button>
-              </form>
-
-              <p class="book__note">
-                By submitting this form you agree to Capillary contacting you about aiRA.
-                See the <a href="/privacy">privacy policy</a>.
-              </p>
+              <a class="btn btn--lg book__cta" href="/book">
+                Book a working session
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
             </div>
           </div>
 

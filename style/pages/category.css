@@ -464,9 +464,11 @@
   min-width: 0;
 }
 /* 20px, the user's call, on its own token: the scale had 16 and 24 and
-   nothing between them. Body weight, not display: this is a paragraph that
-   sets up the figures, not a second heading competing with the H2 above. */
+   nothing between them. Google Sans Flex since 20 Sep, also the user's call,
+   but held at body weight: the display face at 400 reads as a lede setting
+   up the figures rather than a second heading competing with the H2 above. */
 .cproof__claim {
+  font-family: var(--font-display);
   font-size: var(--t-lede);
   font-weight: 400;
   line-height: 1.55;
@@ -594,4 +596,21 @@
 
 @media (prefers-reduced-motion: reduce) {
   .crumb a { transition: none; }
+}
+
+/* ---- Asked in <category> (20 Sep) ------------------------------------------
+   The per-category prompt ledger between the shape section and the runs: the
+   question strings recovered from the removed teams blocks, as one numbered
+   index on the .qledger row component (components.css). The number and
+   capability columns take the sans-caps micro-label (display face at
+   --t-mono), NOT Geist Mono: mono stays confined to eyebrows and drawn
+   illustrations. Uppercasing in CSS is safe here because no capability name
+   contains "aiRA". */
+.asked .qledger__n,
+.asked .qledger__cap {
+  font-family: var(--font-display);
+  font-size: var(--t-mono);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }

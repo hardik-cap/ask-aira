@@ -1075,6 +1075,19 @@ a.biz:focus-visible .biz__ic::after {
   opacity: 1;
   transform: none;
 }
+/* On a phone the arrow is there from the start (user, 20 Sep). "On demand"
+   needs a pointer to demand it: with no hover the affordance never appeared
+   at all, and in the one-column layout a card is a full-width row that gives
+   no other sign it is a route. Two conditions, either one: the component's
+   own phone layout, and any device that reports no hover, which covers the
+   tablet widths in between. Still scoped to a.biz, so a static card is
+   unaffected. */
+@media (max-width: 560px), (hover: none) {
+  a.biz .biz__ic::after {
+    opacity: 1;
+    transform: none;
+  }
+}
 
 @media (max-width: 1100px) {
   .biz-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1265,3 +1278,655 @@ a.biz:focus-visible .biz__ic::after {
 .section--inv .runs__ic { color: var(--ink-inv-2); }
 .section--inv .runs__name { color: var(--ink-inv); }
 .section--inv .runs__desc { color: var(--ink-inv-3); }
+
+
+/* ---- Proof logo grid (19 Sep; moved here from home.css 20 Sep) --------------
+   Shared by index.html and /book.
+   The promptwatch book-a-demo grid in the token system, replacing the
+   marquee belt: the grid's own ground is the hairline colour and the tiles
+   sit on it with a 1px gap and small radii, so the gaps draw the grid the
+   way the reference's half-pixel padding does. Tiles are slightly
+   translucent over the section ground; logos sit in full colour at rest
+   (the grey-at-rest, colour-on-hover pair retired 19 Sep). js/logo-grid.js
+   resettles one mark every few seconds; without it the grid is simply
+   still. */
+
+/* This container drops its 20px inline gutter so the tiles run right up to
+   the page frame's rails, promptwatch-style. */
+.lgrid .container {
+  padding-inline: 0;
+}
+
+/* The reference's quiet centred line: plain body sans in the muted ink, no
+   eyebrow, sitting in its own row above the grid. */
+.lgrid__label {
+  text-align: center;
+  font-size: var(--t-body-lg);
+  color: var(--ink-2);
+  margin-bottom: var(--sp-6);
+}
+/* Left on phones (user, 20 Sep). The line runs to two or three lines at this
+   width and a centred rag over the grid's hard left edge reads as a
+   misalignment rather than a caption. */
+@media (max-width: 640px) {
+  .lgrid__label { text-align: left; }
+}
+
+/* Square, promptwatch-style: white tiles split by 1px hairlines (the grid's
+   gap over the border colour), closed by hairlines above and below. The
+   sides stay open; the page frame's rails draw those lines. */
+.lgrid__grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border-block: 1px solid var(--border);
+}
+
+.lgrid__tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 104px;
+  background: var(--surface);
+}
+
+.lgrid__logo {
+  position: relative;
+  display: inline-flex;
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+/* One height per SHAPE, not one height for all: at a single 26px a wide
+   wordmark reads huge while a squarish mark reads tiny, so each logo's span
+   carries the class of its aspect-ratio band (from the SVG viewBox):
+   over 4:1 wide, 2.4-4 default, 1.7-2.4 mid, under 1.7 badge. */
+.lgrid__logo img {
+  display: block;
+  height: 26px;
+  width: auto;
+}
+.lgrid__logo--wide img { height: 22px; }
+.lgrid__logo--mid img { height: 32px; }
+.lgrid__logo--badge img { height: 40px; }
+.lgrid__logo--sq img { height: 48px; }
+
+/* The resettle: js/logo-grid.js fades a mark out of one seat and into the
+   next. */
+.lgrid__logo.is-out { opacity: 0; transform: translateY(6px) scale(0.96); }
+.lgrid__logo.is-in { animation: lgrid-in 260ms var(--ease); }
+@keyframes lgrid-in {
+  from { opacity: 0; transform: translateY(-6px) scale(0.96); }
+}
+
+@media (max-width: 767px) {
+  .lgrid__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lgrid__tile { min-height: 88px; }
+}
+
+/* Below the rails' breakpoint the frame is gone, so the grid pulls itself
+   out of .padding-global's gutter and runs to the screen edges; the label
+   above keeps its inset. */
+@media (max-width: 991px) {
+  .lgrid__grid { margin-inline: calc(-1 * var(--pad-x)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lgrid__logo { transition: none; }
+  .lgrid__logo.is-in { animation: none; }
+}
+
+
+/* ==== Sections shared by index.html and /product (moved from home.css 20 Sep) ==== */
+
+/* ---- Mechanism: data -> judgement -> channels --------------------------
+   Dark architecture diagram (Steep-style): source pills feed the aiRA core
+   over dashed wires, and the core fans out to the channels. Neutral glyphs
+   hold the seats in the pills and rows until the real brand logos arrive.
+   ---------------------------------------------------------------------- */
+
+.mech { overflow: hidden; }
+.mech > .padding-global { position: relative; }
+
+/* Violet glow rising from the bottom edge, mixed from the brand tokens. */
+.mech__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(80% 64% at 50% 112%,
+      color-mix(in srgb, var(--primary-400) 14%, transparent), transparent 72%),
+    radial-gradient(46% 40% at 16% 116%,
+      color-mix(in srgb, var(--primary-300) 8%, transparent), transparent 75%);
+}
+
+.mech__diagram {
+  position: relative;   /* the measured wires overlay anchors to this */
+  display: grid;
+  grid-template-columns:
+    minmax(180px, 0.9fr) minmax(60px, 1fr) auto
+    minmax(60px, 1fr) minmax(210px, 0.9fr);
+  align-items: center;
+  /* Full container width: no cap, no side margins (user call, 12 Sep). */
+}
+.mech__sources { grid-column: 1; }
+.mech__core { grid-column: 3; }
+.mech__dest { grid-column: 5; }
+
+.mech__col-label {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-inv-3);
+  margin-bottom: var(--sp-4);
+}
+
+/* Bare brand lockups (dark-surface variants), no pill chrome. Heights are
+   set per logo in the markup: the stacked lockups (BigQuery, Redshift)
+   need more height than the single-line ones to read optically equal. */
+.mech__sources {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-6);
+}
+.mech__sources .mech__col-label { margin-bottom: 0; }
+.mech__sources img { display: block; height: 30px; width: auto; }
+/* The Databricks lockup runs optically large: one step down. */
+.mech__sources img[alt="Databricks"] { height: 22px; }
+
+.mech__col-sub {
+  font-size: var(--t-caption);
+  color: var(--ink-inv-3);
+  margin: 0;
+}
+.mech__dest .mech__col-sub { text-align: right; }
+
+/* Dashed wires, generated by js/diagram.js from measured logo and node
+   positions so every line terminates on the thing it connects. */
+.mech__wires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+.mech__wires path {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.22);
+  stroke-width: 1.5;
+  stroke-dasharray: 1 6;
+  stroke-linecap: round;
+}
+
+/* Animated beams (Magic UI AnimatedBeam): each wire carries a duplicate
+   solid path stroked with a travelling blue-to-violet gradient that
+   js/diagram.js builds and SMIL-animates along the wire, with randomised
+   pace, phase, window and colour order per wire. The gradient stroke
+   itself rides an inline style; only the geometry is styled here. */
+.mech__wires .mech__beam {
+  stroke-width: 2;
+  stroke-dasharray: none;
+}
+.mech__wires .mech__beamstop-a { stop-color: var(--primary-300); }
+.mech__wires .mech__beamstop-b { stop-color: var(--violet-400); }
+@media (prefers-reduced-motion: reduce) {
+  .mech__wires .mech__beam { display: none; }
+}
+
+/* The core as a compact node (Tailark illustration style): the aiRA mark
+   in a circle with a dashed halo ring, a soft indigo glow, an orbiting
+   border beam, and a mono label hung beneath. */
+.mech__core {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.mech__core-node {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 0 80px color-mix(in srgb, var(--primary-400) 28%, transparent);
+}
+.mech__core-node img { width: 40px; height: 40px; }
+
+/* Dashed halo ring around the node. */
+.mech__core-node::after {
+  content: '';
+  position: absolute;
+  inset: -26px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+}
+
+/* Hung above the node so the circle stays on the wires' centre line. */
+.mech__core-label {
+  position: absolute;
+  bottom: calc(100% + var(--sp-10));
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-inv-3);
+}
+
+/* Hung under the node: the LP's four intelligence-layer claims, cycling
+   one at a time (diagram.js swaps .is-on; the first is on in the markup
+   so no JS still shows a line). */
+.mech__core-sub {
+  position: absolute;
+  top: calc(100% + var(--sp-10));
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  font-size: var(--t-caption);
+  line-height: 1.6;
+  color: var(--ink-inv-3);
+}
+.mech__core-sub-text {
+  position: relative;
+  display: block;
+  height: 20px;
+}
+/* Each line (spinner + words) centres as one max-content unit on the node. */
+.mech__core-sub-text > span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: max-content;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, 5px);
+  transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
+}
+.mech__core-sub-text > span.is-on {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* Dot-matrix working loader (hex-3 dot sweep, translated from the efferd
+   Svelte loader): 19 dots on a hex lattice, opacities driven by diagram.js. */
+.dotspin {
+  position: relative;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 8px;
+  vertical-align: -2px;
+}
+.dotspin i {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--primary-200);
+  opacity: 0.08;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mech__core-sub-text { height: auto; text-align: center; }
+  .mech__core-sub-text > span {
+    position: static;
+    display: block;
+    width: auto;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .dotspin { display: none; }
+}
+
+/* Border beam (Magic UI BorderBeam, in CSS): a lit segment of a conic
+   gradient orbits the node's border, masked to a 1px ring. */
+@property --mech-orbit {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+.mech__core-node::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: conic-gradient(from var(--mech-orbit),
+    transparent 0deg 300deg,
+    color-mix(in srgb, var(--primary-200) 90%, transparent) 330deg,
+    transparent 360deg);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: mech-orbit 8s linear infinite;
+}
+@keyframes mech-orbit {
+  to { --mech-orbit: 360deg; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mech__core-node::before { display: none; }
+}
+
+/* Channel logos mirror the sources: bare lockups, right-aligned. */
+.mech__dest {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--sp-6);
+}
+.mech__dest .mech__col-label { margin-bottom: 0; }
+.mech__dest img { display: block; height: 30px; width: auto; }
+/* The Engage+ pill lockup runs optically large: one step down. */
+.mech__dest img[alt="Capillary Engage+"] { height: 22px; }
+/* The Salesforce lockup stacks its cloud over the text, so at the uniform
+   height it reads tiny: one step up. */
+.mech__dest img[alt="Salesforce Marketing Cloud"] { height: 42px; }
+
+.mech__foot { margin-top: var(--sp-10); color: var(--ink-inv-3); }
+
+/* The zero-copy promise: three cells sharing the questions grid's anatomy
+   (.feat__mini icon/h4/para), retuned for the dark section. No top border. */
+.mech__points.feat__mini {
+  list-style: none;
+  /* The core caption hangs below the diagram's flow box, so the gap here
+     has to clear it before it reads as space. */
+  margin: var(--sp-24) 0 0;
+  border-top: 0;
+  padding-top: 0;
+}
+.mech__points.feat__mini h4 { color: var(--ink-inv); }
+.mech__points.feat__mini p { color: var(--ink-inv-3); }
+
+@media (max-width: 991px) {
+  /* Wider gaps give the vertical beam runs room to breathe. */
+  .mech__diagram { grid-template-columns: 1fr; gap: var(--sp-10); }
+  .mech__sources, .mech__core, .mech__dest { grid-column: auto; }
+  /* Everything centres in the stack so the flow is symmetric around the
+     node: labels, logo rows, captions, and therefore the wire spread. */
+  .mech__sources, .mech__dest {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-5) var(--sp-8);
+  }
+  .mech__sources .mech__col-label, .mech__dest .mech__col-label {
+    width: 100%;
+    text-align: center;
+  }
+  .mech__col-sub,
+  .mech__dest .mech__col-sub {
+    width: 100%;
+    text-align: center;
+  }
+  /* The hung label needs cleared space when the diagram stacks. */
+  .mech__core {
+    margin-block: var(--sp-6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-4);
+  }
+  .mech__core-label,
+  .mech__core-sub {
+    position: static;
+    transform: none;
+    left: auto;
+    top: auto;
+    bottom: auto;
+  }
+}
+
+
+/* ---- Category comparison -------------------------------------------------
+   Three-column board: feature labels with icons, the aiRA column raised on
+   a brand panel that overhangs the rows (Rally-style), the horizontal
+   platforms column muted. The panel is a grid item spanning every row
+   behind column 2, so no heights are hardcoded.
+   ---------------------------------------------------------------------- */
+
+.compare__wrap {
+  margin-inline: auto;
+  overflow-x: auto;
+}
+
+.compare__board {
+  display: grid;
+  /* Feature labels are short; the two argument columns take the width. */
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.15fr) minmax(0, 1.15fr);
+  grid-template-rows: repeat(6, auto);
+  min-width: 52rem;
+  /* Room for the brand panel's overhang inside the scroll wrapper. */
+  padding-block: var(--sp-6);
+}
+
+.compare__brandbg {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  margin-block: calc(-1 * var(--sp-6));
+  background: var(--brand);
+  border-radius: var(--r-lg);
+  /* The site's one floating-surface shadow, same as the header card: this
+     panel overhangs the board top and bottom, so it should read as lifted
+     off it rather than printed on it. */
+  box-shadow: var(--shadow-float);
+  z-index: 0;
+}
+
+.compare__cell {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  padding-block: var(--sp-4);
+  font-size: var(--t-body);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+/* Explicit placement: the brand panel occupies column 2 in the placement
+   grid, so auto-flow would route cells around it. Pin every cell. */
+.compare__cell--feat  { grid-column: 1; }
+.compare__cell--aira  { grid-column: 2; }
+.compare__cell--other { grid-column: 3; }
+.compare__board > .compare__cell:nth-child(-n+3)               { grid-row: 1; }
+.compare__board > .compare__cell:nth-child(n+4):nth-child(-n+6)  { grid-row: 2; }
+.compare__board > .compare__cell:nth-child(n+7):nth-child(-n+9)  { grid-row: 3; }
+.compare__board > .compare__cell:nth-child(n+10):nth-child(-n+12) { grid-row: 4; }
+.compare__board > .compare__cell:nth-child(n+13):nth-child(-n+15) { grid-row: 5; }
+.compare__board > .compare__cell:nth-child(n+16):nth-child(-n+18) { grid-row: 6; }
+
+.compare__cell--feat {
+  gap: var(--sp-3);
+  padding-right: var(--sp-8);
+  font-weight: 500;
+  color: var(--ink);
+  border-bottom: 1px solid var(--border);
+}
+.compare__icon { flex: none; display: flex; color: var(--brand-ink); }
+/* 20px, matching every other Phosphor glyph on the page (13 Sep). */
+.compare__icon svg { width: 20px; height: 20px; }
+
+.compare__cell--aira {
+  padding-inline: var(--sp-6);
+  font-weight: 500;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.compare__cell--other {
+  padding-left: var(--sp-8);
+  color: var(--ink-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.compare__cell--head {
+  font-family: var(--font-display);
+  font-size: var(--t-mono);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.compare__cell--aira.compare__cell--head img { display: block; }
+
+/* The board on the dark ground (19 Sep, when the section went section--inv
+   to run into pricing as one passage): inks flip, hairlines go to white
+   alphas, and the icons take the P200 dark-surface accent. The brand panel
+   itself needs nothing: true indigo on ink was V2's call and it holds. */
+.section--inv .compare__cell--feat {
+  color: var(--ink-inv);
+  border-bottom-color: color-mix(in srgb, var(--ink-inv) 12%, transparent);
+}
+.section--inv .compare__cell--other {
+  color: var(--ink-inv-2);
+  border-bottom-color: color-mix(in srgb, var(--ink-inv) 12%, transparent);
+}
+.section--inv .compare__cell--head { color: var(--ink-inv-3); }
+/* White, not the P200 accent (user call, 19 Sep): the feature icons read as
+   part of the label, so they take the label's ink. */
+.section--inv .compare__icon { color: var(--ink-inv); }
+
+
+/* Phones: the board keeps all three columns and scrolls sideways inside
+   .compare__wrap (the user's call over the earlier restacked layout: the
+   full grid reads better). Slightly narrower minimum and tighter gutters
+   shorten the scroll distance. */
+@media (max-width: 767px) {
+  .compare__board { min-width: 44rem; }
+  .compare__cell--feat { padding-right: var(--sp-5); }
+  .compare__cell--aira { padding-inline: var(--sp-4); }
+  .compare__cell--other { padding-left: var(--sp-5); }
+}
+
+/* Last row: the board's edge, not a divider. */
+.compare__board > .compare__cell:nth-last-child(-n+4):not(.compare__brandbg) {
+  border-bottom: 0;
+}
+
+
+/* ---- Book CTA ------------------------------------------------------------
+   Last section: one brand-filled box between dotted rails (20 Sep,
+   frigade.com reference), replacing the split card with the inline form.
+   Heading, one line, one route to /book, where the form will live; four
+   duotone glyphs float in the box's corners as quiet product furniture.
+   ---------------------------------------------------------------------- */
+
+/* Purple rather than the --wash-primary that .section--wash hands it, so the
+   last light section on the page is not a repeat of the difference section. */
+.book { background: var(--wash-purple); }
+
+/* The dotted side rails the box sits between. */
+/* The section wears .section--band, so the page's own dot-grid side bands
+   frame the box; the earlier dashed stand-ins came off with it. */
+.book__frame {
+  padding: var(--sp-4) 0;
+}
+
+.book__card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-5);
+  padding: var(--sp-20) var(--sp-10);
+  background: var(--brand);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+}
+/* A quiet radial lift at the top centre, so the fill is not one flat wall. */
+.book__card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(60% 70% at 50% -20%,
+    rgba(255, 255, 255, 0.18), transparent 70%);
+}
+
+.book__title {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: var(--t-display-2);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: var(--tr-display);
+  color: var(--on-brand);
+  max-width: 24ch;
+  text-wrap: balance;
+}
+.book__sub {
+  position: relative;
+  font-size: var(--t-body-lg);
+  line-height: var(--lh-body);
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 36rem;
+}
+/* White button on the brand fill, the inverse-section flip. */
+.book__cta {
+  position: relative;
+  margin-top: var(--sp-3);
+  background: var(--on-brand);
+  color: var(--black);
+  box-shadow: var(--shadow-md);
+}
+.book__cta:hover { background: var(--primary-50); }
+.book__cta:active { background: var(--primary-100); }
+
+/* The floating glyphs: white duotone marks drifting at the corners, tilted
+   a few degrees so they read placed rather than templated. */
+.book__float {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.38);
+  pointer-events: none;
+}
+.book__float svg { width: 40px; height: 40px; }
+.book__float--1 { top: 18%; left: 9%; transform: rotate(-8deg); }
+.book__float--2 { top: 24%; right: 10%; transform: rotate(7deg); }
+.book__float--3 { bottom: 20%; left: 16%; transform: rotate(6deg); }
+.book__float--4 { bottom: 26%; right: 17%; transform: rotate(-7deg); }
+
+@media (max-width: 991px) {
+  .book__frame { padding: var(--sp-6) var(--sp-4); }
+  .book__card { padding: var(--sp-16) var(--sp-8); }
+  .book__float svg { width: 28px; height: 28px; }
+  .book__float--1 { top: 8%; left: 6%; }
+  .book__float--2 { top: 10%; right: 6%; }
+  .book__float--3 { bottom: 8%; left: 10%; }
+  .book__float--4 { bottom: 10%; right: 10%; }
+}
+@media (max-width: 640px) {
+  .book__float { display: none; }
+  /* No frame padding (user, 20 Sep). The frame exists to hold the card off
+     the dot-grid side bands, and those bands only exist from 1200px up; at
+     phone width it was 24 and 16 of nothing, insetting the card from a page
+     edge that .padding-global already holds it off. The card keeps its own
+     padding, which is the space the copy actually needs. */
+  .book__frame { padding: 0; }
+  /* Left from here down. Centred text needs width to hold: on a phone the
+     sub breaks to four or five short lines and a ragged centre reads worse
+     than a clean left edge. Same line the decorative glyphs drop on, so the
+     card becomes a plain panel and the alignment follows it. */
+  .book__card {
+    align-items: flex-start;
+    text-align: left;
+    /* 20 and 24 (user, 20 Sep). The card fills the page width now that the
+       frame's inset is gone, so the generous inset it carried from the
+       desktop layout was only making a tall box out of four short lines. */
+    padding: var(--sp-5) var(--sp-6);
+  }
+}

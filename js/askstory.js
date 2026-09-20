@@ -71,11 +71,33 @@
   }
 
   steps.forEach(function (step, i) {
-    step.addEventListener('click', function () { select(i); });
+    step.addEventListener('click', function () {
+      /* Clicking a step is an explicit choice to watch it, so it always
+         releases the hold, whatever focus did on the way in. Without this
+         the :focus-visible guard below is the only thing standing between a
+         click and a dead timer, and it is a heuristic: it reports true for a
+         programmatic focus, and browsers disagree about pointer cases. */
+      held = false;
+      root.classList.remove('is-held');
+      select(i);
+    });
   });
 
-  /* Focus holds the clock; the pointer deliberately does not. */
-  root.addEventListener('focusin', function () { held = true; root.classList.add('is-held'); arm(); });
+  /* KEYBOARD focus holds the clock; a pointer does not. Clicking a button
+     focuses it, so holding on every focusin meant a click parked the story:
+     step one ran because it opens before anything is focused, and steps two
+     and three, which can only be reached by clicking, opened with their
+     timer already dead. :focus-visible is exactly the distinction wanted.
+     It is guarded because a browser that does not know the selector throws
+     out of matches(), and a thrown error here would kill the whole script. */
+  function keyboardFocused(el) {
+    try { return !!(el && el.matches && el.matches(':focus-visible')); }
+    catch (err) { return false; }
+  }
+  root.addEventListener('focusin', function (e) {
+    if (!keyboardFocused(e.target)) return;
+    held = true; root.classList.add('is-held'); arm();
+  });
   root.addEventListener('focusout', function (e) {
     if (root.contains(e.relatedTarget)) return;
     held = false; root.classList.remove('is-held'); arm();

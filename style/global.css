@@ -475,6 +475,24 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   align-items: center;
 }
 
+/* Large buttons go full width on a phone (user, 20 Sep). A 15/24 button set
+   in a 350px column is a small target floating in a lot of empty row, and at
+   this width there is nothing to sit beside it anyway.
+   It is every --lg, not only the primary the instruction named: these come in
+   pairs (Book a working session + See the questions) inside a wrapping
+   .btn-row, so stretching one alone would put a full-width button above a
+   short one and read as unfinished. Secondary buttons standing on their own
+   get the same treatment for consistency. The label stays centred by itself:
+   .btn is already justify-content: center. */
+@media (max-width: 640px) {
+  .btn--lg { width: 100%; }
+  /* The row has to stretch too, or 100% is 100% of nothing: the hero centres
+     its children, so .btn-row shrink-wraps to the button and the button then
+     fills its own width back. Scoped with :has() so rows of small and medium
+     buttons are left alone. */
+  .btn-row:has(.btn--lg) { width: 100%; }
+}
+
 /* Framed primary: a hairline box hugging the button, radius matched so the
    two curves stay concentric. */
 .btn-frame {

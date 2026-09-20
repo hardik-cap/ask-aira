@@ -7,6 +7,10 @@
   'use strict';
 
   document.querySelectorAll('[data-accordion]').forEach(function (acc) {
+    /* .is-live is what lets the CSS collapse closed panels: with the script
+       off the class never lands and every answer reads open (same gate the
+       askstory walkthrough uses). */
+    acc.classList.add('is-live');
     var items = Array.prototype.slice.call(acc.querySelectorAll('[data-acc-item]'));
     var figsWrap = acc.parentElement.querySelector('[data-acc-figs]');
     var figs = figsWrap ? Array.prototype.slice.call(figsWrap.children) : [];
