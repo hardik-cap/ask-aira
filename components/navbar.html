@@ -128,6 +128,17 @@
         </div>
 
         <div class="nav__actions">
+          <!-- Review-only switcher between the three homepage directions
+               (restored 20 Sep on the user's ask, after being removed with the
+               V2/V3 archive on 15 Sep). It is the only thing on the site that
+               links to index-v2.html and index-v3.html. Remove this div, its
+               rules in global.css and initVersionTabs() in components.js
+               before the site goes to a real audience. -->
+          <div class="nav__versions" aria-label="Homepage design versions">
+            <a href="/" data-version="v1">V1</a>
+            <a href="/index-v2.html" data-version="v2">V2</a>
+            <a href="/index-v3.html" data-version="v3">V3</a>
+          </div>
           <a class="btn btn--primary btn--sm" href="/book">Book a session</a>
         </div>
       </nav>
