@@ -1403,218 +1403,161 @@
   overflow: hidden;
 }
 
-/* The pane holds the artifact now (19 Sep), not a placeholder well: one
-   question, the shape of the answer it returns, and the move it produced
-   waiting on the approval badge. The .qstring and .state pieces are the
-   site's own signature components from components.css, so this draws the
-   product in the page's existing vocabulary rather than a new one. */
+/* The pane plays the product's loop (20 Sep, user call: no step labels,
+   the hubs' own chat vocabulary instead, and a SHORT frame). The stack is
+   the shared .chat__* components from components.css: bubble, tool rows,
+   answer, move card with the approval grammar. js/diff-loop.js types the
+   question into the ask bar and lands the four pieces one by one; with the
+   script off or reduced motion the pane is simply the finished stack. */
 .diff__fig {
   position: relative;
   display: grid;
   align-content: center;
-  min-height: 400px;
-  padding: var(--sp-10);
+  padding: var(--sp-6) var(--sp-8);
   background: var(--bg-subtle);
   overflow: hidden;
 }
-.diff__demo {
+
+.diff__chat {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-5);
-  max-width: 30rem;
-  /* Roboto (20 Sep): the pane is the product's own window, so it renders in
-     the product's face, same as the hubs' walkthrough stage. Every register
-     inside inherits or is pinned to it below. */
+  gap: var(--sp-3);
+  max-width: 28rem;
+  width: 100%;
+  margin-inline: auto;
+  /* The pane is the product's own window, so it renders in the product's
+     face, same as the hubs' walkthrough stages. */
   font-family: var(--font-product);
 }
-.diff__demo .mono,
-.diff__demo .state,
-.diff__demo .diff__prop-t { font-family: var(--font-product); }
+.diff__chat .chat__tool-t,
+.diff__chat .chat__tool-m,
+.diff__chat .chat__move-t,
+.diff__chat .state { font-family: var(--font-product); }
 
-/* The person's side: a bubble off the right edge, the product's chat shape
-   (same treatment as the hubs' walkthrough stage). */
-.diff__q {
-  align-self: flex-end;
-  max-width: 92%;
-  padding: var(--sp-3) var(--sp-4);
-  background: var(--surface);
-  border: 1px solid var(--frame-line);
-  border-radius: var(--r-sm);
-  box-shadow: var(--shadow-sm);
-  font-size: var(--t-body);
-  font-weight: 500;
-  line-height: 1.5;
-  color: var(--ink);
-}
+.diff__chat .chat__move { width: 100%; margin-top: var(--sp-2); }
 
-/* Tool-step rows, straight from the product: caret, purple glyph, label,
-   mono meta. */
-.diff__tools {
-  display: grid;
-  gap: var(--sp-2);
-}
-.diff__tool {
+/* ---- The loop, animated ---------------------------------------------------
+   Every rule below is gated on .is-live, which only js/diff-loop.js adds,
+   so no JS or reduced motion means the finished stack; .is-told marks the
+   handoff from the ask bar to the chat. */
+
+/* The bar is the product's own (20 Sep, user screenshot): a white pill,
+   plus on the left, the product's placeholder, mic, and the round P200
+   send. Decorative, so the low-contrast white-on-periwinkle arrow is fine. */
+.diff__ask {
+  position: absolute;
+  inset-inline: var(--sp-8);
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
-  gap: var(--sp-2);
-  padding: var(--sp-2) var(--sp-3);
-  background: var(--surface);
-  border: 1px solid var(--frame-line);
-  border-radius: var(--r-sm);
-  min-width: 0;
-}
-.diff__tool-c {
-  flex: none;
-  font-size: var(--t-body);
-  line-height: 1;
-  color: var(--ink-faint);
-}
-.diff__tool-ic {
-  flex: none;
-  width: 16px;
-  height: 16px;
-  color: var(--purple-400);
-}
-.diff__tool-t {
-  flex: 1;
-  font-size: var(--t-caption);
-  font-weight: 500;
-  color: var(--ink);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.diff__tool-m {
-  flex: none;
-  font-size: var(--t-mono);
-  color: var(--ink-3);
-}
-
-.diff__ans {
-  font-size: var(--t-body);
-  line-height: var(--lh-body);
-  color: var(--ink-2);
-  text-wrap: pretty;
-}
-
-/* ---- The proposal, drawn as the product's approval surface (20 Sep) ------
-   Rebuilt on a screenshot of the real aiRA card. Two objects with a gap, not
-   one box, because that is the product's own division: the spec table states
-   the facts of the move, the card below asks for the decision on them. Both
-   are white on the pane's grey ground, which is what makes them read as
-   surfaces rather than as more page.
-   ------------------------------------------------------------------------- */
-.diff__move {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
   gap: var(--sp-3);
-}
-/* The label belongs to the pair, so it sits closer to them than they do to
-   each other. */
-.diff__move-l { margin-bottom: calc(var(--sp-2) * -1); }
-
-.diff__spec,
-.diff__prop {
+  max-width: 28rem;
+  margin-inline: auto;
+  padding: 8px 8px 8px 16px;
   background: var(--surface);
-  border: 1px solid var(--frame-line);
-  border-radius: var(--r-md);
-  overflow: hidden;
+  border: 1px solid var(--border);
+  /* 24px, not --r-pill: the bar grows when the question wraps, and a half-
+     height radius on a tall box stops reading as the product's bar. 24 is
+     exactly the pill at the one-line height. */
+  border-radius: 24px;
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur) var(--ease), visibility var(--dur);
 }
+.diff__ask.is-on { opacity: 1; visibility: visible; }
+.diff__ask-plus,
+.diff__ask-mic { display: inline-flex; flex: none; color: var(--ink-3); }
+.diff__ask-plus svg,
+.diff__ask-mic svg { width: 20px; height: 20px; }
 
-/* A fixed label column, so the four values start on one edge however long
-   the label is. Baseline, not top: the label is 12px caps against 14px body
-   and aligning the boxes would leave the caps sitting high. */
-.diff__spec-r {
-  display: grid;
-  grid-template-columns: 96px minmax(0, 1fr);
-  align-items: baseline;
-  gap: var(--sp-4);
-  padding: var(--sp-3) var(--sp-4);
-  border-top: 1px solid var(--frame-line);
+/* The field WRAPS rather than truncates (20 Sep, user call): at any width
+   the whole question stays readable and the bar grows taller instead. The
+   caret rides inline after the last typed character across line breaks. */
+.diff__ask-field {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  min-height: 20px;
 }
-.diff__spec-r:first-child { border-top: 0; }
-.diff__spec-k {
-  font-size: var(--t-caption);
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-3);
+.diff__ask-ph {
+  position: absolute;
+  left: 0;
+  white-space: nowrap;
+  font-family: var(--font-product);
+  font-size: var(--t-body);
+  color: var(--ink-faint);
+  transition: opacity 200ms var(--ease);
 }
-.diff__spec-v {
+/* The first typed character clears the placeholder, input-style. */
+.diff__ask-field:has(.diff__ask-t:not(:empty)) .diff__ask-ph { opacity: 0; }
+.diff__ask-t {
+  font-family: var(--font-product);
   font-size: var(--t-body);
   line-height: 1.5;
   color: var(--ink);
+  overflow-wrap: break-word;
 }
+.diff__ask-caret {
+  display: inline-block;
+  width: 2px;
+  height: 15px;
+  margin-left: 1px;
+  vertical-align: -2px;
+  border-radius: 1px;
+  background: var(--brand);
+  animation: diff-caret 1s steps(1) infinite;
+}
+@keyframes diff-caret { 50% { opacity: 0; } }
 
-/* The decision card: title and risk class, what approving means, the row of
-   controls. Three bands divided by the same hairline the spec rows use. */
-.diff__prop-h {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-4);
-  padding: var(--sp-4);
-}
-.diff__prop-t {
-  font-size: var(--t-title-sm);
-  font-weight: 600;
-  line-height: var(--lh-title);
-  color: var(--ink);
-}
-/* The risk class. --hold's amber is already the site's "someone needs to look
-   at this" colour, so the tag borrows it rather than introducing a fifth. */
-.diff__prop-tag {
+.diff__ask-send {
   flex: none;
-  font-size: var(--t-caption);
-  font-weight: 500;
-  line-height: 1.4;
-  padding: 4px 10px;
-  border-radius: var(--r-pill);
-  color: var(--hold);
-  background: var(--hold-bg);
-}
-.diff__prop-b {
-  padding: var(--sp-4);
-  border-top: 1px solid var(--frame-line);
-  font-size: var(--t-body);
-  line-height: var(--lh-body);
-  color: var(--ink-2);
-}
-.diff__prop-f {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-4);
-  padding: var(--sp-3) var(--sp-4);
-  border-top: 1px solid var(--frame-line);
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-pill);
+  background: var(--primary-200);
+  color: var(--on-brand);
 }
+.diff__ask-send svg { width: 20px; height: 20px; }
 
-/* The two controls, drawn as real buttons rather than the coloured pills that
-   stood here: a product's decision row is a secondary and a primary, and the
-   pills read as two statuses side by side. The approve/hold ramps stay the
-   state grammar's, which the badge to their left still wears. */
-.diff__act {
-  display: flex;
-  gap: var(--sp-2);
+/* Live: the stack anchors to the top so the script's translate is the only
+   thing moving it, starting low enough that the bubble lands about where
+   the ask bar stood. */
+.diff__fig.is-live { align-content: start; }
+.diff__fig.is-live .diff__chat {
+  margin-top: 72px;
+  opacity: 0;
+  transition: transform 700ms var(--ease), opacity var(--dur) var(--ease);
 }
-.diff__act span {
-  font-size: var(--t-caption);
-  font-weight: 600;
-  line-height: 1;
-  padding: 9px 14px;
-  border-radius: var(--r-sm);
-  white-space: nowrap;
+.diff__fig.is-told .diff__chat { opacity: 1; }
+
+.diff__fig.is-live .diff__chat > * {
+  opacity: 0;
+  translate: 0 12px;
+  transition: opacity 500ms var(--ease), translate 500ms var(--ease);
 }
-.diff__act-h {
-  color: var(--ink-2);
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
+.diff__fig.is-live .diff__chat > .is-on { opacity: 1; translate: 0 0; }
+/* Inside the tools step the second row lands a beat after the first, so
+   the working reads as steps completing rather than a block appearing. */
+.diff__fig.is-live .chat__tools .chat__tool { opacity: 0; transition: opacity 400ms var(--ease); }
+.diff__fig.is-live .chat__tools.is-on .chat__tool { opacity: 1; }
+.diff__fig.is-live .chat__tools.is-on .chat__tool + .chat__tool { transition-delay: 550ms; }
+
+@media (max-width: 640px) {
+  .diff__ask { inset-inline: var(--sp-5); }
+  .diff__fig { padding: var(--sp-5); }
 }
-.diff__act-a {
-  color: var(--ink-inv);
-  background: var(--primary-400);
-  border: 1px solid var(--primary-400);
+@media (prefers-reduced-motion: reduce) {
+  /* The script never runs under reduced motion; belt to that brace. */
+  .diff__ask { display: none; }
+  .diff__ask-caret { animation: none; }
+  .diff__fig.is-live .diff__chat,
+  .diff__fig.is-live .diff__chat > *,
+  .diff__fig.is-live .chat__tools .chat__tool { opacity: 1; translate: none; transition: none; }
 }
 
 .diff__cta { margin-top: var(--sp-10); }
@@ -1673,21 +1616,6 @@
    bands' INNER lines, so it meets the dots without covering them. */
 @media (min-width: 1200px) {
   .diff__grid { margin-inline: -24px; }
-}
-
-/* Under about 560 the fixed label column and the two-object header rows stop
-   fitting, so each splits onto its own line rather than squeezing. */
-@media (max-width: 560px) {
-  .diff__spec-r {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 2px;
-  }
-  .diff__prop-h,
-  .diff__prop-f {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--sp-3);
-  }
 }
 
 @media (max-width: 640px) {

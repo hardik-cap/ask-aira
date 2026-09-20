@@ -1930,3 +1930,282 @@ a.biz:focus-visible .biz__ic::after {
     padding: var(--sp-5) var(--sp-6);
   }
 }
+
+
+/* ==== Chat vocabulary (moved from industry.css 20 Sep; shared by the hubs'
+   askstory stages and index.html's difference loop). The product-font pinning
+   is NOT here: each page scopes its own surface to --font-product. ==== */
+
+/* The person's side: a white bubble off the right edge. */
+.chat__q {
+  align-self: flex-end;
+  max-width: 90%;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  font-size: var(--t-body);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+/* aiRA's side: plain text, the way the product itself answers. */
+.chat__a {
+  align-self: flex-start;
+  max-width: 94%;
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+}
+
+/* Since late 19 Sep the three panels are three DIFFERENT slices of the
+   product (Attio platform-page reference): the ask ends in tool-step rows
+   and KPI tiles, the drill-down in a saved-audience card, the move in a
+   proposal card wearing the approval grammar. Everything below the chat
+   lines is drawn product UI, so Geist Mono may carry the metas; figures
+   stay tabular in the display face. */
+
+/* Tool-step rows, straight from the product: label left, meta right. */
+.chat__tools {
+  display: grid;
+  gap: var(--sp-2);
+}
+.chat__tool {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  min-width: 0;
+}
+.chat__tool-c {
+  flex: none;
+  font-size: var(--t-body);
+  line-height: 1;
+  color: var(--ink-faint);
+}
+/* Illustration micro-glyph, so it keeps the product's own 16px and the
+   purple the real tool rows use. */
+.chat__tool-ic {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--purple-400);
+}
+.chat__tool-t {
+  flex: 1;
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.chat__tool-m {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  color: var(--ink-3);
+}
+
+/* KPI tiles: the artifact the answer hands back. */
+.chat__kpis {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-2);
+}
+.chat__kpis-head {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+}
+.chat__ver {
+  padding: 2px 8px;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  color: var(--ink-3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+}
+.chat__kpi {
+  display: grid;
+  gap: 4px;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+/* The tile's movement line: amber, because every one of these tracks a
+   cohort growing the wrong way. */
+.chat__kpi-s {
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--hold);
+}
+.chat__kpi-l {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.chat__kpi-n {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+/* The saved-audience card. */
+.chat__aud {
+  margin-top: auto;
+  display: grid;
+  gap: var(--sp-2);
+  justify-items: start;
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.chat__aud-t {
+  font-family: var(--font-display);
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+}
+.chat__aud-n {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.chat__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chat__chips span {
+  padding: 3px 10px;
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--ink-2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+}
+
+/* The move: a proposal card pinned to the panel's foot, approval grammar
+   visible down to the decision row. The row is drawn, not interactive:
+   spans styled like the product's decide pills, inside the aria-hidden
+   artifact. */
+.chat__move {
+  margin-top: auto;
+  display: grid;
+  gap: var(--sp-2);
+  justify-items: start;
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.chat__move-t {
+  font-family: var(--font-display);
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+}
+.chat__move-d {
+  font-size: var(--t-caption);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.chat__act {
+  display: flex;
+  gap: 6px;
+  margin-top: var(--sp-1, 4px);
+}
+/* The real product's approval surface (20 Sep, user screenshot of the
+   product): a header row with the move quoted in the title and a risk-class
+   tag, one explainer row, then the footer with the Draft pill left and the
+   two real buttons right: Save draft, its white secondary, and Submit for
+   approval, its PRIMARY COLOUR (the deep indigo, --primary-500 here). Rows
+   divide on full-bleed hairlines inside the card. */
+.chat__move-h {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  width: 100%;
+}
+.chat__move-tag {
+  flex: none;
+  font-size: var(--t-caption);
+  font-weight: 600;
+  color: var(--hold);
+  background: var(--hold-bg);
+  border-radius: var(--r-pill);
+  padding: 3px 10px;
+}
+.chat__move-b {
+  font-size: var(--t-caption);
+  line-height: 1.5;
+  color: var(--ink-2);
+  width: 100%;
+  margin-inline: calc(-1 * var(--sp-5));
+  padding: var(--sp-3) var(--sp-5) 0;
+  border-top: 1px solid var(--border);
+  box-sizing: content-box;
+}
+.chat__move-f {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  width: 100%;
+  margin-inline: calc(-1 * var(--sp-5));
+  padding: var(--sp-3) var(--sp-5) 0;
+  border-top: 1px solid var(--border);
+  box-sizing: content-box;
+}
+.chat__draft {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--ink-2);
+  background: var(--bg-subtle);
+  border-radius: var(--r-pill);
+  padding: 4px 12px;
+}
+.chat__draft-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink-3);
+}
+.chat__act span {
+  font-size: var(--t-caption);
+  font-weight: 600;
+  border-radius: var(--r-pill);
+  padding: 5px 13px;
+  border: 1px solid transparent;
+}
+.chat__act-a { color: var(--on-brand); background: var(--primary-500); }
+.chat__act-h { color: var(--ink); background: var(--surface); border-color: var(--border-strong); }
+
+.chat__chips span { background: var(--bg-subtle); }

@@ -2035,6 +2035,15 @@
   margin-bottom: var(--sp-16);
 }
 .price__intro .section-sub { margin-top: var(--sp-4); max-width: 34rem; }
+/* The figure came out of both pages on 20 Sep, which left the intro sitting in
+   the left half of a two-column grid with nothing opposite it. With no figure
+   the head is one column and reads like every other section head on the page;
+   the heading and sub carry their own max-widths, so it does not run long.
+   Written as :has() rather than by editing the grid above, so the split comes
+   back on its own if a figure is ever put back in. */
+.price__top:not(:has(.price__fig)) {
+  grid-template-columns: minmax(0, 1fr);
+}
 
 .price__fig {
   min-height: 300px;
