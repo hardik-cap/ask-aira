@@ -668,8 +668,12 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 .nav__actions { display: flex; align-items: center; gap: var(--sp-3); margin-left: auto; }
 
 /* Review-only switcher between the homepage design experiments: a small
-   segmented mono control ahead of the CTA. Restored 20 Sep with V2 and V3.
-   Remove before shipping, together with the markup and initVersionTabs(). */
+   segmented mono control ahead of the CTA. PARKED 21 Sep: the markup came out
+   of components/navbar.html ("remove toggle from navbar, keep the pages for
+   now") and these rules match nothing until it is pasted back, which is why
+   they are still here. index-v2.html and index-v3.html themselves still ship.
+   Delete this block, the mobile rule further down and initVersionTabs() in
+   js/components.js if the switcher is retired for good. */
 .nav__versions {
   display: flex;
   align-items: center;

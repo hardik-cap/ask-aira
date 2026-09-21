@@ -249,8 +249,10 @@
   /* ---- Version switcher (review-only) ----------------------------------- */
 
   /* Marks the current homepage experiment in the nav's V1/V2/V3 switcher.
-     Restored 20 Sep with V2 and V3; remove with them. It no-ops on every page
-     that has no switcher, which is every page once the markup comes out. */
+     PARKED 21 Sep with the markup, so this now no-ops on every page. It stays
+     because the switcher may come back: V2 and V3 still ship, they are just
+     unlinked. Delete it with the CSS in global.css if it is retired for
+     good. */
   function initVersionTabs() {
     var wrap = document.querySelector('.nav__versions');
     if (!wrap) return;
