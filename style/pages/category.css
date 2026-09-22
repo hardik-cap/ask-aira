@@ -223,23 +223,9 @@
   .orbits__chip { animation: none; }
 }
 
-.crumb {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  font-size: var(--t-body-sm);
-  color: var(--frame-plus);
-}
-.crumb a {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-2);
-  font-weight: 500;
-  color: var(--ink-3);
-  transition: color var(--dur-fast) var(--ease);
-}
-.crumb a:hover { color: var(--brand-ink); }
-.crumb__back svg { width: 20px; height: 20px; flex: none; }
+/* .crumb itself moved to components.css on 22 Sep, when /privacy-policy took the
+   same breadcrumb ("this can be same ui as class='crumb'"). Only
+   .crumb-strip, the category hero's band that hosts it, stays here. */
 
 /* ---- The shape ------------------------------------------------------------
    Four facets: frequency, margin, seasonality and the data that is missing
@@ -592,10 +578,6 @@
     border-top: 1px solid var(--frame-line);
   }
   .cproof__item:first-child { border-top: 0; padding-top: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .crumb a { transition: none; }
 }
 
 /* ---- Asked in <category> (20 Sep) ------------------------------------------

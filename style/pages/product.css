@@ -1,0 +1,665 @@
+/* ==========================================================================
+   aiRA — /product (20 Sep): the depth the homepage compresses. Hero with the
+   real product capture, then the mechanism, the seven capabilities as their
+   real /lp question strings, the category board, governance, and the book
+   box. The mechanism, comparison and book-box sections are the shared blocks
+   in components.css; this file carries the hero, the capabilities grid, and
+   self-contained copies of the feat-icon and sec anatomies (those rules live
+   fused with homepage-only selectors in home.css, so they are restated here
+   the way industry.css restates the caption icons).
+
+   Loads after tokens -> global -> components.
+   ========================================================================== */
+
+/* ---- Hero: centred, Claygent-style (21 Sep, user reference) --------------
+   One stack: claim, sub, the product's own ask bar as the way in, the five
+   seats as chips, then the real capture on a coloured ground. */
+
+.phero__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.phero__t {
+  font-family: var(--font-display);
+  /* 48px (--t-display-1s), the interior H1 size /book settled on 20 Sep. */
+  font-size: var(--t-display-1s);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+  margin-bottom: var(--sp-5);
+  max-width: 24ch;
+}
+/* The brand highlight, same drawing as .section-heading em: restated because
+   this h1 is not a section heading. */
+.phero__t em {
+  font-style: normal;
+  color: var(--primary-400);
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.07em;
+  text-underline-offset: 0.16em;
+  text-decoration-skip-ink: none;
+}
+
+.phero__sub {
+  font-size: var(--t-body-lg);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 40rem;
+}
+
+/* The ask bar as the way in: the .qbar__box pill from components.css, here
+   an <a> to /book. The search box is the CTA, so it lifts on hover the way
+   a button would. */
+.phero__ask {
+  margin-top: var(--sp-8);
+  width: 100%;
+  max-width: 720px;
+  text-align: left;
+  transition: box-shadow var(--dur-fast) var(--ease),
+              border-color var(--dur-fast) var(--ease);
+}
+.phero__ask:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-lg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .phero__ask { transition: none; }
+}
+
+/* ---- The seat axis: chips under the bar (Claygent placement) -------------
+   Deep links into the finder, dressed as the quiet pill the qbar tabs wear. */
+.phero__seat-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-5);
+  list-style: none;
+  padding: 0;
+}
+.phero__seat-list a {
+  display: inline-flex;
+  padding: 7px 14px;
+  font-size: var(--t-body);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--ink-2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease),
+              border-color var(--dur-fast) var(--ease);
+}
+.phero__seat-list a:hover {
+  color: var(--ink);
+  border-color: var(--border-strong);
+}
+@media (prefers-reduced-motion: reduce) {
+  .phero__seat-list a { transition: none; }
+}
+
+/* ---- The illustration: the loop drawn as five wired cards ----------------
+   Claygent's move (21 Sep, user): a solid Primary/100 ground (solid, not a
+   gradient: the 19 Sep call) carrying the product's loop as a diagram, five
+   drawn cards joined by hairline wires. Drawn product surface, so the whole
+   flow is pinned to the product face and every glyph in it is regular
+   weight. */
+.phero__fig { margin-top: var(--sp-12); }
+.phero__art {
+  background: var(--primary-100);
+  border-radius: var(--r-lg);
+  padding: var(--sp-12) var(--sp-10);
+}
+
+.phero__flow {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-product);
+}
+.phero__card {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-md);
+}
+/* The approval card holds the two real buttons, so it takes a little more
+   of the row than the text cards. */
+.phero__card--ok { flex-grow: 1.35; }
+
+.phero__q,
+.phero__ans {
+  margin: 0;
+  font-size: var(--t-body);
+  line-height: 1.5;
+  color: var(--ink);
+}
+.phero__q { font-weight: 500; }
+
+.phero__tool {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--t-caption);
+  line-height: 1.4;
+  color: var(--ink-2);
+}
+.phero__tool svg { width: 14px; height: 14px; flex: none; color: var(--ink-3); }
+
+.phero__ok-t {
+  margin: 0;
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--ink);
+}
+.phero__ok-f {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2) var(--sp-3);
+  flex-wrap: wrap;
+}
+/* The row may wrap between the pill and the buttons, never inside a
+   button's own label. */
+.phero__ok-f .chat__act span { white-space: nowrap; }
+
+/* The wire between cards: a hairline with the frame's small square riding
+   its middle, the page's own connective language rather than an arrow. */
+.phero__wire {
+  position: relative;
+  flex: none;
+  width: 24px;
+  height: 1px;
+  background: var(--primary-400);
+}
+.phero__wire::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  transform: translate(-50%, -50%);
+  background: var(--primary-500);
+}
+/* The capture is 2600x1401 of aiRA's welcome state, and roughly half of that
+   is empty ground above and below the ask bar: shown whole it renders the UI
+   at about 40% of the frame and the product becomes unreadable. Cropping to a
+   26:9 band takes 900px out of the middle, which holds the mark, the greeting,
+   the ask bar and the four chips with room to spare, and shows them half as
+   large again. object-position stays centred because the content's own centre
+   sits at 50.3% of the height. */
+.phero__shot { aspect-ratio: 2 / 1; }
+.phero__shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Zoomed rather than only cropped: cropping alone buys a bigger UI by
+     making the frame shorter, which just moves the problem. Scaling inside a
+     2:1 frame keeps the surface substantial AND renders the ask bar at
+     readable size. The origin is the default centre because the content's own
+     centre sits at 50.3% of the source height. */
+  transform: scale(1.42);
+}
+
+/* ---- Capabilities: seven questions and a capstone ------------------------
+   Boxed cells on shared hairlines (the diff board's grammar): the 1px gap
+   over the line colour draws the grid. The section ground is a wash, where
+   --border disappears, so the lines are slate-300. */
+
+.cap__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--slate-300);
+  border: 1px solid var(--slate-300);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+
+.cap__cell {
+  background: var(--surface);
+  padding: var(--sp-6);
+  display: flex;
+  flex-direction: column;
+}
+
+.cap__t {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+  margin-bottom: var(--sp-4);
+}
+.cap__ic { display: inline-flex; color: var(--black); }
+.cap__ic svg { width: 20px; height: 20px; }
+
+.cap__cell .qstring { margin-bottom: var(--sp-3); max-width: 34rem; }
+
+.cap__r {
+  font-size: var(--t-body-sm);
+  line-height: 1.65;
+  color: var(--ink-3);
+  margin-top: auto;
+}
+/* The playbook capstone has no question, so its one paragraph reads from the
+   top like the titles beside it rather than sinking to the cell floor. */
+.cap__r--solo { margin-top: 0; max-width: 34rem; }
+
+/* The continuity line: a supporting strip under the grid, one quiet claim. */
+.cap__note {
+  margin-top: var(--sp-8);
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--slate-300);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 44rem;
+}
+
+/* ---- Shared anatomies restated (see the head comment) --------------------
+   The feat icon-in-title grammar and the mini grid, exactly the home.css
+   drawing, for the mechanism's three points. */
+
+.feat__icon {
+  display: block;
+  margin-bottom: var(--sp-3);
+  color: var(--brand);
+}
+.feat__icon svg { width: 20px; height: 20px; }
+.feat__mini h4:has(> .feat__icon) {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.feat__mini h4 > .feat__icon { display: inline-flex; margin-bottom: 0; }
+.section--inv .feat__icon { color: var(--primary-200); }
+
+.feat__mini {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-10) var(--sp-8);
+  border-top: 1px solid var(--border);
+  padding-top: var(--sp-10);
+}
+.feat__mini > li { display: flex; flex-direction: column; }
+.feat__mini h4 {
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+  margin-bottom: var(--sp-2);
+}
+.feat__mini p {
+  font-size: var(--t-body-sm);
+  line-height: 1.65;
+  color: var(--ink-3);
+}
+
+/* The governance three-up: the price/sec anatomy from home.css, sec side
+   only. */
+.sec__top { margin-bottom: var(--sp-16); }
+.sec__intro .section-sub { margin-top: var(--sp-4); max-width: 34rem; }
+.sec__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-8);
+}
+.sec__card { display: flex; flex-direction: column; }
+.sec__card + .sec__card {
+  border-left: 1px solid rgba(255, 255, 255, 0.10);
+  padding-left: var(--sp-8);
+}
+.sec__tile h4 {
+  font-family: var(--font-display);
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink-inv);
+  margin-bottom: var(--sp-2);
+}
+.sec__tile p {
+  font-size: var(--t-body-sm);
+  line-height: 1.65;
+  color: var(--ink-inv-3);
+}
+.sec__note {
+  margin-top: var(--sp-10);
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--frame-line-inv);
+  font-size: var(--t-body);
+  color: var(--ink-inv-3);
+  max-width: 44rem;
+}
+
+/* ---- Responsive ---------------------------------------------------------- */
+
+@media (max-width: 991px) {
+  .phero__fig { margin-top: var(--sp-10); }
+  .phero__art { padding: var(--sp-8); }
+  /* The flow turns vertical: same five cards, the wires now short drops. */
+  .phero__flow { flex-direction: column; align-items: stretch; }
+  .phero__card {
+    flex: none;
+    width: 100%;
+    max-width: 420px;
+    margin-inline: auto;
+  }
+  .phero__wire { width: 1px; height: 20px; margin-inline: auto; }
+  .feat__mini { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .phero__art { padding: var(--sp-5); }
+}
+@media (max-width: 767px) {
+  .cap__grid { grid-template-columns: 1fr; }
+  .sec__grid { grid-template-columns: 1fr; gap: var(--sp-6); }
+  .sec__card + .sec__card {
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    padding: var(--sp-6) 0 0;
+  }
+}
+@media (max-width: 640px) {
+  .feat__mini { grid-template-columns: 1fr; }
+  .cap__cell { padding: var(--sp-5); }
+}
+
+/* ---- The cost today (22 Sep) -------------------------------------------------
+   The reader's own week, priced. It sits between the hero and the mechanism,
+   and it must not restate the homepage's #difference, which argues that the
+   answer arrives with its reasoning: this one is only about elapsed time and
+   handoffs. The chain is an <ol> because the order is the point. */
+
+.cost__rail {
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--bg-subtle);
+  overflow: hidden;
+}
+
+.cost__chain {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cost__link {
+  position: relative;
+  padding: var(--sp-6) var(--sp-5);
+  border-right: 1px solid var(--border);
+}
+.cost__link:last-child { border-right: 0; }
+/* The wait between stages, drawn once as a chevron on the seam rather than as
+   an icon per cell: the gap IS the argument. */
+.cost__link + .cost__link::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-top: 1px solid var(--border-strong);
+  border-right: 1px solid var(--border-strong);
+  transform: rotate(45deg);
+  background: var(--bg-subtle);
+}
+.cost__who {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--t-caption);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: var(--sp-2);
+}
+.cost__what {
+  display: block;
+  font-size: var(--t-body);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+.cost__tally {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  padding: var(--sp-5);
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+.cost__fig {
+  font-family: var(--font-display);
+  font-size: var(--t-title);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.cost__sep { color: var(--ink-faint); }
+
+.cost__after {
+  max-width: 44rem;
+  margin: var(--sp-10) auto 0;
+  text-align: center;
+}
+.cost__after-t {
+  font-family: var(--font-display);
+  font-size: var(--t-display-3);
+  font-weight: 500;
+  line-height: var(--lh-title);
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+  margin-bottom: var(--sp-4);
+}
+.cost__after-d {
+  font-size: var(--t-body-lg);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+}
+
+@media (max-width: 991px) {
+  .cost__chain { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cost__link { border-bottom: 1px solid var(--border); }
+  .cost__link:nth-child(2n) { border-right: 0; }
+  /* The chevron reads as a left-to-right wait; stacked, it would point at a
+     cell that is not next. */
+  .cost__link + .cost__link::before { display: none; }
+}
+@media (max-width: 640px) {
+  .cost__chain { grid-template-columns: minmax(0, 1fr); }
+  .cost__link { border-right: 0; }
+  .cost__link:last-child { border-bottom: 0; }
+  .cost__fig { font-size: var(--t-title-sm); }
+}
+
+
+/* ---- Proof (22 Sep) ----------------------------------------------------------
+   The lead study gets the figures; the three supporting ones get prose. The
+   numbers use the sans face with tabular numerals, never the mono: a comma in
+   Geist Mono gets its own character cell. */
+
+.proof__lead {
+  padding: var(--sp-10);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+.proof__claim {
+  font-family: var(--font-display);
+  font-size: var(--t-display-3);
+  font-weight: 500;
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+  margin-bottom: var(--sp-8);
+}
+.proof__claim strong { font-weight: 600; color: var(--brand-ink); }
+
+.proof__kpis {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-8) var(--sp-6);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.proof__kpis li { min-width: 0; }
+.proof__n {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--t-display-3);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--tr-display);
+  color: var(--brand-ink);
+  margin-bottom: var(--sp-2);
+}
+.proof__l {
+  display: block;
+  font-size: var(--t-body);
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+
+.proof__more {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-6);
+  margin-top: var(--sp-8);
+}
+.proof__case {
+  padding: var(--sp-6);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--bg-subtle);
+}
+.proof__case-t {
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: var(--sp-3);
+}
+.proof__case-d {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+}
+.proof__case-d strong { font-weight: 600; color: var(--ink); }
+
+.proof__note {
+  margin-top: var(--sp-6);
+  font-size: var(--t-caption);
+  line-height: var(--lh-body);
+  color: var(--ink-3);
+}
+
+@media (max-width: 991px) {
+  .proof__lead { padding: var(--sp-6); }
+  .proof__kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .proof__more { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .proof__kpis { grid-template-columns: minmax(0, 1fr); gap: var(--sp-5); }
+}
+
+
+/* ---- Getting started (22 Sep) ------------------------------------------------
+   Four numbered phases on one rail. The numerals are the structure, so they
+   take the display face at a size the body never reaches; the output line is
+   the only place a label and a value share a row. */
+
+.rollout__steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--sp-6);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* A column, so the output line can be pushed to the bottom: the four
+   descriptions are different lengths and the labels were landing at four
+   different heights, which read as a ragged edge rather than four phases. */
+.rollout__step {
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--sp-5);
+  border-top: 2px solid var(--brand-line);
+}
+.rollout__step .rollout__d { flex: 1; }
+.rollout__n {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--t-title);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--brand-ink);
+  margin-bottom: var(--sp-3);
+}
+.rollout__t {
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: var(--sp-3);
+}
+.rollout__d {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  margin-bottom: var(--sp-5);
+}
+.rollout__out {
+  font-size: var(--t-caption);
+  line-height: 1.5;
+  color: var(--ink-2);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--border);
+}
+.rollout__out span {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 2px;
+}
+
+.rollout__gate {
+  max-width: 44rem;
+  margin: var(--sp-10) auto 0;
+  padding: var(--sp-5) var(--sp-6);
+  border-left: 2px solid var(--brand);
+  background: var(--wash-primary);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+}
+
+@media (max-width: 991px) {
+  .rollout__steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-8) var(--sp-6); }
+}
+@media (max-width: 640px) {
+  .rollout__steps { grid-template-columns: minmax(0, 1fr); }
+}

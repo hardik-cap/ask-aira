@@ -2182,10 +2182,51 @@ a.biz:focus-visible .biz__ic::after {
    behind column 2, so no heights are hardcoded.
    ---------------------------------------------------------------------- */
 
+/* ---- Breadcrumb -----------------------------------------------------------
+   Shared since 22 Sep: the retail category pages had it first (in
+   category.css) and /privacy-policy took the same control, so it lives here rather
+   than being restated. The first item is a .crumb__back carrying a
+   regular-weight arrow-left; the separators are unstyled spans in the markup.
+   Page stylesheets position the strip, they do not restyle it.
+   ------------------------------------------------------------------------- */
+.crumb {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--t-body-sm);
+  color: var(--frame-plus);
+}
+.crumb a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-weight: 500;
+  color: var(--ink-3);
+  transition: color var(--dur-fast) var(--ease);
+}
+.crumb a:hover { color: var(--brand-ink); }
+.crumb__back svg { width: 20px; height: 20px; flex: none; }
+@media (prefers-reduced-motion: reduce) {
+  .crumb a { transition: none; }
+}
+
 .compare__wrap {
   margin-inline: auto;
   overflow-x: auto;
 }
+
+/* The sourcing note under the board (21 Sep, /product). Centred on the
+   board's own axis and held narrow: it is a footnote, so it must not read as
+   another row of the argument. Muted on the dark ground the board wears. */
+.compare__note {
+  max-width: 44rem;
+  margin: var(--sp-6) auto 0;
+  text-align: center;
+  font-size: var(--t-caption);
+  line-height: var(--lh-body);
+  color: var(--ink-3);
+}
+.section--inv .compare__note { color: var(--ink-inv-3); }
 
 .compare__board {
   display: grid;

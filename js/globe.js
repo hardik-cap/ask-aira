@@ -22,11 +22,18 @@ import createGlobe from '/js/vendor/cobe.js';
     ? window.matchMedia('(prefers-reduced-motion: reduce)')
     : { matches: false };
 
-  var SIZE = 600;          /* CSS pixels of the square canvas box */
   var BASE_THETA = 0.24;
 
-  /* Primary/400 #526CF6 for the markers. */
-  var MARKER = [82 / 255, 108 / 255, 246 / 255];
+  /* Primary/600 #3338D2, the brand since the 20 Sep palette swap. It was
+     hard-coded to the retired #526CF6, which tokens.css no longer contains.
+     A WebGL uniform cannot read a custom property, so this is the one place
+     outside tokens.css that carries a colour, and it has to be updated by
+     hand when the brand moves. */
+  var MARKER = [51 / 255, 56 / 255, 210 / 255];
+
+  /* The same cap phenomenon is given below: it sizes the backing store as
+     clientWidth * devicePixelRatio, so both have to agree. */
+  var DPR = Math.min(window.devicePixelRatio || 1, 2);
 
   var globe = null;
   var onScreen = false;
@@ -35,9 +42,11 @@ import createGlobe from '/js/vendor/cobe.js';
   function mount() {
     if (globe) { globe.toggle(true); return; }
     globe = createGlobe(canvas, {
-      devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
-      width: SIZE * 2,
-      height: SIZE * 2,
+      devicePixelRatio: DPR,
+      /* Seeded from the real box so the first frame is already right; every
+         frame after this is corrected in onRender. See the note there. */
+      width: canvas.clientWidth * DPR,
+      height: canvas.clientHeight * DPR,
       phi: 0,
       theta: BASE_THETA,
       dark: 0,
@@ -56,9 +65,26 @@ import createGlobe from '/js/vendor/cobe.js';
         { location: [40.71, -74.01], size: 0.05 },  /* New York */
         { location: [51.51, -0.13], size: 0.03 }    /* London */
       ],
+      /* THE RESOLUTION HAS TO BE FED BACK EVERY FRAME.
+         phenomenon owns the backing store: its resize() sets
+         canvas.width = canvas.clientWidth * devicePixelRatio, and it rebinds
+         that to window's resize event. cobe, though, bakes the `width` and
+         `height` options into a shader uniform ONCE at setup. So the two only
+         agree when the CSS box times the pixel ratio happens to equal what
+         was passed, and any other combination draws the sphere at the wrong
+         scale around the wrong centre: the shipped values (1200 square,
+         against a 600px box) put a quarter of a giant globe in the corner on
+         a 1x display, and missed again at the 420px box below 992px.
+         Returning width and height here is cobe's own escape hatch for this
+         (it updates the uniform when onRender supplies them), so reading the
+         live buffer keeps the two locked together through every resize and
+         breakpoint without a remount. */
       onRender: function (state) {
         if (!reduce.matches) phi += 0.003;
         state.phi = phi;
+        state.width = canvas.width;
+        state.height = canvas.height;
+        return state;
       }
     });
   }

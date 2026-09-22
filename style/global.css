@@ -1072,8 +1072,14 @@ body:not(.page-v2) .nav.nav-dark .nav__item-desc { color: var(--ink-inv-3); }
 
 .footer {
   position: relative;
-  /* Padding, not margin: the footer's own tone starts at the joint above. */
-  padding-top: var(--section-pad);
+  /* Padding, not margin: the footer's own tone starts at the joint above.
+     DELIBERATELY off --section-pad (21 Sep, user: "too much extra space").
+     The link band is only 155px of content, and 80px here plus the grid's own
+     40px put the first column title 120px below the joint, so the band read as
+     floating in its own tone with the column rails drawing attention to the
+     gap. 40 here and 32 there puts it at 72. If the rhythm variable is ever
+     restored, the rail offsets below have to follow it back. */
+  padding-top: var(--sp-10);
   background: var(--slate-100);
 }
 .footer::before, .footer::after { top: 0; }
@@ -1082,7 +1088,7 @@ body:not(.page-v2) .nav.nav-dark .nav__item-desc { color: var(--ink-inv-3); }
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr);
   gap: var(--sp-10);
-  padding-block: var(--sp-10);
+  padding-block: var(--sp-8);
 }
 
 /* Brand block: logo, the positioning line, then the social row, stacked and
@@ -1142,8 +1148,12 @@ body:not(.page-v2) .nav.nav-dark .nav__item-desc { color: var(--ink-inv-3); }
   .footer__col + .footer__col::before {
     content: '';
     position: absolute;
-    top: calc(-1 * (var(--sp-10) + var(--section-pad)));
-    bottom: calc(-1 * var(--sp-10));
+    /* Reaches the joint above and the legal rule below, so the offsets are
+       the grid's own padding plus the footer's. They must move whenever
+       either does, or the rails stop meeting a horizontal line at their ends
+       and read as floating sticks. */
+    top: calc(-1 * (var(--sp-8) + var(--sp-10)));
+    bottom: calc(-1 * var(--sp-8));
     width: 1px;
     background: var(--frame-line);
   }
