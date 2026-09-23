@@ -582,9 +582,9 @@
 
 /* ---- The figure slot -----------------------------------------------------
    Where the illustration goes, drawn as LINES ONLY (user, 23 Sep, with a
-   crop of the reference): a rule off the copy, then one line inset from each
-   of the well's four edges, each running the full width or height of the
-   well so they cross at the corners and carry on to meet the cell. That is
+   crop of the reference): one line inset from each of the well's four edges,
+   each running the full width or height of the well so they cross at the
+   corners and carry on to meet the cell. That is
    the "double lines top bottom and left right" the reference shows, and it
    is the page frame's own grammar rather than a box drawn inside a box.
 
@@ -594,8 +594,13 @@
    not --frame-line: the cell's own borders are structure and these are
    texture, and at the same weight the well reads as four nested boxes.
 
-   It bleeds out of the cell's 48px padding on three sides, so its rule and
-   its own edges meet the cell's borders.
+   It bleeds out of the cell's padding on three sides, so its own edges meet
+   the cell's borders. It carries NO RULE along its top (user, 23 Sep:
+   "remove the separator line between text and image and also reduce that
+   gap"): the copy and the well are one cell, and a hairline between them
+   split it into two stacked blocks inside a grid already drawn in hairlines.
+   With the line gone the gap is the only separation left, so it dropped from
+   40 to 24, under the cell's own 32px inset.
 
    IT IS A RESERVED SLOT, not a decoration: it carries the site's own
    placeholder glyph (the Phosphor duotone Image at --ink-faint, the same one
@@ -626,8 +631,7 @@
   width: calc(100% + 2 * var(--fig-bleed));
   aspect-ratio: 3 / 2;
   max-height: 420px;
-  margin: var(--sp-10) calc(-1 * var(--fig-bleed)) 0;
-  border-top: 1px solid var(--frame-line);
+  margin: var(--sp-6) calc(-1 * var(--fig-bleed)) 0;
   background-image:
     linear-gradient(var(--frame-grid) 0 0),
     linear-gradient(var(--frame-grid) 0 0),
@@ -671,6 +675,9 @@
   background-image: none;
   container-type: size;
 }
+/* Drawings sit ABOVE the dot layer: it is absolutely placed, so it would
+   otherwise paint over any drawing that is not positioned itself. */
+.bento__fig--art > * { position: relative; }
 .bento__fig--art::before {
   content: '';
   position: absolute;
@@ -911,6 +918,293 @@
 }
 .odata__done > span:last-child { color: var(--ink); }
 
+/* ---- The move: the same three steps, two ways --------------------------
+   SIMPLIFIED on 23 Sep: a detailed pass (exported charts, filter chips,
+   faces, a mini flow, the full approval card) read as noise ("too crowdy to
+   even tell whats happening"). What survives is the comparison itself. Both
+   lanes run on ONE column template, label / step / join / step / join /
+   step / join / outcome, so every step sits directly over its twin and the
+   eye reads down, not along. Elsewhere: grey dashed cards, joins that cost
+   days, ending still in review. aiRA: white cards on one brand line, ending
+   held for approval. Below 720 of container width the lanes stand up side by
+   side and run downward. */
+.omove {
+  --omove-cols: 132px minmax(0, 1fr) 64px minmax(0, 1fr) 64px minmax(0, 1fr) 64px 168px;
+  display: grid;
+  gap: var(--sp-10);
+  width: min(1120px, 92%);
+  text-align: left;
+}
+.omove p { margin: 0; }
+.omove__lane {
+  display: grid;
+  grid-template-columns: var(--omove-cols);
+  align-items: center;
+}
+.omove__k { display: grid; gap: 4px; }
+.omove__k b {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.omove__k span { font-size: var(--t-caption); color: var(--ink-faint); }
+.omove__lane--aira .omove__k b { color: var(--brand-ink); }
+.omove__lane--aira .omove__k span { color: var(--ink-2); }
+
+.omove__card {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-width: 0;
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-md);
+}
+.omove__ic {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-sm);
+}
+.omove__ic svg { width: 20px; height: 20px; }
+.omove__tx { display: grid; gap: 2px; min-width: 0; }
+.omove__t { font-size: var(--t-body); font-weight: 600; }
+.omove__m { font-size: var(--t-caption); line-height: 1.4; }
+
+.omove__lane--else .omove__card {
+  border: 1px dashed var(--border-strong);
+  background: var(--bg);
+}
+.omove__lane--else .omove__ic { color: var(--ink-faint); background: var(--bg-subtle); }
+.omove__lane--else .omove__t { color: var(--ink-3); }
+.omove__lane--else .omove__m { color: var(--ink-faint); }
+
+.omove__lane--aira .omove__card {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+.omove__lane--aira .omove__ic { color: var(--brand); background: var(--brand-subtle); }
+.omove__lane--aira .omove__t { color: var(--ink); }
+.omove__lane--aira .omove__m { color: var(--ink-3); }
+
+/* The joins. Elsewhere, a dashed hand-off with what it cost; in aiRA, one
+   solid line with the frame's crossing square. */
+.omove__j {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 24px;
+}
+.omove__j::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+}
+.omove__lane--else .omove__j::before { border-top: 1px dashed var(--border-strong); }
+.omove__j i {
+  position: relative;
+  padding: 0 6px;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-style: normal;
+  white-space: nowrap;
+  color: var(--hold);
+  background: var(--bg);
+}
+.omove__lane--aira .omove__j::before { height: 2px; margin-top: -1px; background: var(--brand); }
+.omove__lane--aira .omove__j::after {
+  content: '';
+  position: relative;
+  width: 6px;
+  height: 6px;
+  background: var(--brand);
+}
+
+.omove__end { padding-left: var(--sp-3); }
+.omove__end--else {
+  justify-self: start;
+  margin-left: var(--sp-3) !important;
+  padding: 4px 10px;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--r-pill);
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+}
+
+@container (max-width: 1000px) {
+  .omove { --omove-cols: 96px minmax(0, 1fr) 60px minmax(0, 1fr) 60px minmax(0, 1fr) 48px 176px; width: 96%; }
+  .omove__ic { display: none; }
+}
+@container (max-width: 720px) {
+  .omove { grid-template-columns: 1fr 1fr; gap: var(--sp-4); width: 94%; align-items: start; }
+  .omove__lane { grid-template-columns: minmax(0, 1fr); align-items: stretch; }
+  .omove__k { margin-bottom: var(--sp-3) !important; }
+  .omove__j { height: 28px; }
+  .omove__j::before { top: 0; bottom: 0; left: 50%; right: auto; }
+  .omove__lane--else .omove__j::before { border-top: 0; border-left: 1px dashed var(--border-strong); }
+  .omove__lane--aira .omove__j::before { width: 2px; height: auto; margin: 0 0 0 -1px; }
+  .omove__end, .omove__end--else { justify-self: center; margin: 0 !important; padding-left: 0; }
+  .omove__end--else { padding: 4px 10px; }
+  .omove__card { padding: var(--sp-2) var(--sp-3); }
+}
+@container (max-width: 440px) {
+  .omove__m { display: none; }
+  .omove__k span { display: none; }
+}
+
+/* ---- The method: a dark query with its two assumptions pinned ----------
+   The one dark surface in the block. Two lines are marked and numbered, and
+   the notes that answer them float off the panel's corner, after the
+   references' alert card over a form. */
+.ometh {
+  position: relative;
+  width: 360px;
+  margin: 0 184px 48px 0;     /* room for the notes hanging off the corner */
+  text-align: left;
+}
+.ometh p, .ometh ol { margin: 0; }
+.ometh__code {
+  border-radius: var(--r-md);
+  background: var(--surface-inv);
+  box-shadow: var(--shadow-lg);
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  overflow: hidden;
+}
+.ometh__tabs {
+  display: flex;
+  gap: var(--sp-5);
+  padding: var(--sp-3) var(--sp-4) 0;
+  border-bottom: 1px solid var(--ink-inv-3);
+  color: var(--ink-inv-3);
+}
+.ometh__tabs span { padding-bottom: var(--sp-3); }
+.ometh__tabs .is-on {
+  color: var(--accent-on-dark);
+  box-shadow: inset 0 -1px 0 var(--accent-on-dark);
+}
+.ometh__lines {
+  display: grid;
+  gap: 6px;
+  padding: var(--sp-4);
+  list-style: none;
+  counter-reset: ln;
+  color: var(--ink-inv-2);
+  white-space: pre;
+}
+.ometh__lines li {
+  position: relative;
+  counter-increment: ln;
+  padding-left: 28px;
+}
+.ometh__lines li::before {
+  content: counter(ln);
+  position: absolute;
+  left: 0;
+  color: var(--ink-inv-3);
+}
+.ometh__lines b { font-weight: 500; color: var(--primary-200); }
+.ometh__lines i { font-style: normal; color: var(--accent-on-dark); }
+.ometh__lines .is-mark { color: var(--ink-inv); }
+.ometh__lines .is-mark::after,
+.ometh__notes li::before {
+  content: attr(data-n);
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: var(--r-pill);
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 600;
+  color: var(--surface-inv);
+  background: var(--accent-on-dark);
+}
+.ometh__lines .is-mark::after { margin-left: var(--sp-2); vertical-align: middle; }
+.ometh__notes {
+  position: absolute;
+  right: -208px;
+  bottom: -48px;
+  display: grid;
+  gap: var(--sp-2);
+  width: 232px;
+  padding: 0;
+  list-style: none;
+}
+.ometh__notes li {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  column-gap: var(--sp-3);
+  padding: var(--sp-3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-float);
+  font-size: var(--t-caption);
+  line-height: 1.45;
+  color: var(--ink);
+}
+.ometh__notes li::before {
+  grid-row: span 2;
+  color: var(--on-brand);
+  background: var(--brand);
+}
+.ometh__nk {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* ---- Points programme: one balance, in the programme's own words ------ */
+.opts {
+  width: min(520px, 86%);
+  height: auto;
+  overflow: visible;
+}
+.opts text {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  fill: var(--ink-2);
+}
+.opts .opts__cap,
+.opts .opts__band,
+.opts .opts__x {
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.opts .opts__cap { fill: var(--ink-3); }
+.opts .opts__x { fill: var(--ink-faint); }
+.opts .opts__band { fill: var(--brand-ink); }
+.opts__base { stroke: var(--border-strong); }
+.opts__lapse { fill: var(--wash-primary); }
+.opts__lapse-e { stroke: var(--brand-line); stroke-dasharray: 3 4; }
+.opts__area { fill: var(--brand); fill-opacity: 0.08; }
+.opts__line {
+  fill: none;
+  stroke: var(--brand);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.opts__pt { fill: var(--surface); stroke: var(--brand); stroke-width: 2; }
+.opts .opts__lab { font-weight: 550; fill: var(--ink); }
+.opts__offer { fill: var(--brand); stroke: var(--surface); stroke-width: 3; }
+.opts__offer-l { stroke: var(--brand); stroke-dasharray: 2 3; }
+.opts__tag { fill: var(--surface); stroke: var(--brand-line); }
+.opts .opts__tag-t { font-weight: 600; fill: var(--brand-ink); }
+.opts__exp { fill: var(--hold); }
+.opts .opts__exp-t { fill: var(--hold); font-weight: 600; }
+.opts .opts__exp-n { font-weight: 450; }
+
 /* The drawing is laid out at one size and scaled to its well, so the card's
    proportions and its 12px type survive together; laid out fluidly it would
    rewrap into a different picture at every width.
@@ -918,11 +1212,11 @@
    box it occupies, so the centred card kept its full height and the well
    clipped its footer, which is the one row carrying the claim. Keyed to the
    well's HEIGHT, since that is the tight axis at 3/2. */
-@container (max-height: 410px) { .oth, .odata { zoom: 0.92; } }
-@container (max-height: 370px) { .oth, .odata { zoom: 0.84; } }
-@container (max-height: 330px) { .oth, .odata { zoom: 0.76; } }
-@container (max-height: 290px) { .oth, .odata { zoom: 0.66; } }
-@container (max-height: 250px) { .oth, .odata { zoom: 0.58; } }
+@container (max-height: 410px) { .oth, .odata, .ometh { zoom: 0.92; } }
+@container (max-height: 370px) { .oth, .odata, .ometh { zoom: 0.84; } }
+@container (max-height: 330px) { .oth, .odata, .ometh { zoom: 0.76; } }
+@container (max-height: 290px) { .oth, .odata, .ometh { zoom: 0.66; } }
+@container (max-height: 250px) { .oth, .odata, .ometh { zoom: 0.58; } }
 
 /* ---- The wide cell -------------------------------------------------------
    CENTRED, which is what the reference does with its own full-width cell and
@@ -1769,6 +2063,8 @@
   .bento__cell--wide .bento__p { margin-inline: 0; max-width: 48ch; }
   /* One column, so it is no wider than the rest and takes their ratio back. */
   .bento__cell--wide .bento__fig { aspect-ratio: 3 / 2; }
+  /* The move's 2x2 wants more height than 3/2 gives a phone. */
+  .bento__cell--wide .bento__fig--diagram { aspect-ratio: 1 / 1; }
   .bento__head { margin-bottom: var(--sp-10); }
 }
 @media (max-width: 991px) {

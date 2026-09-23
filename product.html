@@ -289,8 +289,37 @@
                    on to meet the cell. The glyph is the site's reserved-media
                    placeholder, the same one /solutions' seat shots use: drop an
                    <img> in beside it and the CSS steps it aside. -->
-              <div class="bento__fig" aria-hidden="true">
-                <svg class="bento__ph" viewBox="0 0 256 256" fill="currentColor"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+              <div class="bento__fig bento__fig--art bento__fig--diagram" aria-hidden="true">
+                <!-- The move, SIMPLIFIED on 23 Sep after a detailed pass read as
+                     too crowded (user: "looks too crowdy to even tell whats
+                     happening"). One comparison, read straight down: both lanes
+                     share the same columns, answer, segment, journey, outcome,
+                     so each step sits over its twin. Each card carries one icon,
+                     one title and one line, and nothing else. Elsewhere the
+                     joins are hand-offs that cost days; in aiRA they are one
+                     line, and the outcome is held for approval. -->
+                <div class="omove">
+                  <div class="omove__lane omove__lane--else">
+                    <p class="omove__k"><b>Elsewhere</b><span>3 teams, 9 days</span></p>
+                    <div class="omove__card"><span class="omove__ic"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg></span><span class="omove__tx"><span class="omove__t">Answer</span><span class="omove__m">Analytics exports a deck</span></span></div>
+                    <span class="omove__j"><i>+3 days</i></span>
+                    <div class="omove__card"><span class="omove__ic"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"/></svg></span><span class="omove__tx"><span class="omove__t">Segment</span><span class="omove__m">CRM rebuilds it by hand</span></span></div>
+                    <span class="omove__j"><i>+4 days</i></span>
+                    <div class="omove__card"><span class="omove__ic"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg></span><span class="omove__tx"><span class="omove__t">Journey</span><span class="omove__m">Campaigns get a brief</span></span></div>
+                    <span class="omove__j"><i>+2 days</i></span>
+                    <p class="omove__end omove__end--else">Still in review</p>
+                  </div>
+                  <div class="omove__lane omove__lane--aira">
+                    <p class="omove__k"><b>aiRA</b><span>One thread, 2 minutes</span></p>
+                    <div class="omove__card"><span class="omove__ic"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg></span><span class="omove__tx"><span class="omove__t">Answer</span><span class="omove__m">With its reasoning</span></span></div>
+                    <span class="omove__j"></span>
+                    <div class="omove__card"><span class="omove__ic"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"/></svg></span><span class="omove__tx"><span class="omove__t">Segment</span><span class="omove__m">3,126 members</span></span></div>
+                    <span class="omove__j"></span>
+                    <div class="omove__card"><span class="omove__ic"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg></span><span class="omove__tx"><span class="omove__t">Journey</span><span class="omove__m">Drafted, 3 steps</span></span></div>
+                    <span class="omove__j"></span>
+                    <p class="omove__end"><span class="state state--pending">Awaiting approval</span></p>
+                  </div>
+                </div>
               </div>
             </article>
 
@@ -311,8 +340,29 @@
                    on to meet the cell. The glyph is the site's reserved-media
                    placeholder, the same one /solutions' seat shots use: drop an
                    <img> in beside it and the CSS steps it aside. -->
-              <div class="bento__fig" aria-hidden="true">
-                <svg class="bento__ph" viewBox="0 0 256 256" fill="currentColor"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+              <div class="bento__fig bento__fig--art" aria-hidden="true">
+                <!-- DARK, and code: the one well in the block that is neither a
+                     light card nor a diagram. The query aiRA ran, with two lines
+                     marked and a note for each, which is the claim made literal:
+                     the source it read and the assumption it made come back
+                     with the number. Drawn illustration, so Geist Mono. -->
+                <div class="ometh">
+                  <div class="ometh__code">
+                    <p class="ometh__tabs"><span class="is-on">Query</span><span>Assumptions</span><span>Sources</span></p>
+                    <ol class="ometh__lines">
+                      <li><b>SELECT</b> m.member_id, m.tier,</li>
+                      <li>       <b>SUM</b>(t.points) <b>AS</b> earned</li>
+                      <li class="is-mark" data-n="1"><b>FROM</b> loyalty.members m</li>
+                      <li><b>JOIN</b> loyalty.txns t <b>USING</b> (member_id)</li>
+                      <li class="is-mark" data-n="2"><b>WHERE</b> t.last_txn &lt; now() - <i>90</i></li>
+                      <li><b>GROUP BY</b> <i>1</i>, <i>2</i></li>
+                    </ol>
+                  </div>
+                  <ol class="ometh__notes">
+                    <li data-n="1"><span class="ometh__nk">Source</span><span>Members table, loyalty schema</span></li>
+                    <li data-n="2"><span class="ometh__nk">Assumption</span><span>Lapsed means 90 days with no purchase</span></li>
+                  </ol>
+                </div>
               </div>
             </article>
 
@@ -333,8 +383,38 @@
                    on to meet the cell. The glyph is the site's reserved-media
                    placeholder, the same one /solutions' seat shots use: drop an
                    <img> in beside it and the CSS steps it aside. -->
-              <div class="bento__fig" aria-hidden="true">
-                <svg class="bento__ph" viewBox="0 0 256 256" fill="currentColor"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+              <div class="bento__fig bento__fig--art" aria-hidden="true">
+                <!-- A CHART, the fifth kind of figure in the block. One member's
+                     points balance over time, labelled in the programme's own
+                     vocabulary rather than a database's: allocation,
+                     redemption, the lapse window, an offer timed inside it, and
+                     the expiry it is racing. No scale on either axis; it is a
+                     shape carrying words, not a dataset. Inline SVG with a
+                     fixed viewBox, so it scales as one picture. -->
+                <svg class="opts" viewBox="0 0 520 320" role="presentation" focusable="false">
+                  <text class="opts__cap" x="0" y="14">One member &middot; points balance</text>
+                  <line class="opts__base" x1="0" y1="262" x2="520" y2="262"/>
+                  <rect class="opts__lapse" x="240" y="40" width="210" height="222"/>
+                  <line class="opts__lapse-e" x1="240" y1="40" x2="240" y2="262"/>
+                  <line class="opts__lapse-e" x1="450" y1="40" x2="450" y2="262"/>
+                  <text class="opts__band" x="345" y="58" text-anchor="middle">Lapse window &middot; 90 days</text>
+                  <path class="opts__area" d="M0 262 H40 V190 H110 V168 H170 V120 H230 V176 H470 V262 Z"/>
+                  <path class="opts__line" d="M0 262 H40 V190 H110 V168 H170 V120 H230 V176 H450 H470 V262"/>
+                  <circle class="opts__pt" cx="40" cy="190" r="4"/>
+                  <text class="opts__lab" x="50" y="212">Allocation +500</text>
+                  <circle class="opts__pt" cx="230" cy="176" r="4"/>
+                  <text class="opts__lab" x="226" y="200" text-anchor="end">Redemption</text>
+                  <line class="opts__offer-l" x1="390" y1="176" x2="390" y2="104"/>
+                  <circle class="opts__offer" cx="390" cy="176" r="6"/>
+                  <rect class="opts__tag" x="330" y="80" width="120" height="26" rx="6"/>
+                  <text class="opts__tag-t" x="390" y="97" text-anchor="middle">Offer &middot; double points</text>
+                  <circle class="opts__exp" cx="470" cy="176" r="4"/>
+                  <text class="opts__exp-t" x="462" y="200" text-anchor="end">Expiry</text>
+                  <text class="opts__exp-t opts__exp-n" x="462" y="216" text-anchor="end">1,200 pts</text>
+                  <text class="opts__x" x="0" y="286">Earn</text>
+                  <text class="opts__x" x="240" y="286">Last activity</text>
+                  <text class="opts__x" x="520" y="286" text-anchor="end">Points expire</text>
+                </svg>
               </div>
             </article>
 
