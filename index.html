@@ -82,11 +82,16 @@
               Introducing aiRA by Capillary
             </span>
             <span class="hero__announce-sep"></span>
+            <!-- One glyph, two paths: the head is always drawn and the shaft
+                 is not, so at rest this is a caret and on hover it grows a
+                 tail and becomes an arrow (user, 22 Sep). It replaced two
+                 identical arrows conveyed through a 24px window, which read
+                 as the same arrow sliding sideways. -->
             <span class="hero__announce-go">
-              <span class="hero__announce-arrows">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </span>
+              <svg class="hero__announce-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path class="hero__announce-shaft" d="M5 12h14"/>
+                <path d="M13 6l6 6-6 6"/>
+              </svg>
             </span>
           </a>
 

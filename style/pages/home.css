@@ -261,34 +261,65 @@
   background: var(--border-strong);
 }
 
+/* The go button is FILLED at rest, black with a white glyph (user, 23 Sep,
+   with a reference image), and on hover it takes the brand and STRETCHES: the
+   circle opens into a stadium as the caret inside it grows its tail. Two
+   readings of the same gesture, so the shape and the glyph move together
+   rather than the glyph moving inside a fixed circle.
+
+   It was a --surface-2 circle with a grey glyph going to --primary-50 with
+   brand ink. That was too quiet to read as the pill's action at all. */
 .hero__announce-go {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
   width: 24px;
   height: 24px;
-  border-radius: 50%;
-  overflow: hidden;
-  background: var(--surface-2);
-  transition: background var(--dur) var(--ease);
+  /* --r-pill, not 50%: a percentage radius re-resolves against the box as it
+     widens, so the ends would go elliptical mid-stretch instead of staying
+     the same half-circle the rest state draws. */
+  border-radius: var(--r-pill);
+  background: var(--black);
+  color: var(--ink-inv);
+  transition: background var(--dur) var(--ease),
+              width var(--dur-slow) var(--ease);
 }
-.hero__announce:hover .hero__announce-go { background: var(--slate-200); }
+.hero__announce:hover .hero__announce-go {
+  width: 38px;
+  background: var(--brand);
+}
 
-.hero__announce-arrows {
-  display: flex;
-  width: 48px;
-  transform: translateX(-50%);
-  transition: transform var(--dur-slow) var(--ease);
-}
-.hero__announce:hover .hero__announce-arrows { transform: translateX(0); }
-.hero__announce-arrows svg {
+/* The caret that becomes an arrow (22 Sep). The glyph carries both paths;
+   only the head is drawn at rest, because the shaft is dashed out by exactly
+   its own length. Hover pulls the dash offset to zero and the tail draws in
+   from the left. */
+.hero__announce-icon {
   width: 12px;
   height: 12px;
-  margin: 6px;
   flex: none;
+  /* The head alone spans 13 to 19 of a 24 viewBox, so its centre sits 4 units
+     right of the glyph's. That is 2px at this size, and without the nudge the
+     resting caret reads as badly centred in its circle. It returns to 0 on
+     hover, where the whole arrow IS centred, so the caret drifts left as the
+     tail grows rather than the arrow appearing to stretch off to one side. */
+  transform: translateX(-2px);
+  transition: transform var(--dur-slow) var(--ease);
 }
+.hero__announce:hover .hero__announce-icon { transform: translateX(0); }
+
+.hero__announce-shaft {
+  stroke-dasharray: 14;
+  stroke-dashoffset: 14;
+  transition: stroke-dashoffset var(--dur-slow) var(--ease);
+}
+.hero__announce:hover .hero__announce-shaft { stroke-dashoffset: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   .hero__announce,
   .hero__announce-go,
-  .hero__announce-arrows { transition: none; }
+  .hero__announce-icon,
+  .hero__announce-shaft { transition: none; }
 }
 
 .hero__inner {

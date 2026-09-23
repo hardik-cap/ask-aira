@@ -20,6 +20,7 @@
   <script src="/js/components.js" defer></script>
   <script src="/js/reveal.js" defer></script>
   <script src="/js/diagram.js" defer></script>
+  <script src="/js/glyph-matrix.js" defer></script>
 </head>
 <body class="page-product">
 
@@ -40,14 +41,28 @@
         <div class="container">
 
           <div class="phero__copy reveal is-in">
+            <!-- The hero ground: a canvas field of small mono glyphs that
+                 shift a few at a time, injected by js/glyph-matrix.js. It is
+                 a child of the COPY, not the section, so its box ends exactly
+                 where the capture's top margin begins; see product.css. The
+                 glyph set is half middots on purpose, so the field reads as
+                 texture at a glance and as marks only up close. -->
+            <div class="phero__matrix" data-glyph-matrix="················+*/&lt;&gt;=?"
+                 data-glyph-cell="16" data-glyph-rate="0.03"
+                 data-glyph-interval="150" aria-hidden="true"></div>
             <p class="eyebrow">Product</p>
             <!-- Solution-first: the H1 names the wait the reader is living
-                 with, not aiRA's process. It was "From question to approved
-                 move", which described the mechanism and drew the same
-                 feedback /book's H1 did on 20 Sep. The second clause is what
-                 separates aiRA from the category: everyone else stops at the
-                 answer. -->
-            <h1 class="phero__t">The answer your team is waiting on, and
+                 with, not aiRA's process. The second clause is what separates
+                 aiRA from the category: everyone else stops at the answer. -->
+            <!-- "still" is doing typographic work as well as saying
+                 something: without it the balancer breaks this into
+                 554 / 427 / 478, so the middle line is the shortest and the
+                 centred block pinches in the middle (user, 23 Sep: "goes out
+                 and in"). With it the same three lines run 554 / 517 / 478, a
+                 clean taper, and the <em> phrase still lands whole on the
+                 last line where its dashed underline can do its job. It is
+                 also the word /book's H1 already uses for this idea. -->
+            <h1 class="phero__t">The answer your team is still waiting on, and
               <em>the move it implies</em>.</h1>
             <p class="phero__sub">
               Marketing, CRM, eCommerce, BI and growth ask in plain language.
@@ -56,141 +71,221 @@
               answer calls for. Nothing reaches a customer until a person
               approves it.
             </p>
-
-            <a class="qbar__box phero__ask" href="/book"
-               aria-label="Which members are most likely to churn in the next 60 days? Bring a question like this to a working session">
-              <span class="qbar__plus" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></span>
-              <p class="qbar__text" aria-hidden="true">Which members are most likely to churn in the next 60 days?</p>
-              <span class="qbar__mic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M128,176a48.05,48.05,0,0,0,48-48V64a48,48,0,0,0-96,0v64A48.05,48.05,0,0,0,128,176ZM96,64a32,32,0,0,1,64,0v64a32,32,0,0,1-64,0Zm40,143.6V240a8,8,0,0,1-16,0V207.6A80.11,80.11,0,0,1,48,128a8,8,0,0,1,16,0,64,64,0,0,0,128,0,8,8,0,0,1,16,0A80.11,80.11,0,0,1,136,207.6Z"/></svg></span>
-              <span class="qbar__send" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M205.66,117.66a8,8,0,0,1-11.32,0L136,59.31V216a8,8,0,0,1-16,0V59.31L61.66,117.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,117.66Z"/></svg></span>
-            </a>
-
-            <!-- The seat axis, above the fold: chips under the bar, the
-                 Claygent placement. Deep links the finder already reads
-                 (?role=), so the page hands off rather than rebuilding the
-                 five-seat layout that /solutions owns. -->
-            <ul class="phero__seat-list" aria-label="Open it in your seat">
-              <li><a href="/solutions?role=marketing">Marketing</a></li>
-              <li><a href="/solutions?role=crm">CRM</a></li>
-              <li><a href="/solutions?role=ecommerce">eCommerce</a></li>
-              <li><a href="/solutions?role=bi">Business Intelligence</a></li>
-              <li><a href="/solutions?role=growth">Growth</a></li>
-            </ul>
-          </div>
-
-          <!-- The illustration, Claygent's way (21 Sep, user): not a
-               screenshot but the loop DRAWN, five product cards wired left
-               to right on the coloured ground. Ask, read, answer, build,
-               approve: the same question the hero bar carries, followed
-               through. Drawn product surface, so Roboto and regular-weight
-               icons throughout. -->
-          <div class="phero__fig reveal is-in">
-            <div class="phero__art">
-              <div class="phero__flow">
-                <div class="phero__card">
-                  <p class="phero__q">Which members are most likely to churn in the next 60 days?</p>
-                </div>
-                <span class="phero__wire" aria-hidden="true"></span>
-                <div class="phero__card">
-                  <div class="phero__tool"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"/></svg><span>Discovering documents &middot; loyalty_schema</span></div>
-                  <div class="phero__tool"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg><span>Running SparkSQL &middot; churn cohorts</span></div>
-                </div>
-                <span class="phero__wire" aria-hidden="true"></span>
-                <div class="phero__card">
-                  <p class="phero__ans">3,412 members are likely to lapse in the next 60 days, concentrated in two cohorts.</p>
-                </div>
-                <span class="phero__wire" aria-hidden="true"></span>
-                <div class="phero__card">
-                  <div class="phero__tool"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg><span>Segment saved &middot; At-risk, next 60 days</span></div>
-                  <div class="phero__tool"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg><span>Win-back journey drafted</span></div>
-                </div>
-                <span class="phero__wire" aria-hidden="true"></span>
-                <div class="phero__card phero__card--ok">
-                  <p class="phero__ok-t">Submit &ldquo;60-day win-back&rdquo; for approval</p>
-                  <div class="phero__ok-f">
-                    <span class="chat__draft"><span class="chat__draft-dot" aria-hidden="true"></span>Draft</span>
-                    <div class="chat__act" aria-hidden="true"><span class="chat__act-h">Save draft</span><span class="chat__act-a">Submit for approval</span></div>
-                  </div>
-                </div>
-              </div>
+            <div class="btn-row phero__cta">
+              <a class="btn btn--primary btn--lg" href="/book">Book a working session</a>
             </div>
           </div>
 
-        </div>
-      </div>
-    </section>
+          <!-- The capture is PART OF THE HERO now (user, 22 Sep, after
+               sendr.ai/platform/sequencer): centred copy with the product
+               directly under it, wide, running past the fold so the app reads
+               as already open rather than pictured. It had its own section
+               (#demo) for a few hours; that section is gone and this is where
+               the Guideflow walkthrough now goes.
 
+               SWAPPING IN THE EMBED IS ONE ELEMENT: replace the <img> with the
+               Guideflow <iframe> and drop data-guideflow. The aspect-ratio
+               lives on .phero__fig, not the image, so an iframe (which has no
+               intrinsic size) does not collapse the hero.
+
+               It keeps a hairline and a radius, unlike the capture this
+               replaced: product-hero.png arrived already sitting on its own
+               rounded card, so a frame there was a frame around a frame. This
+               one is a raw app capture and needs an edge of its own. -->
+          <div class="phero__fig reveal is-in" data-guideflow>
+            <img class="phero__shot" src="/assets/product/workspace.png"
+                 alt="The aiRA workspace: a thread on the left showing the question &ldquo;Show me customer insights for April 2026&rdquo;, the schema discovery and SparkSQL it ran, and a versioned headline-KPI artifact; on the right, the Customer Insights dashboard it produced, with a spend chart and a cohort table carrying a suggested action per cohort."
+                 width="2560" height="1600" decoding="async">
+          </div>
+
+    </section>
     <div class="joint" aria-hidden="true"></div>
 
-    <!-- ================= THE COST TODAY ================= -->
-    <!-- Deliberately NOT the homepage's #difference, which argues that the
-         answer arrives with its reasoning and its move. This one is the
-         reader's own week, priced: the handoffs and the elapsed days between
-         asking and acting. Figures are the deck's hero scenario, which
-         context.md earmarks for site use (Act IV); the case-study percentages
-         beneath are from the six anonymised studies, cleared as written. -->
-    <section class="section cost" id="cost">
+
+    <!-- ================= ONE THREAD ================= -->
+    <!-- The alternating copy/figure blocks the user asked for on 22 Sep,
+         after tryplayground.com's "Make your billing make sense": eyebrow,
+         two-line claim, lede, then a checked list, with the figure on the
+         other side and the side swapping between blocks.
+
+         This first one is also where the hero's loop diagram went. It was
+         five wired cards running left to right under the hero until the real
+         capture took that spot; here it is the site's OWN .thread instead,
+         which is the motif built for exactly this (a vertical hairline with
+         sparkle nodes, "the reasoning trace made visual, for step
+         sequences") and which fits a half-width column where five horizontal
+         cards never could. Four steps, not the old five, because .thread
+         stages its reveal for four.
+
+         NOT a repeat of #how. That section is the plumbing, warehouse to
+         intelligence layer to channels. This is the conversation. -->
+    <!-- ================= WHAT IT DOES =================
+         ONE section, five cells in a 2 / 1 / 2 bento (user, 23 Sep, with the
+         firecrawl.dev/search reference). It is #ask and the old #features
+         clubbed together.
+
+         THE COPY WAS REWRITTEN ON 23 SEP and the reason is worth keeping. It
+         read "The answer opens beside the conversation", "Four kinds of
+         artifact, every one versioned", "Its sources and its code are both
+         readable", and the user stopped it: "we are just telling features as
+         observed in the app, like left side text, right side artifact, tf is
+         this. aira is more than that." They were right, and the cause was
+         structural. The section had been written deliberately FROM THE PRODUCT
+         RECORDINGS in contexts/, so that every claim would be something
+         observed rather than promised. But a screen recording only contains an
+         interface, so grounding the copy in footage guaranteed interface copy.
+
+         These five come from docs/context.md instead: who buys it and who is
+         cut out of the loop (§2), reading the warehouse in place against a two
+         to four month semantic-layer build (§2 comparison), the category
+         difference that everyone else ends at a chart and an export, the
+         reasoning trace, and the loyalty vocabulary that separates aiRA from a
+         text-to-SQL layer. The footage is now what CHECKS a claim, not what
+         supplies it.
+
+         The UI facts are not wasted, they move to the FIGURES: the two-pane
+         layout, the version chip, the Assumptions & Notes block and the eye /
+         code toggle are evidence for these claims rather than claims of their
+         own. The copy says "you can check the method"; the picture shows the
+         query. See the figure slot note in product.css.
+
+         The wide middle cell is the load-bearing one and carries the category
+         claim, with the two above it on getting an answer at all and the two
+         below on trusting it. PLAYBOOKS came out in the same pass (user: "is
+         playbook the thing we should talk about, is it really a feature?"). It
+         is not: it is inventory, not something aiRA does. It is in git. -->
+    <section class="section bento" id="workspace">
       <div class="padding-global">
         <div class="container">
 
-          <div class="section-head reveal">
-            <p class="eyebrow">The cost today</p>
-            <h2 class="section-heading">A question takes five teams and <em>three calendars</em>.</h2>
-            <p class="section-sub">
-              Not because anyone is slow. Because the question has to become a
-              ticket, the ticket has to become a chart, and the chart has to
-              become a brief before anything reaches a customer.
+          <div class="bento__head reveal">
+            <p class="eyebrow">What it does</p>
+            <h2 class="section-heading">aiRA does not reply. It <em>builds you something</em>.</h2>
+            <p class="section-sub bento__sub">
+              Not a report, and not a chat. The answer arrives with the reasoning
+              that produced it and the move it implies, built against your own
+              data and held for a decision.
             </p>
           </div>
 
-          <div class="cost__rail reveal">
-            <ol class="cost__chain" aria-label="The path a question takes without aiRA">
-              <li class="cost__link">
-                <span class="cost__who">Marketing</span>
-                <span class="cost__what">Frames the question, raises the ticket</span>
-              </li>
-              <li class="cost__link">
-                <span class="cost__who">Data &amp; BI</span>
-                <span class="cost__what">Queues it, writes the query, returns a chart</span>
-              </li>
-              <li class="cost__link">
-                <span class="cost__who">CRM</span>
-                <span class="cost__what">Reads the chart, briefs the segment</span>
-              </li>
-              <li class="cost__link">
-                <span class="cost__who">Campaign ops</span>
-                <span class="cost__what">Builds the audience, stages the journey</span>
-              </li>
-              <li class="cost__link">
-                <span class="cost__who">Leadership</span>
-                <span class="cost__what">Approves it, a week after the question</span>
-              </li>
-            </ol>
-            <p class="cost__tally">
-              <span class="cost__fig">20 to 30 days</span>
-              <span class="cost__sep" aria-hidden="true">·</span>
-              <span class="cost__fig">8+ handoffs</span>
-              <span class="cost__sep" aria-hidden="true">·</span>
-              <span class="cost__fig">3+ calendars</span>
-            </p>
-          </div>
+          <div class="bento__grid reveal">
 
-          <div class="cost__after reveal">
-            <p class="cost__after-t">The same question on aiRA is one thread.</p>
-            <p class="cost__after-d">
-              Asked in plain language, answered with the reasoning shown, and
-              the move built and waiting on the one approval that always
-              mattered. Teams running it this way report campaign creation time
-              halved, promotion setup cut by half again, and configuration that
-              took ninety days landing in twenty-one.
-            </p>
-          </div>
+            <article class="bento__cell">
+              <div class="bento__copy">
+                <p class="bento__label"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128A96,96,0,0,1,79.93,211.11h0L42.54,223.58a8,8,0,0,1-10.12-10.12l12.47-37.39h0A96,96,0,1,1,224,128Z" opacity="0.2"/><path d="M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-4-1.08,7.85,7.85,0,0,0-2.53.42L40,216,52.47,178.6a8,8,0,0,0-.66-6.54A88,88,0,1,1,128,216Zm12-88a12,12,0,1,1-12-12A12,12,0,0,1,140,128Zm-44,0a12,12,0,1,1-12-12A12,12,0,0,1,96,128Zm88,0a12,12,0,1,1-12-12A12,12,0,0,1,184,128Z"/></svg>One thread</p>
+                <h3 class="bento__t">The person with the question is the one who gets the answer.</h3>
+                <p class="bento__p">
+                  No ticket, no queue, no analyst in between. Marketing, CRM,
+                  eCommerce, BI and growth ask in their own words and get the answer
+                  back in the same sitting, which is the difference between a
+                  question worth asking and one that waits for the next sprint.
+                </p>
+              </div>
+              <!-- The figure slot, drawn as lines only: a rule off the copy,
+                   then one line inset from each edge running the full width or
+                   height of the well, so the four cross at the corners and carry
+                   on to meet the cell. The glyph is the site's reserved-media
+                   placeholder, the same one /solutions' seat shots use: drop an
+                   <img> in beside it and the CSS steps it aside. -->
+              <div class="bento__fig" aria-hidden="true">
+                <svg class="bento__ph" viewBox="0 0 256 256" fill="currentColor"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+              </div>
+            </article>
 
+            <article class="bento__cell">
+              <div class="bento__copy">
+                <p class="bento__label"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,48H40a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H216a8,8,0,0,0,8-8V56A8,8,0,0,0,216,48Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V88H40V56Zm0,144H40V104h72v96Zm0,0H128V104h88v96Z"/></svg>Your data</p>
+                <h3 class="bento__t">No modelling project before the first answer.</h3>
+                <p class="bento__p">
+                  Industry playbooks ship pre-built and your own definitions layer
+                  on in days, against the two to four months of modelling a semantic
+                  layer needs before it can answer anything at all.
+                </p>
+              </div>
+              <!-- The figure slot, drawn as lines only: a rule off the copy,
+                   then one line inset from each edge running the full width or
+                   height of the well, so the four cross at the corners and carry
+                   on to meet the cell. The glyph is the site's reserved-media
+                   placeholder, the same one /solutions' seat shots use: drop an
+                   <img> in beside it and the CSS steps it aside. -->
+              <div class="bento__fig" aria-hidden="true">
+                <svg class="bento__ph" viewBox="0 0 256 256" fill="currentColor"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+              </div>
+            </article>
+
+            <article class="bento__cell bento__cell--wide">
+              <div class="bento__copy">
+                <p class="bento__label"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg>The move</p>
+                <h3 class="bento__t">Everywhere else, the answer is where it ends.</h3>
+                <p class="bento__p">
+                  A chart, a narrative and an export, and turning any of it into a
+                  campaign is a separate brief for a separate team. aiRA builds the
+                  segment and drafts the journey in the same thread that answered
+                  the question, and holds them there until a person approves.
+                </p>
+              </div>
+              <!-- The figure slot, drawn as lines only: a rule off the copy,
+                   then one line inset from each edge running the full width or
+                   height of the well, so the four cross at the corners and carry
+                   on to meet the cell. The glyph is the site's reserved-media
+                   placeholder, the same one /solutions' seat shots use: drop an
+                   <img> in beside it and the CSS steps it aside. -->
+              <div class="bento__fig" aria-hidden="true">
+                <svg class="bento__ph" viewBox="0 0 256 256" fill="currentColor"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+              </div>
+            </article>
+
+            <article class="bento__cell">
+              <div class="bento__copy">
+                <p class="bento__label"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,32H72A16,16,0,0,0,56,48V64H48A16,16,0,0,0,32,80V208a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16v-8h8a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Z" opacity="0.2"/><path d="M208,24H72A16,16,0,0,0,56,40V56H48A16,16,0,0,0,32,72V216a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V200h8a16,16,0,0,0,16-16V40A16,16,0,0,0,208,24ZM184,216H48V72H184V216Zm24-32h-8V72a16,16,0,0,0-16-16H72V40H208ZM152,112a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h56A8,8,0,0,1,152,112Zm0,32a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h56A8,8,0,0,1,152,144Z"/></svg>Its working</p>
+                <h3 class="bento__t">You can check the method, not just the picture.</h3>
+                <p class="bento__p">
+                  The query it ran, the assumptions it made and the documents it
+                  drew on all come back with the answer. An analyst can audit the
+                  reasoning, and the person who asked does not have to take the
+                  number on trust.
+                </p>
+              </div>
+              <!-- The figure slot, drawn as lines only: a rule off the copy,
+                   then one line inset from each edge running the full width or
+                   height of the well, so the four cross at the corners and carry
+                   on to meet the cell. The glyph is the site's reserved-media
+                   placeholder, the same one /solutions' seat shots use: drop an
+                   <img> in beside it and the CSS steps it aside. -->
+              <div class="bento__fig" aria-hidden="true">
+                <svg class="bento__ph" viewBox="0 0 256 256" fill="currentColor"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+              </div>
+            </article>
+
+            <article class="bento__cell">
+              <div class="bento__copy">
+                <p class="bento__label"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,128c0,24-40,80-104,80S24,152,24,128s40-80,104-80S232,104,232,128Z" opacity="0.2"/><path d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"/></svg>Your domain</p>
+                <h3 class="bento__t">It knows what a points programme is.</h3>
+                <p class="bento__p">
+                  Not a text-to-SQL layer waiting to be told what loyalty means.
+                  aiRA reasons in the vocabulary the business already uses: points
+                  programmes, allocation and expiry, cohorts, lapse windows and the
+                  offers that move them.
+                </p>
+              </div>
+              <!-- The figure slot, drawn as lines only: a rule off the copy,
+                   then one line inset from each edge running the full width or
+                   height of the well, so the four cross at the corners and carry
+                   on to meet the cell. The glyph is the site's reserved-media
+                   placeholder, the same one /solutions' seat shots use: drop an
+                   <img> in beside it and the CSS steps it aside. -->
+              <div class="bento__fig" aria-hidden="true">
+                <svg class="bento__ph" viewBox="0 0 256 256" fill="currentColor"><path d="M224,56V178.06l-39.72-39.72a8,8,0,0,0-11.31,0L147.31,164,97.66,114.34a8,8,0,0,0-11.32,0L32,168.69V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></svg>
+              </div>
+            </article>
+
+          </div>
         </div>
       </div>
     </section>
 
     <div class="joint" aria-hidden="true"></div>
+
 
 <section class="section section--inv mech section--band" id="how" data-nav-dark>
       <div class="mech__glow" aria-hidden="true"></div>
@@ -266,274 +361,121 @@
       </div>
     </section>
 
-    <div class="joint" aria-hidden="true"></div>
-
-    <!-- ================= CAPABILITIES ================= -->
-    <!-- The seven capability shapes from /lp, each carried by its real
-         question string (the questions are the product's surface), plus the
-         playbook registry as the capstone cell. The questions are verbatim
-         from the /lp page; the "comes back" line under each names the
-         artifact, not a promise. -->
-    <section class="section section--wash cap section--band" id="capabilities">
-      <div class="padding-global">
-        <div class="container">
-
-          <div class="section-head reveal">
-            <p class="eyebrow">Capabilities</p>
-            <h2 class="section-heading">Seven shapes of ask, <em>one thread</em>.</h2>
-            <p class="section-sub">
-              Every capability starts as a question someone actually typed.
-              These are the seven shapes an ask takes, and what each one
-              hands back.
-            </p>
-          </div>
-
-          <div class="cap__grid reveal reveal-stagger">
-            <div class="cap__cell">
-              <h3 class="cap__t"><span class="cap__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,40V208H152V40Z" opacity="0.2"/><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg></span>Ad hoc analytics</h3>
-              <p class="qstring qstring--muted">How many members with a negative points balance redeemed a certificate last quarter?</p>
-              <p class="cap__r">Comes back as the figure, with how it was computed shown.</p>
-            </div>
-            <div class="cap__cell">
-              <h3 class="cap__t"><span class="cap__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V200H224A8,8,0,0,1,232,208ZM132,160a12,12,0,1,0-12-12A12,12,0,0,0,132,160Zm-24-56A12,12,0,1,0,96,92,12,12,0,0,0,108,104ZM76,176a12,12,0,1,0-12-12A12,12,0,0,0,76,176Zm96-48a12,12,0,1,0-12-12A12,12,0,0,0,172,128Zm24-40a12,12,0,1,0-12-12A12,12,0,0,0,196,88Zm-20,76a12,12,0,1,0,12-12A12,12,0,0,0,176,164Z"/></svg></span>Advanced analytics</h3>
-              <p class="qstring qstring--muted">Run a market basket analysis for our decile-10 buyers this year.</p>
-              <p class="cap__r">Comes back as the analysis, with the method it used named.</p>
-            </div>
-            <div class="cap__cell">
-              <h3 class="cap__t"><span class="cap__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M104,180a28,28,0,1,1-28-28A28,28,0,0,1,104,180Zm76-28a28,28,0,1,0,28,28A28,28,0,0,0,180,152ZM166.11,51.29a8,8,0,0,0-12.7-.29L140.47,66a16,16,0,0,1-24.94,0L102.59,51a8,8,0,0,0-12.7.29L40,120H216Z" opacity="0.2"/><path d="M248,112H220.08l-47.5-65.41a16,16,0,0,0-25.31-.72l-12.85,14.9-.2.23a7.95,7.95,0,0,1-12.44,0l-.2-.23-12.85-14.9a16,16,0,0,0-25.31.72L35.92,112H8a8,8,0,0,0,0,16H248a8,8,0,0,0,0-16ZM96.34,56l.19.24,12.85,14.89a24,24,0,0,0,37.24,0l12.85-14.89c.06-.08.1-.16.17-.24l40.66,56H55.69ZM180,144a36,36,0,0,0-35.77,32H111.77a36,36,0,1,0-1.83,16h36.12A36,36,0,1,0,180,144ZM76,200a20,20,0,1,1,20-20A20,20,0,0,1,76,200Zm104,0a20,20,0,1,1,20-20A20,20,0,0,1,180,200Z"/></svg></span>Data quality &amp; fraud checks</h3>
-              <p class="qstring qstring--muted">Flag duplicate emails and unusual redemption spikes from the last 30 days.</p>
-              <p class="cap__r">Comes back as the flagged list, each row with the rule it tripped.</p>
-            </div>
-            <div class="cap__cell">
-              <h3 class="cap__t"><span class="cap__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,56v64L168,56Z" opacity="0.2"/><path d="M232,48H168a8,8,0,0,0-5.66,13.66L188.69,88,136,140.69l-34.34-34.35a8,8,0,0,0-11.32,0l-72,72a8,8,0,0,0,11.32,11.32L96,123.31l34.34,34.35a8,8,0,0,0,11.32,0L200,99.31l26.34,26.35A8,8,0,0,0,240,120V56A8,8,0,0,0,232,48Zm-8,52.69L187.31,64H224Z"/></svg></span>Predictive models</h3>
-              <p class="qstring qstring--muted">Which members are most likely to churn in the next 60 days?</p>
-              <p class="cap__r">Comes back as a scored cohort, ready to save as an audience.</p>
-            </div>
-            <div class="cap__cell">
-              <h3 class="cap__t"><span class="cap__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg></span>Audience builder</h3>
-              <p class="qstring qstring--muted">Build a segment of members who bought once and never came back.</p>
-              <p class="cap__r">Comes back as the segment, built and counted, waiting on approval.</p>
-            </div>
-            <div class="cap__cell">
-              <h3 class="cap__t"><span class="cap__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M80,176a32,32,0,1,1-32-32A32,32,0,0,1,80,176Z" opacity="0.2"/><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg></span>Journey orchestration</h3>
-              <p class="qstring qstring--muted">Create a win-back journey for the lapsed members in that segment.</p>
-              <p class="cap__r">Comes back as the journey, staged in your channels, held for approval.</p>
-            </div>
-            <div class="cap__cell">
-              <h3 class="cap__t"><span class="cap__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,56V200H160a32,32,0,0,0-32,32V88a32,32,0,0,1,32-32Z" opacity="0.2"/><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64ZM160,88h40a8,8,0,0,1,0,16H160a8,8,0,0,1,0-16Zm48,40a8,8,0,0,1-8,8H160a8,8,0,0,1,0-16h40A8,8,0,0,1,208,128Zm0,32a8,8,0,0,1-8,8H160a8,8,0,0,1,0-16h40A8,8,0,0,1,208,160Z"/></svg></span>Knowledge base Q&amp;A</h3>
-              <p class="qstring qstring--muted">What counts as an active member under our current program rules?</p>
-              <p class="cap__r">Comes back as the answer, cited to your own program rules.</p>
-            </div>
-            <div class="cap__cell">
-              <h3 class="cap__t"><span class="cap__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,80l-96,56L32,80l96-56Z" opacity="0.2"/><path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"/></svg></span>140+ playbooks</h3>
-              <p class="cap__r cap__r--solo">
-                Global, vertical and brand-specific use cases ship pre-built,
-                and your own definitions layer on in days. Every one of the
-                seven shapes above draws on them.
-              </p>
-            </div>
-          </div>
-
-          <p class="cap__note reveal">
-            The audience and the journey happen in the same conversation:
-            finding the cohort and building the play is one thread, not two
-            tools. That continuity is the product.
-          </p>
-
-        </div>
-      </div>
-    </section>
-
-    <div class="joint" aria-hidden="true"></div>
-
-    <!-- ================= PROOF ================= -->
-    <!-- The six anonymised case studies in context.md are marked "publishable
-         as written", so these are quoted at their own wording and kept
-         anonymous exactly as the source anonymises them. The KSA study leads
-         because it is the only one measured HEAD TO HEAD against a dedicated
-         analytics agency, which is the comparison an analytics page has to
-         survive. Nothing from the traction dashboard appears here: that is
-         internal. No logos either, until brand use is cleared. -->
-    <section class="section proof" id="proof">
-      <div class="padding-global">
-        <div class="container">
-
-          <div class="section-head reveal">
-            <p class="eyebrow">Proof</p>
-            <h2 class="section-heading">Measured against <em>a dedicated agency</em>, on the same season.</h2>
-            <p class="section-sub">
-              A value-fashion retailer in Saudi Arabia ran aiRA head to head
-              against the analytics agency it already employed, across Ramadan
-              2026, on a base of 14.7 million customers.
-            </p>
-          </div>
-
-          <div class="proof__lead reveal">
-            <p class="proof__claim">aiRA won on <strong>8 of 9 KPIs</strong>.</p>
-            <ul class="proof__kpis">
-              <li><span class="proof__n">SAR 233M</span><span class="proof__l">net sales, up 4% year on year</span></li>
-              <li><span class="proof__n">+29.4%</span><span class="proof__l">new customers</span></li>
-              <li><span class="proof__n">+11.6%</span><span class="proof__l">revenue per delivered contact</span></li>
-              <li><span class="proof__n">6.7&times;</span><span class="proof__l">less erosion in average transaction value</span></li>
-              <li><span class="proof__n">&minus;9.6 to &minus;2.2</span><span class="proof__l">regional growth gap, in percentage points</span></li>
-              <li><span class="proof__n">11.56%</span><span class="proof__l">hit rate, against the agency&rsquo;s 11.13%</span></li>
-            </ul>
-          </div>
-
-          <div class="proof__more reveal reveal-stagger">
-            <div class="proof__case">
-              <h3 class="proof__case-t">Electrical and consumer durables, India</h3>
-              <p class="proof__case-d">
-                A one-month push delivered <strong>&#8377;38 Cr against a &#8377;35 Cr target</strong>
-                that was already three times the previous year. Campaign
-                creation time halved, with zero configuration errors.
-              </p>
-            </div>
-            <div class="proof__case">
-              <h3 class="proof__case-t">Multi-category consumer superapp</h3>
-              <p class="proof__case-d">
-                20.6 million active customers across 500+ stores.
-                <strong>Promotion creation time cut by half</strong>, thirty minutes saved on
-                every migration to production, and 20+ monthly promo templates
-                built without engineering.
-              </p>
-            </div>
-            <div class="proof__case">
-              <h3 class="proof__case-t">US healthcare provider</h3>
-              <p class="proof__case-d">
-                120 million end customers across 90+ partner organisations.
-                Configuration effort fell from <strong>ninety days to twenty-one</strong>,
-                one organisation at a time became ninety in parallel, and the
-                specialist team went from twenty people to four.
-              </p>
-            </div>
-          </div>
-
-          <p class="proof__note reveal">
-            Named accounts are withheld here at the customers&rsquo; preference.
-            The full KPI tables are shared under NDA in the working session.
-          </p>
-
-        </div>
-      </div>
-    </section>
-
-    <div class="joint" aria-hidden="true"></div>
-
-<section class="section section--inv compare section--band" id="category" data-nav-dark>
-      <div class="padding-global">
-        <div class="container">
-
-          <div class="section-head section-head--center reveal">
-            <p class="eyebrow">Against the category</p>
-            <h2 class="section-heading">Where aiRA sits against <em>the category</em>.</h2>
-          </div>
-
-          <div class="compare__wrap reveal">
-            <div class="compare__board" role="table" aria-label="aiRA compared with horizontal AI analytics platforms">
-              <div class="compare__cell compare__cell--feat compare__cell--head" role="columnheader">
-                <span class="sr-only">Compared on</span>
-              </div>
-              <div class="compare__cell compare__cell--aira compare__cell--head" role="columnheader">
-                <img src="/assets/brand/aira-white.svg" alt="aiRA" width="62" height="20">
-              </div>
-              <div class="compare__cell compare__cell--other compare__cell--head" role="columnheader">
-                Horizontal AI analytics platforms
-              </div>
-            <div class="compare__cell compare__cell--feat" role="rowheader">
-              <span class="compare__icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M136,108A52,52,0,1,1,84,56,52,52,0,0,1,136,108Z" opacity="0.2"/><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"/></svg></span>
-              Bought by
-            </div>
-            <div class="compare__cell compare__cell--aira" role="cell">Marketing, CRM, growth and insights leaders at consumer brands</div>
-            <div class="compare__cell compare__cell--other" role="cell">The data platform team, then rolled out to the business</div>
-            <div class="compare__cell compare__cell--feat" role="rowheader">
-              <span class="compare__icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M188.82,82,128,128,67.2,82.4A8,8,0,0,1,64,76V40a8,8,0,0,1,8-8H184a8,8,0,0,1,8,8V75.64A8,8,0,0,1,188.82,82ZM64,180v36a8,8,0,0,0,8,8H184a8,8,0,0,0,8-8V180.36a8,8,0,0,0-3.18-6.38L128,128,67.2,173.6A8,8,0,0,0,64,180Z" opacity="0.2"/><path d="M200,75.64V40a16,16,0,0,0-16-16H72A16,16,0,0,0,56,40V76a16.07,16.07,0,0,0,6.4,12.8L114.67,128,62.4,167.2A16.07,16.07,0,0,0,56,180v36a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V180.36a16.09,16.09,0,0,0-6.35-12.77L141.27,128l52.38-39.59A16.09,16.09,0,0,0,200,75.64ZM184,216H72V180l56-42,56,42.35Zm0-140.36L128,118,72,76V40H184Z"/></svg></span>
-              Before the first answer
-            </div>
-            <div class="compare__cell compare__cell--aira" role="cell">Industry playbooks ship pre-built. Your definitions layered on in days</div>
-            <div class="compare__cell compare__cell--other" role="cell">You model the semantic layer first, typically two to four months</div>
-            <div class="compare__cell compare__cell--feat" role="rowheader">
-              <span class="compare__icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56v60c-19.89,17.23-38.23,18.39-56,13.48v-60C185.76,74.39,204.11,73.23,224,56ZM104,102.52v-60C86.24,37.61,67.89,38.77,48,56v60c19.89-17.22,38.23-18.39,56-13.48v60c21.62,6,42.38,21,64,27v-60c-21.62-6-42.38-21-64-27Z" opacity="0.2"/><path d="M227.32,48.75A8,8,0,0,0,218.76,50c-28,24.22-51.72,12.48-79.21-1.13C111.07,34.76,78.78,18.79,42.76,50A8,8,0,0,0,40,56V224a8,8,0,0,0,16,0V179.77c26.79-21.16,49.87-9.75,76.45,3.41,28.49,14.09,60.77,30.06,96.79-1.13a8,8,0,0,0,2.76-6V56A8,8,0,0,0,227.32,48.75ZM216,71.6v40.65c-14,11.06-27,13.22-40,10.88V79.34A60.05,60.05,0,0,0,216,71.6Zm-56,3.76v43c-6.66-2.67-13.43-6-20.45-9.48-8.82-4.37-18-8.91-27.55-12.18v-43c6.66,2.66,13.43,6,20.45,9.48C141.27,67.55,150.46,72.09,160,75.36ZM96,48.91V92.69a60.06,60.06,0,0,0-40,7.75V59.78C70,48.72,83,46.57,96,48.91ZM86.58,152A60.06,60.06,0,0,0,56,160.43V119.78c14-11.06,27-13.22,40-10.88v43.8A65.61,65.61,0,0,0,86.58,152ZM112,156.67v-43c6.66,2.66,13.43,6,20.45,9.48,8.82,4.37,18,8.9,27.55,12.17v43c-6.66-2.67-13.43-6-20.45-9.48C130.73,164.47,121.54,159.94,112,156.67Zm64,26.45v-43.8a65.61,65.61,0,0,0,9.42.72A60.11,60.11,0,0,0,216,131.57v40.68C202,183.31,189,185.46,176,183.12Z"/></svg></span>
-              Where it ends
-            </div>
-            <div class="compare__cell compare__cell--aira" role="cell">The recommended move, built and pending your approval</div>
-            <div class="compare__cell compare__cell--other" role="cell">A chart, a narrative and an export. The action is a separate brief</div>
-            <div class="compare__cell compare__cell--feat" role="rowheader">
-              <span class="compare__icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M149.66,45.66l-64,64a8,8,0,0,1-11.32,0l-16-16a8,8,0,0,1,0-11.32l64-64a8,8,0,0,1,11.32,0l16,16A8,8,0,0,1,149.66,45.66Zm88,76.68-16-16a8,8,0,0,0-11.32,0l-64,64a8,8,0,0,0,0,11.32l16,16a8,8,0,0,0,11.32,0l64-64A8,8,0,0,0,237.66,122.34Z" opacity="0.2"/><path d="M243.32,116.69l-16-16a16,16,0,0,0-20.84-1.53L156.84,49.52a16,16,0,0,0-1.52-20.84l-16-16a16,16,0,0,0-22.63,0l-64,64a16,16,0,0,0,0,22.63l16,16a16,16,0,0,0,20.83,1.52L96.69,124,31.31,189.38A25,25,0,0,0,66.63,224.7L132,159.32l7.17,7.16a16,16,0,0,0,1.52,20.84l16,16a16,16,0,0,0,22.63,0l64-64A16,16,0,0,0,243.32,116.69ZM80,104,64,88l64-64,16,16ZM55.32,213.38a9,9,0,0,1-12.69,0,9,9,0,0,1,0-12.68L108,135.32,120.69,148ZM101,105.66,145.66,61,195,110.34,150.35,155ZM168,192l-16-16,4-4h0l56-56h0l4-4,16,16Z"/></svg></span>
-              Autonomy
-            </div>
-            <div class="compare__cell compare__cell--aira" role="cell">An agent that proposes. A person decides, on an audit trail</div>
-            <div class="compare__cell compare__cell--other" role="cell">Increasingly autonomous investigation, with reading governed more tightly than acting</div>
-            <div class="compare__cell compare__cell--feat" role="rowheader">
-              <span class="compare__icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,96v96a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V96Z" opacity="0.2"/><path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"/></svg></span>
-              How you pay
-            </div>
-            <div class="compare__cell compare__cell--aira" role="cell">Credits, charged on work done. No per-seat license</div>
-            <div class="compare__cell compare__cell--other" role="cell">Per seat or committed capacity, agreed upfront</div>
-              <div class="compare__brandbg" aria-hidden="true"></div>
-            </div>
-          </div>
-
-          <!-- The footnote /lp carries and context.md marks as voice, not
-               decoration: the table says where it came from, and the offer to
-               walk a real shortlist "including where we lose" is the thing
-               that makes the column above it readable as an argument rather
-               than a claim. -->
-          <p class="compare__note reveal">
-            Drawn from publicly documented positioning across the vendors named
-            in Gartner's 2026 Market Guide for Agentic Analytics, as of
-            September 2026. Bring the shortlist you are actually running and we
-            will go through it with you, including where we lose.
-          </p>
-
-        </div>
-      </div>
-    </section>
-
     <div class="joint joint--inv" aria-hidden="true"></div>
 
-<section class="section section--inv sec section--band" id="governance" data-nav-dark>
+
+    <!-- ================= SECURITY =================
+         Rebuilt 23 Sep from a laravel.com/cloud reference the user supplied:
+         the claim with a checked list under it, then a row of certification
+         marks drawn as EMBLEMS rather than set as a sentence ("use more logo
+         as opposed to text").
+
+         The reference's ruled STRIP is gone (user, same day): it carried the
+         eyebrow on the left and one mono line of architecture on the right,
+         and every other section head on this site is eyebrow over heading, so
+         it read as a component borrowed from somewhere else. Nothing was lost
+         with it. That mono line said "Anthropic Claude on AWS Bedrock, your
+         own region, zero retention", which is the first checked item below
+         almost word for word, so the strip was saying the section's opening
+         claim twice before the section started.
+
+         IT IS DARK AGAIN and deliberately continuous with #how ("lets do it
+         dark and connect it with how it works section"), which is why the
+         joint between them is .joint--inv, the joint that exists for exactly
+         that boundary, and why data-nav-dark is back on. It spent one turn on
+         a neutral grey ground between those two states.
+
+         WHAT IS IN THE BADGE ROW IS A DELIBERATE SUBSET. Only claims that are
+         actually held as certifications or compliance get an emblem: ISO
+         27001, SOC 2 Type II, PCI DSS, GDPR, CCPA, PDPA. The three qualified
+         ones stay in the sentence underneath WITH their qualifier, because a
+         badge strips it: aiRA is HIPAA-CAPABLE under a BAA, not HIPAA
+         certified, and it is ALIGNED to the NIST AI Risk Management Framework
+         and the EU AI Act, which is not certification either. A HIPAA badge
+         in that row would be a claim Capillary cannot make.
+
+         Also absent on purpose: the deck's comparison naming PCI and NIST as
+         differentiators against Braze, SFMC and MoEngage. The certifications
+         are publishable, that framing is internal. -->
+    <section class="section section--inv sec section--band" id="governance" data-nav-dark>
       <div class="padding-global">
         <div class="container">
-          <div class="sec__top reveal">
-            <div class="sec__intro">
-              <p class="eyebrow">Governance</p>
-              <h2 class="section-heading">
-                Your data stays where it is, and <em>nothing writes without you</em>.
-              </h2>
-              <p class="section-sub">
-                Security, privacy and governance are the first questions on any
-                evaluation. These are the answers, and the full brief arrives before
-                the session rather than after the third call.
-              </p>
+
+          <div class="section-head reveal">
+            <p class="eyebrow">Security</p>
+            <h2 class="section-heading">
+              Your data stays where it is, and <em>nothing writes without you</em>.
+            </h2>
+          </div>
+
+          <div class="sec__body reveal">
+            <ul class="sec__list">
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><span>
+              The model is Anthropic Claude on AWS Bedrock, running inside your
+              own region, stateless and with zero retention. Capillary never
+              trains on brand data.
+            </span></li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><span>
+              Four layers before the model sees a row: database access control,
+              RBAC scoping, masked-by-default views and payload truncation.
+            </span></li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><span>
+              Retrieval is tenant and brand isolated, so cross-brand analysis is
+              architecturally impossible rather than disallowed by policy.
+            </span></li>
+            <li><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><span>
+              Queries run SELECT-only in a sandbox with no outbound network, and
+              every customer-impacting write stops at a person, on an audit
+              trail.
+            </span></li>
+            </ul>
+
+            <div class="btn-row sec__cta">
+              <a class="btn btn--primary btn--lg" href="/book">Book a working session</a>
             </div>
           </div>
-          <div class="sec__grid reveal reveal-stagger">
-            <div class="sec__card">
-              <div class="sec__tile">
-                <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,80c0,26.51-39.4,48-88,48S40,106.51,40,80s39.4-48,88-48S216,53.49,216,80Z" opacity="0.2"/><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg></span>Your data stays in your region</h4>
-                <p>aiRA reads it where it already sits, through Anthropic Claude on AWS Bedrock inside your own region. Zero retention, stateless, and Capillary never trains on your data.</p>
-              </div>
-            </div>
-            <div class="sec__card">
-              <div class="sec__tile">
-                <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,56v56c0,96-88,120-88,120S40,208,40,112V56a8,8,0,0,1,8-8H208A8,8,0,0,1,216,56Z" opacity="0.2"/><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></svg></span>Masked before the model sees it</h4>
-                <p>PII is masked ahead of every tool call, and queries run sandboxed and read-only with no outbound network.</p>
-              </div>
-            </div>
-            <div class="sec__card">
-              <div class="sec__tile">
-                <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M168,100a60,60,0,1,1-60-60A60,60,0,0,1,168,100Z" opacity="0.2"/><path d="M144,157.68a68,68,0,1,0-71.9,0c-20.65,6.76-39.23,19.39-54.17,37.17a8,8,0,0,0,12.25,10.3C50.25,181.19,77.91,168,108,168s57.75,13.19,77.87,37.15a8,8,0,0,0,12.25-10.3C183.18,177.07,164.6,164.44,144,157.68ZM56,100a52,52,0,1,1,52,52A52.06,52.06,0,0,1,56,100Zm197.66,33.66-32,32a8,8,0,0,1-11.32,0l-16-16a8,8,0,0,1,11.32-11.32L216,148.69l26.34-26.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>Nothing writes without a person</h4>
-                <p>Every customer-impacting change stops at an approval gate, on an audit trail.</p>
-              </div>
-            </div>
-          </div>
-          <p class="sec__note reveal">SOC 2 Type II · ISO 27001 · PCI DSS · GDPR, CCPA and PDPA. HIPAA-capable under a BAA.</p>
+
+          <ul class="sec__certs reveal">
+            <li class="cert">
+              <svg class="cert__mark" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M32 6a26 26 0 1 0 0 52a26 26 0 1 0 0-52Z M32 6c-8 7-12 16-12 26s4 19 12 26 M32 6c8 7 12 16 12 26s-4 19-12 26 M6 32h52 M9.5 19h45 M9.5 45h45"/></svg>
+              <span class="cert__stack"><span class="cert__lg">ISO</span><span class="cert__sm">27001</span></span>
+            </li>
+            <li class="cert">
+              <!-- No "AICPA" line: the AICPA SOC seal is their registered
+                   certification mark and its use is licensed. Naming the
+                   standard is fine; setting their name into a badge is not. -->
+              <span class="cert__stack"><span class="cert__lg">SOC 2</span><span class="cert__sm">TYPE II</span></span>
+            </li>
+            <li class="cert">
+              <svg class="cert__mark" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M32 5 57 13v20c0 15-11 23-25 27C18 56 7 48 7 33V13Z"/></svg>
+              <span class="cert__stack"><span class="cert__lg">PCI</span><span class="cert__sm">DSS</span></span>
+            </li>
+            <li class="cert">
+              <svg class="cert__mark" viewBox="0 0 64 64" fill="currentColor" stroke="none" aria-hidden="true"><path d="M32.00 1.60L32.99 4.64L36.18 4.64L33.60 6.52L34.59 9.56L32.00 7.68L29.41 9.56L30.40 6.52L27.82 4.64L31.01 4.64Z M45.00 5.08L45.99 8.12L49.18 8.12L46.60 10.00L47.59 13.04L45.00 11.16L42.41 13.04L43.40 10.00L40.82 8.12L44.01 8.12Z M54.52 14.60L55.50 17.64L58.70 17.64L56.12 19.52L57.10 22.56L54.52 20.68L51.93 22.56L52.92 19.52L50.33 17.64L53.53 17.64Z M58.00 27.60L58.99 30.64L62.18 30.64L59.60 32.52L60.59 35.56L58.00 33.68L55.41 35.56L56.40 32.52L53.82 30.64L57.01 30.64Z M54.52 40.60L55.50 43.64L58.70 43.64L56.12 45.52L57.10 48.56L54.52 46.68L51.93 48.56L52.92 45.52L50.33 43.64L53.53 43.64Z M45.00 50.12L45.99 53.16L49.18 53.16L46.60 55.04L47.59 58.08L45.00 56.20L42.41 58.08L43.40 55.04L40.82 53.16L44.01 53.16Z M32.00 53.60L32.99 56.64L36.18 56.64L33.60 58.52L34.59 61.56L32.00 59.68L29.41 61.56L30.40 58.52L27.82 56.64L31.01 56.64Z M19.00 50.12L19.99 53.16L23.18 53.16L20.60 55.04L21.59 58.08L19.00 56.20L16.41 58.08L17.40 55.04L14.82 53.16L18.01 53.16Z M9.48 40.60L10.47 43.64L13.67 43.64L11.08 45.52L12.07 48.56L9.48 46.68L6.90 48.56L7.88 45.52L5.30 43.64L8.50 43.64Z M6.00 27.60L6.99 30.64L10.18 30.64L7.60 32.52L8.59 35.56L6.00 33.68L3.41 35.56L4.40 32.52L1.82 30.64L5.01 30.64Z M9.48 14.60L10.47 17.64L13.67 17.64L11.08 19.52L12.07 22.56L9.48 20.68L6.90 22.56L7.88 19.52L5.30 17.64L8.50 17.64Z M19.00 5.08L19.99 8.12L23.18 8.12L20.60 10.00L21.59 13.04L19.00 11.16L16.41 13.04L17.40 10.00L14.82 8.12L18.01 8.12Z"/></svg>
+              <!-- GDPR, CCPA and PDPA are regulations, not certifications:
+                   nobody issues a certificate for them. All three therefore
+                   say COMPLIANT, where the three audited ones name their
+                   standard. GDPR was the odd one out. -->
+              <span class="cert__stack"><span class="cert__lg">GDPR</span><span class="cert__sm">COMPLIANT</span></span>
+            </li>
+            <li class="cert">
+              <span class="cert__stack"><span class="cert__lg">CCPA</span><span class="cert__sm">COMPLIANT</span></span>
+            </li>
+            <li class="cert">
+              <span class="cert__stack"><span class="cert__lg">PDPA</span><span class="cert__sm">COMPLIANT</span></span>
+            </li>
+          </ul>
+
+          <p class="sec__note reveal">
+            HIPAA-capable under a BAA. Aligned to the NIST AI Risk Management
+            Framework and the EU AI Act.
+          </p>
+
         </div>
       </div>
     </section>
-
     <div class="joint" aria-hidden="true"></div>
+
 
     <!-- ================= GETTING STARTED ================= -->
     <!-- The four phases are the ones Capillary publishes on its own aiRA page;
@@ -542,7 +484,7 @@
          stated: they were not legible in the source and are not worth
          inventing. The parity gate is the specific detail neither page leads
          with and the one an analytics buyer actually wants. -->
-    <section class="section rollout" id="rollout">
+    <section class="section rollout section--band" id="rollout">
       <div class="padding-global">
         <div class="container">
 
@@ -555,53 +497,68 @@
             </p>
           </div>
 
-          <ol class="rollout__steps reveal reveal-stagger">
+          <ol class="rollout__track reveal reveal-stagger">
             <li class="rollout__step">
-              <span class="rollout__n" aria-hidden="true">01</span>
+              <p class="rollout__meta">
+                <span class="rollout__n">Phase 01</span>
+                <span class="rollout__who rollout__who--you">You and Capillary</span>
+              </p>
               <h3 class="rollout__t">Business requirements</h3>
-              <p class="rollout__d">
-                Your definitions, your tiers, the questions the team actually
-                asks. This is the phase that decides whether the answers are
-                right, so it is the one that needs your people.
+              <p class="rollout__d">Your definitions, your tiers, the questions the team actually asks. This is the phase that decides whether the answers are right, so it is the one that needs your people.</p>
+              <p class="rollout__out">
+                <span class="rollout__out-k">Output</span>A signed-off requirements document
               </p>
-              <p class="rollout__out"><span>Output</span> A signed-off requirements document</p>
             </li>
             <li class="rollout__step">
-              <span class="rollout__n" aria-hidden="true">02</span>
+              <p class="rollout__meta">
+                <span class="rollout__n">Phase 02</span>
+                <span class="rollout__who">Capillary</span>
+              </p>
               <h3 class="rollout__t">Training and testing</h3>
-              <p class="rollout__d">
-                aiRA is pointed at your warehouse and trained on your context.
-                Capillary runs this; nothing is asked of your data team beyond
-                read access to what it already holds.
+              <p class="rollout__d">aiRA is pointed at your warehouse and trained on your context. Capillary runs this; nothing is asked of your data team beyond read access to what it already holds.</p>
+              <p class="rollout__out">
+                <span class="rollout__out-k">Output</span>A configured instance on your data
               </p>
-              <p class="rollout__out"><span>Output</span> A configured instance on your own data</p>
             </li>
             <li class="rollout__step">
-              <span class="rollout__n" aria-hidden="true">03</span>
+              <p class="rollout__meta">
+                <span class="rollout__n">Phase 03</span>
+                <span class="rollout__who rollout__who--you">You and Capillary</span>
+              </p>
               <h3 class="rollout__t">Brand testing</h3>
-              <p class="rollout__d">
-                Around thirty representative questions are run and checked
-                against your own numbers. aiRA is not switched on for a brand
-                until it agrees with them at least 99% of the time.
+              <p class="rollout__d">Around thirty representative questions are run and checked against your own numbers, one by one, until the gap closes.</p>
+              <p class="rollout__out">
+                <span class="rollout__out-k">Output</span>A parity report you sign off
               </p>
-              <p class="rollout__out"><span>Output</span> A parity report you sign off</p>
             </li>
             <li class="rollout__step">
-              <span class="rollout__n" aria-hidden="true">04</span>
-              <h3 class="rollout__t">Go live</h3>
-              <p class="rollout__d">
-                The seats that need it get access, the approval gate is wired
-                to the people who own it, and the credit ledger starts.
+              <p class="rollout__meta">
+                <span class="rollout__n">Phase 04</span>
+                <span class="rollout__who">Capillary</span>
               </p>
-              <p class="rollout__out"><span>Output</span> aiRA live for your teams</p>
+              <h3 class="rollout__t">Go live</h3>
+              <p class="rollout__d">The seats that need it get access, the approval gate is wired to the people who own it, and the credit ledger starts.</p>
+              <p class="rollout__out">
+                <span class="rollout__out-k">Output</span>aiRA live for your teams
+              </p>
             </li>
           </ol>
 
-          <p class="rollout__gate reveal">
-            The parity gate is the part worth reading twice: aiRA is held back
-            until it reproduces your own reporting, so the first answer your
-            team sees is one you can check against a number you already trust.
-          </p>
+          <!-- The parity gate. It was a paragraph; the figure is the whole
+               point of it, so the figure is now set as one. 99% is the
+               floor Capillary holds a brand back below, not an average. -->
+          <div class="rollout__gate reveal">
+            <p class="rollout__gate-fig">
+              <span class="rollout__gate-n">99%</span>
+              <span class="rollout__gate-k">agreement, minimum</span>
+            </p>
+            <p class="rollout__gate-d">
+              aiRA is not switched on for a brand until it reproduces your
+              own reporting at least that closely, so the first answer your
+              team sees is one you can check against a number you already
+              trust.
+            </p>
+          </div>
 
         </div>
       </div>

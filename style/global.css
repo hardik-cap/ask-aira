@@ -921,6 +921,22 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 .nav.nav-dark .nav__toggle:hover {
   color: var(--ink-inv); background: rgba(255, 255, 255, 0.08);
 }
+/* The OPEN toggle, which the dark bar had no answer for until 22 Sep. The
+   light rule is `.nav__dd[data-open="true"] .nav__toggle { color: --ink;
+   background: --slate-100 }`, and it ties on specificity with
+   `.nav.nav-dark .nav__toggle` (three classes each). Source order then gave
+   the dark rule the COLOUR and left the light rule its BACKGROUND, so an open
+   Solutions menu on a dark section drew pale text on a near-white pill. It
+   shows for as long as the menu is open, which is why hovering a category
+   inside the panel looks like the trigger. Four classes here, so it wins
+   outright. */
+.nav.nav-dark .nav__dd[data-open="true"] .nav__toggle {
+  color: var(--ink-inv);
+  background: rgba(255, 255, 255, 0.08);
+}
+/* The chevron is --ink-faint, tuned for a light bar; it all but vanishes on
+   the dark one. */
+.nav.nav-dark .nav__chev { color: var(--ink-inv-3); }
 .nav.nav-dark .nav__burger {
   color: var(--ink-inv);
   background: rgba(255, 255, 255, 0.06);

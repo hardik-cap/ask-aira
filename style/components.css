@@ -162,6 +162,51 @@
   .reveal:not(.is-in) .thread__step::before { transform: none; }
 }
 
+/* ---- Annotation mark ----------------------------------------------------
+   A short label with a drawn arrow, pointed at one control inside a figure.
+   The sendr.ai reference the user sent on 22 Sep sets its version in a
+   HANDWRITING face; this one is Geist Mono, because Caveat was retired from
+   the project on 17 Sep ("basically we are not using caveat typeface in this
+   project") and mono is already permitted inside drawn illustrations, which
+   is exactly what this is. It reads as a margin note either way.
+
+   Absolutely positioned, so the figure it sits on needs position: relative.
+   Hidden below 992: there is no room beside a figure that has gone full
+   width, and an annotation overlapping the thing it annotates is worse than
+   no annotation.
+   ------------------------------------------------------------------------- */
+.mark {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  pointer-events: none;
+}
+.mark__t {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  line-height: 1.35;
+  color: var(--ink-3);
+  max-width: 14ch;
+  text-align: right;
+}
+.mark__arrow {
+  flex: none;
+  width: 46px;
+  height: 34px;
+  color: var(--ink-faint);
+}
+/* Mirrored for a mark that sits to the LEFT of its subject. */
+.mark--flip { flex-direction: row-reverse; }
+.mark--flip .mark__arrow { transform: scaleX(-1); }
+
+@media (max-width: 991px) {
+  .mark { display: none; }
+}
+
 /* ---- 3. Question string ------------------------------------------------ */
 
 .qstring {
@@ -1230,18 +1275,20 @@ body.modal-open { overflow: hidden; }
   transition: background var(--dur-fast) var(--ease),
               color var(--dur-fast) var(--ease);
 }
-/* Hover and open are kept as separate signals (user call, 16 Sep). Hover is
-   the Primary/50 wash and NOTHING else, so it reads as "you can click this"; the
-   open row is the one that recolours its title. The open row also refuses
-   the wash: a pointer hint on the thing already chosen says nothing, and
-   with both on, hovering the open row looked like a third state.
+/* Hover recolours, it does not fill (user call, 22 Sep, REVERSING the 16 Sep
+   split where hover was a Primary/50 wash and nothing else). The colour goes
+   on .acc__btn rather than on .acc__title, because only /product's rows wrap
+   their label in a .acc__title: the homepage FAQ puts its label in as a bare
+   text node, and a rule on the span would leave those rows with no hover
+   affordance at all. The title inherits, so both get it from here.
 
-   Primary/50 rather than the Primary/100 or /200 first floated: heavier fills read as
-   selection rather than a pointer hint, which is exactly the confusion this
-   split is avoiding. */
+   The open row still refuses the hover state: a pointer hint on the thing
+   already chosen says nothing. Hover and open landing on the same colour is
+   fine now that neither is a fill, because the open row is also carrying a
+   rotated chevron, an expanded panel and the advance bar. */
 .acc__item:not(.is-open) .acc__btn:hover,
 .acc__item:not(.is-open) .acc__btn:focus-visible {
-  background: var(--primary-50);
+  color: var(--brand-ink);
 }
 .acc__item.is-open .acc__title { color: var(--brand-ink); }
 .acc__item.is-open .acc__chev { color: var(--brand); }
@@ -1250,12 +1297,18 @@ body.modal-open { overflow: hidden; }
   .acc__btn { transition: none; }
 }
 
+/* Grey until the row is open (user call, 22 Sep). It was --brand on every
+   row, which lit all four at once and left the open one with nothing of its
+   own. --ink-3 is the chevron's grey, so the two marks on a closed row agree.
+   It stays grey on hover too: hover moves the LABEL, and an icon that moved
+   with it would make a pointer hint look like a selection. */
 .acc__icon {
   flex: none;
   display: flex;
   margin-top: 2px;
-  color: var(--brand);
+  color: var(--ink-3);
 }
+.acc__item.is-open .acc__icon { color: var(--brand); }
 .acc__icon svg { width: 20px; height: 20px; }
 
 .acc__n {
@@ -2738,3 +2791,33 @@ a.biz:focus-visible .biz__ic::after {
 .chat__act-h { color: var(--ink); background: var(--surface); border-color: var(--border-strong); }
 
 .chat__chips span { background: var(--bg-subtle); }
+
+/* ==========================================================================
+   Glyph matrix
+   --------------------------------------------------------------------------
+   A canvas field of small mono glyphs that shift a few at a time, injected by
+   js/glyph-matrix.js into any empty [data-glyph-matrix] host. Ported by hand
+   on 22 Sep from a Svelte component the user supplied (sv-animations
+   GlyphMatrix); none of its code was usable here, only its idea and its four
+   knobs.
+
+   THIS IS THE GROUND RULE ONLY: the canvas fills its host and takes no
+   pointer. Where the field sits, how big its pitch is, what colour it takes
+   and how it is masked all belong to the page that mounts it, because a
+   field's whole job is to be shaped around the copy it sits behind.
+
+   The host must be sized by the page and must set `color`: the script reads
+   its computed colour and never carries one of its own, so this stays inside
+   the rule that only tokens.css holds colour values.
+   ========================================================================== */
+
+.glyphs__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* The script draws nothing under reduced motion beyond one static frame, so
+   the field stays as texture rather than disappearing. Nothing here animates:
+   the guard lives in the script, where the timer is. */
