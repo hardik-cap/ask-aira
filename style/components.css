@@ -2466,6 +2466,154 @@ a.biz:focus-visible .biz__ic::after {
 .book__cta:hover { background: var(--primary-50); }
 .book__cta:active { background: var(--primary-100); }
 
+/* ---- The SPLIT variant (23 Sep, promptwatch.com reference) --------------
+   Copy left on a diagonal brand gradient, the real product right, cut by the
+   card's own edge, and the whole thing filling the section RAIL TO RAIL
+   ("real image or right, some gradient and end to end section fill") rather
+   than sitting inside it as a box.
+
+   WORN BY /product ONLY. index.html and the two experiments keep the centred
+   brand box, so this is a modifier and not a rewrite of .book__card: all four
+   pages load components.css, and index-v2 and index-v3 have to keep working
+   against their frozen home-legacy.css.
+
+   The radius and the drop shadow both go with it. A fill that meets the
+   frame's own verticals is not a card any more, and a card shadow on
+   something with no visible left or right edge only darkens the rails.
+   -------------------------------------------------------------------------- */
+/* The section gives up its 80px block padding and the frame its 16, so the
+   fill runs the section's FULL height as well as its full width (user,
+   23 Sep). Both are scoped with :has() rather than set on .book and
+   .book__frame outright, because index.html and the two experiments share
+   those two classes and keep the inset box.
+
+   It changes where the dissolve lands, which the user called: the ramp used
+   to finish inside 80px of wash and now finishes on the section's own bottom
+   edge, so the fill resolves straight into the footer's boundary instead of
+   into a strip of ground. That is the better end for it, but it means
+   --book-fade is now the ONLY thing standing between the copy and that edge. */
+.book:has(.book__card--split) {
+  --section-pad: 0px;
+  /* And the ground the dissolve lands ON becomes the FOOTER's, not this
+     section's usual purple wash. The card fills the section outright now, so
+     the only place that ground is ever seen is the last 120px of the fade,
+     which sits directly against the footer: two different light greys meeting
+     at that seam put a step exactly where the gradient is trying to resolve.
+     .book's --wash-secondary exists so the last LIGHT section is not a repeat
+     of the difference section's wash, and here there is no light section left
+     to tell apart. */
+  background: var(--surface-2);
+}
+.book__frame:has(.book__card--split) { padding: 0; }
+
+.book__card--split {
+  display: grid;
+  /* 45 / 55 (user, 23 Sep). The capture is the wider half: it is the thing
+     with detail in it, and the copy is four short lines. */
+  grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+  align-items: center;
+  gap: var(--sp-10);
+  text-align: left;
+  padding: var(--sp-20) 0 var(--sp-20) var(--sp-16);
+  border-radius: 0;
+  box-shadow: none;
+  /* The base card's own --brand fill has to go, or it paints an unmasked
+     solid layer under ::before and the dissolve shows only on the capture. */
+  background: none;
+  /* Out to the rails: .container pads 20px purely to clear them, so handing
+     that back puts the fill's edges on the frame's own verticals. Unwound
+     below 992, where the rails come off and .container drops the gutter with
+     them. */
+  margin-inline: calc(-1 * var(--sp-5));
+  /* The diagonal. It stays DARK across the whole left third and only opens up
+     under the capture, because the copy sits on that third: a gradient that
+     reached --primary-400 where the sub is would put white text on 3:1. */
+  /* How far up from the fill's bottom edge the dissolve reaches, and how far
+     the capture hangs below that edge. Both are shared with .book__shot so
+     the two masks cannot drift apart. */
+  /* 120 and not 150: the CTA's bottom sits 86px above the fill's edge at a
+     1200 viewport, so a longer ramp puts the conversion button on a fill that
+     is already half gone. */
+  --book-fade: 120px;
+  --shot-past: var(--sp-10);
+}
+/* THE FILL IS A LAYER, not the card's own background, so that the card can
+   DISSOLVE DOWNWARD (user, 23 Sep: "fade out whole card towards bottom")
+   without taking the copy with it. Masking the card itself was the obvious
+   way and it is wrong: the CTA sits at about 78% of the card's height, inside
+   the ramp, and a washed-out conversion button is a worse outcome than a hard
+   bottom edge. The fill and the capture fade; .book__body is left alone.
+
+   A mask rather than a gradient overlay, because an overlay would have to
+   know the section's ground colour to fade INTO it. This simply stops being
+   there, so it is right on any ground.
+
+   It also replaces the radial lift the base card carries: the diagonal is
+   already doing that job and the two together read as a smudge. */
+.book__card--split::before {
+  display: block;
+  background: linear-gradient(115deg,
+    var(--primary-800) 0%,
+    var(--primary-700) 26%,
+    var(--brand) 56%,
+    var(--primary-300) 100%);
+  -webkit-mask-image: linear-gradient(to top, transparent 0, #000 var(--book-fade));
+  mask-image: linear-gradient(to top, transparent 0, #000 var(--book-fade));
+}
+
+.book__body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-5);
+}
+.book__card--split .book__title { max-width: 16ch; }
+.book__card--split .book__sub { max-width: 32rem; }
+.book__card--split .book__cta { margin-top: var(--sp-4); }
+
+/* The capture. Flush to the card's right edge with no border or radius on
+   that side, which is what makes the window read as CONTINUING past the fill
+   rather than as a picture placed inside it, and bled past the bottom padding
+   for the same reason. */
+.book__shot {
+  position: relative;
+  align-self: end;
+  /* Taller than the space it is given, and pulled further than the card's
+     bottom padding, so the window is CUT by the fill's edge instead of
+     stopping neatly on it. That cut is the whole reference: a product that
+     carries on past the frame reads as open, one that fits inside reads as a
+     picture of a product. */
+  height: 400px;
+  margin-bottom: calc(-1 * var(--sp-20) - var(--shot-past));
+  /* The SAME dissolve as the fill, measured from the fill's bottom edge and
+     not its own: the capture hangs --shot-past below that edge, so its ramp
+     has to start that much higher to finish level with it. Both are px off
+     the bottom for exactly this reason; two percentage masks over boxes of
+     different heights would never line up. */
+  -webkit-mask-image: linear-gradient(to top,
+    transparent 0, #000 calc(var(--book-fade) + var(--shot-past)));
+  mask-image: linear-gradient(to top,
+    transparent 0, #000 calc(var(--book-fade) + var(--shot-past)));
+  overflow: hidden;
+  border-top-left-radius: var(--r-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
+  border-left: 1px solid rgba(255, 255, 255, 0.28);
+}
+.book__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left top;
+  /* Framed from the TOP-LEFT and zoomed, so what shows is the question and
+     the reasoning under it, with the dashboard pane running off the right.
+     workspace.png is a 2560px two-pane window: shown whole in a 640px column
+     its type renders at about 7px, which is a grey rectangle rather than a
+     picture of a product. */
+  transform: scale(1.9);
+  transform-origin: 0 0;
+}
+
 /* The floating glyphs: white duotone marks drifting at the corners, tilted
    a few degrees so they read placed rather than templated. */
 .book__float {
@@ -2482,6 +2630,26 @@ a.biz:focus-visible .biz__ic::after {
 @media (max-width: 991px) {
   .book__frame { padding: var(--sp-6) var(--sp-4); }
   .book__card { padding: var(--sp-16) var(--sp-8); }
+  /* One column, and the rail bleed comes off with the rails themselves. The
+     capture stays: it moves under the copy and keeps bleeding off the bottom
+     and the right, which is the same idea at a different aspect. */
+  .book__card--split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-12);
+    margin-inline: 0;
+    padding: var(--sp-16) 0 var(--sp-16) var(--sp-8);
+    --book-fade: 110px;
+    --shot-past: var(--sp-6);
+  }
+  .book__shot {
+    height: 300px;
+    margin-bottom: calc(-1 * var(--sp-16) - var(--shot-past));
+  }
+  /* Scaled harder as the box narrows: the capture has to stay READABLE, and
+     what it has to show is the question and the work under it. More of the
+     window falls off the right and the bottom as the box shrinks, which is
+     the intended cut rather than a loss. */
+  .book__shot img { transform: scale(2.2); }
   .book__float svg { width: 28px; height: 28px; }
   .book__float--1 { top: 8%; left: 6%; }
   .book__float--2 { top: 10%; right: 6%; }
@@ -2490,6 +2658,20 @@ a.biz:focus-visible .biz__ic::after {
 }
 @media (max-width: 640px) {
   .book__float { display: none; }
+  /* Doubled class on purpose: the base .book__card rule further down this
+     same block resets the padding, and at equal specificity the later one
+     wins, which put 24px back on the right and stopped the capture reaching
+     the edge. */
+  .book__card.book__card--split {
+    padding: var(--sp-8) 0 var(--sp-8) var(--sp-6);
+    --book-fade: 80px;
+    --shot-past: var(--sp-4);
+  }
+  .book__shot {
+    height: 220px;
+    margin-bottom: calc(-1 * var(--sp-8) - var(--shot-past));
+  }
+  .book__shot img { transform: scale(3.1); }
   /* No frame padding (user, 20 Sep). The frame exists to hold the card off
      the dot-grid side bands, and those bands only exist from 1200px up; at
      phone width it was 24 and 16 of nothing, insetting the card from a page

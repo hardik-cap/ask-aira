@@ -23,33 +23,26 @@
 
 .phero .container { text-align: center; }
 
-/* ONE measure for the whole centred block (user, 23 Sep: "the h1 and subhead
-   should have same width"). The H1 was 20ch and the sub 44rem, which at 60px
-   is 757 against 704: near enough to read as a mistake rather than two
-   decisions.
+/* The centred block's two measures are SET DIRECTLY, 700 on the H1 and 600 on
+   the sub (user, 23 Sep). They shared one fluid measure for a day, and what
+   that was solving is worth keeping written down because a flat px measure
+   brings it back:
 
-   It is DERIVED FROM THE HEADLINE'S OWN CLAMP rather than being a flat 44rem,
-   and that matters more than it looks. A flat rem measure does not move with
-   the font, so between roughly 992 and 1200, where --t-display-1 has clamped
-   down to 48-56px but the box is still 704, the whole sentence starts fitting
-   on two lines: [560, 701] at 900, a 25% jump between two lines of display
-   type with the second at 100% of its box, which is the same "out and in" the
-   taper was fixed for. Stepping the measure at a breakpoint does not solve
-   that, because the flip is driven by the font size and the font is fluid, so
-   any breakpoint leaves a band on one side of it where the H1 is wrong.
+   --phero-measure was calc(var(--t-display-1) * 11.73), derived from the
+   headline's own clamp so the box shrank with the type. A measure that does
+   NOT move with the font gives the H1 a band where it falls to two lines with
+   the SECOND longer than the first, which in a centred block is an inverted
+   taper. At 700px that band is roughly 640 to 880: measured, 900 gives three
+   lines at 447/418/386 and 830 gives two at 535/670. Below 640 the container
+   is narrower than the measure anyway and it goes back to three.
 
-   11.73 is the ratio that reproduces 704px at the clamp's 60px ceiling, so
-   the desktop measure is unchanged and everything below it now shrinks in
-   step with the type, which is what the old 20ch gave the headline. It could
-   not simply stay a ch measure: ch resolves against each element's OWN font,
-   so the same declaration on a 16px sub would have come out at 154px. The
-   fix is to resolve it once, here, as a length both can take.
-
-   The 22ch and none overrides this used to carry below 992 and 640 are gone
-   with it: the measure now does that work continuously. */
-.phero {
-  --phero-measure: calc(var(--t-display-1) * 11.73);
-}
+   A breakpoint cannot fix it, because the flip is driven by the fluid font
+   and any breakpoint leaves a bad band on one side of it. What does fix it is
+   capping the fluid measure rather than replacing it:
+     max-width: min(700px, calc(var(--t-display-1) * 11.73));
+   which is exactly 700 everywhere the clamp is at its 60px ceiling and
+   shrinks with the type below that. Not applied: 700 flat is what was asked
+   for. */
 
 /* ---- The glyph field (22 Sep, user reference: sv-animations GlyphMatrix) --
    A canvas of small mono glyphs behind the copy, a few of which change every
@@ -98,6 +91,18 @@
      at all. Going dark rather than more opaque is what actually fixed it: a
      faint near-black glyph still has edges, a faint grey one has none. */
   color: var(--ink);
+  /* The three hues of the site's own palette, in the client's own names:
+     Tertiary, Secondary and Primary are one colour at three hues, 30 degrees
+     either side of the brand (user, 23 Sep: "some colors teal and purple and
+     brand/primary"). js/glyph-matrix.js reads these and gives a minority of
+     cells one of them, so the field is ink with colour scattered through it
+     rather than three fields of colour. They are the SATURATED mid steps on
+     purpose: this layer already sits at 0.55 with a per-cell alpha jitter on
+     top, and a pale accent under that arrives as nothing, which is the same
+     lesson the field's own colour taught on 23 Sep. */
+  --gm-c1: var(--tertiary-600);
+  --gm-c2: var(--secondary-500);
+  --gm-c3: var(--brand);
   opacity: 0.55;
   pointer-events: none;
   /* Fades in under the header and out again before the capture. Without the
@@ -109,9 +114,9 @@
     transparent 0, #000 14%, #000 48%, transparent 92%);
 }
 .phero__matrix .glyphs__canvas {
-  /* Sized against --phero-measure, which the H1 and the sub now share: 0.44
-     of the rail-to-rail box is 546px from the centre at a 1240px container,
-     against the block's own 352px half. */
+  /* Sized against the H1's 700px measure: 0.44 of the rail-to-rail box is
+     546px from the centre at a 1240px container, against the block's own
+     350px half. */
   --gm-clear: 0.44;
   -webkit-mask-image: radial-gradient(64% 78% at 50% 50%,
     transparent 0 calc(var(--gm-clear) * 100%), rgba(0, 0, 0, 0.45) 76%, #000 100%);
@@ -139,10 +144,9 @@
   line-height: 1.04;
   letter-spacing: var(--tr-display);
   color: var(--ink);
-  /* Held to roughly three lines: the measure, not the font size, is what
-     keeps a centred headline from reading as a paragraph. Shared with the
-     sub; see --phero-measure. */
-  max-width: var(--phero-measure);
+  /* 700px flat (user, 23 Sep). The measure, not the font size, is what keeps
+     a centred headline from reading as a paragraph. */
+  max-width: 700px;
   margin-inline: auto;
   margin-bottom: var(--sp-5);
   text-wrap: balance;
@@ -163,7 +167,12 @@
   font-size: var(--t-body-lg);
   line-height: var(--lh-body);
   color: var(--ink-2);
-  max-width: var(--phero-measure);
+  /* 600px (user, 23 Sep), which ENDS the measure this shared with the H1. That
+     was set on 22 Sep ("the h1 and subhead should have same width") and the
+     headline is 700 and the sub is narrower than it rather than equal to it,
+     which is a deliberate reversal and not a drift. Flat rather than fluid,
+     so it also stops tracking the headline's clamp. */
+  max-width: 600px;
   margin-inline: auto;
   /* Centred copy is read by its rag, and greedy wrapping gave this one
      621 / 697 / 668: the longest line in the MIDDLE, which is the shape that
@@ -471,10 +480,17 @@
    24px the cells pad in from it is the section's real left margin. Left on
    .container's 20px the head's text sat at x=100 against the first cell's
    104, which is an almost-alignment and reads worse than a frank inset. */
+/* ONE padding for the block, so the head and the cells cannot drift apart.
+   They had: the head was on --sp-6 and the cells on --sp-12, which put the
+   heading's text 24px inside the rail and the cell copy 48px inside it. The
+   head is given the same giveback as the grid and then pushed back in by the
+   cells' own pad, so the two read as one left edge. */
+.bento { --cell-pad: var(--sp-8); }
+
 .bento__head {
   margin-inline: calc(-1 * var(--sp-5));
-  padding-inline: var(--sp-6);
-  max-width: calc(46rem + var(--sp-5) + var(--sp-6));
+  padding-inline: var(--cell-pad);
+  max-width: calc(46rem + var(--sp-5) + var(--cell-pad));
   margin-bottom: var(--sp-12);
 }
 .bento__sub { margin-top: var(--sp-5); }
@@ -505,10 +521,9 @@
   display: grid;
   grid-row: span 2;
   grid-template-rows: subgrid;
-  padding: var(--sp-12);
-  /* No bottom pad: the figure closes the cell, and it bleeds out to the
-     cell's own edges to do it. */
-  padding-bottom: 0;
+  /* 32px (user, 23 Sep). No bottom pad: the figure closes the cell, and it
+     bleeds out to the cell's own edges to do it. */
+  padding: var(--cell-pad) var(--cell-pad) 0;
   border-right: 1px solid var(--frame-line);
   border-bottom: 1px solid var(--frame-line);
 }
@@ -605,13 +620,13 @@
      wide whatever its cell. Stating the inline size makes it definite, the
      ratio then only drives the height, and max-height clamps that height
      without touching the width. */
-  --fig-bleed: var(--sp-12);
+  --fig-bleed: var(--cell-pad);
   display: grid;
   place-items: center;
   width: calc(100% + 2 * var(--fig-bleed));
   aspect-ratio: 3 / 2;
   max-height: 420px;
-  margin: var(--sp-12) calc(-1 * var(--fig-bleed)) 0;
+  margin: var(--sp-10) calc(-1 * var(--fig-bleed)) 0;
   border-top: 1px solid var(--frame-line);
   background-image:
     linear-gradient(var(--frame-grid) 0 0),
@@ -644,6 +659,271 @@
   object-fit: cover;
 }
 
+/* ---- Drawn art in a well ------------------------------------------------
+   From contexts/UI examples (user, 23 Sep): a product fragment floating on a
+   dot ground, soft shadow, sometimes a second card stacked behind. Art stands
+   the drawn inset lines down exactly as a screenshot does, since they are the
+   empty state, and lays a dot field in their place. The dots are pitched at
+   16px, which divides --cell (80px), so they register with the frame. */
+.bento__fig--art {
+  position: relative;
+  overflow: hidden;
+  background-image: none;
+  container-type: size;
+}
+.bento__fig--art::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--border-strong) 1px, transparent 1.4px);
+  background-size: 16px 16px;
+  background-position: 8px 8px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 30%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 30%, transparent 100%);
+}
+
+/* ---- One thread: the question and its answer, nothing between ---------- */
+.oth {
+  position: relative;
+  width: 380px;
+  margin: 60px 0 0 48px;      /* room for the ticket peeking out above-left */
+  font-family: var(--font-product);
+}
+/* The ticket the same question becomes without aiRA: faded, tilted, and
+   behind, so it reads as the route not taken rather than as a second
+   feature. */
+.oth__ticket {
+  position: absolute;
+  top: -76px;
+  left: -64px;
+  width: 272px;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  opacity: 0.8;
+  transform: rotate(-4deg);
+}
+.oth__ticket p { margin: 0; }
+.oth__ticket-h,
+.oth__ticket-f {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  color: var(--ink-faint);
+}
+.oth__ticket-t {
+  margin: 6px 0 var(--sp-3) !important;
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--ink-3);
+}
+.oth__queued {
+  padding: 0 8px;
+  border-radius: var(--r-pill);
+  color: var(--hold);
+  background: var(--hold-bg);
+}
+
+.oth__card {
+  position: relative;
+  display: grid;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+  text-align: left;
+}
+/* The person, on the right, the way the product sets its own side. It lost
+   its "You" chip on 23 Sep, and the answer its aiRA sparkle: the sides are
+   already set by which edge each row sits on, so the two marks were labelling
+   something the layout had said. */
+.oth__q {
+  display: flex;
+  justify-content: flex-end;
+}
+.oth__q .chat__q {
+  margin: 0;
+  max-width: 78%;
+  background: var(--bg-subtle);
+}
+/* aiRA, on the left, answering with the artifact rather than a sentence. */
+.oth__a { display: flex; }
+.oth__kpi {
+  flex: 1;
+  display: grid;
+  gap: 4px;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.oth__kpi-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-4);
+}
+.oth__spark { width: 120px; height: 32px; flex: none; }
+.oth__spark-a { fill: var(--brand); fill-opacity: 0.1; }
+.oth__spark-l {
+  fill: none;
+  stroke: var(--brand);
+  stroke-width: 2;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.oth__kpi-s { font-size: var(--t-caption); color: var(--ink-3); }
+
+/* ---- Your data: a setup log in days, against a project in weeks --------
+   After the references' monospace training log. Drawn illustration, so the
+   whole card is Geist Mono; the rows are the product's own before -> after
+   grammar, + for added and ~ for changed to your definition. */
+.odata {
+  position: relative;
+  width: 400px;
+  margin: 60px 48px 0 0;      /* room for the project peeking out above-right */
+}
+.odata p,
+.odata ol { margin: 0; }
+/* The alternative: tilted the other way from the One thread ticket, so the
+   two cells of the band mirror each other across their divider. */
+.odata__proj {
+  position: absolute;
+  top: -76px;
+  right: -64px;
+  width: 256px;
+  display: grid;
+  gap: 6px;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  opacity: 0.8;
+  transform: rotate(4deg);
+  font-family: var(--font-product);
+}
+.odata__proj-h {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  color: var(--ink-faint);
+}
+.odata__proj-t {
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--ink-3);
+}
+/* 6 of 16 weeks. */
+.odata__bar {
+  display: block;
+  height: 4px;
+  border-radius: var(--r-pill);
+  background: var(--bg-subtle);
+  overflow: hidden;
+}
+.odata__bar span {
+  display: block;
+  width: 37.5%;
+  height: 100%;
+  background: var(--border-strong);
+}
+
+.odata__log {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  text-align: left;
+  overflow: hidden;
+}
+.odata__head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border-bottom: 1px solid var(--border);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-3);
+  background: linear-gradient(to left, var(--approve-bg), var(--surface) 55%);
+}
+.odata__dots { display: inline-flex; gap: 4px; }
+.odata__dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--r-pill);
+  background: var(--border-strong);
+}
+.odata__live {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--approve);
+}
+.odata__live::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: currentColor;
+}
+.odata__rows {
+  display: grid;
+  gap: 10px;
+  padding: var(--sp-4);
+  list-style: none;
+}
+.odata__rows li {
+  display: grid;
+  grid-template-columns: 48px 16px minmax(0, 1fr);
+  align-items: baseline;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+.odata__rows b { font-weight: 500; color: var(--ink); }
+.odata__d { color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.odata__s { font-weight: 600; }
+.odata__s--add { color: var(--approve); }
+.odata__s--mod { color: var(--hold); }
+.odata__s--ok { color: var(--approve); }
+/* The row the whole log exists for. */
+.odata__done {
+  margin-top: 2px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+  font-weight: 600;
+}
+.odata__done > span:last-child { color: var(--ink); }
+
+/* The drawing is laid out at one size and scaled to its well, so the card's
+   proportions and its 12px type survive together; laid out fluidly it would
+   rewrap into a different picture at every width.
+   ZOOM, not transform: scale. A transform shrinks the picture but not the
+   box it occupies, so the centred card kept its full height and the well
+   clipped its footer, which is the one row carrying the claim. Keyed to the
+   well's HEIGHT, since that is the tight axis at 3/2. */
+@container (max-height: 410px) { .oth, .odata { zoom: 0.92; } }
+@container (max-height: 370px) { .oth, .odata { zoom: 0.84; } }
+@container (max-height: 330px) { .oth, .odata { zoom: 0.76; } }
+@container (max-height: 290px) { .oth, .odata { zoom: 0.66; } }
+@container (max-height: 250px) { .oth, .odata { zoom: 0.58; } }
+
 /* ---- The wide cell -------------------------------------------------------
    CENTRED, which is what the reference does with its own full-width cell and
    is the reason the row reads as a band rather than as a stretched copy of
@@ -669,64 +949,178 @@
 }
 
 
-/* ---- Getting started (rebuilt 22 Sep) -----------------------------------
-   A TIMELINE, not four columns of prose. What it replaced put each phase
-   under its own short hairline, so the four rules read as one continuous
-   track that had been broken; fenced the output off behind a second rule, so
-   every column looked like two unrelated blocks; and left the parity gate as
-   grey prose indented to nothing.
+/* ---- Getting started (rebuilt 22 Sep, rebuilt again 23 Sep) -------------
+   FOUR CLICKABLE BOXES OVER ONE LINE GRAPH, from a tryplayground.com
+   reference the user supplied: "you got the 4 phase blocks, clean them and
+   make their boxes clickable, below them is a big line graph, start from 0,
+   then based on click it increases."
 
-   The track is one rail with four nodes ON it, the node being the frame's own
-   brand square (the mark it puts at every rail crossing). .thread would also
-   have fitted a step sequence, but #loop two sections up is already a .thread
-   and a second one would read as the same section twice.
+   One deliberate departure from the reference. It marks the chosen column
+   with a pale blue FILL; this site signals a selected item with colour on
+   its label and its mark, never a background (22 Sep, user, on the
+   accordion: "dont do bg fill on hover, rather subtle color", "the icon
+   should stay gray if not active"). So the chosen phase takes a brand
+   border, a brand phase number and a lit node, and the four boxes keep one
+   surface between them.
 
-   Each phase now carries WHO is needed, which the section sub already claimed
-   in prose ("your team is needed in the first and the third") without showing
-   it anywhere.
+   The rail this replaced is gone with it. It was one hairline with four
+   brand squares on it, and it existed to carry the sequence; the graph does
+   that now, and a rail above a curve is the same statement twice. What the
+   rail got right is kept: all four nodes were lit at once, which left the
+   current phase with no mark of its own, and the nodes are grey until
+   chosen now.
    -------------------------------------------------------------------------- */
 
+/* FOUR ROWS, one per part of a phase, and each box spans them and takes them
+   back with subgrid: meta, title, description, output. That is what keeps the
+   rule above the output landing at ONE height across the row.
+
+   Two simpler things were tried and both fail the same way. margin-top:auto
+   on the output, and flex:1 on the description, both FLOOR the output, which
+   aligns the four outputs' bottoms; one of them runs to two lines and another
+   to one, so their rules then sit 21px apart across boxes of equal height.
+   The rule is at the TOP of that block, so the top is what has to align. */
+/* With the tabs on the rails the section's real left margin is their 24px,
+   not .container's 20, so the head takes the same giveback and pad the bento
+   head does, or its text sits 4px off the tabs' and reads as a mistake. */
+.rollout .section-head {
+  margin-inline: calc(-1 * var(--sp-5));
+  padding-inline: var(--sp-6);
+}
+
 .rollout__track {
+  /* The positioning context for .rollout__tab, which is measured in px off
+     each step's offset and so has to share the track's own origin. */
   position: relative;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--sp-8);
+  grid-template-rows: repeat(4, auto);   /* meta, title, description, output */
+  gap: 0;
   margin-top: var(--sp-12);
-  padding-top: 26px;
+  /* Out to the rails, the same 20px giveback the bento uses, so the tabs'
+     outer edges sit on the frame's verticals and their rules run rail to
+     rail. Unwound below 992 with the rails. */
+  margin-inline: calc(-1 * var(--sp-5));
+  padding: 0;
   list-style: none;
+  border: 1px solid var(--frame-line);
 }
-/* ONE rail the whole width, which is the point. */
-.rollout__track::before {
-  content: '';
-  position: absolute;
-  top: 3px;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--frame-line);
-}
+/* TABS, not cards (user, 23 Sep: "smaller tabs, no gap, more boxy shape and
+   more connected to left right border"). No gap, no radius, no shadow, no
+   lift: the four share hairlines and read as one control, and the board
+   under them shares their bottom edge. The chosen tab is marked by a brand
+   bar along its top, which is a tab's own grammar and is still not a
+   background fill (22 Sep: "dont do bg fill on hover, rather subtle color"). */
 .rollout__step {
   position: relative;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-row: span 4;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+  padding: var(--sp-5) var(--sp-6);
+  background: var(--surface);
+  cursor: pointer;
 }
-.rollout__step::before {
+.rollout__step + .rollout__step { border-left: 1px solid var(--frame-line); }
+/* ONE rule that SLIDES between the tabs (user, 23 Sep: "the top horizontal
+   line should move and not regrow in each tab. same tab line to move
+   across"). It was a bar per box, scaled up from zero on the chosen one and
+   back down on the last: four marks taking turns, which reads as four
+   separate events rather than as one thing moving.
+
+   Its geometry comes from the chosen step's OWN offset within the track,
+   measured by js/rollout.js, not from a column fraction. That is what lets
+   the same element follow the 4-up, the 2x2 below 1099 and the stack below
+   640 without the script knowing which of them is on, and it is why it
+   carries a --tab-y as well: in a 2x2 the rule has to change rows.
+
+   The transition is held until .is-live so the first placement lands rather
+   than sliding in from the corner. */
+.rollout__tab {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  height: 2px;
+  width: var(--tab-w, 25%);
+  background: var(--brand);
+  transform: translate(var(--tab-x, 0px), var(--tab-y, 0px));
+  pointer-events: none;
+}
+.rollout.is-live .rollout__tab {
+  transition: transform var(--dur-slow) var(--ease),
+              width var(--dur-slow) var(--ease);
+}
+/* One row fewer once the output is out of flow: it is absolutely placed by
+   .sr-only, so it stops claiming a track. */
+.rollout.is-live .rollout__track { grid-template-rows: repeat(3, auto); }
+.rollout.is-live .rollout__step { grid-row: span 3; }
+
+/* The state mark: an empty ring for a phase still ahead, a filled ring for
+   the chosen one, a check for the ones already behind it. So the row reads
+   as progress, not as four equal options. js/rollout.js adds it. */
+.rollout__mark {
+  position: absolute;
+  top: calc(var(--sp-5) + 2px);
+  right: var(--sp-6);
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  color: var(--brand-ink);
+}
+.rollout__mark::before {
+  content: '';
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--r-pill);
+  transition: border-color var(--dur) var(--ease), border-width var(--dur) var(--ease);
+}
+.rollout__mark svg { display: none; width: 20px; height: 20px; }
+.rollout__step:hover .rollout__mark::before,
+.rollout__step.is-hover .rollout__mark::before { border-color: var(--brand-line); }
+.rollout__step.is-on .rollout__mark::before { border: 5px solid var(--brand); }
+.rollout__step.is-done .rollout__mark::before { display: none; }
+.rollout__step.is-done .rollout__mark svg { display: block; }
+
+/* The whole box is the target, and this is how it becomes one without the
+   markup putting a <button> around an <h3>, which is invalid: the button
+   wraps the TITLE, which gives it a sensible accessible name, and a
+   pseudo-element stretches it over the box. js/rollout.js builds it. */
+.rollout__btn {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.rollout__btn::after {
   content: '';
   position: absolute;
-  top: -26px;
-  left: 0;
-  width: 7px;
-  height: 7px;
-  background: var(--brand);
+  inset: 0;
+}
+.rollout__btn:focus-visible { outline: none; }
+.rollout__btn:focus-visible::after {
+  outline: 2px solid var(--brand);
+  outline-offset: -2px;
 }
 
+/* One item since 23 Sep, when the WHO chips came off (user: "also remove the
+   needs you, capillary runs it, etc."). Nothing was lost: the section's own
+   sub already says "your team is needed in the first and the third", so the
+   chips were repeating a sentence four times, once per box. */
 .rollout__meta {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: var(--sp-2);
   margin-bottom: var(--sp-3);
+  padding-right: var(--sp-8);   /* clears the state mark */
 }
+/* Grey until chosen: four lit numbers mark nothing. */
 .rollout__n {
   font-family: var(--font-display);
   font-size: var(--t-caption);
@@ -734,23 +1128,15 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   font-variant-numeric: tabular-nums;
-  color: var(--brand-ink);
+  color: var(--ink-3);
+  transition: color var(--dur) var(--ease);
 }
+.rollout__step.is-on .rollout__n { color: var(--brand-ink); }
+
 /* Who the phase needs. The two that want the customer's own people are the
    ones a buyer is scheduling around, so those carry colour; the two Capillary
-   runs stay quiet. */
-.rollout__who {
-  padding: 3px 8px;
-  border-radius: var(--r-pill);
-  font-size: var(--t-caption);
-  line-height: 1.4;
-  color: var(--ink-3);
-  background: var(--bg-subtle);
-}
-.rollout__who--you {
-  color: var(--brand-ink);
-  background: var(--primary-50);
-}
+   runs stay quiet. This is a LABEL and not a state, which is why it keeps a
+   fill where the selection does not. */
 
 .rollout__t {
   font-size: var(--t-title-sm);
@@ -759,25 +1145,43 @@
   line-height: var(--lh-title);
   color: var(--ink);
   margin-bottom: var(--sp-2);
+  transition: color var(--dur) var(--ease);
 }
+.rollout__step:hover .rollout__t,
+.rollout__step.is-hover .rollout__t { color: var(--brand-ink); }
 .rollout__d {
   font-size: var(--t-body-sm);
   line-height: 1.65;
   color: var(--ink-3);
   margin-bottom: var(--sp-5);
 }
+/* With the output gone the paragraph closes the box, so the box's own bottom
+   padding is the only gap wanted under it. */
+.rollout.is-live .rollout__d { margin-bottom: 0; }
 
-/* The output is a RESULT, so it gets a block of its own rather than sitting
-   behind a divider. margin-top:auto floors it, so all four align however long
-   the paragraphs above them run. */
+/* The output MOVED TO THE GRAPH on 23 Sep (user: "try to show the output on
+   the graph, rather than on card"). This rule is what a reader sees with the
+   script off; once it takes over, .rollout.is-live sends the block to
+   .sr-only. HIDDEN RATHER THAN REMOVED: the pill on the graph is aria-hidden
+   decoration, so display:none would drop four facts from the page as markup,
+   and the section's own sub promises "four phases with a named output each". */
 .rollout__out {
-  margin-top: auto;
-  padding: var(--sp-3) var(--sp-4);
-  background: var(--bg-subtle);
-  border-radius: var(--r-sm);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--border);
   font-size: var(--t-body-sm);
   line-height: 1.5;
   color: var(--ink-2);
+}
+.rollout.is-live .rollout__out {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 .rollout__out-k {
   display: block;
@@ -790,91 +1194,514 @@
   color: var(--ink-faint);
 }
 
-/* ---- The parity gate ----
-   The strongest fact in the section, so the figure comes out of the prose and
-   is set as a figure. Sans with tabular numerals, never the mono. */
-.rollout__gate {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: var(--sp-8);
-  margin-top: var(--sp-12);
-  padding: var(--sp-8);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
+/* ---- The board: graph over parity gate -----------------------------------
+   The chart and the gate are ONE object since 23 Sep. The gate is the
+   condition the curve has to clear before go live, so it is the chart's own
+   footer and it is drawn ON the chart as the line between phase three and
+   phase four, rather than standing as a separate block under the section.
+
+   The chart is four PHASE COLUMNS (js/rollout.js), each a click target with
+   its number in an axis strip, so the graph says which phase is chosen and
+   which are behind it without the reader looking back up at the boxes. The
+   columns are equal on purpose: Capillary publishes two to four weeks in
+   total and no per-phase split. There is NO scale on either axis: a y axis
+   would be a measurement the site does not have.
+
+   The ruled lines are pitched at 40px, which divides --cell (80px), so they
+   register with the frame's own graph paper instead of cutting across it.
+   -------------------------------------------------------------------------- */
+/* Joined to the tabs and bled to the rails like them: the tabs' bottom rule
+   is the chart's top edge, and nothing on the board is rounded. */
+.rollout__board { margin-inline: calc(-1 * var(--sp-5)); }
+
+.rollout__chart {
+  --p: 1;
+  --axis: 0px;
+  position: relative;
+  /* Not overflow:hidden: the marker sits ON the right edge at the last phase
+     and should hang over it rather than be sliced in half. The <svg> clips
+     itself to its own viewport. */
+  padding-bottom: var(--axis);
+  border-inline: 1px solid var(--frame-line);
   background: var(--surface);
 }
-.rollout__gate-fig {
-  display: flex;
-  flex-direction: column;
-  padding-right: var(--sp-8);
-  border-right: 1px solid var(--border);
+.rollout__chart.is-live { --axis: 44px; }
+
+.rollout__plot {
+  position: relative;
+  z-index: 1;
+  height: 320px;
+  /* The columns underneath take the clicks; everything drawn up here is
+     decoration over them. */
+  pointer-events: none;
+  background-image: repeating-linear-gradient(to bottom,
+    transparent 0 39px, var(--frame-grid) 39px 40px);
 }
+.rollout__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* Stops rather than raw hexes, so the fill stays on the token. */
+.rollout__stop--hi { stop-color: var(--brand); stop-opacity: 0.18; }
+.rollout__stop--lo { stop-color: var(--brand); stop-opacity: 0; }
+
+/* The route ahead. Dashed, so it reads as pending. */
+.rollout__ghost {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+  stroke-dasharray: 2 6;
+  stroke-linecap: round;
+}
+.rollout__area { fill: url(#rollout-fill); }
+/* A wide, faint stroke under the line, so the travelled route has some
+   weight against the dashed one ahead of it. */
+.rollout__halo {
+  fill: none;
+  stroke: var(--brand);
+  stroke-opacity: 0.12;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.rollout__line {
+  fill: none;
+  stroke: var(--brand);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* The curve is clipped from the RIGHT back to --p. Percentages in a clip-path
+   on an SVG element resolve against its own fill box, and every path spans
+   the full width, so they clip identically and the fill never runs ahead of
+   the line. The transition is only live once the script has taken over, or
+   the collapse to zero on load would animate in reverse. */
+.rollout__area,
+.rollout__halo,
+.rollout__line { clip-path: inset(0 calc((1 - var(--p)) * 100%) 0 0); }
+.rollout__chart.is-live .rollout__area,
+.rollout__chart.is-live .rollout__halo,
+.rollout__chart.is-live .rollout__line {
+  transition: clip-path var(--dur-slow) var(--ease);
+}
+
+/* ---- Phase columns and the axis strip ---- */
+.rollout__cols {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.rollout__col {
+  position: relative;
+  border-left: 1px solid var(--border);
+  cursor: pointer;
+}
+.rollout__col:first-child { border-left: 0; }
+/* The parity gate is the boundary into go live: dashed while it is ahead,
+   brand once the chosen phase has reached it. */
+.rollout__col--gate { border-left: 1px dashed var(--border-strong); }
+.rollout__chart.is-gated .rollout__col--gate { border-left-color: var(--brand); }
+
+.rollout__col-n {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--axis);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  border-top: 1px solid var(--border);
+  font-family: var(--font-display);
+  font-size: var(--t-caption);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-faint);
+  transition: color var(--dur) var(--ease);
+}
+/* The frame's own crossing mark, grey until its phase is reached. */
+.rollout__col-n::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--border-strong);
+  transition: background var(--dur) var(--ease);
+}
+.rollout__col.is-done .rollout__col-n { color: var(--ink-2); }
+.rollout__col.is-done .rollout__col-n::before { background: var(--ink-3); }
+.rollout__col.is-on .rollout__col-n,
+.rollout__col.is-hover .rollout__col-n { color: var(--brand-ink); }
+.rollout__col.is-on .rollout__col-n::before { background: var(--brand); }
+
+/* ---- What rides the curve ----
+   HTML, not SVG. The chart is drawn with preserveAspectRatio="none" so it
+   fills any box, which means a <circle> inside it would render as an ellipse
+   at every width but one. */
+.rollout__dot,
+.rollout__drop,
+.rollout__node,
+.rollout__gate-tag,
+.rollout__pill { display: none; }
+.rollout__chart.is-live .rollout__dot,
+.rollout__chart.is-live .rollout__drop,
+.rollout__chart.is-live .rollout__node,
+.rollout__chart.is-live .rollout__pill { display: block; }
+.rollout__chart.is-live .rollout__gate-tag { display: inline-flex; }
+
+/* A dashed drop from the marker to the floor of the plot, so the chosen
+   point reads against its column rather than floating in it. */
+.rollout__drop {
+  position: absolute;
+  left: var(--px, 0%);
+  top: var(--py, 100%);
+  bottom: 0;
+  width: 0;
+  border-left: 1px dashed var(--brand);
+  opacity: 0.45;
+  transition: left var(--dur-slow) var(--ease), top var(--dur-slow) var(--ease);
+}
+
+/* The other three phases' points: filled once behind the chosen one, hollow
+   ahead of it, and ringed when their box or column is hovered. */
+.rollout__node {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1.5px var(--border-strong);
+  transition: background var(--dur) var(--ease), box-shadow var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+.rollout__node.is-done {
+  background: var(--brand);
+  box-shadow: 0 0 0 3px var(--surface);
+}
+.rollout__node.is-hover { box-shadow: 0 0 0 4px var(--brand-subtle), inset 0 0 0 1.5px var(--brand); }
+.rollout__node.is-on { opacity: 0; }
+
+.rollout__dot {
+  position: absolute;
+  z-index: 1;
+  left: var(--px, 0%);
+  top: var(--py, 100%);
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border: 3px solid var(--surface);
+  border-radius: var(--r-pill);
+  background: var(--brand);
+  box-shadow: 0 0 0 1px var(--brand-line), var(--shadow-sm);
+  transition: left var(--dur-slow) var(--ease), top var(--dur-slow) var(--ease);
+}
+/* A slow ring off the marker: the one moving thing on a still chart, and the
+   answer to "where am I" before anything is read. */
+.rollout__dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border: 2px solid var(--brand);
+  border-radius: var(--r-pill);
+  opacity: 0;
+  animation: rollout-pulse 2.4s var(--ease) infinite;
+}
+@keyframes rollout-pulse {
+  0%   { transform: scale(1);   opacity: 0.5; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+/* The gate on the chart, sat at the foot of its line. */
+.rollout__gate-tag {
+  position: absolute;
+  z-index: 1;
+  left: 75%;
+  bottom: var(--sp-3);
+  transform: translateX(-50%);
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  box-shadow: var(--shadow-xs);
+  font-size: var(--t-caption);
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  color: var(--ink-3);
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.rollout__gate-tag svg { width: 20px; height: 20px; flex: none; }
+.rollout__chart.is-gated .rollout__gate-tag {
+  border-color: var(--brand-line);
+  color: var(--brand-ink);
+}
+
+/* Two lines, a label and the output, so it is a chart annotation rather than
+   a pill: the site's own surface with a hairline and a float shadow. */
+.rollout__pill {
+  position: absolute;
+  z-index: 2;
+  left: var(--px, 0%);
+  top: var(--py, 100%);
+  transform: translate(var(--pull, -50%), var(--push, calc(-100% - 18px)));
+  /* Sized by its text, not by what is left of the box. An absolutely placed
+     element with left:100% and no right has ZERO available width, so at the
+     last phase it shrink-wrapped to its longest word and stacked four lines
+     tall. */
+  width: max-content;
+  max-width: 24rem;
+  margin: 0;
+  padding: var(--sp-3) var(--sp-4);
+  /* The 2px brand rule is on the TOP, and it is the SAME MARK the chosen
+     phase box wears (.rollout__step.is-on::before). Same white ground, same
+     hairline, same bar: the annotation is that box appearing again at its
+     point on the curve, rather than a second thing that happens to be near
+     it. It was a brand bar down the LEFT with the radius zeroed, which is the
+     stock callout every template ships and reads as one (user, 23 Sep: "looks
+     very AI made with left border").
+     No radius, because nothing else in this section has one: the boxes and
+     the chart are drawn in hairlines. The shadow is the small one and not
+     --shadow-float, which is the nav's; this only has to lift off a grid. */
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--brand);
+  border-radius: 0;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: left var(--dur-slow) var(--ease), top var(--dur-slow) var(--ease);
+}
+.rollout__pill-k {
+  display: block;
+  margin-bottom: 2px;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--brand-ink);
+}
+.rollout__pill-v {
+  display: block;
+  font-size: var(--t-body-sm);
+  font-weight: 550;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rollout__chart.is-live .rollout__area,
+  .rollout__chart.is-live .rollout__halo,
+  .rollout__chart.is-live .rollout__line,
+  .rollout__dot,
+  .rollout__drop,
+  .rollout__node,
+  .rollout__pill,
+  .rollout.is-live .rollout__tab,
+  .rollout__gate-tag,
+  .rollout__col-n,
+  .rollout__col-n::before,
+  .rollout__step::before,
+  .rollout__mark::before,
+  .rollout__n,
+  .rollout__t { transition: none; }
+  .rollout__dot::after { animation: none; }
+}
+
+/* ---- The parity gate, as the board's footer ----------------------------
+   Still the one loud block in the section: a brand-tinted ground, a labelled
+   mark and the figure at display size. It sits UNDER the chart now, sharing
+   its border, because it is the chart's condition: the line marked on the
+   graph between phase three and four is this.
+   -------------------------------------------------------------------------- */
+.rollout__gate {
+  position: relative;
+  display: grid;
+  /* ONE ROW since 23 Sep (user: "this can be made a bit compact"): label,
+     figure, claim and capture side by side, the figure down a step to the
+     H2 size and the claim to body. It was two rows with a 60px figure, which
+     made the footer nearly as tall as the chart's own axis-to-curve span. */
+  --gate-pad: var(--sp-4);
+  grid-template-columns: auto auto minmax(0, 1fr) clamp(120px, 11%, 150px);
+  grid-template-areas: 'label fig body shot';
+  align-items: center;
+  column-gap: var(--sp-5);
+  padding: var(--gate-pad) var(--sp-6);
+  border: 1px solid var(--frame-line);
+  border-top-color: var(--border);
+  background: var(--wash-primary);
+  overflow: hidden;
+}
+/* The capture bleeds to the card's own edges, so it gets the padding back on
+   three sides. It is a COLUMN and not an absolutely placed layer: the body
+   copy has to be laid out around it, and a layer would let the sentence run
+   underneath at the widths where it is longest. */
+.rollout__gate-shot {
+  grid-area: shot;
+  position: relative;
+  align-self: stretch;
+  margin: calc(-1 * var(--gate-pad)) calc(-1 * var(--sp-6))
+          calc(-1 * var(--gate-pad)) 0;
+  overflow: hidden;
+}
+.rollout__gate-shot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* The dashboard side of the capture, which is the half carrying numbers.
+     Cropping in CSS rather than shipping a second file: it is the same asset
+     the hero loads, so it costs no extra request. */
+  object-fit: cover;
+  object-position: 100% 30%;
+  opacity: 0.5;
+  /* Dissolved into the card rather than cut off at a hard edge, the same way
+     the hero's glyph field and the category pages' mark row are handled. */
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 62%);
+  mask-image: linear-gradient(to right, transparent 0, #000 62%);
+}
+.rollout__gate-k {
+  grid-area: label;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--brand-ink);
+}
+.rollout__gate-k svg { width: 20px; height: 20px; flex: none; }
+
+.rollout__gate-fig {
+  grid-area: fig;
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  margin: 0;
+  padding-left: var(--sp-5);
+  border-left: 1px solid var(--brand-line);
+}
+/* At the H3 size since 23 Sep (user: "by compact i mean smaller"): the
+   footer is a slim strip under the chart now, not a second headline. Sans
+   with tabular numerals, never the mono, which gives a comma its own cell. */
 .rollout__gate-n {
   font-family: var(--font-display);
-  font-size: var(--t-display-2);
+  font-size: var(--t-display-3);
   font-weight: 600;
   line-height: 1;
   letter-spacing: var(--tr-display);
   font-variant-numeric: tabular-nums;
   color: var(--brand-ink);
 }
-.rollout__gate-k {
-  margin-top: var(--sp-2);
+.rollout__gate-u {
   font-size: var(--t-caption);
-  color: var(--ink-3);
+  color: var(--ink-2);
   white-space: nowrap;
 }
 .rollout__gate-d {
+  grid-area: body;
   font-size: var(--t-body);
-  line-height: var(--lh-body);
+  line-height: 1.55;
   color: var(--ink-2);
   margin: 0;
+  max-width: 88ch;
+  padding-left: var(--sp-5);
+  border-left: 1px solid var(--brand-line);
 }
 
-/* Vertical from 1299, NOT from 992 where the rest of the page breaks. The
-   section wears .section--band, which starts at 1200 and insets the container
-   by 136px a side, so the four phases are at their NARROWEST just after that
-   switch: 178px tracks at a 1200 viewport against 236 at 1199. Four columns
-   only once the band has room for them.
+/* Two across from 1099, not 1299. The switch was that high because the
+   section wore .section--band, whose 136px inset squeezed the four boxes to
+   178px tracks at a 1200 viewport; the band came off on 23 Sep (user: "remove
+   the left right dotted padding border") and they have the whole container
+   now, so four hold down to about 1100.
 
-   And vertical rather than a 2x2 grid: four phases in two rows stop reading as
-   a sequence, which is the one thing this section has to say. */
-@media (max-width: 1299px) {
+   It went VERTICAL here until 23 Sep, on the reasoning that four phases in
+   two rows stop reading as a sequence. That reasoning is spent: the graph
+   below them now carries the sequence, and each box says which phase it is,
+   so a 2x2 costs the section nothing and saves a phone about 400px of
+   scrolling past boxes it has already read. */
+@media (max-width: 1099px) {
+  /* Two bands of four rows. */
+  .rollout__track {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(8, auto);
+  }
+  .rollout.is-live .rollout__track { grid-template-rows: repeat(6, auto); }
+  .rollout__step:nth-child(odd) { border-left: 0; }
+  .rollout__step:nth-child(-n+2) { border-bottom: 1px solid var(--frame-line); }
+  .rollout__plot { height: 280px; }
+  /* The capture goes and the label rides above figure and claim, so the
+     claim keeps a readable measure in two-thirds of the width. */
+  .rollout__gate-shot { display: none; }
+  .rollout__gate {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas: 'label label' 'fig body';
+    row-gap: var(--sp-3);
+  }
+  .rollout__gate-fig { padding-left: 0; border-left: 0; }
+}
+@media (max-width: 640px) {
+  /* One column, so there is nothing left to align across and the subgrid
+     comes off: each box simply rows itself. */
   .rollout__track {
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--sp-8);
-    padding-top: 0;
-    padding-left: var(--sp-8);
+    grid-template-rows: none;
   }
-  .rollout__track::before {
-    top: 4px;
-    bottom: 4px;
-    left: 3px;
-    right: auto;
-    width: 1px;
-    height: auto;
+  .rollout__step,
+  .rollout.is-live .rollout__step {
+    grid-row: auto;
+    grid-template-rows: none;
+    display: flex;
+    flex-direction: column;
   }
-  .rollout__step::before {
-    top: 4px;
-    left: calc(-1 * var(--sp-8));
+  .rollout.is-live .rollout__track { grid-template-rows: none; }
+  .rollout__step + .rollout__step { border-left: 0; }
+  .rollout__step:not(:last-child) { border-bottom: 1px solid var(--frame-line); }
+  .rollout__plot { height: 240px; }
+  /* A quarter of a phone is about 85px, so the axis keeps the number only. */
+  .rollout__col-w { display: none; }
+  /* The pill is most of the chart's width at this size, so it wraps and is
+     held to a measure; js/rollout.js stops centring it on the marker below
+     520px and anchors it to whichever side has the room. */
+  /* It stops pointing at the marker here and becomes the chart's CAPTION,
+     pinned to the top-left. At this width the annotation is most of the box,
+     so there is no anchoring that keeps it inside: left-anchored it runs off
+     the right at the middle phases, right-anchored it runs off the left, and
+     centred it does both. The marker still moves; this just stops pretending
+     to be a tooltip in a box too small for one. */
+  .rollout__pill {
+    left: var(--sp-3);
+    top: var(--sp-3);
+    transform: none;
+    padding: var(--sp-2) var(--sp-3);
+    max-width: calc(100% - 2 * var(--sp-3));
   }
 }
 @media (max-width: 640px) {
+  /* One column, and the capture goes: a 200px slice of a screenshot beside
+     stacked copy is noise rather than texture. */
+  .rollout__gate-shot { display: none; }
   .rollout__gate {
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--sp-5);
-    padding: var(--sp-6);
+    grid-template-areas: 'label' 'fig' 'body';
+    row-gap: var(--sp-3);
+    padding: var(--sp-5);
   }
-  .rollout__gate-fig {
-    flex-direction: row;
-    align-items: baseline;
-    gap: var(--sp-3);
-    padding-right: 0;
-    padding-bottom: var(--sp-5);
-    border-right: 0;
-    border-bottom: 1px solid var(--border);
+  .rollout__gate-d {
+    padding-left: 0;
+    padding-top: var(--sp-3);
+    border-left: 0;
+    border-top: 1px solid var(--brand-line);
   }
+  .rollout__gate-u { margin-top: 0; }
 }
 
 
@@ -903,6 +1730,11 @@
      this width and .container drops the 20px gutter with them, so a negative
      margin here would hang the grid outside .padding-global. */
   .bento__grid { grid-template-columns: minmax(0, 1fr); margin-inline: 0; }
+  /* Same giveback, same reason, for /product's rollout tabs and board. */
+  .rollout .section-head,
+  .rollout__track,
+  .rollout__board { margin-inline: 0; }
+  .rollout .section-head { padding-inline: 0; }
   .bento__head { margin-inline: 0; padding-inline: 0; max-width: 46rem; }
   /* Stacked, every cell closes its own row and only the last closes the grid,
      so the 2 / 1 / 2 edge rules above no longer describe anything. The side

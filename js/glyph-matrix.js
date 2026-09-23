@@ -62,6 +62,14 @@
        it up. Canvas does not resolve `currentColor` reliably, so it is
        resolved here and re-read whenever the box changes. */
     var ink = window.getComputedStyle(host).color;
+    /* Optional ACCENTS, read the same way: the host names them as custom
+       properties holding tokens, so the palette still lives in tokens.css and
+       this only reads what it is handed. A cell keeps its tint for as long as
+       it keeps its box, so the field does not flicker colour on every tick.
+       With none set the array is just the ink and nothing changes. */
+    var inks = [ink];
+    var tintShare = num(host.getAttribute('data-glyph-tint'), 0.28);
+    var tints = [];
 
     var w = 0, h = 0, cols = 0, rows = 0, count = 0;
     var chars = [], alphas = [];
@@ -115,6 +123,11 @@
 
       w = cw; h = ch;
       ink = cs.color;
+      inks = [ink];
+      for (var c = 1; c <= 3; c++) {
+        var v = cs.getPropertyValue('--gm-c' + c).trim();
+        if (v) inks.push(v);
+      }
       var dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
@@ -127,7 +140,12 @@
       count = cols * rows;
       chars = new Array(count);
       alphas = new Array(count);
-      for (var i = 0; i < count; i++) { chars[i] = pick(); alphas[i] = jitter(); }
+      tints = new Array(count);
+      for (var i = 0; i < count; i++) {
+        chars[i] = pick();
+        tints[i] = tint();
+        alphas[i] = jitter(tints[i]);
+      }
 
       paintAll();
       sync();
@@ -143,9 +161,19 @@
       ctx.globalAlpha = 1;
     }
 
+    /* Most cells stay the ink. Only tintShare of them take an accent, evenly
+       split between however many were given: at an even split across four
+       colours the field reads as confetti rather than as texture with a few
+       marks lit in it. */
+    function tint() {
+      if (inks.length < 2 || Math.random() >= tintShare) return 0;
+      return 1 + ((Math.random() * (inks.length - 1)) | 0);
+    }
+
     function paint(i) {
       var col = i % cols;
       var row = (i - col) / cols;
+      ctx.fillStyle = inks[tints[i]] || ink;
       ctx.globalAlpha = alphas[i];
       ctx.fillText(chars[i], col * cell + cell / 2, row * cell + cell / 2);
     }
@@ -165,7 +193,8 @@
         var row = (i - col) / cols;
         ctx.clearRect(col * cell, row * cell, cell, cell);
         chars[i] = pick();
-        alphas[i] = jitter();
+        tints[i] = tint();
+        alphas[i] = jitter(tints[i]);
         paint(i);
       }
       ctx.globalAlpha = 1;
@@ -182,7 +211,14 @@
     /* A flat field reads as wallpaper; the spread is what makes it texture.
        The floor lifted from 0.25 on 23 Sep: the faintest quarter of the cells
        were not rendering as anything at all, so the field read as gaps. */
-    function jitter() { return 0.45 + Math.random() * 0.55; }
+    /* A TINTED cell sits in the top of the range. The host composites this
+       layer at well under full opacity, so an accent drawn at the bottom of
+       the jitter arrives as a pale wash and reads as nothing: the colours
+       have to be the lit cells to be colours at all. Same lesson as the
+       field's own ink, which had to go dark rather than more opaque. */
+    function jitter(tinted) {
+      return tinted ? 0.78 + Math.random() * 0.22 : 0.45 + Math.random() * 0.55;
+    }
   }
 
   function num(raw, fallback) {

@@ -218,6 +218,37 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   right: calc(var(--frame-x) + 0.5px);
   transform: translate(50%, -50%);
 }
+/* The footer's own crossing mark. Its rails are drawn by .footer::before and
+   ::after, which are already spoken for, so the squares get an element of
+   their own in components/footer.html. Geometry is the joint's exactly: 6px,
+   --frame-plus, centred on each rail. */
+.footer__crossing {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.footer__crossing::before,
+.footer__crossing::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--frame-plus);
+}
+.footer__crossing::before {
+  left: calc(var(--frame-x) + 0.5px);
+  transform: translate(-50%, -50%);
+}
+.footer__crossing::after {
+  right: calc(var(--frame-x) + 0.5px);
+  transform: translate(50%, -50%);
+}
+
 /* A joint that is only the line, no plus markers (under the header). */
 .joint--bare::before,
 .joint--bare::after { display: none; }
@@ -271,6 +302,7 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   .section::after,
   .footer::before,
   .footer::after,
+  .footer__crossing,
   .joint::before,
   .joint::after { display: none; }
 

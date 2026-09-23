@@ -4,6 +4,13 @@
      rule-topped legal row last, copyright left and legal links right.
      Injected into #footer-placeholder by js/components.js. -->
 <footer class="footer">
+  <!-- The frame's crossing mark where the footer's two rails meet its top
+       edge (23 Sep). Every other section boundary gets one from its .joint;
+       the footer's did not, so its rails began out of nothing, and on pages
+       whose last section has no joint above the footer (product.html, and
+       index.html since its stranded one was parked) there was no mark at that
+       boundary at all. Desktop only, with the rails it marks. -->
+  <span class="footer__crossing" aria-hidden="true"></span>
   <div class="padding-global">
     <div class="container">
 
