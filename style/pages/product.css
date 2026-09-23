@@ -21,7 +21,22 @@
    product belongs in the hero, not in a section of its own underneath one.
    -------------------------------------------------------------------------- */
 
-.phero .container { text-align: center; }
+/* ONE COLUMN, and the copy and the glyph field share its first cell (23 Sep,
+   user: give .phero__copy the same max-width as /solutions' .hero-ind__copy).
+   The cap is the only reason the grid exists. .phero__copy used to be the
+   field's containing block AND the full width of the container, so capping it
+   at 46rem took the field down with it from 1240 to 736, and at 736 the field
+   has nowhere to be: the canvas clears an ellipse of 0.2816 x its own box to
+   keep glyphs off the headline, which is 349px at 1240 and matches the H1's
+   350px half exactly, but only 207px at 736, so the glyphs would run straight
+   through the words. Sharing a cell keeps the field on the COLUMN's width
+   while the copy is capped, and keeps its block box the copy's own row, which
+   is what the -section-pad / -sp-16 margins are measured against. */
+.phero .container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  text-align: center;
+}
 
 /* The centred block's two measures are SET DIRECTLY, 700 on the H1 and 600 on
    the sub (user, 23 Sep). They shared one fluid measure for a day, and what
@@ -65,12 +80,34 @@
    field out downward before it reaches the capture, and the canvas clears an
    ellipse around the text. That ellipse is the same shape the home hero's
    lattice uses, which is what makes the two grounds read as one language. */
-.phero__copy { position: relative; }
+.phero__copy {
+  grid-area: 1 / 1;
+  /* 46rem, the measure /solutions' .hero-ind__copy carries. It changes no
+     line of type on its own: the H1 already caps at 700 and the sub at 600,
+     both inside 736. What it does is stop the block being the width of the
+     frame, so the eyebrow, the headline, the sub and the button now sit in
+     one column of a stated width rather than three separate measures inside a
+     full-width box. */
+  /* width:100% as well as the cap, because an auto-margined GRID item is
+     shrink-to-fit: without it the block collapses onto its widest child and
+     comes out 700 (the H1's own measure) rather than the 736 asked for, which
+     is a different box from the one .hero-ind__copy makes in normal flow. */
+  width: 100%;
+  max-width: 46rem;
+  margin-inline: auto;
+  /* Paints over the field: same cell, later in the DOM, and positioned. */
+  position: relative;
+}
 
 .phero__matrix {
-  position: absolute;
-  top: calc(-1 * var(--section-pad));
-  bottom: calc(-1 * var(--sp-16));  /* = .phero__fig's margin-top */
+  grid-area: 1 / 1;
+  /* Stretched to the cell, then pushed out top and bottom by exactly the two
+     tokens the neighbouring rules use: up through the section's own top
+     padding, and down to where .phero__fig's margin-top begins. Written as
+     margins rather than as top/bottom insets because the field is a grid item
+     now, not an absolutely positioned layer. It still lands on the figure's
+     edge if either of those rules changes. */
+  margin-block: calc(-1 * var(--section-pad)) calc(-1 * var(--sp-16));
   /* No arithmetic: the frame's rails ride .container's outer edges and its
      20px inner padding is what keeps content clear of them, so a layer that
      simply fills .phero__copy already runs the width of the frame with that
@@ -81,7 +118,6 @@
      against the containing block, .phero__copy, never against the bled box,
      so its 5% branch measured the container and its calc branch went
      negative. Do not reach for --frame-x from inside the container. */
-  inset-inline: 0;
   /* The INK itself, at 0.55. It started at --ink-3 and 0.34 and the user
      could not see it, twice (23 Sep, the second time asking in terms for a
      dark colour). The arithmetic is why: the script applies a per-cell alpha
@@ -114,9 +150,10 @@
     transparent 0, #000 14%, #000 48%, transparent 92%);
 }
 .phero__matrix .glyphs__canvas {
-  /* Sized against the H1's 700px measure: 0.44 of the rail-to-rail box is
-     546px from the centre at a 1240px container, against the block's own
-     350px half. */
+  /* Sized against the H1's 700px measure: the clear radius is 0.44 x 0.64 of
+     the box, so 349px at a 1240px column, against the headline's own 350px
+     half. That arithmetic is why the field cannot live inside a 46rem copy
+     block, and why it sits in the grid cell instead. */
   --gm-clear: 0.44;
   -webkit-mask-image: radial-gradient(64% 78% at 50% 50%,
     transparent 0 calc(var(--gm-clear) * 100%), rgba(0, 0, 0, 0.45) 76%, #000 100%);
@@ -197,6 +234,7 @@
    an edge of its own.
    -------------------------------------------------------------------------- */
 .phero__fig {
+  grid-area: 2 / 1;
   position: relative;
   margin-top: var(--sp-16);
   aspect-ratio: 16 / 10;
@@ -361,7 +399,6 @@
   color: var(--primary-200);
 }
 
-.sec__cta { margin-top: var(--sp-12); }
 /* Primary is --black, which disappears on this ground. The inverse of "the
    primary button is ink" is a light fill with ink on it, and it is the one
    element in the section that should carry full contrast. */
@@ -389,18 +426,58 @@
   margin: var(--sp-16) 0 0;
   margin-inline: calc(-1 * var(--sp-5));
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  /* THREE, not six, since 23 Sep: only the marks Capillary supplied are drawn,
+     and the rest are carried in .sec__note. */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   border-block: 1px solid var(--frame-line-inv);
 }
 .cert {
   position: relative;
   display: grid;
   place-items: center;
+  /* Mark over label, with the pair centred as one object. */
+  gap: var(--sp-4);
+  align-content: center;
   min-height: 140px;
   padding: var(--sp-6) var(--sp-3);
   color: var(--ink-inv-3);
 }
 .cert + .cert { border-left: 1px solid var(--frame-line-inv); }
+
+/* A SUPPLIED MARK takes the whole cell: the artwork carries its own wordmark,
+   so the drawn emblem and the .cert__stack under it would both be saying it
+   twice.
+
+   SIZED BY HEIGHT, not width, and not to a box. The three are 200x200, 182x177
+   and 158x200, so a common width would render the tall shield small and the
+   circles large. A common height gets them closer, and the shield still takes
+   a step down because a shape that is taller than it is wide reads bigger at
+   the same height than a circle does; 84 against 92 is that correction, and it
+   is optical, so do not "fix" it back to one number.
+
+   They are FULL-COLOUR marks on a dark ground, which is the one place this
+   site lets a logo keep its own colour: the rule that customer logos render in
+   full colour applies here too, and a compliance mark recoloured to fit a
+   palette stops being the mark. */
+.cert__logo {
+  display: block;
+  width: auto;
+  height: 76px;
+}
+.cert:last-child .cert__logo { height: 70px; }
+/* The mark says what it is, the label says what it MEANS: two of the three
+   are graphics rather than wordmarks, and the AICPA circle names the auditor
+   rather than the standard. It is the eyebrow's own spec, so the row's type
+   is the section's type. */
+.cert__name {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-inv-3);
+  text-align: center;
+}
 
 /* The emblem sits BEHIND the wordmark rather than above it, which is what
    makes these read as marks instead of as icons with captions. */
@@ -929,20 +1006,80 @@
    held for approval. Below 720 of container width the lanes stand up side by
    side and run downward. */
 .omove {
-  --omove-cols: 132px minmax(0, 1fr) 64px minmax(0, 1fr) 64px minmax(0, 1fr) 64px 168px;
-  display: grid;
-  gap: var(--sp-10);
-  width: min(1120px, 92%);
+  /* The drawing is one 1120x380 coordinate space. The SVG carries it as a
+     viewBox and every node is placed from the same numbers, converted to
+     percentages by --x / --y, so the wires and the things riding them scale
+     together and can never drift apart. Percentages rather than a transform
+     zoom: the box keeps the ratio, so everything in it stays put. */
+  --w: 1120;
+  --h: 380;
+  position: relative;
+  width: min(1120px, 96%);
+  aspect-ratio: 1120 / 380;
   text-align: left;
 }
 .omove p { margin: 0; }
-.omove__lane {
-  display: grid;
-  grid-template-columns: var(--omove-cols);
-  align-items: center;
+/* The routes are grouping only: their children place themselves against
+   .omove. The boxes exist so the narrow fallback has something to stack. */
+.omove__route { display: contents; }
+
+.omove__wires { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* The axis the question sits on, and the vertical that marks the middle of
+   the run. --frame-grid, not --frame-line: the page frame's own distinction
+   between structure and texture applies inside a drawing too. */
+/* currentColor so the gradient in the markup has something to reference; the
+   stroke itself is painted by that gradient. */
+.omove__wires { color: var(--frame-grid); }
+.omove__axis { stroke-width: 1; }
+.omove__path { stroke-width: 2; stroke-linecap: round; }
+.omove__path--aira { stroke: var(--brand); }
+.omove__path--else { stroke: var(--ink-faint); stroke-dasharray: 3 6; }
+
+/* ---- Nodes --------------------------------------------------------------
+   A tile on the route with its label outside the curve, which is the
+   reference's grammar: the mark rides the line and the word sits clear of
+   it. The tile is opaque, so it masks the path running underneath instead of
+   the path needing a gap cut in it. */
+/* The node is a ZERO-SIZED ANCHOR at its coordinate, with the tile centred on
+   it and the label hung outside. It cannot be a grid of tile-over-label with
+   the pair centred: that puts the PAIR's middle on the curve, so every tile
+   rides half a label's height above its own point and the marks sit off the
+   line they are meant to be on. Cost an iteration; the tell is tiles that
+   look consistently high. */
+.omove__n {
+  position: absolute;
+  left: calc(var(--x) / var(--w) * 100%);
+  top: calc(var(--y) / var(--h) * 100%);
+  width: 0;
+  height: 0;
+  white-space: nowrap;
 }
-.omove__k { display: grid; gap: 4px; }
-.omove__k b {
+.omove__tile {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  color: var(--ink-3);
+}
+.omove__lb {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+}
+/* Clear of the tile's own half-height, so the gap is the same on both routes. */
+.omove__route--aira .omove__lb { bottom: 36px; }
+.omove__route--else .omove__lb { top: 36px; }
+.omove__n--hub .omove__lb { top: 40px; }
+.omove__tile svg { width: 20px; height: 20px; }
+.omove__lb {
   font-family: var(--font-mono);
   font-size: var(--t-mono);
   font-weight: 500;
@@ -950,109 +1087,161 @@
   text-transform: uppercase;
   color: var(--ink-3);
 }
-.omove__k span { font-size: var(--t-caption); color: var(--ink-faint); }
-.omove__lane--aira .omove__k b { color: var(--brand-ink); }
-.omove__lane--aira .omove__k span { color: var(--ink-2); }
+.omove__route--aira .omove__tile { color: var(--brand); border-color: var(--brand-line); }
+.omove__route--aira .omove__lb   { color: var(--ink-2); }
+/* Muted, NOT faint. The comparison only works if both routes are legible;
+   the first pass dropped this one to --ink-faint on a dashed hairline and it
+   disappeared, which reads as one route and a smudge. */
+.omove__route--else .omove__tile {
+  color: var(--ink-3);
+  border-color: var(--border-strong);
+  border-style: dashed;
+  box-shadow: none;
+  background: var(--bg-subtle);
+}
+.omove__route--else .omove__lb { color: var(--ink-3); }
 
-.omove__card {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  min-width: 0;
-  padding: var(--sp-3) var(--sp-4);
-  border-radius: var(--r-md);
-}
-.omove__ic {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--r-sm);
-}
-.omove__ic svg { width: 20px; height: 20px; }
-.omove__tx { display: grid; gap: 2px; min-width: 0; }
-.omove__t { font-size: var(--t-body); font-weight: 600; }
-.omove__m { font-size: var(--t-caption); line-height: 1.4; }
+.omove__n--hub { --x: 80; --y: 190; }
+.omove__n--hub .omove__tile { width: 60px; height: 60px; border-radius: 16px; color: var(--ink-2); }
+.omove__n--hub .omove__lb { color: var(--ink-3); }
 
-.omove__lane--else .omove__card {
-  border: 1px dashed var(--border-strong);
-  background: var(--bg);
-}
-.omove__lane--else .omove__ic { color: var(--ink-faint); background: var(--bg-subtle); }
-.omove__lane--else .omove__t { color: var(--ink-3); }
-.omove__lane--else .omove__m { color: var(--ink-faint); }
+.omove__n--a1 { --x: 330; --y: 100; }
+.omove__n--a2 { --x: 540; --y:  88; }
+.omove__n--a3 { --x: 750; --y: 100; }
+.omove__n--e1 { --x: 330; --y: 280; }
+.omove__n--e2 { --x: 540; --y: 292; }
+.omove__n--e3 { --x: 750; --y: 280; }
 
-.omove__lane--aira .omove__card {
-  border: 1px solid var(--border);
-  background: var(--surface);
-  box-shadow: var(--shadow-md);
-}
-.omove__lane--aira .omove__ic { color: var(--brand); background: var(--brand-subtle); }
-.omove__lane--aira .omove__t { color: var(--ink); }
-.omove__lane--aira .omove__m { color: var(--ink-3); }
-
-/* The joins. Elsewhere, a dashed hand-off with what it cost; in aiRA, one
-   solid line with the frame's crossing square. */
-.omove__j {
-  position: relative;
-  display: grid;
-  place-items: center;
-  height: 24px;
-}
-.omove__j::before {
-  content: '';
+/* ---- Route identity, sitting just past the fork ------------------------- */
+.omove__id {
   position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
+  left: calc(var(--x) / var(--w) * 100%);
+  top: calc(var(--y) / var(--h) * 100%);
+  translate: 0 -50%;
+  display: grid;
+  gap: 2px;
+  white-space: nowrap;
 }
-.omove__lane--else .omove__j::before { border-top: 1px dashed var(--border-strong); }
-.omove__j i {
-  position: relative;
-  padding: 0 6px;
+.omove__route--aira .omove__id { --x: 176; --y: 78; }
+.omove__route--else .omove__id { --x: 176; --y: 306; }
+.omove__id b {
   font-family: var(--font-mono);
   font-size: var(--t-mono);
-  font-style: normal;
-  white-space: nowrap;
-  color: var(--hold);
-  background: var(--bg);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-3);
 }
-.omove__lane--aira .omove__j::before { height: 2px; margin-top: -1px; background: var(--brand); }
-.omove__lane--aira .omove__j::after {
-  content: '';
-  position: relative;
-  width: 6px;
-  height: 6px;
-  background: var(--brand);
-}
+.omove__id span { font-size: var(--t-caption); color: var(--ink-faint); }
+.omove__route--aira .omove__id span { color: var(--ink-2); }
+.omove__brand { display: block; }
+.omove__brand img { display: block; width: auto; height: 14px; }
 
-.omove__end { padding-left: var(--sp-3); }
-.omove__end--else {
-  justify-self: start;
-  margin-left: var(--sp-3) !important;
-  padding: 4px 10px;
+/* ---- What each hand-off costs, set above the lower curve ---------------- */
+/* ON the dashed line, not floating above it. Each hand-off is a stop on that
+   route, and an opaque chip masks the line under it the way the tiles do, so
+   the cost reads as part of the path rather than as an annotation near it. */
+.omove__cost {
+  position: absolute;
+  left: calc(var(--x) / var(--w) * 100%);
+  top: calc(var(--y) / var(--h) * 100%);
+  translate: -50% -50%;
+  padding: 3px 9px;
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: var(--t-caption);
+  color: var(--hold);
+  white-space: nowrap;
+}
+.omove__cost--1 { --x: 435; --y: 287; }
+.omove__cost--2 { --x: 645; --y: 287; }
+.omove__cost--3 { --x: 862; --y: 267; }
+
+/* ---- Where each route ends ---------------------------------------------- */
+.omove__out {
+  position: absolute;
+  left: calc(var(--x) / var(--w) * 100%);
+  top: calc(var(--y) / var(--h) * 100%);
+  translate: -50% -50%;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.omove__route--aira .omove__out { --x: 1022; --y: 132; }
+.omove__route--else .omove__out { --x: 1022; --y: 252; }
+.omove__out i {
+  font-family: var(--font-mono);
+  font-size: var(--t-caption);
+  font-style: normal;
+  color: var(--ink-faint);
+}
+.omove__out--else > span {
+  padding: 5px 10px;
   border: 1px dashed var(--border-strong);
   border-radius: var(--r-pill);
   font-size: var(--t-caption);
   color: var(--ink-3);
 }
 
+/* Below 1000 the labels start touching, so the type steps down and the tiles
+   with it; the geometry is untouched, because it is one coordinate space. */
 @container (max-width: 1000px) {
-  .omove { --omove-cols: 96px minmax(0, 1fr) 60px minmax(0, 1fr) 60px minmax(0, 1fr) 48px 176px; width: 96%; }
-  .omove__ic { display: none; }
+  .omove__tile { width: 44px; height: 44px; border-radius: 12px; }
+  .omove__n--hub .omove__tile { width: 50px; height: 50px; }
+  .omove__tile svg { width: 18px; height: 18px; }
+  .omove__lb, .omove__id b { font-size: var(--t-caption); letter-spacing: 0.04em; }
 }
+/* Below 720 the run is too long for the box: 1120 of drawing in about 300 of
+   well renders the labels at 4px. It becomes two stacked routes instead, the
+   wires come off (a curve with nothing riding it is decoration), and the
+   nodes go back into flow. The comparison survives, which is the only part
+   that has to. */
 @container (max-width: 720px) {
-  .omove { grid-template-columns: 1fr 1fr; gap: var(--sp-4); width: 94%; align-items: start; }
-  .omove__lane { grid-template-columns: minmax(0, 1fr); align-items: stretch; }
-  .omove__k { margin-bottom: var(--sp-3) !important; }
-  .omove__j { height: 28px; }
-  .omove__j::before { top: 0; bottom: 0; left: 50%; right: auto; }
-  .omove__lane--else .omove__j::before { border-top: 0; border-left: 1px dashed var(--border-strong); }
-  .omove__lane--aira .omove__j::before { width: 2px; height: auto; margin: 0 0 0 -1px; }
-  .omove__end, .omove__end--else { justify-self: center; margin: 0 !important; padding-left: 0; }
-  .omove__end--else { padding: 4px 10px; }
-  .omove__card { padding: var(--sp-2) var(--sp-3); }
+  .omove {
+    width: 100%;
+    aspect-ratio: auto;
+    display: grid;
+    /* The two routes stand up SIDE BY SIDE and run downward, not stacked:
+       stacked they came to 714px against a 420px well and were clipped. Side
+       by side each column is its own route and the twin steps still sit level
+       across the pair, which is the comparison the whole cell is making. */
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: var(--sp-4);
+  }
+  /* Specificity, not order: .omove__n below sets display:flex at the same
+     weight, so a bare .omove__n--hub { display:none } loses to it and the hub
+     stays in the grid, taking the first column and pushing the routes out of
+     their pair. */
+  .omove__wires,
+  .omove .omove__n--hub { display: none; }
+  .omove__route {
+    display: grid;
+    grid-auto-flow: row;
+    gap: var(--sp-3);
+    justify-items: start;
+  }
+  .omove__n, .omove__id, .omove__out, .omove__cost {
+    position: static;
+    translate: none;
+    width: auto;
+  }
+  .omove__n {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    width: auto;
+    height: auto;
+  }
+  .omove__tile, .omove__lb { position: static; translate: none; }
+  .omove__tile { width: 36px; height: 36px; border-radius: 10px; }
+  .omove__cost { justify-self: start; margin-left: 18px; }
+  .omove__out { justify-items: start; }
+  .omove__id { margin-bottom: var(--sp-2); }
+  .omove__lb { font-size: var(--t-caption); }
 }
 @container (max-width: 440px) {
   .omove__m { display: none; }
@@ -2063,8 +2252,21 @@
   .bento__cell--wide .bento__p { margin-inline: 0; max-width: 48ch; }
   /* One column, so it is no wider than the rest and takes their ratio back. */
   .bento__cell--wide .bento__fig { aspect-ratio: 3 / 2; }
-  /* The move's 2x2 wants more height than 3/2 gives a phone. */
-  .bento__cell--wide .bento__fig--diagram { aspect-ratio: 1 / 1; }
+  /* The move stands its two routes up and runs them downward here, so the well
+     takes the drawing's own height instead of a ratio: capped at 1/1 and 420px
+     it clipped the lower route. Safe below 992, where the bento's subgrid has
+     already unwound and no neighbouring well has to match this one. */
+  .bento__cell--wide .bento__fig--diagram {
+    /* container-type must drop from size to INLINE-SIZE with the ratio. Size
+       containment means the element is NOT sized by its contents, so a well
+       that has given up its aspect-ratio collapses to 0 and clips the whole
+       drawing. Inline-size contains only the width, which is all .omove's own
+       container queries read anyway. */
+    container-type: inline-size;
+    aspect-ratio: auto;
+    max-height: none;
+    min-height: 0;
+  }
   .bento__head { margin-bottom: var(--sp-10); }
 }
 @media (max-width: 991px) {
@@ -2074,17 +2276,20 @@
   .sec__certs { margin-inline: 0; }
   /* Six across becomes three by two. The marks are the content, so they keep
      their size and the cell simply gets shorter. */
-  .sec__certs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* Already three across; only the cell height comes down. */
   .cert { min-height: 116px; }
-  .cert + .cert { border-left: 1px solid var(--frame-line-inv); }
-  .cert:nth-child(3n + 1) { border-left: 0; }
-  .cert:nth-child(n + 4) { border-top: 1px solid var(--frame-line-inv); }
 }
 @media (max-width: 640px) {
-  .sec__certs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .cert:nth-child(3n + 1) { border-left: 1px solid var(--frame-line-inv); }
-  .cert:nth-child(2n + 1) { border-left: 0; }
-  .cert:nth-child(n + 3) { border-top: 1px solid var(--frame-line-inv); }
+  /* Three marks stay on one row on a phone: at 390 that is a 116px track
+     each, which still carries an 84px mark. Stacking them would cost 230px
+     for no gain. */
+  .cert { min-height: 96px; padding-inline: var(--sp-2); gap: var(--sp-2); }
+  .cert__logo { height: 56px; }
+  .cert:last-child .cert__logo { height: 52px; }
+  /* "SOC 2 TYPE II" does not fit a 117px track on one line, and a wrapped
+     mono label reads as two labels, so the row drops to the caption size and
+     loses the tracking that was pushing it over. */
+  .cert__name { font-size: var(--t-caption); letter-spacing: 0.04em; }
 }
 @media (max-width: 640px) {
   .phero__cta { margin-top: var(--sp-6); }
