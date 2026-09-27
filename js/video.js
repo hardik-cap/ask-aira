@@ -245,6 +245,16 @@
         });
       }
       wire();
+      /* autoplay ALONE IS NOT ENOUGH and this is worth keeping. The property
+         is weighed against Chrome's autoplay policy, not against the click
+         that opened the popup, so an unmuted video can silently sit on its
+         poster with the bar showing Play and nothing to say why. open() runs
+         synchronously inside the trigger's click handler, so a play() call
+         here carries that user activation and is allowed. If it is refused
+         anyway, repaint so the bar offers Play rather than lying about the
+         state. */
+      var kick = v.play();
+      if (kick && kick.catch) kick.catch(paint);
     }
 
     /* ---- control wiring ---------------------------------------------- */
