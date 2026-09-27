@@ -486,7 +486,7 @@
                     <li class="cue__item is-on">How did last month's limited-time offer read by daypart, region and location?</li>
                     <li class="cue__item">Which menu items actually travelled together at lunch, and at what margin?</li>
                     <li class="cue__item">Which regulars have broken a weekly habit this month, not just missed a week?</li>
-                    <li class="cue__item">Separate the habitual customers from the occasional ones, and keep that definition for next time.</li>
+                    <li class="cue__item">Separate the habitual customers from the occasional ones, and keep it for next time.</li>
                   </ol>
                 </div>
                 <div class="biz-grid reveal">
@@ -617,7 +617,7 @@
                   <ol class="cue__list" aria-label="Questions telecom teams ask aiRA">
                     <li class="cue__item is-on">Did last quarter's upgrade campaign move ARPU, or just move spend between plans?</li>
                     <li class="cue__item">Split that by prepaid and postpaid, and show me where the lift actually came from.</li>
-                    <li class="cue__item">Which lines look like churn under our own definition of lapsed, not a generic inactivity window?</li>
+                    <li class="cue__item">Which lines look like churn under our own lapsed rule, not a generic inactivity window?</li>
                     <li class="cue__item">Which usage drops in the last 30 days are real risk, and which are seasonal?</li>
                   </ol>
                 </div>
@@ -880,9 +880,34 @@
                  it. Clicking opens the same lightbox the product tour uses
                  (js/video.js), which means the 18MB take is never fetched
                  until someone asks for it, and it plays big with aiRA's own
-                 controls instead of squeezed into this column. -->
+                 controls instead of squeezed into this column.
+                 THE CUT IS THE APPROVED ONE since 27 Sep, supplied by the
+                 user as "NASCAR gets fan insights in minutes, not weeks.mov"
+                 and named for it: a produced 2:29 testimonial with Donald
+                 Baal's lower third, burnt-in subtitles, real Fan Rewards
+                 footage and an aiRA end card. It replaces nascar-nuances.mp4,
+                 the raw studio take, which nothing references now.
+                 NEITHER SUPPLIED FILE CAN SHIP: Cloudflare Pages refuses
+                 any single file over 25 MiB, and the master is 207MB while
+                 the 2.9Mbps mp4 supplied beside it is 54MB. It is transcoded
+                 from the MASTER, not from the 54MB copy, so the encode is
+                 first generation: 1920x1080 H.264 at 1150kbps video and
+                 96kbps AAC, landing at 21.6MB.
+                 RESOLUTION BEAT BITRATE HERE, which is worth keeping. Three
+                 encodes were compared on the hardest frame, the Fan Rewards
+                 UI at 0:40: 720p/950k was soft with ringing on the glyph
+                 edges, 720p/1200k was cleaner, and 1080p/1150k was crispest
+                 AND the smallest of the three at 21.6MB against 22.4. Half
+                 this cut is a static talking head and the other half is a
+                 static screen recording, so there is almost no motion for
+                 the extra pixels to cost anything, while the UI text has
+                 detail that downscaling destroys outright.
+                 Apple's own tools cannot do this: avconvert and
+                 AVAssetExportSession expose quality presets only, and their
+                 720p preset came out at 120MB, so the bitrate has to be set
+                 through AVAssetWriter. -->
             <div class="nproof__media"
-                 data-video="/assets/video/nascar-nuances.mp4"
+                 data-video="/assets/video/nascar-minutes-not-weeks.mp4"
                  data-video-poster="/assets/nascar-thumbnail.jpg"
                  data-video-title="The NASCAR story">
               <button class="nproof__btn" type="button" data-video-play>
@@ -932,7 +957,7 @@
               <span class="compare__icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M188.82,82,128,128,67.2,82.4A8,8,0,0,1,64,76V40a8,8,0,0,1,8-8H184a8,8,0,0,1,8,8V75.64A8,8,0,0,1,188.82,82ZM64,180v36a8,8,0,0,0,8,8H184a8,8,0,0,0,8-8V180.36a8,8,0,0,0-3.18-6.38L128,128,67.2,173.6A8,8,0,0,0,64,180Z" opacity="0.2"/><path d="M200,75.64V40a16,16,0,0,0-16-16H72A16,16,0,0,0,56,40V76a16.07,16.07,0,0,0,6.4,12.8L114.67,128,62.4,167.2A16.07,16.07,0,0,0,56,180v36a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V180.36a16.09,16.09,0,0,0-6.35-12.77L141.27,128l52.38-39.59A16.09,16.09,0,0,0,200,75.64ZM184,216H72V180l56-42,56,42.35Zm0-140.36L128,118,72,76V40H184Z"/></svg></span>
               Before the first answer
             </div>
-            <div class="compare__cell compare__cell--aira" role="cell">Industry playbooks ship pre-built. Your definitions layered on in days</div>
+            <div class="compare__cell compare__cell--aira" role="cell">Industry playbooks ship pre-built. Your business context layered on in days</div>
             <div class="compare__cell compare__cell--other" role="cell">You model the semantic layer first, typically two to four months</div>
             <div class="compare__cell compare__cell--feat" role="rowheader">
               <span class="compare__icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56v60c-19.89,17.23-38.23,18.39-56,13.48v-60C185.76,74.39,204.11,73.23,224,56ZM104,102.52v-60C86.24,37.61,67.89,38.77,48,56v60c19.89-17.22,38.23-18.39,56-13.48v60c21.62,6,42.38,21,64,27v-60c-21.62-6-42.38-21-64-27Z" opacity="0.2"/><path d="M227.32,48.75A8,8,0,0,0,218.76,50c-28,24.22-51.72,12.48-79.21-1.13C111.07,34.76,78.78,18.79,42.76,50A8,8,0,0,0,40,56V224a8,8,0,0,0,16,0V179.77c26.79-21.16,49.87-9.75,76.45,3.41,28.49,14.09,60.77,30.06,96.79-1.13a8,8,0,0,0,2.76-6V56A8,8,0,0,0,227.32,48.75ZM216,71.6v40.65c-14,11.06-27,13.22-40,10.88V79.34A60.05,60.05,0,0,0,216,71.6Zm-56,3.76v43c-6.66-2.67-13.43-6-20.45-9.48-8.82-4.37-18-8.91-27.55-12.18v-43c6.66,2.66,13.43,6,20.45,9.48C141.27,67.55,150.46,72.09,160,75.36ZM96,48.91V92.69a60.06,60.06,0,0,0-40,7.75V59.78C70,48.72,83,46.57,96,48.91ZM86.58,152A60.06,60.06,0,0,0,56,160.43V119.78c14-11.06,27-13.22,40-10.88v43.8A65.61,65.61,0,0,0,86.58,152ZM112,156.67v-43c6.66,2.66,13.43,6,20.45,9.48,8.82,4.37,18,8.9,27.55,12.17v43c-6.66-2.67-13.43-6-20.45-9.48C130.73,164.47,121.54,159.94,112,156.67Zm64,26.45v-43.8a65.61,65.61,0,0,0,9.42.72A60.11,60.11,0,0,0,216,131.57v40.68C202,183.31,189,185.46,176,183.12Z"/></svg></span>
@@ -993,7 +1018,7 @@
             <div class="price__card">
               <div class="price__tile">
                 <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,48V88H40V48a8,8,0,0,1,8-8H208A8,8,0,0,1,216,48Z" opacity="0.2"/><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Zm-38.34-85.66a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L116,164.69l42.34-42.35A8,8,0,0,1,169.66,122.34Z"/></svg></span>2 to 4 weeks to a pilot</h4>
-                <p>On your real customer data, with your definitions loaded. No engineering headcount from your side.</p>
+                <p>On your real customer data, with your business context loaded. No engineering headcount from your side.</p>
               </div>
             </div>
             <div class="price__card">
@@ -1081,7 +1106,8 @@
             <h2 class="section-heading">Frequently asked, <em>plainly answered</em>.</h2>
             <p class="section-sub">
               The questions that come up before every evaluation: what aiRA
-              is, where your data goes, and what it costs.
+              is, where your data goes, what it costs, and what a pilot
+              actually runs on.
             </p>
             <p class="faq__cta">
               Yours is more specific?
@@ -1173,8 +1199,8 @@
                 <div class="acc__body">
                   <p>
                     Days, not months. Industry playbooks ship pre-built and
-                    your definitions layer on rather than being modelled from
-                    scratch. A pilot on your real customer data takes two to
+                    your business context layers on rather than being modelled
+                    from scratch. A pilot on your real customer data takes two to
                     four weeks.
                   </p>
                 </div>
@@ -1215,7 +1241,7 @@
                     blank prompt box, and retail goes a level deeper again into its
                     categories. If yours is not on the list, the setup does not
                     change: aiRA reads your warehouse in week one and learns your
-                    own definitions from there.
+                    own business context from there.
                   </p>
                 </div>
               </div>
@@ -1223,16 +1249,15 @@
             <div class="acc__item" data-acc-item>
               <h3 class="acc__head">
                 <button class="acc__btn" type="button" aria-expanded="false">
-                  What happens in the working session?
+                  What does the pilot run on?
                   <span class="acc__caret" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
                 </button>
               </h3>
               <div class="acc__panel">
                 <div class="acc__body">
                   <p>
-                    Thirty minutes, your data, one real question. You leave
-                    with the answer and the move built, or you leave knowing
-                    aiRA is the wrong fit. We will tell you which. It happens.
+                    On your real customer data, with your business context
+                    loaded. No engineering headcount from your side.
                   </p>
                 </div>
               </div>
@@ -1266,9 +1291,14 @@
           <div class="book__frame reveal">
             <div class="book__card book__card--split">
               <div class="book__body">
-                <h2 class="book__title">Bring aiRA a real question.</h2>
+                <!-- Was "Bring aiRA a real question.", the same process-led
+                     line /book's H1 was rewritten away from on 20 Sep and
+                     /product's book card already carried. One title across
+                     every book card now (user, 27 Sep). The button carries no
+                     icon, ever. -->
+                <h2 class="book__title">The question your team is still waiting on.</h2>
                 <p class="book__sub">
-                  Thirty minutes, your data, one real question. We reply within
+                  Thirty minutes, one real question, answered live. We reply within
                   one business day with a time and the security brief.
                 </p>
                 <a class="btn btn--lg book__cta" href="/book">Book a working session</a>
@@ -1305,7 +1335,7 @@
               You have seen how it works. Bring us the question it has not answered yet.
             </h2>
             <p class="close__sub">
-              Thirty minutes, your data, one real question, no deck and no discovery calls
+              Thirty minutes, one real question, no deck and no discovery calls
               stacked in front of it. You leave with the answer, the reasoning behind it and
               the recommended next move, not a product demo.
             </p>
