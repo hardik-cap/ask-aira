@@ -29,7 +29,10 @@ assets/industry/source/
 assets/brand/capillary-brand.html
 style/pages/capillary-brand.css
 
-# Working scratch
+# Working scratch. scratch/ holds serve.py, the local preview server CLAUDE.md
+# tells you to use: it lives in the repo so it survives a cleared temp dir, and
+# is ignored because it is tooling and this repo deploys whatever it contains.
+scratch/
 _probe.html
 _harness.html
 _scroll.html
