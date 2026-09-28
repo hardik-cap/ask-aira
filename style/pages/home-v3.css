@@ -1,0 +1,256 @@
+/* ==========================================================================
+   aiRA — Homepage V3 experiment (index-v3.html)
+   Alternative light treatment. Loads AFTER home.css and only overrides.
+
+   First moves (12 Sep, Workers-hero reference): the page frame's vertical
+   rails come off entirely, and the hero carries a dotted grid falling from
+   the very top and dissolving before the headline.
+   ========================================================================== */
+
+/* The navbar's raster lockups swap for the vector wordmarks (13 Sep):
+   indigo on light, white while the bar syncs over a dark section. The
+   svgs are 62x20; height 24 keeps the header spec's size. */
+.page-v3 .nav__logo-light,
+.page-v3 .nav__logo-dark {
+  width: auto;
+  height: 24px;
+}
+.page-v3 .nav__logo-light { content: url("/assets/brand/aira-indigo.svg"); }
+.page-v3 .nav__logo-dark  { content: url("/assets/brand/aira-white.svg"); }
+
+/* Flat buttons (13 Sep): no lift on either CTA. The primary goes black
+   (--black, the project's #212121), keeping V3's square-ish corners rather
+   than V1's pill. Black cannot darken, so hover and press lighten. */
+.page-v3 .btn--primary,
+.page-v3 .btn--secondary {
+  box-shadow: none;
+}
+.page-v3 .btn--primary { background: var(--black); }
+.page-v3 .btn--primary:hover {
+  background: color-mix(in srgb, var(--black) 86%, white);
+}
+.page-v3 .btn--primary:active {
+  background: color-mix(in srgb, var(--black) 74%, white);
+}
+
+/* No left/right rails anywhere; the joints stay but lose their plus
+   markers, which existed to mark the rail crossings. */
+.page-v3 .section::before,
+.page-v3 .section::after,
+.page-v3 .footer::before,
+.page-v3 .footer::after,
+.page-v3 .joint::before,
+.page-v3 .joint::after {
+  display: none;
+}
+
+/* Left-aligned hero (Laravel reference, 12 Sep). The video frame is gone:
+   the tour opens from a secondary button beside the primary CTA instead
+   (same js/video.js lightbox), so the hero is one ragged-left stack. */
+@media (min-width: 768px) {
+  .page-v3 .hero__inner {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .page-v3 .hero__cta { justify-content: flex-start; }
+}
+
+/* No balancing here: with the short rotating third line, balance rewraps
+   the first line ("and" popped onto its own break) and re-evaluates every
+   word swap. The explicit br's carry the line structure. */
+.page-v3 .hero__title {
+  text-wrap: initial;
+  max-width: none;
+}
+/* Phones re-break line two ("...agent / for {team} teams"): the desktop
+   break after "for" would orphan it at narrow widths. */
+.page-v3 .v3-br-m { display: none; }
+@media (max-width: 640px) {
+  .page-v3 .v3-br-m { display: inline; }
+  .page-v3 .v3-br-d { display: none; }
+  /* The widest word (eCommerce) needs the 32px step at every phone width
+     here, not just below 380px. */
+  .page-v3 .hero__title { font-size: 2rem; }
+}
+
+/* Colour-coded teams (13 Sep): three Capillary logo-petal colours, the
+   web-palette teal for CRM (logo yellow fails as text on light; the
+   darkened-gold compromise was rejected), and the brand guide's own aiRA
+   violet for Data/BI. js/rotator.js stamps data-team on the tile and the
+   word; only this page maps it to colour. */
+.page-v3 .hero__rot-icon,
+.page-v3 .hero__rot-word { --team-c: var(--brand); }
+.page-v3 [data-team="ecommerce"] { --team-c: var(--capillary-logo-blue); }
+.page-v3 [data-team="growth"]    { --team-c: var(--capillary-logo-green); }
+.page-v3 [data-team="marketing"] { --team-c: var(--capillary-logo-orange); }
+.page-v3 [data-team="crm"]       { --team-c: var(--capillary-teal); }
+.page-v3 [data-team="databi"]    { --team-c: var(--aira-violet); }
+
+.page-v3 .hero__rot-word { color: var(--team-c); }
+.page-v3 .hero__rot-icon {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--team-c) 78%, white), var(--team-c));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 10px 24px -10px color-mix(in srgb, var(--team-c) 65%, transparent);
+}
+
+/* ==========================================================================
+   THE CLAY PASS (20 Sep, clay.com reference, user ask). The inversion: the
+   page goes quiet and the colour moves into the content. One warm paper
+   ground end to end (remap at the bottom of this file), ink chrome
+   (eyebrows, capability icons, board icons all step off the palette), and
+   the Capillary hues surviving only where they mean something: the per-team
+   hero rotator, the two drawn cards keyed to the loop (Decide amber, Act
+   green), the customer marks in full colour, and the approval grammar. The
+   13 Sep colour-coded eyebrow and icon runs this replaces are in git.
+   ========================================================================== */
+
+/* The announce pill reads as a white surface on the paper. */
+.page-v3 .hero__announce { background: var(--surface); }
+
+/* The two drawn cards keep tinted wells, re-keyed from decoration to the
+   loop's grammar: the session card builds the audience (DECIDE, amber),
+   the journey card stages the move (ACT, green). Analyse stays with the
+   rotator's blue up in the hero. */
+.page-v3 .feat__fig { background: var(--fig-tint, var(--bg-subtle)); }
+.page-v3 .feat__fig::after {
+  background: linear-gradient(to bottom, transparent, var(--fig-tint, var(--bg-subtle)));
+}
+.page-v3 .feat__fig:has(.feat__card--session) {
+  --fig-tint: color-mix(in srgb, var(--capillary-amber) 14%, white);
+}
+.page-v3 .feat__fig:has(.feat__card--journey) {
+  --fig-tint: color-mix(in srgb, var(--capillary-logo-green) 11%, white);
+}
+
+/* Chrome icons in ink on the light sections; eyebrows already sit in the
+   muted grey the live global.css gives them once the per-section colour
+   runs come off. The dark sections keep Primary/200 (restated below, since
+   this file loads last), and the approval .state pills keep the approval
+   grammar: both are colour-as-meaning already. */
+.page-v3 .feat__icon,
+.page-v3 .compare__icon { color: var(--black); }
+.page-v3 .section--inv .feat__icon { color: var(--primary-200); }
+
+/* Customer marks in full colour at rest: the site-wide 19 Sep rule reaches
+   V3, and on the paper ground the marks are where the colour comes from.
+   The grey base img keeps the seat; the colour overlay simply stays on. */
+.page-v3 .proof__logo > img:first-child { opacity: 0; }
+.page-v3 .proof__logo .proof__logo-color { opacity: 1; }
+.page-v3 .proof__logo:hover > img:first-child { opacity: 0; }
+
+/* ---- Tinted icon tiles (13 Sep) -----------------------------------------
+   The colour gets AREA instead of a few hairlines of stroke: each glyph sits
+   in a 32px rounded tile washed with its own hue, so the palette reads as
+   deliberate rather than incidental.
+
+   One rule covers every hue because the tile mixes `currentColor`, which is
+   already the per-icon colour set above. A translucent mix rather than one
+   over white, so the same declaration works on the dark pricing section as
+   on the light ones.
+
+   The comparison board is deliberately excluded: its icons sit inline in a
+   dense scan-line table, where a tile per row would fight the rhythm. */
+.page-v3 .feat__icon,
+.page-v3 .acc__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-sm);
+  background: color-mix(in srgb, currentColor 8%, transparent);
+}
+/* The tile is its own padding now, so the old stroke-to-title gap shrinks. */
+.page-v3 .feat__icon { margin-bottom: var(--sp-3); }
+/* Optical centring against the first line of the accordion title. */
+.page-v3 .acc__icon { margin-top: -4px; }
+
+/* Hero dot grid: full width, weighted to the empty right side of the
+   left-aligned hero (dense right, gone by the left third). This CSS layer
+   is the no-JS fallback; js/hero-dots.js hides it behind an interactive
+   canvas of the same dots that displace away from the pointer. */
+.page-v3 .hero__grad::after {
+  left: 0;
+  right: 0;
+  background-image: radial-gradient(circle,
+    var(--frame-grid) 1.5px, transparent 2px);
+  background-size: 22px 22px;
+  /* One radial does the whole shape for the no-JS layer: anchored to the
+     right, dissolving to the left and at the top and bottom edges. */
+  -webkit-mask-image: radial-gradient(120% 78% at 88% 50%, #000 42%, transparent 74%);
+  mask-image: radial-gradient(120% 78% at 88% 50%, #000 42%, transparent 74%);
+}
+.page-v3 .hero--dotfield .hero__grad::after { display: none; }
+.page-v3 .hero__dotfield {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Every section head goes ragged-left on V3, and the subheader sits
+   OPPOSITE the heading (12 Sep): eyebrow and heading left, supporting copy
+   right with baselines aligned, the .section-head--split shape. */
+.page-v3 .section-head--center {
+  text-align: left;
+  margin-inline: 0;
+  max-width: none;
+}
+.page-v3 .section-head--center .section-heading,
+.page-v3 .section-head--center .section-sub {
+  margin-inline: 0;
+}
+@media (min-width: 992px) {
+  .page-v3 .section-head--center {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    column-gap: var(--sp-20);
+    align-items: start;
+  }
+  /* Eyebrow rides its own full-width row; heading and sub share the row
+     below, top-aligned on the same axis. */
+  .page-v3 .section-head--center .eyebrow { grid-column: 1 / -1; }
+  .page-v3 .section-head--center .section-heading {
+    grid-column: 1;
+    grid-row: 2;
+    margin-bottom: 0;
+  }
+  .page-v3 .section-head--center .section-sub {
+    grid-column: 2;
+    grid-row: 2;
+    /* Optical: drops the sub's first line onto the H2's cap line. */
+    margin-top: var(--sp-2);
+  }
+}
+
+/* ==========================================================================
+   V3 experiment ground: ONE WARM PAPER SHEET (clay.com reference, 20 Sep).
+   The washes collapse into the paper, so sections separate on their joints
+   and whitespace rather than on alternating tints; the two .section--inv
+   bands (mechanism, pricing) keep their dark tuning. The --wash-* and
+   --frame-line tokens are redeclared, not reached through the slates: a
+   custom property resolves its var()s where it is DEFINED, so the :root
+   values baked in the light slate (same finding as V2, see home-v2.css).
+   ========================================================================== */
+.page-v3 {
+  --bg:        #F7F5F0;
+  --bg-subtle: #F1EEE6;
+  --surface:   #FFFFFF;
+  --surface-2: #F1EEE6;
+
+  --wash-primary: #F7F5F0;
+  --wash-tertiary:    #F7F5F0;
+  --wash-secondary:  #F7F5F0;
+  --wash-quiet:   #F7F5F0;
+
+  /* Warmed hairlines: the cool slate lines read blue on the paper. */
+  --border:        #E8E3D8;
+  --border-strong: #DBD5C6;
+  --hairline:      rgba(33, 33, 33, 0.10);
+  --frame-line:    rgba(33, 33, 33, 0.12);
+
+  --nav-surface:       rgba(247, 245, 240, 0.94);
+  --nav-surface-glass: rgba(247, 245, 240, 0.62);
+}

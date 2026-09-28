@@ -1,0 +1,116 @@
+/* ==========================================================================
+   aiRA — Visual language reference. Internal page, noindex.
+   ========================================================================== */
+
+.g-hero { padding-block: var(--sp-16) var(--sp-10); }
+.g-hero__title {
+  font-size: var(--t-display-2);
+  font-weight: 700;
+  letter-spacing: var(--tr-display);
+  line-height: 1.1;
+  margin-bottom: var(--sp-4);
+}
+
+.g-block { padding-block: var(--sp-12); border-top: 1px solid var(--border); }
+.g-block__head { margin-bottom: var(--sp-8); }
+.g-block__title {
+  font-size: var(--t-display-3);
+  font-weight: 700;
+  letter-spacing: var(--tr-display);
+  margin-bottom: var(--sp-2);
+}
+.g-block__note { font-size: var(--t-body-sm); color: var(--ink-2); max-width: 42rem; }
+
+.g-sub {
+  font-family: var(--font-display);
+  font-size: var(--t-mono);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: var(--sp-8) 0 var(--sp-4);
+}
+.g-sub:first-child { margin-top: 0; }
+
+/* Swatches */
+.g-swatches { display: grid; grid-template-columns: repeat(10, 1fr); gap: 8px; }
+.g-swatch__chip {
+  height: 60px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--hairline);
+  margin-bottom: 7px;
+}
+.g-swatch__name {
+  font-family: var(--font-sans);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--ink-3);
+  display: block;
+}
+.g-swatch__hex {
+  font-family: var(--font-sans);
+  font-size: var(--t-mono);
+  font-weight: 450;
+  color: var(--ink-faint);
+}
+
+/* The three colour ramps share ONE anchor step: Teal/300, Primary/400 and
+   Purple/400 are the same colour at three hues. The ring marks it, because
+   the step numbers do not line up and the pairing is otherwise invisible:
+   teal anchors a hundred lower than the other two. */
+.g-swatch--anchor .g-swatch__chip {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 3px var(--ink);
+}
+.g-swatch--anchor .g-swatch__name { color: var(--ink); font-weight: 600; }
+
+.g-semantic { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); }
+.g-semantic__row {
+  display: flex; align-items: center; gap: 10px;
+  font-size: var(--t-caption); color: var(--ink-2);
+}
+.g-semantic__dot {
+  width: 22px; height: 22px; border-radius: var(--r-xs);
+  border: 1px solid var(--hairline); flex: none;
+}
+
+/* Type specimens */
+.g-spec { border-bottom: 1px dashed var(--border); padding: var(--sp-5) 0; }
+.g-spec:last-child { border-bottom: 0; }
+.g-spec__meta {
+  font-family: var(--font-sans);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+  margin-bottom: var(--sp-3);
+}
+.g-d1 { font-size: var(--t-display-1); font-weight: 700; letter-spacing: var(--tr-display); line-height: var(--lh-display); }
+.g-d2 { font-size: var(--t-display-2); font-weight: 700; letter-spacing: var(--tr-display); line-height: 1.1; }
+.g-d3 { font-size: var(--t-display-3); font-weight: 700; letter-spacing: var(--tr-display); line-height: 1.2; }
+.g-ti { font-size: var(--t-title); font-weight: 700; letter-spacing: var(--tr-title); }
+.g-bl { font-size: var(--t-body-lg); line-height: var(--lh-body); color: var(--ink-2); max-width: 40rem; }
+.g-bd { font-size: var(--t-body); line-height: var(--lh-body); color: var(--ink-2); max-width: 40rem; }
+.g-sm { font-size: var(--t-body-sm); line-height: 1.65; color: var(--ink-2); max-width: 40rem; }
+
+.g-row { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
+.g-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-5); }
+.g-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-5); }
+
+.g-dark {
+  background: var(--surface-inv);
+  border-radius: var(--r-lg);
+  padding: var(--sp-8);
+  color: var(--ink-inv);
+}
+
+@media (max-width: 991px) {
+  .g-swatches { grid-template-columns: repeat(5, 1fr); }
+  .g-semantic { grid-template-columns: repeat(2, 1fr); }
+  .g-grid-3 { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .g-swatches { grid-template-columns: repeat(3, 1fr); }
+  .g-grid-2 { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,121 @@
+{
+  "slug": "department-discount",
+  "name": "Department & Discount",
+  "title": "aiRA for department and discount retail · Questions your team asks every week",
+  "description": "Wide assortments, thin margins, and the crossing customer nobody owns. aiRA answers what department, discount and mass merchant teams ask, then builds the move and waits for approval.",
+
+  "hero": {
+    "h1": "Every department<br>thinks it owns them.",
+    "sub": "The customer who crosses the store is the most valuable one you have, and the one your reporting is least able to see. aiRA reads the warehouse you already have, answers in plain language with the reasoning shown, and hands back the segment or the journey already built."
+  },
+
+  "shape": {
+    "eyebrow": "The shape of it",
+    "heading": "Your best customer belongs to no department.",
+    "sub": "Four things about department and discount data that make a generic analytics answer the wrong answer.",
+    "facets": [
+      {
+        "t": "Frequency",
+        "d": "Regular, but never the same trip twice. One customer arrives for a birthday present, a school uniform and a set of towels, and each visit reads like a different person in the data."
+      },
+      {
+        "t": "Margin",
+        "d": "Thin and highly mixed. Margin varies more between your own departments than between you and a competitor, so a growing basket can still be a shrinking contribution."
+      },
+      {
+        "t": "Seasonality",
+        "d": "A few weeks carry most of the year. A large share of it lands in a handful of weeks, and the rest of the calendar is judged mostly on whether it set those weeks up."
+      },
+      {
+        "t": "What the data misses",
+        "d": "The shopper across departments. Buying is organised by department and so is the reporting, so the customer who crosses is the one no report is built to find and no budget is built to win."
+      }
+    ]
+  },
+
+  "seats": {
+    "heading": "The same week, five different problems.",
+    "sub": "Marketing is arbitrating fifty-two weeks between departments while the data team rebuilds like-for-like around ranges that no longer exist. Here is what each seat asks, and what aiRA hands back."
+  },
+
+  "roles": {
+    "marketing": {
+      "problem": "Every department wants the front page and there are only fifty-two weeks. Promotions are planned by department and then met by a customer who has never once thought in departments.",
+      "questions": [
+        { "cap": "Ad hoc analytics", "q": "Which promotions grew the total basket rather than moving spend between departments?" },
+        { "cap": "Advanced analytics", "q": "Run a basket analysis across departments: which pairs actually travel together?" },
+        { "cap": "Audience builder", "q": "Find the customers who shop three or more departments, and size them." },
+        { "cap": "Journey orchestration", "q": "Draft the cross-department offer for single-department regulars and show the margin first." }
+      ],
+      "returns": "Promotions read on total basket instead of department sales, so cannibalisation shows up before the next plan is committed rather than after."
+    },
+
+    "crm": {
+      "problem": "A customer who stops buying in one department but keeps buying in two others is invisible to a department report and to a churn model alike. Loyalty is held across the store, and it leaks one department at a time.",
+      "questions": [
+        { "cap": "Predictive models", "q": "Which customers have dropped a department they used to buy every quarter?" },
+        { "cap": "Audience builder", "q": "Build a segment of members who only ever shop one department." },
+        { "cap": "Ad hoc analytics", "q": "What does the second department a customer adds tell us about how long they stay?" },
+        { "cap": "Journey orchestration", "q": "Create the journey that introduces the most likely next department and hold it for approval." }
+      ],
+      "returns": "Churn measured at department level inside an apparently healthy customer, which is where it actually starts, with the recovery audience already built."
+    },
+
+    "bi": {
+      "problem": "Department hierarchies, seasonal ranges and an assortment that changes week to week turn like-for-like into a research project. The ad hoc queue peaks in exactly the weeks nobody has time for it.",
+      "questions": [
+        { "cap": "Ad hoc analytics", "q": "Give me last week by department, like for like, adjusted for ranges we no longer carry." },
+        { "cap": "Advanced analytics", "q": "Which departments recruit customers who then shop elsewhere in the store?" },
+        { "cap": "Data quality & fraud checks", "q": "Flag the stores whose loyalty scan rate has fallen since the range changed." },
+        { "cap": "Knowledge base Q&A", "q": "How do we treat a department that changed its range mid-year in the comparison?" }
+      ],
+      "returns": "The comparison and the adjustment behind it in one answer, so the peak weeks are spent reading the trade rather than assembling it."
+    },
+
+    "ecommerce": {
+      "problem": "Online carries the long tail the stores cannot hold, along with the returns that come with it. The same customer shops narrowly online and widely in store, and the two files rarely agree that they are one person.",
+      "questions": [
+        { "cap": "Ad hoc analytics", "q": "Which departments do customers shop online that they never shop in store?" },
+        { "cap": "Audience builder", "q": "Find the online customers who have never been matched to a store visit." },
+        { "cap": "Advanced analytics", "q": "What is real margin on online orders once returns and delivery are in?" },
+        { "cap": "Predictive models", "q": "Which online baskets are likely to be part-returned?" }
+      ],
+      "returns": "The online and store versions of the same customer reconciled, and online contribution restated after the costs that only online carries."
+    },
+
+    "growth": {
+      "problem": "A second department is worth more here than a second visit. Getting a customer to cross is the single move that changes what they are worth, and it is the hardest thing to brief because it belongs to nobody.",
+      "questions": [
+        { "cap": "Advanced analytics", "q": "What is a two-department customer worth against a one-department customer?" },
+        { "cap": "Predictive models", "q": "Which single-department customers are most likely to cross, and into what?" },
+        { "cap": "Ad hoc analytics", "q": "Which acquisition channel brings customers who end up shopping widely?" },
+        { "cap": "Audience builder", "q": "Build the cohort that crossed departments in the last year." }
+      ],
+      "returns": "The value of crossing, in your own numbers, and a ranked list of who is most likely to do it next with the audience ready to act on."
+    }
+  },
+
+  "proof": {
+    "eyebrow": "Proof",
+    "heading": "A multi-category retailer, running promotions without engineering.",
+    "claim": "Promotion creation time cut in half, with no configuration errors across the period.",
+    "who": "Multi-category consumer superapp. 20.6 million active customers, more than 500 stores.",
+    "results": [
+      "50% reduction in promotion creation time",
+      "More than 20 promotional templates a month built without engineering",
+      "30 minutes saved on every test-to-production migration",
+      "Zero configuration errors across the period"
+    ],
+    "note": "Anonymised case study from a live aiRA deployment, published as written by Capillary."
+  },
+
+  "back": {
+    "t": "Department and discount is not the only shape retail takes.",
+    "d": "Grocery, fuel and fashion each break the pattern somewhere else. All eight are on the retail page."
+  },
+
+  "close": {
+    "heading": "Bring the question your trading team is still waiting on.",
+    "sub": "Forty-five minutes, your data, your department hierarchy. You leave with the answer and the move built, or you leave knowing aiRA is not the fit. Both are useful."
+  }
+}

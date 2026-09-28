@@ -1,0 +1,121 @@
+{
+  "slug": "other-retail",
+  "name": "Other Retail",
+  "title": "aiRA for electronics, marketplaces and D2C · Questions your team asks every week",
+  "description": "Consumer electronics, marketplaces, D2C and specialty formats. Different catalogues, the same questions about customers. aiRA answers them, then builds the move and waits for approval.",
+
+  "hero": {
+    "h1": "Different catalogues.<br>The same questions.",
+    "sub": "Electronics, marketplaces, D2C and the specialty formats each run a different model, and all of them need to know which customers are worth keeping. aiRA reads the warehouse you already have, answers in plain language with the reasoning shown, and hands back the segment or the journey already built."
+  },
+
+  "shape": {
+    "eyebrow": "The shape of it",
+    "heading": "The model decides what a good customer is.",
+    "sub": "Four things these formats have in common that make a generic analytics answer the wrong answer.",
+    "facets": [
+      {
+        "t": "Frequency",
+        "d": "No single pattern, which is the point. Electronics buy on long replacement cycles, a marketplace sees the same customer weekly, and a subscription sees them without a decision being made at all."
+      },
+      {
+        "t": "Margin",
+        "d": "Set by the model more than the product. A marketplace take rate, a hardware margin and a rental contract are three different businesses with three different definitions of a good customer."
+      },
+      {
+        "t": "Seasonality",
+        "d": "Launches and sale events set the peaks. The peak follows a product or a sale event, and it can move by weeks from one year to the next."
+      },
+      {
+        "t": "What the data misses",
+        "d": "Usually the join. Multi-brand groups, marketplaces and D2C lines tend to hold the same customer in more than one place, so the first honest answer needs two systems reconciled before it exists."
+      }
+    ]
+  },
+
+  "seats": {
+    "heading": "The same week, five different problems.",
+    "sub": "Marketing is reading a launch before the next one lands while the data team reconciles two systems that disagree about who the customer is. Here is what each seat asks, and what aiRA hands back."
+  },
+
+  "roles": {
+    "marketing": {
+      "problem": "Launches and promotions carry the year, and the window to read one closes when the next one opens. Campaigns get built fast, often against a catalogue that has changed since the brief was written.",
+      "questions": [
+        { "cap": "Ad hoc analytics", "q": "Which of last month's campaigns delivered incremental revenue rather than pulling it forward?" },
+        { "cap": "Advanced analytics", "q": "Run a basket analysis on the launch buyers: what attached, and at what margin?" },
+        { "cap": "Audience builder", "q": "Find the customers who bought the previous generation and have not upgraded." },
+        { "cap": "Journey orchestration", "q": "Draft the upgrade offer for that group and show me the margin before it sends." }
+      ],
+      "returns": "The launch read while the next plan is still open, the upgrade cohort saved as a segment, and the offer drafted in the same conversation. Nothing sends until you approve it."
+    },
+
+    "crm": {
+      "problem": "Long replacement cycles and short attention. A customer can be perfectly happy and still be out of market for three years, so standard lapse definitions produce a list of people nobody should be contacting.",
+      "questions": [
+        { "cap": "Predictive models", "q": "Which customers are approaching the end of a normal replacement cycle for what they bought?" },
+        { "cap": "Audience builder", "q": "Build a segment of members who bought once at full price and never came back." },
+        { "cap": "Ad hoc analytics", "q": "Which members moved down a tier this year, and what changed in their basket first?" },
+        { "cap": "Journey orchestration", "q": "Create the win-back for the lapsed high-value group and hold it for approval." }
+      ],
+      "returns": "Lapse defined by the replacement cycle of the product someone actually bought, rather than one window applied across a mixed catalogue."
+    },
+
+    "bi": {
+      "problem": "The customer sits in more than one system and every interesting question spans them. Reconciling before answering is the real work, and it is why a simple request takes three days to come back.",
+      "questions": [
+        { "cap": "Ad hoc analytics", "q": "Reconcile last week's orders against the loyalty ledger and show me the gaps." },
+        { "cap": "Data quality & fraud checks", "q": "Flag duplicate accounts and unusual redemption spikes from the last 30 days." },
+        { "cap": "Knowledge base Q&A", "q": "What counts as an active customer under our current programme rules?" },
+        { "cap": "Advanced analytics", "q": "Give the commercial team a weekly view by channel they can read without me." }
+      ],
+      "returns": "The reconciliation and the answer in one pass, with the query and the reasoning shown so the result can be checked rather than trusted."
+    },
+
+    "ecommerce": {
+      "problem": "Online is the entire business for some of these formats and half of it for the rest, and the mix decides which numbers matter. Attribution, returns and delivery cost all land on the same question: what an order is actually worth.",
+      "questions": [
+        { "cap": "Advanced analytics", "q": "What is real contribution by channel once returns and delivery are in?" },
+        { "cap": "Ad hoc analytics", "q": "Which online-first buyers later bought through another channel?" },
+        { "cap": "Audience builder", "q": "Find the repeat buyers who have never opened an account." },
+        { "cap": "Predictive models", "q": "Which first orders are most likely to become second ones?" }
+      ],
+      "returns": "Channel contribution stated after the costs that only online carries, and the anonymous repeat buyers surfaced as a group you can actually address."
+    },
+
+    "growth": {
+      "problem": "The growth levers differ by model, but the measurement problem does not. Everyone needs to know which acquisition produces customers who are still here a year later, and almost nobody can answer it inside a week.",
+      "questions": [
+        { "cap": "Predictive models", "q": "Which acquisition channel produces customers still buying at month twelve?" },
+        { "cap": "Advanced analytics", "q": "Model what a change to the reward threshold would do to redemption and to margin." },
+        { "cap": "Ad hoc analytics", "q": "Where does repeat purchase stall first: price, range or delivery?" },
+        { "cap": "Audience builder", "q": "Build the cohort that bought twice in ninety days and tell me what they share." }
+      ],
+      "returns": "Acquisition judged on a year of behaviour rather than a first order, and threshold changes simulated before they reach a member."
+    }
+  },
+
+  "proof": {
+    "eyebrow": "Proof",
+    "heading": "A consumer durables brand, against a target already tripled.",
+    "claim": "A one-month push delivered 38 crore against a 35 crore target that was already three times the previous year.",
+    "who": "Electrical and consumer durables retailer, India.",
+    "results": [
+      "38 crore delivered against a 35 crore target",
+      "The target itself was three times the prior year",
+      "Campaign creation time halved",
+      "Zero configuration errors across the push"
+    ],
+    "note": "Anonymised case study from a live aiRA deployment, published as written by Capillary."
+  },
+
+  "back": {
+    "t": "These are not the only shapes retail takes.",
+    "d": "Grocery, fashion, fuel and furniture each break the pattern somewhere else. All eight are on the retail page."
+  },
+
+  "close": {
+    "heading": "Bring the question your team is still waiting on.",
+    "sub": "Forty-five minutes, your data, your definition of an active customer. You leave with the answer and the move built, or you leave knowing aiRA is not the fit. Both are useful."
+  }
+}

@@ -1,0 +1,3116 @@
+/* ==========================================================================
+   aiRA — Homepage
+   Page-specific layout only. Anything reusable belongs in components.css.
+
+   The hero carries the Tailark hero-block structure: beams and a vignette
+   for atmosphere, an announcement pill, centred display serif, and the
+   product surface in a wide app frame. Everything below it holds its own
+   weight with typography and hairlines.
+   ========================================================================== */
+
+/* ---- Hero ---------------------------------------------------------------
+   Announcement pill, centred display serif with the trailing phrase in
+   italic, framed CTA pair, then the product surface as the app-screen slot.
+   ---------------------------------------------------------------------- */
+
+/* The hero sits on the standard .section rhythm, except flush at the
+   bottom (section--flush-bottom in the markup) so the video frame's fade
+   runs straight into the joint below it. */
+
+/* The bar floated on 16 Sep, so it stopped needing to disappear into the
+   hero wash: --nav-rest is the shared white surface now (tokens.css), and
+   this page-level match was removed with the flush bar it was built for. */
+
+/* The homepage's own tri-hue copy of the wash is gone with the gradient it
+   varied (19 Sep). The three ramps still appear across the page's grounds,
+   but as three SOLID tints on different sections rather than three radials
+   layered inside one: .section--wash takes --wash-primary from global.css
+   and #industries takes --wash-tertiary below, so the reader meets the ramps in
+   sequence down the page instead of all at once in a single wash. */
+
+/* The black primary that lived here is the GLOBAL default since 16 Sep, so
+   this page-scoped copy is gone. Its `box-shadow: none` went with it: the
+   13 Sep "flat, no lift" call was superseded the day the user asked for
+   buttons with "a bit of shadow and floaty look and feel". The :not(.page-v2)
+   :not(.page-v3) guards went with it and are not needed: both archived pages
+   set their own .btn--primary in their own stylesheets. */
+
+/* Full-bleed vertical gradient: a quiet slate grey at the very top behind
+   the transparent navbar, fading to the page ground before the how-it-fits
+   section, with a whisper of brand tint at the top centre. Grey per the
+   10 Sep direction change; indigo is accent-only on this page. */
+.hero__grad {
+  position: absolute;
+  /* Bleed up past the WHOLE header placeholder, not just the bar: since the
+     bar started floating (16 Sep) the placeholder is nav-h + the 12px float
+     gap + the card's 2px of border, and a bleed that stopped at the card's
+     top edge left a strip of page background above it. */
+  inset: calc(-1 * (var(--nav-h) + var(--nav-float) + 2px)) 0 0;
+  pointer-events: none;
+  background:
+    radial-gradient(64% 52% at 50% 0%,
+      color-mix(in srgb, var(--brand) 7%, transparent), transparent 72%),
+    /* The bloom (20 Sep, user reference): a soft brand pool low and to the
+       right, under the densest part of the lattice. It is what stops the
+       texture reading as evenly-spread wallpaper, and it sits BELOW the
+       lattice layer so the squares pick the tint up rather than sit on it. */
+    radial-gradient(46% 58% at 88% 96%,
+      color-mix(in srgb, var(--brand) 9%, transparent), transparent 70%),
+    linear-gradient(180deg,
+      var(--slate-200) 0%,
+      var(--slate-100) 48%,
+      var(--bg) 100%);
+}
+/* The hero ground (19 Sep, promptwatch reference). Three parts: a square
+   grid one cell deep around the outside, an open middle where the content
+   sits, and a dot field inside that middle which clears away from the text.
+   It replaces the full-bleed dot grid that fell from the very top and faded
+   out before the H1 (12 Sep, itself a port from the V3 experiment).
+
+   THE CELL IS --section-pad, and that is the whole trick rather than a
+   coincidence to keep by hand: the hero's own vertical padding is
+   --section-pad, so a ring one cell deep puts the grid's inner edge exactly
+   on the content box. It holds at 80px and again at the 56px step below 768
+   without a second number, and if the section rhythm ever moves the ring
+   follows it.
+
+   The grid belongs to the HERO, but it is drawn on .hero__grad, which bleeds
+   up past the floating header so its wash sits behind the bar. --hero-top
+   pushes the grid back down to the hero's real top edge, which is also where
+   the reference starts its own: below the bar, not behind it. */
+.hero__grad {
+  --cell: var(--section-pad);
+  --hero-top: calc(var(--nav-h) + var(--nav-float) + 2px);
+  /* 16 divides --cell (80) exactly five times; see the lattice rule below.
+     The square is a quarter of the pitch, which is the proportion the
+     reference holds. */
+  --dot-gap: 16px;
+  --dot-size: 4px;
+  --dot-ink: var(--frame-grid);
+  /* The clear ellipse around the text, as fractions of the inner box, so one
+     set of numbers holds at every hero size. */
+  --dot-cx: 0.5;
+  --dot-cy: 0.44;
+  --dot-rx: 0.62;
+  --dot-ry: 0.74;
+  --dot-clear: 0.36;  /* no dots at all inside this much of the ellipse */
+}
+
+/* ---- the grid: four bands one cell deep, and the rectangle they close on --
+   Each band carries dividers running ACROSS it only: verticals in the top
+   and bottom, horizontals down the left and right. The obvious build, one
+   grid with a hole masked through the middle, is wrong everywhere except the
+   corners, because the pattern's lines land wherever the repeat puts them
+   and so cut the one-cell bands in half.
+
+   The side bands stop one cell short at each end rather than running the
+   full height, so their dividers never cut the four corner cells: a corner
+   belongs to the top or bottom row, and the reference keeps it whole.
+
+   The last four layers are the inner rectangle. Their far-edge positions
+   read oddly and are exact: a percentage background-position resolves
+   against (box - image), so for a 1px line calc(100% - var(--cell) + 1px)
+   lands its top edge on (box - cell), which is the band's inner edge. */
+.hero__grad::before {
+  content: '';
+  position: absolute;
+  top: var(--hero-top);
+  bottom: 0;
+  left: var(--frame-x);
+  right: var(--frame-x);
+  background-image:
+    repeating-linear-gradient(to right,  var(--frame-grid) 0 1px, transparent 1px var(--cell)),
+    repeating-linear-gradient(to right,  var(--frame-grid) 0 1px, transparent 1px var(--cell)),
+    repeating-linear-gradient(to bottom, var(--frame-grid) 0 1px, transparent 1px var(--cell)),
+    repeating-linear-gradient(to bottom, var(--frame-grid) 0 1px, transparent 1px var(--cell)),
+    linear-gradient(var(--frame-grid) 0 0),
+    linear-gradient(var(--frame-grid) 0 0),
+    linear-gradient(var(--frame-grid) 0 0),
+    linear-gradient(var(--frame-grid) 0 0);
+  background-size:
+    100% var(--cell),  100% var(--cell),
+    var(--cell) calc(100% - 2 * var(--cell)),
+    var(--cell) calc(100% - 2 * var(--cell)),
+    100% 1px,          100% 1px,
+    1px 100%,          1px 100%;
+  background-position:
+    0 0,                                  0 100%,
+    0 var(--cell),                        100% var(--cell),
+    0 var(--cell),                        0 calc(100% - var(--cell) + 1px),
+    var(--cell) 0,                        calc(100% - var(--cell) + 1px) 0;
+  background-repeat: no-repeat;
+}
+
+/* ---- the lattice, inside the open middle (20 Sep, user reference) --------
+   A field of small SQUARES on a regular pitch, dissolving away from the copy
+   and densest at the edges. It replaces the round dot field and the canvas
+   that used to sit on top of it: the pointer-displacement effect is gone on
+   the user's call, so this is one static layer with nothing to keep in sync.
+
+   THE PITCH DIVIDES THE CELL, and that is the fix for the frame reading as
+   broken. --cell is --section-pad, 80px, and the old 22px dot gap went into
+   it 3.64 times, so the lattice met the band's cell lines at a different
+   place on every column and the boundary between the two looked like a
+   mis-drawn grid rather than an edge. 16 goes into 80 exactly five times, so
+   every fifth square now lands on a cell line at every size, and at the
+   56px step below 768 it is three and a half, which is close enough to read
+   as registered because the bands there are only two.
+
+   Squares, not circles: a conic gradient centred on the corner of the tile
+   paints one quadrant, which inside a 16px tile is exactly the 4px square at
+   its origin. radial-gradient can only give a disc.
+
+   The mask is unchanged in shape: an ellipse around the text, transparent
+   through --dot-clear and ramping to opaque at its edge, so the copy sits in
+   clean ground and the texture gathers at the corners. */
+.hero__grad::after {
+  content: '';
+  position: absolute;
+  top: calc(var(--hero-top) + var(--cell));
+  bottom: var(--cell);
+  left: calc(var(--frame-x) + var(--cell));
+  right: calc(var(--frame-x) + var(--cell));
+  background-image:
+    conic-gradient(at var(--dot-size) var(--dot-size),
+      transparent 0 270deg, var(--dot-ink) 270deg 360deg);
+  background-size: var(--dot-gap) var(--dot-gap);
+  -webkit-mask-image: radial-gradient(
+    calc(var(--dot-rx) * 100%) calc(var(--dot-ry) * 100%)
+    at calc(var(--dot-cx) * 100%) calc(var(--dot-cy) * 100%),
+    transparent 0 calc(var(--dot-clear) * 100%),
+    rgba(0, 0, 0, 0.45) 72%, #000 100%);
+  mask-image: radial-gradient(
+    calc(var(--dot-rx) * 100%) calc(var(--dot-ry) * 100%)
+    at calc(var(--dot-cx) * 100%) calc(var(--dot-cy) * 100%),
+    transparent 0 calc(var(--dot-clear) * 100%),
+    rgba(0, 0, 0, 0.45) 72%, #000 100%);
+}
+
+/* The interactive canvas field that used to sit on this box was removed on
+   20 Sep with js/hero-dots.js: the user asked for the pointer effect to go
+   and a flat pattern to take its place, so there is one layer here now and
+   nothing to keep in sync with it. The script and its CSS still live on for
+   index-v3.html, which loads its own copy of both.
+
+*/
+
+/* Below the rails the side bands would eat a quarter of a phone's width and
+   the headline would cross them, so the ring drops to two bands: the grid
+   still frames the content top and bottom, and the dot field runs the full
+   width between them. The four side layers are sized to nothing rather than
+   removed, so the layer list stays the same length as the rule above it and
+   the two cannot drift out of step. */
+@media (max-width: 991px) {
+  .hero__grad::before {
+    background-size:
+      100% var(--cell),  100% var(--cell),
+      0 0,               0 0,
+      100% 1px,          100% 1px,
+      0 0,               0 0;
+  }
+  .hero__grad::after {
+    left: var(--frame-x);
+    right: var(--frame-x);
+  }
+}
+
+/* No dot field on a phone (user, 20 Sep). At this width the open middle IS
+   the headline, so the dots sit directly behind four lines of 36px type
+   rather than around them, and the pointer displacement they exist for has
+   no pointer to answer to. The two blueprint bands stay: they are the frame,
+   not decoration. Both the static field and the canvas that replaces it are
+   hidden, since either one can be the live layer. The script bails on a
+   zero-sized canvas, so nothing keeps drawing behind this. */
+@media (max-width: 640px) {
+  .hero__grad::after { display: none; }
+}
+
+/* Positioned decor would otherwise paint over the static content wrappers. */
+.hero > .padding-global { position: relative; }
+
+/* Announcement pill: sparkle, claim, divider, then a circular port where
+   the second arrow slides in on hover. */
+.hero__announce {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-10);
+  padding: 4px 4px 4px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow-xs);
+  font-size: var(--t-body-sm);
+  font-weight: 550;
+  color: var(--ink);
+  transition: background var(--dur) var(--ease);
+}
+.hero__announce:hover { background: var(--slate-50); }
+
+.hero__announce-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero__announce-text .sparkle { width: 11px; height: 11px; color: var(--brand); flex: none; }
+.hero__announce-mark { width: 16px; height: 12px; flex: none; }
+
+.hero__announce-sep {
+  width: 1px;
+  height: 14px;
+  background: var(--border-strong);
+}
+
+/* The go button is FILLED at rest, black with a white glyph (user, 23 Sep,
+   with a reference image), and on hover it takes the brand and STRETCHES: the
+   circle opens into a stadium as the caret inside it grows its tail. Two
+   readings of the same gesture, so the shape and the glyph move together
+   rather than the glyph moving inside a fixed circle.
+
+   It was a --surface-2 circle with a grey glyph going to --primary-50 with
+   brand ink. That was too quiet to read as the pill's action at all. */
+.hero__announce-go {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  /* --r-pill, not 50%: a percentage radius re-resolves against the box as it
+     widens, so the ends would go elliptical mid-stretch instead of staying
+     the same half-circle the rest state draws. */
+  border-radius: var(--r-pill);
+  background: var(--black);
+  color: var(--ink-inv);
+  transition: background var(--dur) var(--ease),
+              width var(--dur-slow) var(--ease);
+}
+.hero__announce:hover .hero__announce-go {
+  width: 38px;
+  background: var(--brand);
+}
+
+/* The caret that becomes an arrow (22 Sep). The glyph carries both paths;
+   only the head is drawn at rest, because the shaft is dashed out by exactly
+   its own length. Hover pulls the dash offset to zero and the tail draws in
+   from the left. */
+.hero__announce-icon {
+  width: 12px;
+  height: 12px;
+  flex: none;
+  /* The head alone spans 13 to 19 of a 24 viewBox, so its centre sits 4 units
+     right of the glyph's. That is 2px at this size, and without the nudge the
+     resting caret reads as badly centred in its circle. It returns to 0 on
+     hover, where the whole arrow IS centred, so the caret drifts left as the
+     tail grows rather than the arrow appearing to stretch off to one side. */
+  transform: translateX(-2px);
+  transition: transform var(--dur-slow) var(--ease);
+}
+.hero__announce:hover .hero__announce-icon { transform: translateX(0); }
+
+.hero__announce-shaft {
+  stroke-dasharray: 14;
+  stroke-dashoffset: 14;
+  transition: stroke-dashoffset var(--dur-slow) var(--ease);
+}
+.hero__announce:hover .hero__announce-shaft { stroke-dashoffset: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__announce,
+  .hero__announce-go,
+  .hero__announce-icon,
+  .hero__announce-shaft { transition: none; }
+}
+
+.hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  /* Clearance inside the grid's inner rectangle. That rectangle lands exactly
+     on this content box by design (--cell is --section-pad), which is what
+     keeps the frame honest, but it also means the announcement pill sat ON
+     the top rule with a 0px gap while the button below had 40 (user, 19 Sep).
+     Padding the content rather than shrinking the ring keeps the geometry and
+     gives the pill the same room the button already had. The frame grows with
+     it, so the bottom gap is unchanged. */
+  padding-top: var(--sp-10);
+}
+@media (max-width: 768px) {
+  /* The ring is one --section-pad deep, which steps to 56 here, so the
+     clearance steps with it. */
+  .hero__inner { padding-top: var(--sp-6); }
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: var(--t-display-0);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+  /* Three explicit lines: "On-demand insights and / analytics agent for /
+     [icon] {team} teams". Wide enough that the br's decide the breaks. */
+  max-width: 24ch;
+  margin-bottom: var(--sp-6);
+  text-wrap: balance;
+}
+/* "teams" rotates inside the brand-coloured phrase since 13 Sep (user
+   call); no fixed em word remains in the H1. */
+
+/* ---- Rotating team in the H1 ---------------------------------------------
+   "Analytics agent for [icon] {team} teams": js/rotator.js swaps the team
+   word character by character and the Phosphor icon in its app-style tile
+   every few seconds. The word box carries an explicit width so the swap
+   glides (FLIP) instead of jumping; the sr-only sibling in the markup keeps
+   the full claim readable while this whole line is aria-hidden.
+   ---------------------------------------------------------------------- */
+
+.hero__rot-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.92em;
+  height: 0.92em;
+  /* vertical-align: middle is the only baseline-independent alignment that
+     behaves the same in every engine (length values hang off the box's own
+     synthesized baseline, which Safari and Chrome compute differently for
+     inline-flex). middle centres on the x-height, so the relative nudge
+     lifts the tile to the Title-case optical centre. */
+  vertical-align: middle;
+  position: relative;
+  top: -0.06em;
+  border-radius: 0.2em;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--brand) 78%, white), var(--brand));
+  color: var(--on-brand);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 10px 24px -10px color-mix(in srgb, var(--brand) 65%, transparent);
+}
+.hero__rot-icon svg {
+  width: 56%;
+  height: 56%;
+  transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+.hero__rot-icon--swap svg {
+  transform: scale(0.3) rotate(-14deg);
+  opacity: 0;
+}
+
+.hero__rot-word {
+  display: inline-flex;
+  justify-content: center;
+  white-space: nowrap;
+  /* Brand-coloured on request (11 Sep): the one deliberate exception to the
+     muted-turn-phrase rule, carried by the rotating word only. */
+  color: var(--brand);
+  transition: width 0.3s var(--ease);
+}
+.hero__char { display: inline-block; }
+.hero__char--out { animation: hero-char-out 0.22s var(--ease) both; }
+.hero__char--in  { animation: hero-char-in 0.3s var(--ease) both; }
+
+@keyframes hero-char-out {
+  to { opacity: 0; transform: translateY(-0.4em); }
+}
+@keyframes hero-char-in {
+  from { opacity: 0; transform: translateY(0.4em); }
+}
+
+/* js/rotator.js also never starts the cycle under reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .hero__rot-icon svg, .hero__rot-word { transition: none; }
+  .hero__char--out, .hero__char--in { animation: none; }
+}
+
+/* Phones: the icon tile's ~44px is what pushes the widest word (eCommerce)
+   onto a fourth line, and the reflow jumps the page height every cycle.
+   Dropping the tile keeps every word on three lines at a stable height. */
+@media (max-width: 640px) {
+  .hero__rot-icon { display: none; }
+}
+/* Below ~380px the 36px clamp floor still wraps the widest word (and at
+   360 even the first line), so the title steps down. 30px, not the 32px it
+   was under Instrument Sans: Google Sans Flex is the wider face, and at 32px
+   it took the title to a fourth line here (16 Sep). font-stretch would have
+   been the tidier fix, since the new face carries a wdth axis, but the axis
+   is not in the font request and adding it costs a second variable axis on
+   every page for one breakpoint. */
+@media (max-width: 380px) {
+  .hero__title { font-size: 1.875rem; }
+}
+
+.hero__sub {
+  /* 18 (user, 28 Sep). A hero sub moves the OTHER way from a section sub:
+     it is the only supporting line on the fold and carries the whole
+     claim under a 70px headline, where 16 read as small print. */
+  font-size: var(--t-body-xl);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 36rem;
+  margin-bottom: var(--sp-8);
+  text-wrap: pretty;
+}
+
+.hero__cta {
+  justify-content: center;
+  margin-bottom: var(--sp-10);
+}
+
+/* Capability index: a mono label over a row of pill chips, in the same
+   pill language as the announcement pill and the mechanism sources. */
+/* The tour, and the capability pills on it (17 Sep, user call). The pills
+   left the copy column and now ride ON the poster, scattered rather than
+   lined up, so they read as things the product is being asked for rather
+   than as a feature list under the CTA. The Caveat label became the tour's
+   eyebrow in the same move, so this wrapper carries the top gap the video
+   used to carry itself. */
+.hero__asks { margin-top: var(--sp-16); }
+/* Geist Mono caps, the eyebrow spec, since 17 Sep ("we are not using caveat
+   typeface in this project"): this label is the tour's eyebrow, so it reads
+   in the eyebrow voice, in brand Primary/400 rather than the eyebrow's /700. The
+   caps are TYPED in the markup, never text-transformed, so the brand never
+   renders as AIRA. */
+.hero__asks-label {
+  text-align: center;
+  margin-bottom: var(--sp-4);
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  line-height: 1;
+  color: var(--brand);
+}
+
+/* The belt is inert at desktop widths (one centred wrapped list, the JS
+   clone hidden); on phones it becomes the ticker viewport. */
+/* Decorative: pointer-events off so the poster underneath stays a single
+   click target for the video facade. */
+/* The tour wraps the frame and the pills so the overlay can be sized to the
+   poster exactly, and so the pills can leave the overlay and flow normally
+   below it on phones without breaking out of the frame's aspect-ratio box. */
+.hero__tour {
+  position: relative;
+  max-width: 54rem;
+  margin: 0 auto;
+}
+
+/* Decorative: pointer-events off so the poster underneath stays a single
+   click target for the video facade. */
+.hero__askbelt {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.hero__askbelt .hero__asklist[aria-hidden="true"] { display: none; }
+
+.hero__asklist {
+  display: block;
+  position: static;
+}
+
+/* Scattered, not random: each pill clears the centred play badge and the
+   other four, weighted two left, two right, one low. Percentages, so the
+   arrangement holds as the 16:9 frame scales.
+
+   Three of the five straddle the frame edge rather than sitting politely
+   inside it (17 Sep, user call: "can be half out too"), which is what stops
+   the group reading as a caption layer and makes it read as labels pinned on
+   the product. The overhang is bounded: the tour is 54rem inside an 80rem
+   container, so even the deepest sits well short of the page rails. */
+.hero__asklist li { position: absolute; }
+.hero__asklist li:nth-child(1) { top:  7%; left:  -6%; }
+.hero__asklist li:nth-child(2) { top: 19%; right: -5%; }
+.hero__asklist li:nth-child(3) { top: 48%; left:  -5%; }
+.hero__asklist li:nth-child(4) { top: 63%; right: -7%; }
+.hero__asklist li:nth-child(5) { top: 84%; left:  22%; }
+
+/* Below this the 54rem frame stops clearing the page gutter, so the overhang
+   would push the whole page sideways. The three straddling pills tuck back
+   inside; the arrangement is unchanged otherwise. */
+@media (max-width: 1100px) {
+  .hero__asklist li:nth-child(1) { left:  3%; }
+  .hero__asklist li:nth-child(2) { right: 3%; }
+  .hero__asklist li:nth-child(3) { left:  3%; }
+  .hero__asklist li:nth-child(4) { right: 3%; }
+}
+
+@media (max-width: 900px) {
+  /* Five scattered pills collide once the frame is narrower than this, so the
+     belt drops out of the overlay and back into normal flow under the video,
+     which is the row (and, below 640, the ticker) it was before the move. */
+  /* In flow the belt rides ABOVE the video (17 Sep, user call): directly
+     under the "ASK aiRA FOR" label, with the tour below it. Flex order does
+     the move so the markup keeps the belt inside the tour for the desktop
+     overlay. The video returns to being the hero's last element, so its
+     fade meets the joint again and the belt needs no bottom clearance. */
+  .hero__tour {
+    display: flex;
+    flex-direction: column;
+  }
+  .hero__askbelt {
+    position: static;
+    order: -1;
+    margin-block: 0 var(--sp-5);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    pointer-events: auto;
+  }
+  .hero__asklist {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--sp-2);
+  }
+  .hero__asklist li {
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero__askbelt {
+    justify-content: flex-start;
+    overflow: hidden;
+    /* The clip cuts the pills' float shadow flat at the belt's edges, so the
+       shadow gets its room INSIDE the clip: --shadow-float's largest layer
+       reaches ~34px below the pill (14px offset + 32px blur - 12px spread),
+       so 16px was still cutting it. 40px covers it, and the negative block
+       margins reclaim the same room so the belt's outer rhythm stays put. */
+    padding-block: var(--sp-10);
+    margin-block: calc(-1 * var(--sp-8)) calc(-1 * var(--sp-4));
+    -webkit-mask-image: linear-gradient(to right,
+      transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(to right,
+      transparent, #000 12%, #000 88%, transparent);
+  }
+  /* Trailing padding equals the pill gap, so translateX(-100%) lands
+     exactly on the clone and the loop is seamless. */
+  .hero__askbelt .hero__asklist {
+    flex: none;
+    width: max-content;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-right: var(--sp-2);
+    animation: hero-ask-scroll 26s linear infinite;
+  }
+  .hero__askbelt .hero__asklist[aria-hidden="true"] { display: flex; }
+}
+@keyframes hero-ask-scroll {
+  to { transform: translateX(-100%); }
+}
+/* Reduced motion: the ticker stops and wraps. Safe unscoped, because above
+   900px the list is display:block and these flex resets are inert, so the
+   desktop scatter is untouched. */
+@media (prefers-reduced-motion: reduce) {
+  .hero__askbelt {
+    overflow: visible;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .hero__askbelt .hero__asklist {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: auto;
+    padding-right: 0;
+  }
+  .hero__askbelt .hero__asklist[aria-hidden="true"] { display: none; }
+}
+.hero__asklist li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-pill);
+  /* Over a screenshot now rather than the page ground, so they take the
+     floating shadow the header and cards use, plus a light backdrop blur
+     so a busy patch of UI underneath never muddies the label. */
+  box-shadow: var(--shadow-float);
+  backdrop-filter: blur(6px) saturate(130%);
+  -webkit-backdrop-filter: blur(6px) saturate(130%);
+  font-size: var(--t-body-sm);
+  font-weight: 550;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+/* Official Phosphor icons (duotone), inlined with currentColor. */
+.hero__asklist svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--brand-ink);
+}
+
+/* ---- Hero video -----------------------------------------------------------
+   The product screenshot as the poster of a popup player (see js/video.js):
+   clicking opens the YouTube embed in a lightbox, so no third-party iframe
+   ever loads on the page itself. Narrower than the container, and the
+   poster's bottom fades into the page ground like the old static shot.
+   ---------------------------------------------------------------------- */
+
+.hero__video {
+  position: relative;
+  max-width: none;
+  margin: 0;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-xl);
+  background: var(--surface);
+  padding: var(--sp-2);
+}
+.hero__video-poster {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border-radius: calc(var(--r-xl) - var(--sp-2));
+  overflow: visible;
+  cursor: pointer;
+}
+/* Overshoots the frame's padding and border so the whole frame dissolves
+   into the ground, not just the image. */
+.hero__video-fade {
+  position: absolute;
+  inset: calc(-1 * var(--sp-2) - 1px);
+  border-radius: var(--r-xl);
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 52%, var(--bg) 100%);
+}
+.hero__video-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+.hero__video-btn {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--nav-surface);
+  color: var(--brand);
+  box-shadow: var(--shadow-lg);
+  transition: background var(--dur-fast) var(--ease),
+              color var(--dur-fast) var(--ease);
+}
+.hero__video-poster:hover .hero__video-btn {
+  background: var(--brand);
+  color: var(--on-brand);
+}
+.hero__video-btn svg {
+  width: 26px;
+  height: 26px;
+  /* The play-fill glyph is right-of-centre in its 256 viewBox (bbox centre
+     x=152, not 128): pull it back so the triangle centres in the circle,
+     with 1px left for triangle optics. */
+  margin-left: -1px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__video-btn { transition: none; }
+  .hero__video-poster:hover .hero__video-btn { transform: none; }
+}
+@media (max-width: 768px) {
+  .hero__video { margin-top: var(--sp-10); padding: 4px; }
+  .hero__video-poster { border-radius: calc(var(--r-xl) - 4px); }
+  .hero__video-fade { inset: -5px; }
+  .hero__video-btn { width: 56px; height: 56px; }
+  .hero__video-btn svg { width: 20px; height: 20px; }
+}
+/* Touch devices never see the hover state, so the play badge rests in the
+   primary colour there. */
+@media (hover: none) {
+  .hero__video-btn {
+    background: var(--brand);
+    color: var(--on-brand);
+  }
+}
+
+/* ---- Mechanism ------------------------------------------------------------
+   Moved to components.css on 20 Sep, when /product took the same section;
+   one source now styles it on both pages. */
+/* ---- Questions: what people actually ask aiRA -----------------------------
+   Tailark features-4 shape: two feature columns split by a hairline, each
+   with a CSS-drawn illustration card (house rule: product UI is drawn, not
+   faked as an image), then a hairline-topped row of four mini capabilities.
+   ---------------------------------------------------------------------- */
+
+.feat {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.feat__col {
+  display: flex;
+  flex-direction: column;
+  /* Grid item: without this the cards' min-content widens the 1fr track
+     past the container on phones. */
+  min-width: 0;
+  padding: 0 var(--sp-12) 0 0;
+}
+.feat__col + .feat__col {
+  border-left: 1px solid var(--border);
+  padding: 0 0 0 var(--sp-12);
+}
+
+/* One block anatomy everywhere in this section (12px under the icon, 8px
+   under the header): the two illustration columns and the six cells share
+   it; the columns just add the figure. */
+.feat__icon {
+  display: block;
+  margin-bottom: var(--sp-3);
+  color: var(--brand);
+}
+.feat__icon svg { width: 20px; height: 20px; }
+
+/* V1 rides the icon INSIDE the title as a prefix (13 Sep): the questions
+   grid and mech points h4s and the two feature-column h3s. The heading
+   flexes only when it holds one, so V2/V3's icon-above markup keeps its
+   stacked shape from the base rules. */
+.feat__mini h4:has(> .feat__icon),
+.price__tile h4:has(> .feat__icon),
+.feat__title:has(> .feat__icon) {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.feat__mini h4 > .feat__icon,
+.price__tile h4 > .feat__icon,
+.feat__title > .feat__icon {
+  display: inline-flex;
+  margin-bottom: 0;
+}
+
+/* Brand-lit word inside a section heading (V1's questions head). */
+.section-heading .hl-brand { color: var(--brand); }
+
+/* Icons on dark surfaces ride Primary/200 (user call, 13 Sep): full brand /400
+   sinks on near-black. Covers every .feat__icon inside a dark section
+   (mech points, price tiles). */
+.section--inv .feat__icon { color: var(--primary-200); }
+
+.feat__title,
+.feat__mini h4 {
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+  margin-bottom: var(--sp-2);
+}
+.feat__body {
+  font-size: var(--t-body-sm);
+  line-height: 1.65;
+  color: var(--ink-3);
+  max-width: 32rem;
+  margin-bottom: var(--sp-6);
+}
+
+/* Illustration well + drawn card. Both wells share one fixed height on a
+   clean grey ground; the cards run past the bottom edge and dissolve
+   through the fade (no bottom padding), so the pair reads structured and
+   equal despite different content. */
+.feat__fig {
+  position: relative;
+  margin-top: auto;
+  height: 372px;
+  overflow: hidden;
+  background: var(--bg-subtle);
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  padding: var(--sp-6) var(--sp-6) 0;
+}
+.feat__fig::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 84px;
+  background: linear-gradient(to bottom, transparent, var(--bg-subtle));
+  pointer-events: none;
+  z-index: 2;
+}
+.feat__card {
+  display: grid;
+  align-content: start;
+  gap: var(--sp-3);
+  min-height: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-bottom: 0;
+  border-radius: var(--r-md) var(--r-md) 0 0;
+  box-shadow: var(--shadow-md);
+  padding: var(--sp-5);
+}
+/* Grid items inherit min-content sizing: without these the artifact chip
+   and journey canvas widen the card's track past its own box on phones
+   and spill out of the card. The inner ellipsis rules take over. */
+.feat__card > * { min-width: 0; }
+.feat__path { min-width: 0; }
+.feat__line {
+  display: block;
+  height: 8px;
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+}
+.feat__line--w90 { width: 90%; }
+.feat__line--w70 { width: 70%; }
+.feat__line--w60 { width: 60%; }
+.feat__line--w50 { width: 50%; }
+
+/* Drawn-card details, mirroring the real product's session view (user's
+   screenshots, 11-12 Sep): a collapsible task checklist with struck-through
+   completed steps and right-aligned timings, then the artifact chip the run
+   produced. Deliberately a different anatomy from the approval card. */
+/* The question as the user's chat bubble, per the session screenshot:
+   white rounded pill hugging the right edge, body face rather than the
+   mono qstring motif. */
+.feat__msg {
+  justify-self: end;
+  max-width: 92%;
+  margin-bottom: var(--sp-1);
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-xs);
+  font-size: var(--t-caption);
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.feat__tasks { display: grid; gap: 6px; }
+.feat__tasks-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--ink-2);
+}
+.feat__tasks-head svg { width: 10px; height: 10px; flex: none; color: var(--ink-faint); }
+.feat__task {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.feat__task-icon { display: flex; flex: none; color: var(--brand); }
+.feat__task-icon svg { width: 14px; height: 14px; }
+.feat__task-t {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--t-caption);
+  color: var(--ink-faint);
+  text-decoration: line-through;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.feat__task-meta {
+  flex: none;
+  font-size: var(--t-caption);
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The produced artifact, as the tinted chip rows in the session view. */
+.feat__artifact {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: color-mix(in srgb, var(--brand) 6%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--brand) 24%, transparent);
+  border-radius: var(--r-sm);
+}
+.feat__artifact-icon { display: flex; flex: none; color: var(--brand); }
+.feat__artifact-icon svg { width: 16px; height: 16px; }
+.feat__artifact-body { display: grid; gap: 1px; min-width: 0; }
+.feat__artifact-t,
+.feat__artifact-m {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.feat__artifact-t {
+  font-size: var(--t-caption);
+  font-weight: 600;
+  color: var(--ink);
+}
+.feat__artifact-m {
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+}
+.feat__artifact-state { margin-left: auto; flex: none; }
+
+/* The journey canvas: the builder surface from the product screenshot.
+   Dot-grid ground, an entry block splitting into two typed paths, blocks
+   joined by hairline connectors; type reads from a coloured square dot. */
+.feat__canvas {
+  padding: var(--sp-3);
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--ink) 10%, transparent) 1px, transparent 1px);
+  background-size: 14px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.feat__node {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  padding: 5px 9px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  box-shadow: var(--shadow-xs);
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--ink-2);
+  position: relative;
+  z-index: 1;
+}
+/* Bare text can't ellipsize as a flex child, so labels ride in a span. */
+.feat__node-t {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.feat__node--entry { width: fit-content; max-width: 100%; margin-inline: auto; }
+.feat__nodedot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+}
+.feat__nodedot--audience { background: var(--ink); }
+.feat__nodedot--sms { background: var(--hold); }
+.feat__nodedot--wait { background: var(--ink-faint); }
+.feat__nodedot--email { background: var(--brand); }
+
+/* Entry stub, crossbar, and the two drops into the path columns. */
+.feat__split { position: relative; height: 16px; }
+.feat__split::before {
+  content: '';
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  top: 8px;
+  bottom: 0;
+  border: 1px solid var(--border-strong);
+  border-bottom: 0;
+}
+.feat__split::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 8px;
+  background: var(--border-strong);
+}
+
+.feat__paths {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-3);
+}
+.feat__path {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+/* The column's spine: nodes sit over it, the gaps show it. */
+.feat__path::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 14px;
+  left: 50%;
+  width: 1px;
+  background: var(--border-strong);
+}
+
+.feat__runs { display: grid; gap: 6px; }
+.feat__run {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.feat__run-icon { display: flex; flex: none; color: var(--ink-3); }
+.feat__run-icon svg { width: 13px; height: 13px; }
+.feat__run-t {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--ink-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.feat__run-meta {
+  flex: none;
+  font-size: var(--t-caption);
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.feat__spark {
+  width: 48px;
+  height: 16px;
+  margin-left: auto;
+  stroke: var(--approve);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The segment trend: a full-width area chart closing the card, bleeding
+   into the well's bottom fade like the reference illustrations. Faint
+   gridlines and a glowing endpoint give it the dashboard read. */
+.feat__chartwrap { position: relative; margin-top: var(--sp-1); }
+.feat__chart {
+  display: block;
+  width: 100%;
+  height: 56px;
+}
+.feat__chart-grid {
+  fill: none;
+  stroke: color-mix(in srgb, var(--ink) 7%, transparent);
+  stroke-width: 1;
+}
+.feat__chart-area {
+  fill: var(--approve);
+  opacity: 0.09;
+}
+.feat__chart-line {
+  fill: none;
+  stroke: var(--approve);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* HTML dot, not an svg circle: preserveAspectRatio none would stretch it. */
+.feat__chart-end {
+  position: absolute;
+  left: 99.2%;
+  top: 14.3%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--approve);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--approve) 18%, transparent);
+}
+
+/* The task list collapses like the product's session log; the structure is
+   always wrapped so the grid-rows trick has a track to animate. */
+.feat__tasks-list {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.45s var(--ease);
+}
+.feat__tasks-listin {
+  min-height: 0;
+  overflow: hidden;
+  display: grid;
+  gap: 6px;
+}
+.feat__tasks-head svg { transition: transform 0.3s var(--ease); }
+
+/* ---- One-time session playback (js/session-card.js) --------------------
+   The card arms hidden, then replays: message -> tasks (spinner, strike,
+   check) -> artifact chip -> chart draw. The finished state is
+   the markup default; everything here rides the .is-armed gate so no-JS
+   and reduced motion never see it. */
+.feat__card.is-armed .feat__msg,
+.feat__card.is-armed .feat__tasks-head,
+.feat__card.is-armed .feat__task,
+.feat__card.is-armed .feat__artifact,
+.feat__card.is-armed .feat__chartwrap {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+}
+.feat__card.s-msg .feat__msg,
+.feat__card.s-head .feat__tasks-head,
+.feat__card.is-armed .feat__task.is-on,
+.feat__card.s-artifact .feat__artifact,
+.feat__card.s-chart .feat__chartwrap {
+  opacity: 1;
+  transform: none;
+}
+
+/* A running task: no strike yet, timing hidden, spinner over the check. */
+.feat__task-icon { position: relative; width: 14px; height: 14px; }
+.feat__task-icon svg { transition: opacity 0.2s var(--ease), transform 0.25s var(--ease); }
+.feat__task-meta { transition: opacity 0.25s var(--ease); }
+.feat__card.is-armed .feat__task:not(.is-done) .feat__task-t {
+  text-decoration: none;
+  color: var(--ink-2);
+}
+.feat__card.is-armed .feat__task:not(.is-done) .feat__task-meta { opacity: 0; }
+.feat__card.is-armed .feat__task:not(.is-done) .feat__task-icon svg {
+  opacity: 0;
+  transform: scale(0.5);
+}
+.feat__card.is-armed .feat__task.is-on:not(.is-done) .feat__task-icon::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-strong);
+  border-top-color: var(--brand);
+  animation: feat-spin 0.6s linear infinite;
+}
+@keyframes feat-spin { to { transform: rotate(360deg); } }
+
+/* Chart draw-on: line sweeps, area floods, endpoint pops. */
+.feat__card.is-armed .feat__chart-line {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+.feat__card.s-chart .feat__chart-line {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.8s var(--ease) 0.1s;
+}
+.feat__card.is-armed .feat__chart-area {
+  opacity: 0;
+  transition: opacity 0.6s var(--ease) 0.45s;
+}
+.feat__card.s-chart .feat__chart-area { opacity: 0.09; }
+.feat__card.is-armed .feat__chart-end {
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.3s var(--ease) 0.8s, transform 0.3s var(--ease) 0.8s;
+}
+.feat__card.s-chart .feat__chart-end {
+  opacity: 1;
+  transform: none;
+}
+
+/* Journey card playback: canvas ground in, then the flow builds top-down:
+   entry node, connectors grow downward, then each level of path nodes. */
+.feat__card.is-armed .feat__canvas {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+}
+.feat__card.s-canvas .feat__canvas {
+  opacity: 1;
+  transform: none;
+}
+.feat__card.is-armed .feat__node {
+  opacity: 0;
+  transform: translateY(4px) scale(0.94);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.feat__card.is-armed .feat__node.is-in {
+  opacity: 1;
+  transform: none;
+}
+.feat__card.is-armed .feat__split::before,
+.feat__card.is-armed .feat__split::after,
+.feat__card.is-armed .feat__path::before {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.5s var(--ease);
+}
+.feat__card.s-split .feat__split::before,
+.feat__card.s-split .feat__split::after { transform: scaleY(1); }
+.feat__card.s-split .feat__path::before {
+  transform: scaleY(1);
+  transition-duration: 1s;
+  transition-delay: 0.2s;
+}
+
+.feat__stat-label {
+  margin-top: var(--sp-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.feat__stat {
+  /* Sans with tabular numerals, never mono: Geist Mono breaks the comma. */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.feat__stat span {
+  font-size: var(--t-body-sm);
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--ink-3);
+}
+
+/* Grey header lip peeking above the move card (integrations reference). */
+.feat__panel-lip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 var(--sp-2) -12px;
+  padding: 8px 14px 16px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md) var(--r-md) 0 0;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.feat__panel-lip svg { width: 14px; height: 14px; flex: none; color: var(--ink-faint); }
+.feat__panel-lip + .feat__card { position: relative; z-index: 1; }
+
+/* The journey timeline inside the move card: labelled hops (channel, wait,
+   channel) joined by a hairline connector between the icon tiles, so the
+   card reads as a sequence rather than skeleton rows. */
+.feat__flow { display: grid; margin-top: var(--sp-1); }
+.feat__hop {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-block: 4px;
+}
+.feat__hop + .feat__hop::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: -5px;
+  width: 1px;
+  height: 10px;
+  background: var(--border-strong);
+}
+.feat__hop-body {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-2);
+}
+.feat__hop-t {
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--ink-2);
+}
+.feat__hop-meta {
+  font-size: var(--t-caption);
+  color: var(--ink-faint);
+}
+
+/* Config steps inside the move card: icon tile, label, skeleton value,
+   dashed dividers between rows. */
+.feat__steps { display: grid; gap: 10px; margin-top: var(--sp-1); }
+.feat__step { display: flex; align-items: center; gap: 10px; }
+.feat__step + .feat__step { border-top: 1px dashed var(--border); padding-top: 10px; }
+.feat__step-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex: none;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--ink-2);
+}
+.feat__step-icon svg { width: 14px; height: 14px; }
+.feat__step-body { flex: 1; display: grid; gap: 5px; }
+.feat__step-t {
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.feat__move-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+.feat__move-name {
+  font-size: var(--t-body-sm);
+  font-weight: 600;
+  color: var(--ink);
+}
+.feat__move-actions {
+  display: flex;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+}
+
+/* Capability blocks: an open grid, no cell chrome (11 Sep). One horizontal
+   hairline above the row meets the columns' vertical divider, exactly the
+   Tailark features-4 junction: the divider runs to the .feat bottom edge,
+   and this border-top IS that edge (no margin between them). */
+.feat__mini {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-10) var(--sp-8);
+  border-top: 1px solid var(--border);
+  padding-top: var(--sp-10);
+}
+.feat__mini > li {
+  display: flex;
+  flex-direction: column;
+}
+/* Questions in the body face here, no qstring mark: this grid reads as feature
+   copy, not the mono question motif (user call, 11 Sep). */
+.feat__mini p {
+  font-size: var(--t-body-sm);
+  line-height: 1.65;
+  color: var(--ink-3);
+}
+
+
+/* Phones: the cards stack, so equal well heights buy nothing; each well
+   hugs its own card (no dead run-out) and the fade becomes a shallow tail
+   dissolve over the last rows. */
+@media (max-width: 640px) {
+  .feat__fig { height: auto; }
+  .feat__fig::after { height: 48px; }
+}
+
+@media (max-width: 991px) {
+  .feat { grid-template-columns: 1fr; }
+  .feat__col { padding: 0 0 var(--sp-10); }
+  .feat__col + .feat__col {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+    padding: var(--sp-10) 0;
+  }
+  .feat__mini { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .feat__mini { grid-template-columns: 1fr; }
+}
+
+/* ---- Differentiators ----------------------------------------------------
+   One board split 60/40: an illustration pane on the left, three claims
+   stacked down the right. Every division is a hairline inside a single
+   frame, so no line stops short of an edge and none of them are separated
+   by a gap.
+   ---------------------------------------------------------------------- */
+
+.diff__grid {
+  display: grid;
+  /* 55/45 (19 Sep): the pane keeps the wider share, but only just. */
+  grid-template-columns: minmax(0, 55fr) minmax(0, 45fr);
+  gap: 0;
+  align-items: stretch;
+  /* The board breaks the container's gutter so its edges land on the
+     nearest frame line instead of stopping short of it. Where there are no
+     bands that line is the rail, so the pull is the whole gutter. */
+  margin-inline: calc(var(--sp-5) * -1);
+  /* The frame lives here, once. The cells inside carry no box of their own.
+     Square corners: an edge-to-edge board has no corner to round.
+     --frame-line, not --border: the board's edges meet the frame's own
+     lines, and --border is invisible against the wash (both near #E7E9F1). */
+  border: 1px solid var(--frame-line);
+  border-radius: 0;
+  overflow: hidden;
+}
+
+/* The pane plays the product's loop (20 Sep, user call: no step labels,
+   the hubs' own chat vocabulary instead, and a SHORT frame). The stack is
+   the shared .chat__* components from components.css: bubble, tool rows,
+   answer, move card with the approval grammar. js/diff-loop.js types the
+   question into the ask bar and lands the four pieces one by one; with the
+   script off or reduced motion the pane is simply the finished stack. */
+.diff__fig {
+  position: relative;
+  display: grid;
+  align-content: center;
+  padding: var(--sp-6) var(--sp-8);
+  background: var(--bg-subtle);
+  overflow: hidden;
+}
+
+.diff__chat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  max-width: 28rem;
+  width: 100%;
+  margin-inline: auto;
+  /* The pane is the product's own window, so it renders in the product's
+     face, same as the hubs' walkthrough stages. */
+  font-family: var(--font-product);
+}
+.diff__chat .chat__tool-t,
+.diff__chat .chat__tool-m,
+.diff__chat .chat__move-t,
+.diff__chat .state { font-family: var(--font-product); }
+
+.diff__chat .chat__move { width: 100%; margin-top: var(--sp-2); }
+
+/* ---- The loop, animated ---------------------------------------------------
+   Every rule below is gated on .is-live, which only js/diff-loop.js adds,
+   so no JS or reduced motion means the finished stack; .is-told marks the
+   handoff from the ask bar to the chat. */
+
+/* The bar is the product's own (20 Sep, user screenshot): a white pill,
+   plus on the left, the product's placeholder, mic, and the round P200
+   send. Decorative, so the low-contrast white-on-periwinkle arrow is fine. */
+.diff__ask {
+  position: absolute;
+  inset-inline: var(--sp-8);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  max-width: 28rem;
+  margin-inline: auto;
+  padding: 8px 8px 8px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  /* 24px, not --r-pill: the bar grows when the question wraps, and a half-
+     height radius on a tall box stops reading as the product's bar. 24 is
+     exactly the pill at the one-line height. */
+  border-radius: 24px;
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur) var(--ease), visibility var(--dur);
+}
+.diff__ask.is-on { opacity: 1; visibility: visible; }
+.diff__ask-plus,
+.diff__ask-mic { display: inline-flex; flex: none; color: var(--ink-3); }
+.diff__ask-plus svg,
+.diff__ask-mic svg { width: 20px; height: 20px; }
+
+/* The field WRAPS rather than truncates (20 Sep, user call): at any width
+   the whole question stays readable and the bar grows taller instead. The
+   caret rides inline after the last typed character across line breaks. */
+.diff__ask-field {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  min-height: 20px;
+}
+.diff__ask-ph {
+  position: absolute;
+  left: 0;
+  white-space: nowrap;
+  font-family: var(--font-product);
+  font-size: var(--t-body);
+  color: var(--ink-faint);
+  transition: opacity 200ms var(--ease);
+}
+/* The first typed character clears the placeholder, input-style. */
+.diff__ask-field:has(.diff__ask-t:not(:empty)) .diff__ask-ph { opacity: 0; }
+.diff__ask-t {
+  font-family: var(--font-product);
+  font-size: var(--t-body);
+  line-height: 1.5;
+  color: var(--ink);
+  overflow-wrap: break-word;
+}
+.diff__ask-caret {
+  display: inline-block;
+  width: 2px;
+  height: 15px;
+  margin-left: 1px;
+  vertical-align: -2px;
+  border-radius: 1px;
+  background: var(--brand);
+  animation: diff-caret 1s steps(1) infinite;
+}
+@keyframes diff-caret { 50% { opacity: 0; } }
+
+.diff__ask-send {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-pill);
+  background: var(--primary-200);
+  color: var(--on-brand);
+}
+.diff__ask-send svg { width: 20px; height: 20px; }
+
+/* Live: the stack anchors to the top so the script's translate is the only
+   thing moving it, starting low enough that the bubble lands about where
+   the ask bar stood. */
+.diff__fig.is-live { align-content: start; }
+.diff__fig.is-live .diff__chat {
+  margin-top: 72px;
+  opacity: 0;
+  transition: transform 700ms var(--ease), opacity var(--dur) var(--ease);
+}
+.diff__fig.is-told .diff__chat { opacity: 1; }
+
+.diff__fig.is-live .diff__chat > * {
+  opacity: 0;
+  translate: 0 12px;
+  transition: opacity 500ms var(--ease), translate 500ms var(--ease);
+}
+.diff__fig.is-live .diff__chat > .is-on { opacity: 1; translate: 0 0; }
+/* Inside the tools step the second row lands a beat after the first, so
+   the working reads as steps completing rather than a block appearing. */
+.diff__fig.is-live .chat__tools .chat__tool { opacity: 0; transition: opacity 400ms var(--ease); }
+.diff__fig.is-live .chat__tools.is-on .chat__tool { opacity: 1; }
+.diff__fig.is-live .chat__tools.is-on .chat__tool + .chat__tool { transition-delay: 550ms; }
+
+@media (max-width: 640px) {
+  .diff__ask { inset-inline: var(--sp-5); }
+  .diff__fig { padding: var(--sp-5); }
+}
+@media (prefers-reduced-motion: reduce) {
+  /* The script never runs under reduced motion; belt to that brace. */
+  .diff__ask { display: none; }
+  .diff__ask-caret { animation: none; }
+  .diff__fig.is-live .diff__chat,
+  .diff__fig.is-live .diff__chat > *,
+  .diff__fig.is-live .chat__tools .chat__tool { opacity: 1; translate: none; transition: none; }
+}
+
+.diff__cta { margin-top: var(--sp-10); }
+
+/* The three claims, static since 19 Sep (promptwatch reference). They stack
+   with no gap and divide on a single hairline each, the way the reference's
+   feature list does. The three share the pane's height equally. */
+.diff__points {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  /* The column divider. Each claim's own rule butts into it, so every
+     horizontal line runs the full width from here to the board's edge. */
+  border-left: 1px solid var(--frame-line);
+}
+.diff__point {
+  flex: 1 1 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--sp-4);
+  row-gap: var(--sp-2);
+  align-items: start;
+  align-content: center;
+  /* 12 and 16 (user, 20 Sep). The cells divide the board's height between
+     them whatever this is, so the padding is doing nothing vertically and
+     only held the copy off the rule horizontally. */
+  padding: var(--sp-3) var(--sp-4);
+  /* No fill: the claims read on the section's wash, against the white pane. */
+  border-top: 1px solid var(--frame-line);
+}
+/* The board's own top edge already draws this one. */
+.diff__point:first-child { border-top: 0; }
+.diff__point-ic {
+  display: inline-flex;
+  color: var(--black);
+  margin-top: 1px;
+}
+.diff__point-ic svg { width: 20px; height: 20px; }
+/* The universal h3 is section scale; a pointer inside a cell is a title. */
+.diff__point-t {
+  font-size: var(--t-title-sm);
+  font-weight: 500;
+  line-height: var(--lh-title);
+  letter-spacing: var(--tr-title);
+}
+.diff__point-d {
+  grid-column: 2;
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+}
+.diff__point-d strong { color: var(--ink); font-weight: 600; }
+
+/* Banded: the container pads by 136px and the dot band occupies the first
+   112px of that. Pulling the remaining 24px lands the board's edges on the
+   bands' INNER lines, so it meets the dots without covering them. */
+@media (min-width: 1200px) {
+  .diff__grid { margin-inline: -24px; }
+}
+
+@media (max-width: 640px) {
+  /* 40 either side took a third of the pane at phone width, and the cards
+     inside carry their own padding on top of it. */
+  .diff__fig { padding: var(--sp-5); }
+}
+
+@media (max-width: 991px) {
+  .diff__grid { grid-template-columns: 1fr; }
+  /* No rails below 992px, so .container drops its gutter and there is
+     nothing left to pull against. */
+  .diff__grid { margin-inline: 0; }
+  .diff__fig { min-height: 220px; }
+  /* Stacked: the divider turns horizontal so the board stays one
+     continuous run of lines. */
+  .diff__points { border-left: 0; border-top: 1px solid var(--frame-line); }
+}
+
+/* ---- Category comparison ------------------------------------------------------------
+   Moved to components.css on 20 Sep, when /product took the same section;
+   one source now styles it on both pages. */
+/* ---- Closing CTA --------------------------------------------------------
+   The offer on the left, the three terms as a thread on the right. The
+   thread is the reasoning trace made visual; here it carries the promises.
+   ---------------------------------------------------------------------- */
+
+.close__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: var(--sp-12) var(--sp-20);
+  align-items: center;
+}
+
+.close__title {
+  font-size: var(--t-display-2);
+  /* 500, like every other H2 on the site. It had kept the 700 from the
+     12 Sep weight experiment that was reversed on 17 Sep. */
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: var(--tr-display);
+  margin-bottom: var(--sp-5);
+  text-wrap: balance;
+}
+.close__sub {
+  font-size: var(--t-body-lg);
+  line-height: var(--lh-body);
+  color: var(--ink-inv-2);
+  max-width: 36rem;
+  margin-bottom: var(--sp-8);
+  text-wrap: pretty;
+}
+
+.close__thread { max-width: 28rem; }
+
+@media (max-width: 991px) {
+  .close__grid { grid-template-columns: 1fr; }
+}
+
+/* ---- Book CTA ------------------------------------------------------------
+   Moved to components.css on 20 Sep, when /product took the same section;
+   one source now styles it on both pages. */
+
+/* ---- Pricing shape --------------------------------------------------------
+   The /lp commercial-model section: credits, weeks to pilot, day-one
+   compliance. Mono label over a display value over one line of body; no
+   card chrome, the values carry it.
+   ---------------------------------------------------------------------- */
+
+/* The security section (19 Sep) shares this anatomy rather than forking a
+   second three-up: one rule set, two honest names. */
+.price__grid,
+.sec__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-8);
+}
+/* Same anatomy as the questions grid and the mech points: 20px duotone
+   icon, 16px/600 title, muted body. */
+.price__tile h4,
+.sec__tile h4 {
+  font-family: var(--font-display);
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink-inv);
+  margin-bottom: var(--sp-2);
+}
+.price__tile p,
+.sec__tile p {
+  font-size: var(--t-body-sm);
+  line-height: 1.65;
+  /* --ink-inv-2, which is what .section--inv .section-sub takes, not the
+     fainter --ink-inv-3 (user, 28 Sep). These paragraphs ARE the section's
+     supporting copy, one per tile, so they read at the same weight as the
+     sub above them rather than as a footnote to it. */
+  color: var(--ink-inv-2);
+}
+
+/* Split top (reference: header + sub left, one illustration right), then
+   the three icon cells below on hairline dividers. */
+/* Single column since the figure slot came out: a two-column head with one
+   child leaves half the row empty. */
+.price__top,
+.sec__top { margin-bottom: var(--sp-16); }
+.price__intro .section-sub,
+.sec__intro .section-sub { margin-top: var(--sp-4); max-width: 34rem; }
+
+.price__card,
+.sec__card {
+  display: flex;
+  flex-direction: column;
+}
+.price__card + .price__card,
+.sec__card + .sec__card {
+  border-left: 1px solid rgba(255, 255, 255, 0.10);
+  padding-left: var(--sp-8);
+}
+
+
+
+/* The certification line. A supporting strip, so one quiet label rather than
+   an eyebrow and a heading of its own. */
+.price__note,
+.sec__note {
+  margin-top: var(--sp-10);
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--frame-line-inv);
+  font-size: var(--t-body);
+  color: var(--ink-inv-3);
+  max-width: 44rem;
+}
+
+@media (max-width: 991px) {
+}
+@media (max-width: 767px) {
+  .price__grid,
+  .sec__grid { grid-template-columns: 1fr; gap: var(--sp-6); }
+  .price__card + .price__card,
+  .sec__card + .sec__card {
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    padding: var(--sp-6) 0 0;
+  }
+}
+
+
+/* The book section's blueprint corner grid (.book__bggrid) was removed on
+   13 Sep (user call): the wash stands alone. */
+
+/* Narrow cards (must trail the base rules in the cascade): the artifact
+   chip title wraps instead of vanishing behind the state chip, and the
+   canvas nodes trade padding for characters. */
+@media (max-width: 640px) {
+  /* The well's gutter goes to the card: every pixel counts here. */
+  .feat__fig { padding: 0; }
+  .feat__card { border-radius: var(--r-lg) var(--r-lg) 0 0; border: 0; }
+  .feat__artifact { flex-wrap: wrap; }
+  .feat__artifact-t { white-space: normal; }
+  /* The state chip drops to its own row, aligned under the text. */
+  .feat__artifact-state { margin-left: 26px; }
+  .feat__node { padding: 5px 7px; gap: 5px; }
+  .feat__canvas { padding: var(--sp-2); }
+}
+
+
+
+/* ---- Industries: the picker bar (18 Sep, re-cut to tryplayground.com) -----
+   A tinted track holding four pills, with the open one lifted out of it in
+   white and set in the brand. Selection reads as elevation plus colour rather
+   than a fill behind a divider, which is what lets the bar float free of the
+   frame below it instead of sitting welded to its top edge.
+
+   The cards are still links into the hub pages, so with JS off the bar is a
+   working set of four links and nothing is hidden behind a control. The prev
+   and next buttons are an enhancement on top of that, not the only way
+   through: the tablist keeps its own arrow keys.
+   ------------------------------------------------------------------------ */
+
+/* The industries section takes the QUIET ground, not a tint: it is the one
+   section carrying a coloured illustration, and a coloured drawing on a
+   coloured ground is what stopped the ring field reading (user, 19 Sep; the
+   reference's own ring section is a near neutral for exactly this reason).
+   The colour here comes from the drawing and its four ramp pips, which is
+   enough.
+   The page's light grounds now step: proof on the page ground, industries
+   quiet, difference on --wash-primary, book on --wash-secondary. */
+.inds {
+  background: var(--wash-quiet);
+  /* clip, not hidden: hidden on an ancestor breaks position: sticky. */
+  overflow: clip;
+}
+
+.inds__panel { margin-top: var(--sp-12); }
+
+/* The tab deck (19 Sep, re-cut from the pill track): full width and evenly
+   divided in the finder seatbar's language, closed by a hairline the brand
+   underline rides, so the row reads as the control deck of the panel under
+   it: pick a tab and the stage re-writes. The arrow pair is gone; the deck
+   itself is the whole control. */
+/* A segmented control since 19 Sep: the wide cards had drifted into looking
+   like the .biz category cells below them, so the picker now sits in its own
+   bordered tray on the grey ground, and the active industry rides a raised
+   white seat. A control you are inside of, not content you read. */
+.inds__bar {
+  position: relative;
+  padding: 4px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+}
+
+.inds__grid {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+  /* Scrolls rather than wraps if the labels ever outgrow the row. */
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.inds__grid::-webkit-scrollbar { display: none; }
+
+/* Wide cards since 19 Sep (user call: the nowrap text-tab row read like
+   product chrome): each industry is a left-aligned card with its icon, its
+   name and one line of its own claim, split by hairlines so the row reads
+   as the site's frame language rather than a tab bar. Still real links. */
+.inds__card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  flex: 1 1 0;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+  padding: var(--sp-3) var(--sp-5);
+  text-decoration: none;
+  color: var(--ink-3);
+  cursor: pointer;
+  transition: color var(--dur) var(--ease), background-color var(--dur) var(--ease);
+}
+.inds__card { border-radius: var(--r-sm); }
+.inds__card:hover { color: var(--ink); }
+.inds__card:focus-visible { outline: 2px solid var(--brand); outline-offset: -2px; }
+.inds__card.is-active { color: var(--brand-ink); }
+
+.inds__top {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+/* The white seat travels between segments; the script measures the open tab
+   and places it (it only ever sets width and translateX, so the underline it
+   used to drive became this full-height seat with no JS change). */
+.inds__thumb {
+  position: absolute;
+  /* The bar's own 4px padding is the inset; inside the grid the seat runs
+     full height. */
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  box-shadow: var(--shadow-sm);
+  pointer-events: none;
+  transition: transform 360ms var(--ease), width 360ms var(--ease);
+}
+/* Before the script has measured, there is nothing to show. */
+.inds__thumb:not(.is-set) { opacity: 0; }
+
+/* Inherits the card's colour, so the glyph turns brand with its label rather
+   than needing a rule of its own for every state. */
+.inds__ic { display: inline-flex; flex: none; color: inherit; }
+.inds__ic svg { width: 20px; height: 20px; }
+
+.inds__t {
+  font-family: var(--font-sans);
+  font-size: var(--t-title-sm);
+  font-weight: 550;
+  letter-spacing: 0;
+}
+
+@media (max-width: 991px) {
+  /* The row scrolls rather than crushing four cards. */
+  .inds__card { flex: 0 0 240px; padding: var(--sp-3) var(--sp-5); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inds__card, .inds__thumb { transition: none; }
+}
+
+
+/* The stage: one bordered frame under the picker, re-cut on the Sequence
+   product-suite reference (18 Sep). Each industry panel leads with a content
+   head at the top left: a plain label, the industry's own claim (each hub
+   page's H1, so the words are already written), and the cycling question
+   sitting where the reference keeps its paragraph. The dashed rule crosses
+   the frame between the heading and that line and runs through the centre of
+   the ring drawing on the right (.cats__deco, tuned below). Below the head:
+   retail's eight-category grid, a product still for the other three.
+
+   Every question ships in the markup as an ordered list. Without JS the head
+   carries that list, scrollable and complete; js/prompt-cue.js is the only
+   thing that reduces it to one at a time. So nothing here depends on the
+   script to be read or indexed. */
+.inds__stage {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  /* No gap: the pill bar and the panel it drives are one object, and 40px
+     between them read as a seam (user call, 19 Sep). */
+  margin-top: 0;
+  /* No ground of its own. Three radial halos lived here and drew a visibly
+     different rectangle inside the section, with hard edges at the stage's
+     own box that lined up with nothing on the page (user, 19 Sep). The
+     section ground is deliberately quiet so the drawing reads over it, and a
+     second tinted box on top of it undid exactly that. */
+  background: none;
+}
+/* No min-height: it held every panel to 660px and the shorter ones read as
+   random padding below their content (user, 19 Sep). Panels are their
+   content's height; the section accepts the jump between tabs. */
+.stage__panel {
+  position: relative;
+  z-index: 1;
+  padding: 0;
+}
+.stage__panel[hidden] { display: none; }
+
+/* ---- the section head (19 Sep, sequencehq.com product-suite reference) ---
+   One heading, left aligned, with the ring drawing to its right and the
+   dashed rule crossing both. The per-industry claim that each panel used to
+   carry as its own h3 is now the SUBHEADING under that one heading, so the
+   section states its claim once and only the line beneath it changes.
+
+   The drawing is absolutely positioned inside this block rather than laid
+   out beside it, which is what lets the text keep its own measure and the
+   tab bar below run the full width. */
+.inds__head {
+  /* The drawing lives in THIS box now, so the property it is keyed to lives
+     here too. Everything keyed to --deco-y silently went inert the moment the
+     drawing was re-parented out of .inds__stage, which is worth remembering:
+     an undefined custom property does not fall back, it invalidates the whole
+     declaration, so the rings lost their position AND the mask that was
+     clipping them at the same time.
+     Where the rule crosses: between the heading and the subheading under it,
+     which is where the reference puts its own. Measured, not guessed: the h2
+     ends 79px into this box and the sub starts at 95. */
+  --deco-y: 87px;
+  position: relative;
+  isolation: isolate;
+  /* No padding of its own (user, 19 Sep). The section already opens on
+     --section-pad, and 48 more on top of that put 128px above the eyebrow. */
+  padding-block: 0;
+}
+/* The box the drawing is masked inside. It runs well past the head, because
+   the rings are 640px tall against a head of about 210 and the reference lets
+   its own drawing reach down beside the content. The mask below, not this
+   box, is what decides where it stops being visible. */
+.inds__head .cats__deco { inset: 0 0 -320px; }
+.inds__head-text,
+.inds__claim {
+  position: relative;
+  z-index: 1;
+  /* Stops the copy running under the drawing on the right. */
+  max-width: 34rem;
+}
+.inds__head .section-heading { margin-bottom: 0; }
+
+/* The subheading. Deliberately NOT a heading: it is the second half of one
+   sentence with the h2 above it, and making it an h3 was what had the
+   section reading as two stacked titles. It is also generic and static
+   (user, 19 Sep): it describes what the tabs do rather than restating
+   whichever one is open, so it is one element, not four keyed by industry. */
+.inds__claim {
+  margin-top: var(--sp-4);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 30rem;
+}
+
+/* ---- the cue: frigade's black callout ----
+   The question rides in a black rounded box with a soft shadow, white text
+   on ink, hugging its content: the box takes the height (and width) the
+   current question needs, and glides between sizes when the script swaps
+   one question for the next (js/prompt-cue.js does the measuring; the
+   .is-sizing transition here does the moving). Characters roll out and the
+   next question's roll in with a capped stagger, the hero rotator's trick
+   retold at sentence length.
+
+   No-JS and reduced motion keep the full ordered list inside the same box,
+   scrollable and dissolving at its cap, so nothing depends on the script. */
+.cue {
+  position: relative;
+  /* Centred and ANCHORED to the frame below, on the frigade.com pattern
+     (user, 19 Sep): left aligned and floating, it belonged to nothing and
+     read as a stray object between the tabs and the cards. It now sits on the
+     frame's top edge, overlapping it, so the question reads as a label on the
+     panel it is asking about.
+     The negative margin is a fixed 28 rather than half the box's height,
+     because the box takes the height of whichever question is showing: a
+     proportional overlap would breathe with the copy, and the frame's edge
+     would move every few seconds. */
+  z-index: 2;
+  margin-inline: auto;
+  /* Resting ON the frame's top edge, not dipping into it. It overlapped by
+     28 while the grid carried 48px of top padding; with that padding gone the
+     first row starts immediately and a dip put the box over two of the icons.
+     Bottom edge flush to the border reads as anchored just as well. */
+  margin-bottom: 0;
+  /* Two lines' worth, for the wrapping modes: no-JS, and cycling below 992
+     where a single line no longer fits. On desktop the box is one line and
+     this floor is lifted; see the cycling rule further down. 12 + 12 padding
+     around 2 x 21. */
+  min-height: 66px;
+  display: flex;
+  width: fit-content;
+  /* Centred, not top aligned: with a fixed two-line box a single-line
+     question would otherwise sit against the ceiling with a gap under it. */
+  align-items: center;
+  gap: var(--sp-3);
+  max-width: min(560px, 100%);
+  margin-top: var(--sp-6);
+  padding: var(--sp-3) var(--sp-5);
+  background: var(--black);
+  border-radius: var(--r-md);
+  /* THE floating-surface shadow, the one the header card and the mobile menu
+     wear: a contact line and a soft ambient pool. --shadow-lg was here and
+     read as nothing on a box this size, because its 64px blur is pulled back
+     by a -34px spread that only pays off on a full-width panel. */
+  box-shadow: var(--shadow-float);
+  overflow: hidden;
+}
+/* White on the black bar (user call, 19 Sep). The mark is an <img>, so the
+   colour cannot be set on the SVG's own paths from here: brightness(0)
+   collapses every channel while keeping the alpha, and invert(1) takes that
+   silhouette to white. No raw colour value, and it survives the mark being
+   redrawn in any colour. */
+/* The 3px nudge that sat the mark on the first line's cap height went with
+   the top alignment above. */
+.cue__mark { flex: none; filter: brightness(0) invert(1); }
+
+.cue__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  /* No-JS: the whole set, capped so sixteen questions cannot swallow the
+     panel, dissolving at the cut so the clip reads as intentional. */
+  max-height: 120px;
+  overflow-y: auto;
+  -webkit-mask-image: linear-gradient(180deg, #000 65%, transparent);
+  mask-image: linear-gradient(180deg, #000 65%, transparent);
+}
+.cue__item {
+  font-size: var(--t-body-sm);
+  line-height: 1.5;
+  color: var(--ink-inv);
+}
+.cue__item + .cue__item { margin-top: var(--sp-2); }
+
+/* ---- cycling mode, added by the script ----
+   The list leaves the layout but stays in the accessibility tree (the view
+   that replaces it is aria-hidden), so a screen reader still gets every
+   question. */
+.cue.is-cycling .cue__list {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.cue__view {
+  min-width: 0;
+  font-size: var(--t-body-sm);
+  line-height: 1.5;
+  color: var(--ink-inv);
+}
+
+/* ---- one line on desktop, and the WIDTH does the moving (19 Sep) ----------
+   The box used to take whichever height its question needed and glide between
+   them. Anchored to the frame that is the wrong axis to move on: a question
+   that runs to two lines pushes the grid down, so the height was pinned to
+   two lines and short questions sat in a half empty box.
+   One line solves both. The height is then constant by construction rather
+   than by a floor, so nothing below can move, and the glide lands on width,
+   which is the axis with nothing underneath it. The script already measures
+   and animates both, so this needs no script change: with the height equal on
+   every question only the width has anywhere to go.
+   Measured before committing to it: the longest question across all four
+   industries is 785px on one line, against a container of 1220. It stops at
+   992, where the container is no longer wide enough to hold it. */
+/* Below 992 the question wraps to two lines, and a vertically centred mark
+   floats against the middle of the block instead of reading as its bullet.
+   Top aligned it sits with the first line, which is where the sentence
+   starts. The 3px is optical: the mark is 16px against a 21px line box. */
+@media (max-width: 991px) {
+  .cue { align-items: flex-start; }
+  .cue__mark { margin-top: 3px; }
+}
+
+@media (min-width: 992px) {
+  .cue.is-cycling {
+    min-height: 0;
+    max-width: none;
+  }
+  .cue.is-cycling .cue__view { white-space: nowrap; }
+  /* Only the width is left to transition, so say so: height is constant here
+     and listing it invited a glide that can never happen. */
+  .cue.is-cycling.is-sizing { transition: width 420ms var(--ease); }
+}
+/* Chars animate, words wrap: the chars are inline-block (a transform on an
+   inline is ignored), so each word boxes its own letters to keep real
+   wrapping at word boundaries. */
+.cue__word { display: inline-block; white-space: nowrap; }
+.cue__ch {
+  display: inline-block;
+  opacity: 0;
+  animation: cue-ch-in 300ms var(--ease) forwards;
+  /* Capped stagger: a long question ripples, it does not take a second. */
+  animation-delay: min(calc(var(--i) * 10ms), 300ms);
+}
+.cue__view.is-out .cue__ch {
+  opacity: 1;
+  animation: cue-ch-out 200ms var(--ease) forwards;
+  animation-delay: min(calc(var(--i) * 4ms), 120ms);
+}
+@keyframes cue-ch-in {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes cue-ch-out {
+  to { opacity: 0; transform: translateY(-5px); }
+}
+
+/* The size glide between questions; the script sets the from/to pixels. */
+/* One duration for the glide, and js/prompt-cue.js holds the same number in
+   SIZE_MS: it pins the old size, flips to the new one, then hands the box
+   back to auto once this has finished. Change them together. */
+.cue.is-sizing {
+  transition: width 420ms var(--ease), height 420ms var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cue__ch,
+  .cue__view.is-out .cue__ch { animation: none; opacity: 1; transform: none; }
+  .cue.is-sizing { transition: none; }
+}
+
+/* ---- the content below the head ---- */
+
+@media (max-width: 991px) {
+  .stage__panel { padding: var(--sp-8) var(--sp-8) 0; }
+  .stage__media { max-height: 300px; }
+}
+@media (max-width: 640px) {
+  /* No padding at all (user, 20 Sep): .padding-global already holds the
+     content 20px off the viewport edge, so the panel's own inset was a second
+     gutter inside the first and cost the business grid most of its width. */
+  .stage__panel { padding: 0; }
+  .cue { margin-top: var(--sp-8); }
+  .stage__media { max-height: 220px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cue.is-cycling .cue__item { transition: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inds__card, .inds__ic { transition: none; }
+}
+
+
+/* ---- Retail categories: the eight, as one panel (18 Sep) ------------------
+   Re-cut from an accordion to a grid on the Sequence product-suite reference:
+   one bordered panel divided by hairlines, every category visible at once and
+   every cell a link into its own page. The accordion made the reader work a
+   click at a time to learn there are eight; the grid says it in one look,
+   which is the job this section actually has.
+
+   Behind it, concentric dashed rings with a few lit pips. Decorative only and
+   aria-hidden, and it is why the section carries a stacking context: the
+   panel has to sit over the drawing, not under it.
+   ------------------------------------------------------------------------ */
+
+.cats__deco {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+}
+/* Square, pushed partly past the right edge so the outer rings run off
+   rather than closing inside the section, and lifted to sit in the band
+   between the section head and the panel: centred, the panel's own fill
+   would cover almost all of it. */
+.cats__rings {
+  position: absolute;
+  top: 36%;
+  right: 0;
+  transform: translate(24%, -50%);
+  width: min(920px, 76%);
+  aspect-ratio: 1;
+}
+/* The five radii in the markup are 102 / 172 / 257 / 355 / 470, so the gaps
+   widen outward (70, 85, 98, 115) instead of stepping evenly. Even steps draw
+   a radar target; widening ones draw a ripple, which is the figure the
+   reference is. Keep the progression if the count ever changes. */
+.cats__rings circle { stroke: var(--frame-grid); stroke-width: 1; stroke-dasharray: 2 6; }
+.cats__rings line { stroke: var(--frame-grid); stroke-width: 1; stroke-dasharray: 2 6; }
+/* The tinted zones and the travellers are fills, not strokes. */
+.cats__rings .cats__fill,
+.cats__rings .cats__tr { stroke: none; }
+/* The zones stack (the disc is under the teal, the teal under the brand) in
+   the ramps' 100 steps at real alpha, Sequence's pastel register: strong
+   enough to read as coloured glass, light enough to stay ground. */
+/* Pulled back to a third of what they were (19 Sep). At 36/44/48 the zones
+   had the right LUMINANCE against the line work, delta 36, exactly the
+   reference's, and the drawing still read as a coloured cloud rather than a
+   drawing. Luminance was never the problem: a desaturated grey line does not
+   hold its edge against a saturated field of similar lightness, whatever the
+   arithmetic says, because the eye reads the colour before the hairline.
+   The reference solves this by having no fills at all and putting every bit
+   of its colour in the markers. These keep the three zones, quietly, and let
+   the pips and travellers carry the hue. */
+/* The zones are OFF, and this is the third and last go at them (19 Sep).
+   They ran at 2/3/4% of the brand steps, then 36/44/48% of the light steps,
+   then 12/15/16%, and at every level above a whisper they turned the drawing
+   into a haze: three nested discs of colour cover exactly the area the rings
+   occupy, and a 1px dashed hairline cannot hold its edge against them.
+   Rendered side by side with them off, the line work reads as a drawing and
+   the circles, the axes and the four ramp pips all come back.
+   This is also the reference's own structure: its ring field has no fills at
+   all and puts every bit of its colour in the markers. If they are ever
+   wanted back, these three lines are the only thing to change, and the
+   ceiling is a whisper, not a tint. */
+.cats__fill--purple,
+.cats__fill--teal,
+.cats__fill--brand { fill: transparent; }
+/* Meets the rings at their centre line, which is why both sit at 36%. */
+.cats__rule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 36%;
+  border-top: 1px dashed var(--frame-grid);
+}
+/* The pips pick up the three analogous ramps, which is the one place on the
+   homepage teal and purple appear beside the brand at the same lightness. */
+.cats__pip { fill: var(--ink-faint); stroke: none; }
+.cats__pip--brand  { fill: var(--brand); stroke: none; }
+.cats__pip--teal   { fill: var(--tertiary-300); stroke: none; }
+.cats__pip--purple { fill: var(--secondary-300); stroke: none; }
+
+/* ---- The deco and the retail grid inside the stage ------------------------
+   The ring drawing sits behind the panels with its centre line on --deco-y,
+   so the dashed rule crosses the frame exactly where the reference's does:
+   between the head's heading and its question line, through the rings.
+   ------------------------------------------------------------------------ */
+
+.inds__head .cats__deco {
+  z-index: 0;
+  /* The drawing carries its own Sequence pool (teal-100 with a purple lap)
+     now that it lives in the head: painted on the deco, it fades through
+     the same mask as the geometry it grounds. */
+  background:
+    radial-gradient(340px 300px at calc(100% - 300px) var(--deco-y),
+      color-mix(in srgb, var(--tertiary-100) 30%, transparent), transparent 72%),
+    radial-gradient(300px 260px at calc(100% - 90px) calc(var(--deco-y) - 90px),
+      color-mix(in srgb, var(--secondary-100) 22%, transparent), transparent 70%);
+}
+.inds__head .cats__rings {
+  top: var(--deco-y);
+  /* Anchored to the section's top right but inside the container: no bleed
+     past the max-width bounds; the mask below dissolves its edges instead. */
+  transform: translate(0, -50%);
+  width: min(640px, 54%);
+}
+/* Fades in from the top so the drawing does not start on a hard edge under
+   the pill bar, and out at the bottom through the grid's first row. It used
+   to have to finish above the grid entirely, which it could afford when the
+   head was a 400px band; with the head tightened it dissolves through the
+   cells instead. A dashed hairline under half opacity behind a transparent
+   cell is texture, not clutter, and it is the move the hero's dot field
+   already makes behind the headline. */
+.inds__head .cats__deco {
+  /* Two fades composed: the vertical one in from the top and out through the
+     grid, and a horizontal one out toward the right edge, so the drawing
+     dissolves inside the container rather than being cut by it. */
+  -webkit-mask-image:
+    linear-gradient(180deg,
+      transparent 0, #000 90px,
+      #000 calc(var(--deco-y) + 120px), transparent calc(var(--deco-y) + 340px)),
+    linear-gradient(90deg, #000 calc(100% - 150px), transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(180deg,
+      transparent 0, #000 90px,
+      #000 calc(var(--deco-y) + 120px), transparent calc(var(--deco-y) + 340px)),
+    linear-gradient(90deg, #000 calc(100% - 150px), transparent 100%);
+  mask-composite: intersect;
+}
+/* On the section ground the frame-grid dashes disappear; inside the frame the
+   drawing has to read, so it steps up one hairline tone. The stroke and the
+   pip radius are set in viewBox units and the drawing renders at ~0.64x, so
+   both step up to land back at about a hairline and a 6px dot on screen. */
+.inds__head .cats__orbits circle,
+.inds__head .cats__axes line {
+  stroke: var(--slate-300);
+  /* Screen px, not user units: the shape morphs scale the geometry, and the
+     globe's ellipses would otherwise thicken on one axis. */
+  vector-effect: non-scaling-stroke;
+  stroke-width: 1;
+}
+.inds__head .cats__pip { r: 10; }
+/* Sequence gives its markers a soft same-hue bloom; ours take one per ramp.
+   The plain slate pip stays matte. */
+.inds__head .cats__pip--brand { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--brand) 55%, transparent)); }
+.inds__head .cats__pip--teal { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--tertiary-300) 55%, transparent)); }
+.inds__head .cats__pip--purple { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--secondary-300) 55%, transparent)); }
+.inds__head .cats__tr--h,
+.inds__head .cats__tr--d2 { filter: drop-shadow(0 0 7px color-mix(in srgb, var(--tertiary-300) 60%, transparent)); }
+.inds__head .cats__tr--v { filter: drop-shadow(0 0 7px color-mix(in srgb, var(--secondary-300) 60%, transparent)); }
+.inds__head .cats__tr--d1 { filter: drop-shadow(0 0 7px color-mix(in srgb, var(--primary-300) 60%, transparent)); }
+.inds__head .cats__rule {
+  top: var(--deco-y);
+  /* A dashed border packs its dashes tighter than the drawing's 2/6 rhythm
+     and read a step heavier; redrawn as a background repeat it sits at the
+     same optical weight as the SVG lines. */
+  border-top: 0;
+  height: 1px;
+  background: repeating-linear-gradient(90deg,
+    var(--slate-300) 0 2px, transparent 2px 7px);
+}
+
+/* ---- deco entrance (19 Sep) ------------------------------------------------
+   When the panel reveals, the drawing assembles in the order a hand would
+   draw it: the circles bloom from the centre outwards, the rule draws left
+   to right through them, then the pips travel out from the centre into
+   position. Transitions gated on the section's own .reveal state, the
+   thread motif's pattern, so reveal.js needs no new work; the delays live
+   on the rest rules because .is-in is added once and never removed. */
+.cats__orbits circle {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.8s var(--ease), opacity 0.5s var(--ease);
+}
+.cats__orbits circle:nth-of-type(1) { transition-delay: 0.05s; }
+.cats__orbits circle:nth-of-type(2) { transition-delay: 0.16s; }
+.cats__orbits circle:nth-of-type(3) { transition-delay: 0.27s; }
+.cats__orbits circle:nth-of-type(4) { transition-delay: 0.38s; }
+.cats__orbits circle:nth-of-type(5) { transition-delay: 0.49s; }
+.reveal:not(.is-in) .cats__orbits circle { opacity: 0; transform: scale(0.5); }
+
+/* The axes join the "then lines" beat: they grow out of the centre alongside
+   the rule's own left-to-right draw. All three pass through the viewBox
+   centre, so one origin serves them all. */
+.cats__axes line {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  transition: transform 0.7s var(--ease) 0.6s, opacity 0.5s var(--ease) 0.6s;
+}
+.reveal:not(.is-in) .cats__axes line { opacity: 0; transform: scale(0); }
+
+/* The tinted zones breathe in first, as the ground the rings draw over. */
+.cats__fill {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.9s var(--ease) 0.15s, transform 0.9s var(--ease);
+}
+.reveal:not(.is-in) .cats__fill { opacity: 0; }
+
+.cats__rule {
+  transform-origin: left center;
+  transition: transform 0.7s var(--ease) 0.6s, opacity 0.5s var(--ease) 0.3s;
+}
+.reveal:not(.is-in) .cats__rule { transform: scaleX(0); }
+
+/* The pips travel from the drawing's centre out to their seats, so each
+   rest-state transform below is its seat-to-centre offset in viewBox units
+   (500,500 minus its cx,cy). Every seat is a point ON one of the five
+   circles, which is the rule the reference drawing is built on: the two on
+   the rule sit at r=257 either side, the teal one at 45 degrees on the
+   innermost r=102, the purple one at 45 degrees on r=355. A pip that lands
+   between two rings reads as a speck rather than a construction point, so
+   moving a pip means re-deriving both its cx/cy in index.html and the
+   offset here. */
+.cats__pip {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.6s var(--ease), opacity 0.4s var(--ease);
+}
+.cats__pip:nth-of-type(1) { transition-delay: 1.0s; }
+.cats__pip:nth-of-type(2) { transition-delay: 1.12s; }
+.cats__pip:nth-of-type(3) { transition-delay: 1.24s; }
+.cats__pip:nth-of-type(4) { transition-delay: 1.36s; }
+.cats__pip:nth-of-type(5) { transition-delay: 1.48s; }
+.reveal:not(.is-in) .cats__pip { opacity: 0; }
+.reveal:not(.is-in) .cats__pip:nth-of-type(1) { transform: scale(0); }
+.reveal:not(.is-in) .cats__pip:nth-of-type(2) { transform: translate(257px, 0) scale(0.3); }
+.reveal:not(.is-in) .cats__pip:nth-of-type(3) { transform: translate(-257px, 0) scale(0.3); }
+.reveal:not(.is-in) .cats__pip:nth-of-type(4) { transform: translate(-72px, -72px) scale(0.3); }
+.reveal:not(.is-in) .cats__pip:nth-of-type(5) { transform: translate(-251px, 251px) scale(0.3); }
+
+/* ---- travellers (19 Sep) ---------------------------------------------------
+   One dot per axis, drifting slowly through the centre and fading at the
+   ends. CSS px on SVG children are viewBox units, so the travel distances
+   below are drawn in the same coordinates as the lines. Negative delays put
+   each mid-journey on arrival; reduced motion parks them entirely (the
+   seated pips already carry the still composition). */
+.cats__tr { opacity: 0; }
+.cats__tr--h  { fill: var(--tertiary-300);    animation: cats-tr-h  26s linear -6s infinite; }
+.cats__tr--v  { fill: var(--secondary-300);  animation: cats-tr-v  32s linear -20s infinite; }
+.cats__tr--d1 { fill: var(--primary-300); animation: cats-tr-d1 38s linear -11s infinite; }
+.cats__tr--d2 { fill: var(--tertiary-300);    animation: cats-tr-d2 30s linear -25s infinite; }
+
+@keyframes cats-tr-h {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  10%  { opacity: 0.8; }
+  90%  { opacity: 0.8; }
+  100% { transform: translate(880px, 0); opacity: 0; }
+}
+@keyframes cats-tr-v {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  10%  { opacity: 0.8; }
+  90%  { opacity: 0.8; }
+  100% { transform: translate(0, 720px); opacity: 0; }
+}
+@keyframes cats-tr-d1 {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  10%  { opacity: 0.8; }
+  90%  { opacity: 0.8; }
+  100% { transform: translate(600px, 600px); opacity: 0; }
+}
+@keyframes cats-tr-d2 {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  10%  { opacity: 0.8; }
+  90%  { opacity: 0.8; }
+  100% { transform: translate(-600px, 600px); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cats__tr { animation: none; opacity: 0; }
+}
+
+/* ---- shape morphs (19 Sep) -------------------------------------------------
+   One drawing, four figures: the same circles, axes and pips rearrange per
+   industry, keyed off data-shape on the stage (industries.js sets it with
+   the open tab; without JS the markup's radar stands). Everything moves by
+   transform, so each switch replays the entrance's own staggers: rings
+   first, then the lines, then the dots gliding to their new seats. Retail
+   is the untransformed radar the markup draws, so it has no rules here.
+
+   The arithmetic: every offset is target minus markup seat, in viewBox
+   units, about each element's own centre (the axes about the shared centre
+   they all pass through). */
+
+/* Restaurants & QSR: the table setting. The two big rings shrink into a
+   plate and its inner rim, two rings become the cup and saucer at the top
+   right, the smallest becomes a side plate at the lower left, the vertical
+   shortens into the fork on the left, and the diagonals rotate upright into
+   the knife and spoon on the right. Pips garnish the plates and the cup.
+   Deliberately asymmetric, so it cannot read as the retail radar. */
+.inds[data-shape="restaurants-qsr"] .cats__orbits circle:nth-of-type(5) { transform: scale(0.64); }
+.inds[data-shape="restaurants-qsr"] .cats__orbits circle:nth-of-type(4) { transform: scale(0.62); }
+.inds[data-shape="restaurants-qsr"] .cats__orbits circle:nth-of-type(3) { transform: translate(280px, -310px) scale(0.35); }
+.inds[data-shape="restaurants-qsr"] .cats__orbits circle:nth-of-type(2) { transform: translate(280px, -310px) scale(0.75); }
+.inds[data-shape="restaurants-qsr"] .cats__orbits circle:nth-of-type(1) { transform: translate(-320px, 260px) scale(0.9); }
+.inds[data-shape="restaurants-qsr"] .cats__axes line:nth-of-type(1) { transform: translate(-390px, 0) scale(0.42); }
+.inds[data-shape="restaurants-qsr"] .cats__axes line:nth-of-type(2) { transform: translate(355px, 0) rotate(45deg) scale(0.42); }
+.inds[data-shape="restaurants-qsr"] .cats__axes line:nth-of-type(3) { transform: translate(410px, 0) rotate(-45deg) scale(0.3); }
+.inds[data-shape="restaurants-qsr"] .cats__pip:nth-of-type(1) { transform: translate(0, -20px); }
+.inds[data-shape="restaurants-qsr"] .cats__pip:nth-of-type(2) { transform: translate(177px, -70px); }
+.inds[data-shape="restaurants-qsr"] .cats__pip:nth-of-type(3) { transform: translate(-167px, 60px); }
+.inds[data-shape="restaurants-qsr"] .cats__pip:nth-of-type(4) { transform: translate(208px, -382px); }
+.inds[data-shape="restaurants-qsr"] .cats__pip:nth-of-type(5) { transform: translate(-571px, 511px); }
+.inds[data-shape="restaurants-qsr"] .cats__fill--brand { transform: scale(2.9); }
+.inds[data-shape="restaurants-qsr"] .cats__fill--teal { transform: translate(280px, -310px) scale(0.5); }
+.inds[data-shape="restaurants-qsr"] .cats__fill--purple { transform: translate(-320px, 260px) scale(0.28); }
+.inds[data-shape="restaurants-qsr"] .cats__rule { opacity: 0; }
+.inds[data-shape="restaurants-qsr"] .cats__tr--h,
+.inds[data-shape="restaurants-qsr"] .cats__tr--v,
+.inds[data-shape="restaurants-qsr"] .cats__tr--d1,
+.inds[data-shape="restaurants-qsr"] .cats__tr--d2 { visibility: hidden; }
+
+/* Travel & Hospitality: the globe. The outer ring is the outline, two rings
+   stretch into longitudes, two into latitudes, the vertical is the polar
+   axis, one diagonal survives as a flight path with its waypoints. */
+.inds[data-shape="travel-hospitality"] .cats__orbits circle:nth-of-type(1) { transform: translate(0, -220px) scale(3.6, 0.55); }
+.inds[data-shape="travel-hospitality"] .cats__orbits circle:nth-of-type(2) { transform: scale(2.7, 0.6); }
+.inds[data-shape="travel-hospitality"] .cats__orbits circle:nth-of-type(3) { transform: scale(0.22, 1.83); }
+.inds[data-shape="travel-hospitality"] .cats__orbits circle:nth-of-type(4) { transform: scale(0.5, 1.32); }
+.inds[data-shape="travel-hospitality"] .cats__axes line:nth-of-type(2) { opacity: 0; transform: scale(0.2); }
+.inds[data-shape="travel-hospitality"] .cats__pip:nth-of-type(2) { transform: translate(-123px, 0); }
+.inds[data-shape="travel-hospitality"] .cats__pip:nth-of-type(3) { transform: translate(123px, 0); }
+.inds[data-shape="travel-hospitality"] .cats__pip:nth-of-type(4) { transform: translate(-272px, 128px); }
+.inds[data-shape="travel-hospitality"] .cats__pip:nth-of-type(5) { transform: translate(-51px, 51px); }
+.inds[data-shape="travel-hospitality"] .cats__rule { opacity: 0; }
+.inds[data-shape="travel-hospitality"] .cats__tr--h,
+.inds[data-shape="travel-hospitality"] .cats__tr--v,
+.inds[data-shape="travel-hospitality"] .cats__tr--d1 { visibility: hidden; }
+
+/* Telecom: the signal. Every ring shares one tangent point and rises as a
+   ripple dome, the vertical shortens into the mast under it, the pips climb
+   the crowns, and the top-right pip stays put as the satellite. */
+.inds[data-shape="telecom"] .cats__orbits circle:nth-of-type(1) { transform: translate(0, 88px); }
+.inds[data-shape="telecom"] .cats__orbits circle:nth-of-type(2) { transform: translate(0, 18px); }
+.inds[data-shape="telecom"] .cats__orbits circle:nth-of-type(3) { transform: translate(0, -67px); }
+.inds[data-shape="telecom"] .cats__orbits circle:nth-of-type(4) { transform: translate(0, -165px); }
+.inds[data-shape="telecom"] .cats__orbits circle:nth-of-type(5) { transform: translate(0, -280px); }
+.inds[data-shape="telecom"] .cats__axes line:nth-of-type(1) { transform: translate(0, 315px) scale(0.27); }
+.inds[data-shape="telecom"] .cats__axes line:nth-of-type(2),
+.inds[data-shape="telecom"] .cats__axes line:nth-of-type(3) { opacity: 0; transform: scale(0.2); }
+.inds[data-shape="telecom"] .cats__pip:nth-of-type(1) { transform: translate(0, -14px); }
+.inds[data-shape="telecom"] .cats__pip:nth-of-type(2) { transform: translate(257px, -154px); }
+.inds[data-shape="telecom"] .cats__pip:nth-of-type(3) { transform: translate(-257px, -324px); }
+.inds[data-shape="telecom"] .cats__pip:nth-of-type(4) { transform: translate(-72px, 118px); }
+.inds[data-shape="telecom"] .cats__fill--purple { transform: translate(0, -280px); }
+.inds[data-shape="telecom"] .cats__fill--teal { transform: translate(0, -67px); }
+.inds[data-shape="telecom"] .cats__fill--brand { transform: translate(0, 88px); }
+.inds[data-shape="telecom"] .cats__rule { opacity: 0; }
+.inds[data-shape="telecom"] .cats__tr--h,
+.inds[data-shape="telecom"] .cats__tr--d1,
+.inds[data-shape="telecom"] .cats__tr--d2 { visibility: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cats__orbits circle,
+  .cats__axes line,
+  .cats__fill,
+  .cats__rule,
+  .cats__pip { transition: none; }
+  .reveal:not(.is-in) .cats__orbits circle,
+  .reveal:not(.is-in) .cats__axes line,
+  .reveal:not(.is-in) .cats__fill,
+  .reveal:not(.is-in) .cats__rule,
+  .reveal:not(.is-in) .cats__pip { opacity: 1; transform: none; }
+}
+
+.stage__panel > .biz-grid {
+  position: relative;
+  z-index: 1;
+  /* Four across here, three on the hub page. The component's edge arithmetic
+     is keyed to three, so every cell is reset to the base treatment first and
+     then re-keyed to four; overriding the 3n rules piecemeal would leave the
+     wrong cells stripped. Specificity (0,3,0) clears the component's (0,2,0). */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  /* No top margin: the cue's own margin-bottom sets the distance from the
+     question to the first row, rather than two numbers read together.
+     The bottom row keeps its 20px of padding, so the grid's own bottom margin
+     gives back the same 20 and the section's trailing rhythm is unchanged.
+     That is what lets the row gutter be one rule for every cell: the count
+     differs by industry (eight for three of them, five for telecom), so any
+     :nth-last-child arithmetic for a last row would be wrong for one of
+     them. */
+  margin: 0 0 var(--sp-5);
+  /* No fill and no frame (user, 19 Sep, in that order: lose the fill, then
+     lose the outline too). What is left is the internal ruling and nothing
+     else, so the set reads as lines drawn ON the section rather than as a
+     box sitting on it, and the outermost cards bleed into the ground. */
+  background: none;
+  border: 0;
+  /* Square corners and no padding (user, 19 Sep). Both are the same call: with
+     the grid flush to its frame every internal hairline runs all the way out
+     to the border instead of stopping short of it, so the rules cross rather
+     than float, and a 16px radius on a set of ruled squares was the one soft
+     thing in a drawing made of straight lines. */
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+.stage__panel > .biz-grid > .biz {
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  /* 20 above and below, 32 either side. The columns still need the wide
+     gutter to read apart; the rows never did, and 32+32 across a hairline
+     was 64px of empty between two lines of 14px text. */
+  padding: var(--sp-5) var(--sp-8);
+}
+/* Every cell draws its own top and left hairline, so the set's outer edges
+   are exactly the borders the edge cells DROP: no line above the first row,
+   none left of the first column. The padding stays on those cells either
+   way, so the copy keeps its inset whether or not a line is next to it. */
+.stage__panel > .biz-grid > .biz:nth-child(-n+4) { border-top: 0; }
+.stage__panel > .biz-grid > .biz:nth-child(4n+1) { border-left: 0; }
+/* Four across is the tight measure on this page, so the icon sits closer to
+   the title it belongs to than it does on the roomier hub grid. */
+.stage__panel > .biz-grid > .biz .biz__ic { margin-bottom: var(--sp-3); }
+/* The last row's rule is drawn by its cells' own top borders, so a row that
+   does not fill stops the rule where the cards stop: telecom ships five
+   categories, so its second row is one card and three empty columns, and the
+   line ran a quarter of the way across and gave up (user, 19 Sep).
+   The component's filler is one cell, built to close a single orphan. Here it
+   is stretched across however many columns are left, which is expressed as a
+   condition rather than hard-coded per industry: whichever column the LAST
+   card lands in decides where the filler starts. A row that fills exactly
+   matches none of the three and the filler stays off. */
+.stage__panel > .biz-grid::after { display: none; }
+.stage__panel > .biz-grid:has(> .biz:nth-child(4n+1):last-child)::after,
+.stage__panel > .biz-grid:has(> .biz:nth-child(4n+2):last-child)::after,
+.stage__panel > .biz-grid:has(> .biz:nth-child(4n+3):last-child)::after {
+  display: block;
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+}
+.stage__panel > .biz-grid:has(> .biz:nth-child(4n+1):last-child)::after { grid-column: 2 / -1; }
+.stage__panel > .biz-grid:has(> .biz:nth-child(4n+2):last-child)::after { grid-column: 3 / -1; }
+.stage__panel > .biz-grid:has(> .biz:nth-child(4n+3):last-child)::after { grid-column: 4 / -1; }
+
+@media (max-width: 1100px) {
+  .stage__panel > .biz-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Re-keyed to two: an odd count leaves exactly one empty cell. */
+  .stage__panel > .biz-grid:has(> .biz:nth-child(4n+1):last-child)::after,
+  .stage__panel > .biz-grid:has(> .biz:nth-child(4n+2):last-child)::after,
+  .stage__panel > .biz-grid:has(> .biz:nth-child(4n+3):last-child)::after { display: none; }
+  .stage__panel > .biz-grid:has(> .biz:nth-child(odd):last-child)::after {
+    display: block;
+    grid-column: 2 / -1;
+    border-top: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+  }
+  .stage__panel > .biz-grid > .biz:nth-child(-n+4) { border-top: 1px solid var(--border); }
+  .stage__panel > .biz-grid > .biz:nth-child(4n+1) { border-left: 1px solid var(--border); }
+  .stage__panel > .biz-grid > .biz:nth-child(-n+2) { border-top: 0; }
+  .stage__panel > .biz-grid > .biz:nth-child(2n+1) { border-left: 0; }
+}
+@media (max-width: 640px) {
+  /* The box is much narrower here, so the longest questions run to three
+     lines rather than two and the two-line floor above stops holding them.
+     88 = 24 padding + 3 x 21. */
+  .cue { min-height: 88px; }
+  .stage__panel > .biz-grid { grid-template-columns: 1fr; }
+  /* One column: every row is full, so no filler ever applies. The selectors
+     are repeated verbatim rather than shortened, because :has() carries the
+     specificity of its argument: a lighter selector here loses to the
+     two-column rule above however much later it comes, which is exactly what
+     left telecom with a filler at phone width on the first pass. */
+  .stage__panel > .biz-grid::after,
+  .stage__panel > .biz-grid:has(> .biz:nth-child(4n+1):last-child)::after,
+  .stage__panel > .biz-grid:has(> .biz:nth-child(4n+2):last-child)::after,
+  .stage__panel > .biz-grid:has(> .biz:nth-child(4n+3):last-child)::after,
+  .stage__panel > .biz-grid:has(> .biz:nth-child(odd):last-child)::after { display: none; }
+  /* No side padding (user, 20 Sep): one column means there is no neighbour to
+     be held apart from, so the 24 either side was only insetting every card
+     from a page edge that .padding-global already holds. Vertical padding
+     stays: that is the space between the rows. */
+  .stage__panel > .biz-grid > .biz:nth-child(n) {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+    padding: var(--sp-5) 0;
+  }
+  .stage__panel > .biz-grid > .biz:first-child { border-top: 0; }
+}
+
+@media (max-width: 991px) {
+  .inds__head { --deco-y: 120px; }
+  .inds__head { --deco-y: 66px; }
+}
+@media (max-width: 640px) {
+  /* A wrapped heading would collide with a fixed-height rule; the rings stay
+     as a faint ground and the rule bows out. The band stops reserving space
+     it no longer has. */
+  .inds__head .cats__rule { display: none; }
+
+}
+
+/* ---- Demo card (19 Sep, promptwatch reference) ---------------------------
+   A tight dark card centred under the grid: the industry's own still on the
+   left with the play badge riding on it, title and one line of detail on the
+   right. It was a full-width 112px strip in surface white with the product
+   screenshot bleeding off its right end.
+
+   There are FOUR of these now, one inside each .stage__panel, where there
+   used to be one for the whole section. That is what makes the still and the
+   copy industry-specific with no script work at all: the tabs already show
+   and hide the panels, and with JS off all four stack under their own
+   industry names. js/video.js binds every [data-video] it finds, so the
+   extra instances cost nothing.
+
+   The file behind all four is still the one generic product tour, because
+   the per-industry cuts are Hardik's to supply. The copy names the kind of
+   question each industry brings to it rather than claiming a cut that does
+   not exist yet, and no duration is claimed for the same reason. */
+.vdemo {
+  margin-top: var(--sp-10);
+  /* The flex parent does the centring, so the card itself never has to be
+     width-constrained to sit in the middle. A column since 19 Sep: it carried
+     an "In the product" label above the card until that came off on 19 Sep,
+     and it still stacks the card over the route link. */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+/* The route onward (19 Sep): under each tab's video card, one arrow link
+   into that industry's hub page. */
+.vdemo__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--t-body-sm);
+  font-weight: 600;
+  color: var(--brand-ink);
+  text-decoration: none;
+  transition: gap var(--dur-fast) var(--ease);
+}
+.vdemo__more svg { width: 20px; height: 20px; flex: none; }
+.vdemo__more:hover { gap: 10px; }
+@media (prefers-reduced-motion: reduce) {
+  .vdemo__more { transition: none; }
+}
+.vdemo__btn {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  max-width: 100%;
+  /* Tight: 10px around the still, opened out on the text side so the copy is
+     not jammed into the corner. */
+  padding: 10px var(--sp-6) 10px 10px;
+  background: var(--black);
+  border: 0;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-float);
+  text-align: left;
+  cursor: pointer;
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.vdemo__btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.vdemo__btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+
+/* 16:10, the ratio all four industry stills are stored at, so the frame
+   crops none of them. */
+.vdemo__shot {
+  position: relative;
+  flex: none;
+  width: 128px;
+  aspect-ratio: 16 / 10;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.vdemo__shot img { width: 100%; height: 100%; object-fit: cover; }
+
+/* The badge rides on the still rather than sitting beside the title. */
+.vdemo__play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ink-inv) 88%, transparent);
+  color: var(--black);
+  transition: transform var(--dur) var(--ease);
+}
+/* Optical centring: a triangle's mass sits left of its bounding box. */
+.vdemo__play svg { width: 20px; height: 20px; margin-left: 1px; }
+.vdemo__btn:hover .vdemo__play { transform: scale(1.08); }
+
+.vdemo__txt {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.vdemo__t {
+  font-family: var(--font-display);
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink-inv);
+}
+.vdemo__d {
+  font-size: var(--t-body-sm);
+  line-height: 1.4;
+  color: var(--ink-inv-3);
+}
+
+@media (max-width: 560px) {
+  /* It stays one row and gives up thumbnail width rather than stacking: a
+     still sitting above a title reads as a figure, not as a play control. */
+  .vdemo__btn { padding-right: var(--sp-4); gap: var(--sp-3); }
+  .vdemo__shot { width: 88px; }
+  .vdemo__play { width: 28px; height: 28px; }
+  .vdemo__play svg { width: 11px; height: 11px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vdemo__btn, .vdemo__play { transition: none; }
+  .vdemo__btn:hover { transform: none; }
+  .vdemo__btn:hover .vdemo__play { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vdemo__btn { transition: none; }
+}
+
+
+/* ---- NASCAR proof (19 Sep) --------------------------------------------------
+   The customer story beside the form, as one contained card: never full
+   bleed, the dark ground stops at the container. The trackside photograph
+   sits under an ink overlay that is heaviest behind the words and eases
+   toward the video; the Riverside take sits on the right as its supplied
+   still with a play badge, and opens in the lightbox (20 Sep), so the 18MB
+   file is only ever fetched on a click. */
+
+.nproof__card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: var(--sp-10);
+  align-items: center;
+  padding: var(--sp-12) var(--sp-10);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.nproof__bg {
+  position: absolute;
+  inset: 0;
+  background: url('/assets/nascar-bg.jpg') center 38% / cover no-repeat;
+}
+.nproof__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg,
+      color-mix(in srgb, var(--black) 84%, transparent) 0%,
+      color-mix(in srgb, var(--black) 66%, transparent) 52%,
+      color-mix(in srgb, var(--black) 44%, transparent) 100%),
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--black) 36%, transparent) 0%,
+      transparent 30%);
+}
+
+.nproof__main,
+.nproof__media { position: relative; min-width: 0; }
+.nproof__main { max-width: 34rem; }
+
+.nproof__t { margin-bottom: var(--sp-5); }
+.nproof__sub { max-width: 32rem; }
+
+/* The grey logo export is near-ink; inverted it reads as the light mark the
+   dark ground needs (the V2 belt's trick). */
+.nproof__mark {
+  display: block;
+  margin-top: var(--sp-8);
+  filter: invert(1);
+  opacity: 0.85;
+}
+
+/* The poster. The still is shown at its own 1354x794 ratio rather than
+   cropped to 16:9, because the NASCAR wordmark burned into it sits in the
+   bottom-left corner and a crop takes it. */
+.nproof__btn {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--ink-inv) 22%, transparent);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--black);
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.nproof__btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+
+.nproof__shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform var(--dur-slow) var(--ease);
+}
+
+/* Same badge language as the industry stills' .vdemo__play, one step larger
+   because this still is a whole column rather than a 128px chip. The glyph
+   itself stays 20px. */
+.nproof__play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ink-inv) 92%, transparent);
+  color: var(--black);
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--black) 34%, transparent);
+  transition: transform var(--dur) var(--ease);
+}
+/* Optical centring: a triangle's mass sits left of its bounding box. */
+.nproof__play svg { width: 20px; height: 20px; margin-left: 2px; }
+
+.nproof__btn:hover .nproof__play { transform: scale(1.08); }
+.nproof__btn:hover .nproof__shot { transform: scale(1.02); }
+
+@media (max-width: 991px) {
+  .nproof__card {
+    grid-template-columns: 1fr;
+    gap: var(--sp-8);
+    padding: var(--sp-8) var(--sp-6);
+  }
+  .nproof__mark { width: 144px; height: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nproof__shot,
+  .nproof__play { transition: none; }
+  .nproof__btn:hover .nproof__play,
+  .nproof__btn:hover .nproof__shot { transform: none; }
+}
+
+
+/* ---- Proof logo grid --------------------------------------------------------
+   The .lgrid rules moved to components.css on 20 Sep, when /book took the
+   same grid; one source now styles it on both pages. */
+
+/* ---- FAQ (20 Sep, promptwatch reference) ----------------------------------
+   Two columns at 45/55: the head and the /book route on the left, the .acc
+   accordion component (components.css + js/accordion.js) on the right. This
+   block is only the promptwatch skin over that component: closed questions
+   stay its quiet hairline rows, and THE OPEN ONE FLOATS as a boxed white
+   card with a soft shadow. With the script off, .is-live never lands and
+   every panel is held open.
+   ---------------------------------------------------------------------- */
+
+.faq__grid {
+  display: grid;
+  /* 40/60 (user call, 20 Sep; was 45/55). No gap: the columns meet on a
+     shared hairline and pad themselves away from it. */
+  grid-template-columns: minmax(0, 40fr) minmax(0, 60fr);
+  align-items: start;
+}
+
+.faq__intro { padding-right: var(--sp-12); }
+
+/* The column border: a third rail at the seam, running the full section
+   height (the pseudo reaches through --section-pad) so it meets the joints
+   above and below exactly where the page rails do. Desktop only, with the
+   rails. The list pads off the page's right rail by the same sp-12 it pads
+   off the seam (user, 20 Sep: the rows sat against the rail). */
+.faq__list { position: relative; padding-inline: var(--sp-12); }
+@media (min-width: 992px) {
+  .faq__list::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: calc(-1 * var(--section-pad));
+    bottom: calc(-1 * var(--section-pad));
+    width: 1px;
+    background: var(--frame-line);
+  }
+  /* The intro rides along while the longer list scrolls (user, 20 Sep),
+     parking just under the floating nav. The grid already aligns items
+     start, which is what lets a grid child stick at all. */
+  .faq__intro {
+    position: sticky;
+    top: calc(var(--nav-h) + var(--nav-float) + var(--sp-8));
+  }
+}
+
+.faq__intro .section-sub { margin-top: var(--sp-4); max-width: 26rem; }
+.faq__cta {
+  margin-top: var(--sp-6);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+}
+.faq__cta a {
+  color: var(--brand-ink);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.faq__cta a:hover { color: var(--brand); }
+
+/* The caret: the component's 16px chev predates the 20px duotone rule, so
+   the FAQ carries its own slot at the house size. */
+.acc__caret {
+  flex: none;
+  display: inline-flex;
+  margin-left: auto;
+  align-self: center;
+  color: var(--ink-3);
+  transition: transform var(--dur-fast) var(--ease);
+}
+.acc__caret svg { width: 20px; height: 20px; }
+.faq .acc__item.is-open .acc__caret { transform: rotate(180deg); color: var(--ink); }
+
+/* The open card, lifted out of the row rhythm on its own margins. The box
+   sits on the BUTTON's footprint (user, 20 Sep): the button already reaches
+   sp-4 past the text for its hover wash, so the card pulls out by that same
+   sp-4 and pads straight back in. The open row's text lands on exactly the
+   same left edge as every closed row; opening never indents or narrows. */
+.faq .acc__item.is-open {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-md);
+  margin-block: var(--sp-3);
+  margin-inline: calc(-1 * var(--sp-4));
+  padding-inline: var(--sp-4);
+}
+/* The box replaces the row's own hairline sides. */
+.faq .acc__item.is-open + .acc__item { border-top-color: var(--border); }
+
+/* No icon or index column in these rows, so the body loses the component's
+   hanging indent and sits flush under the question. */
+.faq .acc__body p { padding-left: 0; max-width: 40rem; }
+
+/* JS off: the script never marks the group live, so nothing collapses and
+   the whole FAQ reads as written. */
+.faq__list:not(.is-live) .acc__panel { grid-template-rows: 1fr; }
+
+@media (max-width: 991px) {
+  .faq__grid { grid-template-columns: 1fr; gap: var(--sp-8); }
+  .faq__intro { padding-right: 0; }
+  .faq__list { padding-inline: 0; }
+}
+
+/* On a phone the list is flush to the page's 20px gutter, so the full sp-4
+   outset would leave the card only 4px from the screen edge. The button's
+   reach and the card step down to sp-3 TOGETHER, so the text still never
+   moves when a row opens. */
+@media (max-width: 640px) {
+  .faq .acc__btn {
+    width: calc(100% + var(--sp-3) * 2);
+    padding-inline: var(--sp-3);
+    margin-inline: calc(-1 * var(--sp-3));
+  }
+  .faq .acc__item.is-open {
+    margin-inline: calc(-1 * var(--sp-3));
+    padding-inline: var(--sp-3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .acc__caret { transition: none; }
+}

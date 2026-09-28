@@ -1,228 +1,1372 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>aiRA Growth Agent — The Growth Analytics Agent for Marketing, CRM, BI, Data, eCommerce, and Growth teams</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --navy:#0B1229;
-    --navy-2:#141B3D;
-    --blue:#3E52FF;
-    --violet:#7C5CFF;
-    --paper:#FAFAFC;
-    --paper-dim:#EFF0F6;
-    --ink:#0B1229;
-    --ink-soft:rgba(11,18,41,0.62);
-    --ink-softer:rgba(11,18,41,0.42);
-    --line:rgba(11,18,41,0.09);
-    --line-strong:rgba(11,18,41,0.14);
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;background:var(--paper);color:var(--ink);
-    font-family:'Manrope',sans-serif;-webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
-  a{color:inherit;}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  /* NAV */
-  .nav{position:sticky;top:0;z-index:50;background:rgba(250,250,252,0.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
-  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:78px;}
-  .brand{font-weight:800;font-size:19px;letter-spacing:-0.01em;display:flex;align-items:center;gap:9px;}
-  .brand .dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--violet));}
-  .nav-links{display:flex;gap:38px;font-size:14.5px;font-weight:600;color:var(--ink-soft);}
-  .nav-links a{text-decoration:none;}
-  .nav-links a:hover{color:var(--ink);}
-  .nav-cta{font-size:14px;font-weight:700;padding:11px 22px;border-radius:9px;border:1px solid var(--line-strong);text-decoration:none;}
+  <title>aiRA | On-Demand Insights and Analytics Agent for Customer Data</title>
+  <meta name="description" content="aiRA reads the customer data you already own and pushes to the channels you already run. Ask in plain language, get the insight, the reasoning and a recommended move built and waiting on your approval.">
 
-  /* HERO */
-  .hero{padding:110px 0 60px;text-align:center;position:relative;}
-  .hero::before{
-    content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);
-    width:900px;height:520px;background:radial-gradient(ellipse at center, rgba(124,92,255,0.14), transparent 65%);
-    pointer-events:none;
-  }
-  .eyebrow{
-    display:inline-flex;align-items:center;gap:8px;
-    font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:0.1em;text-transform:uppercase;
-    color:var(--violet);border:1px solid var(--line-strong);border-radius:100px;padding:7px 16px;margin-bottom:36px;
-    position:relative;
-  }
-  .hero-title{position:relative;margin:0 auto;max-width:900px;}
-  .hero-title .script{
-    display:block;font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;
-    font-size:clamp(40px,6vw,72px);line-height:1.1;color:var(--ink);margin-bottom:2px;
-  }
-  .hero-title .bold{
-    display:block;font-weight:800;letter-spacing:-0.02em;
-    font-size:clamp(34px,5.2vw,60px);line-height:1.12;color:var(--ink);
-  }
-  .hero-sub{
-    font-size:18px;line-height:1.65;color:var(--ink-soft);max-width:600px;margin:30px auto 40px;
-  }
-  .hero-cta{display:flex;gap:14px;justify-content:center;margin-bottom:26px;flex-wrap:wrap;}
-  .btn-primary{
-    background:linear-gradient(100deg,var(--blue),var(--violet));color:#fff;font-weight:700;font-size:15px;
-    padding:14px 26px;border-radius:10px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
-    box-shadow:0 10px 28px -10px rgba(124,92,255,0.55);
-  }
-  .btn-secondary{
-    border:1px solid var(--line-strong);color:var(--ink);font-weight:600;font-size:15px;
-    padding:14px 24px;border-radius:10px;text-decoration:none;background:#fff;
-  }
+  <meta property="og:title" content="aiRA | On-Demand Insights and Analytics Agent for Customer Data">
+  <meta property="og:description" content="aiRA sits between your data and your channels. Ask in plain language, get the insight, the reasoning and a recommended move built and waiting on your approval.">
+  <meta property="og:image" content="https://askaira.ai/assets/og/og-default.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://askaira.ai/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="aiRA | On-Demand Insights and Analytics Agent for Customer Data">
+  <meta name="twitter:description" content="aiRA sits between your data and your channels. Ask in plain language, get a move built and waiting on your approval.">
+  <meta name="twitter:image" content="https://askaira.ai/assets/og/og-default.png">
 
-  /* ROLE ROTATOR */
-  .role-rotator{
-    display:inline-grid;align-items:center;justify-content:center;
-    height:1em;line-height:1;overflow:hidden;position:relative;vertical-align:-0.05em;
-  }
-  .role-rotator .role-item{
-    grid-area:1 / 1;display:flex;align-items:center;line-height:1;
-    font-weight:800;color:var(--violet);white-space:nowrap;
-    opacity:0;transform:translateY(0.35em);transition:opacity .45s ease, transform .45s ease;
-  }
-  .role-rotator .role-item.active{opacity:1;transform:translateY(0);}
+  <link rel="icon" href="/assets/brand/aira-mark.svg" type="image/svg+xml">
 
-  /* PRODUCT VISUAL */
-  .visual{position:relative;max-width:1040px;margin:0 auto;padding:0 20px 40px;}
-  .visual-grid{
-    display:grid;grid-template-columns:1.15fr 1fr;gap:20px;align-items:start;
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "aiRA",
+    "applicationCategory": "BusinessApplication",
+    "description": "On-demand insights and analytics agent for customer data.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Capillary Technologies",
+      "url": "https://www.capillarytech.com/"
+    }
   }
-  .tag-label{
-    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;
-    color:var(--ink-softer);margin-bottom:12px;text-align:left;
-  }
-  .panel{
-    background:#fff;border:1px solid var(--line);border-radius:14px;
-    box-shadow:0 30px 70px -40px rgba(11,18,41,0.25);overflow:hidden;
-  }
-  .panel-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);}
-  .panel-bar .d{width:8px;height:8px;border-radius:50%;background:var(--line-strong);}
-  .panel-bar .name{margin-left:6px;font-size:12.5px;font-weight:700;color:var(--ink-soft);}
-  .panel-body{padding:22px 22px 26px;}
-  .panel-body h4{font-size:16px;font-weight:800;margin:0 0 4px;letter-spacing:-0.01em;}
-  .panel-body .desc{font-size:13px;color:var(--ink-softer);margin:0 0 18px;}
-  .stat-row{display:flex;gap:18px;}
-  .stat-row .stat .n{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;}
-  .stat-row .stat .l{font-size:11px;color:var(--ink-softer);text-transform:uppercase;letter-spacing:0.04em;margin-top:2px;}
+  </script>
 
-  .chat-panel{background:var(--navy);color:var(--paper);}
-  .chat-panel .panel-bar{border-color:rgba(255,255,255,0.1);}
-  .chat-panel .panel-bar .name{color:rgba(255,255,255,0.7);}
-  .chat-panel .panel-bar .d{background:rgba(255,255,255,0.16);}
-  .chat-q{font-size:13.5px;color:rgba(255,255,255,0.55);line-height:1.5;margin-bottom:14px;}
-  .chat-a{font-size:14px;line-height:1.6;color:var(--paper);}
-  .chat-a b{color:#C6B6FF;}
-  .chat-thinking{font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:14px;font-family:'JetBrains Mono',monospace;}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,300..800&family=Roboto:wght@400;500;600;700&display=swap">
 
-  /* PILLARS */
-  .pillars{padding:90px 0;background:var(--paper-dim);}
-  .section-head{text-align:center;max-width:640px;margin:0 auto 56px;}
-  .section-eyebrow{font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--violet);margin-bottom:16px;}
-  .section-title{font-weight:800;font-size:clamp(26px,3vw,36px);letter-spacing:-0.015em;line-height:1.2;margin:0 0 14px;}
-  .section-sub{font-size:16px;color:var(--ink-soft);line-height:1.6;margin:0;}
-  .pillar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-  .pillar{background:#fff;border:1px solid var(--line);border-radius:14px;padding:30px 26px;}
-  .pillar .icon{width:36px;height:36px;border-radius:9px;margin-bottom:18px;background:linear-gradient(135deg,var(--blue),var(--violet));}
-  .pillar h3{font-size:18px;font-weight:800;margin:0 0 8px;letter-spacing:-0.01em;}
-  .pillar p{font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0;}
+  <!-- Order matters: tokens -> global -> components -> page -->
+  <link rel="stylesheet" href="/style/tokens.css">
+  <link rel="stylesheet" href="/style/global.css">
+  <link rel="stylesheet" href="/style/components.css">
+  <link rel="stylesheet" href="/style/pages/home.css">
 
-  footer{background:var(--navy);color:var(--paper);padding:36px 0;}
-  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
-  footer .fine{font-size:13px;color:rgba(255,255,255,0.5);}
-
-  @media (max-width:860px){
-    .visual-grid{grid-template-columns:1fr;}
-    .pillar-grid{grid-template-columns:1fr;}
-    .nav-links{display:none;}
-  }
-</style>
+  <script src="/js/components.js" defer></script>
+  <script src="/js/reveal.js" defer></script>
+  <script src="/js/eyebrow-scramble.js" defer></script>
+  <script src="/js/diagram.js" defer></script>
+  <script src="/js/rotator.js" defer></script>
+  <script src="/js/video.js" defer></script>
+  <script src="/js/marquee.js" defer></script>
+  <script src="/js/logo-grid.js" defer></script>
+  <script src="/js/session-card.js" defer></script>
+  <script src="/js/industries.js" defer></script>
+  <script src="/js/prompt-cue.js" defer></script>
+  <script src="/js/accordion.js" defer></script>
+  <script src="/js/diff-loop.js" defer></script>
 </head>
-<body>
 
-<nav class="nav">
-  <div class="wrap">
-    <div class="brand"><img src="data:image/png;base64,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" alt="aiRA" style="height:32px;width:auto;display:block;"></div>
-    <div class="nav-links">
-      <a href="#product">Product</a>
-      <a href="#industries">Industries</a>
-      <a href="#cta">Get access</a>
-    </div>
-    <a href="#cta" class="nav-cta">Request access</a>
-  </div>
-</nav>
+<body class="page-home">
 
-<section class="hero">
-  <div class="wrap">
-    <div class="eyebrow">Introducing aiRA</div>
-    <div class="hero-title">
-      <span class="script">The Growth Analytics Agent</span>
-      <span class="bold">for <span class="role-rotator" id="roleRotator"></span></span>
-    </div>
-    <p class="hero-sub">Ask questions about your customer and marketing data using natural language and receive real-time insights, explanations, and actionable recommendations powered by aiRA.</p>
-    <div class="hero-cta">
-      <a href="#cta" class="btn-primary">Request early access →</a>
-      <a href="#product" class="btn-secondary">See how it works</a>
-    </div>
-  </div>
-</section>
+  <div id="navbar-placeholder"></div>
 
-<section class="pillars" id="product">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="section-eyebrow">How aiRA works</div>
-      <h2 class="section-title">Grounded, decisive, and always in your hands.</h2>
-      <p class="section-sub">aiRA isn't a dashboard you interpret or a bot you hope is right. It's built to know your customers and act on what it finds — with you in command at every step.</p>
-    </div>
-    <div class="pillar-grid">
-      <div class="pillar">
-        <div class="icon"></div>
-        <h3>Grounded, not generic</h3>
-        <p>Every answer is built on your customers' real purchase, loyalty, and engagement history — not a generic model guessing at your business.</p>
+  <!-- Page-frame joints: one .joint between each pair of visible sections
+       (see global.css); the header's own bottom border draws the top line.
+       When a hidden section is restored, move or add joints so every
+       visible boundary keeps its line. -->
+
+  <main id="main">
+
+    <!-- ================= HERO ================= -->
+    <section class="section hero">
+      <div class="hero__grad" aria-hidden="true"></div>
+
+      <div class="padding-global">
+        <div class="container hero__inner">
+
+          <a class="hero__announce" href="/product">
+            <span class="hero__announce-text">
+              <img class="hero__announce-mark" src="/assets/brand/capillary.svg" alt="" aria-hidden="true" width="24" height="18">
+              Introducing aiRA by Capillary
+            </span>
+            <span class="hero__announce-sep"></span>
+            <!-- One glyph, two paths: the head is always drawn and the shaft
+                 is not, so at rest this is a caret and on hover it grows a
+                 tail and becomes an arrow (user, 22 Sep). It replaced two
+                 identical arrows conveyed through a 24px window, which read
+                 as the same arrow sliding sideways. -->
+            <span class="hero__announce-go">
+              <svg class="hero__announce-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path class="hero__announce-shaft" d="M5 12h14"/>
+                <path d="M13 6l6 6-6 6"/>
+              </svg>
+            </span>
+          </a>
+
+          <h1 class="hero__title">
+            <span class="sr-only">On-demand insights and analytics agent for eCommerce, growth, marketing, CRM, loyalty, and data and BI teams.</span>
+            <span aria-hidden="true">
+              On-demand insights and<br>
+              analytics agent for<br>
+              <span class="hero__rot-icon" id="hero-rot-icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,64l-12.16,66.86A16,16,0,0,1,196.1,144H70.55L56,64Z" opacity="0.2"/><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg></span>
+              <span class="hero__rot-word" id="hero-rot-word">eCommerce teams</span>
+            </span>
+          </h1>
+
+          <p class="hero__sub">
+            Ask questions about your customer and marketing data in plain language.
+            Get real-time insights, the reasoning behind them, and a recommended move
+            built and waiting on your approval.
+          </p>
+
+          <div class="btn-row hero__cta">
+            <a class="btn btn--primary btn--lg" href="/book">Book a working session</a>
+          </div>
+
+
+        </div>
       </div>
-      <div class="pillar">
-        <div class="icon"></div>
-        <h3>Analytics that acts</h3>
-        <p>aiRA doesn't stop at insight. It surfaces the next move — a segment, a journey, a campaign — ready to launch, not just a chart to interpret.</p>
+
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= PROOF: logo grid ================= -->
+    <!-- The promptwatch book-a-demo grid (19 Sep), replacing the marquee
+         belt: hairline-gapped tiles, two columns on phones and five from
+         768px, logos resettling from tile to tile (js/logo-grid.js). Full
+         colour marks only since 19 Sep: the grey-at-rest / colour-on-hover
+         pair is retired. New marks go into the bench div at the bottom as
+         the same single-img span and the script folds them into the
+         rotation unaided. -->
+    <section class="section section--tight lgrid">
+      <div class="padding-global">
+        <div class="container">
+          <h2 class="sr-only">Customer brands live with aiRA</h2>
+          <p class="lgrid__label">aiRA works where 100+ enterprise brands already trust Capillary</p>
+          <div class="lgrid__grid" data-logo-grid>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo lgrid__logo--wide">
+                <img src="/assets/logos/nascar-color.svg" alt="NASCAR" width="299" height="50">
+              </span>
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo lgrid__logo--badge">
+                <img src="/assets/logos/puma.svg" alt="PUMA" width="101" height="50">
+              </span>
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo">
+                <img src="/assets/logos/hertz-color.svg" alt="Hertz" width="142" height="50">
+              </span>
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo lgrid__logo--sq">
+                <img src="/assets/logos/rack-room-shoes-color.svg" alt="Rack Room Shoes" width="50" height="50">
+              </span>
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo lgrid__logo--mid">
+                <img src="/assets/logos/marks-and-spencer.svg" alt="Marks &amp; Spencer" width="123" height="50">
+              </span>
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo lgrid__logo--wide">
+                <img src="/assets/logos/racetrac-color.svg" alt="RaceTrac" width="221" height="50">
+              </span>
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo lgrid__logo--wide">
+                <img src="/assets/logos/dominos-pizza.svg" alt="Domino's Pizza" width="230" height="32">
+              </span>
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo lgrid__logo--wide">
+                <img src="/assets/logos/walgreens-color.svg" alt="Walgreens" width="242" height="50">
+              </span>
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo lgrid__logo--wide">
+                <img src="/assets/logos/indigo.svg" alt="IndiGo" width="230" height="47">
+              </span>
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo lgrid__logo--sq">
+                <img src="/assets/logos/tata.svg" alt="Tata" width="54" height="50">
+              </span>
+            </div>
+          </div>
+          <!-- Benched logos rotate into the grid seat by seat. -->
+          <div class="lgrid__bench" hidden data-logo-bench>
+            <span class="lgrid__logo lgrid__logo--mid">
+              <img src="/assets/logos/cochran-color.svg" alt="Cochran" width="177" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--badge">
+              <img src="/assets/logos/1-india-family-mart.svg" alt="1-India Family Mart" width="71" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--mid">
+              <img src="/assets/logos/aditya-birla.svg" alt="Aditya Birla" width="90" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--wide">
+              <img src="/assets/logos/al-futtaim.svg" alt="Al-Futtaim" width="234" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--mid">
+              <img src="/assets/logos/anita-dongre.svg" alt="Anita Dongre" width="185" height="50">
+            </span>
+            <span class="lgrid__logo">
+              <img src="/assets/logos/arvind.svg" alt="Arvind" width="143" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--mid">
+              <img src="/assets/logos/asics.svg" alt="ASICS" width="150" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--badge">
+              <img src="/assets/logos/benetton.svg" alt="Benetton" width="50" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--mid">
+              <img src="/assets/logos/blackberrys.svg" alt="Blackberrys" width="143" height="50">
+            </span>
+            <span class="lgrid__logo">
+              <img src="/assets/logos/coach.svg" alt="Coach" width="208" height="50">
+            </span>
+            <span class="lgrid__logo">
+              <img src="/assets/logos/dlf.svg" alt="DLF" width="140" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--mid">
+              <img src="/assets/logos/erajaya.svg" alt="Erajaya" width="90" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--wide">
+              <img src="/assets/logos/hoya.svg" alt="Hoya" width="120" height="27">
+            </span>
+            <span class="lgrid__logo lgrid__logo--sq">
+              <img src="/assets/logos/indian-terrain.svg" alt="Indian Terrain" width="49" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--mid">
+              <img src="/assets/logos/jotun.svg" alt="Jotun" width="130" height="38">
+            </span>
+            <span class="lgrid__logo lgrid__logo--mid">
+              <img src="/assets/logos/kanmo-group.svg" alt="Kanmo Group" width="223" height="65">
+            </span>
+            <span class="lgrid__logo lgrid__logo--mid">
+              <img src="/assets/logos/kate-spade-new-york.svg" alt="Kate Spade New York" width="102" height="50">
+            </span>
+            <span class="lgrid__logo">
+              <img src="/assets/logos/malabar.svg" alt="Malabar" width="120" height="35">
+            </span>
+            <span class="lgrid__logo">
+              <img src="/assets/logos/matahari.svg" alt="Matahari" width="268" height="50">
+            </span>
+            <span class="lgrid__logo">
+              <img src="/assets/logos/metro-shoes.svg" alt="Metro Shoes" width="130" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--sq">
+              <img src="/assets/logos/mount-scopus-group.svg" alt="Mount Scopus Group" width="79" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--mid">
+              <img src="/assets/logos/optum.svg" alt="Optum" width="172" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--wide">
+              <img src="/assets/logos/pantaloons.svg" alt="Pantaloons" width="230" height="27">
+            </span>
+            <span class="lgrid__logo lgrid__logo--badge">
+              <img src="/assets/logos/peter-england.svg" alt="Peter England" width="108" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--sq">
+              <img src="/assets/logos/petron.svg" alt="Petron" width="41" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--badge">
+              <img src="/assets/logos/prestige.svg" alt="Prestige" width="104" height="50">
+            </span>
+            <span class="lgrid__logo">
+              <img src="/assets/logos/redtag.svg" alt="Redtag" width="230" height="42">
+            </span>
+            <span class="lgrid__logo lgrid__logo--mid">
+              <img src="/assets/logos/royal-caribbean-group.svg" alt="Royal Caribbean Group" width="137" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--badge">
+              <img src="/assets/logos/shell.svg" alt="Shell" width="54" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--badge">
+              <img src="/assets/logos/swiss-arabian.svg" alt="Swiss Arabian" width="90" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--badge">
+              <img src="/assets/logos/tbz.svg" alt="TBZ" width="71" height="50">
+            </span>
+            <span class="lgrid__logo">
+              <img src="/assets/logos/twenty4.svg" alt="Twenty4" width="182" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--badge">
+              <img src="/assets/logos/valiram-group.svg" alt="Valiram Group" width="60" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--wide">
+              <img src="/assets/logos/vishal-mega-mart.svg" alt="Vishal Mega Mart" width="193" height="42">
+            </span>
+            <span class="lgrid__logo lgrid__logo--sq">
+              <img src="/assets/logos/yara-international.svg" alt="Yara International" width="74" height="76">
+            </span>
+          </div>
+        </div>
       </div>
-      <div class="pillar">
-        <div class="icon"></div>
-        <h3>You stay in command</h3>
-        <p>Every recommendation is reviewed and approved by your team before it goes live. aiRA proposes; you decide.</p>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= INDUSTRIES ================= -->
+    <!-- The solution-first turn (18 Sep): pick the industry here and the
+         questions section below re-writes itself around it. The cards ship
+         as plain links into the hub pages, so with JS off the section still
+         navigates and the four question sets stack below, each under its own
+         name; js/industries.js upgrades the pair into tabs and panels. -->
+    <section class="section inds" id="industries">
+      <div class="padding-global">
+        <div class="container">
+
+          <div class="inds__head reveal">
+            <div class="inds__head-text">
+              <p class="eyebrow">Solutions</p>
+              <h2 class="section-heading">
+                Every industry asks its <em>own questions</em>.
+              </h2>
+            </div>
+            <!-- The one heading's subheading. Generic on purpose: it is a
+                 claim about the industries themselves, not a caption for the
+                 tabs, so it holds while they change what sits underneath. -->
+            <p class="inds__claim">
+              A grocer's week looks nothing like a carrier's or a hotel's.
+              aiRA knows each industry down to its categories, and the
+              questions that come with them.
+            </p>
+              <div class="cats__deco" aria-hidden="true">
+              <span class="cats__rule"></span>
+              <svg class="cats__rings" viewBox="0 0 1000 1000" fill="none" focusable="false">
+                <!-- Quiet colour inside the rings: three concentric zones in
+                     the ramp trio, painted before the strokes. -->
+                <g class="cats__fills">
+                  <circle class="cats__fill cats__fill--purple" cx="500" cy="500" r="470"/>
+                  <circle class="cats__fill cats__fill--teal" cx="500" cy="500" r="257"/>
+                  <circle class="cats__fill cats__fill--brand" cx="500" cy="500" r="102"/>
+                </g>
+                <g class="cats__orbits">
+                  <circle cx="500" cy="500" r="102"/>
+                  <circle cx="500" cy="500" r="172"/>
+                  <circle cx="500" cy="500" r="257"/>
+                  <circle cx="500" cy="500" r="355"/>
+                  <circle cx="500" cy="500" r="470"/>
+                </g>
+                <!-- The vertical and the two diagonals through the centre;
+                     the horizontal is .cats__rule, which crosses the whole
+                     frame at this same height. Endpoints sit on the outer
+                     ring (500 +/- 470, and +/- 470/sqrt2 = 332 for the
+                     diagonals). -->
+                <g class="cats__axes">
+                  <line x1="500" y1="30" x2="500" y2="970"/>
+                  <line x1="168" y1="168" x2="832" y2="832"/>
+                  <line x1="832" y1="168" x2="168" y2="832"/>
+                </g>
+                <!-- Travellers: dots drifting slowly along the axes, one per
+                     line, on negative delays so they are mid-journey when
+                     the drawing assembles. -->
+                <g class="cats__trav" aria-hidden="true">
+                  <circle class="cats__tr cats__tr--h" cx="60" cy="500" r="7"/>
+                  <circle class="cats__tr cats__tr--v" cx="500" cy="140" r="7"/>
+                  <circle class="cats__tr cats__tr--d1" cx="200" cy="200" r="7"/>
+                  <circle class="cats__tr cats__tr--d2" cx="800" cy="200" r="7"/>
+                </g>
+                <circle class="cats__pip cats__pip--brand" cx="500" cy="500" r="6"/>
+                <circle class="cats__pip cats__pip--purple" cx="243" cy="500" r="6"/>
+                <circle class="cats__pip" cx="757" cy="500" r="6"/>
+                <circle class="cats__pip cats__pip--teal" cx="572" cy="572" r="6"/>
+                <circle class="cats__pip cats__pip--purple" cx="751" cy="249" r="6"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- One panel: the strip controls the stage directly below it, so
+               they share a border rather than sitting as separate blocks.
+               The stage is empty on purpose; the prompt treatment is open. -->
+          <!-- The picker, on the tryplayground.com bar: one tinted track with
+               the open industry lifted out of it as a white pill, and a prev
+               and next pair on the right. The cards stay real links into the
+               hub pages, so the bar still works with JS off. -->
+          <div class="inds__panel reveal">
+            <div class="inds__bar">
+              <div class="inds__grid">
+                <span class="inds__thumb" aria-hidden="true"></span>
+                <a class="inds__card is-active" id="ind-tab-retail" href="/solutions/retail" data-industry="retail">
+                  <span class="inds__top"><span class="inds__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,96v16a32,32,0,0,1-64,0V96H96v16a32,32,0,0,1-64,0V96L46.34,45.8A8,8,0,0,1,54,40H202a8,8,0,0,1,7.69,5.8Z" opacity="0.2"/><path d="M231.69,93.81,217.35,43.6A16.07,16.07,0,0,0,202,32H54A16.07,16.07,0,0,0,38.65,43.6L24.31,93.81A7.94,7.94,0,0,0,24,96v16a40,40,0,0,0,16,32v72a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V144a40,40,0,0,0,16-32V96A7.94,7.94,0,0,0,231.69,93.81ZM54,48H202l11.42,40H42.61Zm98,56v8a24,24,0,0,1-48,0v-8ZM51.06,132.2A24,24,0,0,1,40,112v-8H88v8a24,24,0,0,1-35.12,21.26A7.88,7.88,0,0,0,51.06,132.2ZM200,208H56V151.2a40.57,40.57,0,0,0,8,.8,40,40,0,0,0,32-16,40,40,0,0,0,64,0,40,40,0,0,0,32,16,40.57,40.57,0,0,0,8-.8Zm16-96a24,24,0,0,1-11.07,20.2,8.08,8.08,0,0,0-1.8,1.05A24,24,0,0,1,168,112v-8h48Z"/></svg></span><span class="inds__t">Retail</span></span>
+                </a>
+                <a class="inds__card" id="ind-tab-restaurants-qsr" href="/solutions/restaurants-qsr" data-industry="restaurants-qsr">
+                  <span class="inds__top"><span class="inds__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,40V168H152S152,64,208,40Z" opacity="0.2"/><path d="M72,88V40a8,8,0,0,1,16,0V88a8,8,0,0,1-16,0ZM216,40V224a8,8,0,0,1-16,0V176H152a8,8,0,0,1-8-8,268.75,268.75,0,0,1,7.22-56.88c9.78-40.49,28.32-67.63,53.63-78.47A8,8,0,0,1,216,40ZM200,53.9c-32.17,24.57-38.47,84.42-39.7,106.1H200ZM119.89,38.69a8,8,0,1,0-15.78,2.63L112,88.63a32,32,0,0,1-64,0l7.88-47.31a8,8,0,1,0-15.78-2.63l-8,48A8.17,8.17,0,0,0,32,88a48.07,48.07,0,0,0,40,47.32V224a8,8,0,0,0,16,0V135.32A48.07,48.07,0,0,0,128,88a8.17,8.17,0,0,0-.11-1.31Z"/></svg></span><span class="inds__t">Restaurants &amp; QSR</span></span>
+                </a>
+                <a class="inds__card" id="ind-tab-travel-hospitality" href="/solutions/travel-hospitality" data-industry="travel-hospitality">
+                  <span class="inds__top"><span class="inds__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M209,81l-33,31,32,88-24,24-48-72-24,24v24L88,224,72,184,32,168l24-24H80l24-24L32,72,56,48l88,32,31-33A24,24,0,0,1,209,81Z" opacity="0.2"/><path d="M185.33,114.21l29.14-27.43.17-.16a32,32,0,0,0-45.26-45.26l-.16.17L141.79,70.67l-83-30.2a8,8,0,0,0-8.39,1.86l-24,24a8,8,0,0,0,1.22,12.31l63.89,42.59L76.69,136H56a8,8,0,0,0-5.65,2.34l-24,24A8,8,0,0,0,29,175.42l36.82,14.73,14.7,36.75.06.16a8,8,0,0,0,13.18,2.47l23.87-23.88A8,8,0,0,0,120,200V179.31l14.76-14.76,42.59,63.89a8,8,0,0,0,12.31,1.22l24-24a8,8,0,0,0,1.86-8.39Zm-.07,97.23-42.59-63.89A8,8,0,0,0,136.8,144a7.09,7.09,0,0,0-.79,0,8,8,0,0,0-5.66,2.34l-24,24A8,8,0,0,0,104,176v20.69L90.93,209.76,79.43,181A8,8,0,0,0,75,176.57l-28.74-11.5L59.32,152H80a8,8,0,0,0,5.66-2.34l24-24a8,8,0,0,0-1.22-12.32L44.56,70.74l13.5-13.49,83.22,30.26a8,8,0,0,0,8.56-2l30.94-32.88A16,16,0,0,1,203.4,75.22l-32.87,30.94a8,8,0,0,0-2,8.56l30.26,83.22Z"/></svg></span><span class="inds__t">Travel &amp; Hospitality</span></span>
+                </a>
+                <a class="inds__card" id="ind-tab-telecom" href="/solutions/telecom" data-industry="telecom">
+                  <span class="inds__top"><span class="inds__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M160,128a32,32,0,1,1-32-32A32,32,0,0,1,160,128Z" opacity="0.2"/><path d="M128,88a40,40,0,1,0,40,40A40,40,0,0,0,128,88Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,152Zm73.71,7.14a80,80,0,0,1-14.08,22.2,8,8,0,0,1-11.92-10.67,63.95,63.95,0,0,0,0-85.33,8,8,0,1,1,11.92-10.67,80.08,80.08,0,0,1,14.08,84.47ZM69,103.09a64,64,0,0,0,11.26,67.58,8,8,0,0,1-11.92,10.67,79.93,79.93,0,0,1,0-106.67A8,8,0,1,1,80.29,85.34,63.77,63.77,0,0,0,69,103.09ZM248,128a119.58,119.58,0,0,1-34.29,84,8,8,0,1,1-11.42-11.2,103.9,103.9,0,0,0,0-145.56A8,8,0,1,1,213.71,44,119.58,119.58,0,0,1,248,128ZM53.71,200.78A8,8,0,1,1,42.29,212a119.87,119.87,0,0,1,0-168,8,8,0,1,1,11.42,11.2,103.9,103.9,0,0,0,0,145.56Z"/></svg></span><span class="inds__t">Telecom</span></span>
+                </a>
+              </div>
+            </div>
+
+            <div class="inds__stage" data-stage>
+
+              <div class="stage__panel" data-industry="retail">
+                <div class="cue" data-cue>
+                  <img class="cue__mark" src="/assets/brand/aira-mark.svg" alt="" width="16" height="16" aria-hidden="true">
+                  <ol class="cue__list" aria-label="Questions retail teams ask aiRA">
+                    <li class="cue__item is-on">Find the members who installed the app and have never paid with it.</li>
+                    <li class="cue__item">What is a fuel-only customer worth against one who also shops inside?</li>
+                    <li class="cue__item">Find the online customers who have never been matched to a store visit.</li>
+                    <li class="cue__item">Which customers have dropped a department they used to buy every quarter?</li>
+                    <li class="cue__item">Which first orders are likely to be returned in full before we ship them?</li>
+                    <li class="cue__item">Is the base moving out of formalwear into casual and active, and how fast?</li>
+                    <li class="cue__item">Which delivery slots are filling with baskets too small to pay for the van?</li>
+                    <li class="cue__item">Of the shoppers we won back last quarter, what did they actually respond to?</li>
+                    <li class="cue__item">Reconcile front-of-store sales against the loyalty ledger for last week.</li>
+                    <li class="cue__item">Which repeat purchases move online and which stay in store, by category?</li>
+                    <li class="cue__item">Find the buyers who furnished one room and never came back for the next.</li>
+                    <li class="cue__item">Which past buyers are most likely to be starting a second room this year?</li>
+                    <li class="cue__item">Where does repeat purchase stall first: price, range or delivery?</li>
+                    <li class="cue__item">What counts as an active customer under our current programme rules?</li>
+                    <li class="cue__item">Which online-first buyers later bought in store, and what brought them in?</li>
+                    <li class="cue__item">Separate the enthusiasts from the gift buyers in last season's customer file.</li>
+                  </ol>
+                </div>
+                <div class="biz-grid reveal">
+                  <a class="biz" href="/solutions/retail/grocery-supermarket">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,64l-12.16,66.86A16,16,0,0,1,196.1,144H70.55L56,64Z" opacity="0.2"/><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg></span>
+                    <span class="biz__t">Grocery &amp; Supermarket</span>
+                    <span class="biz__d">Weekly trips, thin margins. Small basket and frequency shifts move the whole number.</span>
+                  </a>
+                  <a class="biz" href="/solutions/retail/fashion-apparel">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M247.11,78.77l-19.27,36.81a8.44,8.44,0,0,1-7.5,4.42H192V40l51.78,28.25A7.81,7.81,0,0,1,247.11,78.77Zm-238.22,0,19.27,36.81a8.44,8.44,0,0,0,7.5,4.42H64V40L12.22,68.25A7.81,7.81,0,0,0,8.89,78.77Z" opacity="0.2"/><path d="M247.59,61.22,195.83,33A8,8,0,0,0,192,32H160a8,8,0,0,0-8,8,24,24,0,0,1-48,0,8,8,0,0,0-8-8H64a8,8,0,0,0-3.84,1L8.41,61.22A15.76,15.76,0,0,0,1.82,82.48l19.27,36.81A16.37,16.37,0,0,0,35.67,128H56v80a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V128h20.34a16.37,16.37,0,0,0,14.58-8.71l19.27-36.81A15.76,15.76,0,0,0,247.59,61.22ZM35.67,112a.62.62,0,0,1-.41-.13L16.09,75.26,56,53.48V112ZM184,208H72V48h16.8a40,40,0,0,0,78.38,0H184Zm36.75-96.14a.55.55,0,0,1-.41.14H200V53.48l39.92,21.78Z"/></svg></span>
+                    <span class="biz__t">Fashion &amp; Apparel</span>
+                    <span class="biz__d">Drops and seasons spike demand, returns eat margin. Repeat buyers decide the year.</span>
+                  </a>
+                  <a class="biz" href="/solutions/retail/specialty-outdoor">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M144,52a20,20,0,1,1,20,20A20,20,0,0,1,144,52Zm49.44,55.92a8,8,0,0,0-13.77,0l-33,55.75-21-35.67H50.35L8,200H248Z" opacity="0.2"/><path d="M164,80a28,28,0,1,0-28-28A28,28,0,0,0,164,80Zm0-40a12,12,0,1,1-12,12A12,12,0,0,1,164,40Zm90.88,155.92-54.56-92.08A15.87,15.87,0,0,0,186.55,96h0a15.85,15.85,0,0,0-13.76,7.84L146.63,148l-44.84-76.1a16,16,0,0,0-27.58,0L1.11,195.94A8,8,0,0,0,8,208H248a8,8,0,0,0,6.88-12.08ZM88,80l23.57,40H64.43ZM22,192l33-56h66l33,56Zm150.57,0-16.66-28.28L186.55,112,234,192Z"/></svg></span>
+                    <span class="biz__t">Specialty &amp; Outdoor Retail</span>
+                    <span class="biz__d">Big-ticket enthusiasts who shop in seasons. Who returns between peaks matters most.</span>
+                  </a>
+                  <a class="biz" href="/solutions/retail/home-furniture">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M240,128a32,32,0,0,1-32,32v40a8,8,0,0,1-8,8H56a8,8,0,0,1-8-8V160a32,32,0,0,1,0-64V72A32,32,0,0,1,80,40h96a32,32,0,0,1,32,32V96A32,32,0,0,1,240,128Z" opacity="0.2"/><path d="M216,88.8V72a40,40,0,0,0-40-40H80A40,40,0,0,0,40,72V88.8a40,40,0,0,0,0,78.4V200a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V167.2a40,40,0,0,0,0-78.4ZM80,48h96a24,24,0,0,1,24,24V88.8A40.07,40.07,0,0,0,168,128H88A40.07,40.07,0,0,0,56,88.8V72A24,24,0,0,1,80,48ZM208.39,152H208a8,8,0,0,0-8,8v40H56V160a8,8,0,0,0-8-8h-.39A24,24,0,1,1,72,128v40a8,8,0,0,0,16,0V144h80v24a8,8,0,0,0,16,0V128a24,24,0,1,1,24.39,24Z"/></svg></span>
+                    <span class="biz__t">Home &amp; Furniture</span>
+                    <span class="biz__d">High tickets, years between purchases. The work is staying relevant in the gap.</span>
+                  </a>
+                  <a class="biz" href="/solutions/retail/convenience-fuel">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M168,56V216H56V56A16,16,0,0,1,72,40h80A16,16,0,0,1,168,56Z" opacity="0.2"/><path d="M241,69.66,221.66,50.34a8,8,0,0,0-11.32,11.32L229.66,81A8,8,0,0,1,232,86.63V168a8,8,0,0,1-16,0V128a24,24,0,0,0-24-24H176V56a24,24,0,0,0-24-24H72A24,24,0,0,0,48,56V208H32a8,8,0,0,0,0,16H192a8,8,0,0,0,0-16H176V120h16a8,8,0,0,1,8,8v40a24,24,0,0,0,48,0V86.63A23.85,23.85,0,0,0,241,69.66ZM64,208V56a8,8,0,0,1,8-8h80a8,8,0,0,1,8,8V208Zm80-96a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h48A8,8,0,0,1,144,112Z"/></svg></span>
+                    <span class="biz__t">Convenience &amp; Fuel</span>
+                    <span class="biz__d">One customer, two datasets: forecourt and store. The margin lives inside the shop.</span>
+                  </a>
+                  <a class="biz" href="/solutions/retail/health-beauty">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,102c0,66-104,122-104,122S24,168,24,102A54,54,0,0,1,78,48c22.59,0,41.94,12.31,50,32,8.06-19.69,27.41-32,50-32A54,54,0,0,1,232,102Z" opacity="0.2"/><path d="M178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40ZM128,214.8C109.74,204.16,32,155.69,32,102A46.06,46.06,0,0,1,78,56c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,155.61,146.24,204.15,128,214.8Z"/></svg></span>
+                    <span class="biz__t">Health &amp; Beauty</span>
+                    <span class="biz__d">Replenishment you can set a clock by. A missed refill window is churn seen early.</span>
+                  </a>
+                  <a class="biz" href="/solutions/retail/department-discount">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,56V200a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM176,88a48,48,0,0,1-96,0,8,8,0,0,1,16,0,32,32,0,0,0,64,0,8,8,0,0,1,16,0Z"/></svg></span>
+                    <span class="biz__t">Department &amp; Discount</span>
+                    <span class="biz__d">Wide assortments, thin margins. Cross-category movement decides who becomes loyal.</span>
+                  </a>
+                  <a class="biz" href="/solutions/retail/other-retail">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M112,56v48a8,8,0,0,1-8,8H56a8,8,0,0,1-8-8V56a8,8,0,0,1,8-8h48A8,8,0,0,1,112,56Zm88-8H152a8,8,0,0,0-8,8v48a8,8,0,0,0,8,8h48a8,8,0,0,0,8-8V56A8,8,0,0,0,200,48Zm-96,96H56a8,8,0,0,0-8,8v48a8,8,0,0,0,8,8h48a8,8,0,0,0,8-8V152A8,8,0,0,0,104,144Zm96,0H152a8,8,0,0,0-8,8v48a8,8,0,0,0,8,8h48a8,8,0,0,0,8-8V152A8,8,0,0,0,200,144Z" opacity="0.2"/><path d="M200,136H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48ZM104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Z"/></svg></span>
+                    <span class="biz__t">Other Retail</span>
+                    <span class="biz__d">Electronics, marketplaces and D2C. Different catalogues, same need: answers fast.</span>
+                  </a>
+                </div>
+                <div class="vdemo" data-video="https://www.youtube.com/embed/9OHDIi256uQ?si=e6kLUBVmScoQgixV&amp;autoplay=1" data-video-title="The aiRA product tour">
+          <button class="vdemo__btn" type="button" data-video-play>
+                    <span class="vdemo__shot" aria-hidden="true">
+                      <img src="/assets/industry/retail-hero.jpg" alt="" width="1800" height="1125" loading="lazy" decoding="async">
+                      <span class="vdemo__play"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M228.23,134.69,84.15,222.81A8,8,0,0,1,72,216.12V39.88a8,8,0,0,1,12.15-6.69l144.08,88.12A7.82,7.82,0,0,1,228.23,134.69Z" opacity="0.2"/><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"/></svg></span>
+                    </span>
+                    <span class="vdemo__txt">
+                      <span class="vdemo__t">See aiRA answer a retail question</span>
+                      <span class="vdemo__d">Basket, frequency and who is lapsing</span>
+                    </span>
+                  </button>
+          <a class="vdemo__more" href="/solutions/retail">Everything aiRA does in retail<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,128l-72,72V56Z" opacity="0.2"/><path d="M221.66,122.34l-72-72A8,8,0,0,0,136,56v64H40a8,8,0,0,0,0,16h96v64a8,8,0,0,0,13.66,5.66l72-72A8,8,0,0,0,221.66,122.34ZM152,180.69V75.31L204.69,128Z"/></svg></a>
+                </div>
+              </div>
+
+              <div class="stage__panel" data-industry="restaurants-qsr">
+                <div class="cue" data-cue>
+                  <img class="cue__mark" src="/assets/brand/aira-mark.svg" alt="" width="16" height="16" aria-hidden="true">
+                  <ol class="cue__list" aria-label="Questions restaurant and QSR teams ask aiRA">
+                    <li class="cue__item is-on">How did last month's limited-time offer read by daypart, region and location?</li>
+                    <li class="cue__item">Which menu items actually travelled together at lunch, and at what margin?</li>
+                    <li class="cue__item">Which regulars have broken a weekly habit this month, not just missed a week?</li>
+                    <li class="cue__item">Separate the habitual customers from the occasional ones, and keep it for next time.</li>
+                  </ol>
+                </div>
+                <div class="biz-grid reveal">
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M188,176l20-7.27V184a32,32,0,0,1-32,32H80a32,32,0,0,1-32-32V167.27L68,160l40,16,40-16Zm27.82-89.72C209.32,55.55,172.48,32,128,32S46.68,55.55,40.18,86.28A8,8,0,0,0,48.07,96H207.93A8,8,0,0,0,215.82,86.28Z" opacity="0.2"/><path d="M48.07,104H207.93a16,16,0,0,0,15.72-19.38C216.22,49.5,176,24,128,24S39.78,49.5,32.35,84.62A16,16,0,0,0,48.07,104ZM128,40c39.82,0,74.21,20.61,79.93,48H48.07L48,87.93C53.79,60.61,88.18,40,128,40ZM229.26,152.48l-41.13,15L151,152.57a8,8,0,0,0-5.94,0l-37,14.81L71,152.57a8,8,0,0,0-5.7-.09l-44,16a8,8,0,0,0,5.47,15L40,178.69V184a40,40,0,0,0,40,40h96a40,40,0,0,0,40-40v-9.67l18.73-6.81a8,8,0,1,0-5.47-15ZM200,184a24,24,0,0,1-24,24H80a24,24,0,0,1-24-24V172.88l11.87-4.32L105,183.43a8,8,0,0,0,5.94,0l37-14.81,37,14.81a8,8,0,0,0,5.7.09l9.27-3.37ZM16,128a8,8,0,0,1,8-8H232a8,8,0,0,1,0,16H24A8,8,0,0,1,16,128Z"/></svg></span>
+                    <span class="biz__t">Quick Service</span>
+                    <span class="biz__d">Speed is the product. Frequency is counted in visits a week, not trips a month.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,112a96,96,0,0,1-56,87.3V208a8,8,0,0,1-8,8H96a8,8,0,0,1-8-8v-8.7A96,96,0,0,1,32,112Z" opacity="0.2"/><path d="M224,104h-8.37a88,88,0,0,0-175.26,0H32a8,8,0,0,0-8,8,104.35,104.35,0,0,0,56,92.28V208a16,16,0,0,0,16,16h64a16,16,0,0,0,16-16v-3.72A104.35,104.35,0,0,0,232,112,8,8,0,0,0,224,104ZM173.48,56.23q2.75,2.25,5.27,4.75a87.92,87.92,0,0,0-49.15,43H100.1A72.26,72.26,0,0,1,168,56C169.83,56,171.66,56.09,173.48,56.23Zm15.91,18.2A71.45,71.45,0,0,1,199.54,104H148.12A71.84,71.84,0,0,1,189.39,74.43ZM128,40a71.87,71.87,0,0,1,19,2.57A88.36,88.36,0,0,0,83.33,104H56.46A72.08,72.08,0,0,1,128,40Zm36.66,152A8,8,0,0,0,160,199.3V208H96v-8.7A8,8,0,0,0,91.34,192a88.29,88.29,0,0,1-51-72H215.63A88.29,88.29,0,0,1,164.66,192Z"/></svg></span>
+                    <span class="biz__t">Fast Casual</span>
+                    <span class="biz__d">Higher ticket, same hurry. The app is where the relationship actually lives.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,40V168H152S152,64,208,40Z" opacity="0.2"/><path d="M72,88V40a8,8,0,0,1,16,0V88a8,8,0,0,1-16,0ZM216,40V224a8,8,0,0,1-16,0V176H152a8,8,0,0,1-8-8,268.75,268.75,0,0,1,7.22-56.88c9.78-40.49,28.32-67.63,53.63-78.47A8,8,0,0,1,216,40ZM200,53.9c-32.17,24.57-38.47,84.42-39.7,106.1H200ZM119.89,38.69a8,8,0,1,0-15.78,2.63L112,88.63a32,32,0,0,1-64,0l7.88-47.31a8,8,0,1,0-15.78-2.63l-8,48A8.17,8.17,0,0,0,32,88a48.07,48.07,0,0,0,40,47.32V224a8,8,0,0,0,16,0V135.32A48.07,48.07,0,0,0,128,88a8.17,8.17,0,0,0-.11-1.31Z"/></svg></span>
+                    <span class="biz__t">Casual Dining</span>
+                    <span class="biz__d">Occasion-led and booking-led. The regular who stops coming rarely says why.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z" opacity="0.2"/><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg></span>
+                    <span class="biz__t">Family Dining</span>
+                    <span class="biz__d">Groups, not covers. One household going quiet takes four seats with it.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,88A88,88,0,0,1,40,88Z" opacity="0.2"/><path d="M224,88h0a95.63,95.63,0,0,0-15.53-52.37,8,8,0,0,0-6.7-3.63H54.23a8,8,0,0,0-6.7,3.63A95.63,95.63,0,0,0,32,88h0a96.12,96.12,0,0,0,88,95.66V216H88a8,8,0,0,0,0,16h80a8,8,0,0,0,0-16H136V183.66A96.12,96.12,0,0,0,224,88ZM58.7,48H197.3a79.52,79.52,0,0,1,10.3,32H48.4A79.52,79.52,0,0,1,58.7,48ZM128,168A80.11,80.11,0,0,1,48.4,96H207.6A80.11,80.11,0,0,1,128,168Z"/></svg></span>
+                    <span class="biz__t">Fine Dining</span>
+                    <span class="biz__d">Few visits, high value. Being recognised matters more than any discount.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M208,88v48a88,88,0,0,1-51.3,80H83.3A88,88,0,0,1,32,136V88Z" opacity="0.2"/><path d="M80,56V24a8,8,0,0,1,16,0V56a8,8,0,0,1-16,0Zm40,8a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,120,64Zm32,0a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,152,64Zm96,56v8a40,40,0,0,1-37.51,39.91,96.59,96.59,0,0,1-27,40.09H208a8,8,0,0,1,0,16H32a8,8,0,0,1,0-16H56.54A96.3,96.3,0,0,1,24,136V88a8,8,0,0,1,8-8H208A40,40,0,0,1,248,120ZM200,96H40v40a80.27,80.27,0,0,0,45.12,72h69.76A80.27,80.27,0,0,0,200,136Zm32,24a24,24,0,0,0-16-22.62V136a95.78,95.78,0,0,1-1.2,15A24,24,0,0,0,232,128Z"/></svg></span>
+                    <span class="biz__t">Coffee &amp; Beverage</span>
+                    <span class="biz__d">A daily habit on a tiny ticket. The model rests on the streak holding.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M104,48c0-24,24-40,24-40s24,16,24,40a24,24,0,0,1-48,0ZM208,96H48a16,16,0,0,0-16,16v23.33c0,17.44,13.67,32.18,31.1,32.66A32,32,0,0,0,96,136a32,32,0,0,0,64,0,32,32,0,0,0,32.9,32c17.43-.48,31.1-15.22,31.1-32.66V112A16,16,0,0,0,208,96Z" opacity="0.2"/><path d="M232,112a24,24,0,0,0-24-24H136V79a32.06,32.06,0,0,0,24-31c0-28-26.44-45.91-27.56-46.66a8,8,0,0,0-8.88,0C122.44,2.09,96,20,96,48a32.06,32.06,0,0,0,24,31v9H48a24,24,0,0,0-24,24v23.33a40.84,40.84,0,0,0,8,24.24V200a24,24,0,0,0,24,24H200a24,24,0,0,0,24-24V159.57a40.84,40.84,0,0,0,8-24.24ZM112,48c0-13.57,10-24.46,16-29.79,6,5.33,16,16.22,16,29.79a16,16,0,0,1-32,0ZM40,112a8,8,0,0,1,8-8H208a8,8,0,0,1,8,8v23.33c0,13.25-10.46,24.31-23.32,24.66A24,24,0,0,1,168,136a8,8,0,0,0-16,0,24,24,0,0,1-48,0,8,8,0,0,0-16,0,24,24,0,0,1-24.68,24C50.46,159.64,40,148.58,40,135.33Zm160,96H56a8,8,0,0,1-8-8V172.56A38.77,38.77,0,0,0,62.88,176a39.69,39.69,0,0,0,29-11.31A40.36,40.36,0,0,0,96,160a40,40,0,0,0,64,0,40.36,40.36,0,0,0,4.13,4.67A39.67,39.67,0,0,0,192,176c.38,0,.76,0,1.14,0A38.77,38.77,0,0,0,208,172.56V200A8,8,0,0,1,200,208Z"/></svg></span>
+                    <span class="biz__t">Bakery &amp; Dessert</span>
+                    <span class="biz__d">Impulse and occasion in one basket. Demand moves with the calendar.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M136,32V216H40V85.35a8,8,0,0,1,3.56-6.66l80-53.33A8,8,0,0,1,136,32Z" opacity="0.2"/><path d="M240,208H224V96a16,16,0,0,0-16-16H144V32a16,16,0,0,0-24.88-13.32L39.12,72A16,16,0,0,0,32,85.34V208H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM208,96V208H144V96ZM48,85.34,128,32V208H48ZM112,112v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm-32,0v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm0,56v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Zm32,0v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Z"/></svg></span>
+                    <span class="biz__t">Franchise Groups</span>
+                    <span class="biz__d">One brand, many owners. The data is split before anyone can read it whole.</span>
+                  </div>
+                </div>
+                <div class="vdemo" data-video="https://www.youtube.com/embed/9OHDIi256uQ?si=e6kLUBVmScoQgixV&amp;autoplay=1" data-video-title="The aiRA product tour">
+          <button class="vdemo__btn" type="button" data-video-play>
+                    <span class="vdemo__shot" aria-hidden="true">
+                      <img src="/assets/industry/ind-restaurants-qsr.jpg" alt="" width="1800" height="1125" loading="lazy" decoding="async">
+                      <span class="vdemo__play"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M228.23,134.69,84.15,222.81A8,8,0,0,1,72,216.12V39.88a8,8,0,0,1,12.15-6.69l144.08,88.12A7.82,7.82,0,0,1,228.23,134.69Z" opacity="0.2"/><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"/></svg></span>
+                    </span>
+                    <span class="vdemo__txt">
+                      <span class="vdemo__t">See aiRA answer a QSR question</span>
+                      <span class="vdemo__d">Dayparts, attach rate and regulars</span>
+                    </span>
+                  </button>
+          <a class="vdemo__more" href="/solutions/restaurants-qsr">Everything aiRA does in restaurants<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,128l-72,72V56Z" opacity="0.2"/><path d="M221.66,122.34l-72-72A8,8,0,0,0,136,56v64H40a8,8,0,0,0,0,16h96v64a8,8,0,0,0,13.66,5.66l72-72A8,8,0,0,0,221.66,122.34ZM152,180.69V75.31L204.69,128Z"/></svg></a>
+                </div>
+              </div>
+              <div class="stage__panel" data-industry="travel-hospitality">
+                <div class="cue" data-cue>
+                  <img class="cue__mark" src="/assets/brand/aira-mark.svg" alt="" width="16" height="16" aria-hidden="true">
+                  <ol class="cue__list" aria-label="Questions travel and hospitality teams ask aiRA">
+                    <li class="cue__item is-on">Which members are one stay or one segment short of status while the qualification window is still open?</li>
+                    <li class="cue__item">Of last year's shoulder-season bookings, which came from campaigns and which were coming anyway?</li>
+                    <li class="cue__item">Which dormant members are actually churning, and which are simply between trips?</li>
+                    <li class="cue__item">What did the members we re-engaged last year book first when they came back?</li>
+                  </ol>
+                </div>
+                <div class="biz-grid reveal">
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M240,112v56H104V80H208A32,32,0,0,1,240,112Z" opacity="0.2"/><path d="M208,72H24V48A8,8,0,0,0,8,48V208a8,8,0,0,0,16,0V176H232v32a8,8,0,0,0,16,0V112A40,40,0,0,0,208,72ZM24,88H96v72H24Zm88,72V88h96a24,24,0,0,1,24,24v48Z"/></svg></span>
+                    <span class="biz__t">Hotels &amp; Resorts</span>
+                    <span class="biz__d">Nights, not transactions. Status and rate plan decide what a guest is worth.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,136a48,48,0,0,1-79.55,36.18L160,224H96l15.55-51.82A48,48,0,0,1,32,136c0-64,96-112,96-112S224,72,224,136Z" opacity="0.2"/><path d="M131.58,16.85a8,8,0,0,0-7.16,0C120.32,18.9,24,67.84,24,136a56,56,0,0,0,74.15,53L88.34,221.7A8,8,0,0,0,96,232h64a8,8,0,0,0,7.66-10.3L157.85,189A56,56,0,0,0,232,136C232,67.84,135.68,18.9,131.58,16.85ZM176,176a40,40,0,0,1-26.29-9.85,8,8,0,0,0-12.92,8.33L149.25,216h-42.5l12.46-41.52a8,8,0,0,0-12.92-8.33A40,40,0,0,1,40,136c0-29.88,24.41-56.55,44.89-73.66A279.13,279.13,0,0,1,128,33.06a279.13,279.13,0,0,1,43.11,29.28C208.21,93.34,216,119.51,216,136A40,40,0,0,1,176,176Z"/></svg></span>
+                    <span class="biz__t">Casinos &amp; Gaming</span>
+                    <span class="biz__d">Play, stay and dine on one card. The tier is the whole relationship.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M209,81l-33,31,32,88-24,24-48-72-24,24v24L88,224,72,184,32,168l24-24H80l24-24L32,72,56,48l88,32,31-33A24,24,0,0,1,209,81Z" opacity="0.2"/><path d="M185.33,114.21l29.14-27.43.17-.16a32,32,0,0,0-45.26-45.26l-.16.17L141.79,70.67l-83-30.2a8,8,0,0,0-8.39,1.86l-24,24a8,8,0,0,0,1.22,12.31l63.89,42.59L76.69,136H56a8,8,0,0,0-5.65,2.34l-24,24A8,8,0,0,0,29,175.42l36.82,14.73,14.7,36.75.06.16a8,8,0,0,0,13.18,2.47l23.87-23.88A8,8,0,0,0,120,200V179.31l14.76-14.76,42.59,63.89a8,8,0,0,0,12.31,1.22l24-24a8,8,0,0,0,1.86-8.39Zm-.07,97.23-42.59-63.89A8,8,0,0,0,136.8,144a7.09,7.09,0,0,0-.79,0,8,8,0,0,0-5.66,2.34l-24,24A8,8,0,0,0,104,176v20.69L90.93,209.76,79.43,181A8,8,0,0,0,75,176.57l-28.74-11.5L59.32,152H80a8,8,0,0,0,5.66-2.34l24-24a8,8,0,0,0-1.22-12.32L44.56,70.74l13.5-13.49,83.22,30.26a8,8,0,0,0,8.56-2l30.94-32.88A16,16,0,0,1,203.4,75.22l-32.87,30.94a8,8,0,0,0-2,8.56l30.26,83.22Z"/></svg></span>
+                    <span class="biz__t">Airlines</span>
+                    <span class="biz__d">Miles outlive the trip. Status chasing is the most predictable behaviour there is.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,125.82V160.1c-14.57,51.07-82.23,68.91-94.19,71.69a7.91,7.91,0,0,1-3.62,0C114.23,229,46.57,211.17,32,160.1V125.82a8,8,0,0,1,5.47-7.6L128,88l90.53,30.22A8,8,0,0,1,224,125.82Z" opacity="0.2"/><path d="M221.06,110.63,208,106.27V56a16,16,0,0,0-16-16H136V24a8,8,0,0,0-16,0V40H64A16,16,0,0,0,48,56v50.27l-13.06,4.36A16,16,0,0,0,24,125.82V160.1a7.73,7.73,0,0,0,.31,2.19c15.72,55.09,86.12,74.06,100.07,77.3a16.19,16.19,0,0,0,7.24,0c13.95-3.24,84.35-22.21,100.07-77.3a7.73,7.73,0,0,0,.31-2.19V125.82A16,16,0,0,0,221.06,110.63ZM64,56H192v44.93L130.53,80.41a8,8,0,0,0-5.06,0L64,100.93ZM216,158.94c-5.78,19-20.55,35.17-43.95,48.12A181.7,181.7,0,0,1,128,224a181.7,181.7,0,0,1-44-16.94C60.56,194.11,45.78,177.93,40,158.94V125.81l80-26.7V168a8,8,0,0,0,16,0V99.11l80,26.71Z"/></svg></span>
+                    <span class="biz__t">Cruise</span>
+                    <span class="biz__d">One booking a year at most. The gap between sailings is where loyalty is lost.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M200,128a32,32,0,0,0,25.6,31.36,8,8,0,0,1,6.4,7.83V192a8,8,0,0,1-8,8H96V56H224a8,8,0,0,1,8,8V88.81a8,8,0,0,1-6.4,7.83A32,32,0,0,0,200,128Z" opacity="0.2"/><path d="M227.19,104.48A16,16,0,0,0,240,88.81V64a16,16,0,0,0-16-16H32A16,16,0,0,0,16,64V88.81a16,16,0,0,0,12.81,15.67,24,24,0,0,1,0,47A16,16,0,0,0,16,167.19V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V167.19a16,16,0,0,0-12.81-15.67,24,24,0,0,1,0-47ZM32,167.2a40,40,0,0,0,0-78.39V64H88V192H32Zm192,0V192H104V64H224V88.8a40,40,0,0,0,0,78.39Z"/></svg></span>
+                    <span class="biz__t">Theme Parks</span>
+                    <span class="biz__d">Season passes and single-day visitors behave nothing alike.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M184,184h40v24a8,8,0,0,1-8,8H192a8,8,0,0,1-8-8ZM32,208a8,8,0,0,0,8,8H64a8,8,0,0,0,8-8V184H32ZM194.11,52.75A8,8,0,0,0,186.8,48H69.2a8,8,0,0,0-7.31,4.75L32,120H224Z" opacity="0.2"/><path d="M240,112H229.2L201.42,49.5A16,16,0,0,0,186.8,40H69.2a16,16,0,0,0-14.62,9.5L26.8,112H16a8,8,0,0,0,0,16h8v80a16,16,0,0,0,16,16H64a16,16,0,0,0,16-16V192h96v16a16,16,0,0,0,16,16h24a16,16,0,0,0,16-16V128h8a8,8,0,0,0,0-16ZM69.2,56H186.8l24.89,56H44.31ZM64,208H40V192H64Zm128,0V192h24v16Zm24-32H40V128H216ZM56,152a8,8,0,0,1,8-8H80a8,8,0,0,1,0,16H64A8,8,0,0,1,56,152Zm112,0a8,8,0,0,1,8-8h16a8,8,0,0,1,0,16H176A8,8,0,0,1,168,152Z"/></svg></span>
+                    <span class="biz__t">Car Rental</span>
+                    <span class="biz__d">Booked late and compared hard. Loyalty here is convenience before affinity.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,115.54V216H152V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v56H40V115.54a8,8,0,0,1,2.62-5.92l80-75.54a8,8,0,0,1,10.77,0l80,75.54A8,8,0,0,1,216,115.54Z" opacity="0.2"/><path d="M240,208H224V115.55a16,16,0,0,0-5.17-11.78l-80-75.48a1.14,1.14,0,0,1-.11-.11,16,16,0,0,0-21.53,0l-.11.11L37.17,103.77A16,16,0,0,0,32,115.55V208H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM48,115.55l.11-.1L128,40l79.9,75.43.11.1V208H160V160a16,16,0,0,0-16-16H112a16,16,0,0,0-16,16v48H48ZM144,208H112V160h32Z"/></svg></span>
+                    <span class="biz__t">Vacation Ownership</span>
+                    <span class="biz__d">Bought once, used for decades. Engagement is the product after the sale.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M136,32V216H40V85.35a8,8,0,0,1,3.56-6.66l80-53.33A8,8,0,0,1,136,32Z" opacity="0.2"/><path d="M240,208H224V96a16,16,0,0,0-16-16H144V32a16,16,0,0,0-24.88-13.32L39.12,72A16,16,0,0,0,32,85.34V208H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM208,96V208H144V96ZM48,85.34,128,32V208H48ZM112,112v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm-32,0v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm0,56v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Zm32,0v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Z"/></svg></span>
+                    <span class="biz__t">Hospitality Groups</span>
+                    <span class="biz__d">Many flags, one guest. Recognising them across brands is the hard part.</span>
+                  </div>
+                </div>
+                <div class="vdemo" data-video="https://www.youtube.com/embed/9OHDIi256uQ?si=e6kLUBVmScoQgixV&amp;autoplay=1" data-video-title="The aiRA product tour">
+          <button class="vdemo__btn" type="button" data-video-play>
+                    <span class="vdemo__shot" aria-hidden="true">
+                      <img src="/assets/industry/ind-travel-hospitality.jpg" alt="" width="1800" height="1125" loading="lazy" decoding="async">
+                      <span class="vdemo__play"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M228.23,134.69,84.15,222.81A8,8,0,0,1,72,216.12V39.88a8,8,0,0,1,12.15-6.69l144.08,88.12A7.82,7.82,0,0,1,228.23,134.69Z" opacity="0.2"/><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"/></svg></span>
+                    </span>
+                    <span class="vdemo__txt">
+                      <span class="vdemo__t">See aiRA answer a travel question</span>
+                      <span class="vdemo__d">Season, shoulder and the gap between trips</span>
+                    </span>
+                  </button>
+          <a class="vdemo__more" href="/solutions/travel-hospitality">Everything aiRA does in travel<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,128l-72,72V56Z" opacity="0.2"/><path d="M221.66,122.34l-72-72A8,8,0,0,0,136,56v64H40a8,8,0,0,0,0,16h96v64a8,8,0,0,0,13.66,5.66l72-72A8,8,0,0,0,221.66,122.34ZM152,180.69V75.31L204.69,128Z"/></svg></a>
+                </div>
+              </div>
+              <div class="stage__panel" data-industry="telecom">
+                <div class="cue" data-cue>
+                  <img class="cue__mark" src="/assets/brand/aira-mark.svg" alt="" width="16" height="16" aria-hidden="true">
+                  <ol class="cue__list" aria-label="Questions telecom teams ask aiRA">
+                    <li class="cue__item is-on">Did last quarter's upgrade campaign move ARPU, or just move spend between plans?</li>
+                    <li class="cue__item">Split that by prepaid and postpaid, and show me where the lift actually came from.</li>
+                    <li class="cue__item">Which lines look like churn under our own lapsed rule, not a generic inactivity window?</li>
+                    <li class="cue__item">Which usage drops in the last 30 days are real risk, and which are seasonal?</li>
+                  </ol>
+                </div>
+                <div class="biz-grid reveal">
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M238.2,87.69l-104,125.43a8,8,0,0,1-12.3,0L17.8,87.69a7.79,7.79,0,0,1,1.31-11.21,180.75,180.75,0,0,1,217.78,0A7.79,7.79,0,0,1,238.2,87.69Z" opacity="0.2"/><path d="M247.89,80.91a15.93,15.93,0,0,0-6.17-10.81A186.67,186.67,0,0,0,128,32,186.67,186.67,0,0,0,14.28,70.1,15.93,15.93,0,0,0,8.11,80.91,15.65,15.65,0,0,0,11.65,92.8l104,125.43A15.93,15.93,0,0,0,128,224h0a15.93,15.93,0,0,0,12.31-5.77l104-125.43A15.65,15.65,0,0,0,247.89,80.91ZM128,208,24.09,82.74A170.76,170.76,0,0,1,128,48,170.76,170.76,0,0,1,231.91,82.74Z"/></svg></span>
+                    <span class="biz__t">Cable &amp; Broadband</span>
+                    <span class="biz__d">One line per household. Churn arrives as a phone call, not as a trend.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M80,176a32,32,0,1,1-32-32A32,32,0,0,1,80,176Z" opacity="0.2"/><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H192a74.49,74.49,0,0,0-28.35,6.73c-13.62,6.29-30.83,19.71-35.54,48-5.32,31.93-29.1,39.22-41,40.86a40,40,0,1,0,.18,16.06A71.65,71.65,0,0,0,108.13,178C121.75,172,139,158.6,143.89,129.31,150.65,88.77,190.34,88,192,88h28.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg></span>
+                    <span class="biz__t">Fiber</span>
+                    <span class="biz__d">Overbuild and switch. The first ninety days decide the next five years.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M160,128a32,32,0,1,1-32-32A32,32,0,0,1,160,128Z" opacity="0.2"/><path d="M128,88a40,40,0,1,0,40,40A40,40,0,0,0,128,88Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,152Zm73.71,7.14a80,80,0,0,1-14.08,22.2,8,8,0,0,1-11.92-10.67,63.95,63.95,0,0,0,0-85.33,8,8,0,1,1,11.92-10.67,80.08,80.08,0,0,1,14.08,84.47ZM69,103.09a64,64,0,0,0,11.26,67.58,8,8,0,0,1-11.92,10.67,79.93,79.93,0,0,1,0-106.67A8,8,0,1,1,80.29,85.34,63.77,63.77,0,0,0,69,103.09ZM248,128a119.58,119.58,0,0,1-34.29,84,8,8,0,1,1-11.42-11.2,103.9,103.9,0,0,0,0-145.56A8,8,0,1,1,213.71,44,119.58,119.58,0,0,1,248,128ZM53.71,200.78A8,8,0,1,1,42.29,212a119.87,119.87,0,0,1,0-168,8,8,0,1,1,11.42,11.2,103.9,103.9,0,0,0,0,145.56Z"/></svg></span>
+                    <span class="biz__t">Wireless Carriers</span>
+                    <span class="biz__d">Devices, plans and family lines. ARPU moves for reasons the plan never shows.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M176,120v72H80V120Z" opacity="0.2"/><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM200,216H56V40h92.69L200,91.31V216ZM176,112H80a8,8,0,0,0-8,8v72a8,8,0,0,0,8,8h96a8,8,0,0,0,8-8V120A8,8,0,0,0,176,112Zm-8,72H152V152a8,8,0,0,0-16,0v32H120V152a8,8,0,0,0-16,0v32H88V128h80Z"/></svg></span>
+                    <span class="biz__t">MVNO</span>
+                    <span class="biz__d">Thin margins on prepaid habits. A missed top-up is a customer half gone.</span>
+                  </div>
+                  <div class="biz biz--static">
+                    <span class="biz__ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM101.63,168h52.74C149,186.34,140,202.87,128,215.89,116,202.87,107,186.34,101.63,168ZM98,152a145.72,145.72,0,0,1,0-48h60a145.72,145.72,0,0,1,0,48ZM40,128a87.61,87.61,0,0,1,3.33-24H81.79a161.79,161.79,0,0,0,0,48H43.33A87.61,87.61,0,0,1,40,128ZM154.37,88H101.63C107,69.66,116,53.13,128,40.11,140,53.13,149,69.66,154.37,88Zm19.84,16h38.46a88.15,88.15,0,0,1,0,48H174.21a161.79,161.79,0,0,0,0-48Zm32.16-16H170.94a142.39,142.39,0,0,0-20.26-45A88.37,88.37,0,0,1,206.37,88ZM105.32,43A142.39,142.39,0,0,0,85.06,88H49.63A88.37,88.37,0,0,1,105.32,43ZM49.63,168H85.06a142.39,142.39,0,0,0,20.26,45A88.37,88.37,0,0,1,49.63,168Zm101.05,45a142.39,142.39,0,0,0,20.26-45h35.43A88.37,88.37,0,0,1,150.68,213Z"/></svg></span>
+                    <span class="biz__t">Satellite</span>
+                    <span class="biz__d">Coverage where nothing else reaches. Retention is the only growth lever.</span>
+                  </div>
+                </div>
+                <div class="vdemo" data-video="https://www.youtube.com/embed/9OHDIi256uQ?si=e6kLUBVmScoQgixV&amp;autoplay=1" data-video-title="The aiRA product tour">
+          <button class="vdemo__btn" type="button" data-video-play>
+                    <span class="vdemo__shot" aria-hidden="true">
+                      <img src="/assets/industry/ind-telecom.jpg" alt="" width="1800" height="1125" loading="lazy" decoding="async">
+                      <span class="vdemo__play"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M228.23,134.69,84.15,222.81A8,8,0,0,1,72,216.12V39.88a8,8,0,0,1,12.15-6.69l144.08,88.12A7.82,7.82,0,0,1,228.23,134.69Z" opacity="0.2"/><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"/></svg></span>
+                    </span>
+                    <span class="vdemo__txt">
+                      <span class="vdemo__t">See aiRA answer a telecom question</span>
+                      <span class="vdemo__d">Upgrade windows, plan fit and save offers</span>
+                    </span>
+                  </button>
+          <a class="vdemo__more" href="/solutions/telecom">Everything aiRA does in telecom<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,128l-72,72V56Z" opacity="0.2"/><path d="M221.66,122.34l-72-72A8,8,0,0,0,136,56v64H40a8,8,0,0,0,0,16h96v64a8,8,0,0,0,13.66,5.66l72-72A8,8,0,0,0,221.66,122.34ZM152,180.69V75.31L204.69,128Z"/></svg></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<footer>
-  <div class="wrap">
-    <div class="brand" style="display:flex;align-items:center;gap:10px;">
-      <span style="background:#fff;border-radius:8px;padding:6px 10px;display:inline-flex;align-items:center;"><img src="data:image/png;base64,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" alt="aiRA" style="height:26px;width:auto;display:block;"></span>
-    </div>
-    <div class="fine">© 2026 Capillary Technologies. getaiRA.com</div>
-  </div>
-</footer>
+    <div class="joint" aria-hidden="true"></div>
 
-<script>
-  const roles = ["Marketing Teams", "CRM Teams", "Data / BI Teams", "eCommerce Teams", "Growth Teams"];
-  const rotator = document.getElementById('roleRotator');
-  roles.forEach((r, i) => {
-    const span = document.createElement('span');
-    span.className = 'role-item' + (i === 0 ? ' active' : '');
-    span.textContent = r;
-    rotator.appendChild(span);
-  });
-  let idx = 0;
-  const items = rotator.querySelectorAll('.role-item');
-  setInterval(() => {
-    items[idx].classList.remove('active');
-    idx = (idx + 1) % items.length;
-    items[idx].classList.add('active');
-  }, 2200);
-</script>
+    <!-- Sections below carry `hidden` while the homepage is pared down for
+         direction review. Remove the attribute to restore a section, and
+         add a joint above it so every visible boundary keeps its line. -->
 
+    <!-- ================= MECHANISM ================= -->
+    <!-- Parked, not deleted (18 Sep): the solution-first homepage rests the
+         how-it-fits diagram for now. To restore it, remove `hidden` here and
+         on the joint that follows the section. -->
+    <section class="section section--inv mech section--band" id="how" data-nav-dark hidden>
+      <div class="mech__glow" aria-hidden="true"></div>
+      <div class="padding-global">
+        <div class="container">
+
+          <div class="section-head section-head--center reveal">
+            <p class="eyebrow">How it fits</p>
+            <h2 class="section-heading">
+              aiRA sits <em>between</em> your<br>
+              data and your channels.
+            </h2>
+            <p class="section-sub">
+              You already own the warehouse. You already own the channels. What is missing
+              is the judgement in between, and today that runs on analyst tickets and
+              Monday meetings.
+            </p>
+          </div>
+
+          <div class="mech__diagram reveal">
+
+            <div class="mech__sources">
+              <p class="mech__col-label">System of record</p>
+              <img src="/assets/logos/databricks.svg" alt="Databricks" width="143" height="22">
+              <img src="/assets/logos/snowflake.svg" alt="Snowflake" width="96" height="22">
+              <img src="/assets/logos/bigquery.svg" alt="Google BigQuery" width="82" height="28">
+              <img src="/assets/logos/redshift.svg" alt="Amazon Redshift" width="67" height="26">
+              <p class="mech__col-sub">Reads where your data already sits</p>
+            </div>
+
+            <div class="mech__core">
+              <div class="mech__core-node">
+                <img src="/assets/brand/aira-mark.svg" alt="aiRA" width="40" height="40">
+              </div>
+              <p class="mech__core-label">The intelligence layer</p>
+                <div class="mech__core-sub" aria-label="Reasoning engine · your business context · 140+ playbooks · learns from every approval">
+                  <span class="mech__core-sub-text" id="mech-core-sub" aria-hidden="true">
+                    <span class="is-on"><span class="dotspin"></span>Reasoning engine</span>
+                    <span><span class="dotspin"></span>Your business context</span>
+                    <span><span class="dotspin"></span>140+ playbooks</span>
+                    <span><span class="dotspin"></span>Learns from every approval</span>
+                  </span>
+                </div>
+            </div>
+
+            <div class="mech__dest">
+              <p class="mech__col-label">System of action</p>
+              <img src="/assets/logos/braze.svg" alt="Braze" width="51" height="24">
+              <img src="/assets/logos/adobe.svg" alt="Adobe" width="48" height="26">
+              <img src="/assets/logos/salesforce.svg" alt="Salesforce Marketing Cloud" width="71" height="42">
+              <img src="/assets/logos/engage.svg" alt="Capillary Engage+" width="95" height="22">
+              <p class="mech__col-sub">Executes anywhere, in any channel</p>
+            </div>
+
+          </div>
+
+          <ul class="feat__mini mech__points reveal reveal-stagger">
+            <li>
+              <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,80c0,26.51-39.4,48-88,48S40,106.51,40,80s39.4-48,88-48S216,53.49,216,80Z" opacity="0.2"/><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg></span>Zero copy</h4>
+              <p>aiRA reads your data in place. No migration, no rebuild.</p>
+            </li>
+            <li>
+              <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M185,127,127,185a24,24,0,0,1-33.94,0L71,162.91A24,24,0,0,1,71,129L129,71a24,24,0,0,1,33.94,0L185,93.09A24,24,0,0,1,185,127Z" opacity="0.2"/><path d="M237.66,18.34a8,8,0,0,0-11.32,0l-52.4,52.41-5.37-5.38a32.05,32.05,0,0,0-45.26,0L100,88.69l-6.34-6.35A8,8,0,0,0,82.34,93.66L88.69,100,65.37,123.31a32,32,0,0,0,0,45.26l5.38,5.37-52.41,52.4a8,8,0,0,0,11.32,11.32l52.4-52.41,5.37,5.38a32.06,32.06,0,0,0,45.26,0L156,167.31l6.34,6.35a8,8,0,0,0,11.32-11.32L167.31,156l23.32-23.31a32,32,0,0,0,0-45.26l-5.38-5.37,52.41-52.4A8,8,0,0,0,237.66,18.34Zm-116.29,161a16,16,0,0,1-22.62,0L76.69,157.25a16,16,0,0,1,0-22.62L100,111.31,144.69,156Zm57.94-57.94h0L156,144.69,111.31,100l23.32-23.31a16,16,0,0,1,22.62,0l22.06,22a16,16,0,0,1,0,22.63ZM88.57,35A8,8,0,0,1,103.43,29l8,20A8,8,0,0,1,96.57,55ZM24.57,93A8,8,0,0,1,35,88.57l20,8A8,8,0,0,1,49,111.43l-20-8A8,8,0,0,1,24.57,93ZM231.43,163a8,8,0,0,1-10.4,4.46l-20-8A8,8,0,1,1,207,144.57l20,8A8,8,0,0,1,231.43,163Zm-64,58.06A8,8,0,0,1,152.57,227l-8-20A8,8,0,0,1,159.43,201Z"/></svg></span>Nothing to rip out</h4>
+              <p>It plugs into what you already own and pushes to what you already run.</p>
+            </li>
+            <li>
+              <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M168,100a60,60,0,1,1-60-60A60,60,0,0,1,168,100Z" opacity="0.2"/><path d="M144,157.68a68,68,0,1,0-71.9,0c-20.65,6.76-39.23,19.39-54.17,37.17a8,8,0,0,0,12.25,10.3C50.25,181.19,77.91,168,108,168s57.75,13.19,77.87,37.15a8,8,0,0,0,12.25-10.3C183.18,177.07,164.6,164.44,144,157.68ZM56,100a52,52,0,1,1,52,52A52.06,52.06,0,0,1,56,100Zm197.66,33.66-32,32a8,8,0,0,1-11.32,0l-16-16a8,8,0,0,1,11.32-11.32L216,148.69l26.34-26.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>A person approves</h4>
+              <p>Every move waits on your approval before it goes live.</p>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Hidden with the mech section above: restore the two together. -->
+    <div class="joint" aria-hidden="true" hidden></div>
+
+
+    <!-- ================= DIFFERENTIATORS ================= -->
+    <!-- PARKED 27 Sep on the user's call ("let's hide this section for now"),
+         not deleted: same treatment as #how and #close above and below. The
+         joint AFTER it is hidden with it, because #industries and the NASCAR
+         card are now adjacent and two visible joints would sit between them. -->
+    <section class="section section--wash diff section--band" id="difference" hidden>
+      <div class="padding-global">
+        <div class="container">
+
+          <div class="section-head section-head--center reveal">
+            <p class="eyebrow">Ask, reason, approve</p>
+            <h2 class="section-heading">
+              Every answer arrives with its reasoning and <em>the move it earns</em>.
+            </h2>
+            <p class="section-sub">
+              Most of the shortlist stops at the answer. The same question carries through
+              to a built move, and the move waits for a person.
+            </p>
+          </div>
+
+          <div class="diff__grid reveal">
+            <!-- The artifact itself (19 Sep): one question, the shape of the
+                 answer, and the move it produced sitting on the approval
+                 badge. It replaces the empty image well that stood here, and
+                 it is the only place the approval grammar appears on this
+                 page. No figures: an invented count would be a fabricated
+                 metric, and the structure is what the section is claiming. -->
+            <div class="diff__fig" data-diff-loop>
+              <!-- js/diff-loop.js types the thread's own question in here,
+                   then hands off to the thread below. Decoration only: the
+                   readable content is the thread. -->
+              <div class="diff__ask" aria-hidden="true">
+                <span class="diff__ask-plus"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></span>
+                <span class="diff__ask-field">
+                  <span class="diff__ask-ph">What's our mission today?</span>
+                  <span class="diff__ask-t"></span><span class="diff__ask-caret"></span>
+                </span>
+                <span class="diff__ask-mic"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,176a48.05,48.05,0,0,0,48-48V64a48,48,0,0,0-96,0v64A48.05,48.05,0,0,0,128,176ZM96,64a32,32,0,0,1,64,0v64a32,32,0,0,1-64,0Zm40,143.6V240a8,8,0,0,1-16,0V207.6A80.11,80.11,0,0,1,48,128a8,8,0,0,1,16,0,64,64,0,0,0,128,0,8,8,0,0,1,16,0A80.11,80.11,0,0,1,136,207.6Z"/></svg></span>
+                <span class="diff__ask-send"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,106.34l-72-72a8,8,0,0,0-11.32,0l-72,72A8,8,0,0,0,56,120h64v96a8,8,0,0,0,16,0V120h64a8,8,0,0,0,5.66-13.66ZM75.31,104,128,51.31,180.69,104Z"/></svg></span>
+              </div>
+              <div class="diff__chat">
+                <p class="chat__q">Which customers have dropped a department they used to buy every quarter?</p>
+                <div class="chat__tools" aria-hidden="true">
+                  <div class="chat__tool"><span class="chat__tool-c">&rsaquo;</span><svg class="chat__tool-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"/></svg><span class="chat__tool-t">Discovering documents &middot; loyalty_schema</span><span class="chat__tool-m">9 found</span></div>
+                  <div class="chat__tool"><span class="chat__tool-c">&rsaquo;</span><svg class="chat__tool-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg><span class="chat__tool-t">Running SparkSQL &middot; department-drop cohort</span><span class="chat__tool-m">5 cohorts &middot; 1.6s</span></div>
+                </div>
+                <p class="chat__a">Who lapsed, the quarter the habit broke, and what they buy now instead.</p>
+                <div class="chat__move">
+                  <div class="chat__move-h">
+                    <p class="chat__move-t">Submit &ldquo;Cross-department win-back&rdquo; for approval</p>
+                    <span class="chat__move-tag">Customer-facing</span>
+                  </div>
+                  <p class="chat__move-b">This messages real customers. Submitting sends it for sign-off, and nothing goes live until it is approved.</p>
+                  <div class="chat__move-f">
+                    <span class="chat__draft"><span class="chat__draft-dot" aria-hidden="true"></span>Draft</span>
+                    <div class="chat__act" aria-hidden="true"><span class="chat__act-h">Save draft</span><span class="chat__act-a">Submit for approval</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="diff__points">
+              <div class="diff__point">
+                <span class="diff__point-ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M192,112a80,80,0,1,1-80-80A80,80,0,0,1,192,112Z" opacity="0.2"/><path d="M229.66,218.34,179.6,168.28a88.21,88.21,0,1,0-11.32,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg></span>
+                <h3 class="diff__point-t">Every answer shows its working</h3>
+                <p class="diff__point-d">The reasoning trace comes with the answer, not as a separate audit you have to ask for.</p>
+              </div>
+
+              <div class="diff__point">
+                <span class="diff__point-ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M223.69,42.18l-58.22,192a8,8,0,0,1-14.92,1.25L108,148,20.58,105.45a8,8,0,0,1,1.25-14.92l192-58.22A8,8,0,0,1,223.69,42.18Z" opacity="0.2"/><path d="M227.32,28.68a16,16,0,0,0-15.66-4.08l-.15,0L19.57,82.84a16,16,0,0,0-2.49,29.8L102,154l41.3,84.87A15.86,15.86,0,0,0,157.74,248q.69,0,1.38-.06a15.88,15.88,0,0,0,14-11.51l58.2-191.94c0-.05,0-.1,0-.15A16,16,0,0,0,227.32,28.68ZM157.83,231.85l-.05.14,0-.07-40.06-82.3,48-48a8,8,0,0,0-11.31-11.31l-48,48L24.08,98.25l-.07,0,.14,0L216,40Z"/></svg></span>
+                <h3 class="diff__point-t">The answer arrives as a built move</h3>
+                <p class="diff__point-d">Audience resolved, budget and window set, before anyone briefs another team.</p>
+              </div>
+
+              <div class="diff__point">
+                <span class="diff__point-ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M136,108A52,52,0,1,1,84,56,52,52,0,0,1,136,108Z" opacity="0.2"/><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"/></svg></span>
+                <h3 class="diff__point-t">A person decides, every time</h3>
+                <p class="diff__point-d">Nothing reaches a customer until someone approves it, on an audit trail.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true" hidden></div>
+
+    <!-- ================= NASCAR PROOF ================= -->
+    <!-- The customer story from the 15 Sep call: NASCAR, last section, beside
+         the form. One contained card inside the container (never full bleed):
+         the trackside photograph under an ink overlay on the left, the
+         Riverside take on the right, opening in the lightbox from its
+         supplied still. The clip is the raw "AI tool learns NASCAR's
+         nuances" take, shipped on the 19 Sep call; when Hardik's edited cut
+         lands, swap the src and nothing else. No quote and no numbers in the
+         copy: the testimonial text is still unapproved (context.md paragraph
+         5), and nothing placeholder ships. -->
+    <section class="section nproof">
+      <div class="padding-global">
+        <div class="container">
+          <!-- section--inv on the card, not the section: the dark ground and
+               its text flips stay inside the max-width bounds. -->
+          <div class="nproof__card section--inv reveal">
+            <div class="nproof__bg" aria-hidden="true"></div>
+            <div class="nproof__main">
+              <p class="eyebrow">Customer story</p>
+              <h2 class="section-heading nproof__t">
+                NASCAR gets fan insights in <em>minutes, not weeks</em>.
+              </h2>
+              <p class="section-sub nproof__sub">
+                NASCAR's marketing and CRM teams use aiRA, which already understands
+                their fans, their data and the rhythm of a race season. Analysis that
+                used to take weeks now takes minutes, so the team spends less time
+                explaining and more time acting.
+              </p>
+              <img class="nproof__mark" src="/assets/logos/nascar.svg" alt="" aria-hidden="true"
+                   width="192" height="32" loading="lazy">
+            </div>
+            <!-- The supplied still (20 Sep) with the play badge riding on
+                 it. Clicking opens the same lightbox the product tour uses
+                 (js/video.js), which means the 18MB take is never fetched
+                 until someone asks for it, and it plays big with aiRA's own
+                 controls instead of squeezed into this column.
+                 THE CUT IS THE APPROVED ONE since 27 Sep, supplied by the
+                 user as "NASCAR gets fan insights in minutes, not weeks.mov"
+                 and named for it: a produced 2:29 testimonial with Donald
+                 Baal's lower third, burnt-in subtitles, real Fan Rewards
+                 footage and an aiRA end card. It replaces nascar-nuances.mp4,
+                 the raw studio take, which nothing references now.
+                 NEITHER SUPPLIED FILE CAN SHIP: Cloudflare Pages refuses
+                 any single file over 25 MiB, and the master is 207MB while
+                 the 2.9Mbps mp4 supplied beside it is 54MB. It is transcoded
+                 from the MASTER, not from the 54MB copy, so the encode is
+                 first generation: 1920x1080 H.264 at 1150kbps video and
+                 96kbps AAC, landing at 21.6MB.
+                 RESOLUTION BEAT BITRATE HERE, which is worth keeping. Three
+                 encodes were compared on the hardest frame, the Fan Rewards
+                 UI at 0:40: 720p/950k was soft with ringing on the glyph
+                 edges, 720p/1200k was cleaner, and 1080p/1150k was crispest
+                 AND the smallest of the three at 21.6MB against 22.4. Half
+                 this cut is a static talking head and the other half is a
+                 static screen recording, so there is almost no motion for
+                 the extra pixels to cost anything, while the UI text has
+                 detail that downscaling destroys outright.
+                 Apple's own tools cannot do this: avconvert and
+                 AVAssetExportSession expose quality presets only, and their
+                 720p preset came out at 120MB, so the bitrate has to be set
+                 through AVAssetWriter. -->
+            <div class="nproof__media"
+                 data-video="/assets/video/nascar-minutes-not-weeks.mp4"
+                 data-video-poster="/assets/nascar-thumbnail.jpg"
+                 data-video-title="The NASCAR story">
+              <button class="nproof__btn" type="button" data-video-play>
+                <img class="nproof__shot" src="/assets/nascar-thumbnail.jpg"
+                     alt="" width="1354" height="794" loading="lazy" decoding="async">
+                <span class="nproof__play" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M228.23,134.69,84.15,222.81A8,8,0,0,1,72,216.12V39.88a8,8,0,0,1,12.15-6.69l144.08,88.12A7.82,7.82,0,0,1,228.23,134.69Z" opacity="0.2"/><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"/></svg></span>
+                <span class="sr-only">Play the NASCAR story</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= CATEGORY COMPARISON ================= -->
+    <!-- Dark since 19 Sep, so the board and the pricing section read as one
+         continuous dark passage rather than two blocks trading grounds. -->
+    <section class="section section--inv compare section--band" id="category" data-nav-dark>
+      <div class="padding-global">
+        <div class="container">
+
+          <div class="section-head section-head--center reveal">
+            <p class="eyebrow">Against the category</p>
+            <h2 class="section-heading">Where aiRA sits against <em>the category</em>.</h2>
+          </div>
+
+          <div class="compare__wrap reveal">
+            <div class="compare__board" role="table" aria-label="aiRA compared with horizontal AI analytics platforms">
+              <div class="compare__cell compare__cell--feat compare__cell--head" role="columnheader">
+                <span class="sr-only">Compared on</span>
+              </div>
+              <div class="compare__cell compare__cell--aira compare__cell--head" role="columnheader">
+                <img src="/assets/brand/aira-white.svg" alt="aiRA" width="62" height="20">
+              </div>
+              <div class="compare__cell compare__cell--other compare__cell--head" role="columnheader">
+                Horizontal AI analytics platforms
+              </div>
+            <div class="compare__cell compare__cell--feat" role="rowheader">
+              <span class="compare__icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M136,108A52,52,0,1,1,84,56,52,52,0,0,1,136,108Z" opacity="0.2"/><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"/></svg></span>
+              Bought by
+            </div>
+            <div class="compare__cell compare__cell--aira" role="cell">Marketing, CRM, growth and insights leaders at consumer brands</div>
+            <div class="compare__cell compare__cell--other" role="cell">The data platform team, then rolled out to the business</div>
+            <div class="compare__cell compare__cell--feat" role="rowheader">
+              <span class="compare__icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M188.82,82,128,128,67.2,82.4A8,8,0,0,1,64,76V40a8,8,0,0,1,8-8H184a8,8,0,0,1,8,8V75.64A8,8,0,0,1,188.82,82ZM64,180v36a8,8,0,0,0,8,8H184a8,8,0,0,0,8-8V180.36a8,8,0,0,0-3.18-6.38L128,128,67.2,173.6A8,8,0,0,0,64,180Z" opacity="0.2"/><path d="M200,75.64V40a16,16,0,0,0-16-16H72A16,16,0,0,0,56,40V76a16.07,16.07,0,0,0,6.4,12.8L114.67,128,62.4,167.2A16.07,16.07,0,0,0,56,180v36a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V180.36a16.09,16.09,0,0,0-6.35-12.77L141.27,128l52.38-39.59A16.09,16.09,0,0,0,200,75.64ZM184,216H72V180l56-42,56,42.35Zm0-140.36L128,118,72,76V40H184Z"/></svg></span>
+              Before the first answer
+            </div>
+            <div class="compare__cell compare__cell--aira" role="cell">Industry playbooks ship pre-built. Your business context layered on in days</div>
+            <div class="compare__cell compare__cell--other" role="cell">You model the semantic layer first, typically two to four months</div>
+            <div class="compare__cell compare__cell--feat" role="rowheader">
+              <span class="compare__icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,56v60c-19.89,17.23-38.23,18.39-56,13.48v-60C185.76,74.39,204.11,73.23,224,56ZM104,102.52v-60C86.24,37.61,67.89,38.77,48,56v60c19.89-17.22,38.23-18.39,56-13.48v60c21.62,6,42.38,21,64,27v-60c-21.62-6-42.38-21-64-27Z" opacity="0.2"/><path d="M227.32,48.75A8,8,0,0,0,218.76,50c-28,24.22-51.72,12.48-79.21-1.13C111.07,34.76,78.78,18.79,42.76,50A8,8,0,0,0,40,56V224a8,8,0,0,0,16,0V179.77c26.79-21.16,49.87-9.75,76.45,3.41,28.49,14.09,60.77,30.06,96.79-1.13a8,8,0,0,0,2.76-6V56A8,8,0,0,0,227.32,48.75ZM216,71.6v40.65c-14,11.06-27,13.22-40,10.88V79.34A60.05,60.05,0,0,0,216,71.6Zm-56,3.76v43c-6.66-2.67-13.43-6-20.45-9.48-8.82-4.37-18-8.91-27.55-12.18v-43c6.66,2.66,13.43,6,20.45,9.48C141.27,67.55,150.46,72.09,160,75.36ZM96,48.91V92.69a60.06,60.06,0,0,0-40,7.75V59.78C70,48.72,83,46.57,96,48.91ZM86.58,152A60.06,60.06,0,0,0,56,160.43V119.78c14-11.06,27-13.22,40-10.88v43.8A65.61,65.61,0,0,0,86.58,152ZM112,156.67v-43c6.66,2.66,13.43,6,20.45,9.48,8.82,4.37,18,8.9,27.55,12.17v43c-6.66-2.67-13.43-6-20.45-9.48C130.73,164.47,121.54,159.94,112,156.67Zm64,26.45v-43.8a65.61,65.61,0,0,0,9.42.72A60.11,60.11,0,0,0,216,131.57v40.68C202,183.31,189,185.46,176,183.12Z"/></svg></span>
+              Where it ends
+            </div>
+            <div class="compare__cell compare__cell--aira" role="cell">The recommended move, built and pending your approval</div>
+            <div class="compare__cell compare__cell--other" role="cell">A chart, a narrative and an export. The action is a separate brief</div>
+            <div class="compare__cell compare__cell--feat" role="rowheader">
+              <span class="compare__icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M149.66,45.66l-64,64a8,8,0,0,1-11.32,0l-16-16a8,8,0,0,1,0-11.32l64-64a8,8,0,0,1,11.32,0l16,16A8,8,0,0,1,149.66,45.66Zm88,76.68-16-16a8,8,0,0,0-11.32,0l-64,64a8,8,0,0,0,0,11.32l16,16a8,8,0,0,0,11.32,0l64-64A8,8,0,0,0,237.66,122.34Z" opacity="0.2"/><path d="M243.32,116.69l-16-16a16,16,0,0,0-20.84-1.53L156.84,49.52a16,16,0,0,0-1.52-20.84l-16-16a16,16,0,0,0-22.63,0l-64,64a16,16,0,0,0,0,22.63l16,16a16,16,0,0,0,20.83,1.52L96.69,124,31.31,189.38A25,25,0,0,0,66.63,224.7L132,159.32l7.17,7.16a16,16,0,0,0,1.52,20.84l16,16a16,16,0,0,0,22.63,0l64-64A16,16,0,0,0,243.32,116.69ZM80,104,64,88l64-64,16,16ZM55.32,213.38a9,9,0,0,1-12.69,0,9,9,0,0,1,0-12.68L108,135.32,120.69,148ZM101,105.66,145.66,61,195,110.34,150.35,155ZM168,192l-16-16,4-4h0l56-56h0l4-4,16,16Z"/></svg></span>
+              Autonomy
+            </div>
+            <div class="compare__cell compare__cell--aira" role="cell">An agent that proposes. A person decides, on an audit trail</div>
+            <div class="compare__cell compare__cell--other" role="cell">Increasingly autonomous investigation, with reading governed more tightly than acting</div>
+            <div class="compare__cell compare__cell--feat" role="rowheader">
+              <span class="compare__icon"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,96v96a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V96Z" opacity="0.2"/><path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"/></svg></span>
+              How you pay
+            </div>
+            <div class="compare__cell compare__cell--aira" role="cell">Credits, charged on work done. No per-seat license</div>
+            <div class="compare__cell compare__cell--other" role="cell">Per seat or committed capacity, agreed upfront</div>
+              <div class="compare__brandbg" aria-hidden="true"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="joint joint--inv" aria-hidden="true"></div>
+
+
+
+    <!-- ================= PRICING SHAPE ================= -->
+    <section class="section section--inv price section--band" data-nav-dark>
+      <div class="padding-global">
+        <div class="container">
+
+          <div class="price__top reveal">
+            <div class="price__intro">
+              <p class="eyebrow">Pricing</p>
+              <h2 class="section-heading">
+                No per-seat pricing. Pay based on <em>usage</em>.
+              </h2>
+              <p class="section-sub">
+                A credit is consumed when aiRA runs an analysis or builds an action.
+                Nobody pays for a login they never use, and adding the tenth marketer
+                costs nothing.
+              </p>
+            </div>
+          </div>
+
+          <div class="price__grid reveal reveal-stagger">
+            <div class="price__card">
+              <div class="price__tile">
+                <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M240,132c0,19.88-35.82,36-80,36-19.6,0-37.56-3.17-51.47-8.44h0C146.76,156.85,176,142,176,124V96.72h0C212.52,100.06,240,114.58,240,132ZM176,84c0-19.88-35.82-36-80-36S16,64.12,16,84s35.82,36,80,36S176,103.88,176,84Z" opacity="0.2"/><path d="M184,89.57V84c0-25.08-37.83-44-88-44S8,58.92,8,84v40c0,20.89,26.25,37.49,64,42.46V172c0,25.08,37.83,44,88,44s88-18.92,88-44V132C248,111.3,222.58,94.68,184,89.57ZM232,132c0,13.22-30.79,28-72,28-3.73,0-7.43-.13-11.08-.37C170.49,151.77,184,139,184,124V105.74C213.87,110.19,232,122.27,232,132ZM72,150.25V126.46A183.74,183.74,0,0,0,96,128a183.74,183.74,0,0,0,24-1.54v23.79A163,163,0,0,1,96,152,163,163,0,0,1,72,150.25Zm96-40.32V124c0,8.39-12.41,17.4-32,22.87V123.5C148.91,120.37,159.84,115.71,168,109.93ZM96,56c41.21,0,72,14.78,72,28s-30.79,28-72,28S24,97.22,24,84,54.79,56,96,56ZM24,124V109.93c8.16,5.78,19.09,10.44,32,13.57v23.37C36.41,141.4,24,132.39,24,124Zm64,48v-4.17c2.63.1,5.29.17,8,.17,3.88,0,7.67-.13,11.39-.35A121.92,121.92,0,0,0,120,171.41v23.46C100.41,189.4,88,180.39,88,172Zm48,26.25V174.4a179.48,179.48,0,0,0,24,1.6,183.74,183.74,0,0,0,24-1.54v23.79a165.45,165.45,0,0,1-48,0Zm64-3.38V171.5c12.91-3.13,23.84-7.79,32-13.57V172C232,180.39,219.59,189.4,200,194.87Z"/></svg></span>Credits, charged on work done</h4>
+                <p>A credit is consumed when aiRA runs an analysis or builds an action. No per-seat license.</p>
+              </div>
+            </div>
+            <div class="price__card">
+              <div class="price__tile">
+                <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,48V88H40V48a8,8,0,0,1,8-8H208A8,8,0,0,1,216,48Z" opacity="0.2"/><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Zm-38.34-85.66a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L116,164.69l42.34-42.35A8,8,0,0,1,169.66,122.34Z"/></svg></span>2 to 4 weeks to a pilot</h4>
+                <p>On your real customer data, with your business context loaded. No engineering headcount from your side.</p>
+              </div>
+            </div>
+            <div class="price__card">
+              <div class="price__tile">
+                <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,96v96a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V96Z" opacity="0.2"/><path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"/></svg></span>An immutable credit ledger</h4>
+                <p>Every credit aiRA spends is written to a ledger that cannot be edited, so usage is auditable line by line.</p>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Hidden with the security section below: restore the two together,
+         or the line between pricing and the booking form doubles. -->
+    <div class="joint" aria-hidden="true" hidden></div>
+
+    <!-- ================= SECURITY ================= -->
+    <!-- The last objection before the form (19 Sep). Security, privacy and IT
+         governance are the buyer's first question, raised unprompted by 11 of
+         the 30 in the GLG survey (context.md paragraph 12), and until now the
+         page answered it in one line inside a pricing card. Dark, so the
+         comparison, the price and this read as one due-diligence passage
+         before the close. It borrows the pricing grid's anatomy rather than
+         introducing a second three-up; the shared rules live in home.css. -->
+    <!-- Parked, not deleted (20 Sep). To restore it, remove `hidden` here
+         and on the joint above the section. -->
+    <section class="section section--inv sec section--band" id="security" data-nav-dark hidden>
+      <div class="padding-global">
+        <div class="container">
+          <div class="sec__top reveal">
+            <div class="sec__intro">
+              <p class="eyebrow">Security</p>
+              <h2 class="section-heading">
+                Your data stays where it is, and <em>nothing writes without you</em>.
+              </h2>
+              <p class="section-sub">
+                Security, privacy and governance are the first questions on any
+                evaluation. These are the answers, and the full brief arrives before
+                the session rather than after the third call.
+              </p>
+            </div>
+          </div>
+          <div class="sec__grid reveal reveal-stagger">
+            <div class="sec__card">
+              <div class="sec__tile">
+                <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,80c0,26.51-39.4,48-88,48S40,106.51,40,80s39.4-48,88-48S216,53.49,216,80Z" opacity="0.2"/><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg></span>Your data stays in your region</h4>
+                <p>aiRA reads it where it already sits, through Anthropic Claude on AWS Bedrock inside your own region. Zero retention, stateless, and Capillary never trains on your data.</p>
+              </div>
+            </div>
+            <div class="sec__card">
+              <div class="sec__tile">
+                <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,56v56c0,96-88,120-88,120S40,208,40,112V56a8,8,0,0,1,8-8H208A8,8,0,0,1,216,56Z" opacity="0.2"/><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></svg></span>Masked before the model sees it</h4>
+                <p>PII is masked ahead of every tool call, and queries run sandboxed and read-only with no outbound network.</p>
+              </div>
+            </div>
+            <div class="sec__card">
+              <div class="sec__tile">
+                <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M168,100a60,60,0,1,1-60-60A60,60,0,0,1,168,100Z" opacity="0.2"/><path d="M144,157.68a68,68,0,1,0-71.9,0c-20.65,6.76-39.23,19.39-54.17,37.17a8,8,0,0,0,12.25,10.3C50.25,181.19,77.91,168,108,168s57.75,13.19,77.87,37.15a8,8,0,0,0,12.25-10.3C183.18,177.07,164.6,164.44,144,157.68ZM56,100a52,52,0,1,1,52,52A52.06,52.06,0,0,1,56,100Zm197.66,33.66-32,32a8,8,0,0,1-11.32,0l-16-16a8,8,0,0,1,11.32-11.32L216,148.69l26.34-26.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>Nothing writes without a person</h4>
+                <p>Every customer-impacting change stops at an approval gate, on an audit trail.</p>
+              </div>
+            </div>
+          </div>
+          <p class="sec__note reveal">SOC 2 Type II · ISO 27001 · PCI DSS · GDPR, CCPA and PDPA. HIPAA-capable under a BAA.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= FAQ ================= -->
+    <!-- The promptwatch two-column FAQ (20 Sep, user reference): the head and
+         the route to /book on the left, a one-open accordion on the right.
+         The open item floats as a boxed card; closed items are hairline rows.
+         Answers restate claims already made on this page and /product, never
+         new ones. With js/accordion.js off, every answer reads open. -->
+    <section class="section faq" id="faq">
+      <div class="padding-global">
+        <div class="container faq__grid">
+
+          <div class="faq__intro reveal">
+            <p class="eyebrow">FAQ</p>
+            <h2 class="section-heading">Frequently asked, <em>plainly answered</em>.</h2>
+            <p class="section-sub">
+              The questions that come up before every evaluation: what aiRA
+              is, where your data goes, what it costs, and what a pilot
+              actually runs on.
+            </p>
+            <p class="faq__cta">
+              Yours is more specific?
+              <a href="/book">Bring it to a working session</a>.
+            </p>
+          </div>
+
+          <div class="faq__list acc reveal" data-accordion>
+            <div class="acc__item is-open" data-acc-item>
+              <h3 class="acc__head">
+                <button class="acc__btn" type="button" aria-expanded="true">
+                  What is aiRA?
+                  <span class="acc__caret" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+                </button>
+              </h3>
+              <div class="acc__panel">
+                <div class="acc__body">
+                  <p>
+                    aiRA is an on-demand insights and analytics agent. You ask in
+                    plain language, it reads your warehouse, comes back with
+                    reasoning, and hands back insights or the segment of customers
+                    you wanted or the complete marketing journey with
+                    hyper-personalised messaging, waiting for your approval.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="acc__item" data-acc-item>
+              <h3 class="acc__head">
+                <button class="acc__btn" type="button" aria-expanded="false">
+                  Does our data have to move?
+                  <span class="acc__caret" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+                </button>
+              </h3>
+              <div class="acc__panel">
+                <div class="acc__body">
+                  <p>
+                    No. aiRA reads it where it already sits, in Databricks,
+                    Snowflake, BigQuery or Redshift. No migration, no rebuild,
+                    and every query runs sandboxed and read-only.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="acc__item" data-acc-item>
+              <h3 class="acc__head">
+                <button class="acc__btn" type="button" aria-expanded="false">
+                  Can aiRA change anything on its own?
+                  <span class="acc__caret" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+                </button>
+              </h3>
+              <div class="acc__panel">
+                <div class="acc__body">
+                  <p>
+                    No. Every customer-impacting move stops at an approval
+                    gate, on an audit trail. aiRA proposes, a person decides,
+                    and that holds for every playbook it runs.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="acc__item" data-acc-item>
+              <h3 class="acc__head">
+                <button class="acc__btn" type="button" aria-expanded="false">
+                  Where is our data processed?
+                  <span class="acc__caret" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+                </button>
+              </h3>
+              <div class="acc__panel">
+                <div class="acc__body">
+                  <p>
+                    Through Anthropic Claude on AWS Bedrock inside your own
+                    region, with PII masked ahead of every call. Zero
+                    retention, stateless, and Capillary never trains on your
+                    data. SOC 2 Type II, ISO 27001, PCI DSS, GDPR, CCPA and
+                    PDPA.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="acc__item" data-acc-item>
+              <h3 class="acc__head">
+                <button class="acc__btn" type="button" aria-expanded="false">
+                  How long until the first answer?
+                  <span class="acc__caret" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+                </button>
+              </h3>
+              <div class="acc__panel">
+                <div class="acc__body">
+                  <p>
+                    Days, not months. Industry playbooks ship pre-built and
+                    your business context layers on rather than being modelled
+                    from scratch. A pilot on your real customer data takes two to
+                    four weeks.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="acc__item" data-acc-item>
+              <h3 class="acc__head">
+                <button class="acc__btn" type="button" aria-expanded="false">
+                  How is it priced?
+                  <span class="acc__caret" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+                </button>
+              </h3>
+              <div class="acc__panel">
+                <div class="acc__body">
+                  <p>
+                    Credits, charged on work done. A credit is consumed when
+                    aiRA runs an analysis or builds an action, every credit is
+                    written to an immutable ledger, and there is no per-seat
+                    license.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="acc__item" data-acc-item>
+              <h3 class="acc__head">
+                <button class="acc__btn" type="button" aria-expanded="false">
+                  Which industries does aiRA know?
+                  <span class="acc__caret" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+                </button>
+              </h3>
+              <div class="acc__panel">
+                <div class="acc__body">
+                  <p>
+                    Retail, restaurants and QSR, travel and hospitality, telecom,
+                    fuel and convenience, and airlines, on top of the industries
+                    Capillary already runs loyalty for. Each one arrives with the
+                    vocabulary and the playbooks of that industry rather than a
+                    blank prompt box, and retail goes a level deeper again into its
+                    categories. If yours is not on the list, the setup does not
+                    change: aiRA reads your warehouse in week one and learns your
+                    own business context from there.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="acc__item" data-acc-item>
+              <h3 class="acc__head">
+                <button class="acc__btn" type="button" aria-expanded="false">
+                  What does the pilot run on?
+                  <span class="acc__caret" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+                </button>
+              </h3>
+              <div class="acc__panel">
+                <div class="acc__body">
+                  <p>
+                    On your real customer data, with your business context
+                    loaded. No engineering headcount from your side.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= BOOK CTA =================
+         The SPLIT variant (23 Sep, promptwatch.com reference the user
+         supplied, carried over from /product): copy left on a diagonal brand
+         gradient, the real product right, cut by the card's own edge, and the
+         whole thing filling the section rail to rail and top to bottom rather
+         than sitting in it as a box. It replaced the brand-filled box from
+         20 Sep (frigade.com), and the four floating duotone glyphs went with
+         it: they were quiet furniture for an empty fill and are clutter
+         beside a screenshot.
+
+         .section--band came off in the same change and had to: the band
+         insets .container by 136px, so a fill that gives back .container's
+         20px gutter to reach the rails would have stopped 116px short of
+         them. -->
+    <section class="section section--wash book">
+      <div class="padding-global">
+        <div class="container">
+
+          <div class="book__frame reveal">
+            <div class="book__card book__card--split">
+              <div class="book__body">
+                <!-- Was "Bring aiRA a real question.", the same process-led
+                     line /book's H1 was rewritten away from on 20 Sep and
+                     /product's book card already carried. One title across
+                     every book card now (user, 27 Sep). The button carries no
+                     icon, ever. -->
+                <h2 class="book__title">The question your team is still waiting on.</h2>
+                <p class="book__sub">
+                  Thirty minutes, one real question, answered live. We reply within
+                  one business day with a time and the security brief.
+                </p>
+                <a class="btn btn--lg book__cta" href="/book">Book a working session</a>
+              </div>
+              <div class="book__shot" aria-hidden="true">
+                <img src="/assets/product/workspace.png" alt="" width="2560" height="1598" loading="lazy" decoding="async">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- #close is hidden, so this lands on the book section's boundary with
+         the footer, which is where the user wants it (23 Sep): every visible
+         boundary keeps its line. It was parked for one turn on the reasoning
+         that a hairline through the card's fade would cut it, and that was
+         wrong in practice: by the time the line lands both sides of it are
+         --surface-2, so it reads as the divider it is. -->
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= CLOSE ================= -->
+    <section class="section section--inv close" data-nav-dark hidden>
+      <div class="padding-global">
+        <div class="container close__grid">
+
+          <div class="close__main">
+            <p class="eyebrow">
+              <svg class="sparkle" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12,0Q14.6,9.4 24,12Q14.6,14.6 12,24Q9.4,14.6 0,12Q9.4,9.4 12,0Z"/></svg>
+              The working session
+            </p>
+            <h2 class="close__title">
+              You have seen how it works. Bring us the question it has not answered yet.
+            </h2>
+            <p class="close__sub">
+              Thirty minutes, one real question, no deck and no discovery calls
+              stacked in front of it. You leave with the answer, the reasoning behind it and
+              the recommended next move, not a product demo.
+            </p>
+
+            <div class="btn-row close__cta">
+              <a class="btn btn--primary btn--lg" href="/book">Book a working session</a>
+            </div>
+          </div>
+
+          <div class="thread close__thread">
+            <div class="thread__step">
+              <h3 class="thread__title">We reply within one business day.</h3>
+              <p class="thread__body">With a time and the security brief. No demo gauntlet.</p>
+            </div>
+            <div class="thread__step">
+              <h3 class="thread__title">Security brief comes first.</h3>
+              <p class="thread__body">Shared before the session, not after the third call.</p>
+            </div>
+            <div class="thread__step">
+              <h3 class="thread__title">We will tell you where aiRA is the wrong fit.</h3>
+              <p class="thread__body">It happens. Bring your actual shortlist and we will go through it.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-placeholder"></div>
 </body>
 </html>

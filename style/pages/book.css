@@ -1,0 +1,136 @@
+/* ==========================================================================
+   aiRA — /book (20 Sep, chatbase.co/enterprise reference, first two
+   sections only): a split hero with the claim and the checked promises on
+   the left and the booking form on the right, then the shared proof logo
+   grid (.lgrid, styled in components.css).
+
+   The form is the one the homepage's book section carried until 19 Sep,
+   moved here whole: same fields, same .input skin, same note. Loads after
+   tokens -> global -> components.
+   ========================================================================== */
+
+/* ---- Hero: claim + form ---------------------------------------------------
+   Copy column wider than the form so the headline breathes; the two centre
+   on each other vertically, chatbase-style. */
+
+.bhero__grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: var(--sp-12);
+  align-items: center;
+}
+
+.bhero__t {
+  font-family: var(--font-display);
+  /* 48px (--t-display-1s), set 20 Sep. The 60px reserve read as a homepage
+     headline next to a form; 48 lets the claim and the card sit as equals.
+     Fluid below 992px so the two-word second line never outruns a phone. */
+  font-size: var(--t-display-1s);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+  margin-bottom: var(--sp-5);
+}
+/* The brand highlight, same drawing as .section-heading em (19 Sep rule):
+   restated here because this h1 is not a section heading. */
+.bhero__t em {
+  font-style: normal;
+  color: var(--brand);
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.07em;
+  text-underline-offset: 0.16em;
+  text-decoration-skip-ink: none;
+}
+
+.bhero__sub {
+  font-size: var(--t-body-xl);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 32rem;
+}
+
+/* The promises. One duotone icon each, drawn from what the line actually
+   says (the question, the brief, the reply time, the honest no) rather than
+   four identical ticks: at a glance the column reads as four different
+   commitments, which is what it is. */
+.bhero__list {
+  list-style: none;
+  margin: var(--sp-6) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  max-width: 32rem;
+}
+.bhero__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  font-size: var(--t-body);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.bhero__item svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--black);
+  /* Optical: seats the glyph on the first line's centre. */
+  margin-top: 1px;
+}
+
+/* The form card: white over the page ground, one border, lifted. */
+.bhero__card {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--sp-8);
+}
+
+/* ---- The form (moved from home.css 19-20 Sep) --------------------------- */
+
+.book__form { display: flex; flex-direction: column; gap: var(--sp-3); }
+.book__row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
+
+.input {
+  width: 100%;
+  font: inherit;
+  font-size: var(--t-body);
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  padding: 10px 14px;
+  transition: border-color var(--dur-fast) var(--ease),
+              box-shadow var(--dur-fast) var(--ease);
+}
+.input::placeholder { color: var(--ink-faint); }
+.input:focus {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 18%, transparent);
+}
+
+.book__question { resize: vertical; min-height: 104px; line-height: var(--lh-body); }
+
+.book__submit { width: 100%; justify-content: center; margin-top: var(--sp-2); }
+.book__note { font-size: var(--t-caption); color: var(--ink-3); margin-top: var(--sp-4); }
+.book__note a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.book__note a:hover { color: var(--ink); }
+
+/* ---- Responsive ---------------------------------------------------------- */
+
+@media (max-width: 991px) {
+  .bhero__grid { grid-template-columns: 1fr; gap: var(--sp-8); }
+}
+@media (max-width: 640px) {
+  .bhero__card { padding: var(--sp-6); }
+  .book__row { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .input { transition: none; }
+}

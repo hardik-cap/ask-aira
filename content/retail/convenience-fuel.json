@@ -1,0 +1,151 @@
+{
+  "slug": "convenience-fuel",
+  "name": "Convenience & Fuel",
+  "title": "aiRA for convenience and fuel · Questions your team asks every week",
+  "description": "Highest frequency in retail, smallest baskets, and the margin waiting inside the shop. aiRA answers what forecourt marketing, CRM, data, eCommerce and growth teams ask, then builds the move and waits for approval.",
+
+  "hero": {
+    "h1": "The volume is at the pump.<br>The margin is inside.",
+    "sub": "A customer who only ever buys fuel can be a large number in the accounts and close to nothing in profit. aiRA reads the warehouse you already have, answers in plain language with the reasoning shown, and hands back the segment or the journey already built."
+  },
+
+  "shape": {
+    "eyebrow": "The shape of it",
+    "heading": "Two minutes, twice a week, every week.",
+    "sub": "Four things about forecourt data that make a generic analytics answer the wrong answer.",
+    "facets": [
+      {
+        "t": "Frequency",
+        "d": "The highest in retail, attached to the smallest baskets in retail. Several visits a week, a couple of items each, and the whole decision made in under two minutes."
+      },
+      {
+        "t": "Margin",
+        "d": "Fuel moves the volume and the shop makes the money. Ranking customers by spend puts the least profitable ones at the top, which is why fuel volume is a misleading loyalty metric."
+      },
+      {
+        "t": "Seasonality",
+        "d": "The clock matters more than the calendar. Morning coffee, lunch, the evening top-up and the weekend trip are four different businesses running through one site."
+      },
+      {
+        "t": "What the data misses",
+        "d": "The link between the pump and the till. Fuel-only transactions are often anonymous, so the same person can appear as a loyal member inside the shop and a stranger on the forecourt."
+      }
+    ]
+  },
+
+  "seats": {
+    "heading": "The same week, five different problems.",
+    "sub": "Marketing is reading a national promotion that behaved differently at every site while the data team is making two systems agree. Here is what each seat asks, and what aiRA hands back."
+  },
+
+  "roles": {
+    "marketing": {
+      "problem": "An offer has to work in the time it takes to walk from the pump to the door. The plan is national and the behaviour is site by site: a coffee promotion that carries a commuter forecourt does nothing on a highway one.",
+      "questions": [
+        { "cap": "Ad hoc analytics", "q": "Which sites under-performed the national coffee promotion, and what do they have in common?" },
+        { "cap": "Audience builder", "q": "Find the members who buy fuel every week and have never bought anything inside." },
+        { "cap": "Advanced analytics", "q": "Run a basket analysis on the morning daypart: what actually travels with coffee?" },
+        { "cap": "Journey orchestration", "q": "Draft the offer that gets the fuel-only group through the door, and show me the margin first." }
+      ],
+      "returns": "The site-level read behind a national average, the fuel-only cohort saved as a segment, and the offer drafted with its margin attached. Nothing sends until you approve it."
+    },
+
+    "crm": {
+      "problem": "Membership here is a habit rather than a relationship. People swipe because it is quick, and when they stop it usually means they changed route or changed job, not that anything went wrong.",
+      "questions": [
+        { "cap": "Predictive models", "q": "Which members have dropped from four visits a week to one?" },
+        { "cap": "Ad hoc analytics", "q": "When a member stops coming, do they stop everywhere or just at one site?" },
+        { "cap": "Audience builder", "q": "Build a segment of members who buy coffee every weekday and nothing else." },
+        { "cap": "Journey orchestration", "q": "Set up the reactivation for members whose visit pattern broke last month and hold it for approval." }
+      ],
+      "returns": "Lapse measured against each member's own visit rhythm rather than a fixed window, and a reactivation aimed at the ones whose habit actually broke."
+    },
+
+    "bi": {
+      "problem": "Sites, shifts and fuel grades multiply every question, and the forecourt and shop systems rarely agree on the same day. The week goes on making two numbers match before anyone gets to ask why they moved.",
+      "questions": [
+        { "cap": "Ad hoc analytics", "q": "Reconcile pump volume against inside sales by site for last week." },
+        { "cap": "Data quality & fraud checks", "q": "Flag the sites where loyalty scan rate has fallen well below transactions." },
+        { "cap": "Advanced analytics", "q": "Give operations a daypart view by site they can read without me." },
+        { "cap": "Knowledge base Q&A", "q": "What counts as an active member when a visit can be thirty seconds at a pump?" }
+      ],
+      "returns": "The reconciliation done with the query shown, so the exceptions are the conversation instead of the arithmetic."
+    },
+
+    "ecommerce": {
+      "problem": "The app is the forecourt's only digital surface, and its real competitor is the convenience of not opening an app at all. Mobile payment and pre-order each have to beat a two-minute walk, and a charging bay changes how long that walk lasts.",
+      "questions": [
+        { "cap": "Ad hoc analytics", "q": "Do app users visit more often, or are they the people who were already visiting most?" },
+        { "cap": "Advanced analytics", "q": "What does a pre-order basket look like against a walk-in one, at margin?" },
+        { "cap": "Audience builder", "q": "Find the members who installed the app and have never paid with it." },
+        { "cap": "Predictive models", "q": "Which sites are seeing enough electric-vehicle traffic to change what the shop stocks?" }
+      ],
+      "returns": "The app measured on incremental visits rather than on installs, and the sites where a new service would actually pay separated from the ones where it would not."
+    },
+
+    "growth": {
+      "problem": "Growth here is not more customers, it is more of the same customer, plus the fleet accounts that never walk through the door at all. Nearly everyone in range already drives past, so the questions that matter are how many stop, how many come inside, and what the discount that got them there actually cost.",
+      "questions": [
+        { "cap": "Advanced analytics", "q": "What is a fuel-only customer worth against one who also shops inside?" },
+        { "cap": "Predictive models", "q": "Which members are most likely to add a food purchase to a fuel visit?" },
+        { "cap": "Ad hoc analytics", "q": "At what point does the cents-off discount stop paying for itself?" },
+        { "cap": "Audience builder", "q": "Build the fleet accounts that fuel with us weekly and have never bought inside." }
+      ],
+      "returns": "The value gap between a fuel-only and an inside customer, in your own numbers, and the cohort most likely to cross it ready to act on."
+    }
+  },
+
+  "runs": {
+    "eyebrow": "What it runs here",
+    "heading": "Fifteen things aiRA runs on forecourt data.",
+    "sub": "In the order you would actually use them, with what each one gives back.",
+    "cols": [
+      {
+        "n": "01",
+        "t": "Analyse",
+        "d": "See what is happening, and why.",
+        "items": [
+          { "t": "RCA Deep Dive", "ic": "MagnifyingGlass", "d": "The real reasons fill-ups or shop visits changed, site by site.", "live": true },
+          { "t": "Attach-rate Analysis", "ic": "LinkSimple", "d": "Which drivers also come inside, at which hour, and which never do.", "live": true },
+          { "t": "Fleet Profiling", "ic": "Truck", "d": "The volume and the value behind each fleet account.", "live": true },
+          { "t": "Fraud Detection", "ic": "ShieldWarning", "d": "Spots unusual pump and points activity before it compounds.", "live": true },
+          { "t": "Data Quality Review", "ic": "Broom", "d": "Cleans pump, app and card data so the three agree on one customer.", "live": true }
+        ]
+      },
+      {
+        "n": "02",
+        "t": "Decide",
+        "d": "Pick the offer and the audience.",
+        "items": [
+          { "t": "Campaign Strategy", "ic": "Target", "d": "Picks the drivers and the fill incentive that works, with the reasoning shown.", "live": true },
+          { "t": "Fill-frequency Reward", "ic": "GasPump", "d": "Earn per litre or per visit, modelled before it is set.", "live": false },
+          { "t": "Fuel-grade Upsell", "ic": "TrendUp", "d": "Incentives built to move a driver up a grade.", "live": false },
+          { "t": "C-store Attach Offer", "ic": "Storefront", "d": "Bundles the fill with what is inside, priced on real margin.", "live": false },
+          { "t": "Fleet Tiering", "ic": "Stack", "d": "Bigger rewards for bigger accounts, sized against what each one actually burns.", "live": false }
+        ]
+      },
+      {
+        "n": "03",
+        "t": "Act",
+        "d": "Launch it. You approve before it goes live.",
+        "items": [
+          { "t": "Promotions", "ic": "Tag", "d": "Earn rules and app or card auto-earn, ready to approve.", "live": false },
+          { "t": "Location Targeting", "ic": "MapPin", "d": "Offers by station and by route rather than nationally.", "live": false },
+          { "t": "Fleet Loyalty", "ic": "Handshake", "d": "B2B rewards, and the accounts worth aiming them at.", "live": false },
+          { "t": "Campaigns", "ic": "Megaphone", "d": "One message across every channel a driver uses.", "live": false },
+          { "t": "Win-back Journey", "ic": "ArrowUUpLeft", "d": "A flow that triggers when the fill-ups stop.", "live": false }
+        ]
+      }
+    ]
+  },
+
+  "back": {
+    "t": "Fuel is not the only shape retail takes.",
+    "d": "Grocery, fashion and furniture each break the pattern somewhere else. All eight are on the retail page."
+  },
+
+  "close": {
+    "heading": "Bring the question your forecourt team is still waiting on.",
+    "sub": "Forty-five minutes, your data, your definition of an active member. You leave with the answer and the move built, or you leave knowing aiRA is not the fit. Both are useful."
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "slug": "fashion-apparel",
+  "name": "Fashion & Apparel",
+  "title": "aiRA for fashion and apparel · Questions your team asks every week",
+  "description": "Drops, markdown cadence and returns that land weeks after the sale. aiRA answers what fashion marketing, CRM, data, eCommerce and growth teams ask, then builds the move and waits for approval.",
+
+  "hero": {
+    "h1": "Full price has<br>an expiry date.",
+    "sub": "Every week a style sits is margin coming off, and returns take a second bite after the sale is already booked. aiRA reads the warehouse you already have, answers in plain language with the reasoning shown, and hands back the segment or the journey already built."
+  },
+
+  "shape": {
+    "eyebrow": "The shape of it",
+    "heading": "The clock starts the day a line lands.",
+    "sub": "Four things about apparel data that make a generic analytics answer the wrong answer.",
+    "facets": [
+      {
+        "t": "Frequency",
+        "d": "A few times a year, clustered around drops and sale. A customer can be loyal and still be invisible for five months, which makes a standard lapse window fire on people who never left."
+      },
+      {
+        "t": "Margin",
+        "d": "Decided the day a line stops selling at full price. Markdown is the lever everyone reaches for, and returns take a second bite after the sale has already been counted."
+      },
+      {
+        "t": "Seasonality",
+        "d": "Collections set the calendar. It repeats but the assortment never does, so last year's comparison is against product that no longer exists."
+      },
+      {
+        "t": "What the data misses",
+        "d": "Fit and intent. A return meaning the item was wrong and a return from someone who ordered three sizes to keep one look identical in the data, and bracketing inflates apparent demand."
+      }
+    ]
+  },
+
+  "seats": {
+    "heading": "The same week, five different problems.",
+    "sub": "Marketing is protecting sell-through while the data team is restating last month because returns finally settled. Here is what each seat asks, and what aiRA hands back."
+  },
+
+  "roles": {
+    "marketing": {
+      "problem": "The drop calendar is fixed months out and the markdown calendar is not. Marketing is asked to protect full-price sell-through and clear the ageing weeks at the same time, usually out of the same customer list.",
+      "questions": [
+        { "cap": "Ad hoc analytics", "q": "Which styles are tracking behind their sell-through curve with four weeks of the season left?" },
+        { "cap": "Advanced analytics", "q": "Run a basket analysis on the launch buyers: what attached, and did it hold margin?" },
+        { "cap": "Audience builder", "q": "Separate the customers who only ever buy on markdown from the ones who never wait." },
+        { "cap": "Journey orchestration", "q": "Draft the early-access invite for the full-price group before the public sale opens." }
+      ],
+      "returns": "The sell-through read while there is still a week to act on it, the two audiences split out, and the pre-sale invite drafted in the same conversation. Nothing sends until you approve it."
+    },
+
+    "crm": {
+      "problem": "Apparel loyalty hides behind long gaps. Five months of silence can mean a customer is gone or simply between seasons, and treating both the same is how a discount reaches someone who was going to buy anyway.",
+      "questions": [
+        { "cap": "Predictive models", "q": "Which customers are genuinely lapsing rather than just between seasons?" },
+        { "cap": "Audience builder", "q": "Build the reactivation audience for members who lapsed after a single full-price order." },
+        { "cap": "Ad hoc analytics", "q": "Which members moved down a tier this year, and what changed in their basket first?" },
+        { "cap": "Journey orchestration", "q": "Create a win-back for that group that does not open with a discount." }
+      ],
+      "returns": "Lapse scored against your own seasonal rhythm instead of a rolling window, and a win-back built on what those customers actually responded to last time."
+    },
+
+    "bi": {
+      "problem": "Style, colour and size turn every question into a hierarchy problem, and returns land weeks after the sale, so the number moves after it has been reported. The trade meeting still wants it on Monday.",
+      "questions": [
+        { "cap": "Ad hoc analytics", "q": "Restate last month's net sales once returns have settled, by category and channel." },
+        { "cap": "Data quality & fraud checks", "q": "Flag the styles where returns are running far above their category, with the reason codes." },
+        { "cap": "Knowledge base Q&A", "q": "How do we count a resold return in net revenue under our current policy?" },
+        { "cap": "Advanced analytics", "q": "Give merchandising a weekly sell-through view by style they can read without me." }
+      ],
+      "returns": "The restatement done with the query and the reasoning shown, so the trade meeting argues about the decision rather than about whose number is right."
+    },
+
+    "ecommerce": {
+      "problem": "Online is where fit is guessed and returns are made. The same order can be a good order or a bad one depending on how much of it comes back, and that is settled two weeks after the checkout.",
+      "questions": [
+        { "cap": "Advanced analytics", "q": "What does a returner's second order look like, and is it worth keeping them?" },
+        { "cap": "Ad hoc analytics", "q": "Which product pages drive orders that come back at twice the normal rate?" },
+        { "cap": "Audience builder", "q": "Find the customers who bracket sizes every time, and size what it costs us." },
+        { "cap": "Predictive models", "q": "Which first orders are likely to be returned in full before we ship them?" }
+      ],
+      "returns": "Orders valued at what they are worth after returns rather than at checkout, and the behaviours driving the gap separated into cohorts you can act on."
+    },
+
+    "growth": {
+      "problem": "New customers are easy to buy in fashion and hard to keep, because the second purchase mostly depends on whether the first one fit. Acquisition looks healthy for a year before repeat rate tells the truth.",
+      "questions": [
+        { "cap": "Predictive models", "q": "Which acquisition channel brings customers who buy a second time at full price?" },
+        { "cap": "Advanced analytics", "q": "Model what changing the free-returns threshold would do to repeat rate and to margin." },
+        { "cap": "Ad hoc analytics", "q": "Is the base moving out of formalwear into casual and active, and how fast?" },
+        { "cap": "Audience builder", "q": "Build the cohort that bought in one category only and never crossed over." }
+      ],
+      "returns": "Channel quality judged on a second full-price order rather than a first one, and policy changes simulated before a customer ever sees them."
+    }
+  },
+
+  "proof": {
+    "eyebrow": "Proof",
+    "heading": "Head to head with a dedicated analytics agency.",
+    "claim": "aiRA beat a specialist analytics agency on eight of nine KPIs across a five-week Ramadan campaign.",
+    "who": "Value-fashion retailer, Saudi Arabia. 14.7 million customer base, weeks 34 to 38.",
+    "results": [
+      "SAR 233M net sales, up 4% year on year",
+      "New customers up 29.4%",
+      "Revenue per delivered contact up 11.6%",
+      "Regional growth gap closed from 9.6 points behind to 2.2",
+      "6.7 times less erosion in average transaction value"
+    ],
+    "note": "Anonymised case study from a live aiRA deployment, published as written by Capillary."
+  },
+
+  "runs": {
+    "eyebrow": "What it runs here",
+    "heading": "Fifteen things aiRA runs on apparel data.",
+    "sub": "In the order you would actually use them, with what each one gives back.",
+    "cols": [
+      {
+        "n": "01",
+        "t": "Analyse",
+        "d": "See what is happening, and why.",
+        "items": [
+          { "t": "RCA Deep Dive", "ic": "MagnifyingGlass", "d": "The real reasons full-price sell-through or repeat visits shifted.", "live": true },
+          { "t": "Style & Size Affinity", "ic": "TShirt", "d": "The categories and the fits each shopper keeps coming back to.", "live": true },
+          { "t": "Churn Propensity", "ic": "TrendDown", "d": "Flags the shoppers drifting toward inactive, read against your season, not a rolling window.", "live": true },
+          { "t": "Data Quality Review", "ic": "Broom", "d": "Cleans profiles and purchase history before anyone segments on them.", "live": true },
+          { "t": "Reconciliation", "ic": "Scales", "d": "Keeps reward cost balanced across systems while returns are still settling.", "live": true }
+        ]
+      },
+      {
+        "n": "02",
+        "t": "Decide",
+        "d": "Pick the offer and the audience.",
+        "items": [
+          { "t": "Campaign Strategy", "ic": "Target", "d": "Builds the audience and the offer out of what past launches actually did.", "live": true },
+          { "t": "Visit Milestones", "ic": "Medal", "d": "Third and fifth visit rewards, sized on your own repeat curve.", "live": false },
+          { "t": "Seasonal Drop Plan", "ic": "CalendarBlank", "d": "The new collection aimed at the shoppers most likely to buy it at full price.", "live": false },
+          { "t": "Full-price Protection", "ic": "ShieldCheck", "d": "Reward-led demand in place of a blanket markdown.", "live": false },
+          { "t": "Tier Early-access", "ic": "Key", "d": "Who gets first look at a drop, and what that early look is worth.", "live": false }
+        ]
+      },
+      {
+        "n": "03",
+        "t": "Act",
+        "d": "Launch it. You approve before it goes live.",
+        "items": [
+          { "t": "Milestones", "ic": "Flag", "d": "Visit rewards built and ready to approve.", "live": false },
+          { "t": "Promotions", "ic": "Tag", "d": "Drop and VIP-access offers, built for you.", "live": false },
+          { "t": "Audiences", "ic": "UsersThree", "d": "Segments by style and by fit, saved and reusable.", "live": false },
+          { "t": "Post-purchase Journeys", "ic": "PaperPlaneTilt", "d": "Cross-sell and replenishment flows that start after the parcel lands.", "live": false },
+          { "t": "Creatives", "ic": "Image", "d": "On-brand campaign banners generated alongside the plan.", "live": false }
+        ]
+      }
+    ]
+  },
+
+  "back": {
+    "t": "Fashion is not the only shape retail takes.",
+    "d": "Grocery, fuel and furniture each break the pattern somewhere else. All eight are on the retail page."
+  },
+
+  "close": {
+    "heading": "Bring the question your fashion team is still waiting on.",
+    "sub": "Forty-five minutes, your data, your definition of a full-price customer. You leave with the answer and the move built, or you leave knowing aiRA is not the fit. Both are useful."
+  }
+}

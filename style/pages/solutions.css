@@ -1,0 +1,802 @@
+/* ==========================================================================
+   aiRA - Solutions finder (/solutions)
+
+   The picker sits IN the hero, Indeed-style: this page exists to route you,
+   so the control is the first thing you meet. Two joined fields plus a go
+   button, the grammar of a flight search, which is the shape the client
+   asked for ("side by side two drop downs", kickoff call, IA §14).
+
+   Industry is required. Team is OPTIONAL: without one the group opens on its
+   first seat and the five tabs above the panel carry the contrast ("the same
+   calendar event produces opposite problems by role", context.md §6). The
+   tabs replaced five stacked blocks on 15 Sep to bring the page height down.
+
+   The picker FILTERS visible content rather than gating hidden content.
+   Every intersection stays in the markup: all 75 questions are indexable and
+   the page reads whole with scripts off, tabs collapsing to a plain stack.
+   ========================================================================== */
+
+/* ---- Buttons ------------------------------------------------------------
+   The ink primary and its shadow are the global default now; only the
+   inverse-section flip is page business. */
+
+/* On the inverse close section a black pill would sink into the ground, so
+   the pair flips the V2 way: white fill, black text. */
+.page-solutions .section--inv .btn--primary {
+  background: var(--on-brand);
+  color: var(--black);
+}
+.page-solutions .section--inv .btn--primary:hover { background: var(--primary-50); }
+.page-solutions .section--inv .btn--primary:active { background: var(--primary-100); }
+
+/* ---- Hero ----------------------------------------------------------------
+   The hero hosts the picker, so it carries more vertical room than a plain
+   section head and a quiet ground for the connector traces to sit on. */
+
+.hero-solutions {
+  position: relative;
+  /* Deliberately NOT overflow:hidden. An open dropdown is taller than the
+     space left under the picker, so clipping here cut the list off after two
+     options. Nothing needs the clip: an outermost <svg> hides its own
+     overflow by default, so the connector field crops itself.
+
+     z-index does two jobs. It lifts the hero above the sections that follow,
+     which are position:relative too and would otherwise paint over an open
+     panel; and it creates the stacking context that keeps .hero-lines at
+     z-index -1 behind the hero's content rather than behind the page. */
+  z-index: 4;
+  /* Run the hero's ground up behind the floating header and its gap (16 Sep),
+     so the page has no strip of bare background above the bar. The top pad
+     gains the same amount back, leaving the content where it was. */
+  margin-top: calc(-1 * (var(--nav-h) + var(--nav-float) + 2px));
+  padding-block: calc(var(--sp-24) + var(--nav-h) + var(--nav-float) + 2px) var(--sp-20);
+  background:
+    radial-gradient(58% 46% at 50% 0%,
+      color-mix(in srgb, var(--brand) 6%, transparent), transparent 72%),
+    linear-gradient(180deg, var(--bg-subtle), var(--bg) 78%);
+}
+
+.hero-solutions .section-head { margin-bottom: var(--sp-10); }
+.hero-solutions__head { position: relative; }
+
+/* Hero-scale headline: this is the page's h1, so it takes the hero display
+   token rather than the section H2 scale it inherits from .section-heading.
+
+   Weight 500, matching the homepage H1 and the locked scale. It was 700 from
+   16 to 17 Sep, set when the display face was Instrument Sans and 700 was the
+   heaviest weight loaded, standing in for Clerk's ~900. Google Sans Flex
+   replaced that face the next day and its 700 is a genuinely heavy weight, so
+   the number stayed while the face got much bolder underneath it, leaving
+   this the only 700 heading on the site. Tracking returns to --tr-display for
+   the same reason: -0.04em was compensating for the old face. */
+/* THE HERO'S SUB NEEDS ITS OWN SIZE. This hero reuses .section-head rather
+   than declaring a .hero-solutions__sub, so its supporting line was tracking
+   .section-sub, and when that went to 14 on 28 Sep the largest headline on
+   the site ended up with the smallest sub under it. 18 is what every other
+   hero sub takes. */
+.hero-solutions .section-sub { font-size: var(--t-body-xl); }
+.hero-solutions .section-heading {
+  font-size: var(--t-display-0);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: var(--tr-display);
+}
+
+/* ---- Connector traces ----------------------------------------------------
+   Orthogonal wires with rounded elbows, the mechanism section's "data in,
+   action out" idea drawn on the page's own frame. Static SVG, no script.
+
+   The field spans RAIL TO RAIL, not the viewport (user call, 16 Sep: "the
+   lines flowing should be within the 80rem max width and should make
+   sense"), so every wire starts on a rail or the joint below and lands on a
+   node beside a real element: headline flanks, picker ends, the ground under
+   the bar. Placement replaces the old radial mask; nothing crosses the text
+   column, so nothing needs fading. preserveAspectRatio is none so the rail
+   taps stay glued to the rails at any hero height; the stretch is a few
+   percent and invisible on 30px elbows. */
+
+.hero-lines {
+  position: absolute;
+  top: 0;
+  left: var(--frame-x);
+  z-index: -1;
+  /* An svg is a replaced element: left+right with auto width does NOT
+     stretch it (the canvas taught the same lesson on index.html), so the
+     width is stated. */
+  width: calc(100% - var(--frame-x) * 2);
+  height: 100%;
+  pointer-events: none;
+}
+/* Below the frame's breakpoint the rails are gone and the picker takes
+   nearly the full width: no room for the field to mean anything. */
+@media (max-width: 991px) {
+  .hero-lines { display: none; }
+}
+.hero-lines__wires {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+.hero-lines__nodes {
+  fill: var(--bg);
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+}
+.hero-lines__node--on {
+  fill: var(--brand);
+  stroke: var(--brand);
+}
+
+/* The circuit texture: a register quieter than the focal pair, the way
+   Clerk's board sits barely above its ground. */
+.hero-lines__tex path {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+.hero-lines__pad {
+  fill: var(--bg);
+  stroke: var(--border);
+  stroke-width: 1.5;
+}
+.hero-lines__dots circle { fill: var(--border-strong); }
+.hero-lines__sq { fill: var(--border-strong); }
+
+/* ---- The picker ----------------------------------------------------------
+   Flight-search grammar: two fields joined into one bar by hairlines, with
+   the go button attached to the end, so the pair reads as a single control
+   rather than two loose selects.
+
+   The fields are custom listboxes, not native <select>: the OS popup cannot
+   carry the Phosphor icon each industry and team already owns elsewhere on
+   the site, and it paints in the platform's chrome rather than ours. The
+   trade is that accessibility has to be built rather than inherited, so each
+   field follows the ARIA select-only combobox pattern exactly: focus stays
+   on the button, aria-activedescendant moves through the options, and the
+   full key set (arrows, Home/End, Enter, Escape, type-ahead) is handled in
+   js/solutions.js. A hidden input carries the value so the form still has
+   real semantics. */
+
+.pick {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  align-items: stretch;
+  gap: 0;
+  max-width: 46rem;
+  margin-inline: auto;
+  padding: var(--sp-2);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  /* Same 12px as the button it contains, so the bar and the go button share
+     one corner language (user call, 15 Sep). */
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-md);
+}
+
+.pick__field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  padding: 6px var(--sp-5);
+}
+/* The divider is a border on the second field, not a gap, so it runs the
+   full height of the bar regardless of what either field contains. */
+.pick__field + .pick__field { border-left: 1px solid var(--border); }
+
+.pick__label {
+  font-family: var(--font-display);
+  font-size: var(--t-mono);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ---- The closed control -------------------------------------------------- */
+
+.pick__control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  font-size: var(--t-body-sm);
+  font-weight: 550;
+  line-height: 1.4;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.pick__ic {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: var(--brand);
+}
+/* Nothing chosen yet means no glyph to mirror, so the slot collapses. */
+.pick__value.is-empty ~ .pick__chev { margin-left: 0; }
+.pick__field:has(.pick__value.is-empty) .pick__ic { display: none; }
+.pick__value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.pick__value.is-empty { color: var(--ink-3); font-weight: 450; }
+
+.pick__chev {
+  width: 13px;
+  height: 13px;
+  flex: none;
+  color: var(--ink-3);
+  transition: transform var(--dur-fast) var(--ease);
+}
+.pick__control[aria-expanded="true"] .pick__chev { transform: rotate(180deg); }
+
+/* The ring traces the whole labelled cell, the way a focused form row should,
+   rather than just the button text.
+
+   :has(:focus-visible), not :focus-within (17 Sep). Focus stays on the button
+   after a commit by design (the ARIA select-only pattern), so :focus-within
+   left an indigo ring sitting on the field long after the click that caused
+   it, which read as a selected state rather than a focus one. The
+   [data-ring] flag is set by js/solutions.js from the actual input that
+   committed: :focus-visible alone is a browser heuristic, and the pattern
+   returns focus to the button programmatically, which is exactly the case
+   that heuristic gets wrong. Keyboard focus still gets the ring, which is
+   the only thing it was ever for. */
+.pick__field:has(:focus-visible):not([data-ring="off"]) {
+  outline: 2px solid var(--brand);
+  outline-offset: -2px;
+  /* The bar's radius less its padding, so the ring sits concentric to it. */
+  border-radius: calc(var(--r-md) - 4px);
+}
+
+/* ---- The open list ------------------------------------------------------- */
+
+.pick__list {
+  position: absolute;
+  top: calc(100% + var(--sp-3));
+  left: 0;
+  right: 0;
+  z-index: 20;
+  margin: 0;
+  padding: var(--sp-2);
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  /* Long lists scroll rather than running off the hero. */
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.pick__opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: var(--r-sm);
+  font-size: var(--t-body-sm);
+  font-weight: 500;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.pick__opt-ic {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--ink-3);
+}
+.pick__opt-t {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.pick__opt-tick {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  color: var(--brand);
+  visibility: hidden;
+}
+
+/* Hover and keyboard focus share one look, so there is never a second
+   competing highlight when the pointer rests somewhere while arrowing. */
+.pick__opt:hover,
+.pick__opt.is-active {
+  background: var(--bg-subtle);
+  color: var(--ink);
+}
+.pick__opt:hover .pick__opt-ic,
+.pick__opt.is-active .pick__opt-ic { color: var(--brand); }
+
+.pick__opt[aria-selected="true"] { color: var(--ink); }
+.pick__opt[aria-selected="true"] .pick__opt-ic { color: var(--brand); }
+.pick__opt[aria-selected="true"] .pick__opt-tick { visibility: visible; }
+
+.pick__go {
+  flex: none;
+  align-self: stretch;
+  white-space: nowrap;
+}
+
+/* Without JS a custom listbox cannot open at all, and the GET submit would
+   only reload a page that already shows every group. So the picker is not
+   offered: the stacked document below is the whole content either way. */
+html:not(.js) .pick { display: none; }
+html:not(.js) .hero-solutions .section-head { margin-bottom: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pick__chev { transition: none; }
+}
+
+/* ---- The business grid --------------------------------------------------
+   Airtable's solutions page shows every option as a card rather than hiding
+   them in a control, and that is the gap this fills: the twelve businesses
+   otherwise live only inside the first dropdown, so a visitor who does not
+   yet know how to describe themselves has nothing to browse.
+
+   The cards are BUTTONS for now, not links. They set the picker and reveal
+   that business below, which works today. When the category pages exist each
+   becomes an <a href> to its own page, which is a one-element swap; until
+   then a grid of twelve links would be a grid of twelve 404s.
+   ------------------------------------------------------------------------ */
+
+/* No bottom gap: this separated the grid from the five finder groups that
+   used to sit under it, and they came out when the picker started navigating
+   (IA §28). The section's own padding is the whole gap now. */
+.pickgrid { margin-bottom: 0; }
+.pickgrid .section-head { margin-bottom: var(--sp-10); }
+
+
+
+/* Group headers inside the business list. Presentational: the option labels
+   are unambiguous on their own, so the grouping is a visual aid and the
+   listbox still contains only options. */
+.pick__group {
+  font-family: var(--font-display);
+  font-size: var(--t-mono);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: 10px 10px 5px;
+}
+.pick__group:first-child { padding-top: 4px; }
+
+/* Shown when the chosen business is narrower than the content written so far.
+   Saying it is better than letting retail's questions sit under an apparel
+   heading, which is the failure this whole page argues against. */
+.finder__pending {
+  margin-top: var(--sp-3);
+  padding: 10px 14px;
+  font-size: var(--t-body-sm);
+  line-height: 1.55;
+  color: var(--ink-2);
+  background: var(--capillary-tint-orange);
+  border-radius: var(--r-sm);
+  max-width: 44rem;
+}
+
+/* ---- Industry groups ----------------------------------------------------- */
+
+html.js .finder__group { display: none; }
+html.js .finder__group.is-active { display: block; }
+html:not(.js) .finder__group + .finder__group { margin-top: var(--sp-16); }
+
+.finder__group-head { margin-bottom: var(--sp-8); }
+
+.finder__group-t {
+  font-family: var(--font-display);
+  font-size: var(--t-display-3);
+  font-weight: 700;
+  line-height: 1.22;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+  margin-bottom: var(--sp-3);
+  text-wrap: balance;
+}
+
+.finder__group-s {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-3);
+  max-width: 44rem;
+}
+
+/* ---- The five seats ------------------------------------------------------
+   Exactly the category pages' .catroles anatomy (user call, 17 Sep: "please
+   dont make them different"): five stacked split panes, hairline-separated,
+   copy on one side and the reserved image frame on the other, sides
+   alternating down the page. The Attio tab bar and its sliding-ruler mark
+   are retired with their markup; all five seats read stacked, in the markup
+   and on screen, which also keeps the SEO posture this page was built
+   around. seat-tabs.js is no longer loaded by any page. */
+
+.seats { margin-top: var(--sp-12); }
+
+.seat {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  gap: var(--sp-10) var(--sp-16);
+  align-items: center;
+  scroll-margin-top: calc(var(--nav-h) + var(--nav-float) + var(--sp-10));
+}
+.seat + .seat {
+  margin-top: var(--sp-16);
+  padding-top: var(--sp-16);
+  border-top: 1px solid var(--border);
+}
+
+/* Every second seat swaps sides, the copy staying first in the DOM. */
+.seat:nth-child(even) { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr); }
+.seat:nth-child(even) .seat__id { order: 2; }
+.seat:nth-child(even) .seat__shot { order: 1; }
+
+.seat__id { min-width: 0; }
+
+/* The media slot, exactly the category pages' reserved frame: a gradient
+   hairline dissolving downward around an empty dotted surface (one-element
+   border-box trick so the markup keeps its single slot div). Still a
+   PLACEHOLDER: drop an <img> in and the glyph steps aside; the data-shot
+   attribute names the seat the shot belongs to. */
+.seat__shot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 67 / 34;
+  border: 1px solid transparent;
+  border-radius: var(--r-lg);
+  background-image:
+    radial-gradient(var(--frame-grid) 1px, transparent 1px),
+    linear-gradient(var(--surface), var(--surface)),
+    linear-gradient(180deg, var(--border-strong), transparent);
+  background-size: 22px 22px, auto, auto;
+  background-origin: padding-box, padding-box, border-box;
+  background-clip: padding-box, padding-box, border-box;
+  box-shadow: var(--shadow-float);
+}
+.seat__shot-ic {
+  width: 40px;
+  height: 40px;
+  color: var(--ink-faint);
+}
+.seat__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: calc(var(--r-lg) - 1px);
+}
+/* Once a real screenshot lands it fills the frame edge to edge. */
+.seat__shot:has(img) {
+  background-image:
+    linear-gradient(var(--surface), var(--surface)),
+    linear-gradient(180deg, var(--border-strong), transparent);
+  background-size: auto, auto;
+  background-origin: padding-box, border-box;
+  background-clip: padding-box, border-box;
+}
+.seat__shot:has(img) .seat__shot-ic { display: none; }
+
+.seat__t {
+  font-family: var(--font-display);
+  font-size: var(--t-display-3);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+}
+.seat__ic {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  color: var(--brand);
+}
+
+.seat__hand {
+  margin-top: var(--sp-3);
+  font-size: var(--t-body-lg);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 40rem;
+  text-wrap: pretty;
+}
+
+/* The two capabilities this seat leans on: the qledger cell anatomy from the
+   category pages. The PAIRING is the same in every industry, because the
+   capability is a product feature and does not change with the vertical. What
+   it hands back does, so the descriptions underneath are written per industry
+   (17 Sep, once the playbook registry landed: see IA §29). Before that they
+   were one shared set of ten lines, which made a section headed "the same
+   week looks different in every chair" read identically on all four pages. */
+.seat__pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-8);
+  margin-top: var(--sp-8);
+}
+.seat__cap-t {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-family: var(--font-display);
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+  margin-bottom: var(--sp-2);
+}
+.seat__cap-ic {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--brand);
+}
+.seat__cap-d {
+  font-size: var(--t-body-sm);
+  line-height: var(--lh-body);
+  color: var(--ink-3);
+}
+
+/* The questions close the copy column. They sit in a plain bordered block
+   rather than the raised card they were before: the figure is the raised
+   object now, and two of those would fight. */
+.seat__qs {
+  list-style: none;
+  margin: var(--sp-8) 0 0;
+  padding: var(--sp-6);
+  display: grid;
+  gap: var(--sp-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+
+/* Landing from a nav "by team" link marks the seat rather than hiding the
+   other four: the contrast between them is the point of the page. */
+/* Landing from a shared ?role= link marks the seat rather than hiding the
+   other four: the contrast between them is the point of the page. */
+.seat.is-target .seat__qs {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--primary-50);
+}
+.seat.is-target .seat__t { color: var(--brand-ink); }
+
+/* ---- Footnote ------------------------------------------------------------ */
+
+.finder__note {
+  margin-top: var(--sp-10);
+  font-size: var(--t-caption);
+  font-weight: 450;
+  line-height: 1.6;
+  color: var(--ink-faint);
+}
+
+/* ---- Close ----------------------------------------------------------------
+   A floating CTA card (17 Sep, Clerk reference): the section itself is light
+   page ground, and the pitch sits in one rounded card lifted on the same
+   shadow the header and compare panel float on. This also closes the page's
+   dark region at the industry band above, so the joint between them reads as
+   a normal dark-to-light boundary rather than a white slit inside the dark. */
+
+.solutions-close__card {
+  position: relative;
+  overflow: hidden;
+  padding: var(--sp-16);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-float);
+}
+/* One faint brand wash rising from the card's top right, Clerk-style; kept a
+   whisper per the minimal-indigo direction. */
+.solutions-close__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    560px 340px at 86% -10%,
+    color-mix(in srgb, var(--brand) 7%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.solutions-close__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: var(--sp-16);
+  align-items: start;
+}
+.solutions-close__cta { margin-top: var(--sp-8); }
+
+/* ---- The globe (19 Sep) -----------------------------------------------------
+   A cobe globe replaces the close card's thread: it rises out of the card's
+   bottom-right corner, clipped by the card's own overflow, rotating slowly
+   with markers on the cities the customer logos actually come from
+   (js/globe.js; still under reduced motion). Decoration only, so it takes
+   no pointer: without JS or WebGL the corner simply stays quiet. The box is
+   absolute, so the grid's right column just holds the space open. */
+.close-globe {
+  position: absolute;
+  right: -80px;
+  bottom: -300px;
+  width: 600px;
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+.close-globe__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---- Responsive ---------------------------------------------------------- */
+
+@media (max-width: 991px) {
+  /* The pane stacks: copy above, the reserved frame below, keeping its own
+     aspect and float. The alternation resets so copy always leads. */
+  .seat,
+  .seat:nth-child(even) { grid-template-columns: 1fr; }
+  .seat:nth-child(even) .seat__id,
+  .seat:nth-child(even) .seat__shot { order: 0; }
+  .seat + .seat { margin-top: var(--sp-12); padding-top: var(--sp-12); }
+
+  .solutions-close__card { padding: var(--sp-10); }
+  .solutions-close__grid {
+    grid-template-columns: 1fr;
+    gap: var(--sp-10);
+  }
+  /* Stacked, the globe shrinks into the corner under the copy; the card's
+     extra bottom padding is the room its visible half needs. */
+  .solutions-close__card { padding-bottom: 200px; }
+  .close-globe { width: 420px; right: -70px; bottom: -220px; }
+}
+
+@media (max-width: 640px) {
+  .solutions-close__card { padding-bottom: var(--sp-10); }
+  .close-globe { display: none; }
+}
+
+/* The joined bar cannot hold two fields plus a button at phone width, so it
+   unpacks into stacked rows: same control, same order, hairlines between. */
+@media (max-width: 720px) {
+  .pick {
+    grid-template-columns: 1fr;
+    padding: var(--sp-3);
+    gap: var(--sp-2);
+  }
+  .pick__field { padding: var(--sp-3) var(--sp-4); }
+  .pick__field + .pick__field {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+  }
+  .pick__field:has(:focus-visible):not([data-ring="off"]) { border-radius: var(--r-md); }
+  .pick__go {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-solutions {
+    padding-block: calc(var(--sp-16) + var(--nav-h) + var(--nav-float) + 2px) var(--sp-12);
+  }
+  .seat__qs { padding: var(--sp-5); }
+  .solutions-close__card { padding: var(--sp-6); }
+  /* Two capability columns need about 200px each to keep their titles on one
+     line. Below that they stack. */
+  .seat__pair {
+    grid-template-columns: 1fr;
+    gap: var(--sp-5);
+  }
+}
+
+/* ---- Reduced motion ------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  .seat { transition: none; }
+}
+
+/* ---- By industry: the dark band -------------------------------------------
+   A separate section under the finder (17 Sep, user reference: MoEngage-style
+   dark industry cards). Each card carries an EMPTY media slot for photography
+   that does not exist yet: an inverse dot field and a picture glyph, the same
+   placeholder grammar as the seat slots. The cards are links to the industry
+   hub pages, not finder filters. */
+
+.indband .section-head { margin-bottom: 0; }
+
+.ind-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-6);
+  margin-top: var(--sp-12);
+}
+
+.indcard {
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-5);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--r-lg);
+  transition: border-color var(--dur-fast) var(--ease),
+              background var(--dur-fast) var(--ease);
+}
+.indcard:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.indcard__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 10;
+  margin-bottom: var(--sp-5);
+  border-radius: var(--r-sm);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: var(--ink-inv-3);
+  background-image: radial-gradient(var(--frame-grid-inv) 1.1px, transparent 1.1px);
+  background-size: 22px 22px;
+  background-position: 11px 11px;
+}
+.indcard__media svg { width: 36px; height: 36px; }
+.indcard__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+.indcard__media:has(img) { background-image: none; border: 0; }
+.indcard__media:has(img) svg { display: none; }
+
+.indcard__t {
+  font-family: var(--font-display);
+  font-size: var(--t-title);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink-inv);
+  margin-bottom: var(--sp-2);
+}
+.indcard__d {
+  font-size: var(--t-body-sm);
+  line-height: var(--lh-body);
+  color: var(--ink-inv-2);
+}
+.indcard__go {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--sp-5);
+  font-size: var(--t-body-sm);
+  font-weight: 600;
+  color: var(--primary-200);
+}
+.indcard__go svg {
+  width: 14px;
+  height: 14px;
+  transition: transform var(--dur-fast) var(--ease);
+}
+.indcard:hover .indcard__go svg { transform: translateX(3px); }
+
+@media (max-width: 991px) {
+  .ind-grid { grid-template-columns: 1fr; }
+  .indcard__media { aspect-ratio: 21 / 9; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .indcard, .indcard__go svg { transition: none; }
+}

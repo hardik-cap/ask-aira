@@ -1,0 +1,1441 @@
+/* ==========================================================================
+   aiRA — Global: reset, base typography, layout primitives, buttons,
+   section primitives, navbar + footer skin.
+   Load order: tokens.css -> global.css -> components.css -> pages/*.css
+   ========================================================================== */
+
+/* ---- Reset ------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + var(--nav-float) + 24px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  /* clip, not hidden: hidden breaks position:sticky on ancestors */
+  overflow-x: clip;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  /* 450, not 400: Inter's regular runs light at 14px under antialiasing,
+     and the variable load makes 450 a true instance. */
+  font-weight: 450;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+}
+
+/* Headings always set in the display face (Google Sans Flex), body in Inter:
+   the locked 11 Sep type rule. Since 15 Sep Geist Mono is confined to
+   section eyebrows and the drawn illustrations; caps micro-labels are
+   the display face at 600 / +0.06em. */
+h1, h2, h3, h4, h5, h6 { margin: 0; font-family: var(--font-display); font-weight: 700; }
+/* THE universal h3 (19 Sep, user: "we need to settle on a universal h3 font
+   size ... the hierarchy is bad"). Every section-level h3 on the site was
+   already --t-display-3 at 600 (.seat__t, .catrole__t, .runs__t), so this
+   states the rule the site was mostly keeping rather than inventing a new
+   one. Two had drifted off it: .stage__t was set at --t-display-2, the H2
+   size, which is what flattened the hierarchy, and .acc__head declared no
+   size at all and fell through to the browser's 1.17em default at 16.38px,
+   an odd fractional value in a scale that is even-only with a 12px floor.
+   Declaring it here means a new h3 lands on the settled size without being
+   told; a component that genuinely wants a smaller title (a card, a footer
+   column, a disclosure row) still overrides it explicitly. */
+/* 24px/500 SINCE 28 Sep (user). It was --t-display-3 at 600, which clamps to
+   28, and a measurement that day found NOTHING on the site rendering at that
+   spec: the default was catching unstyled h3s at a size no component used.
+   The ladder is 24 for a statement and 16 for a card title, both at 500, and
+   this is now its top step, so an h3 left alone lands somewhere real. */
+h3 {
+  font-size: var(--t-title-xl);
+  font-weight: 500;
+  line-height: 1.22;
+  letter-spacing: var(--tr-title);
+}
+p, ul, ol, figure, blockquote { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img, svg, video { display: block; max-width: 100%; height: auto; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+table { border-collapse: collapse; width: 100%; }
+hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
+/* The hidden attribute always wins, even against later display rules. */
+[hidden] { display: none !important; }
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--r-xs);
+}
+
+::selection { background: var(--primary-100); color: var(--primary-900); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+/* ---- Layout primitives -------------------------------------------------
+   Three nested wrappers on every section:
+     section.section > .padding-global > .container > content
+   ---------------------------------------------------------------------- */
+
+.padding-global { padding-inline: var(--pad-x); }
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  /* The page frame's rails ride the container's outer edges; this inner
+     padding keeps every section's content 20px clear of the lines. */
+  padding-inline: var(--sp-5);
+}
+.container--narrow { max-width: var(--container-narrow); }
+
+/* .section carries its own vertical rhythm by default. The base export's
+   equivalent deliberately had none, which meant hunting overrides on every
+   page; that is fixed here. Override per-section only when a section needs
+   to break rhythm. */
+.section {
+  position: relative;
+  padding-block: var(--section-pad);
+}
+.section--tight { padding-block: var(--sp-16); }
+.section--flush-top { padding-top: 0; }
+.section--flush-bottom { padding-bottom: 0; }
+
+@media (max-width: 991px) {
+  /* --section-pad is not restated here any more: the base is 80px since
+     17 Sep, which is exactly what this breakpoint used to step down to. */
+  .section--tight { padding-block: var(--sp-12); }
+}
+@media (max-width: 768px) {
+  :root { --section-pad: 56px; }
+  .section--tight { padding-block: var(--sp-10); }
+}
+/* Phones take a flat 20px gutter instead of the 5% ratio (13 Sep). At 390px
+   5% is already ~19.5px, but it keeps shrinking with the viewport, and this
+   is the last 20px of side margin the layout has once the .container gutter
+   is gone. --frame-x follows the token, so anything measured off the frame
+   stays aligned to the content edge. */
+@media (max-width: 640px) {
+  :root { --pad-x: 20px; }
+}
+
+/* Dark section surface. Opt in per section; the navbar syncs to it via
+   the data-nav-dark attribute (see js/components.js). */
+.section--inv {
+  background: var(--surface-inv);
+  color: var(--ink-inv);
+}
+/* A light section that is not the page ground takes a SOLID tint (19 Sep,
+   user: "the difference section gradient looks bad, can we have proper solid
+   color"). It was a slate-to-ground fade under a radial indigo whisper, and
+   three gradients stacked to produce what reads as one flat colour was both
+   the wrong result and an expensive way to get it. */
+.section--wash { background: var(--wash-primary); }
+/* The inverse partner to the light eyebrow's muted grey. #767C91 itself is
+   too dark to read on the inverse ground, so this is the same muted role at
+   inverse contrast rather than the same hex. */
+.section--inv .eyebrow { color: var(--ink-inv-2); }
+.section--inv .section-heading { color: var(--ink-inv); }
+.section--inv .section-sub { color: var(--ink-inv-2); }
+
+/* ---- Page frame ----------------------------------------------------------
+   The structural blueprint frame: vertical rails at the .container's edges
+   run through every section, a .joint hairline crosses the full width at
+   each section boundary, and a Phosphor plus marks each intersection.
+   Rails ride at z-index 1 so full-bleed decor layers (hero wash, mech glow)
+   cannot paint over them; real content stacks higher on its own.
+   ---------------------------------------------------------------------- */
+
+.section::before,
+.section::after,
+.footer::before,
+.footer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  z-index: 1;
+  background: var(--frame-line);
+  pointer-events: none;
+}
+.section::before, .footer::before { left: var(--frame-x); }
+.section::after,  .footer::after  { right: var(--frame-x); }
+.section--inv::before,
+.section--inv::after { background: var(--frame-line-inv); }
+
+/* The joint: a full-width hairline placed between sections in the markup,
+   with the official Phosphor plus (regular) masked over each rail crossing.
+   z-index lifts it above the hero wash, which bleeds past its section. */
+.joint {
+  position: relative;
+  z-index: 2;
+  height: 1px;
+  background: var(--frame-line);
+  pointer-events: none;
+}
+/* Between two dark sections the light hairline would glow; this variant
+   keeps the boundary in the inverse frame language instead. */
+/* A joint sits BETWEEN two sections, which means it sits on the body, not on
+   either section. --frame-line-inv is translucent white, which is right for
+   the rails drawn INSIDE a dark section and wrong here: over the light page
+   ground the transparency showed the page through, and the hairline between
+   two dark sections rendered as a solid white bar (19 Sep). These are the
+   same two colours composited against the inverse surface by hand, so they
+   are opaque and land where they were always meant to. */
+.joint--inv { background: color-mix(in srgb, var(--ink-inv) 14%, var(--surface-inv)); }
+.joint--inv::before,
+.joint--inv::after { background: color-mix(in srgb, var(--ink-inv) 26%, var(--surface-inv)); }
+/* A small primary square at each rail crossing (12 Sep; it replaced the
+   masked Phosphor plus). Stepped 4px -> 6px on 13 Sep: at 4px it read as
+   a stray dot rather than a deliberate marker. V2 draws its own outlined
+   handle and V3 hides these, so this size is what V1 shows. */
+.joint::before,
+.joint::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  /* Neutral since 16 Sep. These repeat at every section boundary, two per
+     joint, so as brand squares they were ambient indigo rather than accent:
+     the single largest source of it on a scroll down the page. */
+  background: var(--frame-plus);
+}
+.joint::before {
+  left: calc(var(--frame-x) + 0.5px);
+  transform: translate(-50%, -50%);
+}
+.joint::after {
+  right: calc(var(--frame-x) + 0.5px);
+  transform: translate(50%, -50%);
+}
+/* The footer's own crossing mark. Its rails are drawn by .footer::before and
+   ::after, which are already spoken for, so the squares get an element of
+   their own in components/footer.html. Geometry is the joint's exactly: 6px,
+   --frame-plus, centred on each rail. */
+.footer__crossing {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.footer__crossing::before,
+.footer__crossing::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--frame-plus);
+}
+.footer__crossing::before {
+  left: calc(var(--frame-x) + 0.5px);
+  transform: translate(-50%, -50%);
+}
+.footer__crossing::after {
+  right: calc(var(--frame-x) + 0.5px);
+  transform: translate(50%, -50%);
+}
+
+/* A joint that is only the line, no plus markers (under the header). */
+.joint--bare::before,
+.joint--bare::after { display: none; }
+
+/* ---- Banded sections -----------------------------------------------------
+   A section can trade its two hairline rails for 112px dot-grid bands sitting
+   INSIDE the frame: an edge line on each side of the strip with the grid
+   filling between, and the content column inset to clear them. Started on V2
+   (Workers reference) and brought to the homepage on 13 Sep; carried by
+   .section--band in the markup, on the mechanism, difference, comparison and
+   pricing sections.
+
+   Wide viewports only. Below 1200px the bands would eat the content column,
+   so the rails go back to plain hairlines and the container to its gutter.
+   The band's edge lines are the page's own rail language: solid here, and
+   home-v2.css re-dots them for V2.
+   ---------------------------------------------------------------------- */
+@media (min-width: 1200px) {
+  .section--band::before,
+  .section--band::after {
+    width: 112px;
+    background:
+      linear-gradient(var(--frame-line), var(--frame-line)) left top / 1px 100% no-repeat,
+      linear-gradient(var(--frame-line), var(--frame-line)) right top / 1px 100% no-repeat,
+      radial-gradient(circle, var(--frame-grid) 1px, transparent 1.5px)
+        left top / 14px 14px repeat;
+  }
+  /* On a dark section the ink-tinted dots and hairlines both vanish. */
+  .section--band.section--inv::before,
+  .section--band.section--inv::after {
+    background:
+      linear-gradient(var(--frame-line-inv), var(--frame-line-inv)) left top / 1px 100% no-repeat,
+      linear-gradient(var(--frame-line-inv), var(--frame-line-inv)) right top / 1px 100% no-repeat,
+      radial-gradient(circle, var(--frame-grid-inv) 1px, transparent 1.5px)
+        left top / 14px 14px repeat;
+  }
+  .section--band .container { padding-inline: 136px; }
+}
+
+/* The frame is a desktop device (13 Sep). Below 992px the rails come off,
+   and with them the crossing squares, which would otherwise float with
+   nothing to mark. The horizontal joints stay: they are the section
+   dividers, and they read on their own.
+
+   The .container gutter goes at the same breakpoint, because that gutter
+   exists for exactly one reason: to keep content 20px clear of the rails.
+   With no rails it was pure waste, stacking a second 20px inside
+   .padding-global's and squeezing phone content into a 311px column. */
+@media (max-width: 991px) {
+  .section::before,
+  .section::after,
+  .footer::before,
+  .footer::after,
+  .footer__crossing,
+  .joint::before,
+  .joint::after { display: none; }
+
+  .container { padding-inline: 0; }
+}
+
+/* ---- Section typography ------------------------------------------------ */
+
+/* Section eyebrow. Geist Mono caps since 17 Sep (user call: "caveat didnt
+   work out"), returning from the 16 Sep Caveat experiment, at the 12px mono
+   micro-label spec rather than the old 10px (the 12px floor has no
+   exceptions). No "/" prefix. Every section carries one except the hero, the
+   logo cloud and the footer. Sparkles in older markup stay hidden.
+
+   The copy is sentence case in the markup and uppercased here; no eyebrow
+   contains "aiRA", which the transform would break, and any future one that
+   does must be typed in caps instead.
+
+   The "/" prefix returned on 17 Sep (user call), drawn as a pseudo so no
+   page's markup carries it; the flex gap spaces it. The empty alt text keeps
+   it out of the accessible name where the syntax is supported. */
+.eyebrow::before {
+  content: '/';
+  content: '/' / '';
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  line-height: 1;
+  /* Muted grey since 19 Sep, off the brand colour: the brand now appears
+     once per section head, on the heading's highlighted word, not twice. */
+  color: var(--ink-3);
+  margin-bottom: var(--sp-4);
+}
+.eyebrow .sparkle { display: none; }
+
+.section-heading {
+  font-size: var(--t-display-2);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+  max-width: 46rem;
+  margin-bottom: var(--sp-4);
+  text-wrap: balance;
+}
+/* The highlight (19 Sep, user call, promptwatch reference). The heading is
+   one colour throughout and the <em> marks the one or two words carrying the
+   claim, in brand primary under a dashed rule. This replaces the muted
+   trailing phrase that ran here until 19 Sep: that treatment greyed a whole
+   clause, where this picks out a word. The offset and thickness are in em so
+   they track the heading's clamp rather than fixing to one size. */
+.section-heading em {
+  font-style: normal;
+  color: var(--brand);
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.07em;
+  text-underline-offset: 0.16em;
+  text-decoration-skip-ink: none;
+}
+/* P400 does not hold on the dark ground; P200 is the inverse anchor. */
+.section--inv .section-heading em { color: var(--primary-200); }
+
+/* 14px since 28 Sep (user: "in a lot of instances of body or description
+   text, font size is 16px instead of 14px"). This is the change with the
+   widest reach on the site: every page's section heads read from it, which
+   is the point, since the 16 was making supporting copy compete with the
+   headings it supports. .bento__sub and the FAQ and pricing intros all ride
+   this rule and need no size of their own. */
+.section-sub {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 40rem;
+  text-wrap: pretty;
+}
+
+.section-head { margin-bottom: var(--sp-12); }
+.section-head--center {
+  text-align: center;
+  margin-inline: auto;
+  max-width: 44rem;
+}
+.section-head--center .section-heading,
+.section-head--center .section-sub { margin-inline: auto; }
+
+/* Split head: eyebrow + heading left, supporting copy right, baselines
+   aligned. Asymmetric on purpose; stacked-and-centred is what every
+   generated page does. */
+.section-head--split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: var(--sp-5) var(--sp-20);
+  align-items: end;
+}
+.section-head--split .section-heading { margin-bottom: 0; }
+.section-head--split .section-sub { margin-bottom: 0.5em; }
+
+@media (max-width: 991px) {
+  .section-head--split { grid-template-columns: 1fr; align-items: start; }
+  .section-head--split .section-sub { margin-bottom: 0; }
+}
+@media (max-width: 768px) {
+  .section-head { margin-bottom: var(--sp-8); }
+}
+/* Phones read better ragged-left: centred heads go left-aligned. */
+@media (max-width: 640px) {
+  .section-head--center { text-align: left; margin-inline: 0; }
+  .section-head--center .section-heading,
+  .section-head--center .section-sub { margin-inline: 0; }
+}
+
+/* ---- Buttons -----------------------------------------------------------
+   Trailing arrows nudge outward on hover; the gap grows rather than the
+   arrow translating, so the label never shifts.
+   ---------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-family: var(--font-sans);
+  font-size: var(--t-body-sm);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  padding: 13px 20px;
+  /* 12px, settled 15 Sep. Every button on the site takes this one radius:
+     the pill (--r-pill) it replaced is retired, and --r-sm was the older
+     default. Page-scoped radius overrides were deleted for this. */
+  border-radius: var(--r-md);
+  border: 1px solid transparent;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease),
+              border-color var(--dur-fast) var(--ease),
+              color var(--dur-fast) var(--ease),
+              gap var(--dur-fast) var(--ease),
+              box-shadow var(--dur-fast) var(--ease);
+}
+.btn svg { width: 20px; height: 20px; flex: none; }
+.btn:hover { gap: 11px; }
+
+/* Primary is INK, not brand (16 Sep, Clerk direction). Both shipping pages
+   already overrode it to black page-side; making that the default deletes
+   those overrides and takes indigo off the most-repeated element on the
+   site. The brand fill survives only where a page opts back into it. */
+.btn--primary {
+  background: var(--black);
+  color: var(--on-brand);
+  box-shadow: var(--shadow-btn);
+}
+.btn--primary:hover {
+  background: color-mix(in srgb, var(--black) 86%, white);
+  box-shadow: var(--shadow-btn-hover);
+}
+.btn--primary:active {
+  background: color-mix(in srgb, var(--black) 74%, white);
+  box-shadow: var(--shadow-btn-press);
+}
+
+/* A PRIMARY BUTTON ON A DARK GROUND. The default fill is --black (16 Sep,
+   Clerk direction) and #212121 is barely separable from a dark ground, so
+   the inverse of "primary is ink" is a light button with ink on it. There
+   are two ways a dark ground happens and they need different tokens:
+
+   - .section--inv is a dark band inside a LIGHT page, so the light-theme
+     values apply and --ink-inv is already the light one (#FFFFFF), with
+     --surface-inv the dark counterpart for the label.
+   - [data-theme="dark"] flips the whole page, so --ink-inv is now the DARK
+     value and would repaint the button black again. --ink and --bg are the
+     right pair there.
+
+   CLAUDE.md recorded the .section--inv half as living here and it did not:
+   it went out with /product's security CTA on 23 Sep despite the note
+   saying to keep it, which is why /pricing rediscovered the problem on
+   27 Sep. Both halves are theming rules, not page decoration, so they stay
+   whether or not anything visible uses them today. */
+.section--inv .btn--primary {
+  background: var(--ink-inv);
+  color: var(--surface-inv);
+}
+.section--inv .btn--primary:hover {
+  background: color-mix(in srgb, var(--ink-inv) 90%, var(--surface-inv));
+}
+.section--inv .btn--primary:active {
+  background: color-mix(in srgb, var(--ink-inv) 82%, var(--surface-inv));
+}
+
+:root[data-theme="dark"] .btn--primary {
+  background: var(--ink);
+  color: var(--bg);
+}
+:root[data-theme="dark"] .btn--primary:hover {
+  background: color-mix(in srgb, var(--ink) 90%, var(--bg));
+}
+:root[data-theme="dark"] .btn--primary:active {
+  background: color-mix(in srgb, var(--ink) 82%, var(--bg));
+}
+
+.btn--secondary {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-btn);
+}
+.btn--secondary:hover {
+  border-color: var(--slate-300);
+  background: var(--surface);
+  box-shadow: var(--shadow-btn-hover);
+}
+.btn--secondary:active { box-shadow: var(--shadow-btn-press); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--brand-ink);
+  padding-inline: 4px;
+}
+.btn--ghost:hover { color: var(--brand-hover); }
+
+.btn--lg { font-size: var(--t-body); padding: 15px 24px; }
+.btn--sm { font-size: var(--t-caption); padding: 9px 14px; }
+
+.section--inv .btn--secondary {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ink-inv);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: none;
+}
+.section--inv .btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(255, 255, 255, 0.30);
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  align-items: center;
+}
+
+/* Large buttons go full width on a phone (user, 20 Sep). A 15/24 button set
+   in a 350px column is a small target floating in a lot of empty row, and at
+   this width there is nothing to sit beside it anyway.
+   It is every --lg, not only the primary the instruction named: these come in
+   pairs (Book a working session + See the questions) inside a wrapping
+   .btn-row, so stretching one alone would put a full-width button above a
+   short one and read as unfinished. Secondary buttons standing on their own
+   get the same treatment for consistency. The label stays centred by itself:
+   .btn is already justify-content: center. */
+@media (max-width: 640px) {
+  .btn--lg { width: 100%; }
+  /* The row has to stretch too, or 100% is 100% of nothing: the hero centres
+     its children, so .btn-row shrink-wraps to the button and the button then
+     fills its own width back. Scoped with :has() so rows of small and medium
+     buttons are left alone. */
+  .btn-row:has(.btn--lg) { width: 100%; }
+}
+
+/* Framed primary: a hairline box hugging the button, radius matched so the
+   two curves stay concentric. */
+.btn-frame {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--border-strong);
+  border-radius: calc(var(--r-sm) + 4px);
+  background: var(--hairline);
+}
+
+/* ---- Navbar ------------------------------------------------------------ */
+
+/* The placeholder both reserves height for the injected markup and is the
+   sticky element itself, so the header behaves as the template's
+   sticky top-0 despite living inside an injection wrapper. */
+#navbar-placeholder {
+  /* The gap lives on the placeholder, not the bar: the placeholder is the
+     sticky element, so padding here floats the bar off the viewport top at
+     rest AND holds it there once stuck, with one value. */
+  min-height: calc(var(--nav-h) + var(--nav-float));
+  padding-top: var(--nav-float);
+  position: sticky;
+  top: 0;
+  z-index: 998;
+}
+
+/* Slim full-width header (shadcn header-three), transparent at the top of
+   the page. Once scrolled past 50px (hysteresis in js/components.js
+   releases it below 25px) it gains a hairline bottom border and a surface:
+   near-opaque as the fallback, half-transparent glass where
+   backdrop-filter is supported, per the template. */
+.nav {
+  /* Floating card (16 Sep, Clerk reference): inset from the viewport on all
+     sides, rounded, lifted on --shadow-float. It replaced the flush full-width
+     bar and its single bottom border, so the border now runs all the way
+     round. Frame-line alpha, not --border: a solid light grey disappears
+     against the hero wash behind the bar.
+
+     The card is capped at the container and sits ON the page frame's rails
+     (user call, 16 Sep: "the header width should be within 80rem no?"). An
+     earlier pass let it overhang the rails, Clerk-style; aligning it instead
+     means the bar obeys the same 80rem grid as every section, and the nav
+     content lands on the same 20px inner gutter as section content, so the
+     logo lines up with the copy all the way down the page.
+
+     --frame-x IS that edge: max(--pad-x, 50% - container/2). Above ~1424px
+     it resolves to the container edge (a card exactly 80rem wide); below, to
+     the page gutter, so narrow screens keep a sane margin instead of a
+     hairline one. The float gap stays vertical only. */
+  margin-inline: var(--frame-x);
+  /* --border, not --frame-line: the frame's 8% alpha hairline disappears
+     against the bar's own glass, and the card needs a readable edge on all
+     four sides (user call, 16 Sep). */
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-float);
+  /* The card is GLASS, not a white slab (16 Sep). It floats over the hero's
+     tinted wash, so an opaque fill reads as a cut-out rectangle; translucent
+     plus blur lets the ground tint it and is what makes it look lifted. This
+     is the rest state, and the scrolled rules only firm it up, because a
+     floating card should not change character on scroll. --nav-rest is the
+     opaque fallback where backdrop-filter is unsupported. */
+  background-color: var(--nav-rest);
+  /* Flat background-color, never a gradient: WebKit cannot interpolate
+     between two gradient values and flickers mid-swap on theme sync. */
+  transition: background-color var(--dur) var(--ease),
+              border-color var(--dur) var(--ease),
+              box-shadow var(--dur) var(--ease);
+}
+.nav--scrolled {
+  background-color: var(--nav-surface);
+}
+/* THE CARD IS FULL WIDTH AT EVERY SCROLL POSITION, and that is a decision
+   rather than an omission. It shrank to 720px on .nav--scrolled for part of
+   28 Sep and the user took it back out: "stick to full length navbar only, coz
+   when its small the drawer is messed up."
+   The drawer is why, and the problem is structural rather than a bug that was
+   left unfixed. .nav__panel is pinned left:0 / right:0 to fill the nav row, so
+   a narrow bar gives a narrow menu; it was re-centred on the row's rest width
+   to compensate, and even then the menu no longer sat within its trigger, which
+   is what a dropdown is supposed to do. A bar that carries a 1278px mega-menu
+   does not want to be 720px wide.
+   If it is ever wanted again, two things have to come back with it: .nav must
+   be sized by `width` rather than margin-inline, because margin-inline: auto is
+   not interpolable and the card would jump rather than travel, and the panel
+   needs its own width in CONTAINER units off #navbar-placeholder, never vw. */
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nav,
+  .nav--scrolled {
+    background-color: var(--nav-surface-glass);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+}
+.nav-no-init-transition, .nav-no-init-transition * { transition: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  /* The width still changes, it just arrives rather than travels. */
+  .nav { transition: none; }
+}
+
+/* One width system: the nav inner, hero frame and footer card all fill the
+   standard .container rather than keeping their source templates' own
+   max-widths, so every section edge lines up down the page. */
+/* The card IS the gutter now: .padding-global inside it would add a second
+   one, so it is zeroed and .container keeps only its own 20px inner pad. */
+.nav > .padding-global { padding-inline: 0; }
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  /* Only ever spaces the logo from the menu: the burger (mobile) and
+     .nav__actions (desktop) both push themselves right with margin-left:auto.
+     Small, because the logo already carries 10px of invisible hover padding
+     on its right and the separator has to sit evenly between the two. */
+  gap: var(--sp-3);
+  height: var(--nav-h);
+}
+
+/* Vertical separator right after the logo (16 Sep, user call; it first sat
+   before the CTA). It closes the brand off from the navigation rather than
+   fencing off the action. Decorative, hence a pseudo rather than markup: it
+   is the menu's first flex child, so the menu's gap spaces it from the
+   links and the menu's own margin-left spaces it from the logo. */
+.nav__menu::before {
+  content: '';
+  width: 1px;
+  height: 20px;
+  background: var(--border-strong);
+  flex: none;
+}
+
+.nav__logo {
+  display: flex;
+  align-items: center;
+  flex: none;
+  padding: 8px 10px;
+  margin-left: -10px;
+  border-radius: var(--r-sm);
+  transition: background var(--dur-fast) var(--ease);
+}
+.nav__logo img { height: 24px; width: auto; }
+.nav__logo-dark { display: none; }
+.nav.nav-dark .nav__logo-light { display: none; }
+.nav.nav-dark .nav__logo-dark { display: block; }
+
+.nav__menu {
+  display: flex;
+  align-items: center;
+  /* Spaces the separator from the links. It does NOT set the links-to-CTA
+     distance: .nav__actions has margin-left:auto and pushes itself right. */
+  gap: var(--sp-5);
+  flex: 1;
+}
+.nav__links { display: flex; align-items: center; gap: 2px; }
+
+
+/* THE LINKS SIT LEFT, after the logo, and the separator sits between them
+   (user, 28 Sep). They were CENTRED on the bar for part of the same day and
+   came back; the whole of that arrangement is gone rather than parked, since
+   it was three rules that only made sense together.
+   What it did, if it is ever wanted again: .nav__logo went absolute left and
+   .nav__actions absolute right, both inset --sp-5 because left/right resolve
+   against .nav__inner's PADDING box and that 20px is .container's gutter, and
+   the menu then centred its own content. The one thing worth carrying over is
+   why it was NOT done the obvious way: absolutely positioning .nav__links
+   centres them exactly and silently breaks the Solutions panel, because
+   .nav__panel is pinned left:0/right:0 to fill the row and reaches the row
+   only while .nav__dd stays position:static, so a positioned .nav__links
+   inserts a new nearest positioned ancestor and the panel resolves against
+   the 414px link row instead of the 1278px card. */
+
+.nav__link,
+.nav__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-display);
+  /* .nav__toggle is a <button> since 19 Sep, so it needs the UA chrome off.
+     Harmless on .nav__link, which is an <a> with none of it to begin with. */
+  font-size: var(--t-body-sm);
+  font-weight: 550;
+  color: var(--ink-2);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: var(--r-sm);
+  transition: color var(--dur-fast) var(--ease),
+              background var(--dur-fast) var(--ease);
+}
+.nav__link:hover,
+.nav__toggle:hover { color: var(--ink); background: var(--slate-100); }
+.nav__link[aria-current="page"],
+.nav__toggle[aria-current="page"] { color: var(--ink); }
+
+.nav__chev {
+  width: 13px; height: 13px;
+  color: var(--ink-faint);
+  transition: transform var(--dur-fast) var(--ease);
+}
+.nav__dd[data-open="true"] .nav__chev { transform: rotate(180deg); }
+.nav__dd[data-open="true"] .nav__toggle { color: var(--ink); background: var(--slate-100); }
+
+.nav__actions { display: flex; align-items: center; gap: var(--sp-3); margin-left: auto; }
+
+/* Review-only switcher between the homepage design experiments: a small
+   segmented mono control ahead of the CTA. PARKED 21 Sep: the markup came out
+   of components/navbar.html ("remove toggle from navbar, keep the pages for
+   now") and these rules match nothing until it is pasted back, which is why
+   they are still here. index-v2.html and index-v3.html themselves still ship.
+   Delete this block, the mobile rule further down and initVersionTabs() in
+   js/components.js if the switcher is retired for good. */
+.nav__versions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+}
+.nav__versions a {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  color: var(--ink-3);
+  transition: color var(--dur-fast) var(--ease),
+              background var(--dur-fast) var(--ease);
+}
+.nav__versions a:hover { color: var(--ink); }
+.nav__versions a.is-current {
+  background: var(--brand);
+  color: var(--on-brand);
+}
+
+/* Dropdown mega-menu (header-three): a muted lip wrapping a bordered card
+   of rich links (icon tile, label, description), a plain role column, and
+   a plain-text footer whose link routes to the finder. */
+.nav__dd { position: static; }
+/* The panel is positioned against the NAV ROW, not the toggle (17 Sep). Hung
+   off the toggle it started wherever "Solutions" happened to sit, so at
+   1024px it ran 38px past the viewport, and body's overflow-x: clip cut that
+   edge off rather than letting it scroll. Anchored to the row it starts at
+   the container's own left edge and cannot leave the page. Found while
+   building /solutions/retail; every page had it. */
+.nav__inner { position: relative; }
+.nav__panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  /* Full header width (17 Sep, user call): pinned to both edges of the nav
+     row rather than sized to its contents, so the panel lines up with the
+     floating card above it and the links get the room to arrange properly. */
+  left: 0;
+  right: 0;
+  z-index: 30;
+  padding: 4px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity var(--dur-fast) var(--ease),
+              transform var(--dur-fast) var(--ease),
+              visibility var(--dur-fast) var(--ease);
+}
+.nav__dd[data-open="true"] .nav__panel {
+  opacity: 1; visibility: visible; transform: translateY(0);
+}
+
+.nav__panel-grid { display: flex; align-items: stretch; gap: 4px; }
+
+/* Three across (17 Sep, user call). The eight run 3 + 3 + 2, which also fills
+   the card's height against the rail beside it far better than two rows did.
+   Below the breakpoint a column drops under the 243px a row actually needs
+   (the longest label, "Specialty & Outdoor Retail", runs 175px at 14px/500
+   and the row spends 68px on padding, icon and gap) and the labels are hard
+   nowrap by design, so they would clip rather than wrap: two columns there. */
+.nav__panel-card {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  /* The card stretches to the rail's height, and by default that slack is
+     shared out across every row: it put the 12px group label in a 53px box
+     and each 56px item row at 105px. align-content keeps every row at its
+     own content height and leaves the slack at the foot of the card, where
+     it reads as padding rather than as stretched rows. */
+  align-content: start;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2px;
+  padding: var(--sp-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--r-lg) - 4px);
+  box-shadow: var(--shadow-sm);
+}
+.nav__panel-card > .nav__col-title { grid-column: 1 / -1; padding-bottom: 0; }
+
+/* Measured cutoff: at 1100px a column is 244px, a hair over the 243px a row
+   needs; by 1050px it is 229px and labels start clipping. Two columns below. */
+/* RAISED FROM 1100 TO 1300 on 28 Sep. The 243px in the note above was measured
+   against the LABELS; the descriptions underneath are now sentences rather than
+   the two-word fragments they were when that cutoff was set, and with the row
+   glyph back in front of them a three-column row needs about 300px, not 244.
+   Measured: at 1200 every one of the eight ellipsised, at 1280 none did. Two
+   columns from 1300 down is what keeps the copy whole, and it costs one row of
+   height in a band where there is room for it. */
+@media (max-width: 1300px) {
+  .nav__panel-card { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Attio's drawer sets each glyph on a small blueprint plane rather than
+   floating it: a 40px square of 10px graph paper, dissolving at its own
+   edges so it reads as a drawing surface and not a bordered tile. The grid
+   is the page frame's own --frame-grid, so it is the same paper the hero
+   dot field is printed on.
+   THEY CAME OFF AND WENT BACK ON on 28 Sep, both on the user's call, and the
+   round trip is worth one line: without them the labels start at 21px instead
+   of 73 and the three columns read as three columns of text, rows go 56px to
+   51px and the panel 230px to 220px. What that costs is the rhyme between the
+   menu and the page it opens, since these eight are the same Phosphor duotone
+   subjects js/qbar.js drifts above the question bar on each category page. */
+.nav__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: var(--r-sm);
+  transition: background var(--dur-fast) var(--ease);
+}
+.nav__item:hover { background: var(--slate-50); }
+.nav__item-icon {
+  position: relative;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--ink-3);
+  transition: color var(--dur-fast) var(--ease);
+}
+.nav__item-icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* A touch stronger than the page's --frame-grid: at 40px square a 7% line
+     disappears on a 1x screen, and this grid has to read at a glance. */
+  background-image:
+    repeating-linear-gradient(to right, var(--nav-graph) 0 1px, transparent 1px 10px),
+    repeating-linear-gradient(to bottom, var(--nav-graph) 0 1px, transparent 1px 10px);
+  /* Half-cell offset so the glyph sits inside a square, not on a crossing. */
+  background-position: 5px 5px;
+  -webkit-mask-image: radial-gradient(closest-side, #000 52%, transparent 100%);
+  mask-image: radial-gradient(closest-side, #000 52%, transparent 100%);
+}
+.nav__item:hover .nav__item-icon { color: var(--brand); }
+.nav__item-icon svg { position: relative; width: 20px; height: 20px; }
+.nav__item-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.nav__item-label {
+  font-size: var(--t-body-sm);
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.25;
+  white-space: nowrap;
+}
+.nav__item-desc {
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav__aside {
+  /* Sized to its own longest label rather than generously, so the category
+     card keeps enough width for a fourth column at common laptop sizes. */
+  flex: none;
+  width: 212px;
+  padding: var(--sp-3);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+/* The display face, not the mono the site uses for other micro-labels: the
+   drawer's group labels sit directly above the item labels, and a mono face
+   there reads as a different system rather than a quieter one. Caps in a
+   sans face need a touch more weight and a touch less tracking than the
+   mono label does to hold at 12px. */
+.nav__col-title {
+  font-family: var(--font-display);
+  font-size: var(--t-mono);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: 0 8px var(--sp-2);
+}
+.nav__mini {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: var(--t-body-sm);
+  font-weight: 500;
+  color: var(--ink-2);
+  padding: 7px 8px;
+  border-radius: var(--r-xs);
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.nav__mini:hover { color: var(--ink); background: var(--slate-100); }
+.nav__mini svg { width: 20px; height: 20px; color: var(--ink-3); flex: none; }
+.nav__mini:hover svg { color: var(--brand); }
+.nav__aside-rule {
+  height: 1px;
+  flex: none;
+  background: var(--border);
+  margin: var(--sp-2) 8px;
+  margin-top: auto;
+}
+
+.nav__panel-foot {
+  margin: 0;
+  padding: var(--sp-3) var(--sp-3) var(--sp-2);
+  font-size: var(--t-body-sm);
+  color: var(--ink-3);
+}
+.nav__panel-foot a { font-weight: 600; color: var(--ink); }
+.nav__panel-foot a:hover { text-decoration: underline; }
+
+/* Mobile trigger */
+.nav__burger {
+  display: none;
+  width: 36px; height: 36px;
+  margin-left: auto;
+  align-items: center; justify-content: center;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  box-shadow: var(--shadow-xs);
+  color: var(--ink);
+}
+.nav__burger:hover { background: var(--slate-50); }
+.nav__burger svg { width: 20px; height: 20px; }
+.nav__burger .nav__burger-close { display: none; }
+.nav.is-open .nav__burger .nav__burger-close { display: block; }
+.nav.is-open .nav__burger .nav__burger-open { display: none; }
+
+/* Navbar over a dark section. Not gated on --scrolled since 16 Sep: the bar
+   is a visible card at every scroll position now, so a dark-synced bar has
+   to be dark at rest too, or it would be light glass carrying white text.
+   border-COLOR, not border-bottom-color: the card is bordered on all four
+   sides, and only the bottom one used to exist. */
+.nav.nav-dark {
+  background-color: var(--nav-surface-inv);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nav.nav-dark,
+  .nav.nav-dark.nav--scrolled { background-color: var(--nav-surface-inv-glass); }
+}
+.nav.nav-dark .nav__link,
+.nav.nav-dark .nav__toggle { color: var(--ink-inv-2); }
+.nav.nav-dark .nav__link:hover,
+.nav.nav-dark .nav__toggle:hover {
+  color: var(--ink-inv); background: rgba(255, 255, 255, 0.08);
+}
+/* The OPEN toggle, which the dark bar had no answer for until 22 Sep. The
+   light rule is `.nav__dd[data-open="true"] .nav__toggle { color: --ink;
+   background: --slate-100 }`, and it ties on specificity with
+   `.nav.nav-dark .nav__toggle` (three classes each). Source order then gave
+   the dark rule the COLOUR and left the light rule its BACKGROUND, so an open
+   Solutions menu on a dark section drew pale text on a near-white pill. It
+   shows for as long as the menu is open, which is why hovering a category
+   inside the panel looks like the trigger. Four classes here, so it wins
+   outright. */
+.nav.nav-dark .nav__dd[data-open="true"] .nav__toggle {
+  color: var(--ink-inv);
+  background: rgba(255, 255, 255, 0.08);
+}
+/* The chevron is --ink-faint, tuned for a light bar; it all but vanishes on
+   the dark one. */
+.nav.nav-dark .nav__chev { color: var(--ink-inv-3); }
+
+/* THE NAV ON A PAGE THAT IS DARK THROUGHOUT ([data-theme="dark"]).
+   .nav-dark above is written for a dark BAND inside a light page, so it
+   reaches for the --ink-inv-* family, which means "ink for an inverted
+   surface". On a dark page those tokens invert again and resolve to near
+   black, which painted the links at rgba(11,16,32,0.68) on a near-black
+   bar: legible in the markup, invisible on screen. Over a dark page the
+   nav is not inverted at all, it is simply at rest, so the ordinary ink
+   scale is the correct one. The bar's own surface needs no rule: both
+   --nav-surface-inv tokens already flip with the theme. */
+:root[data-theme="dark"] .nav.nav-dark .nav__link,
+:root[data-theme="dark"] .nav.nav-dark .nav__toggle { color: var(--ink-2); }
+:root[data-theme="dark"] .nav.nav-dark .nav__link:hover,
+:root[data-theme="dark"] .nav.nav-dark .nav__toggle:hover {
+  color: var(--ink); background: rgba(255, 255, 255, 0.08);
+}
+:root[data-theme="dark"] .nav.nav-dark .nav__link[aria-current="page"] { color: var(--ink); }
+:root[data-theme="dark"] .nav.nav-dark .nav__dd[data-open="true"] .nav__toggle {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.08);
+}
+:root[data-theme="dark"] .nav.nav-dark .nav__chev { color: var(--ink-3); }
+/* The same trap once more, and here only the INK is wrong: a 6% white pill
+   with a white border is right on a dark bar, but --ink-inv resolves to the
+   DARK ink on a dark page, so the burger's glyph was near-black on a
+   near-black bar, present in the markup and invisible on screen. */
+:root[data-theme="dark"] .nav.nav-dark .nav__burger,
+:root[data-theme="dark"] .nav.nav-dark .btn--secondary { color: var(--ink); }
+.nav.nav-dark .nav__burger {
+  color: var(--ink-inv);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.20);
+}
+.nav.nav-dark .btn--secondary {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ink-inv);
+  border-color: rgba(255, 255, 255, 0.20);
+}
+
+/* The Solutions drawer follows the bar onto dark sections (13 Sep): panel,
+   card and every row retune to the inverse inks. V2 is excluded: its whole
+   token ground is already dark and its inverse tokens point light, so these
+   rules would flip its drawer the wrong way.
+
+   A WHOLE DARK PAGE IS EXCLUDED FOR THE SAME REASON (28 Sep, user: "in
+   pricing dark page, the navbar drawer is light mode"). This is the third
+   time this exact bug has turned up and it is always the same shape: a rule
+   that names the INVERSE surface inverts again under data-theme="dark" and
+   lands back where it started. --surface-inv is #F7F8FB on a dark page, so
+   the panel came out near-white with a white-alpha border on a dark bar, and
+   inside the mobile drawer it was a white block in a dark sheet.
+   On a dark PAGE the nav is not inverted at all, it is at rest, so the right
+   answer is to let the BASE rules apply: .nav__panel's own --surface-2 and
+   --border already resolve dark through the ramp. Hence :root:not(...) on the
+   whole group rather than nine more overrides underneath it. */
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__panel {
+  background: color-mix(in srgb, #fff 4%, var(--surface-inv));
+  border-color: rgba(255, 255, 255, 0.12);
+}
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__panel-card {
+  background: color-mix(in srgb, #fff 7%, var(--surface-inv));
+  border-color: rgba(255, 255, 255, 0.10);
+}
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__col-title { color: var(--ink-inv-3); }
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__mini svg { color: var(--ink-inv-3); }
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__mini:hover svg { color: var(--primary-200); }
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__item-icon { color: var(--ink-inv-3); }
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__item-icon::before {
+  background-image:
+    repeating-linear-gradient(to right, var(--nav-graph-inv) 0 1px, transparent 1px 10px),
+    repeating-linear-gradient(to bottom, var(--nav-graph-inv) 0 1px, transparent 1px 10px);
+}
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__item:hover .nav__item-icon { color: var(--primary-200); }
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__mini { color: var(--ink-inv-2); }
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__mini:hover {
+  color: var(--ink-inv);
+  background: rgba(255, 255, 255, 0.07);
+}
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__aside-rule { background: rgba(255, 255, 255, 0.12); }
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__item:hover { background: rgba(255, 255, 255, 0.06); }
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__item-label { color: var(--ink-inv); }
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__item-desc { color: var(--ink-inv-3); }
+
+@media (max-width: 991px) {
+  /* 8px off each edge, then 12px of inner pad, which lands the logo and
+     burger within a pixel of the page's own 20px phone gutter (8 + 1px
+     border + 12), so the bar's content lines up with the content below it.
+     The pad has to be restated here because below 992px .container drops
+     the 20px it carries on desktop, which left the burger flush against
+     the card's edge. */
+  .nav { margin-inline: 8px; }
+  .nav > .padding-global { padding-inline: var(--sp-3); }
+  /* Stacked in the sheet, the rule would be a stray tick above the links. */
+  .nav__menu::before { display: none; }
+  .nav__burger { display: inline-flex; }
+  /* Full-screen sheet under the bar, in the bar's own rest colour so the
+     two read as one surface. */
+  /* The sheet floats too (16 Sep). A hard full-bleed panel butted against
+     a rounded, shadowed bar reads as two unrelated things, so the menu
+     became its own card on the same inset, radius and shadow, hanging one
+     float-gap below the bar. The +2px is the bar's own top and bottom
+     border, which --nav-h does not count. */
+  .nav__menu {
+    position: fixed;
+    top: calc(var(--nav-h) + 2px + var(--nav-float) * 2);
+    left: var(--frame-x);
+    right: var(--frame-x);
+    bottom: var(--nav-float);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    margin: 0;
+    padding: var(--sp-5) var(--sp-5) var(--sp-8);
+    overflow-y: auto;
+    border: 1px solid var(--frame-line);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-float);
+    background: var(--nav-rest);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity var(--dur) var(--ease),
+                transform var(--dur) var(--ease),
+                visibility var(--dur) var(--ease);
+  }
+  .nav__menu.is-open { opacity: 1; visibility: visible; transform: translateY(0); }
+  .nav__links { flex-direction: column; align-items: stretch; gap: 2px; }
+  .nav__link, .nav__toggle {
+    justify-content: space-between;
+    font-size: var(--t-body-lg);
+    padding: 12px 4px;
+  }
+  .nav__actions { margin: var(--sp-5) 0 0; flex-direction: column; align-items: stretch; }
+  /* Stacked, the rule would float above a full-width button meaning nothing. */
+  .nav__actions::before { display: none; }
+  /* The bar uses the small CTA; in the sheet it becomes a full-size,
+     comfortably tappable primary. */
+  .nav__actions .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+    font-size: var(--t-body-lg);
+    border-radius: var(--r-md);
+  }
+  /* In the sheet the switcher spans the row: each version gets an equal,
+     comfortably tappable segment. */
+  .nav__versions a {
+    flex: 1;
+    justify-content: center;
+    display: inline-flex;
+    padding-block: 8px;
+  }
+  /* Dropdowns become inline accordions on mobile */
+  .nav__panel {
+    position: static;
+    opacity: 1; visibility: visible; transform: none;
+    display: none;
+    box-shadow: none;
+    border-radius: var(--r-md);
+    margin: 2px 0 var(--sp-2);
+    transition: none;
+  }
+  .nav__dd[data-open="true"] .nav__panel { display: block; }
+  .nav__panel-grid { flex-direction: column; }
+  .nav__panel-card { grid-template-columns: 1fr; box-shadow: none; }
+  /* Stacked, so "right-hand column" has no meaning: the team rail keeps
+     the top spot it was given on 12 Sep rather than sitting under eight
+     category rows. */
+  .nav__aside { padding: var(--sp-3) var(--sp-2); order: -1; }
+  body.nav-locked { overflow: hidden; }
+  /* With the sheet open, the bar must NOT carry backdrop-filter: a
+     backdrop-filter ancestor becomes the containing block for fixed
+     descendants, which pins the full-screen sheet to the 56px bar (the
+     "menu only opens a little" bug when scrolled). Solid rest colour
+     instead; the sheet is the same colour so nothing changes visually. */
+  body.nav-locked .nav {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  body.nav-locked .nav,
+  body.nav-locked .nav.nav--scrolled { background-color: var(--nav-rest); }
+}
+
+/* ---- Footer --------------------------------------------------------------
+   Flat and flush with the site grid: no border, no glow, content aligned
+   to the same container edge as the header. The gradient divider above the
+   legal line is the only hairline it carries.
+   ---------------------------------------------------------------------- */
+
+.footer {
+  position: relative;
+  /* Padding, not margin: the footer's own tone starts at the joint above.
+     DELIBERATELY off --section-pad (21 Sep, user: "too much extra space").
+     The link band is only 155px of content, and 80px here plus the grid's own
+     40px put the first column title 120px below the joint, so the band read as
+     floating in its own tone with the column rails drawing attention to the
+     gap. 40 here and 32 there puts it at 72. If the rhythm variable is ever
+     restored, the rail offsets below have to follow it back. */
+  padding-top: var(--sp-10);
+  background: var(--slate-100);
+}
+.footer::before, .footer::after { top: 0; }
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr);
+  gap: var(--sp-10);
+  padding-block: var(--sp-8);
+}
+
+/* Brand block: logo, the positioning line, then the social row, stacked and
+   left-aligned (Metaforms reference, 16 Sep). The socials moved up here from
+   the legal row, which is now only copyright and legal links. */
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-4);
+}
+.footer__line {
+  font-size: var(--t-body-sm);
+  line-height: 1.5;
+  color: var(--ink-3);
+  max-width: 22rem;
+}
+
+.footer__logo { display: inline-flex; }
+.footer__logo img { height: 26px; width: auto; }
+/* Light lockup by default; dark grounds (page-v2 now, a dark theme later)
+   swap to the reverse. */
+.footer__logo-dark { display: none; }
+
+/* THE TRACK COUNT FOLLOWS THE COLUMN COUNT, which is why this is auto-flow
+   rather than the repeat(3) it was until 28 Sep. The Company column was hidden
+   that day and a fixed three-track grid left the two survivors filling two
+   thirds of the band with a third of it blank, while the seam rails below,
+   which are drawn per .footer__col, went on landing correctly and so made the
+   gap look deliberate. Auto-flow also means restoring that column is a markup
+   edit alone, with no number in this file to remember. */
+.footer__cols {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: var(--sp-8) var(--sp-6);
+}
+
+.footer__col-title {
+  font-family: var(--font-display);
+  font-size: var(--t-mono);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: var(--sp-4);
+}
+.footer__col-list { display: grid; gap: 10px; }
+.footer__col-list a {
+  font-size: var(--t-body-sm);
+  color: var(--ink-3);
+  transition: color var(--dur-fast) var(--ease);
+}
+.footer__col-list a:hover { color: var(--ink); }
+
+/* Column rails in the link band (20 Sep, promptwatch reference): a hairline
+   at each column seam, splitting the gap, running the full band from the
+   joint above the footer to the legal row's rule so it meets a horizontal
+   line at both ends, the page frame's language. Desktop only, with the
+   rails; below 992px the grid stacks. */
+@media (min-width: 992px) {
+  .footer__cols,
+  .footer__col { position: relative; }
+  .footer__cols::before,
+  .footer__col + .footer__col::before {
+    content: '';
+    position: absolute;
+    /* Reaches the joint above and the legal rule below, so the offsets are
+       the grid's own padding plus the footer's. They must move whenever
+       either does, or the rails stop meeting a horizontal line at their ends
+       and read as floating sticks. */
+    top: calc(-1 * (var(--sp-8) + var(--sp-10)));
+    bottom: calc(-1 * var(--sp-8));
+    width: 1px;
+    background: var(--frame-line);
+  }
+  /* Each seam's line sits at the middle of that seam's own gap: sp-10
+     between the brand block and the columns, sp-6 between columns. */
+  .footer__cols::before { left: calc(-0.5 * var(--sp-10)); }
+  .footer__col + .footer__col::before { left: calc(-0.5 * var(--sp-6)); }
+}
+
+/* Legal row: the footer's last band, under the wordmark and separated from it
+   by a hairline. Copyright left, legal links right. */
+.footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-3) var(--sp-6);
+  padding-block: var(--sp-6);
+  border-top: 1px solid var(--border);
+}
+.footer__social {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  /* Pull back by the icon box's own padding so the first glyph sits on the
+     same left edge as the logo and the line above it. */
+  margin-left: -6px;
+}
+/* 16px glyph centred in a 28px box: the whole box is the click area. */
+.footer__social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  color: var(--ink-3);
+  transition: color var(--dur-fast) var(--ease);
+}
+.footer__social a:hover { color: var(--ink); }
+.footer__social svg { width: 16px; height: 16px; display: block; }
+
+.footer__legal {
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+}
+.footer__bottom-links {
+  display: flex;
+  gap: var(--sp-6);
+}
+.footer__bottom-links a {
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+  transition: color var(--dur-fast) var(--ease);
+}
+.footer__bottom-links a:hover { color: var(--ink); }
+
+/* The closing wordmark. A light indigo gradient that fades out at its foot,
+   so the mark sinks into the page rather than stopping on a line. No stroke:
+   the outline read as a drawn border around the letters, and the fill is the
+   whole effect now.
+
+   The pointer torch that lit letters on hover was removed on 19 Sep along with
+   js/wordmark.js, which existed only to feed it two custom properties. */
+.footer__wordmark {
+  padding-block: var(--sp-10) 0;
+}
+.footer__wordmark-stack { position: relative; }
+
+.footer__wordmark-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.footer__wordmark-fill use {
+  fill: url(#aira-wordmark-fade);
+  stroke: none;
+}
+/* Set here rather than on the SVG so the raw colour stays in tokens.css. */
+.footer__wordmark-svg linearGradient stop:first-child {
+  stop-color: var(--primary-300);
+  stop-opacity: 0.42;
+}
+.footer__wordmark-svg linearGradient stop:last-child {
+  stop-color: var(--primary-300);
+  stop-opacity: 0;
+}
+
+@media (max-width: 991px) {
+  .footer__grid { grid-template-columns: 1fr; gap: var(--sp-8); }
+}
+@media (max-width: 768px) {
+  /* grid-auto-flow goes back to row here, or the explicit template is
+     ignored and the columns stay in one line. */
+  .footer__cols { grid-auto-flow: row; grid-template-columns: 1fr 1fr; }
+}

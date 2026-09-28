@@ -1,0 +1,180 @@
+<!-- aiRA footer (Metaforms-style, 16 Sep): brand block on the left carrying
+     the logo, the one-line positioning and the social row; link columns on
+     the right; the giant wordmark across the full width beneath them; and a
+     rule-topped legal row last, copyright left and legal links right.
+     Injected into #footer-placeholder by js/components.js. -->
+<footer class="footer">
+  <!-- The frame's crossing mark where the footer's two rails meet its top
+       edge (23 Sep). Every other section boundary gets one from its .joint;
+       the footer's did not, so its rails began out of nothing, and on pages
+       whose last section has no joint above the footer (product.html, and
+       index.html since its stranded one was parked) there was no mark at that
+       boundary at all. Desktop only, with the rails it marks. -->
+  <span class="footer__crossing" aria-hidden="true"></span>
+  <div class="padding-global">
+    <div class="container">
+
+      <div class="footer__grid">
+        <div class="footer__brand reveal">
+          <a class="footer__logo" href="/" aria-label="aiRA by Capillary, home">
+            <img class="footer__logo-light" src="/assets/brand/aira-lockup.png" alt="aiRA by Capillary" width="78" height="26">
+            <img class="footer__logo-dark" src="/assets/brand/aira-lockup-reverse.png" alt="aiRA by Capillary" width="78" height="26">
+          </a>
+          <!-- THE HERO'S OWN CLAIM, not a second one (user, 27 Sep: "tagline in
+               footer needs to be same as Hero Section"). It is the static half of
+               index.html's H1, without the rotating team word: the footer closes
+               every page, so a different line here reads as a second positioning
+               rather than the same one restated. Was "Between your data and your
+               channels.", which was context.md 1's mechanism line. -->
+          <p class="footer__line">On-demand insights and analytics agent.</p>
+          <ul class="footer__social">
+            <li>
+              <a href="https://www.linkedin.com/company/askaira-ai/" rel="noopener"
+                 aria-label="aiRA on LinkedIn">
+                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M4.68938 13.9414H2.19817V6.00487H4.68938V13.9414ZM11.0331 5.8076C13.5556 5.80761 14.0204 7.4507 14.0204 9.58788L14.0195 13.9414H11.5312V10.083C11.5312 9.16272 11.5141 7.97752 10.2363 7.97752C8.94014 7.97762 8.74212 8.98038 8.74212 10.0156V13.9414H6.25286V6.00487H8.64251V7.08983H8.67571C8.91482 6.68505 9.2606 6.3517 9.67571 6.12596C10.0908 5.90033 10.56 5.79021 11.0331 5.8076ZM3.16204 2.08788C3.44219 2.03265 3.73307 2.06074 3.997 2.16893C4.26087 2.2771 4.4867 2.46024 4.64544 2.6953C4.80418 2.93045 4.88855 3.20738 4.8886 3.49022C4.88863 3.67786 4.85166 3.86371 4.77923 4.0371C4.70668 4.21061 4.59984 4.36912 4.46575 4.50194C4.33173 4.63461 4.17208 4.73967 3.997 4.81151C3.82188 4.88332 3.63382 4.92085 3.44427 4.92088C3.15884 4.92084 2.87989 4.83661 2.64251 4.67967C2.40501 4.5226 2.21965 4.29931 2.11028 4.03807C2.00094 3.77682 1.97261 3.48928 2.02825 3.2119C2.08392 2.93455 2.22091 2.67949 2.42278 2.47948C2.62464 2.27953 2.88204 2.14316 3.16204 2.08788Z" fill="currentColor"/>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/@Capillary_aira" rel="noopener"
+                 aria-label="aiRA on YouTube">
+                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M8 14C8.0013 14 13.0031 14.0003 14.251 13.665C14.9394 13.4804 15.482 12.9365 15.666 12.2461C16.0004 10.9944 16 8.38281 16 8.38281C16 8.35899 15.9987 5.76644 15.666 4.52051C15.482 3.82998 14.9394 3.28611 14.251 3.10156C13.0033 2.76623 8.0013 2.76563 8 2.76562C8 2.76562 2.99689 2.76619 1.74902 3.10156C1.06063 3.28611 0.517969 3.82998 0.333984 4.52051C0.00128595 5.76644 7.0398e-06 8.35899 1.5904e-09 8.38281C1.5904e-09 8.38281 -0.00035472 10.9944 0.333984 12.2461C0.518005 12.9365 1.06068 13.4804 1.74902 13.665C2.99713 14.0003 8 14 8 14ZM6.36426 6.01172L10.5459 8.38281L6.36426 10.7539V6.01172Z" fill="currentColor"/>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer__cols reveal reveal-stagger">
+          <div class="footer__col">
+            <h3 class="footer__col-title">Product</h3>
+            <ul class="footer__col-list">
+              <!-- A column heading is a category, not a link, so the section's
+                   own page needs a row of its own: "Overview" and not
+                   "Product", which would repeat the heading a line below
+                   itself. Not "Platform" either (22 Sep) - the comparison
+                   board on / and /product heads the OTHER column "Horizontal
+                   AI analytics platforms", so that word is the category aiRA
+                   argues against. -->
+              <li><a href="/product">Overview</a></li>
+              <!-- PARKED 28 Sep with /pricing itself, now on the shelf at
+                   /archive/pricing.html. It pointed at a 404 from the day it
+                   was written until the page was built on 27 Sep, so it goes
+                   back only when the page does.
+              <li><a href="/pricing">Pricing</a></li>
+              -->
+              <!-- HIDDEN 28 Sep (user: "hide pricing, security, about us from
+                   footer as we dont have those pages"). /security has NEVER been
+                   built and this link 404d from the day it was written, which is
+                   the longest-standing dead link on the site. Uncomment it the
+                   day the page exists, not before. context.md 20 is the argument
+                   for building it: security, privacy and IT governance was the
+                   number one hesitation in the buyer research, raised unprompted
+                   by 11 of 30. /product's #governance carries that argument for
+                   now.
+              <li><a href="/security">Security</a></li>
+              -->
+            </ul>
+          </div>
+
+          <div class="footer__col">
+            <h3 class="footer__col-title">Solutions</h3>
+            <ul class="footer__col-list">
+              <!-- The five industries, matching the nav drawer's "By industry"
+                   rail exactly. The eight retail categories were listed here too
+                   until 16 Sep, which made this column four times the height of
+                   the other two and turned a footer into a sitemap; they live in
+                   the nav drawer instead. -->
+              <li><a href="/solutions/retail">Retail</a></li>
+              <li><a href="/solutions/restaurants-qsr">Restaurants &amp; QSR</a></li>
+              <li><a href="/solutions/travel-hospitality">Travel &amp; Hospitality</a></li>
+              <li><a href="/solutions/telecom">Telecom</a></li>
+            </ul>
+          </div>
+
+          <!-- THE WHOLE COMPANY COLUMN IS HIDDEN as of 28 Sep (user: "hide
+               pricing, security, about us from footer as we dont have those
+               pages. also remove contact"). Both of its rows were named, and a
+               column heading with nothing under it is worse than no column, so
+               the wrapper goes with them rather than the two <li>s alone.
+               ABOUT US had been repointed at capillarytech.com/about-us earlier
+               the same day, when /about was parked, on the reasoning that a
+               Company column whose first item is missing reads as broken. That
+               reasoning is spent now the column itself is gone, and the user's
+               "we dont have those pages" covers it either way: the parent
+               company's about page is a real destination but it is not ours.
+               CONTACT was a mailto and not a page, so nothing 404d; it was named
+               separately and removed on its own terms.
+               IT COMES BACK AS A COLUMN, not as rows pasted elsewhere. IA 10
+               contracts /customers and /contact, and the navbar note already
+               says About stays a flat nav link until those exist, at which point
+               the grouping belongs here. .footer__cols sizes itself from the
+               number of columns present, so restoring this div is the only edit
+               needed.
+
+          <div class="footer__col">
+            <h3 class="footer__col-title">Company</h3>
+            <ul class="footer__col-list">
+              <li><a href="/about">About us</a></li>
+              <li><a href="mailto:aira@capillarytech.com">Contact</a></li>
+            </ul>
+          </div>
+          -->
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+
+        <!-- Direct children of .footer__bottom, not wrapped: the row is
+             space-between, so a wrapper would keep them bunched on the left. -->
+        <p class="footer__legal">
+          &copy; 2026 aiRA by Capillary
+        </p>
+        <ul class="footer__bottom-links">
+          <!-- Full names, not "Terms" and "Privacy" (22 Sep): the pages are
+               called Terms & Conditions and Privacy Policy, and the footer is
+               the only place they are named. -->
+          <li><a href="/terms-and-conditions">Terms &amp; Conditions</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+      <!-- Inlined, not an <img>: the torch effect has to reach the paths, and
+           an <img> gives CSS and JS nothing to hold. Geometry is the eight
+           paths of /assets/brand/aira-footer.svg verbatim; if that file is
+           ever redrawn, re-paste its paths into the <defs> group below. -->
+      <div class="footer__wordmark" aria-hidden="true">
+        <div class="footer__wordmark-stack">
+          <!-- One copy of the geometry in <defs>, drawn once by <use>. The
+                 fill is inherited from the <use>, which is why the paths
+                 carry no presentation attributes of their own. -->
+          <svg class="footer__wordmark-svg footer__wordmark-fill" viewBox="0 0 1476 476" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <defs>
+              <!-- Stop colours are set in CSS so the only raw values stay in
+                   tokens.css. Vertical, so the mark fades out at its foot. -->
+              <linearGradient id="aira-wordmark-fade" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0"/>
+                <stop offset="1"/>
+              </linearGradient>
+              <g id="aira-wordmark">
+            <path d="M978.594 116.718C978.781 134.737 978.832 152.758 978.753 170.778V170.782C978.746 180.283 979.142 193.698 978.625 202.814L978.565 203.856L979.608 203.871C996.555 204.116 1013.44 203.997 1030.36 203.968C1038.4 203.953 1044.94 203.574 1051.05 201.764C1057.18 199.947 1062.81 196.707 1069.08 191.067L1069.14 191.017L1069.18 190.961C1085.47 171.254 1086.24 141.619 1065.89 124.528L1065.41 124.127C1061.21 120.675 1056.27 118.255 1050.98 117.061L1050.97 117.06L1050.27 116.916C1046.68 116.223 1041.71 115.965 1036.74 115.873C1031.43 115.775 1025.99 115.866 1022.13 115.851H1022.13L979.598 115.707L978.584 115.703L978.594 116.718ZM913.23 301.802L912.941 206.881C912.927 160.985 911.721 109.138 913.183 63.6179C955.584 64.7288 998.371 64.2542 1040.76 65.0662C1057.48 65.3866 1070.17 64.4221 1086.14 69.3962H1086.14C1107.94 76.1747 1126.1 91.4317 1136.55 111.74L1136.55 111.745C1151.34 140.102 1151.09 181.097 1134.78 208.721C1124.95 225.369 1111.72 235.621 1094.78 244.414L1093.86 244.894L1094.38 245.799C1097.6 251.416 1100.93 257.638 1103.89 263.408V263.409C1112.24 279.656 1121.24 295.786 1130.15 311.92C1138.83 327.627 1147.43 343.342 1155.3 359.205C1149.34 359.663 1140.92 359.489 1135.07 359.554H1135.07C1124.35 359.691 1113.63 359.964 1102.91 360.375C1096.87 360.359 1090.58 360.544 1084.53 360.652C1067.62 327.064 1046.83 290.379 1028.91 257.073L1028.69 256.657L1028.23 256.566L1026.62 256.26C1010.16 253.221 996.469 253.85 979.636 255.709L978.701 255.812L978.747 256.752C979.185 265.74 978.587 280.181 978.551 289.761L978.28 359.68L913.297 359.59C912.78 341.147 913.237 320.401 913.23 301.805V301.802Z"/>
+            <path d="M1360.48 64.1128C1365.34 75.8275 1370.28 90.4477 1374.71 102.556H1374.71L1400.66 173.485L1468.71 359.624L1401.01 359.92L1377.87 294.562L1377.64 293.909L1376.94 293.896L1359.8 293.584H1359.8C1356.84 293.476 1353.79 293.503 1350.85 293.491C1336.18 293.428 1321.52 293.196 1306.85 292.97C1292.18 292.744 1277.51 292.523 1262.83 292.481L1262.07 292.479L1261.86 293.204C1257.11 309.665 1246.07 342.49 1239.91 358.856C1218.3 359.733 1193.05 359.294 1171.73 360.968C1176.94 344.721 1184 326.494 1189.81 310.407V310.406L1223.46 217.126V217.125L1259.19 117.934C1265.48 100.504 1272.13 80.7268 1278.96 63.6577L1360.48 64.1128ZM1318.27 132.887L1292.96 205.348C1288.98 216.747 1284.49 231.006 1280.16 241.823L1279.59 243.231L1281.11 243.194C1285.54 243.088 1292.97 242.677 1300.16 242.346C1307.4 242.013 1314.36 241.763 1317.93 241.964L1317.98 241.966L1318.02 241.965L1357.77 240.578L1359.14 240.53L1358.67 239.241L1331.57 163.769V163.768L1329.43 157.723C1328.41 154.845 1327.16 151.328 1325.9 147.851C1324.65 144.375 1323.39 140.933 1322.36 138.205C1321.84 136.841 1321.37 135.65 1320.99 134.719C1320.62 133.814 1320.3 133.089 1320.07 132.708L1318.98 130.855L1318.27 132.887Z"/>
+            <path d="M651.372 130.916H651.373C677.703 131.473 708.533 137.738 727.498 156.713C737.068 166.43 743.633 178.707 746.404 192.067L746.405 192.071C747.792 198.613 748.219 211.878 748.287 225.693C748.355 239.49 748.066 253.615 748.055 261.949V261.954L748.47 368.345L691.151 368.5L688.52 344.524L688.259 342.138L686.749 344.003C670.013 364.685 643.607 374.773 617.928 373.758C592.265 372.744 567.447 360.648 553.79 337.106C542.575 314.635 542.01 288.869 554.565 266.766C566.217 246.255 585.068 238.008 606.162 233.739C616.719 231.602 627.789 230.472 638.772 229.288C649.734 228.106 660.61 226.872 670.68 224.519C674.495 223.628 677.459 222.216 679.939 220.169C682.411 218.13 684.35 215.502 686.175 212.257L686.286 212.059L686.301 211.833C686.799 204.255 685.261 197.955 682.24 192.903C679.221 187.854 674.756 184.109 669.491 181.583C658.985 176.541 645.241 176.313 633.055 180.22C620.422 184.271 613.957 194.537 608.75 205.505C590.007 202.861 572.378 201.947 553.683 200.349C557.401 176.672 568.849 160.304 584.765 149.391C600.95 138.295 621.818 132.799 644.013 131.113L644.053 131.11L644.093 131.104C644.536 131.035 646.006 130.977 647.616 130.944C649.19 130.911 650.772 130.903 651.372 130.916ZM684.31 261.836C673.315 263.747 662.192 265.586 651.207 267.624C644.134 268.935 635.947 269.903 628.471 272.159C621.192 274.355 614.4 277.819 609.674 284.165L609.222 284.788C605.245 290.443 603.676 297.448 604.861 304.262V304.266C606.059 311.025 609.394 315.859 614.092 320.427L614.151 320.486L614.22 320.533C634.408 334.502 664.929 329.144 679.358 309.153V309.152C688.794 296.077 687.649 278.329 686.252 263.505L686.218 263.148L685.965 262.894L685.189 262.116L684.822 261.748L684.31 261.836Z"/>
+            <path d="M176.735 73.2412C177.316 74.3312 178.063 75.8321 178.924 77.627C180.337 80.5747 182.019 84.2296 183.702 87.9434C187.054 95.338 190.444 103.042 191.648 105.68L191.649 105.681L229.616 188.559L229.768 188.89L230.096 189.046C268.024 207.097 307.652 224.562 345.982 242.064C306.921 260.228 266.571 277.934 227.236 295.596L226.898 295.748L226.74 296.085C209.884 332.192 193.198 369.906 176.939 406.385C176.518 405.584 175.98 404.506 175.34 403.181C173.943 400.29 172.071 396.258 169.874 391.438C165.482 381.8 159.801 369.032 154.05 355.991C142.548 329.911 130.765 302.752 128.435 297.377L128.28 297.021L127.927 296.862L8.1593 243.036C23.4137 235.551 38.988 228.489 54.5997 221.46C70.8574 214.14 87.158 206.853 103.152 199.169C106.34 197.638 110.003 196.093 113.688 194.421C117.34 192.763 120.975 190.996 123.969 189.067L124.226 188.902L124.346 188.622C140.123 152.029 159.706 109.506 176.735 73.2412Z"/>
+            <path d="M856.865 131.578C857.613 158.785 856.933 189.093 856.94 216.51V216.512L857.326 358.743L825.011 359.179H824.989L824.966 359.18C818.552 359.555 810.863 359.471 804.174 359.527C803.199 332.307 804 300.247 804 272.772L804.142 132.168C814.238 132.013 824.335 131.928 834.439 131.916H834.473L834.508 131.914C840.955 131.458 849.924 131.617 856.865 131.578Z"/>
+            <path d="M389.451 297.697C390.57 299.623 392.03 302.448 393.499 305.386C395.362 309.115 397.305 313.154 398.384 315.305L398.385 315.306L417.877 353.998L418.025 354.291L418.317 354.439C436.677 363.786 456.111 373.992 474.749 382.844C455.991 392.598 437.166 402.222 418.274 411.714L417.987 411.858L417.837 412.143C408.267 430.335 398.791 449.658 389.581 468.114C379.934 449.578 370.757 430.721 361.117 412.077L360.977 411.807L360.71 411.66C343.811 402.351 322.011 392.114 304.225 383.245L360.3 354.621L360.557 354.49L360.705 354.243C363.774 349.093 367.801 340.443 370.536 335.013L370.538 335.009C376.758 322.529 383.063 310.092 389.451 297.697Z"/>
+            <path d="M389.678 7.87451C390.367 8.65797 391.086 9.6835 391.83 10.938C392.899 12.7414 393.987 14.952 395.096 17.4487C397.315 22.4472 399.578 28.4997 401.925 34.5894C404.264 40.6583 406.686 46.7589 409.204 51.7788C410.464 54.29 411.759 56.5538 413.094 58.4194C414.422 60.2763 415.828 61.792 417.325 62.7515C432.387 72.4011 456.017 83.3238 472.582 91.7358C455.981 100.88 435.892 110.315 418.822 119.05L418.559 119.185L418.411 119.442C409.508 134.91 397.763 158.705 389.537 175.358C379.646 157.857 369.865 137.183 360.244 119.188L360.096 118.911L359.816 118.768L305.665 91.2407C308.688 89.6263 312.596 87.9215 316.962 86.1401C322.185 84.0094 327.867 81.8451 333.523 79.5591C339.124 77.2947 344.578 74.9587 349.088 72.5815C353.561 70.2242 357.252 67.7535 359.191 65.1714H359.192C363.101 59.9625 369.226 48.4696 375.171 36.7808C380.79 25.7325 386.262 14.4798 389.678 7.87451Z"/>
+            <path d="M827.14 36.5796C836.699 35.4871 849.169 38.5417 856.997 44.2593L857.002 44.2632C864.011 49.3093 868.671 56.9879 869.922 65.5396L869.923 65.5444C871.682 77.1252 868.004 85.6316 861.408 91.6411C854.774 97.6843 845.115 101.262 834.853 102.744C823.266 103.215 812.075 101.361 802.828 94.186L802.821 94.1812C796.158 89.0981 791.808 81.5523 790.753 73.2339H790.752C789.799 65.2921 792.038 57.296 796.969 51.0015H796.97C804.515 41.3611 815.277 38.0449 827.14 36.5796Z"/>
+              </g>
+            </defs>
+            <use href="#aira-wordmark"/>
+          </svg>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</footer>

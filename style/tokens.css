@@ -1,0 +1,526 @@
+/* ==========================================================================
+   aiRA — Design tokens
+   The only file allowed to contain raw colour values. Everything else
+   references these custom properties.
+
+   Brand anchor: Primary/600 #3338D2, set by the user with the P/S/T palette
+   on 20 September 2026 (Collors.pdf; see docs/context.md §17).
+
+   OPEN: it no longer matches the logo. The anchor used to be #526CF6,
+   sampled from the mark, whose horizontal gradient runs #6369F6 -> #436FF6
+   and centres there. #3338D2 is darker and bluer than both endpoints, so
+   either the mark is being redrawn with the palette or the site's brand
+   colour and the logo's own blue have diverged. Ask Capillary.
+
+   Both supersede the #6F459B violet in the 2026 Capillary brand guide,
+   which predates the current logo.
+   ========================================================================== */
+
+:root {
+  /* ---- Primitive: Primary (the P ramp) -----------------------------------
+     From Collors.pdf (20 Sep). **Primary/600 #3338D2 is THE brand colour**,
+     set by the user with the palette. This replaced the 13 Sep ramp whose
+     anchor was Primary/400 #526CF6, which in turn replaced the hand-rolled
+     --indigo-* scale; neither is coming back.
+
+     THE ANCHOR MOVED FROM 400 TO 600 and that is the one thing to hold on to
+     when reading old code: a --primary-400 in a rule written before 20 Sep
+     meant "the brand", and it does not any more. Use var(--brand). */
+  --primary-50:  #ECE7FA;
+  --primary-100: #CDC4F3;
+  --primary-200: #AA9EEB;
+  --primary-300: #8676E4;
+  --primary-400: #6759DF;
+  --primary-500: #423DD8;
+  --primary-600: #3338D2;  /* main brand */
+  --primary-700: #1331C9;
+  --primary-800: #002BC2;
+  --primary-900: #0020B7;
+
+  /* Logo gradient endpoints, for the mark and brand gradients only */
+  --indigo-grad-from: #6369F6;
+  --indigo-grad-to:   #436FF6;
+
+  /* Violet accent: the blue-to-purple sweep in the mechanism beams. OFF
+     PALETTE, and the only raw hue left outside the three ramps. Secondary/300
+     #A675E1 is within a couple of values of it; fold this into that token
+     when the mechanism section comes back off `hidden`, rather than now,
+     because the section is not on screen to check the beams against. */
+  --violet-400: #A78BFA;
+
+  /* ---- Primitives: Secondary and Tertiary (the S and T ramps) -----------
+     Collors.pdf, 20 Sep, supplied with Primary. Two full ramps flanking the
+     brand: Secondary is purple, Tertiary is a true blue. They replace the
+     18 Sep Teal and Purple ramps entirely.
+
+     THE FAMILY RULE. The three anchors are the same colour at three hues,
+     and the third one is NOT on the same step (user correction, 20 Sep):
+
+         Tertiary/600   #3388D2   H 207.9   S 63.9   L 51.2
+         Primary/600    #3338D2   H 238.1   S 63.9   L 51.2
+         Secondary/500  #7D33D2   H 267.9   S 63.9   L 51.2
+
+     Saturation spread 0.0, lightness spread 0.0, hues -30.2 and +29.8 either
+     side of Primary. All three are identical in S and L to one decimal
+     place, which is as exact as the rule gets. Check any further ramp the
+     client sends by SOLVING for the step that matches S 63.9 / L 51.2,
+     not by reading 600 off the other two.
+
+     THE STEP NUMBERS DO NOT LINE UP, and this file was briefly wrong about
+     that. Secondary/600 #732ECC is L 49.0 and only +28.1 degrees out, so
+     pairing by number gives a purple that is a shade too dark and a touch
+     too close in hue. Secondary runs one step lighter than its number
+     suggests against the other two: Secondary/n sits where Primary/(n+100)
+     sits. This is the same trap the previous palette had with Teal at 300,
+     moved to a different ramp.
+
+     CONTRAST still splits their roles, because luminance is green-weighted
+     and the three differ sharply despite matching lightness:
+
+                          on white    on dark (--bg)
+         Primary/600        7.96:1        2.38:1
+         Secondary/500      6.41:1        2.95:1
+         Tertiary/600       3.75:1        5.04:1
+         Tertiary/300       2.25:1        8.41:1
+
+     So Secondary is the light-surface accent and Tertiary the dark-surface
+     one, the same division Purple and Teal had. Tertiary carries no body
+     text on white. Note the step a ROLE wants is not the anchor: the dark
+     surfaces want Tertiary/300, which is why --accent-on-dark exists below
+     rather than every component reaching for the primitive.
+
+     NAMING. The client labels these P, S and T; spelled out per the standing
+     convention that retired the P400 shorthand, they are Primary/n,
+     Secondary/n and Tertiary/n. */
+  --secondary-50:  #F0E8FA;
+  --secondary-100: #D8C5F2;
+  --secondary-200: #BF9EE9;
+  --secondary-300: #A675E1;
+  --secondary-400: #9255DA;
+  --secondary-500: #7D33D2;  /* pairs with Primary/600 */
+  --secondary-600: #732ECC;
+  --secondary-700: #6524C3;
+  --secondary-800: #581DBC;
+  --secondary-900: #4309B1;
+
+  --tertiary-50:  #E4F2FA;
+  --tertiary-100: #BDDEF5;
+  --tertiary-200: #94C9EF;
+  --tertiary-300: #6DB4E7;
+  --tertiary-400: #52A4E3;
+  --tertiary-500: #3A95DF;
+  --tertiary-600: #3388D2;  /* pairs with Primary/600 */
+  --tertiary-700: #2A76C0;
+  --tertiary-800: #2466AE;
+  --tertiary-900: #18498F;
+
+  /* ---- Raw ramp: slate (cool neutrals, hue-aligned to the indigo) --- */
+  --slate-50:  #F7F8FB;
+  --slate-100: #EFF1F6;
+  --slate-200: #E2E5EE;
+  --slate-300: #C7CBD9;
+  --slate-400: #9AA0B4;
+  --slate-500: #767C91;
+  --slate-600: #575D72;
+  --slate-700: #3D4356;
+  --slate-800: #262B3B;
+  --slate-900: #0B1020;
+
+  /* ---- Capillary lineage -------------------------------------------
+     Available for endorsement moments (the "by capillary" lockup,
+     parent-brand strips). Not part of the aiRA palette proper.        */
+  --capillary-navy:  #142737;
+  --capillary-blue:  #26A9E1;
+  --capillary-amber: #F4A114;
+  /* THE project's black (13 Sep, user's standing rule): "black" on aiRA
+     always means #212121, never #000000. It is the Capillary web palette's
+     ink, so --capillary-ink stays as its provenance-carrying alias; reach
+     for --black in day-to-day work. Pure #000 is not used anywhere. */
+  --black:           #212121;
+  --capillary-ink:   var(--black);
+
+  /* Capillary logo-petal colours, the web-palette teal, and the brand
+     guide's own aiRA violet (p.9). V3's hero rotator colour-codes the five
+     teams with these (13 Sep); not part of the aiRA palette proper. Teal
+     stands in for the logo yellow #F3CF02, which cannot be text on light
+     (user call, 13 Sep: the darkened-gold compromise "seems wrong"). */
+  --capillary-logo-blue:   #2080BD;
+  --capillary-logo-green:  #399D49;
+  --capillary-logo-orange: #DB5226;
+  --capillary-teal:        #23959A;
+  --capillary-olive:       #76923C;
+  --aira-violet:           #6F459B;
+
+  /* The guide's secondary tints (p.18), flattened over white from their
+     printed alpha values (#EB582620 / #2BAC4A34 / #178EAA3A) so they can
+     ground opaque fade overlays. V3 uses them as illustration-well and
+     pill washes (13 Sep). */
+  --capillary-tint-orange: #FDEAE4;
+  --capillary-tint-green:  #D4EEDA;
+  --capillary-tint-teal:   #CAE5EC;
+  --capillary-cream:       #FFF8EC;
+
+  /* ---- Semantic: surfaces ------------------------------------------ */
+  --bg:          #FBFBFD;
+  --bg-subtle:   var(--slate-50);
+  --surface:     #FFFFFF;
+  /* Section grounds (19 Sep, re-derived by measuring sequencehq.com rather
+     than eyeballing it). Two things came out of that measurement and both
+     changed the answer:
+
+     1. THEIR TINTS ARE MUCH DEEPER THAN OURS WERE. Their tinted section is
+        #E7EBF0, relative luminance 0.827, against a page ground at 0.966.
+        Ours sat at 0.914 and read as very nearly the page itself. These land
+        at 0.825.
+     2. THEIR TINTS ARE GREY FIRST, HUE SECOND. #E7EBF0 spans only 9 values
+        between its lowest and highest channel. Mixing a ramp into the near
+        white ground at this depth gave a saturated wash instead, so these mix
+        into --slate-100, which darkens and desaturates at the same time.
+
+     The percentages are NOT equal and must not be equalised: they are chosen
+     so all three land on one luminance, and luminance is green-weighted, so
+     teal needs nearly twice the primary's share. Same trap as the ramps' own
+     anchor steps. Re-derive, do not guess, if a ramp is re-supplied.
+
+     Re-derived 19 Sep: the set read dull, a grey-lavender rather than a tinted
+     white. The base moved from Slate/100 to Slate/50 and the primary's share
+     went 4.9% -> 8%, which lifts the trio from L 0.828 to L 0.849 and gives
+     the hue somewhere to show. The other two were re-solved against the new
+     primary, NOT nudged by eye, so the one-luminance rule above still holds
+     to within 2e-4. Primary now lands #EAEDFB, was #E7EAF6.
+
+     Re-derived AGAIN 20 Sep for the P/S/T palette. The anchors moved to row
+     600 and are darker (L 51 against the old L 64), so the same percentages
+     would have driven the trio well past the approved depth. Each share was
+     re-solved against the SAME target luminance the 19 Sep set landed on,
+     0.8485, so the grounds read exactly as deep as before with the new hues
+     in them. Holds to 5e-5, tighter than the set it replaces. */
+  --wash-primary:   color-mix(in srgb, var(--primary-600)   5.95%, var(--slate-50));
+  --wash-secondary: color-mix(in srgb, var(--secondary-500) 6.38%, var(--slate-50));
+  --wash-tertiary:  color-mix(in srgb, var(--tertiary-600)  8.70%, var(--slate-50));
+  /* For a section whose own illustration carries the colour. Sequence's ring
+     drawing sits on #F9F9F9, a near neutral, and that is why its line work
+     reads: the drawing is the only coloured thing in the frame. A coloured
+     drawing on a coloured ground is what buried ours. */
+  --wash-quiet:   var(--slate-50);
+  --surface-2:   var(--slate-100);
+  --surface-inv: var(--slate-900);
+
+  /* ---- Semantic: lines --------------------------------------------- */
+  --border:        #E7E9F1;
+  --border-strong: var(--slate-200);
+  --hairline:      rgba(11, 16, 32, 0.08);
+
+  /* Page frame: the vertical rails at the container edges and the joint
+     lines between sections. Kept light (11 Sep direction) but translucent
+     ink, not a fixed light grey: a solid line lighter than the hero wash
+     vanishes against it, while an alpha line reads on any ground. */
+  --frame-line:      var(--hairline);
+  --frame-line-inv:  rgba(255, 255, 255, 0.14);
+  --frame-plus:      var(--slate-500);
+  --frame-grid:      rgba(11, 16, 32, 0.07);
+  /* The grid dots on a dark section inside a light page: the ink-tinted
+     --frame-grid above disappears there. */
+  --frame-grid-inv:  rgba(255, 255, 255, 0.06);
+  /* Graph paper behind the nav drawer's glyphs. Same family as --frame-grid
+     but stronger: the drawer's squares are 10px, and at that size the page
+     grid's 7% line does not survive a 1x screen. */
+  --nav-graph:       rgba(11, 16, 32, 0.13);
+  --nav-graph-inv:   rgba(255, 255, 255, 0.13);
+
+  /* ---- Semantic: text ---------------------------------------------- */
+  --ink:        var(--slate-900);
+  --ink-2:      var(--slate-600);
+  --ink-3:      var(--slate-500);
+  --ink-faint:  var(--slate-400);
+  --ink-inv:    #FFFFFF;
+  --ink-inv-2:  rgba(255, 255, 255, 0.68);
+  --ink-inv-3:  rgba(255, 255, 255, 0.46);
+
+  /* ---- Semantic: brand --------------------------------------------- */
+  /* Re-keyed to the 600 anchor on 20 Sep. Hover and press darken, which is
+     the light-theme convention and what the ramp affords above 600. */
+  --brand:         var(--primary-600);
+  --brand-hover:   var(--primary-700);
+  --brand-press:   var(--primary-800);
+  --brand-subtle:  var(--primary-50);
+  --brand-line:    var(--primary-100);
+  /* The brand IS the ink now. Primary/600 is 7.96:1 on white, which is AAA
+     for normal text; the old anchor managed 4.34 and failed AA, which is the
+     only reason this token ever pointed at a darker step. */
+  --brand-ink:     var(--primary-600);
+
+  /* ---- Semantic: the two accents ------------------------------------
+     Named by the SURFACE they are legible on, not by hue or by step, because
+     the step each role needs is not the family anchor: Tertiary/600 is only
+     5.04:1 on the dark ground where Tertiary/300 is 8.41:1. Note the light
+     accent IS the anchor here, but the anchor is Secondary/500, not 600. Reach for these
+     rather than for a primitive and the contrast rule cannot be got wrong. */
+  --accent-on-light: var(--secondary-500);  /* 6.41:1 on white */
+  --accent-on-dark:  var(--tertiary-300);   /* 8.41:1 on --bg   */
+  --on-brand:      #FFFFFF;
+
+  /* ---- Semantic: approval grammar ----------------------------------
+     aiRA proposes, a person decides. These four states carry that
+     promise everywhere it appears in the UI.                          */
+  --pending:      var(--primary-500);
+  --pending-bg:   var(--primary-50);
+  --approve:      #0E8A4F;
+  --approve-bg:   #E6F5EC;
+  --hold:         #B26A00;
+  --hold-bg:      #FDF3E3;
+  --reject:       #C4106A;
+  --reject-bg:    #FCE7F1;
+
+  /* ---- Nav surfaces ---------------------------------------------------
+     Solid-ish fallback, and the glass pair used where backdrop-filter is
+     supported (header-three: bg/95, supports-backdrop-filter:bg/50).    */
+  /* Gap between the floating bar and the viewport top (16 Sep). */
+  --nav-float:             12px;
+  /* Opaque fallback for the floating bar, and the colour of the mobile sheet.
+     Until 16 Sep this was matched per page to whatever sat behind the bar so
+     it blended away; the floating card reads as its own surface instead. The
+     page ground rather than pure white: over the hero's tinted wash a #FFF
+     card reads as a hard white slab. Where backdrop-filter is supported the
+     bar goes translucent over this and picks up the wash. */
+  --nav-rest:              var(--bg);
+  --nav-surface:           rgba(251, 251, 253, 0.95);
+  --nav-surface-glass:     rgba(251, 251, 253, 0.55);
+  --nav-surface-inv:       rgba(11, 16, 32, 0.92);
+  --nav-surface-inv-glass: rgba(11, 16, 32, 0.60);
+
+  /* ---- Focus ------------------------------------------------------- */
+  --focus-ring: 0 0 0 3px rgba(51, 56, 210, 0.32);
+
+  /* ---- Elevation --------------------------------------------------- */
+  --shadow-xs: 0 1px 2px rgba(11, 16, 32, 0.04);
+  --shadow-sm: 0 1px 2px rgba(11, 16, 32, 0.04), 0 2px 6px -2px rgba(11, 16, 32, 0.06);
+  --shadow-md: 0 1px 2px rgba(11, 16, 32, 0.04), 0 10px 28px -18px rgba(11, 16, 32, 0.22);
+  --shadow-lg: 0 1px 2px rgba(11, 16, 32, 0.04), 0 28px 64px -34px rgba(11, 16, 32, 0.28);
+  /* Buttons (16 Sep, Clerk direction): a floating chip, not a flat fill.
+     Neutral ink, never a brand-tinted glow: the old primary carried a
+     rgba(82,108,246,.6) halo that was one of the largest indigo moments on
+     any page. Hover lifts the pool, press collapses it to the contact line. */
+  --shadow-btn:       0 1px 2px rgba(11, 16, 32, 0.08),
+                      0 2px 6px -2px rgba(11, 16, 32, 0.10);
+  /* Hover LIFTS, it does not bloom. The pool moves down (y 2 -> 4) and is
+     pulled in by a bigger negative spread rather than growing outward in
+     every direction, which is what made the button look like it scaled up
+     (user, 17 Sep) even though its box never changes size. */
+  --shadow-btn-hover: 0 1px 2px rgba(11, 16, 32, 0.10),
+                      0 4px 10px -4px rgba(11, 16, 32, 0.15);
+  --shadow-btn-press: 0 1px 2px rgba(11, 16, 32, 0.10);
+
+  /* THE floating-surface shadow (16 Sep). Any panel that should read as
+     lifted off the page takes this one: the header card, the mobile menu,
+     the comparison board's brand panel. Heavier than --shadow-md, but on a
+     wide low-opacity blur so it kisses the page rather than stamping on it:
+     a contact line, a soft ambient pool, and a short spread for weight.
+     Named --shadow-nav until it turned out to be the general case. */
+  --shadow-float: 0 1px 2px rgba(11, 16, 32, 0.05),
+                  0 4px 10px -4px rgba(11, 16, 32, 0.08),
+                  0 14px 32px -12px rgba(11, 16, 32, 0.16);
+
+  /* ---- Radius ------------------------------------------------------ */
+  --r-xs:   4px;
+  --r-sm:   8px;
+  --r-md:   12px;
+  --r-lg:   16px;
+  --r-xl:   22px;
+  --r-pill: 999px;
+
+  /* ---- Type families -------------------------------------------------
+     Locked 11 Sep, display face swapped 16 Sep: headings always Google
+     Sans Flex, body always Inter.
+     Jakarta is out. Inter loads as a variable font (300..800) so the
+     450 body weight is a true instance, not a synthesized one.          */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system,
+               'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo,
+               'Liberation Mono', monospace;
+  /* Google Sans Flex (16 Sep), replacing Instrument Sans. SIL OFL, so it is
+     free to ship. Loaded with the opsz axis as well as wght, which Instrument
+     Sans had no equivalent for: the 70px hero and a 16px card title now get
+     genuinely different drawings rather than one outline scaled. */
+  --font-display: 'Google Sans Flex', ui-sans-serif, system-ui, -apple-system,
+                  'Segoe UI', sans-serif;
+  /* Roboto (19 Sep): the face the aiRA product itself renders in. Only the
+     drawn product UI wears it (the walkthrough stage on the hubs), so those
+     illustrations read as the product rather than as the site. Pages that
+     use it must load Roboto in their own font request. */
+  --font-product: 'Roboto', ui-sans-serif, system-ui, -apple-system,
+                  'Segoe UI', sans-serif;
+
+  /* ---- Type scale --------------------------------------------------
+     Locked 11 Sep: even pixel sizes only, 12px minimum, site-wide.
+     Display sizes are fluid but cap at the locked size; body sizes are
+     fixed so line length and rhythm stay predictable.                 */
+  /* Oversize numeral, currently only the 404 page's code. Even px at both
+     ends per the type rules (96 -> 180). */
+  --t-display-giant: clamp(6rem, 3.9rem + 8.6vw, 11.25rem);
+  /* THE HERO SIZE, 64px since 28 Sep (user). It was 70 from the 11 Sep type
+     lock until then, and the change is site-wide by design: every hero that
+     is not a utility page now takes this one token, where before /product,
+     /about and the twelve industry pages sat at 60 and the homepage and
+     /solutions at 70. The slope is solved to keep the old behaviour at both
+     ends, 36px at 390 and the cap reached at about 1390. */
+  --t-display-0: clamp(2.25rem, 1.568rem + 2.8vw, 4rem);      /* 36 -> 64, hero H1 */
+  --t-display-1: clamp(2rem, 1.23rem + 3.15vw, 3.75rem);      /* 32 -> 60, reserve */
+  /* 32 -> 48, interior-page H1. Caps at 48 by 992px, which is the width
+     where /book's split hero stacks, so the headline is at full size for
+     every layout that puts something beside it. */
+  --t-display-1s: clamp(2rem, 1.37rem + 2.63vw, 3rem);        /* 32 -> 48, interior H1 */
+  /* 36px since 28 Sep (user: "do all h2 font sizes 36px"). It was 30 -> 40
+     from the 11 Sep type lock. The slope is re-solved rather than the cap
+     simply lowered, so both ends behave as they did: 30px at 393 and the cap
+     reached at about 1285. */
+  --t-display-2: clamp(1.875rem, 1.71rem + 0.673vw, 2.25rem); /* 30 -> 36, H2 */
+  --t-display-3: clamp(1.5rem, 1.39rem + 0.45vw, 1.75rem);    /* 24 -> 28, H3 */
+  --t-title:     1.125rem;    /* 18 */
+  --t-title-lg:  1.25rem;     /* 20, list-entry titles (.biz__t) */
+  /* 24 FLAT, added 28 Sep. The scale had no flat 24: --t-display-3 starts
+     there but clamps up to 28, so a statement that wants 24 at every width
+     had nowhere to go. Continues the title family's 16 / 18 / 20 / 24. */
+  --t-title-xl:  1.5rem;      /* 24, flat */
+  --t-title-sm:  1rem;        /* 16 */
+  --t-lede:      1.25rem;     /* 20, a lede set above the subheader */
+  /* 18, added 28 Sep for the HERO subheads (.hero__sub, .phero__sub), which
+     the user set to 18 in the same pass that took every other sub to 14. It
+     shares --t-title's value and is a separate token for the same reason
+     --t-body-sm shares --t-body's: the role is what is being named, so a
+     later change to card titles must not move a hero's second line. The
+     body family now reads 14 / 16 / 18. */
+  --t-body-xl:   1.125rem;    /* 18, hero subheader */
+  --t-body-lg:   1rem;        /* 16, subheader / lede */
+  --t-body:      0.875rem;    /* 14 */
+  --t-body-sm:   0.875rem;    /* 14, nav links, buttons, UI */
+  --t-caption:   0.75rem;     /* 12 */
+  --t-mono:      0.75rem;     /* 12 */
+  --t-mono-lg:   0.875rem;    /* 14 */
+
+  --lh-display: 1.06;
+  --lh-title:   1.32;
+  --lh-body:    1.68;
+
+  --tr-display: -0.035em;   /* tracking */
+  --tr-title:   -0.015em;
+  --tr-mono:    0.09em;
+
+  /* ---- Space ------------------------------------------------------- */
+  --sp-1: 4px;   --sp-2: 8px;   --sp-3: 12px;  --sp-4: 16px;
+  --sp-5: 20px;  --sp-6: 24px;  --sp-8: 32px;  --sp-10: 40px;
+  --sp-12: 48px; --sp-16: 64px; --sp-20: 80px; --sp-24: 96px;
+
+  /* ---- Layout ------------------------------------------------------ */
+  /* One vertical rhythm for every major block: sections pad with it and
+     the footer gaps with it. global.css steps it down per breakpoint. */
+  /* 80px since 17 Sep (was 96). Drives every .section's vertical rhythm and
+     the footer's top gap. */
+  --section-pad: var(--sp-20);
+  --container:   80rem;   /* 1280 */
+  --container-narrow: 46rem;
+  --pad-x:       5%;
+  --nav-h:       56px;
+  /* X offset of the page frame's vertical rails: the .container's left and
+     right edge. Only valid on full-viewport-width elements, where 50% and
+     the 5% pad resolve against the same width padding-global uses. */
+  --frame-x: max(var(--pad-x), calc(50% - var(--container) / 2));
+
+  /* ---- Motion ------------------------------------------------------
+     One easing curve across the site. Things settle into place.       */
+  --ease:      cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast:  0.18s;
+  --dur:       0.28s;
+  --dur-slow:  0.42s;
+}
+
+/* ==========================================================================
+   Dark theme — SCAFFOLDED, NOT YET DESIGNED.
+
+   Light is the shipping theme. This block exists so the architecture is
+   proven and dark is a starting point rather than a retrofit. It is gated
+   on an explicit [data-theme="dark"] only, never on prefers-color-scheme,
+   so it cannot activate by accident.
+
+   Before shipping dark: audit every section, re-check contrast, and supply
+   a reverse (white wordmark) logo. The current lockup is pure black and
+   will be invisible here.
+   ========================================================================== */
+
+:root[data-theme="dark"] {
+  --bg:          #080B14;
+  --bg-subtle:   #0D111C;
+  --surface:     #10141F;
+  --surface-2:   #171C29;
+  --surface-inv: #F7F8FB;
+
+  --border:        #1F2532;
+  --border-strong: #2B3242;
+  --hairline:      rgba(255, 255, 255, 0.10);
+
+  --ink:        #F2F4FA;
+  --ink-2:      #A7AEC1;
+  --ink-3:      #858C9E;
+  --ink-faint:  #626878;
+  --ink-inv:    #0B1020;
+  --ink-inv-2:  rgba(11, 16, 32, 0.68);
+  --ink-inv-3:  rgba(11, 16, 32, 0.46);
+
+  --brand:        var(--primary-300);
+  --brand-hover:  var(--primary-200);
+  --brand-press:  var(--primary-100);
+  /* rgb(51, 56, 210) is Primary/600's channels. These were rgba(82,108,246)
+     until 20 Sep, which is the RETIRED brand: hard-coded alpha values do not
+     follow a ramp swap, so they are the first thing to go stale. */
+  --brand-subtle: rgba(51, 56, 210, 0.16);
+  --brand-line:   rgba(51, 56, 210, 0.34);
+  --brand-ink:    var(--primary-200);
+
+  /* Dark inverts the surface split: on this ground Tertiary is the readable
+     accent and Secondary the quiet one, so the aliases swap targets. */
+  --accent-on-light: var(--secondary-300);
+  --accent-on-dark:  var(--tertiary-300);
+
+  --nav-surface:           rgba(8, 11, 20, 0.92);
+  --nav-surface-glass:     rgba(8, 11, 20, 0.60);
+  --nav-surface-inv:       rgba(8, 11, 20, 0.92);
+  --nav-surface-inv-glass: rgba(8, 11, 20, 0.60);
+
+  --pending:    var(--primary-300);
+  --pending-bg: rgba(51, 56, 210, 0.16);
+  --approve:    #4ED18B;
+  --approve-bg: rgba(14, 138, 79, 0.18);
+  --hold:       #E5A93F;
+  --hold-bg:    rgba(178, 106, 0, 0.20);
+  --reject:     #F075AC;
+  --reject-bg:  rgba(196, 16, 106, 0.18);
+
+  /* THE SLATE RAMP HAS TO FLIP TOO, and forgetting it is what makes a dark
+     page look nearly right and then end in a light grey footer: .footer's
+     ground is var(--slate-100) and the --wash-* tokens are mixes over
+     --slate-50. Both are declared in the :root block above, and because
+     THIS block is the same element, redefining the ramp here does reach
+     them. (Contrast .page-v2 in home-v2.css, which is on <body>: a custom
+     property resolves its var()s against the element it is DECLARED on, so
+     a remap one level down never reached the washes and they had to be
+     restated. Same trap, different answer, purely because of where the
+     hook sits.) */
+  --slate-50:  #0B0F19;
+  --slate-100: #0C101B;
+  --slate-200: #10151F;
+  --slate-300: #1A2030;
+
+  /* Frame: --frame-line already flips, because it is var(--hairline) and
+     the hairline is redefined above. These two do not, because they are
+     fixed ink-tinted values: the grid is dark-on-dark and invisible, and
+     the crossing square is a mid grey that goes muddy. The -inv values
+     beside them in :root are exactly the right ones. */
+  --frame-grid: rgba(255, 255, 255, 0.06);
+  --frame-plus: var(--slate-400);
+  --nav-graph:  rgba(255, 255, 255, 0.13);
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.30);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.30), 0 2px 6px -2px rgba(0, 0, 0, 0.40);
+  --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.30), 0 10px 28px -18px rgba(0, 0, 0, 0.60);
+  --shadow-lg: 0 1px 2px rgba(0, 0, 0, 0.30), 0 28px 64px -34px rgba(0, 0, 0, 0.70);
+}

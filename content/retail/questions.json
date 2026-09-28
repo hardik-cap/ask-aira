@@ -1,0 +1,42 @@
+{
+  "r-marketing": {
+    "role": "marketing",
+    "questions": [
+      "Which stores under-performed the national promo, and what do they have in common?",
+      "What did the loyalty push cost in margin per incremental visit?",
+      "Draft next month&rsquo;s markdown plan for the categories sitting on excess weeks of cover."
+    ]
+  },
+  "r-crm": {
+    "role": "crm",
+    "questions": [
+      "Which members moved down a tier this year, and what changed in their basket first?",
+      "Who is buying the same three categories and nothing else, and what should we send them?",
+      "Build the reactivation audience for members who lapsed after a single full-price order."
+    ]
+  },
+  "r-bi": {
+    "role": "bi",
+    "questions": [
+      "Reconcile last week&rsquo;s POS totals against the loyalty ledger and show me the gaps.",
+      "Which stores are issuing points faster than they are taking sales?",
+      "Give the trade team a weekly view of basket size by region they can read without me."
+    ]
+  },
+  "r-ecommerce": {
+    "role": "ecommerce",
+    "questions": [
+      "Which online-first buyers later bought in store, and what brought them in?",
+      "Is click-and-collect adding trips, or moving the same trips off delivery?",
+      "What does a returner&rsquo;s second order look like, and is it worth keeping them?"
+    ]
+  },
+  "r-growth": {
+    "role": "growth",
+    "questions": [
+      "Which acquisition channel produces members who are still buying at month twelve?",
+      "Model what a one-tier threshold change would do to redemption and to margin.",
+      "Where is repeat purchase stalling first, and is it price, range or delivery?"
+    ]
+  }
+}

@@ -1,0 +1,511 @@
+/* ==========================================================================
+   aiRA - Industry hub pages (/solutions/retail, /solutions/restaurants-qsr,
+   /solutions/travel-hospitality, /solutions/telecom)
+
+   The split hero and its media slot are shared by all four hubs, so they live
+   here once rather than four times; each page keeps its own stylesheet for
+   what is genuinely its own (retail's category grid, each page's shape cards).
+   Loaded AFTER pages/solutions.css (the seat machinery) and before the page's
+   own file.
+   ========================================================================== */
+
+/* ---- Hero -----------------------------------------------------------------
+   Split, MoEngage-style: the industry is already chosen by arriving here, so
+   the hero leads with the claim and keeps the two routes beside it. */
+
+/* A FULL SCREEN since 28 Sep (user), so the section below it starts exactly at
+   the fold. No offset is needed here and that is not luck: the negative
+   margin-top below runs this hero up behind the floating header and the top
+   padding gives the same distance back, so the section's own box starts at
+   y=0 and 100svh is the whole viewport.
+   svh and not vh: on a phone 100vh is the LARGEST viewport, measured with the
+   browser chrome retracted, so a 100vh hero is always taller than the screen
+   it opens on. The vh line under it is the fallback for older engines.
+   The copy centres in whatever height is left; the padding stays as the
+   floor, so a short viewport still clears the header. */
+.hero-ind {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  /* Run the ground up behind the floating header and its gap, then give the
+     top pad back, so the page has no strip of bare background above the bar. */
+  margin-top: calc(-1 * (var(--nav-h) + var(--nav-float) + 2px));
+  padding-block: calc(var(--sp-20) + var(--nav-h) + var(--nav-float) + 2px) var(--sp-20);
+  /* Analogous halo (18 Sep): the brand tint at top centre with its two
+     client-supplied flanks breathing either side of it, T300 sky to the
+     left, accent-400 purple to the right. All three stay whispers. */
+  background:
+    radial-gradient(42% 44% at 24% 0%,
+      color-mix(in srgb, var(--tertiary-300) 7%, transparent), transparent 70%),
+    radial-gradient(42% 44% at 76% 0%,
+      color-mix(in srgb, var(--secondary-400) 6%, transparent), transparent 70%),
+    radial-gradient(58% 46% at 50% 0%,
+      color-mix(in srgb, var(--brand) 5%, transparent), transparent 72%),
+    linear-gradient(180deg, var(--bg-subtle), var(--bg) 78%);
+}
+.hero-ind > .padding-global { width: 100%; }
+
+.hero-ind__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: var(--sp-16);
+  align-items: center;
+}
+
+.hero-ind__t {
+  font-family: var(--font-display);
+  /* --t-display-1 (32 to 60), not the 70px hero token: this headline lives in
+     half the width, and at the full hero size it broke to three lines and the
+     <br> stopped meaning anything. */
+  font-size: var(--t-display-0);
+  /* 500, the locked H1 weight, same as the homepage hero. */
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+  margin-bottom: var(--sp-5);
+}
+
+.hero-ind__sub {
+  font-size: var(--t-body-xl);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 34rem;
+}
+
+.hero-ind__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-top: var(--sp-8);
+}
+
+.hero-ind__note {
+  margin-top: var(--sp-6);
+  font-size: var(--t-caption);
+  color: var(--ink-faint);
+}
+
+/* The hero figure is the same placeholder slot the seats use, so when real
+   screenshots arrive they drop into one treatment rather than two. */
+.hero-ind__shot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 16/10 since 19 Sep: 4/3 gave the photo more height than the hero copy
+     beside it could answer. */
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-float);
+  background-color: var(--surface);
+  background-image:
+    repeating-linear-gradient(to right, var(--frame-grid) 0 1px, transparent 1px 22px),
+    repeating-linear-gradient(to bottom, var(--frame-grid) 0 1px, transparent 1px 22px);
+}
+.hero-ind__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+.hero-ind__shot:has(img) {
+  background-image: none;
+  padding: 0;
+}
+.hero-ind__shot:has(img) .seat__shot-ic { display: none; }
+
+/* ---- Floating UI cards on the hero photo (19 Sep, moengage.com role-page
+   reference): two small drawn-UI cards ride the photo's edges, an audience
+   card top-left and the proposed move bottom-right, so the approval grammar
+   is visible before the first scroll. Drawn in CSS like every product
+   surface without a screenshot, and aria-hidden: they illustrate, the copy
+   beside them explains. */
+.hero-ind__fig { position: relative; }
+.hero-float {
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  gap: 4px;
+  justify-items: start;
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-float);
+}
+.hero-float--aud { top: 20px; left: -28px; }
+.hero-float--move { bottom: 24px; right: -20px; }
+.hero-float__t {
+  font-family: var(--font-display);
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+}
+.hero-float__n {
+  font-size: var(--t-body);
+  color: var(--ink-2);
+}
+@media (max-width: 991px) {
+  /* Full-width figure below the split: the cards tuck inside the photo's
+     edges instead of overhanging a gap that no longer exists. */
+  .hero-float--aud { left: 12px; }
+  .hero-float--move { right: 12px; }
+}
+@media (max-width: 640px) {
+  .hero-float { display: none; }
+}
+
+
+@media (max-width: 991px) {
+  .hero-ind {
+    padding-block: calc(var(--sp-16) + var(--nav-h) + var(--nav-float) + 2px) var(--sp-16);
+  }
+  .hero-ind__grid {
+    grid-template-columns: 1fr;
+    gap: var(--sp-10);
+  }
+  /* The figure is a placeholder; below the split it earns less height. */
+  .hero-ind__shot { aspect-ratio: 16 / 10; }
+}
+
+@media (max-width: 640px) {
+  .hero-ind__cta .btn { width: 100%; justify-content: center; }
+}
+
+/* ---- The shape of the industry ---------------------------------------------
+   The differentiator section: three structural truths about this vertical.
+   Hairline-topped open columns rather than boxed cards, the questions-grid
+   language from the homepage, because these are claims to read rather than
+   destinations to click. */
+
+.shape-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-10);
+  margin-top: var(--sp-12);
+}
+/* On the hubs the three facets take the homepage questions grid's anatomy
+   (17 Sep, user call: same as .feat__mini): open cells, a duotone Phosphor
+   icon riding the title as a prefix, the description below. The hairline
+   above the row came off on 19 Sep along with the space either side of it:
+   the margin the user asked to drop, and the padding that only existed to
+   clear the line. The row now sits flush under the section head.
+   Scoped away from the category pages' four-up variant, which loads this
+   file as well and keeps its own spacing (it restyles into cards in
+   category.css and never had the hairline). */
+.shape-grid:not(.shape-grid--4) {
+  margin-top: 0;
+}
+
+.shape { min-width: 0; }
+.shape__t {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-family: var(--font-display);
+  font-size: var(--t-title-sm);
+  font-weight: 500;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+  margin-bottom: var(--sp-2);
+}
+.shape__ic {
+  display: inline-flex;
+  flex: none;
+  color: var(--brand);
+}
+.shape__ic svg { width: 20px; height: 20px; }
+.shape__d {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+}
+
+@media (max-width: 991px) {
+  .shape-grid { grid-template-columns: 1fr; gap: var(--sp-8); }
+}
+
+
+/* ---- Seats -----------------------------------------------------------------
+   Every hub reuses the finder's seat machinery from pages/solutions.css and
+   wraps it in .rseats. These two rules were in pages/retail.css, which only
+   the retail hub loads, so the other three hubs were spacing their tab bar
+   differently; they belong with the shared hub styles. */
+
+/* The section head already says what the panel is, so the group's own heading
+   would be a second title on the same thought. */
+.rseats .finder__group-head { display: none; }
+
+/* ---- The asks (19 Sep) -------------------------------------------------------
+   The teams section came out on Hardik's call; what stands in its place
+   follows the solution-first turn: three real asks for the industry, each
+   taken from the opening question through the drill-down it earns to the
+   move held for approval. The question is a .qstring, the sequence is the
+   .thread trace, the promise is the .state badge. */
+
+/* Since 19 Sep (evening) each thread is drawn as the product's own chat: the
+   ask as a user bubble, the answer under the sparkle, the follow-up bubble,
+   and the proposed move as a card wearing the approval badge. The three
+   panels share hairlines with no gap, lgrid-style, so the grid's own lines
+   connect them into one board. */
+/* Frigade-style walkthrough (19 Sep, rebuilt the same evening to the
+   frigade.com reference). ONE BOARD split 36/64: a left rail of three
+   numbered steps driving the stage beside it. The steps divide on hairlines
+   with no gap, and the open one takes a wash tint plus a brand rule down its
+   left edge which doubles as the timer js/askstory.js advances on. The band
+   still runs rail to rail, and every line in it is --frame-line: the page's
+   own rail colour, so the board matches the frame around it. It was Slate/300
+   until 19 Sep, which read a shade heavier and bluer than every other border
+   on the page. Without the script .is-live never
+   lands and the three panels simply stack and read whole. */
+.askstory {
+  display: grid;
+  grid-template-columns: minmax(0, 36fr) minmax(0, 64fr);
+  gap: 0;
+  align-items: stretch;
+  margin-top: var(--sp-12);
+  /* Breaks the container's gutter so the band's top and bottom hairlines
+     reach the frame's own lines instead of stopping short of them. */
+  margin-inline: calc(-1 * var(--sp-5));
+  border-block: 1px solid var(--frame-line);
+}
+/* The section wears .section--band from 19 Sep, so above 1200px the container
+   pads 136px and the dot bands take the first 112px of it. Pulling only the
+   remaining 24px puts the board's edges on the bands' inner lines: it meets
+   the dots without running under them. Same arithmetic as the homepage's
+   difference board. */
+@media (min-width: 1200px) {
+  .askstory { margin-inline: -24px; }
+}
+
+.askstory__rail {
+  display: flex;
+  flex-direction: column;
+  /* The column divider. Each step's own rule butts into it, so every
+     horizontal line runs from the board's left edge to this one. */
+  border-right: 1px solid var(--frame-line);
+}
+.askstory__step {
+  position: relative;
+  /* Equal thirds of the stage's height, so the rail's lines sit at fixed
+     points rather than wherever the copy happens to end. */
+  flex: 1 1 0;
+  display: grid;
+  align-content: center;
+  gap: var(--sp-2);
+  justify-items: start;
+  padding: var(--sp-6);
+  background: none;
+  border: 0;
+  border-top: 1px solid var(--frame-line);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease);
+}
+/* The band's own top hairline already draws this one. */
+.askstory__step:first-child { border-top: 0; }
+/* Three steps of light off the section wash. Closed steps carry no fill at
+   all; hover puts a quarter of white over the wash; the open one lands on
+   Slate/50. The open step was pure white until 19 Sep and read too hot next
+   to a ground this light, so it came down one step on the ramp, which also
+   leaves hover somewhere to sit between the two. */
+.askstory__step.is-active { background: var(--slate-50); }
+@media (hover: hover) {
+  .askstory__step:not(.is-active):hover {
+    background: color-mix(in srgb, var(--surface) 25%, transparent);
+  }
+}
+/* Inset, so the ring does not sit on the board's hairlines. */
+.askstory__step:focus-visible { outline: 2px solid var(--brand); outline-offset: -3px; }
+
+/* The timer: a 3px rule down the open step's left edge, filling top to
+   bottom while that step holds the stage. The closed steps carry no track,
+   so the bar reads as the marker for the open one rather than as a gauge
+   sitting under all three. */
+.askstory__bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  overflow: hidden;
+}
+.askstory__bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--brand);
+  transform: scaleY(0);
+  transform-origin: top;
+}
+/* With the script off nothing animates, so the open step still needs its
+   marker: the bar rests full height. Once .is-live lands the script owns the
+   bar, and it parks at zero until .is-running says the clock is actually
+   going. The keyframe names its own start so the fill always runs 0 -> 1
+   whatever the resting value underneath it is. */
+.askstory__step.is-active .askstory__bar::after { transform: scaleY(1); }
+.is-live .askstory__step.is-active .askstory__bar::after { transform: scaleY(0); }
+/* .is-running is set in the same frame as the setTimeout, so the line and
+   the advance are one clock rather than two that drift apart. */
+.askstory.is-running .askstory__step.is-active .askstory__bar::after {
+  animation: askstory-fill 6000ms linear forwards;
+}
+.askstory.is-held .askstory__step.is-active .askstory__bar::after {
+  animation-play-state: paused;
+}
+@keyframes askstory-fill {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+
+/* The step's own eyebrow. Geist Mono at 10px, set directly by the user on
+   19 Sep and knowingly against two standing rules: the 12px floor, which has
+   no other exception anywhere on the site, and mono's confinement to section
+   eyebrows and drawn illustrations. Both rules still hold everywhere else.
+   The size is literal rather than a token because no 10px token exists and
+   adding one would invite the floor to be broken again. */
+.askstory__n {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--ink-3);
+}
+.askstory__t {
+  font-family: var(--font-display);
+  font-size: var(--t-title-sm);
+  font-weight: 500;
+  line-height: var(--lh-title);
+  letter-spacing: var(--tr-title);
+  color: var(--ink-3);
+  transition: color var(--dur) var(--ease);
+}
+.askstory__step.is-active .askstory__t { color: var(--ink); }
+.askstory__d {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-3);
+  transition: color var(--dur) var(--ease);
+}
+.askstory__step.is-active .askstory__d { color: var(--ink-2); }
+
+/* The stage: the board's right cell, not a box of its own. Panels stack in
+   the same cell so it holds the tallest story's height and never jumps. */
+.askstory__stage {
+  display: grid;
+  align-content: center;
+  gap: var(--sp-10);
+  padding: var(--sp-10) var(--sp-8);
+  background: var(--bg-subtle);
+}
+.askstory__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  width: 100%;
+  max-width: 34rem;
+  margin-inline: auto;
+  min-width: 0;
+}
+.is-live .askstory__panel {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s var(--ease), visibility 0.35s;
+}
+.is-live .askstory__panel.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Everything on the stage is the product, so it renders in the product's
+   own face (user call, 19 Sep): Roboto for every register inside the frame,
+   including the pieces that carry display or mono elsewhere on the site.
+   Sizes, weights and tracking stay as they are; only the face changes. */
+.askstory__stage,
+.askstory__stage .chat__tool-t,
+.askstory__stage .chat__tool-m,
+.askstory__stage .chat__kpi-l,
+.askstory__stage .chat__kpi-n,
+.askstory__stage .chat__aud-t,
+.askstory__stage .chat__aud-n,
+.askstory__stage .chat__move-t,
+.askstory__stage .chat__ver,
+.askstory__stage .mono,
+.askstory__stage .state {
+  font-family: var(--font-product);
+}
+
+/* ---- Chat vocabulary -------------------------------------------------------
+   The .chat__* rules moved to components.css on 20 Sep, when the homepage's
+   difference loop took the same elements; one source now styles them on the
+   hubs and index.html. The Roboto pinning above stays here: each page pins
+   its own product surface to --font-product. */
+
+@media (max-width: 991px) {
+  .askstory {
+    grid-template-columns: 1fr;
+    /* The board KEEPS the page's 20px gutter (user, 20 Sep: full bleed put
+       the open step's progress rule on the screen edge), and side hairlines
+       close the box that the rail-to-rail band never needed. */
+    margin-inline: 0;
+    border: 1px solid var(--frame-line);
+  }
+  /* Stacked, the board reads as an accordion (20 Sep, user call): each
+     step's illustration plays RIGHT BELOW its step, not on one far stage
+     under all three. display: contents lifts the six cells into the board's
+     own grid so order can interleave them; the rail and stage boxes (and
+     their borders) stop rendering, and the panels carry the stage's wash
+     and gutter themselves. */
+  .askstory__rail,
+  .askstory__stage { display: contents; }
+  .askstory__step:nth-of-type(1) { order: 1; }
+  .askstory__panel:nth-of-type(1) { order: 2; }
+  .askstory__step:nth-of-type(2) { order: 3; }
+  .askstory__panel:nth-of-type(2) { order: 4; }
+  .askstory__step:nth-of-type(3) { order: 5; }
+  .askstory__panel:nth-of-type(3) { order: 6; }
+  .askstory__rail { border-right: 0; }
+  .askstory__step { padding: var(--sp-6) var(--pad-x); }
+  /* The open step stays on the section wash here (user, 20 Sep: its Slate/50
+     fill and the illustration's light ground read as one white slab): the
+     brand bar and the ink shift mark it, accordion-style, and the light
+     ground below is the illustration's alone, cut off by a hairline. */
+  .askstory__step.is-active { background: none; }
+  .askstory__panel {
+    /* The stage's old inline padding, still capping the story at 34rem and
+       centring it on a tablet. */
+    padding: var(--sp-8) max(var(--pad-x), calc(50% - 17rem));
+    max-width: none;
+    background: var(--bg-subtle);
+    border-top: 1px solid var(--frame-line);
+  }
+  /* Live, the closed stories leave the flow entirely so the accordion
+     collapses; visibility and the desktop cross-fade are stage mechanics
+     and come off with it. */
+  .is-live .askstory__panel {
+    grid-area: auto;
+    display: none;
+    opacity: 1;
+    visibility: visible;
+    transition: none;
+  }
+  .is-live .askstory__panel.is-active { display: flex; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* No clock at all, so the bar goes back to being a plain marker for the
+     open step rather than parking empty. */
+  .is-live .askstory__step.is-active .askstory__bar::after {
+    animation: none;
+    transform: scaleY(1);
+  }
+  .askstory__step, .askstory__t, .askstory__d { transition: none; }
+  .is-live .askstory__panel { transition: none; }
+}

@@ -1,0 +1,619 @@
+/* ==========================================================================
+   aiRA - Retail category pages (/solutions/retail/<category>)
+
+   The eight pages the project exists to produce (IA §3). Anatomy: hero, the
+   shape of the category, five role sections as ANCHORS (#marketing, #crm,
+   #bi, #ecommerce, #growth), proof where one is cleared, close.
+
+   These load pages/solutions.css and pages/industry.css the way the hubs do,
+   so the hero, the close card and the section furniture are inherited. Only
+   what is new to a category page lives here: the breadcrumb, the four-facet
+   shape grid, and the role blocks built on the .qledger component that was
+   kept back for exactly this page (components.css).
+
+   Role sections are anchors rather than tabs on purpose. The questions are
+   the page: all fifteen stay in the markup, readable and indexable, with no
+   script needed to reach any of them. Tabs are the hub's device, where the
+   job is comparison; here the job is depth.
+   ========================================================================== */
+
+/* ---- Breadcrumb strip -------------------------------------------------------
+   A category page is two levels down, and it is the page most likely to be
+   entered cold from search, so it states where it sits before it says
+   anything else. The trail is chrome rather than content: it rides its own
+   slim band above the hero, closed by a full-width joint, and the page's
+   opening claim starts on a clean line below. The arrow returns to the
+   solutions finder. */
+
+/* The strip is the first band on a category page, so it takes over the
+   hero's job of running the ground up behind the floating header
+   (industry.css); the hero itself returns to normal flow below the joint. */
+.crumb-strip {
+  /* Where the rule sits: clear of the floating header by the same 12px the
+     header floats below the page top. Flush with the card's bottom edge the
+     line was invisible, reading as part of the card's own border. */
+  --crumb-rule: calc(var(--nav-h) + var(--nav-float) * 2 + 2px);
+  margin-top: calc(-1 * (var(--nav-h) + var(--nav-float) + 2px));
+  padding-block: calc(var(--crumb-rule) + var(--sp-6)) var(--sp-6);
+  /* The hairline closing the band at the top is painted as a background
+     layer, NOT a pseudo-element: .section::before and ::after are the page
+     frame's two vertical rails, so a ::before here would replace the left
+     rail rather than add a line. The joint closes the band at the bottom. */
+  background-color: var(--bg-subtle);
+  background-image: linear-gradient(var(--frame-line), var(--frame-line));
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  background-position: 0 var(--crumb-rule);
+}
+.page-category .hero-ind {
+  margin-top: 0;
+  padding-block: var(--sp-16) var(--sp-20);
+}
+
+/* One centred column (17 Sep, user call): the hero figure came out, and with
+   it the split, so the claim is centred on the page rather than hanging off
+   the left rail with nothing opposite it. The hubs keep their split hero;
+   this is category pages only.
+
+   The ground is flat. The shared hero carries a brand radial over a
+   bg-subtle-to-bg fade, which on a category page has the crumb band directly
+   above it: the tint read as a smudge under the floating header and the fade
+   ended mid-section, so neither edge met its neighbour cleanly. A single
+   ground and the joints do that job instead. */
+/* The ground stays effectively flat, but since 18 Sep the claim carries a
+   whisper of the analogous pair behind it: T300 sky left of centre,
+   accent-400 purple right, both radials that die out well before the
+   section's edges so the old smudge-under-the-header problem cannot
+   return. */
+.page-category .hero-ind {
+  background:
+    radial-gradient(30rem 16rem at 38% 44%,
+      color-mix(in srgb, var(--tertiary-300) 6%, transparent), transparent 72%),
+    radial-gradient(30rem 16rem at 62% 44%,
+      color-mix(in srgb, var(--secondary-400) 5%, transparent), transparent 72%),
+    var(--bg);
+}
+.page-category .hero-ind__grid { grid-template-columns: minmax(0, 1fr); }
+.page-category .hero-ind__copy {
+  max-width: 46rem;
+  margin-inline: auto;
+  text-align: center;
+}
+.page-category .hero-ind__sub {
+  max-width: 40rem;
+  margin-inline: auto;
+}
+.page-category .hero-ind__cta { justify-content: center; }
+@media (max-width: 991px) {
+  .page-category .hero-ind { padding-block: var(--sp-12) var(--sp-16); }
+}
+
+/* ---- Hero orbits ------------------------------------------------------------
+   Concentric hairline rings centred on the hero claim, with the seven
+   capability icons riding them as satellites (MoEngage reference, 18 Sep).
+   Alternate rings spin opposite ways; each chip counter-spins at the same
+   period so its icon stays upright. The whole field is masked so it clears
+   the centre where the claim sits, and everything is CSS: with reduced
+   motion the satellites simply hold their positions. */
+
+.orbits {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  /* Two mask layers intersected: the ellipse clears the centre for the
+     claim, and the vertical band fades the field out at the hero's top and
+     bottom edges so rings never end on a hard clip line. */
+  -webkit-mask-image:
+    radial-gradient(ellipse 40rem 15rem at 50% 50%, transparent 62%, #000 88%),
+    linear-gradient(180deg, transparent, #000 10% 90%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(ellipse 40rem 15rem at 50% 50%, transparent 62%, #000 88%),
+    linear-gradient(180deg, transparent, #000 10% 90%, transparent);
+  mask-composite: intersect;
+}
+/* The annular bands between the rings carry the analogous pair as whisper
+   fills: sky between the first and second orbit, purple between the second
+   and third, each stopping exactly on a ring's hairline so the rings read
+   as the bands' edges. The container's mask fades them with everything
+   else. */
+.orbits::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle,
+    transparent 260px,
+    color-mix(in srgb, var(--tertiary-300) 5%, transparent) 260px 420px,
+    color-mix(in srgb, var(--secondary-400) 4%, transparent) 420px 580px,
+    transparent 580px);
+}
+
+/* The copy paints above the field (rails sit at z 1, so the copy takes 2). */
+.page-category .hero-ind > .padding-global {
+  position: relative;
+  z-index: 2;
+}
+
+.orbits__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  animation: orbit-spin linear infinite;
+}
+/* Centred by margins, not translate: the spin animation owns transform. */
+.orbits__ring--1 { width: 520px;  height: 520px;  margin: -260px 0 0 -260px; animation-duration: 46s; }
+.orbits__ring--2 { width: 840px;  height: 840px;  margin: -420px 0 0 -420px; animation-duration: 70s; animation-name: orbit-spin-rev; }
+.orbits__ring--3 { width: 1160px; height: 1160px; margin: -580px 0 0 -580px; animation-duration: 94s; }
+
+.orbits__sat {
+  position: absolute;
+  inset: 0;
+  display: block;
+  transform: rotate(var(--a, 0deg));
+}
+.orbits__ring--1 .orbits__sat:nth-child(1) { --a: 25deg; }
+.orbits__ring--1 .orbits__sat:nth-child(2) { --a: 205deg; }
+.orbits__ring--2 .orbits__sat:nth-child(1) { --a: 335deg; }
+.orbits__ring--2 .orbits__sat:nth-child(2) { --a: 95deg; }
+.orbits__ring--2 .orbits__sat:nth-child(3) { --a: 215deg; }
+.orbits__ring--3 .orbits__sat:nth-child(1) { --a: 65deg; }
+.orbits__ring--3 .orbits__sat:nth-child(2) { --a: 285deg; }
+
+.orbits__pos {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: block;
+  transform: translate(-50%, -50%) rotate(calc(-1 * var(--a, 0deg)));
+}
+.orbits__chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow-float);
+  color: var(--brand);
+  animation: orbit-spin-rev linear infinite;
+}
+.orbits__ring--1 .orbits__chip { animation-duration: 46s; }
+.orbits__ring--2 .orbits__chip { animation-duration: 70s; animation-name: orbit-spin; }
+.orbits__ring--3 .orbits__chip { animation-duration: 94s; }
+.orbits__chip svg { width: 20px; height: 20px; }
+
+/* The analogous trio rides the satellites (18 Sep, user call): every chip
+   takes one of the three sibling hues, Teal/300, Primary/400, Purple/400
+   purple, tinting its ground and border and carrying its glyph, so the
+   family reads around the orbit rather than hiding in the wash. */
+.orbits__ring--1 .orbits__sat:nth-child(1) .orbits__chip,
+.orbits__ring--2 .orbits__sat:nth-child(2) .orbits__chip,
+.orbits__ring--3 .orbits__sat:nth-child(2) .orbits__chip {
+  color: var(--tertiary-300);
+  background: color-mix(in srgb, var(--tertiary-300) 12%, var(--surface));
+  border-color: color-mix(in srgb, var(--tertiary-300) 34%, var(--border));
+}
+.orbits__ring--1 .orbits__sat:nth-child(2) .orbits__chip,
+.orbits__ring--2 .orbits__sat:nth-child(3) .orbits__chip,
+.orbits__ring--3 .orbits__sat:nth-child(1) .orbits__chip {
+  color: var(--secondary-400);
+  background: color-mix(in srgb, var(--secondary-400) 10%, var(--surface));
+  border-color: color-mix(in srgb, var(--secondary-400) 30%, var(--border));
+}
+.orbits__ring--2 .orbits__sat:nth-child(1) .orbits__chip {
+  background: color-mix(in srgb, var(--brand) 9%, var(--surface));
+  border-color: color-mix(in srgb, var(--brand) 26%, var(--border));
+}
+
+@keyframes orbit-spin     { to { transform: rotate(360deg); } }
+@keyframes orbit-spin-rev { to { transform: rotate(-360deg); } }
+
+/* The field needs room to mean anything; phones keep a clean hero. */
+@media (max-width: 991px) {
+  .orbits { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbits__ring,
+  .orbits__chip { animation: none; }
+}
+
+/* .crumb itself moved to components.css on 22 Sep, when /privacy-policy took the
+   same breadcrumb ("this can be same ui as class='crumb'"). Only
+   .crumb-strip, the category hero's band that hosts it, stays here. */
+
+/* THE HERO IS A FULL SCREEN LESS THE STRIP ABOVE IT (user, 28 Sep). The hubs
+   take a plain 100svh because their hero starts at y=0; a category page puts
+   the breadcrumb band and a joint above the hero, so that distance has to come
+   off or the next section starts below the fold.
+   THE OFFSET IS THE STRIP'S OWN GEOMETRY, term by term, not a measured number:
+   --crumb-rule (nav-h + 2 * nav-float + 2) is the strip's top pad clearing the
+   floating header, --sp-6 twice is the pad either side of the row, 24px is the
+   row itself (one 20px glyph on its line box) and 1px is the joint. It comes
+   to 155 at the current tokens. The strip's negative margin-top and the nav
+   placeholder cancel each other exactly, which is why neither appears here. */
+@media (min-width: 1px) {
+  .page-category .hero-ind {
+    --above-hero: calc(var(--nav-h) + var(--nav-float) * 2 + 2px
+                       + var(--sp-6) * 2 + 25px);
+    min-height: calc(100vh - var(--above-hero));
+    min-height: calc(100svh - var(--above-hero));
+  }
+}
+
+/* ---- The shape ------------------------------------------------------------
+   Four facets: frequency, margin, seasonality and the data that is missing
+   (the content model's own fields, IA §6). Since 17 Sep they sit as a
+   two-by-two of soft floating cards (Clerk reference): copy at the top and
+   a well below it reserved for a clean illustration per facet. The wells
+   are the data-fig slots; illustrations drop in later, and the space is
+   held now so the cards do not reflow when they land. */
+
+/* Bento, per the Clerk reference (17 Sep): two tall cards flanking a stacked
+   pair, which is exactly what four facets want. The outer two lead with copy
+   and hand the rest of their height to the well; the middle two lead with the
+   well, so the column does not read as two identical blocks stacked. */
+/* ---- The shape of it: four facets ---------------------------------------
+   Flat four-column list, hairline-divided, no cards (18 Sep, user reference:
+   Clerk's security row). It replaced a bento of boxed cards with illustration
+   wells, because only one of the eight category pages ever got illustrations
+   drawn and we are not drawing them for all eight. The four retired drawings
+   and their stylesheet are in archive/facet-illustrations/.
+
+   Icon and title share a line; the description starts under the ICON, not the
+   title, which is what the reference does and what separates this from the
+   .runs list, where the description hangs under the name instead. */
+.shape-grid--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+}
+.shape-grid--4 .shape {
+  display: block;
+  padding: 0 var(--sp-8);
+  border-top: 0;
+  border-left: 1px solid var(--border);
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+.shape-grid--4 .shape:first-child { padding-left: 0; border-left: 0; }
+.shape-grid--4 .shape:last-child { padding-right: 0; }
+
+.shape-grid--4 .shape__t {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--t-title-sm);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--ink);
+}
+.shape__ic {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--brand);
+}
+.shape-grid--4 .shape__d {
+  margin-top: var(--sp-4);
+  max-width: none;
+}
+
+@media (max-width: 1100px) {
+  .shape-grid--4 .shape { padding-inline: var(--sp-6); }
+}
+@media (max-width: 900px) {
+  .shape-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .shape-grid--4 .shape:nth-child(2n+1) { padding-left: 0; border-left: 0; }
+  .shape-grid--4 .shape:nth-child(n+3) {
+    margin-top: var(--sp-8);
+    padding-top: var(--sp-8);
+    border-top: 1px solid var(--border);
+  }
+}
+@media (max-width: 560px) {
+  .shape-grid--4 { grid-template-columns: minmax(0, 1fr); }
+  .shape-grid--4 .shape { padding-inline: 0; border-left: 0; }
+  .shape-grid--4 .shape + .shape {
+    margin-top: var(--sp-6);
+    padding-top: var(--sp-6);
+    border-top: 1px solid var(--border);
+  }
+}
+
+
+/* ---- Role blocks ----------------------------------------------------------
+   Five per page, stacked and anchored. Since 17 Sep each block is a split
+   pane: the seat's copy and its question ledger on one side, a reserved
+   image frame on the other, alternating sides down the page. The frame is
+   deliberately empty: real product shots drop into the .catrole__shot slots
+   later, and the space is held now so nothing reflows when they land. */
+
+.catrole {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  gap: var(--sp-10) var(--sp-16);
+  align-items: center;
+  /* The anchor lands under the floating header: scroll-padding-top on :root
+     already accounts for the bar, and this adds the breathing room a heading
+     wants above it. */
+  scroll-margin-top: calc(var(--nav-h) + var(--nav-float) + var(--sp-10));
+}
+
+.catrole + .catrole {
+  margin-top: var(--sp-16);
+  padding-top: var(--sp-16);
+  border-top: 1px solid var(--border);
+}
+
+/* Every second seat swaps sides so the page does not read as one long
+   left-hand rail. The copy stays first in the DOM either way. */
+.catrole--flip { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr); }
+.catrole--flip .catrole__body { order: 2; }
+.catrole--flip .catrole__fig  { order: 1; }
+
+.catrole__head { margin-bottom: var(--sp-6); }
+
+.catrole__t {
+  font-family: var(--font-display);
+  font-size: var(--t-display-3);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+}
+
+.catrole__p {
+  margin-top: var(--sp-3);
+  font-size: var(--t-body-lg);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 40rem;
+  text-wrap: pretty;
+}
+
+/* The ledger is an open two-by-two grid, the reference block's feature-grid
+   anatomy carried over from the homepage questions section: each capability
+   leads with its own duotone icon inside the title, and the seat's real
+   question is the sentence beneath. No card, no ruling: the cells float
+   on the wash. */
+.catrole .qledger {
+  border-top: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-8) var(--sp-8);
+  padding-top: var(--sp-2);
+}
+.catrole .qledger__cap {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-family: var(--font-display);
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+}
+.catrole .qledger__icon {
+  display: inline-flex;
+  flex: none;
+  color: var(--brand);
+}
+.catrole .qledger__icon svg { width: 20px; height: 20px; }
+.catrole .qledger__q {
+  margin-top: var(--sp-2);
+  font-size: var(--t-body-sm);
+  line-height: var(--lh-body);
+  color: var(--ink-3);
+  text-wrap: pretty;
+}
+
+/* The reserved frame: a hairline that dissolves downward around an empty
+   surface, so the slot reads as intentional rather than unfinished. */
+.catrole__fig {
+  padding: 1px;
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, var(--border-strong), transparent);
+}
+.catrole__shot {
+  aspect-ratio: 67 / 34;
+  border-radius: calc(var(--r-lg) - 1px);
+  background:
+    radial-gradient(var(--frame-grid) 1px, transparent 1px) 0 0 / 22px 22px,
+    var(--surface);
+  box-shadow: var(--shadow-float);
+}
+.catrole__shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+@media (max-width: 900px) {
+  .catrole,
+  .catrole--flip { grid-template-columns: 1fr; }
+  .catrole--flip .catrole__body,
+  .catrole--flip .catrole__fig { order: 0; }
+  .catrole + .catrole { margin-top: var(--sp-12); padding-top: var(--sp-12); }
+}
+@media (max-width: 560px) {
+  .catrole .qledger { grid-template-columns: 1fr; gap: var(--sp-6); }
+}
+
+/* ---- Proof ----------------------------------------------------------------
+   Only on the pages where a cleared case study genuinely covers the category.
+   Five of the eight carry no proof block at all rather than a hedged one:
+   the anonymised studies are cleared as written, and nothing else is. */
+
+/* Two columns on the page's own ground (19 Sep, reference supplied by the
+   user): the argument as text on the left, one image on the right fading
+   out into the page. It replaces the dark slab that ran here from 18 Sep,
+   with its teal and purple corner glows; the numbers carry the section now,
+   so the card stopped being a box and became a layout. */
+.cproof__card {
+  display: grid;
+  grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
+  gap: var(--sp-12);
+  align-items: center;
+}
+.cproof__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+/* 20px, the user's call, on its own token: the scale had 16 and 24 and
+   nothing between them. Google Sans Flex since 20 Sep, also the user's call,
+   but held at body weight: the display face at 400 reads as a lede setting
+   up the figures rather than a second heading competing with the H2 above. */
+.cproof__claim {
+  font-family: var(--font-display);
+  font-size: var(--t-lede);
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: 0;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+/* The figures are the argument, so they lead and the sentence sits under
+   each one. Two up, because these pages carry four and five results and a
+   single stack ran the column far past the image beside it.
+
+   The lines are INTERNAL only: every cell draws its own top and left rule,
+   and the first row and first column drop theirs. On a four-result page
+   that leaves one vertical and one horizontal crossing in the middle, which
+   is the plus. A five-result page gets the same rule set and simply carries
+   the extra row's line. The gap is zero because the cells' own padding does
+   the spacing; with a gap the rules would break into segments. */
+.cproof__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin-top: var(--sp-10);
+}
+.cproof__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  min-width: 0;
+  padding: var(--sp-6);
+  border-top: 1px solid var(--frame-line);
+  border-left: 1px solid var(--frame-line);
+}
+/* Top row and first column sit against the block's edges, so they carry no
+   rule and no padding on that side: the figures stay flush with the claim. */
+.cproof__item:nth-child(-n+2) { border-top: 0; padding-top: 0; }
+.cproof__item:nth-child(odd) { border-left: 0; padding-left: 0; }
+/* An odd final result has no partner, so it spans the row. Without this its
+   top rule stopped halfway across and the vertical rule ended in mid-air. */
+.cproof__item:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.cproof__val {
+  font-family: var(--font-display);
+  font-size: var(--t-display-2);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: var(--tr-display);
+  /* Geist Mono gives a comma its own cell, so figures stay in the sans face
+     with tabular numerals. Ink, not teal: teal carries no text on white
+     until Teal/800. */
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.cproof__lbl {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+.cproof__who {
+  margin-top: var(--sp-10);
+  font-size: var(--t-body-sm);
+  color: var(--ink-3);
+}
+
+/* The image, fading out into the page down its left edge and along the
+   bottom so it meets the text rather than butting against it as a block. */
+.cproof__media {
+  position: relative;
+  margin: 0;
+  align-self: stretch;
+  min-height: 420px;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.cproof__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cproof__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to right,
+      var(--bg) 0%,
+      color-mix(in srgb, var(--bg) 88%, transparent) 12%,
+      color-mix(in srgb, var(--bg) 46%, transparent) 34%,
+      transparent 68%),
+    linear-gradient(to top,
+      var(--bg) 0%,
+      color-mix(in srgb, var(--bg) 62%, transparent) 12%,
+      transparent 46%),
+    /* A light veil over the whole frame so a bright photograph sits behind
+       the figures rather than shouting past them. */
+    linear-gradient(color-mix(in srgb, var(--bg) 22%, transparent),
+                    color-mix(in srgb, var(--bg) 22%, transparent));
+}
+
+@media (max-width: 900px) {
+  .cproof__card { grid-template-columns: 1fr; gap: var(--sp-10); }
+  .cproof__media { min-height: 260px; order: -1; }
+  /* Stacked, the left-edge fade has nothing to fade into, so it runs
+     bottom-only and the image reads as a header for the block. */
+  .cproof__media::after {
+    background: linear-gradient(to top,
+      var(--bg) 0%,
+      color-mix(in srgb, var(--bg) 40%, transparent) 12%,
+      transparent 40%);
+  }
+}
+@media (max-width: 560px) {
+  /* One column: the plus collapses to a plain stack of rules, so the
+     nth-child rules above have to be undone rather than inherited. */
+  .cproof__list { grid-template-columns: 1fr; }
+  .cproof__item {
+    border-left: 0;
+    padding: var(--sp-6) 0 0;
+    border-top: 1px solid var(--frame-line);
+  }
+  .cproof__item:first-child { border-top: 0; padding-top: 0; }
+}
+
+/* ---- Asked in <category> (20 Sep) ------------------------------------------
+   The per-category prompt ledger between the shape section and the runs: the
+   question strings recovered from the removed teams blocks, as one numbered
+   index on the .qledger row component (components.css). The number and
+   capability columns take the sans-caps micro-label (display face at
+   --t-mono), NOT Geist Mono: mono stays confined to eyebrows and drawn
+   illustrations. Uppercasing in CSS is safe here because no capability name
+   contains "aiRA". */
+.asked .qledger__n,
+.asked .qledger__cap {
+  font-family: var(--font-display);
+  font-size: var(--t-mono);
+  /* 500, not 600: the prompt owns the row (20 Sep), so the index and the
+     capability meta stay quiet. */
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}

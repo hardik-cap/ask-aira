@@ -1,0 +1,310 @@
+/* ==========================================================================
+   aiRA — legal documents (/privacy-policy, /terms-and-conditions). One
+   quiet reading column: interior H1, then running prose with small
+   display-face section heads. The content on /privacy-policy is Capillary
+   Technologies' services privacy notice (22 Sep, user: "take contents from
+   capillarytech.com/privacy-policy for now"), so this file dresses a
+   document, it does not design a page.
+
+   Loads after tokens -> global -> components.
+   ========================================================================== */
+
+/* ---- The document column ------------------------------------------------
+   Started as the promptwatch reference's white sheet on a tinted ground and
+   came back off it on 22 Sep ("white is not working out"): the page sits on
+   the site's own --bg like every other page, and what carries the structure
+   is the frame, not a change of surface. The crumb rule and the dot bands do
+   the work the sheet's edges were doing.
+
+   The vertical padding still lives on .container rather than .section,
+   because the crumb's rule has to reach the rails and .section's padding sits
+   outside the container.
+   ------------------------------------------------------------------------- */
+
+.legal { padding-block: 0; }
+.legal > .padding-global > .container {
+  /* The column's inset, held in a variable because the crumb's rule cancels
+     exactly this much to reach both edges, and the value changes at the two
+     breakpoints below. */
+  --sheet-pad: var(--sp-5);
+  padding-block: var(--sp-6) var(--sp-20);
+  padding-inline: var(--sheet-pad);
+}
+
+/* The column is 1260 wide and the document reads at 50rem, so 400-odd pixels
+   of it were bare either side (22 Sep, user: "too much empty space").
+   .section--band is the answer the rest of the site already uses: the same
+   two pseudo-elements that draw the rails widen to 112px dot-grid strips
+   inside the frame. The class goes on the section in the markup; this only
+   has to hand the container the inset the band needs, because the rule here
+   is more specific than global's `.section--band .container`. */
+@media (min-width: 1200px) {
+  .legal > .padding-global > .container { --sheet-pad: 136px; }
+}
+
+/* Below 992 the frame's rails come off and .container drops its gutter, so an
+   inset sheet would be a narrow white card with the document jammed against
+   its edges and a 20px tinted margin outside it. The sheet goes edge to edge
+   instead and the inset moves inside it, which is what the reference does on
+   a phone. */
+@media (max-width: 991px) {
+  .legal > .padding-global { padding-inline: 0; }
+  /* A LENGTH, never --pad-x. That token is 5% between 641 and 1199, and the
+     crumb cancels this inset with a negative margin: a percentage padding
+     resolves against the container's containing block while a percentage
+     margin resolves against the container's own content box, so the two do
+     not cancel and the rule stopped short of the rails. */
+  .legal > .padding-global > .container { --sheet-pad: var(--sp-8); }
+}
+@media (max-width: 640px) {
+  .legal > .padding-global > .container { --sheet-pad: var(--sp-5); }
+}
+
+/* One reading column, centred in the sheet. The reference runs its text the
+   full width of the panel, which at our 1280 container would be a 120-plus
+   character measure; the column keeps the document readable and still reads
+   as a centred page. */
+.legal__crumb,
+.legal__head,
+.legal__body {
+  /* 50rem, not the 46 it started at: with the bands taking 112px a side the
+     open middle is 968px, and a 736px column left another 116px of bare white
+     on each flank. */
+  max-width: 50rem;
+  margin-inline: auto;
+}
+
+/* The breadcrumb's LOOK is the shared .crumb in components.css (22 Sep,
+   user: "this can be same ui as class='crumb'"); this class only does the
+   positioning that is particular to a legal page. Its rule is drawn across
+   the full column rather than across the reading measure, so it meets both
+   rails, which is what gives the document a closed top edge. */
+.legal__crumb {
+  position: relative;
+  max-width: none;
+  margin-inline: calc(var(--sheet-pad) * -1);
+  padding: 0 var(--sheet-pad) var(--sp-5);
+  border-bottom: 1px solid var(--border);
+}
+.legal__crumb [aria-current] { color: var(--ink-2); }
+
+.legal__head { margin-top: var(--sp-16); margin-bottom: var(--sp-10); }
+
+.legal__t {
+  font-family: var(--font-display);
+  /* 48px (--t-display-1s), the interior H1 size. */
+  font-size: var(--t-display-1s);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+  margin-bottom: var(--sp-4);
+}
+
+.legal__note {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-3);
+  max-width: 44rem;
+}
+
+/* ---- The document ----
+   The measure is set once, with the head and the crumb, above. It was
+   restated here at 46rem and, being later in the file at the same
+   specificity, won: the title block and the body sat on two different
+   centres, 32px apart. */
+
+/* Two levels, because the source document has two. It arrived with all
+   sixteen headings as h2, including Collection / Process / Store / Retention,
+   which are plainly inside "Information we collect, process, store &
+   retention": a flat tree reads as sixteen equal sections and gives a screen
+   reader no outline at all. The four were demoted in the markup. */
+.legal__body h2 {
+  font-family: var(--font-display);
+  font-size: var(--t-display-3);
+  font-weight: 500;
+  letter-spacing: var(--tr-display);
+  line-height: var(--lh-title);
+  color: var(--ink);
+  margin-top: var(--sp-12);
+  margin-bottom: var(--sp-4);
+}
+.legal__body h2:first-child { margin-top: 0; }
+
+/* Only two points over the body, so the display face at 600 is what marks it
+   rather than the size. The reference does the same. */
+.legal__body h3 {
+  font-family: var(--font-display);
+  font-size: var(--t-title-sm);
+  font-weight: 500;
+  letter-spacing: var(--tr-title);
+  line-height: var(--lh-title);
+  color: var(--ink);
+  margin-top: var(--sp-8);
+  margin-bottom: var(--sp-3);
+}
+
+.legal__body p {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  margin-bottom: var(--sp-4);
+}
+
+.legal__body ul {
+  list-style: disc;
+  padding-left: 1.3em;
+  margin-bottom: var(--sp-4);
+  display: grid;
+  gap: var(--sp-2);
+}
+.legal__body ul ul { margin-top: var(--sp-2); margin-bottom: 0; }
+.legal__body li {
+  font-size: var(--t-body);
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+
+.legal__body a {
+  color: var(--brand-ink);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.legal__body a:hover { color: var(--brand); }
+
+/* ---- The two legal tables -------------------------------------------------
+   One look, shared by /privacy-policy's <table> and /terms-and-conditions'
+   <dl>: a 1px box at --r-md, horizontal rules only, and a head marked by
+   muted text over a single rule rather than a band of fill.
+
+   That is the shadcn data-table shape, which is what sv-table draws (22 Sep,
+   user asked whether we could pull sv-table in). The LIBRARY cannot come:
+   it is SvelteKit plus shadcn-svelte plus Tailwind plus TanStack Table, four
+   dependencies and a build step, on a site that has none. None of what it
+   adds over a plain <table> (sorting, pagination, row selection, column
+   visibility) applies to eleven rows of static legal prose either. So the
+   look is translated here in CSS and the markup stays semantic HTML.
+
+   Vertical rules are deliberately absent: the columns are prose of very
+   different lengths, and a full grid boxes each paragraph in a way that
+   fights reading.
+   ------------------------------------------------------------------------- */
+
+/* ---- The definitions list (/terms-and-conditions) ----
+   A real <dl>, because these are term-and-meaning pairs rather than a grid
+   of facts: /privacy-policy's definitions carry a third column (the
+   Capillary context) and are genuinely tabular, these are not. The
+   definitions read as sentences ("aiRA means ..."), which is why the term
+   sits beside its meaning rather than above it. */
+.legal__defs {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  margin-block: var(--sp-5) var(--sp-6);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+.legal__defs dt,
+.legal__defs dd {
+  margin: 0;
+  padding: var(--sp-4);
+  /* Every cell takes the rule and the first ROW gives it back, which is the
+     one form that survives the stack below: in a grid there is no row
+     element to carry a border. */
+  border-top: 1px solid var(--border);
+  font-size: var(--t-body);
+  line-height: 1.55;
+}
+.legal__defs > :nth-child(1),
+.legal__defs > :nth-child(2) { border-top: 0; }
+.legal__defs dt {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
+  padding-right: var(--sp-5);
+}
+.legal__defs dd { color: var(--ink-2); }
+
+/* A phone has no room for a term column, so the pair stacks. The rule then
+   belongs above each TERM, never between a term and its meaning, so one
+   definition stays one block. */
+@media (max-width: 640px) {
+  .legal__defs { grid-template-columns: minmax(0, 1fr); }
+  .legal__defs dt { padding-bottom: 0; }
+  .legal__defs dd {
+    border-top: 0;
+    padding-top: var(--sp-2);
+  }
+}
+
+/* ---- The definitions table (/privacy-policy) ---- */
+
+.legal__table {
+  width: 100%;
+  margin-block: var(--sp-5) var(--sp-6);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  /* border-radius needs separate borders to clip; the cell rules below
+     draw the inner lines. A <tr> border is ignored in the separate model,
+     so every rule here is on a cell. */
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  font-size: var(--t-body);
+  line-height: 1.55;
+}
+.legal__table th,
+.legal__table td {
+  padding: var(--sp-4);
+  text-align: left;
+  vertical-align: top;
+  color: var(--ink-2);
+}
+/* The head is muted label text, not a filled band. Its own border-bottom is
+   what separates it from the body: `tr + tr` cannot reach across the
+   thead/tbody boundary, because those rows are not siblings. */
+.legal__table thead th {
+  padding-block: var(--sp-3);
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--ink-3);
+  border-bottom: 1px solid var(--border);
+}
+.legal__table tbody tr + tr td { border-top: 1px solid var(--border); }
+.legal__table td:first-child,
+.legal__table th:first-child { width: 20%; }
+.legal__table td:first-child { color: var(--ink); font-weight: 500; }
+
+/* The rows run three columns of prose at very different lengths, so the eye
+   loses the line. A hover tint is the reference's own answer and it is the
+   one thing here doing real work. Guarded on (hover: hover) like .qbar__tab:
+   a touch browser holds :hover after a tap, and below 640 the rows are
+   stacked cards anyway, where there is no line to lose. */
+@media (hover: hover) {
+  .legal__table tbody tr:hover td { background: var(--bg-subtle); }
+}
+
+/* A phone cannot hold three prose columns; the table turns into stacked
+   definition cards, one row per card. */
+@media (max-width: 640px) {
+  .legal__table,
+  .legal__table tbody,
+  .legal__table tr,
+  .legal__table th,
+  .legal__table td { display: block; width: 100%; }
+  .legal__table thead { display: none; }
+  .legal__table td { border-top: 0; padding-top: 0; }
+  .legal__table tbody tr + tr td:first-child {
+    border-top: 1px solid var(--border);
+  }
+  .legal__table td:first-child {
+    /* The 20% above is more specific than the blanket `td { width: 100% }`,
+       so it survives the stack and squeezes the term into a fifth of the
+       card, taking the row rule with it. It has to be undone by name. */
+    width: 100%;
+    padding-top: var(--sp-4);
+    font-family: var(--font-display);
+    font-weight: 600;
+  }
+}
