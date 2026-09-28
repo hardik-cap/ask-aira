@@ -1,0 +1,21 @@
+# aiRA — askaira.ai
+#
+# Everything is crawlable. The pages that must not be indexed say so
+# themselves, in a robots meta tag, and that is deliberate rather than an
+# omission: /404, /style-guide, /index-v2 and /index-v3 all carry noindex.
+#
+# DO NOT ADD Disallow LINES FOR THOSE. A disallowed URL is never fetched, so
+# the noindex inside it is never read, and a page that picks up an inbound link
+# can then be indexed anyway as a bare URL with no snippet. Blocking and
+# de-indexing pull in opposite directions; noindex alone is what removes a page
+# from results.
+#
+# AI crawlers (GPTBot, ClaudeBot, PerplexityBot, CCBot and the rest) are
+# allowed by the rule below. That is a business decision, not a technical
+# default: for a marketing site, being quotable in an AI answer is
+# distribution. Narrow it here if Capillary decides otherwise.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://askaira.ai/sitemap.xml

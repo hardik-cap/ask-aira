@@ -1439,3 +1439,42 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
      ignored and the columns stay in one line. */
   .footer__cols { grid-auto-flow: row; grid-template-columns: 1fr 1fr; }
 }
+
+/* ==========================================================================
+   H3 ON A PHONE IS ONE STEP, 20px (28 Sep, user: "H3: 20px 500 weight
+   (except .footer__col-title)"). The desktop ladder has two, 24 for a
+   statement and 16 for a card title; below 640 they collapse into the 20 that
+   sits between them, so a card title grows 4px crossing down and a statement
+   loses 4.
+   IT IS WRITTEN AS SELECTORS, NOT AS A TOKEN REMAP, because both steps are
+   flat tokens shared outside the heading ladder: --t-title-sm also sets
+   .hero-float__t, .askstory__t and the legal pages' prose h3, and --t-title-xl
+   is close to --t-title-lg's other user, .biz__t. Moving the tokens would move
+   all of those.
+   EVERY SELECTOR CARRIES ITS TAG, which is what makes this work from
+   global.css at all. This file loads FIRST, so it cannot win on source order
+   against components.css or a page sheet; it wins on specificity instead.
+   `h3.acc__head` is 0,1,1 against the component's 0,1,0, and
+   `.shape-grid--4 h3.shape__t` is 0,2,1 against category.css's 0,2,0. A bare
+   `h3` would lose to every one of them.
+   TWO THINGS ARE LEFT OUT ON PURPOSE. .footer__col-title is the user's own
+   exception and needs no rule, since its 0,1,0 already beats the bare `h3`
+   here. And .legal__body h3 is 0,1,1, so it holds its 16px: those pages run a
+   DOCUMENT outline rather than section heads, which is a different ladder and
+   is recorded as correct as it is.
+   .whatis__mission is not listed either and does not need to be: it reads
+   --t-display-2, so it follows the H2 band down to 24 and stays display type,
+   which is the whole reason it is an h3 rather than a styled <p>.
+   ========================================================================== */
+@media (max-width: 640px) {
+  h3,
+  h3.acc__head,
+  h3.runs__t,
+  h3.bento__t,
+  h3.rollout__t,
+  h3.shape__t,
+  .shape-grid--4 h3.shape__t {
+    font-size: var(--t-title-lg);
+    font-weight: 500;
+  }
+}

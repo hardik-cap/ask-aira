@@ -1,0 +1,806 @@
+/* /about — 27 Sep.
+   Five sections: hero, logo wall, #whatis, #holds, book. It was seven until
+   28 Sep, when #origin ("Where it came from") and #record ("The record")
+   came out on the user's call after their copy was traced back to source.
+   Most of #origin was narrative written around three sourced facts (the
+   "earned its own name by being used" line, the support-organisation claim
+   and the product-family card, which context.md marks "context, not to
+   feature"), and #record's Everest card characterised an evaluation no
+   source describes. The Forrester detail and the 393/46/BSE-NSE/Brierley
+   figures ARE sourced from context.md §5 and are in git if the section is
+   ever rebuilt from real material.
+   The sheet places the hero and styles the two local objects, #whatis and
+   #holds; everything else is shared (.lgrid, .book__card--split). */
+
+/* ---------- Hero ---------------------------------------------------- */
+/* ICON TILES SET INLINE IN THE HEADLINE is what survives of the 27 Sep
+   dub.co/about pass. Everything around them is neon.com's hero now (user,
+   28 Sep): the copy sits at the BOTTOM LEFT of a tall block and the space
+   above and right of it carries the visual, with no button in the hero at
+   all.
+   THE BLOCK IS TALL ON PURPOSE and that is the whole mechanism. Bottom-left
+   copy only reads as a composition if there is something above it to be
+   below; at the old auto height the copy would simply be the section and
+   "bottom" would mean nothing. */
+.abhero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  /* FULL VIEWPORT, LESS THE HEADER (user, 28 Sep), so the logo wall below
+     sits exactly at the fold and never peeks into the first screen.
+     IT IS NOT 100vh. #navbar-placeholder is a STICKY element in normal flow,
+     not an overlay, so it really occupies --nav-h + --nav-float at the top of
+     the document; at a flat 100vh the hero would end 68px BELOW the fold and
+     the page would open with a scrollbar it does not need.
+     svh, with vh under it for older engines: on a phone 100vh is the LARGEST
+     viewport, measured with the browser chrome retracted, so a 100vh hero is
+     always taller than the screen it opens on.
+     THE -2px IS THE NAV CARD'S OWN BORDER. --nav-h is .nav__inner's height,
+     which is the bar INSIDE its 1px edge, so #navbar-placeholder actually
+     stands 2px taller than nav-h + nav-float and the hero overshot the fold
+     by exactly that. */
+  min-height: calc(100vh - var(--nav-h) - var(--nav-float) - 2px);
+  min-height: calc(100svh - var(--nav-h) - var(--nav-float) - 2px);
+}
+.abhero > .padding-global { width: 100%; }
+.abhero__copy {
+  max-width: 54rem;
+  position: relative;
+  /* Above both decorative layers. The ground and the blobs are siblings
+     earlier in the DOM, so without this the blur would sit on the words at
+     the widths where the two overlap. */
+  z-index: 1;
+}
+.abhero__t {
+  font-family: var(--font-display);
+  /* --t-display-0, the one hero size since 28 Sep. */
+  font-size: var(--t-display-0);
+  font-weight: 500;
+  /* NOT /product's 1.04. A tile still stands a little proud of the type,
+     and at 1.04 three lines of it comb together. 1.18 is the tightest
+     that keeps the rows distinct now the tiles are cap-height. */
+  line-height: 1.18;
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+  /* The measure, not the font size, is what stops a centred headline
+     reading as a paragraph (.phero__t's note). Wider than /product's 700
+     because this sentence is longer and carries three tiles: at 700 it
+     runs to five lines. */
+  max-width: 880px;
+  margin-bottom: var(--sp-5);
+  text-wrap: balance;
+}
+/* Ranged left with the rest of the block, and on a measure of its own: the
+   headline runs to 880px and this runs to 34rem, so the two taper rather
+   than squaring off, which is what holds a bottom-left block together. */
+.abhero__sub {
+  /* 18 (--t-body-xl), which is what .hero__sub and .phero__sub took on 28 Sep
+     when every other sub on the site went down to 14. This was the last hero
+     sub left at 16 and there is no reason for /about's to be the quiet one. */
+  font-size: var(--t-body-xl);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  /* 660px, not 34rem (user, 28 Sep: "this wraps up too early with respect to
+     hero h1"). At 544 against an 880px headline the sub broke four lines under
+     a three-line H1 and read as a narrow column pinned under a wide one. 660
+     is 75% of the headline's measure, which is the ratio /product already runs
+     (800 and 600): enough taper to hold the block together, not so much that
+     the two look unrelated. */
+  max-width: 660px;
+  margin-bottom: 0;
+  text-wrap: pretty;
+}
+
+/* ---------- The headline tiles --------------------------------------- */
+/* .hero__rot-icon's TREATMENT (user, 28 Sep: "use hero__rot-icon style"),
+   which is this site's own object for an icon set inside a headline: a
+   rounded SQUARE, not a circle, filled with a vertical gradient off the
+   hue, an inset top highlight and a coloured drop glow. The first pass was
+   a flat circle and read as a bullet.
+
+   SIZED TO THE CAP HEIGHT, which is the whole difference between an
+   annotation and an interruption. At 1.02em the tiles were taller than the
+   capitals around them and the eye stopped at each one; 0.8em is about cap
+   height at this face, so they sit IN the line rather than on top of it.
+   .hero__rot-icon can afford 0.92em because it carries the rotating word
+   and is meant to be looked at; these three are read past.
+
+   THE SITE HAS ALWAYS RENDERED HEADLINE TILES ABOVE THE 20x20 ICON RULE:
+   .hero__rot-icon is a 64px tile with a 36px glyph on the 70px home H1.
+   That rule governs UI icons, and a tile set in display type is the same
+   kind of thing as the micro-glyphs inside the drawn product cards. */
+.hchip {
+  --hue: var(--brand);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.8em;
+  height: 0.8em;
+  /* vertical-align: middle is the only baseline-independent alignment that
+     behaves the same in every engine, and it centres on the x-height, so
+     the nudge lifts the tile to the Title-case optical centre. Lifted from
+     .hero__rot-icon, where the reasoning is written out in full. */
+  vertical-align: middle;
+  position: relative;
+  top: -0.07em;
+  /* The pair is chip + nbsp + word, so both sides already carry a word
+     space and the margin only trims or opens it. Keeping the nbsp rather
+     than dropping it is what makes the two sides match: without it the
+     right gap would be a margin and the left the text's own space, and
+     those never agree. Measured at 60px, this adds about 5px a side on top
+     of the space, which is the least that stops the tile touching its
+     neighbours without punching a hole in the sentence. */
+  margin-inline: 0.08em;
+  /* 0.17em against a 0.8em tile is the same 21% corner .hero__rot-icon
+     draws at 0.2em against 0.92em. Left at 0.2em on a smaller tile the
+     proportion climbs and it reads as an app icon. */
+  border-radius: 0.17em;
+  /* 88% rather than .hero__rot-icon's 78%. That much white at the top
+     washes Tertiary, which is the lightest of the three anchors, into a
+     pale blob; at 88 all three keep their hue and still catch light. */
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--hue) 88%, white), var(--hue));
+  color: var(--on-brand);
+  /* Softer and tighter than .hero__rot-icon's: three glows in one sentence
+     at that weight smear the line. */
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--on-brand) 24%, transparent),
+    0 5px 14px -7px color-mix(in srgb, var(--hue) 55%, transparent);
+}
+/* 58% rather than 56%: the tile shrank and the glyph has to hold its
+   presence inside it. */
+.hchip svg { width: 58%; height: 58%; }
+
+/* THE THREE HUES ARE THE PALETTE'S THREE ANCHORS, Tertiary/600, Primary/600
+   and Secondary/500: one colour at three hues 30 degrees either side of the
+   brand. Dub uses three unrelated hues; this site already has a set that
+   means something, and it is the same one /product's glyph field uses. */
+.hchip--t { --hue: var(--tertiary-600); }
+.hchip--p { --hue: var(--brand); }
+.hchip--s { --hue: var(--secondary-500); }
+
+/* A tile and the word it illustrates are ONE unit: left to wrap freely the
+   medal landed at the end of one line with "loyalty" starting the next,
+   which reads as a stray bullet rather than an annotation. */
+.hpair { white-space: nowrap; }
+/* THE BREAKABLE PAIR CARRIES NO NBSP, and this only became visible when the
+   headline went left-aligned. Every other pair is chip + nbsp + word, which
+   is what makes the gaps either side of a tile match. This one is allowed to
+   break, and when it did the nbsp was left stranded at the START of line
+   three, indenting it about 12px against the two lines above. Centred that
+   was invisible; ranged left it is a broken rag. The gap is a margin here
+   instead, which collapses away at a line end. */
+.hpair--open .hchip { margin-right: 0.2em; }
+
+/* ONE EXCEPTION, and it is a deliberate one (user, 28 Sep: "take the chip
+   before 393 to be in 2nd line"). Line three was opening with a tile, so on
+   a centred block the last line began with an object instead of a word and
+   its left edge hung out past the rag. Letting THIS pair break moves the
+   storefront tile to the end of line two and starts line three on "393
+   brands", and it is the only lever that does: text-wrap: balance minimises
+   the longest line, so it returned the identical split at every measure
+   from 820px to 1240px. Widening the box does nothing here; the break
+   opportunity itself is what had to change.
+   Verified at every width that the tile never ends up ALONE on a line,
+   which is the failure the nowrap exists to prevent. */
+.hpair--open { white-space: normal; }
+
+/* ---------- The hero blobs ------------------------------------------- */
+/* neon.com fills the space above its copy with a generated visual. This is
+   the same move in this site's own language: soft forms in the palette's
+   THREE ANCHORS, Tertiary/600, Primary/600 and Secondary/500, which is the
+   set the headline tiles beside them already use and the set /product's
+   glyph field uses. Reaching for anything else would put a fourth hue on a
+   page that has exactly three.
+   SEVEN OF THEM SINCE 28 Sep, up from three (user: "we can have more colored
+   blobs, it feels empty right now"). The hero went full-viewport in the same
+   session, which roughly doubled the space three blobs had to fill, and the
+   field grew with them: 72% of the width and 82% of the height, against 56
+   and 74. They CYCLE the three hues rather than adding a fourth, and each is
+   smaller and fainter than the last so the far ones read as depth.
+   THEY LIVE INSIDE THE RAILS, like the lattice: a decorative layer that
+   crosses the frame's verticals reads as a mistake rather than as bleed.
+   The block is anchored top-right and stops short of the bottom, which is
+   what leaves the copy its own corner. */
+.abhero__blobs {
+  position: absolute;
+  top: 0;
+  right: var(--frame-x);
+  width: min(72%, 860px);
+  height: 82%;
+  pointer-events: none;
+  overflow: hidden;
+  /* Dissolves toward the copy so nothing hard-edges into the headline. */
+  -webkit-mask-image: radial-gradient(120% 118% at 86% 10%, #000 0 44%, transparent 90%);
+  mask-image: radial-gradient(120% 118% at 86% 10%, #000 0 44%, transparent 90%);
+}
+/* SOLID FILL PLUS AN ORGANIC RADIUS PLUS BLUR, not a radial gradient. A
+   gradient blob is always a circle however it is masked, and the ask was
+   blob shapes; the asymmetric radius is what gives each one a form, and the
+   blur is what keeps it atmospheric rather than a shape on the page.
+
+   THREE SEPARATE TRANSFORM PROPERTIES, ONE OWNER EACH, and this is what makes
+   the pointer interaction possible at all. `scale` carries the entrance,
+   `transform` carries the drift, and `translate` is left free for
+   js/hero-blobs.js to push with. The three compose in that fixed order and
+   never fight, where two ANIMATIONS on one transform property would simply
+   see the later one win and the earlier one never render. */
+.abhero__blob {
+  position: absolute;
+  display: block;
+  background: var(--hue);
+  opacity: 0;
+  filter: blur(44px);
+  scale: 0.72;
+  animation:
+    ab-blob-in 1100ms var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)) var(--in-delay) forwards,
+    ab-blob-drift var(--drift) ease-in-out var(--in-delay) infinite alternate;
+  /* The push EASES HERE rather than in the script, so the scatter and the
+     settle back both cost zero frames: the script writes a target and the
+     compositor does the rest. */
+  transition: translate 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* Each one answers the pointer at its own rate, so the cloud PARTS rather
+   than sliding as a sheet. js/hero-blobs.js reads this. */
+.abhero__blob--1 { --drag: 1.00; }
+.abhero__blob--2 { --drag: 0.78; }
+.abhero__blob--3 { --drag: 1.15; }
+.abhero__blob--4 { --drag: 0.62; }
+.abhero__blob--5 { --drag: 1.30; }
+.abhero__blob--6 { --drag: 0.90; }
+.abhero__blob--7 { --drag: 0.70; }
+
+.abhero__blob--1 {
+  --hue: var(--tertiary-600);
+  --in-delay: 120ms;
+  --drift: 13s;
+  --rest: 0.30;
+  width: 46%;
+  height: 58%;
+  top: 4%;
+  right: 2%;
+  border-radius: 62% 38% 46% 54% / 54% 44% 56% 46%;
+}
+.abhero__blob--2 {
+  --hue: var(--primary-600);
+  --in-delay: 320ms;
+  --drift: 17s;
+  --rest: 0.26;
+  width: 40%;
+  height: 48%;
+  top: 30%;
+  right: 26%;
+  border-radius: 44% 56% 60% 40% / 40% 58% 42% 60%;
+}
+.abhero__blob--3 {
+  --hue: var(--secondary-500);
+  --in-delay: 520ms;
+  --drift: 21s;
+  --rest: 0.22;
+  width: 34%;
+  height: 42%;
+  top: 0%;
+  right: 40%;
+  border-radius: 56% 44% 38% 62% / 62% 40% 60% 38%;
+}
+.abhero__blob--4 {
+  --hue: var(--primary-600);
+  --in-delay: 700ms;
+  --drift: 19s;
+  --rest: 0.20;
+  width: 30%;
+  height: 36%;
+  top: 52%;
+  right: 6%;
+  border-radius: 52% 48% 40% 60% / 46% 56% 44% 54%;
+}
+.abhero__blob--5 {
+  --hue: var(--tertiary-600);
+  --in-delay: 880ms;
+  --drift: 24s;
+  --rest: 0.18;
+  width: 26%;
+  height: 32%;
+  top: 44%;
+  right: 52%;
+  border-radius: 48% 52% 58% 42% / 60% 42% 58% 40%;
+}
+.abhero__blob--6 {
+  --hue: var(--secondary-500);
+  --in-delay: 1040ms;
+  --drift: 16s;
+  --rest: 0.17;
+  width: 22%;
+  height: 28%;
+  top: 12%;
+  right: 62%;
+  border-radius: 58% 42% 52% 48% / 44% 62% 38% 56%;
+}
+.abhero__blob--7 {
+  --hue: var(--primary-600);
+  --in-delay: 1200ms;
+  --drift: 27s;
+  --rest: 0.15;
+  width: 36%;
+  height: 30%;
+  top: 68%;
+  right: 30%;
+  border-radius: 46% 54% 44% 56% / 52% 46% 54% 48%;
+}
+
+@keyframes ab-blob-in {
+  from { opacity: 0; scale: 0.72; }
+  to   { opacity: var(--rest); scale: 1; }
+}
+/* Small and slow. The radius morphs with the movement, so the form changes
+   as it travels instead of a fixed shape sliding about. */
+@keyframes ab-blob-drift {
+  from {
+    transform: translate(0, 0);
+    border-radius: 62% 38% 46% 54% / 54% 44% 56% 46%;
+  }
+  to {
+    transform: translate(-5%, 6%);
+    border-radius: 42% 58% 62% 38% / 44% 60% 40% 56%;
+  }
+}
+/* The entrance is the part that matters and the drift is the part that can
+   go. Under reduced motion the blobs are simply there, at rest, and
+   js/hero-blobs.js does not run at all. */
+@media (prefers-reduced-motion: reduce) {
+  .abhero__blob {
+    animation: none;
+    opacity: var(--rest);
+    scale: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Narrower, taller and calmer below 992 rather than gone. They were dropped
+   here while the hero collapsed to auto height; now that it stays a full
+   screen at every width, the space above the copy is real on a phone too and
+   something has to be in it. The field is pushed up and right and its
+   opacities come down, so it sits clear of a headline that now runs the full
+   width instead of behind it. */
+/* THE HERO IS 60svh ON A PHONE (user, 28 Sep: "in about page mobile view,
+   class='section abhero' dont do hero 100vh, do like 60vh").
+   THIS REVERSES THE 'LOGO WALL MUST NOT PEEK' RULE below 768, deliberately.
+   The full-height version existed so the wall sat exactly ON the fold and the
+   first screen was hero and nothing else; on a phone that screen is mostly
+   empty sky, because the copy is bottom-left and a portrait viewport gives it
+   far more headroom than a landscape one. At 60svh the wall does show at the
+   fold, and that is the trade being made rather than a regression.
+   IT IS A PLAIN 60svh, with no header subtracted. The arithmetic the desktop
+   rule carries (less --nav-h, --nav-float and the card's 2px border) exists
+   only to land the section's bottom edge exactly on the fold, and at 60% there
+   is no edge to land. svh not vh for the usual reason: 100vh on a phone is the
+   viewport with the browser chrome retracted.
+   min-height is a FLOOR, so the copy still wins if it needs more than 60%. */
+@media (max-width: 767px) {
+  .abhero {
+    min-height: 60vh;
+    min-height: 60svh;
+  }
+}
+
+@media (max-width: 991px) {
+  .abhero__blobs {
+    width: 84%;
+    height: 56%;
+  }
+  .abhero__blob--t { --rest: 0.22; }
+  .abhero__blob--p { --rest: 0.17; }
+  .abhero__blob--s { --rest: 0.14; }
+}
+
+/* ---------- The logo wall -------------------------------------------- */
+/* NO BLOCK PADDING on this page (user, 28 Sep). .section--tight's 64px is
+   right where the wall is its own section; here it sits directly under the
+   hero as that hero's evidence, and the gap read as a gap rather than as
+   the two belonging together. At zero the grid's own top and bottom
+   hairlines land on the joints above and below, which is why it keeps its
+   border and the section does not grow one. */
+.page-about .lgrid { padding-block: 0; }
+/* AND NO TOP OR BOTTOM EDGE on the grid itself (user, 28 Sep). .lgrid__grid
+   carries border-block by default, which is right where the wall sits inside
+   a section with padding around it. Here the section has none, so that border
+   lands on the same pixel as the joint above and the joint below and the two
+   read as one thick line. The cell dividers are separate (the grid's 1px gap
+   over a --border ground) and stay. Scoped to this page: index.html and /book
+   use the same component inside a padded section and keep their edges. */
+.page-about .lgrid__grid { border-block: 0; }
+
+
+/* ---------- What is aiRA --------------------------------------------- */
+/* dub.co/about's "What is Dub?": dotted ground, centred copy, one piece of
+   media, a mission line. The ground is .dot-field, a components.css object
+   that had never been placed. */
+/* The dotted ground. Even across the block and softening only at the very
+   edges, which is what the reference does; .dot-field's own mask is a small
+   central ellipse, right for a card-sized well and wrong for a whole
+   section, and it cannot be used here anyway (see the note in the markup).
+   THE INK IS 11%, not --frame-grid's 7%: at 7% on --bg the field is present
+   in the DOM and invisible on screen, the same failure the glyph matrix had
+   on /product. It is a color-mix off --ink rather than a literal rgba, so it
+   follows a theme swap. The 20px pitch DIVIDES --cell (80px), which any
+   decorative layer inside the page frame has to. */
+.whatis { position: relative; }
+.whatis__ground {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle,
+    color-mix(in srgb, var(--ink) 11%, transparent) 1px, transparent 1px);
+  background-size: 20px 20px;
+  -webkit-mask-image: radial-gradient(ellipse 92% 88% at 50% 50%,
+    #000 0 62%, transparent 100%);
+  mask-image: radial-gradient(ellipse 92% 88% at 50% 50%,
+    #000 0 62%, transparent 100%);
+}
+.whatis .padding-global { position: relative; }
+
+/* RANGED LEFT, BLOCK CENTRED (user, 28 Sep: "all left aligned text style but
+   still center positioned"). The column still sits in the middle of the
+   container; only the type inside it stops being centred.
+   THE CONSEQUENCE IS THAT EVERY BOX IN THE SECTION NEEDS THE SAME LEFT EDGE.
+   While the text was centred, the head at 44rem, the mission at 30 and the
+   body at 36 could each centre themselves and still look aligned, because
+   centring hides a difference in width. Ranged left they do not: three boxes
+   of different widths each centred would start at three different x, which
+   reads as three indents. So ONE centred column carries the section and
+   everything inside it hangs off that column's left edge with margin-inline
+   0, keeping its own max-width only to control where it wraps. */
+/* ALL THREE SECTIONS RUN ON ONE 46rem COLUMN, so their left edges line up
+   down the page. #whatis was 44rem, which centred to a left edge 16px inside
+   #story's and #holds's, and while the type was centred that was invisible.
+   Ranged left it is a 16px step between adjacent sections, which is the
+   "almost-aligned reads worse than a frank inset" failure the bento head
+   note already records. */
+.whatis .container { text-align: left; }
+/* THE THREE PARAGRAPHS ARE ONE PASSAGE, in one div, evenly spaced (user,
+   28 Sep: "the 3 paragraph in what is aira can have equal space or gap in
+   them", then "make the 3 para part of same div. width of them is different.
+   and its looking wierd").
+   IT TOOK TWO GOES AND THE SECOND ONE IS THE LESSON. The sub and the two body
+   paragraphs are the same 14px at the same --ink-2 on the same left edge, so
+   they read as three paragraphs of one thing while being built as two blocks:
+   the sub lived in .whatis__head on its 46rem, the other two in .whatis__body
+   on 36, with 48px between the blocks and 24 inside. The first pass equalised
+   the gaps in CSS and capped the sub's measure to match, which LOOKED right
+   and left the cause in place: two containers whose agreement depended on two
+   numbers being kept in step by hand. The sub is a .whatis__body paragraph now
+   and the question cannot arise, because one container cannot disagree with
+   itself.
+   WHAT THE HEAD KEEPS is the h2 alone, still on 46rem because a 36rem cap
+   would re-wrap the heading, and a margin-bottom of --sp-6 so the gap it sets
+   is the same one the passage uses internally. */
+.whatis__head {
+  max-width: 46rem;
+  margin-inline: auto;
+  margin-bottom: var(--sp-6);
+}
+.whatis__t { margin-inline: 0; }
+/* The sub is a .whatis__body paragraph like the other two now, so it takes
+   its size, colour, measure and spacing from that block and this rule is left
+   holding only what is peculiar to it: the emphasis below. */
+/* THE LOAD-BEARING PHRASES ARE NOT LINKS AND CARRY NO UNDERLINE (user, 28
+   Sep: "remove the underline hyperlinks or if we really wanna highlight, try
+   with something else"). Dub underlines them and they are real links there;
+   here both pointed at /product, which the nav and the hero already reach, so
+   two underlines in one centred sentence bought no route and read as
+   decoration.
+   The emphasis is a CONTRAST STEP instead: full --ink against the paragraph's
+   --ink-2, and 550 against the body's 450. Two signals, neither of them a
+   decoration, and neither of them colour alone. Brand was the obvious
+   alternative and is wrong here: the heading above already spends the brand
+   on <em>aiRA</em> and the mission line below spends it again, so a third
+   brand phrase between them flattens all three. */
+.whatis__sub b {
+  color: var(--ink);
+  font-weight: 550;
+}
+
+/* ---------- The closing block ----------------------------------------- */
+/* dub.co/about's shape: a display-sized statement over two muted paragraphs.
+   The statement is set as DISPLAY type, not body, because it is the
+   section's conclusion rather than an introduction to the paragraphs under
+   it, and the paragraphs are narrower than it so the block reads as one
+   object tapering rather than two stacked columns. */
+/* NO TOP MARGIN OF ITS OWN. The 80px this carried was set when the block
+   opened on the display-sized mission statement, where a wide gap before a
+   statement is the point. It opens on body copy now, and 80 above against the
+   64 below left the prose sitting closer to the card than to the sentence it
+   continues, which is what read as an awkward hole (user, 28 Sep).
+   The head's own margin-bottom sets the gap instead, at the same --sp-6 the
+   two body paragraphs use, so the sub and the prose group as one evenly
+   spaced passage and the card is the only thing standing apart. */
+.whatis__close {
+  max-width: 46rem;
+  margin-inline: auto;
+}
+/* The prose OPENS the closing block rather than following the statement, so it
+   carries no top margin of its own: the section head's own margin-bottom sets
+   the gap above it. */
+.whatis__body {
+  max-width: 36rem;
+  margin: 0;
+  display: grid;
+  gap: var(--sp-6);
+}
+.whatis__body p {
+  margin: 0;
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+/* THE MISSION IS A FILLED CARD since 28 Sep, from firecrawl.dev/about's "Why
+   we exist" (user: "do a our mission section ... i need it like that"). The
+   prose runs first and the statement lands in a brand panel under it, which is
+   why the two swapped order: a card only works as a conclusion.
+   THE TEXTURE IS A HALFTONE, white at 18% on a 10px pitch, drawn as the card's
+   own background-image rather than with .dot-field. That component paints into
+   ::before and its ink is --frame-grid, a dark tint for light grounds; on a
+   brand fill it would be invisible. 10px divides --cell (80) like every other
+   decorative pitch on this site.
+   IT IS THE ONE FILLED OBJECT on the page and that is the point: #whatis is
+   otherwise all type on open ground, so the section's conclusion is the only
+   thing that stops being paper. */
+.whatis__mission-card {
+  position: relative;
+  overflow: hidden;
+  max-width: 46rem;
+  margin: var(--sp-16) auto 0;
+  padding: var(--sp-10) var(--sp-10) var(--sp-12);
+  border-radius: var(--r-lg);
+  background-color: var(--brand);
+  /* THE STATIC HALFTONE IS THE FALLBACK, not the finished state. It is what
+     the card shows with js/dot-wave.js absent or under reduced motion before
+     the script has drawn, and the script stands it down by adding .is-live to
+     the canvas host. Two fields at the same pitch drawing at once would beat
+     against each other. */
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--on-brand) 18%, transparent) 1.6px, transparent 1.7px);
+  background-size: 10px 10px;
+  box-shadow: 0 24px 48px -20px color-mix(in srgb, var(--brand) 55%, transparent);
+}
+.whatis__mission-card:has(.whatis__wave.is-live) { background-image: none; }
+/* The canvas layer. It carries the field's COLOUR as its own `color`, which is
+   what js/dot-wave.js reads, so the ink stays a token rather than a literal in
+   the script. */
+.whatis__wave {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: var(--on-brand);
+}
+/* The copy sits above the field. */
+.whatis__mission-label,
+.whatis__mission { position: relative; }
+/* The site's eyebrow, retuned for a brand ground: --brand-ink is unreadable on
+   the brand itself, so the label and its "/" take the on-brand ink at 72%. */
+.whatis__mission-label {
+  color: color-mix(in srgb, var(--on-brand) 72%, transparent);
+  margin-bottom: var(--sp-5);
+}
+
+/* A REAL HEADING (h3), not a styled <p>: it is the largest text in the
+   section and it heads the block it closes, so leaving it as a paragraph
+   kept it out of the document outline and out of heading navigation
+   entirely. h3 rather than a second h2 because it sits under "What is
+   aiRA?" and elaborates it.
+   It therefore OVERRIDES the universal h3 in global.css, which that rule's
+   own note allows. */
+.whatis__mission {
+  max-width: 24ch;
+  margin: 0;
+  font-family: var(--font-display);
+  /* 36px (--t-display-2) on the card, up from the flat 24 it carried as a
+     bare line (user, 28 Sep). The size was right for a statement sitting on
+     open ground between two paragraphs; inside a filled panel that is most of
+     the section's weight, 24 reads as a caption on a coloured block. */
+  font-size: var(--t-display-2);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: var(--tr-display);
+  color: var(--on-brand);
+  text-wrap: balance;
+}
+/* NO BRAND ACCENT INSIDE THE CARD. The <em> is the brand highlight everywhere
+   else on the site, and here the whole panel is the brand, so a second colour
+   would be a colour on a colour. The phrase keeps its dashed underline and
+   nothing else, which is the same mark at inverse contrast. */
+.whatis__mission em {
+  font-style: normal;
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.18em;
+  text-decoration-color: color-mix(in srgb, var(--on-brand) 55%, transparent);
+  text-decoration-skip-ink: none;
+}
+
+/* ---------- How we got here ------------------------------------------ */
+/* IT CARRIES .section--wash since 28 Sep. Every content section on this page
+   sat on the bare page ground, so five in a row read as one undifferentiated
+   column; .section--band draws the frame's side bands but fills nothing, which
+   is why banding all three changed the edges and not the grounds. Giving the
+   MIDDLE one the wash alternates the passage, ground / wash / ground, and
+   this is the section that most earns being set apart: #whatis and #holds are
+   both statements about the product, and this is the one that is a story. */
+/* frigade.com/about's story block. It is the plainest section on the page on
+   purpose: one declarative heading and four paragraphs on a narrow measure,
+   nothing beside them. The reference leads with an eyebrow and this does not,
+   because /about carries none in any section (user, 28 Sep). The reference has no figure and no card here
+   either, and that absence is what makes it read as someone talking.
+   CENTRED (user, 28 Sep). It shipped ranged left for a turn, on the reasoning
+   that a centred four-paragraph passage reads as a statement made at the
+   visitor rather than as prose, and the user centred it. The page's own
+   precedent backs that: #whatis sits directly above with two centred
+   paragraphs and reads fine, so the two now make one centred passage instead
+   of a centred block followed by a left-ranged one.
+   THE MEASURE CAME IN WITH THE CENTRING, 38rem to 36rem, which is exactly
+   .whatis__body's. Centred text is read by both its edges rather than one, so
+   it wants the tighter measure, and matching the block above is what makes
+   the two read as one passage rather than two settings of the same idea. */
+.story .container { text-align: left; }
+.story__copy { max-width: 46rem; margin-inline: auto; }
+.story__t {
+  margin-inline: 0;
+  margin-bottom: var(--sp-8);
+}
+/* Same rule as #whatis: the paragraphs keep their own 36rem so they wrap
+   where they should, but they hang off the centred column's left edge rather
+   than centring themselves inside it. */
+.story__body {
+  display: grid;
+  gap: var(--sp-6);
+  max-width: 36rem;
+  margin-inline: 0;
+}
+.story__body p {
+  margin: 0;
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+/* ---------- What we hold to ------------------------------------------ */
+/* Centred as a block like the two above it, ranged left inside. It was the
+   odd one out: left-aligned AND left-positioned, against two centred
+   sections, which the user levelled in the same instruction. */
+.holds__head {
+  max-width: 46rem;
+  margin-inline: auto;
+  margin-bottom: var(--sp-12);
+}
+/* frigade.com/about's "What we believe" (user, 28 Sep): one column of
+   numbered rows, the ordinal in a narrow column of its own beside a heading
+   and a paragraph, one hairline between rows and none around the block.
+   IT SHARES THE HEAD'S COLUMN, 46rem centred, which is the column #whatis
+   and #story run on too. The block it replaced was bled out to the rails, so
+   this is a real change in the page's rhythm and a deliberate one: with the
+   type ranged left in a centred column everywhere else, a full-width list
+   here was the only thing on the page not starting at that edge. */
+/* EACH ITEM IS A CARD since 28 Sep, from firecrawl.dev/about's "What we make
+   possible" (user: "box shape and stuff"). They were hairline-separated rows
+   sharing one continuous block; they are four separate objects now, each an
+   outline with air between them rather than a rule.
+   THE NUMBER COLUMN IS UNCHANGED, 112px of offset (80 + 32), which is about
+   the 16% of the list's width the reference gives its own and is what the
+   reference does too. It is a fixed track rather than a fraction so the four
+   headings start at one x whatever the block is asked to be, and it survived
+   the ordinal shrinking from 16px to a 12px bracketed mono label: the offset
+   is the track, not the number's width.
+   NOTHING INSIDE THE CARD IS FILLED, and the reference's own cards are, a
+   shade darker than their page. This page has no ground to be darker than:
+   #holds is the one /about section with no wash of its own, so a fill would
+   have had to go lighter, and four whites on a near-white ground read as a
+   misprint rather than as four lifted cards. See the .holds__item rule. */
+.holds__list {
+  max-width: 46rem;
+  margin-inline: auto;
+  display: grid;
+  gap: var(--sp-5);
+}
+/* NO FILL (user, 28 Sep). The card is its hairline, its 16px corner and its
+   padding, and the page ground shows straight through. It carried --surface
+   for one turn, white on the page's near-white, which is the faintest step
+   the palette has and read as four slightly different whites stacked rather
+   than as four cards. An outline says "separate object" on its own. */
+.holds__item {
+  display: grid;
+  grid-template-columns: var(--sp-20) minmax(0, 1fr);
+  column-gap: var(--sp-8);
+  /* ALIGNS THE NUMBER'S BASELINE TO THE TITLE'S, which is what a hand-tuned
+     padding-top used to approximate and got wrong the moment either size
+     moved: it was set for a 16px number against a 24px heading and both
+     changed on 28 Sep. Baseline alignment re-solves itself. */
+  align-items: baseline;
+  padding: var(--sp-8);
+  border: 1px solid var(--frame-line);
+  border-radius: var(--r-lg);
+}
+
+/* THE ORDINAL IS A BRACKETED MONO LABEL (user, 28 Sep: "geist mono and add
+   brackets and 12px"), which is firecrawl.dev/about's "[ 01 ]" treatment
+   adopted outright after being deliberately left on the table a turn earlier.
+   THE BRACKETS ARE PSEUDO-ELEMENTS, not characters in the markup, exactly as
+   .eyebrow draws its "/" prefix: the HTML carries the ordinal and nothing
+   else, and both take content's alt-text syntax so a screen reader is read
+   "01" rather than "left square bracket 01 right square bracket".
+   IT IS A NAMED WIDENING OF THE MONO RULE. Geist Mono is otherwise confined
+   to section eyebrows and drawn illustrations; a list ordinal joins
+   .askstory__n as the second place a step marker earns it. It takes the mono
+   micro-label's whole spec, 12px/500/+0.09em, because at 12px without the
+   tracking the brackets close on the digits. */
+.holds__n {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-on-light);
+  margin: 0;
+}
+.holds__n::before { content: '[ ' / ''; }
+.holds__n::after  { content: ' ]' / ''; }
+
+/* An h4 at the site's h4 spec (user, 28 Sep), down from the 24px statement
+   step it took when these were rows in a continuous block. Inside a card
+   carrying its own edge the title no longer has to announce the item on its
+   own. */
+.holds__t {
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: var(--tr-title);
+  color: var(--ink);
+  margin-bottom: var(--sp-3);
+}
+.holds__d {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* ---------- The dot bands -------------------------------------------- */
+/* #whatis, #story and #holds wear .section--band (user, 28 Sep). Two rules
+   has to follow it, and it is about the 136px inset the band puts on
+   .container.
+   IT USED TO CARRY A SECOND RULE, a widened giveback on .holds__grid so that
+   block's borders landed on the band's inner edge lines. That went with the
+   grid on 28 Sep: #holds is a plain centred list now and bleeds to nothing. */
+@media (min-width: 1200px) {
+  /* THE WHATIS GROUND STANDS DOWN where the band runs. Both are dot fields
+     and they cannot share a section: the band's pitch is 14px and the
+     ground's is 20px, so wherever they met there was a visible seam, and the
+     copy ended up on texture from edge to edge with nothing to sit on.
+     Clipping the ground to the bands' inner edge was tried first and only
+     moved the seam. The band is the better object of the two here, because
+     the texture belongs at the edges and the reading column belongs on clean
+     paper, which is what the dub reference this section came from actually
+     does.
+     IT STAYS BELOW 1200, where the band does not run and the section would
+     otherwise have no texture at all. */
+  .whatis__ground { display: none; }
+}
+
+/* ---------- Narrow ---------------------------------------------------- */
+@media (max-width: 991px) {
+  /* The number stops holding a column of its own. At 80px it was a fifth of
+     a phone's measure spent on two digits, and the paragraph beside it was
+     wrapping every four or five words. It sits above the heading instead,
+     which is where the block started life before the reference. */
+  .holds__item { grid-template-columns: 1fr; }
+  .holds__n { margin-bottom: var(--sp-4); }
+
+
+}

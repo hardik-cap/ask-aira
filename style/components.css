@@ -2678,12 +2678,19 @@ a.biz:focus-visible .biz__ic::after {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--sp-12);
     margin-inline: 0;
-    padding: var(--sp-16) 0 var(--sp-16) var(--sp-8);
+    /* THE CARD KEEPS ITS RIGHT PADDING and the capture bleeds back out of it
+       (user, 28 Sep: "needs right side padding"). It was 0 on the right so
+       the window could reach the page edge, but the copy and the CTA share
+       this box in one column, so they lost their inset with it: the sub ran
+       into the edge and the button was cut. The bleed belongs on the thing
+       that bleeds, not on the box around it. */
+    padding: var(--sp-16) var(--sp-8);
     --book-fade: 110px;
     --shot-past: var(--sp-6);
   }
   .book__shot {
     height: 300px;
+    margin-right: calc(-1 * var(--sp-8));
     margin-bottom: calc(-1 * var(--sp-16) - var(--shot-past));
   }
   /* Scaled harder as the box narrows: the capture has to stay READABLE, and
@@ -2700,16 +2707,19 @@ a.biz:focus-visible .biz__ic::after {
 @media (max-width: 640px) {
   .book__float { display: none; }
   /* Doubled class on purpose: the base .book__card rule further down this
-     same block resets the padding, and at equal specificity the later one
-     wins, which put 24px back on the right and stopped the capture reaching
-     the edge. */
+     same block sets its own padding, and at equal specificity the later one
+     wins. */
   .book__card.book__card--split {
-    padding: var(--sp-8) 0 var(--sp-8) var(--sp-6);
+    /* Right padding restored 28 Sep, same reason as the 991 band above: the
+       copy and the CTA are in this box too. The capture gets its own negative
+       margin instead. */
+    padding: var(--sp-8) var(--sp-6);
     --book-fade: 80px;
     --shot-past: var(--sp-4);
   }
   .book__shot {
     height: 220px;
+    margin-right: calc(-1 * var(--sp-6));
     margin-bottom: calc(-1 * var(--sp-8) - var(--shot-past));
   }
   .book__shot img { transform: scale(3.1); }

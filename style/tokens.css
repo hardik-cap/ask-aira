@@ -362,9 +362,21 @@
      lock until then, and the change is site-wide by design: every hero that
      is not a utility page now takes this one token, where before /product,
      /about and the twelve industry pages sat at 60 and the homepage and
-     /solutions at 70. The slope is solved to keep the old behaviour at both
-     ends, 36px at 390 and the cap reached at about 1390. */
-  --t-display-0: clamp(2.25rem, 1.568rem + 2.8vw, 4rem);      /* 36 -> 64, hero H1 */
+     /solutions at 70.
+     THE PHONE END IS 32, NOT 36, since 28 Sep (user: "basically in mobile view
+     do hero h1 32px instead of 36px"). It is a SITE-WIDE change because this is
+     the one hero token: index, /solutions, /product, /about and the twelve
+     industry and category pages all read it, which is the point of having one.
+     THE SLOPE IS RE-SOLVED, NOT JUST THE FLOOR LOWERED, which is the same
+     discipline the 36 -> 64 change used. Dropping the minimum alone would leave
+     the old 2.8vw ramp running from a lower start, so every width between the
+     ends would land somewhere nobody chose and the cap would arrive early. Two
+     fixed points, 32px at 390 and 64px at 1390: the slope is 32/1000 = 3.2vw
+     and the intercept 32 - 12.48 = 19.52px = 1.22rem.
+     A BREAKPOINT WAS THE OTHER OPTION and is worse. "Mobile" is not a width
+     this scale knows about, so a flat 32 below some line would put a visible
+     step at that line and leave the band just above it at the old size. */
+  --t-display-0: clamp(2rem, 1.22rem + 3.2vw, 4rem);          /* 32 -> 64, hero H1 */
   --t-display-1: clamp(2rem, 1.23rem + 3.15vw, 3.75rem);      /* 32 -> 60, reserve */
   /* 32 -> 48, interior-page H1. Caps at 48 by 992px, which is the width
      where /book's split hero stacks, so the headline is at full size for
@@ -523,4 +535,41 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.30), 0 2px 6px -2px rgba(0, 0, 0, 0.40);
   --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.30), 0 10px 28px -18px rgba(0, 0, 0, 0.60);
   --shadow-lg: 0 1px 2px rgba(0, 0, 0, 0.30), 0 28px 64px -34px rgba(0, 0, 0, 0.70);
+}
+
+/* ==========================================================================
+   THE PHONE TYPE SCALE (28 Sep, user: "mobile font sizes. H1: 32px 500
+   weight / H2: 24px 500 weight / H3: 20px 500 weight (except
+   .footer__col-title) / Hero sub do 16px").
+
+   It is a FLAT BAND, not a re-solved clamp, and that is the deliberate
+   difference from every other change to these tokens. Re-solving the slope is
+   right when the instruction moves ONE END of a fluid scale, because the ramp
+   between the ends is still doing a job. Here the instruction is a whole
+   scale for one band, and the only way a clamp can hold four exact values
+   across that band is to bring every floor forward, which drags the ramp above
+   it down with them: the H1 at 992 would have gone from 51px to about 44
+   without anyone asking for it. Flat below the line leaves every width above
+   it exactly as it was.
+   THE LINE IS 640, the width this site already treats as the phone: it is
+   where the home hero drops its rotating icon tile and where the layouts go
+   single column. The step at 641 is the price and it is paid by nobody, since
+   no real viewport crosses it mid-session.
+   H3 IS NOT HERE because its two steps are flat tokens shared with things
+   that are not headings (--t-title-sm also sets .hero-float__t, .askstory__t
+   and the legal prose ladder), so remapping them would move those too. It is
+   an explicit h3 rule at the foot of global.css instead.
+   ========================================================================== */
+@media (max-width: 640px) {
+  :root {
+    --t-display-0:  2rem;     /* 32, hero H1 on a content page */
+    --t-display-1s: 2rem;     /* 32, hero H1 on a utility page */
+    --t-display-2:  1.5rem;   /* 24, section heading */
+    /* 14 since 28 Sep, down from the 16 set hours earlier: on a phone the
+       hero sub sits under a 32px H1 rather than a 64px one, so the step the
+       18 was buying on desktop is not there to buy. It lands on --t-body,
+       which is the point rather than a coincidence: a phone has one reading
+       size and the sub is reading copy. */
+    --t-body-xl:    0.875rem; /* 14, hero sub */
+  }
 }
