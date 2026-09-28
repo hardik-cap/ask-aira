@@ -32,7 +32,10 @@
 
 .notfound__t {
   font-family: var(--font-display);
-  font-size: var(--t-display-2);
+  /* --t-display-1s (48) since 28 Sep (user). It was --t-display-2, which is
+     the H2 token, so the page's only headline was set at section-heading size
+     and could not be raised without moving every H2 on the site. */
+  font-size: var(--t-display-1s);
   font-weight: 500;
   line-height: 1.16;
   letter-spacing: var(--tr-display);

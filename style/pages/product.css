@@ -43,7 +43,7 @@
    that was solving is worth keeping written down because a flat px measure
    brings it back:
 
-   --phero-measure was calc(var(--t-display-1) * 11.73), derived from the
+   --phero-measure was calc(var(--t-display-0) * 11.73), derived from the
    headline's own clamp so the box shrank with the type. A measure that does
    NOT move with the font gives the H1 a band where it falls to two lines with
    the SECOND longer than the first, which in a centred block is an inverted
@@ -54,8 +54,8 @@
    A breakpoint cannot fix it, because the flip is driven by the fluid font
    and any breakpoint leaves a bad band on one side of it. What does fix it is
    capping the fluid measure rather than replacing it:
-     max-width: min(700px, calc(var(--t-display-1) * 11.73));
-   which is exactly 700 everywhere the clamp is at its 60px ceiling and
+     max-width: min(700px, calc(var(--t-display-0) * 10.94));
+   which is exactly 700 everywhere the clamp is at its 64px ceiling and
    shrinks with the type below that. Not applied: 700 flat is what was asked
    for. */
 
@@ -82,18 +82,19 @@
    lattice uses, which is what makes the two grounds read as one language. */
 .phero__copy {
   grid-area: 1 / 1;
-  /* 46rem, the measure /solutions' .hero-ind__copy carries. It changes no
-     line of type on its own: the H1 already caps at 700 and the sub at 600,
-     both inside 736. What it does is stop the block being the width of the
-     frame, so the eyebrow, the headline, the sub and the button now sit in
-     one column of a stated width rather than three separate measures inside a
-     full-width box. */
+  /* 800px since 28 Sep, up from the 46rem (736) set on 23 Sep to match
+     /solutions' .hero-ind__copy. It HAS to move with the headline: the H1's
+     own max-width went to 800 in the same pass and a 736px parent would have
+     silently capped it back, which is the failure mode of setting a measure on
+     a child of a narrower box. The sub stays 600 flat, so the block is still
+     one column of a stated width rather than three measures loose in a
+     full-width box, which is what this cap is for. */
   /* width:100% as well as the cap, because an auto-margined GRID item is
      shrink-to-fit: without it the block collapses onto its widest child and
      comes out 700 (the H1's own measure) rather than the 736 asked for, which
      is a different box from the one .hero-ind__copy makes in normal flow. */
   width: 100%;
-  max-width: 46rem;
+  max-width: 800px;
   margin-inline: auto;
   /* Paints over the field: same cell, later in the DOM, and positioned. */
   position: relative;
@@ -166,24 +167,33 @@
    without a z-index. A negative one on the host would have been the other
    way, and it escapes .phero__copy the moment .reveal leaves a stacking
    context behind. */
-.phero .eyebrow,
 .phero__t,
 .phero__sub,
 .phero__cta { position: relative; }
 
 .phero__t {
   font-family: var(--font-display);
-  /* 60px (--t-display-1), not the 48 of --t-display-1s. That token exists for
-     an interior H1 that SHARES ITS ROW with something else, which was true of
-     the split hero and is not true of a centred one. */
-  font-size: var(--t-display-1);
+  /* --t-display-0, the one hero size since 28 Sep. It was --t-display-1 (60)
+     while the homepage sat at 70; with every non-utility hero on 64 there is
+     one token and no argument about which page gets which. */
+  font-size: var(--t-display-0);
   font-weight: 500;
   line-height: 1.04;
   letter-spacing: var(--tr-display);
   color: var(--ink);
-  /* 700px flat (user, 23 Sep). The measure, not the font size, is what keeps
-     a centred headline from reading as a paragraph. */
-  max-width: 700px;
+  /* 800px at full size (user, 28 Sep, raised from the 700 set on 23 Sep), but
+     FLUID BELOW IT, which is the part that cannot be dropped.
+     A flat 800 puts the headline on TWO lines with the second longer than the
+     first everywhere from about 768 to 1050: measured, 992 gives 614 / 768 and
+     900 gives 585 / 732. That is an inverted taper in a centred block, and the
+     band is wide enough to cover most laptops and every tablet. The long note
+     at the top of this file describes exactly this failure at the old 700px
+     measure, where the bad band was 640 to 880, and describes this fix: cap a
+     measure that moves WITH the type rather than replacing it. It was not
+     applied then only because a flat 700 was what had been asked for.
+     12.5 is 800 / 64, so the cap resolves to exactly 800 at the clamp's 64px
+     ceiling and the box shrinks in step with the font below it. */
+  max-width: min(800px, calc(var(--t-display-0) * 12.5));
   margin-inline: auto;
   margin-bottom: var(--sp-5);
   text-wrap: balance;
@@ -201,7 +211,7 @@
 }
 
 .phero__sub {
-  font-size: var(--t-body-lg);
+  font-size: var(--t-body-xl);
   line-height: var(--lh-body);
   color: var(--ink-2);
   /* 600px (user, 23 Sep), which ENDS the measure this shared with the H1. That
@@ -247,6 +257,60 @@
   box-shadow: 0 32px 64px -16px rgba(11, 16, 32, 0.16),
               0 2px 8px rgba(11, 16, 32, 0.04);
 }
+/* THE CAPTURE SETTLES INTO PLACE ON SCROLL (user, 28 Sep). It starts tilted
+   back and slightly small, and stands up to its resting position as it comes
+   into view.
+
+   IT IS A SCROLL-DRIVEN CSS ANIMATION, not a scroll listener. animation-timeline
+   is bound to the element's own position in the viewport, so it runs on the
+   compositor, cannot fall behind the scroll the way a rAF handler can, and
+   costs no JavaScript at all.
+
+   THE RESTING STATE IS THE ELEMENT'S NORMAL STATE and the animation only ever
+   moves AWAY from it. That is what makes the degradation free: a browser
+   without scroll-driven animations (Firefox still ships it behind a flag)
+   simply shows the capture where it belongs, with nothing missing and nothing
+   half-applied. The @supports guard is what stops the keyframes running as an
+   ordinary time-based animation on load in those browsers.
+
+   IT TRANSFORMS .phero__fig, NOT THE IMG. The img is inside overflow:hidden, so
+   scaling it would only move the picture inside a frame that stayed put; the
+   frame, its border, its radius and its two shadows all have to travel
+   together for this to read as one object.
+
+   PERSPECTIVE IS A TRANSFORM FUNCTION here rather than a property on the
+   parent: .phero__fig's parent is the hero's grid, which also holds the copy
+   and the glyph field, and giving that a 3D context would drag both into it.
+   It has to appear in BOTH keyframes or the two transform lists do not
+   interpolate and the rotation snaps.
+
+   THE ORIGIN IS THE TOP EDGE, so the card hinges at the top and its lower half
+   swings up. Origin centre reads as a card being pushed, top reads as one
+   standing up, which is the gesture the reference sites use. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .phero__fig {
+      transform-origin: 50% 0;
+      animation: phero-settle linear both;
+      animation-timeline: view();
+      /* Starts a little after the top edge appears and finishes well before
+         the capture is fully covered, so the last of the movement happens
+         while it is comfortably on screen rather than at the edge. */
+      animation-range: entry 8% cover 32%;
+    }
+    @keyframes phero-settle {
+      from {
+        opacity: 0.5;
+        transform: perspective(1600px) translateY(28px) rotateX(9deg) scale(0.93);
+      }
+      to {
+        opacity: 1;
+        transform: perspective(1600px) translateY(0) rotateX(0deg) scale(1);
+      }
+    }
+  }
+}
+
 .phero__fig > img,
 .phero__fig > iframe {
   display: block;
@@ -1623,7 +1687,7 @@
 
 .rollout__t {
   font-size: var(--t-title-sm);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: var(--tr-title);
   line-height: var(--lh-title);
   color: var(--ink);

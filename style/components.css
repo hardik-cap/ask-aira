@@ -501,14 +501,30 @@ button.chip:hover, a.chip:hover { border-color: var(--brand-line); color: var(--
 
 /* ---- Dot field: a quiet stage behind illustrations --------------------- */
 
+/* NEVER PUT .dot-field ON A .section. It paints into ::before, and on a
+   section that pseudo is already the page frame's LEFT RAIL: the texture
+   lands inside a 1px strip and the inset:0 here drags the rail from the
+   container edge to x=0. Invisible texture plus a broken frame, from one
+   class, with no error anywhere (28 Sep, /about). For a whole section, give
+   it a ground ELEMENT instead, the way .abhero and .whatis do. This
+   component is for a well or a card, where ::before is free. */
 .dot-field { position: relative; }
 .dot-field::before {
   content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: radial-gradient(circle, rgba(11, 16, 32, 0.09) 1px, transparent 1px);
-  background-size: 18px 18px;
+  background-image: radial-gradient(circle, var(--frame-grid) 1px, transparent 1px);
+  /* 20, not the 18 this shipped with. A decorative layer inside the page
+     frame has to use a pitch that DIVIDES --cell (80px, which is
+     --section-pad), or it meets the frame's band lines at a different place
+     on every column and the whole frame reads as broken. 18 does not divide
+     80; 20 does. Safe to change on 28 Sep because nothing had ever placed
+     this component: /about's "What is aiRA" section is its first user.
+     The ink moved to --frame-grid in the same pass, since a hard-coded rgba
+     does not follow the dark theme and this ground is now reachable on a
+     page that could go dark. */
+  background-size: 20px 20px;
   -webkit-mask-image: radial-gradient(ellipse 78% 78% at 50% 42%, #000 28%, transparent 76%);
   mask-image: radial-gradient(ellipse 78% 78% at 50% 42%, #000 28%, transparent 76%);
 }
@@ -1251,7 +1267,7 @@ body.modal-open { overflow: hidden; }
 .acc__head {
   margin: 0;
   font-size: var(--t-title-sm);
-  font-weight: 600;
+  font-weight: 500;
   line-height: var(--lh-title);
 }
 
@@ -1530,7 +1546,9 @@ body.modal-open { overflow: hidden; }
 
 /* The same graph-paper tile the nav drawer glyphs sit on (user call, 17 Sep:
    "biz__ic should look like nav__item-icon"): 40px of ruled paper dissolving
-   at its own edges, glyph ink-3 at rest and brand on the card's hover. */
+   at its own edges, glyph ink-3 at rest and brand on the card's hover.
+   .nav__item-icon came off on 28 Sep and went back on the same day, so the
+   reference is live again. */
 .biz__ic {
   position: relative;
   display: flex;
@@ -1712,7 +1730,7 @@ a.biz:focus-visible .biz__ic::after {
   margin-bottom: var(--sp-4);
 }
 .runs__t {
-  font-size: var(--t-display-3);
+  font-size: var(--t-title-xl);
   font-weight: 500;
   line-height: 1.22;
   letter-spacing: var(--tr-title);
@@ -2258,6 +2276,10 @@ a.biz:focus-visible .biz__ic::after {
   transition: color var(--dur-fast) var(--ease);
 }
 .crumb a:hover { color: var(--brand-ink); }
+/* The page you are on. It is a <span> and not an <a> because a link to the
+   current page is a link that does nothing, and it takes full --ink against
+   the trail's --ink-3 so the end of the trail is the part that reads. */
+.crumb__current { font-weight: 500; color: var(--ink); }
 .crumb__back svg { width: 20px; height: 20px; flex: none; }
 @media (prefers-reduced-motion: reduce) {
   .crumb a { transition: none; }
@@ -2295,7 +2317,26 @@ a.biz:focus-visible .biz__ic::after {
   grid-column: 2;
   grid-row: 1 / -1;
   margin-block: calc(-1 * var(--sp-6));
-  background: var(--brand);
+  /* A BRAND-TINTED DARK PANEL, not the flat brand (user, 28 Sep: "this color
+     goes a bit different than dark page other colors"). It was var(--brand),
+     Primary/600 at full saturation, which made it the only fully lit block on
+     a section where everything else is near-black with white-alpha layers: it
+     read as a sticker on the board rather than a column of it. The dark
+     sections' accent language is the LIGHT end of the ramp, which is what the
+     heading's <em> uses (--primary-200), not the saturated middle.
+     30% is the level where the column still reads as the marked one: below
+     about 20 it is indistinguishable from the ground, and the panel stops
+     doing its job of saying which side of the board is aiRA.
+     The edge is P200 at 30%, the same light accent the heading spends, so the
+     panel is outlined in the section's own accent rather than in more of
+     itself.
+     NOTE it mixes against --surface-inv, which is correct while this component
+     only ever appears on a LIGHT page inside a .section--inv band, as it does
+     on index.html. On a whole dark page --surface-inv is the LIGHT surface and
+     this would come out a pale lilac; that is the same inversion trap the nav
+     drawer hit, and it would need a :root[data-theme="dark"] guard. */
+  background: color-mix(in srgb, var(--brand) 30%, var(--surface-inv));
+  border: 1px solid color-mix(in srgb, var(--primary-200) 30%, transparent);
   border-radius: var(--r-lg);
   /* The site's one floating-surface shadow, same as the header card: this
      panel overhangs the board top and bottom, so it should read as lifted
@@ -2450,7 +2491,7 @@ a.biz:focus-visible .biz__ic::after {
 }
 .book__sub {
   position: relative;
-  font-size: var(--t-body-lg);
+  font-size: var(--t-body);
   line-height: var(--lh-body);
   color: rgba(255, 255, 255, 0.82);
   max-width: 36rem;

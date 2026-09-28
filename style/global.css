@@ -51,9 +51,14 @@ h1, h2, h3, h4, h5, h6 { margin: 0; font-family: var(--font-display); font-weigh
    Declaring it here means a new h3 lands on the settled size without being
    told; a component that genuinely wants a smaller title (a card, a footer
    column, a disclosure row) still overrides it explicitly. */
+/* 24px/500 SINCE 28 Sep (user). It was --t-display-3 at 600, which clamps to
+   28, and a measurement that day found NOTHING on the site rendering at that
+   spec: the default was catching unstyled h3s at a size no component used.
+   The ladder is 24 for a statement and 16 for a card title, both at 500, and
+   this is now its top step, so an h3 left alone lands somewhere real. */
 h3 {
-  font-size: var(--t-display-3);
-  font-weight: 600;
+  font-size: var(--t-title-xl);
+  font-weight: 500;
   line-height: 1.22;
   letter-spacing: var(--tr-title);
 }
@@ -373,8 +378,14 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 /* P400 does not hold on the dark ground; P200 is the inverse anchor. */
 .section--inv .section-heading em { color: var(--primary-200); }
 
+/* 14px since 28 Sep (user: "in a lot of instances of body or description
+   text, font size is 16px instead of 14px"). This is the change with the
+   widest reach on the site: every page's section heads read from it, which
+   is the point, since the 16 was making supporting copy compete with the
+   headings it supports. .bento__sub and the FAQ and pricing intros all ride
+   this rule and need no size of their own. */
 .section-sub {
-  font-size: var(--t-body-lg);
+  font-size: var(--t-body);
   line-height: var(--lh-body);
   color: var(--ink-2);
   max-width: 40rem;
@@ -464,6 +475,45 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 .btn--primary:active {
   background: color-mix(in srgb, var(--black) 74%, white);
   box-shadow: var(--shadow-btn-press);
+}
+
+/* A PRIMARY BUTTON ON A DARK GROUND. The default fill is --black (16 Sep,
+   Clerk direction) and #212121 is barely separable from a dark ground, so
+   the inverse of "primary is ink" is a light button with ink on it. There
+   are two ways a dark ground happens and they need different tokens:
+
+   - .section--inv is a dark band inside a LIGHT page, so the light-theme
+     values apply and --ink-inv is already the light one (#FFFFFF), with
+     --surface-inv the dark counterpart for the label.
+   - [data-theme="dark"] flips the whole page, so --ink-inv is now the DARK
+     value and would repaint the button black again. --ink and --bg are the
+     right pair there.
+
+   CLAUDE.md recorded the .section--inv half as living here and it did not:
+   it went out with /product's security CTA on 23 Sep despite the note
+   saying to keep it, which is why /pricing rediscovered the problem on
+   27 Sep. Both halves are theming rules, not page decoration, so they stay
+   whether or not anything visible uses them today. */
+.section--inv .btn--primary {
+  background: var(--ink-inv);
+  color: var(--surface-inv);
+}
+.section--inv .btn--primary:hover {
+  background: color-mix(in srgb, var(--ink-inv) 90%, var(--surface-inv));
+}
+.section--inv .btn--primary:active {
+  background: color-mix(in srgb, var(--ink-inv) 82%, var(--surface-inv));
+}
+
+:root[data-theme="dark"] .btn--primary {
+  background: var(--ink);
+  color: var(--bg);
+}
+:root[data-theme="dark"] .btn--primary:hover {
+  background: color-mix(in srgb, var(--ink) 90%, var(--bg));
+}
+:root[data-theme="dark"] .btn--primary:active {
+  background: color-mix(in srgb, var(--ink) 82%, var(--bg));
 }
 
 .btn--secondary {
@@ -597,6 +647,20 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 .nav--scrolled {
   background-color: var(--nav-surface);
 }
+/* THE CARD IS FULL WIDTH AT EVERY SCROLL POSITION, and that is a decision
+   rather than an omission. It shrank to 720px on .nav--scrolled for part of
+   28 Sep and the user took it back out: "stick to full length navbar only, coz
+   when its small the drawer is messed up."
+   The drawer is why, and the problem is structural rather than a bug that was
+   left unfixed. .nav__panel is pinned left:0 / right:0 to fill the nav row, so
+   a narrow bar gives a narrow menu; it was re-centred on the row's rest width
+   to compensate, and even then the menu no longer sat within its trigger, which
+   is what a dropdown is supposed to do. A bar that carries a 1278px mega-menu
+   does not want to be 720px wide.
+   If it is ever wanted again, two things have to come back with it: .nav must
+   be sized by `width` rather than margin-inline, because margin-inline: auto is
+   not interpolable and the card would jump rather than travel, and the panel
+   needs its own width in CONTAINER units off #navbar-placeholder, never vw. */
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .nav,
   .nav--scrolled {
@@ -607,6 +671,7 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 }
 .nav-no-init-transition, .nav-no-init-transition * { transition: none !important; }
 @media (prefers-reduced-motion: reduce) {
+  /* The width still changes, it just arrives rather than travels. */
   .nav { transition: none; }
 }
 
@@ -664,6 +729,22 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   flex: 1;
 }
 .nav__links { display: flex; align-items: center; gap: 2px; }
+
+
+/* THE LINKS SIT LEFT, after the logo, and the separator sits between them
+   (user, 28 Sep). They were CENTRED on the bar for part of the same day and
+   came back; the whole of that arrangement is gone rather than parked, since
+   it was three rules that only made sense together.
+   What it did, if it is ever wanted again: .nav__logo went absolute left and
+   .nav__actions absolute right, both inset --sp-5 because left/right resolve
+   against .nav__inner's PADDING box and that 20px is .container's gutter, and
+   the menu then centred its own content. The one thing worth carrying over is
+   why it was NOT done the obvious way: absolutely positioning .nav__links
+   centres them exactly and silently breaks the Solutions panel, because
+   .nav__panel is pinned left:0/right:0 to fill the row and reaches the row
+   only while .nav__dd stays position:static, so a positioned .nav__links
+   inserts a new nearest positioned ancestor and the panel resolves against
+   the 414px link row instead of the 1278px card. */
 
 .nav__link,
 .nav__toggle {
@@ -798,10 +879,28 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 
 /* Measured cutoff: at 1100px a column is 244px, a hair over the 243px a row
    needs; by 1050px it is 229px and labels start clipping. Two columns below. */
-@media (max-width: 1100px) {
+/* RAISED FROM 1100 TO 1300 on 28 Sep. The 243px in the note above was measured
+   against the LABELS; the descriptions underneath are now sentences rather than
+   the two-word fragments they were when that cutoff was set, and with the row
+   glyph back in front of them a three-column row needs about 300px, not 244.
+   Measured: at 1200 every one of the eight ellipsised, at 1280 none did. Two
+   columns from 1300 down is what keeps the copy whole, and it costs one row of
+   height in a band where there is room for it. */
+@media (max-width: 1300px) {
   .nav__panel-card { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
+/* Attio's drawer sets each glyph on a small blueprint plane rather than
+   floating it: a 40px square of 10px graph paper, dissolving at its own
+   edges so it reads as a drawing surface and not a bordered tile. The grid
+   is the page frame's own --frame-grid, so it is the same paper the hero
+   dot field is printed on.
+   THEY CAME OFF AND WENT BACK ON on 28 Sep, both on the user's call, and the
+   round trip is worth one line: without them the labels start at 21px instead
+   of 73 and the three columns read as three columns of text, rows go 56px to
+   51px and the panel 230px to 220px. What that costs is the rhyme between the
+   menu and the page it opens, since these eight are the same Phosphor duotone
+   subjects js/qbar.js drifts above the question bar on each category page. */
 .nav__item {
   display: flex;
   align-items: center;
@@ -811,11 +910,6 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   transition: background var(--dur-fast) var(--ease);
 }
 .nav__item:hover { background: var(--slate-50); }
-/* Attio's drawer sets each glyph on a small blueprint plane rather than
-   floating it: a 40px square of 10px graph paper, dissolving at its own
-   edges so it reads as a drawing surface and not a bordered tile. The grid
-   is the page frame's own --frame-grid, so it is the same paper the hero
-   dot field is printed on. */
 .nav__item-icon {
   position: relative;
   flex: none;
@@ -969,6 +1063,34 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 /* The chevron is --ink-faint, tuned for a light bar; it all but vanishes on
    the dark one. */
 .nav.nav-dark .nav__chev { color: var(--ink-inv-3); }
+
+/* THE NAV ON A PAGE THAT IS DARK THROUGHOUT ([data-theme="dark"]).
+   .nav-dark above is written for a dark BAND inside a light page, so it
+   reaches for the --ink-inv-* family, which means "ink for an inverted
+   surface". On a dark page those tokens invert again and resolve to near
+   black, which painted the links at rgba(11,16,32,0.68) on a near-black
+   bar: legible in the markup, invisible on screen. Over a dark page the
+   nav is not inverted at all, it is simply at rest, so the ordinary ink
+   scale is the correct one. The bar's own surface needs no rule: both
+   --nav-surface-inv tokens already flip with the theme. */
+:root[data-theme="dark"] .nav.nav-dark .nav__link,
+:root[data-theme="dark"] .nav.nav-dark .nav__toggle { color: var(--ink-2); }
+:root[data-theme="dark"] .nav.nav-dark .nav__link:hover,
+:root[data-theme="dark"] .nav.nav-dark .nav__toggle:hover {
+  color: var(--ink); background: rgba(255, 255, 255, 0.08);
+}
+:root[data-theme="dark"] .nav.nav-dark .nav__link[aria-current="page"] { color: var(--ink); }
+:root[data-theme="dark"] .nav.nav-dark .nav__dd[data-open="true"] .nav__toggle {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.08);
+}
+:root[data-theme="dark"] .nav.nav-dark .nav__chev { color: var(--ink-3); }
+/* The same trap once more, and here only the INK is wrong: a 6% white pill
+   with a white border is right on a dark bar, but --ink-inv resolves to the
+   DARK ink on a dark page, so the burger's glyph was near-black on a
+   near-black bar, present in the markup and invisible on screen. */
+:root[data-theme="dark"] .nav.nav-dark .nav__burger,
+:root[data-theme="dark"] .nav.nav-dark .btn--secondary { color: var(--ink); }
 .nav.nav-dark .nav__burger {
   color: var(--ink-inv);
   background: rgba(255, 255, 255, 0.06);
@@ -983,34 +1105,46 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 /* The Solutions drawer follows the bar onto dark sections (13 Sep): panel,
    card and every row retune to the inverse inks. V2 is excluded: its whole
    token ground is already dark and its inverse tokens point light, so these
-   rules would flip its drawer the wrong way. */
-body:not(.page-v2) .nav.nav-dark .nav__panel {
+   rules would flip its drawer the wrong way.
+
+   A WHOLE DARK PAGE IS EXCLUDED FOR THE SAME REASON (28 Sep, user: "in
+   pricing dark page, the navbar drawer is light mode"). This is the third
+   time this exact bug has turned up and it is always the same shape: a rule
+   that names the INVERSE surface inverts again under data-theme="dark" and
+   lands back where it started. --surface-inv is #F7F8FB on a dark page, so
+   the panel came out near-white with a white-alpha border on a dark bar, and
+   inside the mobile drawer it was a white block in a dark sheet.
+   On a dark PAGE the nav is not inverted at all, it is at rest, so the right
+   answer is to let the BASE rules apply: .nav__panel's own --surface-2 and
+   --border already resolve dark through the ramp. Hence :root:not(...) on the
+   whole group rather than nine more overrides underneath it. */
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__panel {
   background: color-mix(in srgb, #fff 4%, var(--surface-inv));
   border-color: rgba(255, 255, 255, 0.12);
 }
-body:not(.page-v2) .nav.nav-dark .nav__panel-card {
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__panel-card {
   background: color-mix(in srgb, #fff 7%, var(--surface-inv));
   border-color: rgba(255, 255, 255, 0.10);
 }
-body:not(.page-v2) .nav.nav-dark .nav__col-title { color: var(--ink-inv-3); }
-body:not(.page-v2) .nav.nav-dark .nav__mini { color: var(--ink-inv-2); }
-body:not(.page-v2) .nav.nav-dark .nav__mini:hover {
-  color: var(--ink-inv);
-  background: rgba(255, 255, 255, 0.07);
-}
-body:not(.page-v2) .nav.nav-dark .nav__mini svg { color: var(--ink-inv-3); }
-body:not(.page-v2) .nav.nav-dark .nav__mini:hover svg { color: var(--primary-200); }
-body:not(.page-v2) .nav.nav-dark .nav__aside-rule { background: rgba(255, 255, 255, 0.12); }
-body:not(.page-v2) .nav.nav-dark .nav__item:hover { background: rgba(255, 255, 255, 0.06); }
-body:not(.page-v2) .nav.nav-dark .nav__item-icon { color: var(--ink-inv-3); }
-body:not(.page-v2) .nav.nav-dark .nav__item-icon::before {
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__col-title { color: var(--ink-inv-3); }
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__mini svg { color: var(--ink-inv-3); }
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__mini:hover svg { color: var(--primary-200); }
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__item-icon { color: var(--ink-inv-3); }
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__item-icon::before {
   background-image:
     repeating-linear-gradient(to right, var(--nav-graph-inv) 0 1px, transparent 1px 10px),
     repeating-linear-gradient(to bottom, var(--nav-graph-inv) 0 1px, transparent 1px 10px);
 }
-body:not(.page-v2) .nav.nav-dark .nav__item:hover .nav__item-icon { color: var(--primary-200); }
-body:not(.page-v2) .nav.nav-dark .nav__item-label { color: var(--ink-inv); }
-body:not(.page-v2) .nav.nav-dark .nav__item-desc { color: var(--ink-inv-3); }
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__item:hover .nav__item-icon { color: var(--primary-200); }
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__mini { color: var(--ink-inv-2); }
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__mini:hover {
+  color: var(--ink-inv);
+  background: rgba(255, 255, 255, 0.07);
+}
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__aside-rule { background: rgba(255, 255, 255, 0.12); }
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__item:hover { background: rgba(255, 255, 255, 0.06); }
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__item-label { color: var(--ink-inv); }
+:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__item-desc { color: var(--ink-inv-3); }
 
 @media (max-width: 991px) {
   /* 8px off each edge, then 12px of inner pad, which lands the logo and
@@ -1161,9 +1295,17 @@ body:not(.page-v2) .nav.nav-dark .nav__item-desc { color: var(--ink-inv-3); }
    swap to the reverse. */
 .footer__logo-dark { display: none; }
 
+/* THE TRACK COUNT FOLLOWS THE COLUMN COUNT, which is why this is auto-flow
+   rather than the repeat(3) it was until 28 Sep. The Company column was hidden
+   that day and a fixed three-track grid left the two survivors filling two
+   thirds of the band with a third of it blank, while the seam rails below,
+   which are drawn per .footer__col, went on landing correctly and so made the
+   gap look deliberate. Auto-flow also means restoring that column is a markup
+   edit alone, with no number in this file to remember. */
 .footer__cols {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
   gap: var(--sp-8) var(--sp-6);
 }
 
@@ -1293,5 +1435,7 @@ body:not(.page-v2) .nav.nav-dark .nav__item-desc { color: var(--ink-inv-3); }
   .footer__grid { grid-template-columns: 1fr; gap: var(--sp-8); }
 }
 @media (max-width: 768px) {
-  .footer__cols { grid-template-columns: 1fr 1fr; }
+  /* grid-auto-flow goes back to row here, or the explicit template is
+     ignored and the columns stay in one line. */
+  .footer__cols { grid-auto-flow: row; grid-template-columns: 1fr 1fr; }
 }

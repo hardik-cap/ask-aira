@@ -59,8 +59,23 @@
                    AI analytics platforms", so that word is the category aiRA
                    argues against. -->
               <li><a href="/product">Overview</a></li>
+              <!-- PARKED 28 Sep with /pricing itself, now on the shelf at
+                   /archive/pricing.html. It pointed at a 404 from the day it
+                   was written until the page was built on 27 Sep, so it goes
+                   back only when the page does.
               <li><a href="/pricing">Pricing</a></li>
+              -->
+              <!-- HIDDEN 28 Sep (user: "hide pricing, security, about us from
+                   footer as we dont have those pages"). /security has NEVER been
+                   built and this link 404d from the day it was written, which is
+                   the longest-standing dead link on the site. Uncomment it the
+                   day the page exists, not before. context.md 20 is the argument
+                   for building it: security, privacy and IT governance was the
+                   number one hesitation in the buyer research, raised unprompted
+                   by 11 of 30. /product's #governance carries that argument for
+                   now.
               <li><a href="/security">Security</a></li>
+              -->
             </ul>
           </div>
 
@@ -79,13 +94,34 @@
             </ul>
           </div>
 
+          <!-- THE WHOLE COMPANY COLUMN IS HIDDEN as of 28 Sep (user: "hide
+               pricing, security, about us from footer as we dont have those
+               pages. also remove contact"). Both of its rows were named, and a
+               column heading with nothing under it is worse than no column, so
+               the wrapper goes with them rather than the two <li>s alone.
+               ABOUT US had been repointed at capillarytech.com/about-us earlier
+               the same day, when /about was parked, on the reasoning that a
+               Company column whose first item is missing reads as broken. That
+               reasoning is spent now the column itself is gone, and the user's
+               "we dont have those pages" covers it either way: the parent
+               company's about page is a real destination but it is not ours.
+               CONTACT was a mailto and not a page, so nothing 404d; it was named
+               separately and removed on its own terms.
+               IT COMES BACK AS A COLUMN, not as rows pasted elsewhere. IA 10
+               contracts /customers and /contact, and the navbar note already
+               says About stays a flat nav link until those exist, at which point
+               the grouping belongs here. .footer__cols sizes itself from the
+               number of columns present, so restoring this div is the only edit
+               needed.
+
           <div class="footer__col">
             <h3 class="footer__col-title">Company</h3>
             <ul class="footer__col-list">
-              <li><a href="https://www.capillarytech.com/about-us/" rel="noopener">About us</a></li>
+              <li><a href="/about">About us</a></li>
               <li><a href="mailto:aira@capillarytech.com">Contact</a></li>
             </ul>
           </div>
+          -->
         </div>
       </div>
 

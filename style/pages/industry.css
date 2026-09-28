@@ -13,8 +13,22 @@
    Split, MoEngage-style: the industry is already chosen by arriving here, so
    the hero leads with the claim and keeps the two routes beside it. */
 
+/* A FULL SCREEN since 28 Sep (user), so the section below it starts exactly at
+   the fold. No offset is needed here and that is not luck: the negative
+   margin-top below runs this hero up behind the floating header and the top
+   padding gives the same distance back, so the section's own box starts at
+   y=0 and 100svh is the whole viewport.
+   svh and not vh: on a phone 100vh is the LARGEST viewport, measured with the
+   browser chrome retracted, so a 100vh hero is always taller than the screen
+   it opens on. The vh line under it is the fallback for older engines.
+   The copy centres in whatever height is left; the padding stays as the
+   floor, so a short viewport still clears the header. */
 .hero-ind {
   position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
   /* Run the ground up behind the floating header and its gap, then give the
      top pad back, so the page has no strip of bare background above the bar. */
   margin-top: calc(-1 * (var(--nav-h) + var(--nav-float) + 2px));
@@ -31,6 +45,7 @@
       color-mix(in srgb, var(--brand) 5%, transparent), transparent 72%),
     linear-gradient(180deg, var(--bg-subtle), var(--bg) 78%);
 }
+.hero-ind > .padding-global { width: 100%; }
 
 .hero-ind__grid {
   display: grid;
@@ -44,7 +59,7 @@
   /* --t-display-1 (32 to 60), not the 70px hero token: this headline lives in
      half the width, and at the full hero size it broke to three lines and the
      <br> stopped meaning anything. */
-  font-size: var(--t-display-1);
+  font-size: var(--t-display-0);
   /* 500, the locked H1 weight, same as the homepage hero. */
   font-weight: 500;
   line-height: 1.04;
@@ -54,7 +69,7 @@
 }
 
 .hero-ind__sub {
-  font-size: var(--t-body-lg);
+  font-size: var(--t-body-xl);
   line-height: var(--lh-body);
   color: var(--ink-2);
   max-width: 34rem;
@@ -193,7 +208,7 @@
   gap: var(--sp-3);
   font-family: var(--font-display);
   font-size: var(--t-title-sm);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: var(--tr-title);
   color: var(--ink);
   margin-bottom: var(--sp-2);

@@ -358,18 +358,39 @@
   /* Oversize numeral, currently only the 404 page's code. Even px at both
      ends per the type rules (96 -> 180). */
   --t-display-giant: clamp(6rem, 3.9rem + 8.6vw, 11.25rem);
-  --t-display-0: clamp(2.25rem, 1.42rem + 3.4vw, 4.375rem); /* 36 -> 70px, cap ~1390px */  /* 44 -> 70, hero H1 */
+  /* THE HERO SIZE, 64px since 28 Sep (user). It was 70 from the 11 Sep type
+     lock until then, and the change is site-wide by design: every hero that
+     is not a utility page now takes this one token, where before /product,
+     /about and the twelve industry pages sat at 60 and the homepage and
+     /solutions at 70. The slope is solved to keep the old behaviour at both
+     ends, 36px at 390 and the cap reached at about 1390. */
+  --t-display-0: clamp(2.25rem, 1.568rem + 2.8vw, 4rem);      /* 36 -> 64, hero H1 */
   --t-display-1: clamp(2rem, 1.23rem + 3.15vw, 3.75rem);      /* 32 -> 60, reserve */
   /* 32 -> 48, interior-page H1. Caps at 48 by 992px, which is the width
      where /book's split hero stacks, so the headline is at full size for
      every layout that puts something beside it. */
   --t-display-1s: clamp(2rem, 1.37rem + 2.63vw, 3rem);        /* 32 -> 48, interior H1 */
-  --t-display-2: clamp(1.875rem, 1.6rem + 1.12vw, 2.5rem);    /* 30 -> 40, H2 */
+  /* 36px since 28 Sep (user: "do all h2 font sizes 36px"). It was 30 -> 40
+     from the 11 Sep type lock. The slope is re-solved rather than the cap
+     simply lowered, so both ends behave as they did: 30px at 393 and the cap
+     reached at about 1285. */
+  --t-display-2: clamp(1.875rem, 1.71rem + 0.673vw, 2.25rem); /* 30 -> 36, H2 */
   --t-display-3: clamp(1.5rem, 1.39rem + 0.45vw, 1.75rem);    /* 24 -> 28, H3 */
   --t-title:     1.125rem;    /* 18 */
   --t-title-lg:  1.25rem;     /* 20, list-entry titles (.biz__t) */
+  /* 24 FLAT, added 28 Sep. The scale had no flat 24: --t-display-3 starts
+     there but clamps up to 28, so a statement that wants 24 at every width
+     had nowhere to go. Continues the title family's 16 / 18 / 20 / 24. */
+  --t-title-xl:  1.5rem;      /* 24, flat */
   --t-title-sm:  1rem;        /* 16 */
   --t-lede:      1.25rem;     /* 20, a lede set above the subheader */
+  /* 18, added 28 Sep for the HERO subheads (.hero__sub, .phero__sub), which
+     the user set to 18 in the same pass that took every other sub to 14. It
+     shares --t-title's value and is a separate token for the same reason
+     --t-body-sm shares --t-body's: the role is what is being named, so a
+     later change to card titles must not move a hero's second line. The
+     body family now reads 14 / 16 / 18. */
+  --t-body-xl:   1.125rem;    /* 18, hero subheader */
   --t-body-lg:   1rem;        /* 16, subheader / lede */
   --t-body:      0.875rem;    /* 14 */
   --t-body-sm:   0.875rem;    /* 14, nav links, buttons, UI */
@@ -473,6 +494,30 @@
   --hold-bg:    rgba(178, 106, 0, 0.20);
   --reject:     #F075AC;
   --reject-bg:  rgba(196, 16, 106, 0.18);
+
+  /* THE SLATE RAMP HAS TO FLIP TOO, and forgetting it is what makes a dark
+     page look nearly right and then end in a light grey footer: .footer's
+     ground is var(--slate-100) and the --wash-* tokens are mixes over
+     --slate-50. Both are declared in the :root block above, and because
+     THIS block is the same element, redefining the ramp here does reach
+     them. (Contrast .page-v2 in home-v2.css, which is on <body>: a custom
+     property resolves its var()s against the element it is DECLARED on, so
+     a remap one level down never reached the washes and they had to be
+     restated. Same trap, different answer, purely because of where the
+     hook sits.) */
+  --slate-50:  #0B0F19;
+  --slate-100: #0C101B;
+  --slate-200: #10151F;
+  --slate-300: #1A2030;
+
+  /* Frame: --frame-line already flips, because it is var(--hairline) and
+     the hairline is redefined above. These two do not, because they are
+     fixed ink-tinted values: the grid is dark-on-dark and invisible, and
+     the crossing square is a mid grey that goes muddy. The -inv values
+     beside them in :root are exactly the right ones. */
+  --frame-grid: rgba(255, 255, 255, 0.06);
+  --frame-plus: var(--slate-400);
+  --nav-graph:  rgba(255, 255, 255, 0.13);
 
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.30);
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.30), 0 2px 6px -2px rgba(0, 0, 0, 0.40);

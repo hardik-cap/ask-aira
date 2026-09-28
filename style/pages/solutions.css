@@ -69,6 +69,12 @@
    the number stayed while the face got much bolder underneath it, leaving
    this the only 700 heading on the site. Tracking returns to --tr-display for
    the same reason: -0.04em was compensating for the old face. */
+/* THE HERO'S SUB NEEDS ITS OWN SIZE. This hero reuses .section-head rather
+   than declaring a .hero-solutions__sub, so its supporting line was tracking
+   .section-sub, and when that went to 14 on 28 Sep the largest headline on
+   the site ended up with the smallest sub under it. 18 is what every other
+   hero sub takes. */
+.hero-solutions .section-sub { font-size: var(--t-body-xl); }
 .hero-solutions .section-heading {
   font-size: var(--t-display-0);
   font-weight: 500;

@@ -45,7 +45,7 @@
 }
 
 .bhero__sub {
-  font-size: var(--t-body-lg);
+  font-size: var(--t-body-xl);
   line-height: var(--lh-body);
   color: var(--ink-2);
   max-width: 32rem;

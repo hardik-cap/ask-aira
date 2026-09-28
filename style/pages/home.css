@@ -442,7 +442,10 @@
 }
 
 .hero__sub {
-  font-size: var(--t-body-lg);
+  /* 18 (user, 28 Sep). A hero sub moves the OTHER way from a section sub:
+     it is the only supporting line on the fold and carries the whole
+     claim under a 70px headline, where 16 read as small print. */
+  font-size: var(--t-body-xl);
   line-height: var(--lh-body);
   color: var(--ink-2);
   max-width: 36rem;
@@ -1744,7 +1747,11 @@
 .sec__tile p {
   font-size: var(--t-body-sm);
   line-height: 1.65;
-  color: var(--ink-inv-3);
+  /* --ink-inv-2, which is what .section--inv .section-sub takes, not the
+     fainter --ink-inv-3 (user, 28 Sep). These paragraphs ARE the section's
+     supporting copy, one per tile, so they read at the same weight as the
+     sub above them rather than as a footnote to it. */
+  color: var(--ink-inv-2);
 }
 
 /* Split top (reference: header + sub left, one illustration right), then
@@ -2029,7 +2036,7 @@
    whichever one is open, so it is one element, not four keyed by industry. */
 .inds__claim {
   margin-top: var(--sp-4);
-  font-size: var(--t-body-lg);
+  font-size: var(--t-body);
   line-height: var(--lh-body);
   color: var(--ink-2);
   max-width: 30rem;
