@@ -437,6 +437,11 @@
    been the tidier fix, since the new face carries a wdth axis, but the axis
    is not in the font request and adding it costs a second variable axis on
    every page for one breakpoint. */
+/* IT SURVIVES THE 32px PHONE BAND set on 28 Sep, and was re-tested against it
+   rather than assumed: with this block removed the title runs to FOUR lines at
+   375, 360 and 320 and drops to three only at 380, which is the same failure
+   this rule was written for. So index.html is the ONE page whose hero H1 is not
+   32 on the narrowest phones. */
 @media (max-width: 380px) {
   .hero__title { font-size: 1.875rem; }
 }

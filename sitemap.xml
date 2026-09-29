@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  aiRA sitemap. Hand-maintained: this project has no build step, so a page
+  added to the site has to be added here too.
+
+  IT CARRIES <loc> AND NOTHING ELSE, on purpose.
+  - changefreq and priority are ignored outright by Google and have been for
+    years; writing them is inventing data that no one reads.
+  - lastmod is left out because nothing here can keep it honest. With no build
+    step it would be hand-typed, and Google ignores lastmod it finds
+    untrustworthy, so a set of dates that quietly rot is worth less than none.
+    Add it the day a build step can stamp it from git.
+
+  THE LIST IS THE PAGES' OWN CANONICALS, read out of each file rather than
+  written twice, so the two cannot disagree. The homepage is the one entry
+  without a canonical tag to read; give index.html one and this stops being a
+  special case.
+
+  WHAT IS DELIBERATELY ABSENT: /404, /style-guide, /index-v2 and /index-v3, all
+  of which carry a noindex meta, and /pricing, which is parked in /archive and
+  404s. Restoring /pricing means adding it back here.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://askaira.ai/</loc>
+  </url>
+  <url>
+    <loc>https://askaira.ai/about</loc>
+  </url>
+  <url>
+    <loc>https://askaira.ai/book</loc>
+  </url>
+  <url>
+    <loc>https://askaira.ai/product</loc>
+  </url>
+  <url>
+    <loc>https://askaira.ai/solutions</loc>
+  </url>
+  <url>
+    <loc>https://askaira.ai/solutions/restaurants-qsr</loc>
+  </url>
+  <url>
+    <loc>https://askaira.ai/solutions/retail</loc>
+  </url>
+  <url>
+    <loc>https://askaira.ai/solutions/telecom</loc>
+  </url>
+  <url>
+    <loc>https://askaira.ai/solutions/travel-hospitality</loc>
+  </url>
+  <url>
+    <loc>https://askaira.ai/solutions/retail/convenience-fuel</loc>
+  </url>
+  <url>
+    <loc>https://askaira.ai/solutions/retail/department-discount</loc>
+  </url>
+  <url>
+    <loc>https://askaira.ai/solutions/retail/fashion-apparel</loc>
+  </url>
+  <url>
+    <loc>https://askaira.ai/solutions/retail/grocery-supermarket</loc>
+  </url>
+  <url>
+    <loc>https://askaira.ai/solutions/retail/health-beauty</loc>
+  </url>
+  <url>
+    <loc>https://askaira.ai/solutions/retail/home-furniture</loc>
+  </url>
+  <url>
+    <loc>https://askaira.ai/solutions/retail/other-retail</loc>
+  </url>
+  <url>
+    <loc>https://askaira.ai/solutions/retail/specialty-outdoor</loc>
+  </url>
+  <url>
+    <loc>https://askaira.ai/privacy-policy</loc>
+  </url>
+  <url>
+    <loc>https://askaira.ai/terms-and-conditions</loc>
+  </url>
+</urlset>

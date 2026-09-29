@@ -94,34 +94,31 @@
             </ul>
           </div>
 
-          <!-- THE WHOLE COMPANY COLUMN IS HIDDEN as of 28 Sep (user: "hide
-               pricing, security, about us from footer as we dont have those
-               pages. also remove contact"). Both of its rows were named, and a
-               column heading with nothing under it is worse than no column, so
-               the wrapper goes with them rather than the two <li>s alone.
-               ABOUT US had been repointed at capillarytech.com/about-us earlier
-               the same day, when /about was parked, on the reasoning that a
-               Company column whose first item is missing reads as broken. That
-               reasoning is spent now the column itself is gone, and the user's
-               "we dont have those pages" covers it either way: the parent
-               company's about page is a real destination but it is not ours.
-               CONTACT was a mailto and not a page, so nothing 404d; it was named
-               separately and removed on its own terms.
-               IT COMES BACK AS A COLUMN, not as rows pasted elsewhere. IA 10
-               contracts /customers and /contact, and the navbar note already
-               says About stays a flat nav link until those exist, at which point
-               the grouping belongs here. .footer__cols sizes itself from the
-               number of columns present, so restoring this div is the only edit
-               needed.
-
+          <!-- THE COMPANY COLUMN CAME BACK on 28 Sep with /about itself, and
+               it holds ONE row rather than the two it had. It was hidden
+               earlier the same day (user: "hide pricing, security, about us
+               from footer as we dont have those pages. also remove contact"),
+               wrapper included, because a column heading with nothing under it
+               is worse than no column. "About us" was one of those two and the
+               reason it went is gone: /about ships again, so this points at the
+               site's own page rather than at capillarytech.com/about-us, which
+               is where it fell back to while the page was parked.
+               CONTACT DOES NOT COME BACK WITH IT. It was a mailto rather than a
+               page, so it was never 404ing and was named separately from the
+               three dead links, which makes it a removal on its own terms and
+               not a casualty of the parking. Restore it only on a fresh ask, or
+               when IA 10's /contact page exists.
+               ONE ROW IS THE HONEST STATE. It becomes a real column when
+               /customers and /contact are built, which is the same threshold
+               the navbar note uses for turning About into a Company dropdown.
+               .footer__cols sizes itself from the number of columns present, so
+               this div returning is the only edit the footer needed. -->
           <div class="footer__col">
             <h3 class="footer__col-title">Company</h3>
             <ul class="footer__col-list">
               <li><a href="/about">About us</a></li>
-              <li><a href="mailto:aira@capillarytech.com">Contact</a></li>
             </ul>
           </div>
-          -->
         </div>
       </div>
 

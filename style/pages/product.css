@@ -2363,12 +2363,26 @@
      does not support it yet and simply wraps, which is what it did before. */
   .phero__sub { text-wrap: pretty; }
   .phero__fig { margin-top: var(--sp-10); }
-  /* A phone cannot read a two-pane app scaled to 350px either way, so the
-     frame gets taller and holds the THREAD half, which is the readable one
-     and the one the page is about. */
-  .phero__fig { aspect-ratio: 5 / 4; }
-  .phero__fig > img,
-  .phero__fig > iframe { object-position: top left; }
+  /* THE FRAME KEEPS THE CAPTURE'S OWN RATIO ON A PHONE, so the whole window
+     fits and the box stays short (user, 28 Sep: "why the image if fill, fit
+     it and change the frame size on mobile ... height is too long thats the
+     issue").
+     THE CROP WAS NEVER object-fit's FAULT, which is the part worth keeping.
+     workspace.png is 2560x1600, exactly 16/10, and .phero__fig's base ratio is
+     16/10, so at that ratio `cover` and `contain` do the same thing and
+     nothing is cut. Every crop this rule has produced came from CHANGING the
+     ratio: 5/4 cut the right pane, and 1/1 cut more of it and stood 350px tall
+     on a 350px-wide screen. Matching the source ratio fixes the fit and the
+     height in one move, 219px instead of 350.
+     SO THERE IS NO MOBILE OVERRIDE LEFT and that is deliberate: the base rule
+     was already right and the phone rules were working around a problem they
+     had created. Do not reintroduce a ratio here without changing the asset.
+     WHAT IT COSTS, stated plainly: at 350px wide the window's own UI type
+     renders around 1.5px, so this is the product as a recognisable OBJECT, a
+     two-pane app with a thread and a dashboard, and not something a phone
+     reader can read. That is the trade the user chose over the zoomed crop
+     .book__shot uses on the same asset. If legibility is ever wanted back
+     here, it needs a zoom, and a zoom needs the height back. */
 
 
   .feat__mini { grid-template-columns: 1fr; }
