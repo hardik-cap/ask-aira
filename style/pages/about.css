@@ -26,12 +26,13 @@
   position: relative;
   display: flex;
   align-items: flex-end;
-  /* 60svh SINCE 3 OCT (user: "give about and pricing page hero 60vh
-     height"), and it is a PLAIN 60, with no header subtracted. That
+  /* 80svh SINCE LATER ON 3 OCT (user: "for about page hero give it
+     80vh"), up from the 60 set earlier that day; /pricing stays at 60.
+     It is a PLAIN 80, with no header subtracted. That
      arithmetic (less --nav-h, --nav-float and the nav card's own 2px
      border) exists only to land a section's BOTTOM EDGE exactly on the
      fold, and at 60% there is no edge to land, so subtracting anything
-     here would just make it 60% minus a number nobody asked for.
+     here would just make it 80% minus a number nobody asked for.
      svh, with vh under it for older engines: on a phone 100vh is the
      LARGEST viewport, measured with the browser chrome retracted, so a
      vh-based hero is always taller than the screen it opens on.
@@ -39,10 +40,10 @@
      more, which is what keeps this safe on a short or zoomed viewport.
      THIS IS NOT THE FULL-VIEWPORT HERO COMING BACK. That version was
      removed earlier the same day and the thing it bought, the next
-     section starting exactly at the fold, is still gone: at 60% the
-     section below is visible from the start, deliberately. */
-  min-height: 60vh;
-  min-height: 60svh;
+     section starting exactly at the fold, is still gone: at 80% the
+     logo wall below still peeks into the first screen, deliberately. */
+  min-height: 80vh;
+  min-height: 80svh;
 }
 .abhero > .padding-global { width: 100%; }
 .abhero__copy {
