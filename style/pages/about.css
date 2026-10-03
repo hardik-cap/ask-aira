@@ -26,21 +26,23 @@
   position: relative;
   display: flex;
   align-items: flex-end;
-  /* FULL VIEWPORT, LESS THE HEADER (user, 28 Sep), so the logo wall below
-     sits exactly at the fold and never peeks into the first screen.
-     IT IS NOT 100vh. #navbar-placeholder is a STICKY element in normal flow,
-     not an overlay, so it really occupies --nav-h + --nav-float at the top of
-     the document; at a flat 100vh the hero would end 68px BELOW the fold and
-     the page would open with a scrollbar it does not need.
-     svh, with vh under it for older engines: on a phone 100vh is the LARGEST
-     viewport, measured with the browser chrome retracted, so a 100vh hero is
-     always taller than the screen it opens on.
-     THE -2px IS THE NAV CARD'S OWN BORDER. --nav-h is .nav__inner's height,
-     which is the bar INSIDE its 1px edge, so #navbar-placeholder actually
-     stands 2px taller than nav-h + nav-float and the hero overshot the fold
-     by exactly that. */
-  min-height: calc(100vh - var(--nav-h) - var(--nav-float) - 2px);
-  min-height: calc(100svh - var(--nav-h) - var(--nav-float) - 2px);
+  /* 60svh SINCE 3 OCT (user: "give about and pricing page hero 60vh
+     height"), and it is a PLAIN 60, with no header subtracted. That
+     arithmetic (less --nav-h, --nav-float and the nav card's own 2px
+     border) exists only to land a section's BOTTOM EDGE exactly on the
+     fold, and at 60% there is no edge to land, so subtracting anything
+     here would just make it 60% minus a number nobody asked for.
+     svh, with vh under it for older engines: on a phone 100vh is the
+     LARGEST viewport, measured with the browser chrome retracted, so a
+     vh-based hero is always taller than the screen it opens on.
+     min-height is a FLOOR, not a cap: the copy still wins if it needs
+     more, which is what keeps this safe on a short or zoomed viewport.
+     THIS IS NOT THE FULL-VIEWPORT HERO COMING BACK. That version was
+     removed earlier the same day and the thing it bought, the next
+     section starting exactly at the fold, is still gone: at 60% the
+     section below is visible from the start, deliberately. */
+  min-height: 60vh;
+  min-height: 60svh;
 }
 .abhero > .padding-global { width: 100%; }
 .abhero__copy {
@@ -357,33 +359,17 @@
   }
 }
 
-/* Narrower, taller and calmer below 992 rather than gone. They were dropped
-   here while the hero collapsed to auto height; now that it stays a full
-   screen at every width, the space above the copy is real on a phone too and
-   something has to be in it. The field is pushed up and right and its
-   opacities come down, so it sits clear of a headline that now runs the full
-   width instead of behind it. */
-/* THE HERO IS 60svh ON A PHONE (user, 28 Sep: "in about page mobile view,
-   class='section abhero' dont do hero 100vh, do like 60vh").
-   THIS REVERSES THE 'LOGO WALL MUST NOT PEEK' RULE below 768, deliberately.
-   The full-height version existed so the wall sat exactly ON the fold and the
-   first screen was hero and nothing else; on a phone that screen is mostly
-   empty sky, because the copy is bottom-left and a portrait viewport gives it
-   far more headroom than a landscape one. At 60svh the wall does show at the
-   fold, and that is the trade being made rather than a regression.
-   IT IS A PLAIN 60svh, with no header subtracted. The arithmetic the desktop
-   rule carries (less --nav-h, --nav-float and the card's 2px border) exists
-   only to land the section's bottom edge exactly on the fold, and at 60% there
-   is no edge to land. svh not vh for the usual reason: 100vh on a phone is the
-   viewport with the browser chrome retracted.
-   min-height is a FLOOR, so the copy still wins if it needs more than 60%. */
-@media (max-width: 767px) {
-  .abhero {
-    min-height: 60vh;
-    min-height: 60svh;
-  }
-}
-
+/* Narrower, taller and calmer below 992 rather than gone. NOTE the reason
+   given here on 28 Sep no longer holds: it said the space above the copy is
+   real on a phone "now that it stays a full screen at every width", and the
+   hero stopped being a full screen on 3 Oct. They are kept anyway, on the
+   weaker but still true argument that a hero with nothing above the copy
+   reads as unfinished, and because tuning them cost nothing to leave in. */
+/* THE PHONE'S 60svh WENT WITH THE DESKTOP FULL HEIGHT on 3 Oct. It was set
+   on 28 Sep ("dont do hero 100vh, do like 60vh") as a smaller version of the
+   same idea, a floor measured against the viewport rather than the content,
+   and with the desktop rule gone it was the only thing left making this hero
+   a fraction of a screen. The copy sizes it now at every width. */
 @media (max-width: 991px) {
   .abhero__blobs {
     width: 84%;

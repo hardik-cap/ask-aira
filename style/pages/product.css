@@ -11,53 +11,63 @@
    Loads after tokens -> global -> components.
    ========================================================================== */
 
-/* ---- Hero: centred, product below (22 Sep, sendr.ai reference) ----------
-   Copy centred and narrow, then the capture full width directly under it,
-   running past the fold so the app reads as already open rather than
-   pictured. It was a left/right split for a few hours before this, and a
-   centred stack over a drawn loop diagram before that.
+/* ---- Hero: ranged left, the capture bleeding off the right edge --------
+   3 Oct, from databricks.com's own hero (user: "left aligned and shorter
+   hero and subheader text, and product image on right but not fully
+   visible"). Copy in the left column at a short H1 and a one-line sub, the
+   product capture in the right column running PAST the page's right edge so
+   it is cut rather than framed.
 
-   The capture also absorbed the #demo section that briefly held it: the
-   product belongs in the hero, not in a section of its own underneath one.
+   WHAT THE REFERENCE ACTUALLY DOES, and what was taken: a terse headline
+   with the explanation demoted to the sub, a panel anchored to the right
+   that the window cuts, and a dot texture in the gap between the two. What
+   was NOT taken is its two-button row: this site has one conversion button
+   and /product already books from the hero and from the card at the foot.
+
+   IT WAS CENTRED FROM 22 SEP (sendr.ai/platform/sequencer) with the capture
+   full width underneath, and a left/right split for a few hours before that.
+   Three things from the centred version are GONE rather than parked, because
+   every one of them was solving a problem only a centred block has:
+     - the H1's and the sub's fluid measures. A centred block pinches when
+       its middle line is the shortest, and a flat px measure gives the H1 a
+       band where it falls to two lines with the second longer than the
+       first. Ranged left in a column of its own, the column IS the measure
+       and a rag that is not centred has nothing to be symmetrical about.
+     - text-wrap: balance on the sub, for the same reason. It is `pretty`
+       now, which works on the last line rather than on the shape.
+     - the word "still" in the headline, which existed to fix that rag.
    -------------------------------------------------------------------------- */
 
-/* ONE COLUMN, and the copy and the glyph field share its first cell (23 Sep,
-   user: give .phero__copy the same max-width as /solutions' .hero-ind__copy).
-   The cap is the only reason the grid exists. .phero__copy used to be the
-   field's containing block AND the full width of the container, so capping it
-   at 46rem took the field down with it from 1240 to 736, and at 736 the field
-   has nowhere to be: the canvas clears an ellipse of 0.2816 x its own box to
-   keep glyphs off the headline, which is 349px at 1240 and matches the H1's
-   350px half exactly, but only 207px at 736, so the glyphs would run straight
-   through the words. Sharing a cell keeps the field on the COLUMN's width
-   while the copy is capped, and keeps its block box the copy's own row, which
-   is what the -section-pad / -sp-16 margins are measured against. */
+/* TWO COLUMNS, and the glyph field spans BOTH. The copy is in column one,
+   the capture in column two, and the field runs under the pair: see the
+   note on .phero__matrix for why it cannot live in the copy's column alone
+   any more. align-items: center hangs the copy off the capture's middle,
+   which is what the reference does and what stops a 380px copy block
+   floating at the top of a 660px row. */
 .phero .container {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  text-align: center;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr);
+  column-gap: var(--sp-10);
+  align-items: center;
 }
 
-/* The centred block's two measures are SET DIRECTLY, 700 on the H1 and 600 on
-   the sub (user, 23 Sep). They shared one fluid measure for a day, and what
-   that was solving is worth keeping written down because a flat px measure
-   brings it back:
+/* THE HERO GIVES UP ITS BOTTOM PADDING at the widths where the split runs
+   (user, 3 Oct: "cut 30% from bottom and start new section from right
+   there"). The capture's cut edge IS the section's bottom edge now, so the
+   joint and the section below begin exactly where the picture stops. The TOP
+   padding stays: the hero still has to clear the floating header.
+   It is scoped to the split, because below 1200 the capture is full width
+   and uncropped and there is no cut for a boundary to land on. */
+@media (min-width: 1200px) {
+  .phero { padding-bottom: 0; }
+}
 
-   --phero-measure was calc(var(--t-display-0) * 11.73), derived from the
-   headline's own clamp so the box shrank with the type. A measure that does
-   NOT move with the font gives the H1 a band where it falls to two lines with
-   the SECOND longer than the first, which in a centred block is an inverted
-   taper. At 700px that band is roughly 640 to 880: measured, 900 gives three
-   lines at 447/418/386 and 830 gives two at 535/670. Below 640 the container
-   is narrower than the measure anyway and it goes back to three.
-
-   A breakpoint cannot fix it, because the flip is driven by the fluid font
-   and any breakpoint leaves a bad band on one side of it. What does fix it is
-   capping the fluid measure rather than replacing it:
-     max-width: min(700px, calc(var(--t-display-0) * 10.94));
-   which is exactly 700 everywhere the clamp is at its 64px ceiling and
-   shrinks with the type below that. Not applied: 700 flat is what was asked
-   for. */
+/* THE HERO KEEPS BOTH RAILS. It lost its right one for part of 3 Oct, while
+   the capture overshot the viewport and crossed it: the rail was hidden for
+   the capture's height and visible above and below, which reads as a broken
+   line rather than as bleed. The capture stops ON that rail now and has
+   faded out before it reaches it, so there is nothing to hide and the rail
+   runs the whole page again. Do not re-add the override. */
 
 /* ---- The glyph field (22 Sep, user reference: sv-animations GlyphMatrix) --
    A canvas of small mono glyphs behind the copy, a few of which change every
@@ -82,33 +92,42 @@
    lattice uses, which is what makes the two grounds read as one language. */
 .phero__copy {
   grid-area: 1 / 1;
-  /* 800px since 28 Sep, up from the 46rem (736) set on 23 Sep to match
-     /solutions' .hero-ind__copy. It HAS to move with the headline: the H1's
-     own max-width went to 800 in the same pass and a 736px parent would have
-     silently capped it back, which is the failure mode of setting a measure on
-     a child of a narrower box. The sub stays 600 flat, so the block is still
-     one column of a stated width rather than three measures loose in a
-     full-width box, which is what this cap is for. */
-  /* width:100% as well as the cap, because an auto-margined GRID item is
-     shrink-to-fit: without it the block collapses onto its widest child and
-     comes out 700 (the H1's own measure) rather than the 736 asked for, which
-     is a different box from the one .hero-ind__copy makes in normal flow. */
+  /* NO max-width and NO auto margins. The grid column is the measure now:
+     at 1440 it is 568px against the 800px cap this used to carry, so every
+     one of those numbers was inert the moment the hero went to two columns,
+     and an inert cap is a number the next person has to disprove. */
   width: 100%;
-  max-width: 800px;
-  margin-inline: auto;
   /* Paints over the field: same cell, later in the DOM, and positioned. */
   position: relative;
 }
 
 .phero__matrix {
-  grid-area: 1 / 1;
+  /* SPANS BOTH COLUMNS since 3 Oct, where it used to share the copy's single
+     cell. That is forced by the geometry, not a preference: the clear
+     ellipse is 0.44 of 0.64 of the host's width, which is 349px on the old
+     1240px full-width cell and matched the centred H1's own 350px half
+     almost exactly. In a 568px left column the same arithmetic clears only
+     160px against a headline 540px wide, so the glyphs would run straight
+     through the words, and widening the clear to cover them leaves no field
+     at all. Spanning the pair keeps the box at the container's width, so
+     the ratio still resolves to a real number.
+     IT RUNS UNDER THE CAPTURE and that costs nothing: the capture is opaque
+     and positioned later in the DOM, so it covers the right half outright.
+     What is left visible is the gap between the two columns and the air
+     above and below the copy, which is where the reference puts its own
+     dot texture. */
+  grid-area: 1 / 1 / 2 / -1;
   /* Stretched to the cell, then pushed out top and bottom by exactly the two
      tokens the neighbouring rules use: up through the section's own top
      padding, and down to where .phero__fig's margin-top begins. Written as
      margins rather than as top/bottom insets because the field is a grid item
      now, not an absolutely positioned layer. It still lands on the figure's
      edge if either of those rules changes. */
-  margin-block: calc(-1 * var(--section-pad)) calc(-1 * var(--sp-16));
+  /* Up through the section's own top padding, and NOTHING at the foot: the
+     hero's bottom padding is 0 at these widths, so a negative bottom margin
+     would hang the field over the joint and into the section below. It used
+     to be -sp-16, measured against the gap the capture then had under it. */
+  margin-block: calc(-1 * var(--section-pad)) 0;
   /* No arithmetic: the frame's rails ride .container's outer edges and its
      20px inner padding is what keeps content clear of them, so a layer that
      simply fills .phero__copy already runs the width of the frame with that
@@ -145,21 +164,64 @@
   /* Fades in under the header and out again before the capture. Without the
      first stop the field starts on a hard horizontal edge level with the top
      of the nav card. */
-  -webkit-mask-image: linear-gradient(to bottom,
-    transparent 0, #000 14%, #000 48%, transparent 92%);
-  mask-image: linear-gradient(to bottom,
-    transparent 0, #000 14%, #000 48%, transparent 92%);
+  /* TWO MASK LAYERS, INTERSECTED, since 3 Oct. The vertical one is the
+     original: it fades the field in under the header so it does not start
+     on a hard horizontal edge, and out again before the section ends.
+     THE HORIZONTAL ONE IS NEW AND IS NOT OPTIONAL. The capture now DISSOLVES
+     at its right edge instead of being cut by the viewport, and the field
+     spans both columns and sits behind it, so the moment the capture went
+     translucent the glyphs started showing through it. A field read through
+     a fading screenshot does not look like texture, it looks like dirt on
+     the picture. The field now dies at 48%, which is where the capture's
+     left edge falls (at 1440 the copy runs 0..575 of 1240 and the capture
+     starts at 615, so 49.6%), and the ramp from 32% gives it somewhere to
+     go rather than stopping on a line.
+     THEY MUST INTERSECT, NOT ADD. mask-composite defaults to `add`, which
+     is a UNION: the two layers would cover each other's gaps and the mask
+     would be very nearly opaque everywhere, which is the same as having no
+     mask at all. `intersect` is the one that means "both". */
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0, #000 10%, #000 84%, transparent 100%),
+    linear-gradient(to right, #000 0, #000 32%, transparent 48%);
+  mask-image:
+    linear-gradient(to bottom, transparent 0, #000 10%, #000 84%, transparent 100%),
+    linear-gradient(to right, #000 0, #000 32%, transparent 48%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 .phero__matrix .glyphs__canvas {
-  /* Sized against the H1's 700px measure: the clear radius is 0.44 x 0.64 of
-     the box, so 349px at a 1240px column, against the headline's own 350px
-     half. That arithmetic is why the field cannot live inside a 46rem copy
-     block, and why it sits in the grid cell instead. */
-  --gm-clear: 0.44;
-  -webkit-mask-image: radial-gradient(64% 78% at 50% 50%,
-    transparent 0 calc(var(--gm-clear) * 100%), rgba(0, 0, 0, 0.45) 76%, #000 100%);
-  mask-image: radial-gradient(64% 78% at 50% 50%,
-    transparent 0 calc(var(--gm-clear) * 100%), rgba(0, 0, 0, 0.45) 76%, #000 100%);
+  /* THE CLEAR MOVED OFF CENTRE WITH THE COPY (3 Oct). It was an ellipse at
+     50% 50% when the copy was centred in a full-width cell; the copy is in
+     the left column now, so the hole has to be too, or it clears the gap
+     and leaves the glyphs sitting on the headline.
+     The numbers: the gradient's 100% is 46% of the host's width, so 570px
+     on a 1240px container, and the clear runs to 0.62 of that, 354px,
+     centred at 23% (x=285). That covers x=-69 to 639 against a copy column
+     ending at 568, so the headline sits on open ground with the field
+     starting in the gap. Vertically it clears 0.62 of 50%, which leaves
+     texture above and below the copy rather than only beside it. */
+  /* THE VERTICAL RADIUS IS AN ABSOLUTE LENGTH, NOT A PERCENTAGE, and that
+     is the point of this rule rather than an implementation detail.
+     The clear has to cover the COPY, whose height barely moves (about
+     322px, so ±161 from its centre). As a percentage it was instead sized
+     by the HOST, whose height is driven by the capture and has now changed
+     three times in two days: 634px, then 805 when the frame took the left
+     half at full height, then 644 when 30% came off the bottom. Every one
+     of those moves re-broke the clear in one direction or the other, once
+     leaving the field as a patch above the headline and once putting
+     glyphs through the words.
+     At a flat 320px the clear is 0.62 x 320 = 198px at EVERY width, which
+     covers the copy's 161 with about two glyph cells to spare and does not
+     move when the capture does. What scales instead is how much field is
+     left above and below, which is the thing that SHOULD scale: 62px at
+     1200 and 156px at 1920.
+     The horizontal radius stays a percentage, because there the thing
+     being cleared really is a fraction of the host. */
+  --gm-clear: 0.62;
+  -webkit-mask-image: radial-gradient(46% 320px at 23% 50%,
+    transparent 0 calc(var(--gm-clear) * 100%), rgba(0, 0, 0, 0.45) 84%, #000 100%);
+  mask-image: radial-gradient(46% 320px at 23% 50%,
+    transparent 0 calc(var(--gm-clear) * 100%), rgba(0, 0, 0, 0.45) 84%, #000 100%);
 }
 
 /* The copy paints over the field by DOM order: the host is the first child of
@@ -193,8 +255,11 @@
      applied then only because a flat 700 was what had been asked for.
      12.5 is 800 / 64, so the cap resolves to exactly 800 at the clamp's 64px
      ceiling and the box shrinks in step with the font below it. */
-  max-width: min(800px, calc(var(--t-display-0) * 12.5));
-  margin-inline: auto;
+  /* NO MEASURE AND NO AUTO MARGIN. The grid column is the measure, and the
+     long apparatus this replaced (min(800px, --t-display-0 * 12.5), solved
+     so the box shrank with the clamp) was fixing an inverted taper that only
+     a CENTRED block can have. Ranged left there is no taper: a second line
+     longer than the first is just a rag. */
   margin-bottom: var(--sp-5);
   text-wrap: balance;
 }
@@ -214,49 +279,123 @@
   font-size: var(--t-body-xl);
   line-height: var(--lh-body);
   color: var(--ink-2);
-  /* 600px (user, 23 Sep), which ENDS the measure this shared with the H1. That
-     was set on 22 Sep ("the h1 and subhead should have same width") and the
-     headline is 700 and the sub is narrower than it rather than equal to it,
-     which is a deliberate reversal and not a drift. Flat rather than fluid,
-     so it also stops tracking the headline's clamp. */
-  max-width: 600px;
-  margin-inline: auto;
-  /* Centred copy is read by its rag, and greedy wrapping gave this one
-     621 / 697 / 668: the longest line in the MIDDLE, which is the shape that
-     reads as "out and in". Balanced it runs 621 / 677 / 688, which only ever
-     grows, and a rag that moves one way is not read as a rag at all. */
-  text-wrap: balance;
+  /* Capped a little inside the column so the sub is visibly the second
+     object rather than a block as wide as the headline, which is what the
+     reference does with its own one-liner. It replaces a 600px measure and
+     an auto margin, both of which were centring apparatus.
+     `pretty` rather than `balance`: balance evens the lines of a CENTRED
+     block, and what a ranged-left sub needs is only not to end on an
+     orphan. */
+  max-width: 30rem;
+  text-wrap: pretty;
 }
 
 .phero__cta {
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: var(--sp-8);
 }
 
-/* ---- The capture --------------------------------------------------------
-   aspect-ratio on the FRAME, not the image, so swapping the <img> for the
-   Guideflow <iframe> changes nothing: an iframe has no intrinsic size and
-   would otherwise collapse the hero.
+/* ---- The capture: right column, stopping on the 80rem rail -------------
+   3 Oct, second pass (user: "the idea of hero product image is to show 50%
+   of left side image and also show till 80rem max width of page. after that
+   nothing is shown and towards the end of image show fade out white in to
+   bg color"). The first pass ran the frame off the viewport entirely; this
+   one ends it on the page's own right rail and dissolves it before it gets
+   there.
 
-   This one keeps a hairline and a radius where the previous hero capture had
-   neither. That asset arrived already sitting on its own rounded card, so a
-   frame there was a frame around a frame; this is a raw app capture and needs
-   an edge of its own.
+   THE CROP IS EXACTLY HALF, and the arithmetic is the point rather than a
+   tuned number. The frame takes aspect-ratio 1280/1598, which is the LEFT
+   HALF of workspace.png (2560x1598); the <img> inside takes width: 200% and
+   height: 100%, so its element box is 2W wide by W*1598/1280 tall, a ratio
+   of 1.602, which IS the source's own ratio to three decimals. object-fit
+   therefore neither crops nor scales anything: the image is drawn whole at
+   its natural proportions in a box twice the frame's width, and the frame
+   clips the right half of it. Change either number and they must change
+   together, or the picture distorts.
+   WHAT THAT BUYS, beyond doing as asked: the capture renders at about 0.50
+   scale against the 0.39 the bleeding version managed, so the thread's UI
+   type comes out near 12px instead of 9. A defined crop is sharper than an
+   overshoot, because the overshoot sized itself off whatever was left.
+
+   IT ENDS ON THE RAIL, not 20px inside it. width: calc(100% + --sp-5) is
+   .container's own gutter given back, which is the same giveback the bento
+   and the rollout tabs use and exists for exactly one reason: that 20px is
+   there to clear the rails, so handing it back puts an edge ON one. 80rem
+   is --container, and the container's border box is where the rail rides.
+   THE HERO'S RIGHT RAIL IS BACK ON because of this. It was switched off in
+   the first pass, where the capture crossed it and left a line that was
+   hidden for the capture's height and visible above and below it. Nothing
+   crosses it now: the image stops there and has faded out before it does,
+   so the rail is continuous down the whole page again.
+
+   NO BLEED MEANS NO --phero-bleed AND NO 1800 STEP. Both are gone, and so
+   is the flat height they forced: the frame carries a ratio again, which is
+   what the <iframe> swap wants anyway, since an iframe has no intrinsic
+   size and would collapse a height:auto box. The note that used to sit here
+   arguing for a height over a ratio was true only while the bleed existed.
    -------------------------------------------------------------------------- */
 .phero__fig {
-  grid-area: 2 / 1;
+  grid-area: 1 / 2;
   position: relative;
-  margin-top: var(--sp-16);
-  aspect-ratio: 16 / 10;
+  /* Above the frame's rails, which ride at z-index 1. The joint below the
+     section is z-index 2 and still crosses in front, which is correct: it
+     is the boundary line, not a rail. */
+  z-index: 1;
+  justify-self: start;
+  width: calc(100% + var(--sp-5));
+  /* 70% OF THE LEFT HALF'S HEIGHT, not all of it (user, 3 Oct: "databricks
+     hero is very tight, we are showing full height of product image. lets
+     only show top and cut 30% from bottom"). 1598 x 0.7 = 1118.6, so the
+     frame is 1280 x 1118.6 where it was 1280 x 1598.
+     THE TWO CROPS ARE INDEPENDENT AND BOTH STILL EXACT, which is the part
+     that makes this a one-number change. The <img> is width: 200% of the
+     frame, so its element box is now 2W x 0.874W, a ratio of 2.29 against
+     the source's 1.602. object-fit: cover therefore scales by WIDTH, the
+     horizontal crop stays exactly 50%, and the surplus height is taken off
+     the BOTTOM because object-position is top left. Change the ratio and
+     the crop percentage follows; the 200% is what holds the half. */
+  aspect-ratio: 1280 / 1118.6;
   overflow: hidden;
+  /* NO BOTTOM BORDER AND NO BOTTOM RADIUS. The frame's cut edge sits on the
+     section boundary now, and the .joint under the section already draws a
+     hairline there: a border as well would put two 1px lines in adjacent
+     pixels, which is the same doubling the gapless-grid note warns about.
+     Squaring the corners is the same argument made in shape, a rounded
+     corner meeting a full-width rule reads as an object that failed to
+     reach it. */
   border: 1px solid var(--border);
-  border-radius: var(--r-lg);
+  border-bottom: 0;
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
   background: var(--surface);
-  /* Two layers: a wide soft one to lift it off the page and a tight one to
-     keep the edge from going mushy. The sendr reference's one real trick. */
-  box-shadow: 0 32px 64px -16px rgba(11, 16, 32, 0.16),
-              0 2px 8px rgba(11, 16, 32, 0.04);
+  /* THE DISSOLVE IS A MASK NOW, not the section overlay the first pass
+     used. That overlay existed only because the frame overshot the viewport
+     by a different amount at every width, so nothing measured from the
+     frame's own box landed in the same place twice. The frame ends on the
+     rail at every width now, so its own right edge is a fixed target and
+     the mask can simply be a percentage of it. A mask is the better tool
+     wherever it can reach: it needs no knowledge of the ground it fades
+     into, where a gradient overlay has to be told, and would have to be
+     retold if this section ever took a wash.
+     THE RAMP IS LATE AND STEEP. Linear from 0 reads as a grey veil laid
+     over the whole picture; holding full opacity to 62% and dropping from
+     there reads as the image running out. The last 38% is the dissolve, so
+     the solidly-visible crop is about the left 31% of the capture with the
+     rest handing over to the page.
+     IT TAKES THE BOX-SHADOW WITH IT, which is why there is no longer one.
+     mask-clip defaults to border-box and an outer box-shadow paints outside
+     that box, so the two cannot coexist: masking the figure would have
+     clipped the shadow away entirely and left the lift half-drawn. It is
+     the right answer anyway. An object dissolving into the page cannot cast
+     a shadow onto it, because the shadow asserts exactly the edge the fade
+     is there to remove. The hairline and the radius carry the frame on the
+     three sides that still have one, which is how every other ruled object
+     on this page is drawn. */
+  -webkit-mask-image: linear-gradient(to right,
+    #000 0%, #000 62%, rgba(0, 0, 0, 0.55) 82%, transparent 100%);
+  mask-image: linear-gradient(to right,
+    #000 0%, #000 62%, rgba(0, 0, 0, 0.55) 82%, transparent 100%);
 }
+
 /* THE CAPTURE SETTLES INTO PLACE ON SCROLL (user, 28 Sep). It starts tilted
    back and slightly small, and stands up to its resting position as it comes
    into view.
@@ -287,10 +426,26 @@
    THE ORIGIN IS THE TOP EDGE, so the card hinges at the top and its lower half
    swings up. Origin centre reads as a card being pushed, top reads as one
    standing up, which is the gesture the reference sites use. */
+/* THE SETTLE IS SCOPED TO THE STACKED WIDTHS (max-width: 1199px) since
+   3 Oct, and it is not a demotion, it is where the effect still exists. A
+   view() timeline runs on the element's travel through the viewport, and in
+   the split layout the capture sits inside the first screen: it is already
+   fully entered at load, so the animation holds progress 1 forever and never
+   plays a frame (verified 3 Oct: getComputedTiming().progress was 1 at
+   load). Below 1200 the capture is a full-width block lower on the page, it
+   really does enter through the bottom edge, and the settle still earns its
+   place. The LOAD entrance below owns the split widths instead, and the
+   scoping is also what keeps the two off the same element at the same time:
+   two animations on one `transform` do not add, the later one simply wins,
+   and a `both` fill from either would permanently override the other. */
 @supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
+  @media (prefers-reduced-motion: no-preference) and (max-width: 1199px) {
     .phero__fig {
-      transform-origin: 50% 0;
+      /* TOP LEFT, not top centre. The card's left edge is the only one on
+         screen, so a centred origin would slide that edge 35px inward
+         during the scale and read as the picture drifting; hinged at its
+         own left corner it only stands up. */
+      transform-origin: 0 0;
       animation: phero-settle linear both;
       animation-timeline: view();
       /* Starts a little after the top edge appears and finishes well before
@@ -311,14 +466,65 @@
   }
 }
 
+/* ---- The load entrance (3 Oct, user: "when product page is loaded,
+   slide from bottom hero content and image") ------------------------------
+   The copy and the capture rise out of the bottom as the page opens: 28px
+   up with a fade, the capture a tenth of a second behind the copy so the
+   two read as a sequence rather than a block-paste.
+
+   IT IS A TIME-BASED CSS ANIMATION ON LOAD, not an observer, because an
+   observer answers "when does this scroll into view" and the hero is in
+   view the moment the document paints; and not a script, because unlike the
+   removed headline sweep this effect's resting state needs no property a
+   missing animation would strand (the keyframes only move AWAY from rest,
+   `both` fill, same contract as every entrance on this site). No @supports
+   guard is needed for the same reason the settle needs one: plain
+   time-based animations run everywhere, it is only a scroll TIMELINE that
+   can fall back to time and play on load by accident.
+
+   THE CAPTURE'S RISE RUNS AT THE SPLIT WIDTHS ONLY (min-width: 1200px),
+   because below that the scroll settle owns the capture and the two cannot
+   share the element: both animate `transform` and `opacity`, animations do
+   not compose per property, and whichever fills last would pin the other's
+   properties forever. The COPY rises at every width, there being nothing
+   else animating it anywhere.
+
+   transform, not margin or top: it composites, costs no layout, and the
+   copy's position: relative (which paints it over the glyph field) is
+   untouched by it. The matrix host deliberately does NOT rise: a texture
+   that arrives with the copy reads as part of the copy, where ground should
+   already be there when the furniture lands on it. */
+@media (prefers-reduced-motion: no-preference) {
+  .phero__copy {
+    animation: phero-rise 0.65s var(--ease) both;
+  }
+  @keyframes phero-rise {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+@media (prefers-reduced-motion: no-preference) and (min-width: 1200px) {
+  .phero__fig {
+    animation: phero-rise 0.65s var(--ease) 0.12s both;
+  }
+}
+
+/* width: 200% IS THE CROP. The element box comes out 2W x W*1598/1280, a
+   ratio of 1.602, which is workspace.png's own, so object-fit has nothing
+   to do: the picture is drawn whole and undistorted at twice the frame's
+   width and the frame clips the left half of it. `cover` and `contain`
+   would give the same result here, which is the tell that the box and the
+   asset agree. This pairs with .phero__fig's aspect-ratio: 1280/1598 and
+   neither can be changed alone. */
 .phero__fig > img,
 .phero__fig > iframe {
   display: block;
-  width: 100%;
+  width: 200%;
   height: 100%;
+  max-width: none;
   border: 0;
   object-fit: cover;
-  object-position: top center;
+  object-position: top left;
 }
 
 /* ---- Shared anatomies restated (see the head comment) --------------------
@@ -626,7 +832,26 @@
    heading's text 24px inside the rail and the cell copy 48px inside it. The
    head is given the same giveback as the grid and then pushed back in by the
    cells' own pad, so the two read as one left edge. */
-.bento { --cell-pad: var(--sp-8); }
+/* WHITE GROUND (user, 3 Oct: "give section what it does #fffffff bg
+   colour"). --surface is #FFFFFF in tokens.css, which is the only file
+   allowed a raw colour value, so the hex is never written here.
+   IT IS A REAL DIFFERENCE AND NOT A NO-OP, which is worth saying because
+   the page ground is already near-white: --bg is #FBFBFD, so this lifts the
+   section by about 4/255. That is the same separation .book__card--split
+   relies on and it reads, because the bento is drawn entirely in hairlines
+   with no fills of its own, so the one thing marking the band is its ground.
+   THIS IS NOT .section--wash. That modifier came OFF this section on 23 Sep,
+   when the cells lost their card fills: a TINTED band fights a hairline grid.
+   White does not; it reads as paper under the lines rather than as a panel
+   behind them.
+   It follows the dark theme on its own, --surface being #10141F there. */
+.bento {
+  /* 20px since 3 Oct (was 32): petavue's outcomes cards run 20-22px of
+     copy inset, and the head-alignment formula below reads this token, so
+     one change moves both and they cannot drift. */
+  --cell-pad: var(--sp-5);
+  background: var(--surface);
+}
 
 .bento__head {
   margin-inline: calc(-1 * var(--sp-5));
@@ -636,85 +861,62 @@
 }
 .bento__sub { margin-top: var(--sp-5); }
 
+/* ---- The grid: petavue's outcomes bento (3 Oct) --------------------------
+   (user: "check outcomes section of dev.petavue-website.pages.dev, i need
+   that bento grid for our what it does section"). Petavue is the BASE EXPORT
+   this architecture came from, and this is the first time a piece of its
+   VISUAL language has been taken on purpose: read from its live CSS, the
+   grid is six columns with a 10px gap, flat filled square cards (radius 0),
+   the ART ON TOP over the copy, and (until 3 Oct) a border that lit on
+   hover, which the user took off. That
+   REVERSES the 23 Sep firecrawl pass deliberately: the gapless hairline
+   grid, the subgrid band-alignment, the copy-first order and the
+   bleed-to-close-the-cell are all gone with the user's call, and are in git.
+   PETAVUE'S OWN DEAL since the second 3 Oct pass (user: "2 column and 3
+   column grid"): two halves over three thirds. The move no longer needs a
+   full row because it is the aiRA path alone now, one straight run that
+   fits a half card.
+   The grid keeps the 20px rail giveback, so with the cards' own 20px copy
+   inset the card text sits at exactly the head's x. */
 .bento__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  /* SIX rows, two per band: copy then figure, copy then figure, copy then
-     figure. Each cell spans its pair and takes them back with subgrid, which
-     is what keeps the two cells of a band honest: their copy blocks share a
-     row so the rule under them lands at one height, and their wells share a
-     row so the inset lines inside them line up across the divider. Sized by
-     content, so the figure rows are simply the well's own height. Without
-     subgrid each cell rows itself and the only loss is that alignment. */
-  grid-template-rows: repeat(6, auto);
-  /* No gap: the cells meet, and the line between them is the divider. */
-  gap: 0;
-  /* Out to the rails. .container pads 20px purely to clear them, so giving
-     that back puts this grid's outer edges exactly on the frame's verticals
-     and its horizontals run rail to rail. Zeroed again below 992, where the
-     rails come off and .container drops the gutter with them: keeping the
-     negative margin there would push the grid outside .padding-global. */
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
   margin-inline: calc(-1 * var(--sp-5));
-  border-block: 1px solid var(--frame-line);
 }
 
 .bento__cell {
-  display: grid;
-  grid-row: span 2;
-  grid-template-rows: subgrid;
-  /* 32px (user, 23 Sep). No bottom pad: the figure closes the cell, and it
-     bleeds out to the cell's own edges to do it. */
-  padding: var(--cell-pad) var(--cell-pad) 0;
-  border-right: 1px solid var(--frame-line);
-  border-bottom: 1px solid var(--frame-line);
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  /* Square, like the rollout tabs: radius is for buttons and pills here. */
+  border-radius: 0;
+  padding: 0 var(--cell-pad) var(--sp-6);
 }
-/* The 2 / 1 / 2 arrangement is the design rather than a list that happens to
-   be five long, so the closing edges are named directly. Cells 2, 3 and 5 end
-   their row; 4 and 5 are the last row. The grid's own border-block draws the
-   top and bottom, and the frame's rails draw the sides. */
-.bento__cell:nth-child(2),
-.bento__cell:nth-child(3),
-.bento__cell:nth-child(5) { border-right: 0; }
-.bento__cell:nth-child(4),
-.bento__cell:nth-child(5) { border-bottom: 0; }
+.bento__cell--half { grid-column: span 3; }
 
-/* The eyebrow's spec with an icon in front of it and no "/" prefix: the
-   section head already carries one, and six slashes in a section reads as a
-   tic rather than as the mark it is. */
-.bento__label {
+/* ICON + LABEL IS THE TITLE since 3 Oct (user: "only keep like icon + h3,
+   so use label copy on bento__t and remove label ... H3 to use Primary
+   color"). The mono label and the sentence-long claim it sat over are gone;
+   the h3 carries the label's words with its icon in front, in the brand,
+   and one lean line under it does the explaining. 16/500 overrides both
+   halves of the universal h3 (28/600), which that rule's note allows. */
+.bento__t {
   display: flex;
   align-items: center;
   gap: var(--sp-2);
-  font-family: var(--font-mono);
-  font-size: var(--t-mono);
-  font-weight: 500;
-  letter-spacing: var(--tr-mono);
-  text-transform: uppercase;
-  line-height: 1;
-  color: var(--ink-3);
-  margin: 0 0 var(--sp-4);
-}
-/* Grey, inheriting the label: the brand appears once per section head, on the
-   heading's highlighted word, and five lit icons would be five times more. */
-.bento__label svg { width: 20px; height: 20px; flex: none; }
-
-/* 16px/500 (user, 23 Sep), which means overriding BOTH halves of the universal
-   h3 rule in global.css, 28px/600. That rule's own note allows this: a card
-   title that wants to be smaller has to say so explicitly rather than omit
-   the size and fall through to the browser default. At this size the claim
-   and the paragraph under it are nearly the same object, which is the
-   reference's whole look: the lead sentence is the emphasis, not a heading
-   sitting above copy. */
-.bento__t {
   margin: 0;
   font-size: var(--t-title-sm);
   font-weight: 500;
   line-height: var(--lh-title);
   letter-spacing: var(--tr-title);
-  text-wrap: balance;
+  color: var(--brand);
 }
+.bento__t svg { width: 20px; height: 20px; flex: none; }
 .bento__p {
-  margin: var(--sp-3) 0 0;
+  margin: var(--sp-2) 0 0;
   font-size: var(--t-body);
   line-height: var(--lh-body);
   color: var(--ink-2);
@@ -770,9 +972,23 @@
   display: grid;
   place-items: center;
   width: calc(100% + 2 * var(--fig-bleed));
-  aspect-ratio: 3 / 2;
-  max-height: 420px;
-  margin: var(--sp-6) calc(-1 * var(--fig-bleed)) 0;
+  /* ART ON TOP, COPY UNDER IT since 3 Oct, petavue's card anatomy; order
+     rather than moved markup, so a screen reader still gets the claim
+     before the picture. A FIXED 272px, petavue's own art height, instead of
+     the old 3/2 ratio capped at 420. LARGER since the lean-copy pass (user:
+     "reduce content and make illustration larger"): 300 in a third, 360 in
+     a half, the space the cut copy gave back. The drawings' zoom steps are
+     keyed to the well's height and width, so they pick their step on
+     their own. */
+  order: -1;
+  /* HEIGHT HUGS THE DRAWING since 3 Oct (user: "empty space below ...
+     lot noticeable on mobile"). Fixed 300/360 panes held drawings whose
+     zoom moves with width, which left 5 to 135px of dead ground under them.
+     It grows (flex) to the taller partner in a desktop row, so copy still
+     starts on one line across a row; alone in a column it is exact. */
+  height: auto;
+  flex: 1 0 auto;
+  margin: 0 calc(-1 * var(--fig-bleed)) var(--sp-5);
   background-image:
     linear-gradient(var(--frame-grid) 0 0),
     linear-gradient(var(--frame-grid) 0 0),
@@ -793,12 +1009,18 @@
   color: var(--ink-faint);
 }
 /* Once a real shot lands it fills the well and the drawn lines stand down
-   with the glyph: they are the empty state, not a frame around the art. */
-.bento__fig:has(img) {
+   with the glyph: they are the empty state, not a frame around the art.
+   DIRECT CHILD ONLY, all three rules, since 3 Oct: the branch diagram's
+   pills carry brand <img>s (the aiRA mark and wordmark), and the old
+   descendant selectors read those as "a real shot landed", stretched a 16px
+   mark to fill the well and stood the dot ground down. A drawn illustration
+   is allowed to contain images; only an image dropped DIRECTLY in the well
+   is the media this rule is about. */
+.bento__fig:has(> img) {
   background-image: none;
 }
-.bento__fig:has(img) .bento__ph { display: none; }
-.bento__fig img {
+.bento__fig:has(> img) .bento__ph { display: none; }
+.bento__fig > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -814,7 +1036,24 @@
   position: relative;
   overflow: hidden;
   background-image: none;
-  container-type: size;
+  /* INLINE-SIZE, not size: the pane is sized BY its drawing now, and size
+     containment would collapse it to zero. So every zoom step below is
+     keyed to WIDTH; height queries would never match. */
+  container-type: inline-size;
+  padding-bottom: var(--sp-8);
+  /* EVERY ILLUSTRATION FADES OUT DOWNWARD since 3 Oct (user, from a
+     workflow-card reference: "each bento image illustration needs fade out
+     gradient on them from bottom"). A MASK, not a gradient overlay: it
+     needs no knowledge of the card's ground, and it fades the dot field
+     with the drawing so the two dissolve together. Full strength to 55%,
+     gone at the pane's bottom edge, where the copy starts. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 66%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 66%, transparent 100%);
+  /* ANCHORED TO THE TOP, as the reference's card is: what fades is each
+     drawing's tail, never its middle. Centred, the fade ate the move's
+     approval state and the agenda's payoff row. */
+  place-items: start center;
+  padding-top: var(--sp-6);
 }
 /* Drawings sit ABOVE the dot layer: it is absolutely placed, so it would
    otherwise paint over any drawing that is not positioned itself. */
@@ -834,7 +1073,7 @@
 .oth {
   position: relative;
   width: 380px;
-  margin: 60px 0 0 48px;      /* room for the ticket peeking out above-left */
+  margin: 84px 0 0 48px;      /* room for the ticket peeking out above-left */
   font-family: var(--font-product);
 }
 /* The ticket the same question becomes without aiRA: faded, tilted, and
@@ -850,7 +1089,7 @@
   border-radius: var(--r-md);
   background: var(--surface);
   box-shadow: var(--shadow-sm);
-  opacity: 0.8;
+  opacity: 0.6;
   transform: rotate(-4deg);
 }
 .oth__ticket p { margin: 0; }
@@ -878,39 +1117,52 @@
   background: var(--hold-bg);
 }
 
+/* NO CARD since 3 Oct (user: "show this message bubble as floaty, not in a
+   box", with a chat reference): the exchange floats on the dot ground as two
+   bubbles, each lifted on its own soft shadow. The wrapper only stacks them. */
 .oth__card {
   position: relative;
   display: grid;
-  gap: var(--sp-3);
-  padding: var(--sp-4);
-  border: 1px solid var(--border);
-  border-radius: var(--r-md);
-  background: var(--surface);
-  box-shadow: var(--shadow-lg);
+  gap: var(--sp-4);
   text-align: left;
 }
-/* The person, on the right, the way the product sets its own side. It lost
-   its "You" chip on 23 Sep, and the answer its aiRA sparkle: the sides are
-   already set by which edge each row sits on, so the two marks were labelling
-   something the layout had said. */
+/* The person: a WHITE bubble off the right edge (user, 3 Oct: "user reply
+   is always in white"); it was brand-filled for a turn.
+   The sides are set by which edge each bubble sits on, so neither carries a
+   "You" chip or an aiRA mark (both came off 23 Sep). */
 .oth__q {
   display: flex;
   justify-content: flex-end;
 }
 .oth__q .chat__q {
   margin: 0;
-  max-width: 78%;
-  background: var(--bg-subtle);
+  max-width: 80%;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  color: var(--ink);
+  box-shadow: var(--shadow-md);
 }
-/* aiRA, on the left, answering with the artifact rather than a sentence. */
-.oth__a { display: flex; }
+/* aiRA: a white bubble off the left edge, answering with the work and the
+   artifact rather than a sentence. */
+.oth__a {
+  display: grid;
+  gap: var(--sp-3);
+  width: 88%;
+  padding: var(--sp-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md);
+}
+.oth__a .chat__tool { margin: 0; }
 .oth__kpi {
   flex: 1;
   display: grid;
   gap: 4px;
-  padding: var(--sp-3) var(--sp-4);
-  border: 1px solid var(--border);
-  border-radius: var(--r-sm);
+  /* No border of its own: inside a bubble a second box is a box in a box. */
+  padding: var(--sp-1) var(--sp-2) var(--sp-1);
 }
 .oth__kpi-row {
   display: flex;
@@ -929,397 +1181,274 @@
 }
 .oth__kpi-s { font-size: var(--t-caption); color: var(--ink-3); }
 
-/* ---- Your data: a setup log in days, against a project in weeks --------
-   After the references' monospace training log. Drawn illustration, so the
-   whole card is Geist Mono; the rows are the product's own before -> after
-   grammar, + for added and ~ for changed to your definition. */
+/* ---- Your business context: an agenda card (3 Oct) ---------------------
+   From a checklist reference (user: "do something like this for Your
+   business context"): a pale shell with the title and a + in its head, a
+   white panel inset inside it, done rows on a grey pill, ticked green and
+   struck through, open rows on an empty ring, the day set right. Product
+   face, like the One thread bubbles beside it. The old dated mono log and
+   the tilted semantic-layer card behind it are in git. */
 .odata {
   position: relative;
-  width: 400px;
-  margin: 60px 48px 0 0;      /* room for the project peeking out above-right */
-}
-.odata p,
-.odata ol { margin: 0; }
-/* The alternative: tilted the other way from the One thread ticket, so the
-   two cells of the band mirror each other across their divider. */
-.odata__proj {
-  position: absolute;
-  top: -76px;
-  right: -64px;
-  width: 256px;
-  display: grid;
-  gap: 6px;
-  padding: var(--sp-3) var(--sp-4);
-  border: 1px solid var(--border);
-  border-radius: var(--r-md);
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
-  opacity: 0.8;
-  transform: rotate(4deg);
+  width: 380px;
+  padding: 6px;
+  /* The shell is one slate step DARKER than the bento card it sits on
+     (slate-200 on slate-100): at the card's own grey it vanished into it.
+     The done rows take the card's grey, a step lighter, on the white
+     panel. */
+  background: var(--slate-200);
+  border: 1px solid var(--border-strong);
+  border-radius: 22px;
+  box-shadow: var(--shadow-md);
   font-family: var(--font-product);
-}
-.odata__proj-h {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-3);
-  white-space: nowrap;
-  font-family: var(--font-mono);
-  font-size: var(--t-mono);
-  color: var(--ink-faint);
-}
-.odata__proj-t {
-  font-size: var(--t-caption);
-  font-weight: 500;
-  color: var(--ink-3);
-}
-/* 6 of 16 weeks. */
-.odata__bar {
-  display: block;
-  height: 4px;
-  border-radius: var(--r-pill);
-  background: var(--bg-subtle);
-  overflow: hidden;
-}
-.odata__bar span {
-  display: block;
-  width: 37.5%;
-  height: 100%;
-  background: var(--border-strong);
-}
-
-.odata__log {
-  position: relative;
-  border: 1px solid var(--border);
-  border-radius: var(--r-md);
-  background: var(--surface);
-  box-shadow: var(--shadow-lg);
-  font-family: var(--font-mono);
-  font-size: var(--t-mono);
   text-align: left;
-  overflow: hidden;
 }
+:where(.odata) p, :where(.odata) ol { margin: 0; padding: 0; list-style: none; }
 .odata__head {
   display: flex;
   align-items: center;
-  gap: var(--sp-3);
-  padding: var(--sp-3) var(--sp-4);
-  border-bottom: 1px solid var(--border);
-  letter-spacing: var(--tr-mono);
-  text-transform: uppercase;
-  color: var(--ink-3);
-  background: linear-gradient(to left, var(--approve-bg), var(--surface) 55%);
+  justify-content: space-between;
+  padding: 12px 16px 14px;
+  font-size: var(--t-body);
+  font-weight: 600;
+  color: var(--ink);
 }
-.odata__dots { display: inline-flex; gap: 4px; }
-.odata__dots i {
-  width: 8px;
-  height: 8px;
-  border-radius: var(--r-pill);
-  background: var(--border-strong);
-}
-.odata__live {
-  margin-left: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--approve);
-}
-.odata__live::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: var(--r-pill);
-  background: currentColor;
+.odata__plus {
+  width: 16px;
+  height: 16px;
+  stroke: var(--ink-3);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  fill: none;
 }
 .odata__rows {
   display: grid;
-  gap: 10px;
-  padding: var(--sp-4);
-  list-style: none;
+  gap: 4px;
+  padding: 8px;
+  background: var(--surface);
+  border-radius: 16px;
 }
-.odata__rows li {
+/* Every row is a toggle since 3 Oct (user: "these need to be interactive,
+   so i can check uncheck any i like, with smooth animation"). The button
+   carries the row; js/checklist.js flips .is-done on the li and
+   aria-checked on the button. Each part of the state animates on its own:
+   the ground fades in, the ring fills green, the tick DRAWS, the strike
+   RUNS left to right across the words, and the ring pops once. */
+.odata__item {
+  width: 100%;
   display: grid;
-  grid-template-columns: 48px 16px minmax(0, 1fr);
-  align-items: baseline;
-  color: var(--ink-2);
-  white-space: nowrap;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  font: inherit;
+  font-size: var(--t-body-sm);
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.25s var(--ease);
 }
-.odata__rows b { font-weight: 500; color: var(--ink); }
-.odata__d { color: var(--ink-faint); font-variant-numeric: tabular-nums; }
-.odata__s { font-weight: 600; }
-.odata__s--add { color: var(--approve); }
-.odata__s--mod { color: var(--hold); }
-.odata__s--ok { color: var(--approve); }
-/* The row the whole log exists for. */
-.odata__done {
-  margin-top: 2px;
-  padding-top: 10px;
-  border-top: 1px dashed var(--border);
-  font-weight: 600;
+.odata__item:hover { background: color-mix(in srgb, var(--surface-2) 55%, transparent); }
+.odata__item:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
+.odata__d { font-size: var(--t-caption); color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.odata__ck { width: 18px; height: 18px; overflow: visible; }
+.odata__ck circle {
+  fill: transparent;
+  stroke: var(--border-strong);
+  stroke-width: 1.2;
+  transition: fill 0.25s var(--ease), stroke 0.25s var(--ease);
 }
-.odata__done > span:last-child { color: var(--ink); }
+.odata__ck path {
+  fill: none;
+  stroke: var(--approve);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 12;
+  stroke-dashoffset: 12;
+  transition: stroke-dashoffset 0.3s var(--ease) 0.08s;
+}
+/* The strike is a 1px background line that grows, not text-decoration,
+   which cannot animate its extent. */
+.odata__t {
+  justify-self: start;
+  background: linear-gradient(var(--ink-faint), var(--ink-faint)) no-repeat 0 55% / 0% 1px;
+  transition: background-size 0.35s var(--ease), color 0.25s var(--ease);
+}
+/* Done: a grey ground, the ring green, the tick drawn, the words struck. */
+.odata__rows .is-done .odata__item { background: var(--surface-2); }
+.odata__rows .is-done .odata__ck circle { stroke: var(--approve); fill: var(--approve-bg); }
+.odata__rows .is-done .odata__ck path { stroke-dashoffset: 0; }
+.odata__rows .is-done .odata__t { color: var(--ink-3); background-size: 100% 1px; }
+/* The pop plays only on a click (the script adds .is-pop), never on load. */
+.odata__rows .is-pop .odata__ck { animation: odata-pop 0.36s var(--ease); }
+@keyframes odata-pop {
+  40% { transform: scale(1.22); }
+  to  { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .odata__item, .odata__ck circle, .odata__ck path, .odata__t { transition: none; }
+  .odata__rows .is-pop .odata__ck { animation: none; }
+}
 
-/* ---- The move: the same three steps, two ways --------------------------
-   SIMPLIFIED on 23 Sep: a detailed pass (exported charts, filter chips,
-   faces, a mini flow, the full approval card) read as noise ("too crowdy to
-   even tell whats happening"). What survives is the comparison itself. Both
-   lanes run on ONE column template, label / step / join / step / join /
-   step / join / outcome, so every step sits directly over its twin and the
-   eye reads down, not along. Elsewhere: grey dashed cards, joins that cost
-   days, ending still in review. aiRA: white cards on one brand line, ending
-   held for approval. Below 720 of container width the lanes stand up side by
-   side and run downward. */
+/* ---- The move: a fan-out (3 Oct) ----------------------------------------
+   From a primary-to-replicas sync diagram (user: "design these like image
+   attached"). The question card feeds the aiRA hub on three parallel wires,
+   and the hub branches on curves to the three things it builds: Answer,
+   Segment, Journey, each in one of the palette's three anchors (Tertiary,
+   Primary, Secondary), carried by its icon tile and by the dashes running
+   its wire. No approval badge since 3 Oct (user); the card's copy says it.
+   LAID OUT AT ONE SIZE, 560x280, and zoomed to the well, the pattern the
+   other drawings use, so the SVG wires and the HTML cards share one set of
+   pixel coordinates and cannot drift. Below 470 of container the zoom would
+   take the type under 10px, so it stands up as a plain list instead.
+   NO MONO ANYWHERE IN THIS DIAGRAM (user, 3 Oct). */
 .omove {
-  /* The drawing is one 1120x380 coordinate space. The SVG carries it as a
-     viewBox and every node is placed from the same numbers, converted to
-     percentages by --x / --y, so the wires and the things riding them scale
-     together and can never drift apart. Percentages rather than a transform
-     zoom: the box keeps the ratio, so everything in it stays put. */
-  --w: 1120;
-  --h: 380;
   position: relative;
-  width: min(1120px, 96%);
-  aspect-ratio: 1120 / 380;
+  width: 560px;
+  height: 280px;
   text-align: left;
 }
-.omove p { margin: 0; }
-/* The routes are grouping only: their children place themselves against
-   .omove. The boxes exist so the narrow fallback has something to stack. */
-.omove__route { display: contents; }
+:where(.omove) p, :where(.omove) ol { margin: 0; padding: 0; list-style: none; }
 
+.omove__step--t { --acc: var(--tertiary-600);  --acc-bg: var(--tertiary-50); }
+.omove__step--p { --acc: var(--brand);         --acc-bg: var(--primary-50); }
+.omove__step--s { --acc: var(--secondary-500); --acc-bg: var(--secondary-50); }
+
+/* Wires: a grey base, then each branch's dashes in its accent. */
 .omove__wires { position: absolute; inset: 0; width: 100%; height: 100%; }
-/* The axis the question sits on, and the vertical that marks the middle of
-   the run. --frame-grid, not --frame-line: the page frame's own distinction
-   between structure and texture applies inside a drawing too. */
-/* currentColor so the gradient in the markup has something to reference; the
-   stroke itself is painted by that gradient. */
-.omove__wires { color: var(--frame-grid); }
-.omove__axis { stroke-width: 1; }
-.omove__path { stroke-width: 2; stroke-linecap: round; }
-.omove__path--aira { stroke: var(--brand); }
-.omove__path--else { stroke: var(--ink-faint); stroke-dasharray: 3 6; }
-
-/* ---- Nodes --------------------------------------------------------------
-   A tile on the route with its label outside the curve, which is the
-   reference's grammar: the mark rides the line and the word sits clear of
-   it. The tile is opaque, so it masks the path running underneath instead of
-   the path needing a gap cut in it. */
-/* The node is a ZERO-SIZED ANCHOR at its coordinate, with the tile centred on
-   it and the label hung outside. It cannot be a grid of tile-over-label with
-   the pair centred: that puts the PAIR's middle on the curve, so every tile
-   rides half a label's height above its own point and the marks sit off the
-   line they are meant to be on. Cost an iteration; the tell is tiles that
-   look consistently high. */
-.omove__n {
-  position: absolute;
-  left: calc(var(--x) / var(--w) * 100%);
-  top: calc(var(--y) / var(--h) * 100%);
-  width: 0;
-  height: 0;
-  white-space: nowrap;
+.omove__w { stroke: var(--border-strong); stroke-width: 1.5; }
+.omove__dash { stroke-width: 1.5; stroke-dasharray: 6 26; stroke-linecap: round; }
+.omove__dash--t { stroke: var(--tertiary-600); }
+.omove__dash--p { stroke: var(--brand); }
+.omove__dash--s { stroke: var(--secondary-500); }
+/* The dashes travel toward the outputs. At rest (reduced motion) they
+   simply stand on the wire, which is how the reference draws them anyway. */
+@media (prefers-reduced-motion: no-preference) {
+  .omove__dash { animation: omove-flow 1.4s linear infinite; }
+  .omove__dash--p { animation-delay: -0.45s; }
+  .omove__dash--s { animation-delay: -0.9s; }
 }
-.omove__tile {
+@keyframes omove-flow { to { stroke-dashoffset: -32; } }
+
+/* Shared card skin: white, hairline, 16px corners, soft lift. */
+.omove__src,
+.omove__step,
+.omove__hub {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+/* The source: the question, the reference's "Primary · Write" card. */
+.omove__src {
   position: absolute;
-  left: 50%;
+  left: 0;
   top: 50%;
-  translate: -50% -50%;
+  translate: 0 -50%;
+  width: 172px;
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px 16px;
+  border-radius: var(--r-lg);
+}
+.omove__src b { font-size: var(--t-body); font-weight: 600; line-height: 1.35; color: var(--ink); }
+
+/* The hub: aiRA, a white disc on the junction. */
+.omove__hub {
+  position: absolute;
+  left: 210px;
+  top: 110px;
+  width: 60px;
+  height: 60px;
   display: grid;
   place-items: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
-  color: var(--ink-3);
+  border-radius: 50%;
 }
-.omove__lb {
+.omove__hub img { width: 26px; height: 26px; }
+
+/* The three outputs, stacked on the right edge where the wires land. */
+.omove__steps {
   position: absolute;
-  left: 50%;
-  translate: -50% 0;
+  left: 360px;
+  right: 0;
+  top: 0;
+  height: 280px;
 }
-/* Clear of the tile's own half-height, so the gap is the same on both routes. */
-.omove__route--aira .omove__lb { bottom: 36px; }
-.omove__route--else .omove__lb { top: 36px; }
-.omove__n--hub .omove__lb { top: 40px; }
-.omove__tile svg { width: 20px; height: 20px; }
-.omove__lb {
-  font-family: var(--font-mono);
-  font-size: var(--t-mono);
-  font-weight: 500;
-  letter-spacing: var(--tr-mono);
-  text-transform: uppercase;
-  color: var(--ink-3);
-}
-.omove__route--aira .omove__tile { color: var(--brand); border-color: var(--brand-line); }
-.omove__route--aira .omove__lb   { color: var(--ink-2); }
-/* Muted, NOT faint. The comparison only works if both routes are legible;
-   the first pass dropped this one to --ink-faint on a dashed hairline and it
-   disappeared, which reads as one route and a smudge. */
-.omove__route--else .omove__tile {
-  color: var(--ink-3);
-  border-color: var(--border-strong);
-  border-style: dashed;
-  box-shadow: none;
-  background: var(--bg-subtle);
-}
-.omove__route--else .omove__lb { color: var(--ink-3); }
-
-.omove__n--hub { --x: 80; --y: 190; }
-.omove__n--hub .omove__tile { width: 60px; height: 60px; border-radius: 16px; color: var(--ink-2); }
-.omove__n--hub .omove__lb { color: var(--ink-3); }
-
-.omove__n--a1 { --x: 330; --y: 100; }
-.omove__n--a2 { --x: 540; --y:  88; }
-.omove__n--a3 { --x: 750; --y: 100; }
-.omove__n--e1 { --x: 330; --y: 280; }
-.omove__n--e2 { --x: 540; --y: 292; }
-.omove__n--e3 { --x: 750; --y: 280; }
-
-/* ---- Route identity, sitting just past the fork ------------------------- */
-.omove__id {
+.omove__step {
   position: absolute;
-  left: calc(var(--x) / var(--w) * 100%);
-  top: calc(var(--y) / var(--h) * 100%);
-  translate: 0 -50%;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 14px;
+  border-radius: var(--r-lg);
+}
+.omove__step:nth-child(1) { top: 20px; }
+.omove__step:nth-child(2) { top: 110px; }
+.omove__step:nth-child(3) { top: 200px; }
+.omove__ic {
   display: grid;
-  gap: 2px;
-  white-space: nowrap;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: 10px;
+  background: var(--acc-bg);
+  border: 1px solid color-mix(in srgb, var(--acc) 22%, transparent);
+  color: var(--acc);
 }
-.omove__route--aira .omove__id { --x: 176; --y: 78; }
-.omove__route--else .omove__id { --x: 176; --y: 306; }
-.omove__id b {
-  font-family: var(--font-mono);
-  font-size: var(--t-mono);
-  font-weight: 500;
-  letter-spacing: var(--tr-mono);
-  text-transform: uppercase;
-  color: var(--ink-3);
-}
-.omove__id span { font-size: var(--t-caption); color: var(--ink-faint); }
-.omove__route--aira .omove__id span { color: var(--ink-2); }
-.omove__brand { display: block; }
-.omove__brand img { display: block; width: auto; height: 14px; }
+.omove__ic svg { width: 20px; height: 20px; }
+.omove__tx { display: grid; gap: 1px; min-width: 0; }
+.omove__tx b { font-size: var(--t-body); font-weight: 500; color: var(--ink); }
+.omove__d { font-size: var(--t-caption); color: var(--ink-3); white-space: nowrap; }
 
-/* ---- What each hand-off costs, set above the lower curve ---------------- */
-/* ON the dashed line, not floating above it. Each hand-off is a stop on that
-   route, and an opaque chip masks the line under it the way the tiles do, so
-   the cost reads as part of the path rather than as an annotation near it. */
-.omove__cost {
-  position: absolute;
-  left: calc(var(--x) / var(--w) * 100%);
-  top: calc(var(--y) / var(--h) * 100%);
-  translate: -50% -50%;
-  padding: 3px 9px;
-  border-radius: var(--r-pill);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  font-family: var(--font-mono);
-  font-size: var(--t-caption);
-  color: var(--hold);
-  white-space: nowrap;
-}
-.omove__cost--1 { --x: 435; --y: 287; }
-.omove__cost--2 { --x: 645; --y: 287; }
-.omove__cost--3 { --x: 862; --y: 267; }
 
-/* ---- Where each route ends ---------------------------------------------- */
-.omove__out {
-  position: absolute;
-  left: calc(var(--x) / var(--w) * 100%);
-  top: calc(var(--y) / var(--h) * 100%);
-  translate: -50% -50%;
-  display: grid;
-  justify-items: center;
-  gap: 6px;
-  white-space: nowrap;
-}
-.omove__route--aira .omove__out { --x: 1022; --y: 132; }
-.omove__route--else .omove__out { --x: 1022; --y: 252; }
-.omove__out i {
-  font-family: var(--font-mono);
-  font-size: var(--t-caption);
-  font-style: normal;
-  color: var(--ink-faint);
-}
-.omove__out--else > span {
-  padding: 5px 10px;
-  border: 1px dashed var(--border-strong);
-  border-radius: var(--r-pill);
-  font-size: var(--t-caption);
-  color: var(--ink-3);
-}
+/* Zoomed to the well by width; the drawing never re-lays itself out. */
+@container (min-width: 600px) { .omove { zoom: 1.02; } }
+@container (max-width: 599px) { .omove { zoom: 0.92; } }
+@container (max-width: 519px) { .omove { zoom: 0.82; } }
 
-/* Below 1000 the labels start touching, so the type steps down and the tiles
-   with it; the geometry is untouched, because it is one coordinate space. */
-@container (max-width: 1000px) {
-  .omove__tile { width: 44px; height: 44px; border-radius: 12px; }
-  .omove__n--hub .omove__tile { width: 50px; height: 50px; }
-  .omove__tile svg { width: 18px; height: 18px; }
-  .omove__lb, .omove__id b { font-size: var(--t-caption); letter-spacing: 0.04em; }
-}
-/* Below 720 the run is too long for the box: 1120 of drawing in about 300 of
-   well renders the labels at 4px. It becomes two stacked routes instead, the
-   wires come off (a curve with nothing riding it is decoration), and the
-   nodes go back into flow. The comparison survives, which is the only part
-   that has to. */
-@container (max-width: 720px) {
+/* Below 470 a zoom would take the type under 10px, so the fan-out stands
+   up as a list: question, the three outputs, the approval. */
+@container (max-width: 469px) {
   .omove {
-    width: 100%;
-    aspect-ratio: auto;
+    zoom: 1;
+    width: min(320px, 100% - var(--sp-8));
+    height: auto;
     display: grid;
-    /* The two routes stand up SIDE BY SIDE and run downward, not stacked:
-       stacked they came to 714px against a 420px well and were clipped. Side
-       by side each column is its own route and the twin steps still sit level
-       across the pair, which is the comparison the whole cell is making. */
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
-    gap: var(--sp-4);
+    gap: var(--sp-2);
   }
-  /* Specificity, not order: .omove__n below sets display:flex at the same
-     weight, so a bare .omove__n--hub { display:none } loses to it and the hub
-     stays in the grid, taking the first column and pushing the routes out of
-     their pair. */
-  .omove__wires,
-  .omove .omove__n--hub { display: none; }
-  .omove__route {
-    display: grid;
-    grid-auto-flow: row;
-    gap: var(--sp-3);
-    justify-items: start;
-  }
-  .omove__n, .omove__id, .omove__out, .omove__cost {
+  .omove__wires, .omove__hub { display: none; }
+  .omove__src, .omove__steps, .omove__step {
     position: static;
     translate: none;
-    width: auto;
   }
-  .omove__n {
-    display: flex;
-    align-items: center;
-    gap: var(--sp-3);
-    width: auto;
-    height: auto;
-  }
-  .omove__tile, .omove__lb { position: static; translate: none; }
-  .omove__tile { width: 36px; height: 36px; border-radius: 10px; }
-  .omove__cost { justify-self: start; margin-left: 18px; }
-  .omove__out { justify-items: start; }
-  .omove__id { margin-bottom: var(--sp-2); }
-  .omove__lb { font-size: var(--t-caption); }
-}
-@container (max-width: 440px) {
-  .omove__m { display: none; }
-  .omove__k span { display: none; }
+  .omove__src { width: auto; padding: 10px 14px; margin-bottom: var(--sp-1); }
+  .omove__src b { font-size: var(--t-body-sm); }
+  .omove__steps { display: grid; gap: var(--sp-2); height: auto; }
+  /* One-line rows, label left and output right, so the list fits the
+     well's fixed height: two-line cards ran 45px past it at 390. */
+  .omove__step { height: 44px; gap: 10px; padding: 0 12px; }
+  .omove__ic { width: 26px; height: 26px; border-radius: 8px; }
+  .omove__ic svg { width: 16px; height: 16px; }
+  .omove__tx { flex: 1; display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-2); }
+  .omove__tx b { font-size: var(--t-body-sm); }
 }
 
-/* ---- The method: a dark query with its two assumptions pinned ----------
-   The one dark surface in the block. Two lines are marked and numbered, and
-   the notes that answer them float off the panel's corner, after the
-   references' alert card over a form. */
+/* ---- The method: a dark query ---------------------------------------
+   The one dark surface in the block. The two lines carrying the source and
+   the assumption are lit. Its floating notes came off 3 Oct (user: "remove
+   ometh__notes and make ometh larger"), and the panel took their room: 440
+   wide with no corner margin, against 360 plus 184 of notes. */
 .ometh {
   position: relative;
-  width: 360px;
-  margin: 0 184px 48px 0;     /* room for the notes hanging off the corner */
+  width: 440px;
   text-align: left;
 }
 .ometh p, .ometh ol { margin: 0; }
@@ -1366,97 +1495,88 @@
 .ometh__lines b { font-weight: 500; color: var(--primary-200); }
 .ometh__lines i { font-style: normal; color: var(--accent-on-dark); }
 .ometh__lines .is-mark { color: var(--ink-inv); }
-.ometh__lines .is-mark::after,
-.ometh__notes li::before {
-  content: attr(data-n);
-  display: inline-grid;
-  place-items: center;
-  width: 18px;
-  height: 18px;
-  border-radius: var(--r-pill);
-  font-family: var(--font-mono);
-  font-size: var(--t-mono);
-  font-weight: 600;
-  color: var(--surface-inv);
-  background: var(--accent-on-dark);
+
+/* ---- Your domain: a term tree (3 Oct) ---------------------------------
+   From a "Workflow completed" reference (user): one parent card, the
+   children hung off it on dashed elbows. The parent says the terms are
+   understood; each child is one term in its accent, with what aiRA reads
+   it as set grey after it, the reference's "12s ago" slot. The glossary
+   card and the points chart before it are in git. */
+.odom {
+  position: relative;
+  width: 360px;
+  font-family: var(--font-product);
+  text-align: left;
 }
-.ometh__lines .is-mark::after { margin-left: var(--sp-2); vertical-align: middle; }
-.ometh__notes {
-  position: absolute;
-  right: -208px;
-  bottom: -48px;
-  display: grid;
-  gap: var(--sp-2);
-  width: 232px;
-  padding: 0;
-  list-style: none;
-}
-.ometh__notes li {
-  display: grid;
-  grid-template-columns: 18px minmax(0, 1fr);
-  column-gap: var(--sp-3);
-  padding: var(--sp-3);
-  border: 1px solid var(--border);
-  border-radius: var(--r-md);
+:where(.odom) p, :where(.odom) ol { margin: 0; padding: 0; list-style: none; }
+.odom__top,
+.odom__row {
+  display: flex;
+  align-items: center;
   background: var(--surface);
-  box-shadow: var(--shadow-float);
-  font-size: var(--t-caption);
-  line-height: 1.45;
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-md);
+}
+.odom__top {
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  font-size: var(--t-title-sm);
+  font-weight: 500;
   color: var(--ink);
 }
-.ometh__notes li::before {
-  grid-row: span 2;
-  color: var(--on-brand);
-  background: var(--brand);
-}
-.ometh__nk {
-  font-family: var(--font-mono);
-  font-size: var(--t-mono);
-  letter-spacing: var(--tr-mono);
-  text-transform: uppercase;
-  color: var(--ink-3);
-}
+.odom__ok { width: 20px; height: 20px; flex: none; }
+.odom__ok circle { fill: var(--approve-bg); stroke: var(--approve); stroke-width: 1.4; }
+.odom__ok path { fill: none; stroke: var(--approve); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 
-/* ---- Points programme: one balance, in the programme's own words ------ */
-.opts {
-  width: min(520px, 86%);
-  height: auto;
-  overflow: visible;
+/* The children sit indented under the parent's icon. One dashed spine runs
+   down from that icon; each row takes a dashed elbow off it. */
+.odom__rows {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  padding: 12px 0 0 52px;
 }
-.opts text {
-  font-family: var(--font-sans);
-  font-size: 12px;
-  fill: var(--ink-2);
+.odom__rows::before {
+  content: '';
+  position: absolute;
+  left: 26px;
+  top: 0;
+  bottom: 37px;       /* stops where the last elbow turns */
+  border-left: 1.5px dashed var(--ink-faint);
 }
-.opts .opts__cap,
-.opts .opts__band,
-.opts .opts__x {
-  font-family: var(--font-mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.odom__row {
+  --acc: var(--brand);
+  position: relative;
+  gap: 10px;
+  height: 54px;
+  padding: 0 14px;
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+  font-size: var(--t-body-sm);
+  white-space: nowrap;
 }
-.opts .opts__cap { fill: var(--ink-3); }
-.opts .opts__x { fill: var(--ink-faint); }
-.opts .opts__band { fill: var(--brand-ink); }
-.opts__base { stroke: var(--border-strong); }
-.opts__lapse { fill: var(--wash-primary); }
-.opts__lapse-e { stroke: var(--brand-line); stroke-dasharray: 3 4; }
-.opts__area { fill: var(--brand); fill-opacity: 0.08; }
-.opts__line {
-  fill: none;
-  stroke: var(--brand);
-  stroke-width: 2;
-  stroke-linejoin: round;
+.odom__row::before {
+  content: '';
+  position: absolute;
+  left: -27px;
+  top: calc(50% - 10px);
+  width: 26px;
+  height: 10px;
+  border-left: 1.5px dashed var(--ink-faint);
+  border-bottom: 1.5px dashed var(--ink-faint);
+  border-bottom-left-radius: 10px;
 }
-.opts__pt { fill: var(--surface); stroke: var(--brand); stroke-width: 2; }
-.opts .opts__lab { font-weight: 550; fill: var(--ink); }
-.opts__offer { fill: var(--brand); stroke: var(--surface); stroke-width: 3; }
-.opts__offer-l { stroke: var(--brand); stroke-dasharray: 2 3; }
-.opts__tag { fill: var(--surface); stroke: var(--brand-line); }
-.opts .opts__tag-t { font-weight: 600; fill: var(--brand-ink); }
-.opts__exp { fill: var(--hold); }
-.opts .opts__exp-t { fill: var(--hold); font-weight: 600; }
-.opts .opts__exp-n { font-weight: 450; }
+.odom__row--t { --acc: var(--tertiary-600); }
+.odom__row--p { --acc: var(--brand); }
+.odom__row--s { --acc: var(--secondary-500); }
+.odom__ic { display: grid; flex: none; color: var(--acc); }
+.odom__ic svg { width: 20px; height: 20px; }
+.odom__tx { display: grid; gap: 1px; }
+.odom__row b { font-weight: 500; color: var(--ink); line-height: 1.3; }
+/* The reading sits UNDER the term, not trailing it (user, 3 Oct: "text
+   after main text not looking good"): inline it read as a run-on. */
+.odom__m { font-size: var(--t-caption); color: var(--ink-3); line-height: 1.3; }
 
 /* The drawing is laid out at one size and scaled to its well, so the card's
    proportions and its 12px type survive together; laid out fluidly it would
@@ -1465,36 +1585,29 @@
    box it occupies, so the centred card kept its full height and the well
    clipped its footer, which is the one row carrying the claim. Keyed to the
    well's HEIGHT, since that is the tight axis at 3/2. */
-@container (max-height: 410px) { .oth, .odata, .ometh { zoom: 0.92; } }
-@container (max-height: 370px) { .oth, .odata, .ometh { zoom: 0.84; } }
-@container (max-height: 330px) { .oth, .odata, .ometh { zoom: 0.76; } }
-@container (max-height: 290px) { .oth, .odata, .ometh { zoom: 0.66; } }
-@container (max-height: 250px) { .oth, .odata, .ometh { zoom: 0.58; } }
-
-/* ---- The wide cell -------------------------------------------------------
-   CENTRED, which is what the reference does with its own full-width cell and
-   is the reason the row reads as a band rather than as a stretched copy of
-   the four around it. The measure is held well inside the rails, because
-   centred copy across a 1240px container is unreadable whatever its size.
-   -------------------------------------------------------------------------- */
-.bento__cell--wide {
-  grid-column: 1 / -1;
-  text-align: center;
-}
-/* Its well is twice as wide as the others, so 3/1 is the ratio that makes it
-   exactly as TALL as theirs: a narrow well is half the grid at 3/2, which is
-   grid/3, and so is a full-width one at 3/1. Leaving it on 3/2 and letting
-   max-height do the work only matched at the widths where both were capped,
-   and everywhere below that the middle band sat taller than the two it
-   separates. */
-.bento__cell--wide .bento__fig { aspect-ratio: 3 / 1; }
-.bento__cell--wide .bento__label { justify-content: center; }
-.bento__cell--wide .bento__t,
-.bento__cell--wide .bento__p {
-  max-width: 62ch;
-  margin-inline: auto;
-}
-
+/* And keyed to WIDTH since the cards went to thirds. Later in source, so
+   the narrower answer wins. */
+/* The agenda card is short (about 260 tall at full size), so it takes its
+   own, gentler steps: the height ladder above would shrink it to a
+   thumbnail in a pane it fits at nearly full size. */
+/* Width-only ladders since the panes hug their drawings. Defaults first,
+   narrower steps after, so the narrowest match wins. */
+.oth { zoom: 0.9; }
+.odata { zoom: 0.86; }
+.odom { zoom: 0.86; }
+@container (max-width: 560px) { .oth { zoom: 0.8; } }
+/* The query panel is short and wide, so WIDTH is its only binding axis:
+   440 at full size, stepped down so it keeps about 16px either side. */
+@container (max-width: 480px) { .ometh { zoom: 0.88; } }
+@container (max-width: 440px) { .odom { zoom: 0.8; } }
+@container (max-width: 380px) { .odom { zoom: 0.72; } }
+@container (max-width: 330px) { .odom { zoom: 0.64; } }
+@container (max-width: 420px) { .ometh { zoom: 0.78; } }
+@container (max-width: 370px) { .ometh { zoom: 0.72; } }
+@container (max-width: 330px) { .ometh { zoom: 0.64; } }
+@container (max-width: 400px) { .oth { zoom: 0.72; } .odata { zoom: 0.84; } }
+@container (max-width: 360px) { .oth { zoom: 0.68; } .odata { zoom: 0.78; } }
+@container (max-width: 300px) { .oth { zoom: 0.58; } .odata { zoom: 0.68; } }
 
 /* ---- Getting started (rebuilt 22 Sep, rebuilt again 23 Sep) -------------
    FOUR CLICKABLE BOXES OVER ONE LINE GRAPH, from a tryplayground.com
@@ -2262,75 +2375,90 @@
    below it.
    -------------------------------------------------------------------------- */
 
-@media (max-width: 991px) {
-  .phero__fig { margin-top: var(--sp-12); }
-  /* No glyph field below the rails, the same call the home hero's lattice
-     takes: the copy has the container to itself here, so the clear ellipse
-     would be sitting behind the headline rather than around it. The script
-     reads a zero box, drops its grid and kills its timer, so nothing keeps
-     ticking behind a hidden canvas. */
+/* THE SPLIT STOPS AT 1200, which is EARLIER than the 992 everything else on
+   this page unwinds at, and the headline is why. Ranged left in the split's
+   left column the H1 runs to two lines down to 1200 and to THREE from 1199
+   down, and at three lines the break lands inside the <em>: "the move" ends
+   one line and "it implies" starts the next, so the dashed underline draws
+   as two separate marks instead of one. That is the same failure /about's
+   mission line is held to, and it is not a thing to accept on a hero.
+   Widening the copy column was tried on paper and only half works: 1.15fr
+   buys two lines back at 1100 and still gives three at 992.
+   There is PRECEDENT on this page for stacking early. The pre-22-Sep split
+   hero stacked at 1100 on the same kind of reasoning, that the capture
+   stops being readable before the layout stops fitting.
+   Below this line the hero is the stacked block it was before 3 Oct: copy
+   full width, capture full width under it at its own ratio. The copy stays
+   RANGED LEFT, since that was asked for at every width. */
+@media (max-width: 1199px) {
+  /* Everything the bleed needs has to be undone BY NAME: the second column,
+     the start alignment, the overshoot width, and the height that replaced
+     the ratio. Leave the height on and the frame is a 420px-tall letterbox
+     of the capture's own top-left corner on a phone. */
+  .phero .container { grid-template-columns: minmax(0, 1fr); }
+  .phero__fig {
+    grid-area: 2 / 1;
+    justify-self: stretch;
+    /* THE BOTTOM EDGE COMES BACK. Above 1200 the frame's cut sits on the
+       section boundary, so it drops its bottom border and squares those
+       corners to avoid doubling the joint's hairline. Stacked, the capture
+       is full width, uncropped and has the section's own padding under it,
+       so an open-bottomed card would just look unfinished. */
+    border-bottom: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    /* 100% and not the giveback: the rails come off below 992 and
+       .container drops its gutter with them, so there is nothing to give
+       back and a wider box would hang outside .padding-global. Between
+       1199 and 992 the rails are still drawn and the capture sits the
+       normal 20px inside them, like every other block on the page. */
+    width: 100%;
+    /* The capture's OWN ratio, so the whole window fits and nothing is
+       cropped. See the phone note at the foot of this file for why any
+       other ratio here is a crop rather than a resize. */
+    aspect-ratio: 16 / 10;
+    margin-top: var(--sp-12);
+  }
+  /* Back to the whole window, centred: at full width nothing is cut, so
+     anchoring the crop left would only shift a picture that already fits. */
+  /* THE CROP COMES OFF WITH THE SPLIT. Back to the whole window at 100%,
+     centred: at full width the frame is the capture's own 16/10 and nothing
+     is cut, so a 200% element would show the left half of a picture that
+     had room for all of it. */
+  .phero__fig > img,
+  .phero__fig > iframe { width: 100%; object-position: top center; }
+  /* No dissolve either: there is no edge being cut to soften, and a mask
+     here would just fade the right of a picture that fits. */
+  .phero__fig { -webkit-mask-image: none; mask-image: none; }
+  /* The field goes with the split, not with the rails, which is a change
+     from the 992 this used to hide at. Its clear ellipse is placed over the
+     LEFT COLUMN's copy; once the copy is full width there is no column for
+     the hole to sit in and the glyphs end up behind the headline rather
+     than around it. The script reads a zero box, drops its grid and kills
+     its timer, so nothing ticks behind a hidden canvas. */
   .phero__matrix { display: none; }
+}
+
+@media (max-width: 991px) {
 
   .feat__mini { grid-template-columns: 1fr 1fr; }
 
   /* One column, and the grid gives back its rail bleed: the rails come off at
      this width and .container drops the 20px gutter with them, so a negative
      margin here would hang the grid outside .padding-global. */
-  .bento__grid { grid-template-columns: minmax(0, 1fr); margin-inline: 0; }
+  /* Two columns of CARDS, petavue's own mid step; they stay filled and
+     bordered now rather than unwinding into the old ruled list, because a
+     gapped card survives a narrow screen in a way a gapless hairline band
+     did not. The rail giveback still comes off with the rails. */
+  .bento__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-inline: 0; }
+  .bento__cell, .bento__cell--half { grid-column: span 1; }
+  /* Five cards in two columns leave the last one alone: it takes the row. */
+  .bento__cell:last-child { grid-column: 1 / -1; }
   /* Same giveback, same reason, for /product's rollout tabs and board. */
   .rollout .section-head,
   .rollout__track,
   .rollout__board { margin-inline: 0; }
   .rollout .section-head { padding-inline: 0; }
   .bento__head { margin-inline: 0; padding-inline: 0; max-width: 46rem; }
-  /* Stacked, every cell closes its own row and only the last closes the grid,
-     so the 2 / 1 / 2 edge rules above no longer describe anything. The side
-     padding goes with them: there are no vertical lines left to sit in from,
-     so it was only outdenting the section head against the cells and taking
-     48px off a phone's measure. The block becomes a ruled list, which is the
-     same shape .biz uses. */
-  .bento__cell {
-    border-right: 0;
-    border-bottom: 1px solid var(--frame-line);
-    padding-inline: 0;
-    /* One column, so the six-row band structure has nothing left to align
-       and each cell simply rows itself. */
-    grid-row: auto;
-    grid-template-rows: auto auto;
-  }
-  .bento__cell:last-child { border-bottom: 0; }
-  /* The cell has no side padding here, so the well has nothing to bleed out
-     of, and its inset narrows with the column. */
-  /* One column: the cell has no side padding left, so there is nothing to
-     bleed out of, and the 80px inset would sit a quarter of the way in. The
-     ratio and the cap carry over unchanged. */
-  .bento__fig {
-    --fig-x: 40px;
-    --fig-bleed: 0px;
-  }
-  /* Centring one cell in a single column reads as a mistake rather than as a
-     band, because there is no row for it to be the width of. */
-  .bento__cell--wide { text-align: left; }
-  .bento__cell--wide .bento__label { justify-content: flex-start; }
-  .bento__cell--wide .bento__t,
-  .bento__cell--wide .bento__p { margin-inline: 0; max-width: 48ch; }
-  /* One column, so it is no wider than the rest and takes their ratio back. */
-  .bento__cell--wide .bento__fig { aspect-ratio: 3 / 2; }
-  /* The move stands its two routes up and runs them downward here, so the well
-     takes the drawing's own height instead of a ratio: capped at 1/1 and 420px
-     it clipped the lower route. Safe below 992, where the bento's subgrid has
-     already unwound and no neighbouring well has to match this one. */
-  .bento__cell--wide .bento__fig--diagram {
-    /* container-type must drop from size to INLINE-SIZE with the ratio. Size
-       containment means the element is NOT sized by its contents, so a well
-       that has given up its aspect-ratio collapses to 0 and clips the whole
-       drawing. Inline-size contains only the width, which is all .omove's own
-       container queries read anyway. */
-    container-type: inline-size;
-    aspect-ratio: auto;
-    max-height: none;
-    min-height: 0;
-  }
   .bento__head { margin-bottom: var(--sp-10); }
 }
 @media (max-width: 991px) {
@@ -2356,12 +2484,19 @@
   .cert__name { font-size: var(--t-caption); letter-spacing: 0.04em; }
 }
 @media (max-width: 640px) {
+  /* One column of cards, petavue's own last step: at two columns a 390
+     phone was dealing 165px cards with 272px art panes inside them. */
+  .bento__grid { grid-template-columns: minmax(0, 1fr); }
+  .bento__cell, .bento__cell--half, .bento__cell:last-child { grid-column: auto; }
+
   .phero__cta { margin-top: var(--sp-6); }
-  /* Balance is ignored past six lines, and at this width the sub runs to
-     seven and ended on a 14px orphan ("it."). `pretty` has no line limit and
-     its whole job is the last line, so it pulls a word down instead. Firefox
-     does not support it yet and simply wraps, which is what it did before. */
-  .phero__sub { text-wrap: pretty; }
+  /* The phone override for .phero__sub is GONE because the base rule already
+     says `pretty`. It existed to switch off `balance`, which was there for a
+     centred rag and went with the centring on 3 Oct, and a phone rule that
+     restates its own base is the kind of line that outlives its reason.
+     What it was solving still holds: balance is ignored past six lines, this
+     sub ran to seven here and ended on a 14px orphan, and `pretty` has no
+     line limit and works on the last line. It is two lines at 640 now. */
   .phero__fig { margin-top: var(--sp-10); }
   /* THE FRAME KEEPS THE CAPTURE'S OWN RATIO ON A PHONE, so the whole window
      fits and the box stays short (user, 28 Sep: "why the image if fill, fit

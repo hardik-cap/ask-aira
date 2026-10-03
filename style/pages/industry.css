@@ -13,22 +13,24 @@
    Split, MoEngage-style: the industry is already chosen by arriving here, so
    the hero leads with the claim and keeps the two routes beside it. */
 
-/* A FULL SCREEN since 28 Sep (user), so the section below it starts exactly at
-   the fold. No offset is needed here and that is not luck: the negative
-   margin-top below runs this hero up behind the floating header and the top
-   padding gives the same distance back, so the section's own box starts at
-   y=0 and 100svh is the whole viewport.
-   svh and not vh: on a phone 100vh is the LARGEST viewport, measured with the
-   browser chrome retracted, so a 100vh hero is always taller than the screen
-   it opens on. The vh line under it is the fallback for older engines.
-   The copy centres in whatever height is left; the padding stays as the
-   floor, so a short viewport still clears the header. */
+/* NO VIEWPORT HEIGHT since 3 Oct (user: "lets remove 100vh we added in all
+   pages hero"). It was a plain 100svh from 28 Sep, which needed no offset
+   here and that was not luck: the negative margin-top below runs this hero
+   up behind the floating header and the top padding gives the same distance
+   back, so the section's own box starts at y=0.
+   WHAT IT COST is that the section below no longer starts at the fold, which
+   is the whole point of the change rather than a regression.
+   THE flex/align-items CENTRING STAYS, unlike on /pricing where it went with
+   the height. Here it is doing a second job: this hero is a two-column split
+   and the copy has to centre against the FIGURE beside it, which is taller.
+   On /pricing there was nothing to centre against once the height went.
+   NOTE THE 25px OVERSHOOT AT 390x844 recorded in CLAUDE.md is now moot: it
+   happened because 412px of copy and a 219px figure did not fit inside a
+   forced 844px box, and nothing is forced any more. */
 .hero-ind {
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 100vh;
-  min-height: 100svh;
   /* Run the ground up behind the floating header and its gap, then give the
      top pad back, so the page has no strip of bare background above the bar. */
   margin-top: calc(-1 * (var(--nav-h) + var(--nav-float) + 2px));

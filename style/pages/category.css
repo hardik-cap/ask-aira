@@ -227,24 +227,17 @@
    same breadcrumb ("this can be same ui as class='crumb'"). Only
    .crumb-strip, the category hero's band that hosts it, stays here. */
 
-/* THE HERO IS A FULL SCREEN LESS THE STRIP ABOVE IT (user, 28 Sep). The hubs
-   take a plain 100svh because their hero starts at y=0; a category page puts
-   the breadcrumb band and a joint above the hero, so that distance has to come
-   off or the next section starts below the fold.
-   THE OFFSET IS THE STRIP'S OWN GEOMETRY, term by term, not a measured number:
-   --crumb-rule (nav-h + 2 * nav-float + 2) is the strip's top pad clearing the
-   floating header, --sp-6 twice is the pad either side of the row, 24px is the
-   row itself (one 20px glyph on its line box) and 1px is the joint. It comes
-   to 155 at the current tokens. The strip's negative margin-top and the nav
-   placeholder cancel each other exactly, which is why neither appears here. */
-@media (min-width: 1px) {
-  .page-category .hero-ind {
-    --above-hero: calc(var(--nav-h) + var(--nav-float) * 2 + 2px
-                       + var(--sp-6) * 2 + 25px);
-    min-height: calc(100vh - var(--above-hero));
-    min-height: calc(100svh - var(--above-hero));
-  }
-}
+/* NO VIEWPORT HEIGHT since 3 Oct (user: "lets remove 100vh we added in all
+   pages hero"). From 28 Sep this hero was a full screen LESS the breadcrumb
+   strip above it, and the offset was the only interesting part: it was
+   written as the strip's own geometry term by term rather than as a measured
+   number, --crumb-rule plus --sp-6 twice plus the 25px row plus the joint,
+   coming to 155 at the current tokens. The strip's negative margin-top and
+   the nav placeholder cancelled exactly, which is why neither appeared in it.
+   That arithmetic is kept in CLAUDE.md under FULL-VIEWPORT HEROES, because it
+   took measuring and is the hard part if this is ever wanted back. The hero
+   is sized by its content now, like every other section. */
+
 
 /* ---- The shape ------------------------------------------------------------
    Four facets: frequency, margin, seasonality and the data that is missing
