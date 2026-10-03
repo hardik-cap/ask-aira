@@ -197,38 +197,9 @@
 }
 
 /* ---------- Section heads ------------------------------------------- */
-.meter__head,
 .terms__head {
   max-width: 46rem;
   margin-bottom: var(--sp-10);
-}
-
-/* ---------- The consumption list ------------------------------------ */
-.meter__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--sp-3) var(--sp-8);
-}
-.meter__list li {
-  position: relative;
-  font-size: var(--t-body);
-  line-height: var(--lh-body);
-  color: var(--ink-2);
-  padding: var(--sp-3) 0 var(--sp-3) var(--sp-6);
-  border-bottom: 1px solid var(--border);
-}
-.meter__list li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: calc(var(--sp-3) + 0.58em);
-  width: 6px;
-  height: 6px;
-  background: var(--brand);
-  transform: translateY(-50%) rotate(45deg);
 }
 
 /* ---------- The fine print as cards (3 Oct, supabase.com/pricing) --------
@@ -890,11 +861,6 @@
 
 }
 @media (max-width: 768px) {
-  .meter__list {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-  .meter__head,
   .terms__head {
     margin-bottom: var(--sp-8);
   }
