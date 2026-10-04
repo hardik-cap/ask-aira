@@ -177,11 +177,7 @@
 .prhero__t em {
   font-style: normal;
   color: var(--primary-200);
-  text-decoration-line: underline;
-  text-decoration-style: dashed;
-  text-decoration-thickness: 0.07em;
   text-underline-offset: 0.16em;
-  text-decoration-skip-ink: none;
 }
 .prhero__sub {
   font-size: var(--t-body-xl);

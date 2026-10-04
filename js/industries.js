@@ -60,8 +60,11 @@
   function moveThumb(i) {
     if (!thumb) return;
     var t = tabs[i];
-    thumb.style.width = t.offsetWidth + 'px';
-    thumb.style.transform = 'translateX(' + t.offsetLeft + 'px)';
+    /* Both reads before either write: reading offsetLeft after setting the
+       width forced a second synchronous layout (PageSpeed, 4 Oct). */
+    var w = t.offsetWidth, x = t.offsetLeft;
+    thumb.style.width = w + 'px';
+    thumb.style.transform = 'translateX(' + x + 'px)';
     thumb.classList.add('is-set');
   }
 

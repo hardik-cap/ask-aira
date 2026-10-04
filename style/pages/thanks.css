@@ -1,0 +1,123 @@
+/* ==========================================================================
+   aiRA - /book/thanks (4 Oct). One centred confirmation, the three things
+   that happen next, and two ways back into the site. A utility page, so
+   its H1 takes the 48px utility step (--t-display-1s), like /book.
+   Loads after tokens -> global -> components.
+   ========================================================================== */
+
+.thanks {
+  min-height: 60vh;
+  min-height: 60svh;
+  display: flex;
+  align-items: center;
+}
+.thanks > .padding-global { width: 100%; }
+
+.thanks__head {
+  max-width: 52rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* The confirmation glyph on a brand-tinted tile. Colour, not a fill
+   behind text: the tile carries no copy. */
+.thanks__mark {
+  display: inline-grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--r-lg);
+  background: var(--wash-primary);
+  border: 1px solid var(--brand-line);
+  color: var(--brand);
+  margin-bottom: var(--sp-6);
+}
+.thanks__mark svg { width: 28px; height: 28px; }
+
+.thanks__t {
+  font-family: var(--font-display);
+  font-size: var(--t-display-1s);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+  text-wrap: balance;
+}
+/* The brand highlight, restated because this h1 is not a section heading. */
+.thanks__t em {
+  font-style: normal;
+  color: var(--brand);
+  text-underline-offset: 0.16em;
+}
+
+.thanks__sub {
+  font-size: var(--t-body-xl);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 40rem;
+  margin: var(--sp-5) auto 0;
+  text-wrap: pretty;
+}
+
+/* ---- What happens next: three cards ---------------------------------- */
+
+.thanks__steps {
+  list-style: none;
+  margin: var(--sp-12) auto 0;
+  padding: 0;
+  max-width: 60rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.thanks__step {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-6);
+}
+.thanks__step svg {
+  width: 20px;
+  height: 20px;
+  color: var(--brand);
+  margin-bottom: var(--sp-4);
+}
+.thanks__step-t {
+  font-size: var(--t-title-sm);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--ink);
+  margin-bottom: var(--sp-2);
+}
+.thanks__step-p {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+}
+
+/* ---- While you wait --------------------------------------------------- */
+
+.thanks__more {
+  margin-top: var(--sp-10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.thanks__more-l {
+  font-size: var(--t-body);
+  color: var(--ink-3);
+}
+.thanks__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-3);
+}
+
+@media (max-width: 767px) {
+  .thanks__steps { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .thanks__sub { font-size: var(--t-body); }
+}

@@ -362,18 +362,16 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 }
 /* The highlight (19 Sep, user call, promptwatch reference). The heading is
    one colour throughout and the <em> marks the one or two words carrying the
-   claim, in brand primary under a dashed rule. This replaces the muted
+   claim, in brand primary (under a dashed rule until 4 Oct). This replaces the muted
    trailing phrase that ran here until 19 Sep: that treatment greyed a whole
    clause, where this picks out a word. The offset and thickness are in em so
    they track the heading's clamp rather than fixing to one size. */
+/* COLOUR ONLY since 4 Oct (user: "from section headings, remove dash
+   underline from highlighted words"). The dashed rule under it is gone from
+   every section heading; hero H1s keep theirs, being separate rules. */
 .section-heading em {
   font-style: normal;
   color: var(--brand);
-  text-decoration-line: underline;
-  text-decoration-style: dashed;
-  text-decoration-thickness: 0.07em;
-  text-underline-offset: 0.16em;
-  text-decoration-skip-ink: none;
 }
 /* P400 does not hold on the dark ground; P200 is the inverse anchor. */
 .section--inv .section-heading em { color: var(--primary-200); }
@@ -1294,6 +1292,10 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 /* Light lockup by default; dark grounds (page-v2 now, a dark theme later)
    swap to the reverse. */
 .footer__logo-dark { display: none; }
+/* The "dark theme later" arrived (/pricing 27 Sep, /customers 4 Oct) without
+   this half, so both pages showed the black lockup on a near-black footer. */
+:root[data-theme="dark"] .footer__logo-light { display: none; }
+:root[data-theme="dark"] .footer__logo-dark { display: block; }
 
 /* THE TRACK COUNT FOLLOWS THE COLUMN COUNT, which is why this is auto-flow
    rather than the repeat(3) it was until 28 Sep. The Company column was hidden

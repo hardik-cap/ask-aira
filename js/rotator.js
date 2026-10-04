@@ -104,7 +104,11 @@
 
   setChars(TEAMS[0].word, false);
   setTeam(TEAMS[0].key);
-  fit();
+  /* Two frames out, not inline (PageSpeed, 4 Oct): measured during script
+     execution, fit() forced a full synchronous layout of the whole page
+     (74ms on mobile). After the first paint that layout is already done and
+     the measure is local. The box simply runs at auto width until then. */
+  requestAnimationFrame(function () { requestAnimationFrame(fit); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 
   var raf = null;

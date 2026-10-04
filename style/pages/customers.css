@@ -1,0 +1,395 @@
+/* ==========================================================================
+   aiRA - /customers (4 Oct). A WHOLE DARK PAGE (data-theme="dark" on <html>,
+   data-nav-dark on <body>, /pricing's mechanism), after supercut.ai. Hero (copy bottom-left, /about's shape), the NASCAR story, the KSA head-to-head
+   study, the five other case studies, book. Loads after tokens -> global ->
+   components.
+   ========================================================================== */
+
+/* ---- Hero --------------------------------------------------------------- */
+
+/* /about's hero (user, 4 Oct): copy bottom-left in a tall block, the same
+   80svh floor and the section's own padding. min-height is a floor, so the
+   copy still wins on a short viewport. */
+.cuhero {
+  display: flex;
+  align-items: flex-end;
+  min-height: 80vh;
+  min-height: 80svh;
+}
+.cuhero > .padding-global { width: 100%; }
+.cuhero__copy { max-width: 44rem; }
+.cuhero__t {
+  font-family: var(--font-display);
+  font-size: var(--t-display-0);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+  text-wrap: balance;
+}
+.cuhero__t em {
+  font-style: normal;
+  white-space: nowrap;
+  color: var(--primary-200);
+  text-underline-offset: 0.16em;
+}
+.cuhero__sub {
+  font-size: var(--t-body-xl);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 32rem;
+  margin-top: var(--sp-6);
+  text-wrap: pretty;
+}
+
+/* ---- Shared figure type ------------------------------------------------- */
+/* Display face with tabular numerals: a figure is never mono on this site. */
+
+.cu-val {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--t-display-3);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+}
+.cu-lbl {
+  display: block;
+  margin-top: var(--sp-1);
+  font-size: var(--t-body);
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+/* ---- NASCAR: the big image ----------------------------------------------- */
+/* NOT .section--inv: on a whole dark page that class inverts back to dark
+   ink (the inverse-surface trap CLAUDE.md records four times), so the card
+   reads the dark theme's ordinary --ink scale directly. */
+
+.cufeat { padding-block: 0; }
+.cufeat__card {
+  margin-inline: calc(-1 * var(--sp-5));
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  aspect-ratio: 16 / 8;
+  min-height: 420px;
+  display: flex;
+  align-items: flex-end;
+  background: var(--black);
+}
+.cufeat__img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  transition: transform var(--dur-slow) var(--ease);
+}
+/* Ink rises from the foot, where the story sits. */
+.cufeat__card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg,
+      color-mix(in srgb, var(--black) 60%, transparent) 0%,
+      transparent 60%),
+    linear-gradient(0deg,
+      color-mix(in srgb, var(--black) 90%, transparent) 0%,
+      color-mix(in srgb, var(--black) 60%, transparent) 45%,
+      color-mix(in srgb, var(--black) 10%, transparent) 100%);
+}
+.cufeat__body {
+  padding: var(--sp-12) var(--sp-10);
+  max-width: 44rem;
+}
+.cufeat__mark {
+  display: block;
+  height: 28px;
+  width: auto;
+  filter: invert(1);
+  opacity: 0.9;
+  margin-bottom: var(--sp-6);
+}
+.cufeat__t {
+  font-family: var(--font-display);
+  font-size: var(--t-display-2);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+}
+.cufeat__t em {
+  font-style: normal;
+  white-space: nowrap;
+  color: var(--primary-200);
+}
+.cufeat__sub {
+  margin-top: var(--sp-4);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 34rem;
+}
+.cufeat__play {
+  margin-top: var(--sp-6);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--t-body);
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+}
+/* The whole photograph is the play target. */
+.cufeat__play::after { content: ''; position: absolute; inset: 0; }
+.cufeat__play:focus-visible { outline: none; }
+.cufeat__play:focus-visible::after { outline: 2px solid var(--primary-200); outline-offset: -4px; }
+.cufeat__play-ic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ink) 92%, transparent);
+  color: var(--black);
+  transition: transform var(--dur) var(--ease);
+}
+.cufeat__play-ic svg { width: 20px; height: 20px; margin-left: 2px; }
+.cufeat__card:hover .cufeat__play-ic { transform: scale(1.08); }
+.cufeat__card:hover .cufeat__img { transform: scale(1.02); }
+
+/* ---- Lead study: head to head ------------------------------------------ */
+
+.culead__head { max-width: 46rem; }
+
+.culead__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--sp-12);
+  align-items: start;
+}
+
+/* The story as a definition list: three labelled rows on hairlines. */
+.culead__story { margin: 0; }
+.culead__row {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: var(--sp-6);
+  padding-block: var(--sp-5);
+  border-top: 1px solid var(--border);
+}
+.culead__row:last-child { border-bottom: 1px solid var(--border); }
+.culead__row dt {
+  font-size: var(--t-title-sm);
+  font-weight: 500;
+  color: var(--ink);
+}
+.culead__row dd {
+  margin: 0;
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+}
+
+.culead__stats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.culead__stats li {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: var(--sp-5);
+}
+
+/* The one KPI published for both sides, drawn as two bars on one scale.
+   The scale starts at 10% so a 0.43 point gap is visible at all; the
+   caption and the values carry the real numbers. */
+.culead__vs {
+  margin: 10px 0 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: var(--sp-5);
+}
+.culead__vs-t {
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+  margin-bottom: var(--sp-4);
+}
+.culead__bar {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr) 4rem;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--t-body);
+  color: var(--ink-2);
+}
+.culead__bar + .culead__bar { margin-top: var(--sp-3); }
+.culead__bar-track {
+  height: 10px;
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.culead__bar-fill {
+  display: block;
+  height: 100%;
+  width: calc((var(--v) - 10) / 2 * 100%);
+  border-radius: inherit;
+  background: var(--ink-faint);
+}
+.culead__bar--aira .culead__bar-fill { background: var(--brand); }
+.culead__bar--aira .culead__bar-k,
+.culead__bar--aira .culead__bar-v { color: var(--ink); font-weight: 500; }
+.culead__bar-v { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ---- The other five ----------------------------------------------------- */
+/* /product's bento deal: six columns, halves span 3 and thirds span 2, 10px
+   gaps, square corners, given back to the rails like the bento. */
+
+.custudies__grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  margin-inline: calc(-1 * var(--sp-5));
+}
+.cucard {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  padding: var(--sp-6) var(--sp-5);
+}
+.cucard--half { grid-column: span 3; }
+
+.cucard__tag {
+  font-size: var(--t-caption);
+  color: var(--brand);
+  font-weight: 500;
+}
+.cucard__t {
+  font-size: var(--t-title-sm);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ink);
+  margin-top: var(--sp-3);
+}
+.cucard__meta {
+  font-size: var(--t-body);
+  color: var(--ink-3);
+  margin-top: var(--sp-1);
+}
+
+.cucard__stats {
+  list-style: none;
+  margin: var(--sp-6) 0 0;
+  padding: var(--sp-5) 0 0;
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-5) var(--sp-4);
+}
+.cucard__lead { grid-column: 1 / -1; }
+.cucard__lead .cu-val { font-size: var(--t-display-2); }
+.cucard__stats li:not(.cucard__lead) .cu-val { font-size: var(--t-title-xl); }
+
+/* Pushes the story / link to the card's foot so a row's footers align. */
+.cucard__more,
+.cucard__link { margin-top: auto; }
+.cucard__stats { margin-bottom: var(--sp-6); }
+
+.cucard__more { border-top: 1px solid var(--border); padding-top: var(--sp-4); }
+.cucard__more summary {
+  cursor: pointer;
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--t-body);
+  font-weight: 500;
+  color: var(--ink);
+}
+.cucard__more summary::-webkit-details-marker { display: none; }
+.cucard__more summary::after {
+  content: '+';
+  font-size: var(--t-title-sm);
+  line-height: 1;
+  color: var(--ink-3);
+}
+.cucard__more[open] summary::after { content: '\2212'; }
+.cucard__more summary:hover { color: var(--brand); }
+.cucard__more summary:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+.cucard__more dl { margin: var(--sp-4) 0 0; }
+.cucard__more dt {
+  font-size: var(--t-body);
+  font-weight: 500;
+  color: var(--ink);
+}
+.cucard__more dd {
+  margin: var(--sp-1) 0 var(--sp-4);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+}
+.cucard__more dd:last-child { margin-bottom: 0; }
+
+.cucard__link {
+  display: block;
+  border-top: 1px solid var(--border);
+  padding-top: var(--sp-4);
+  font-size: var(--t-body);
+  font-weight: 500;
+  color: var(--ink);
+}
+.cucard__link:hover { color: var(--brand); }
+
+.custudies__note {
+  margin-top: var(--sp-6);
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+}
+
+/* ---- Responsive --------------------------------------------------------- */
+
+@media (max-width: 991px) {
+  .cufeat__card { margin-inline: 0; }
+  .cufeat__card { aspect-ratio: auto; min-height: 480px; }
+  .cufeat__body { padding: var(--sp-8) var(--sp-6); }
+
+  .culead__grid { grid-template-columns: 1fr; gap: var(--sp-8); }
+
+  .custudies__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-inline: 0;
+  }
+  .cucard,
+  .cucard--half { grid-column: span 1; }
+  .cucard:last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  .cuhero__sub { font-size: var(--t-body); }
+  .custudies__grid { grid-template-columns: 1fr; }
+  .cucard:last-child { grid-column: auto; }
+  .culead__row { grid-template-columns: 1fr; gap: var(--sp-2); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cufeat__img,
+  .cufeat__play-ic { transition: none; }
+}
