@@ -1913,6 +1913,11 @@ a.biz:focus-visible .biz__ic::after {
 .lgrid__logo--mid img { height: 32px; }
 .lgrid__logo--badge img { height: 40px; }
 .lgrid__logo--sq img { height: 48px; }
+/* Artwork that is mostly small type inside its own box (Rack Room Shoes'
+   tilted tile, Aditya Birla's stacked lockup): at its ratio band it read
+   tiny beside the wordmarks (4 Oct audit), so it takes 64px, still inside
+   the 104px tile. Same class on all four walls. */
+.lgrid__logo--xl img { height: 64px; }
 
 /* The resettle: js/logo-grid.js fades a mark out of one seat and into the
    next. */

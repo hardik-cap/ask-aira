@@ -874,15 +874,21 @@
    fits a half card.
    The grid keeps the 20px rail giveback, so with the cards' own 20px copy
    inset the card text sits at exactly the head's x. */
+/* A 10-COLUMN GRID since 4 Oct (user, from a reference measured at 4+6
+   over 3+4+3): One thread 4, The move 6 (the wide card), then business
+   context 3, its working 4, domain 3. The 4-wide card in the second row is
+   exactly as wide as One thread above it, so the rows interlock rather than
+   lining up on halves and thirds. Spans are classes in the markup
+   (--4, --6; 3 is the default), so the deal reads off the HTML. */
 .bento__grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(10, minmax(0, 1fr));
   gap: 10px;
   margin-inline: calc(-1 * var(--sp-5));
 }
 
 .bento__cell {
-  grid-column: span 2;
+  grid-column: span 3;
   display: flex;
   flex-direction: column;
   background: var(--surface-2);
@@ -891,7 +897,23 @@
   border-radius: 0;
   padding: 0 var(--cell-pad) var(--sp-6);
 }
-.bento__cell--half { grid-column: span 3; }
+.bento__cell--4 { grid-column: span 4; }
+.bento__cell--6 { grid-column: span 6; }
+/* SUBGRID ROWS (4 Oct): each card takes two of the grid's rows, art and
+   copy, so every card in a row shares the same two tracks. With unequal
+   widths the narrow cards wrap their line to three where the wide one takes
+   two, and as flex columns each card placed its own copy, so the titles sat
+   up to 24px apart across a row. Sharing the tracks puts every title on one
+   line. Where subgrid is unsupported the declaration is dropped and each
+   card simply rows itself, which is the old behaviour. */
+@supports (grid-template-rows: subgrid) {
+  .bento__cell {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+}
 
 /* ICON + LABEL IS THE TITLE since 3 Oct (user: "only keep like icon + h3,
    so use label copy on bento__t and remove label ... H3 to use Primary
@@ -2446,7 +2468,7 @@
      gapped card survives a narrow screen in a way a gapless hairline band
      did not. The rail giveback still comes off with the rails. */
   .bento__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-inline: 0; }
-  .bento__cell, .bento__cell--half { grid-column: span 1; }
+  .bento__cell, .bento__cell--4, .bento__cell--6 { grid-column: span 1; }
   /* Five cards in two columns leave the last one alone: it takes the row. */
   .bento__cell:last-child { grid-column: 1 / -1; }
   /* Same giveback, same reason, for /product's rollout tabs and board. */
@@ -2483,7 +2505,7 @@
   /* One column of cards, petavue's own last step: at two columns a 390
      phone was dealing 165px cards with 272px art panes inside them. */
   .bento__grid { grid-template-columns: minmax(0, 1fr); }
-  .bento__cell, .bento__cell--half, .bento__cell:last-child { grid-column: auto; }
+  .bento__cell, .bento__cell--4, .bento__cell--6, .bento__cell:last-child { grid-column: auto; }
 
   .phero__cta { margin-top: var(--sp-6); }
   /* The phone override for .phero__sub is GONE because the base rule already

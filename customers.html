@@ -1,15 +1,15 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>aiRA: Customers and case studies</title>
-  <meta name="description" content="NASCAR on getting fan insights in minutes, and six measured case studies: a head-to-head win against an analytics agency, a loyalty redesign in 38 days, configuration cut from 90 days to 21.">
+  <title>Customers | aiRA</title>
+  <meta name="description" content="How NASCAR gets fan insights in minutes, and how a fashion retailer beat a dedicated analytics agency on eight of nine KPIs with aiRA.">
   <link rel="canonical" href="https://askaira.ai/customers">
 
   <!-- Social card. Shared image, the page's own title, description and url. -->
-  <meta property="og:title" content="aiRA: Customers and case studies">
-  <meta property="og:description" content="NASCAR on getting fan insights in minutes, and six measured case studies: a head-to-head win against an analytics agency, a loyalty redesign in 38 days, configuration cut from 90 days to 21.">
+  <meta property="og:title" content="Customers | aiRA">
+  <meta property="og:description" content="How NASCAR gets fan insights in minutes, and how a fashion retailer beat a dedicated analytics agency on eight of nine KPIs with aiRA.">
   <meta property="og:image" content="https://askaira.ai/assets/og/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -18,8 +18,8 @@
   <meta property="og:site_name" content="aiRA">
   <meta property="og:url" content="https://askaira.ai/customers">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="aiRA: Customers and case studies">
-  <meta name="twitter:description" content="NASCAR on getting fan insights in minutes, and six measured case studies: a head-to-head win against an analytics agency, a loyalty redesign in 38 days, configuration cut from 90 days to 21.">
+  <meta name="twitter:title" content="Customers | aiRA">
+  <meta name="twitter:description" content="How NASCAR gets fan insights in minutes, and how a fashion retailer beat a dedicated analytics agency on eight of nine KPIs with aiRA.">
   <meta name="twitter:image" content="https://askaira.ai/assets/og/og-image.png">
   <link rel="icon" href="/assets/brand/aira-mark.svg" type="image/svg+xml">
 
@@ -40,17 +40,19 @@
   <script src="/js/components.js" defer></script>
   <script src="/js/reveal.js" defer></script>
   <script src="/js/eyebrow-scramble.js" defer></script>
-  <script src="/js/video.js" defer></script>
+  <script src="/js/logo-grid.js" defer></script>
+  <script src="/js/cproof-count.js" defer></script>
 </head>
-<body class="page-customers" data-nav-dark>
+<body class="page-customers">
 
   <div id="navbar-placeholder"></div>
 
   <main>
 
     <!-- ================= HERO ================= -->
-    <!-- /about's hero shape (user, 4 Oct): the copy ranged left and resting
-         on the bottom of a tall block. The one-row logo marquee that held the
+    <!-- cartesia.ai/customers' hero (user, 4 Oct): a SHORT band, the H1 on
+         the left and the sub opposite it on the right, with the NASCAR card
+         directly below. It replaced /about's tall bottom-left shape. The one-row logo marquee that held the
          right half came OUT on the same call; its markup and CSS are in git.
          With it went the anonymity trade CLAUDE.md records: no customer mark
          now sits on the same page as the anonymised studies. -->
@@ -83,16 +85,14 @@
 
     <!-- ================= NASCAR: THE BIG IMAGE ================= -->
     <!-- One full-container photograph, the story set over its foot, and the
-         whole image a play target for the approved cut (js/video.js; the
-         button's ::after stretches over the card). No quote and no figure:
+         whole image a LINK TO /customers/nascar since 4 Oct (user: "dont open
+         video, instead build a sample internal page"); the film lives on that
+         page. The link's ::after stretches over the card. No quote and no figure:
          neither is approved yet (context.md 5). -->
     <section class="section cufeat">
       <div class="padding-global">
         <div class="container">
-          <div class="cufeat__card reveal"
-               data-video="/assets/video/nascar-minutes-not-weeks.mp4"
-               data-video-poster="/assets/nascar-thumbnail.jpg"
-               data-video-title="The NASCAR story">
+          <div class="cufeat__card reveal">
             <img class="cufeat__img" src="/assets/nascar-bg.jpg" srcset="/assets/nascar-bg-1000.jpg 1000w, /assets/nascar-bg.jpg 2000w" sizes="100vw" alt="" width="2000" height="1333">
             <div class="cufeat__body">
               <img class="cufeat__mark" src="/assets/logos/nascar.svg" alt="NASCAR" width="192" height="32" loading="lazy">
@@ -101,11 +101,180 @@
                 NASCAR's marketing and CRM teams use aiRA, which already understands
                 their fans, their data and the rhythm of a race season.
               </p>
-              <button class="cufeat__play" type="button" data-video-play>
-                <span class="cufeat__play-ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M228.23,134.69,84.15,222.81A8,8,0,0,1,72,216.12V39.88a8,8,0,0,1,12.15-6.69l144.08,88.12A7.82,7.82,0,0,1,228.23,134.69Z" opacity="0.2"/><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"/></svg></span>
-                Watch the story
-              </button>
+              <a class="cufeat__play" href="/customers/nascar">
+                <span class="cufeat__play-ic" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,128l-72,72V56Z" opacity="0.2"/><path d="M221.66,122.34l-72-72A8,8,0,0,0,136,56v64H40a8,8,0,0,0,0,16h96v64a8,8,0,0,0,13.66,5.66l72-72A8,8,0,0,0,221.66,122.34ZM152,180.69V75.31L204.69,128Z"/></svg></span>
+                Read the story
+              </a>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+
+    <!-- ================= LOGO GRID ================= -->
+    <!-- The shared two-row wall (user, 4 Oct: "below hero, bring our 2 row
+         logo grid"), the same fourteen cleared marks, seated order and bench
+         as index.html, /book and /about; styled in components.css and rotated
+         by js/logo-grid.js. ADDING A MARK MEANS ADDING IT TO ALL FOUR.
+         NOTE the anonymity trade is back with it: four of the anonymised
+         studies below describe brands on this wall (see CLAUDE.md). -->
+    <section class="section section--tight lgrid">
+      <div class="padding-global">
+        <div class="container">
+          <h2 class="sr-only">Customer brands live with aiRA</h2>
+          <!-- THE LABEL NAMES aiRA, NOT CAPILLARY, since 28 Sep. It read "aiRA
+               works where 100+ enterprise brands already trust Capillary",
+               which was the careful hedge context.md 15.4 required while these
+               marks were Capillary loyalty-platform customers rather than
+               confirmed aiRA users. THE USER SUPPLIED THE CLEARANCE that 15.4
+               asks for on 28 Sep, a sheet with an "aiRA User" column, and every
+               mark on this wall is one of the fourteen it marks Yes. So the
+               hedge is not needed and is now the wrong claim: a wall of
+               confirmed aiRA users captioned with Capillary's customer count
+               argues the weaker of the two available points.
+               NO COUNT IS STATED. Fourteen is how many the sheet clears for
+               LOGO USE, which is not the same as how many customers aiRA has,
+               and the site does not know the second number. -->
+          <p class="lgrid__label">Brands already using aiRA</p>
+          <div class="lgrid__grid" data-logo-grid>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo lgrid__logo--wide">
+                <img src="/assets/logos/nascar-color.svg" alt="NASCAR" width="299" height="50">
+              </span>
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo lgrid__logo--badge">
+                <img src="/assets/logos/shell.svg" alt="Shell" width="54" height="50">
+              </span>
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo">
+                <img src="/assets/logos/hertz-color.svg" alt="Hertz" width="142" height="50">
+              </span>
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo lgrid__logo--xl">
+                <img src="/assets/logos/rack-room-shoes-color.svg" alt="Rack Room Shoes" width="50" height="50">
+              </span>
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo">
+                <img src="/assets/logos/asics.svg" alt="ASICS" width="150" height="50">
+              </span>
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo lgrid__logo--wide">
+                <img src="/assets/logos/indigo.svg" alt="IndiGo" width="230" height="47">
+              </span>
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo">
+                <img src="/assets/logos/optum.svg" alt="Optum" width="172" height="50">
+              </span>
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo lgrid__logo--wide">
+                <img src="/assets/logos/redtag.svg" alt="Redtag" width="230" height="42">
+              </span>
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo lgrid__logo--xl">
+                <img src="/assets/logos/aditya-birla.svg" alt="Aditya Birla" width="90" height="50">
+              </span>
+            </div>
+            <div class="lgrid__tile">
+              <span class="lgrid__logo lgrid__logo--badge">
+                <img src="/assets/logos/kanmo-group.svg" alt="Kanmo Group" width="223" height="65">
+              </span>
+            </div>
+          </div>
+          <!-- Benched logos rotate into the grid seat by seat. -->
+          <div class="lgrid__bench" hidden data-logo-bench>
+            <span class="lgrid__logo">
+              <img src="/assets/logos/metro-shoes.svg" alt="Metro Shoes" width="130" height="50">
+            </span>
+            <span class="lgrid__logo">
+              <img src="/assets/logos/arvind.svg" alt="Arvind" width="143" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--sq">
+              <img src="/assets/logos/indian-terrain.svg" alt="Indian Terrain" width="49" height="50">
+            </span>
+            <span class="lgrid__logo lgrid__logo--mid">
+              <img src="/assets/logos/cochran-color.svg" alt="Cochran" width="177" height="50">
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= TESTIMONIALS (SAMPLE) ================= -->
+    <!-- sv-blocks' "testimonial one" (user, 4 Oct): a centred head over a
+         four-column grid, one lead card across two rows, a wide card and two
+         small ones.
+         THESE QUOTES ARE SAMPLES AND MUST NOT SHIP AS TESTIMONY. The user asked
+         for "sample quotes from aiRA companies"; they are deliberately NOT
+         attributed to any real brand or person, because an invented quote
+         beside a real logo reads as that company's words, and the cleared logo
+         list (context.md 15.4a) clears marks only, never quotes. Each line
+         restates a product claim the site already makes. The visible
+         "Sample quotes" tag stays until real, approved quotes replace them;
+         then the tag, this note and the role-only bylines go together.
+         EACH CARD IS A DARK BRAND-ACCENT FILL (user, 4 Oct): the colour is
+         the card's own --c, a placeholder from the site's ramps, so the day a
+         customer's real accent and logo arrive it is one value per card.
+         THE FACES ARE STOCK PHOTOS (assets/customers/stock, user 4 Oct) and
+         depict nobody named: they illustrate the sample, which is one more
+         reason the "Sample quotes" tag cannot come off while they are here. -->
+    <section class="section cutm">
+      <div class="padding-global">
+        <div class="container">
+          <div class="section-head section-head--center cutm__head reveal">
+            <p class="eyebrow">In their words</p>
+            <h2 class="section-heading">What changes when the answer <em>stops queueing</em>.</h2>
+            <p class="section-sub">
+              Marketing, CRM and analytics leads on the first weeks with aiRA.
+            </p>
+            <p class="cutm__tag">Sample quotes, pending approval</p>
+          </div>
+          <div class="cutm__grid reveal">
+            <figure class="cutm__card cutm__card--lead" style="--c: var(--primary-900)">
+              <p class="cutm__ind">Footwear retail</p>
+              <svg class="cutm__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M108,72v72H40a8,8,0,0,1-8-8V72a8,8,0,0,1,8-8h60A8,8,0,0,1,108,72Zm108-8H156a8,8,0,0,0-8,8v64a8,8,0,0,0,8,8h68V72A8,8,0,0,0,216,64Z" opacity="0.2"/><path d="M100,56H40A16,16,0,0,0,24,72v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,100,56Zm0,80H40V72h60ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Zm0,80H156V72h60Z"/></svg>
+              <blockquote class="cutm__q"><p>We used to wait a week for a lapsed-member cut. Now the CRM team asks for it in the morning and has the segment, the reasoning behind it and a win-back journey waiting for approval by lunch.</p></blockquote>
+              <figcaption class="cutm__by">
+                <img class="cutm__av" src="/assets/customers/stock/stock-1.jpg" alt="" width="96" height="96" loading="lazy" decoding="async">
+                <span class="cutm__meta"><span class="cutm__who">Head of CRM</span><span class="cutm__role">Footwear retailer</span></span>
+              </figcaption>
+            </figure>
+            <figure class="cutm__card cutm__card--wide" style="--c: var(--secondary-900)">
+              <svg class="cutm__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M108,72v72H40a8,8,0,0,1-8-8V72a8,8,0,0,1,8-8h60A8,8,0,0,1,108,72Zm108-8H156a8,8,0,0,0-8,8v64a8,8,0,0,0,8,8h68V72A8,8,0,0,0,216,64Z" opacity="0.2"/><path d="M100,56H40A16,16,0,0,0,24,72v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,100,56Zm0,80H40V72h60ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Zm0,80H156V72h60Z"/></svg>
+              <blockquote class="cutm__q"><p>It already knows our tiers and what we mean by an active household, so the first answer is usually the one we needed.</p></blockquote>
+              <figcaption class="cutm__by">
+                <img class="cutm__av" src="/assets/customers/stock/stock-2.jpg" alt="" width="96" height="96" loading="lazy" decoding="async">
+                <span class="cutm__meta"><span class="cutm__who">Loyalty lead</span><span class="cutm__role">Fashion group</span></span>
+              </figcaption>
+            </figure>
+            <figure class="cutm__card" style="--c: var(--tertiary-900)">
+              <svg class="cutm__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M108,72v72H40a8,8,0,0,1-8-8V72a8,8,0,0,1,8-8h60A8,8,0,0,1,108,72Zm108-8H156a8,8,0,0,0-8,8v64a8,8,0,0,0,8,8h68V72A8,8,0,0,0,216,64Z" opacity="0.2"/><path d="M100,56H40A16,16,0,0,0,24,72v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,100,56Zm0,80H40V72h60ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Zm0,80H156V72h60Z"/></svg>
+              <blockquote class="cutm__q"><p>The reasoning comes with every answer. That is what got our BI team to trust it.</p></blockquote>
+              <figcaption class="cutm__by">
+                <img class="cutm__av" src="/assets/customers/stock/stock-3.jpg" alt="" width="96" height="96" loading="lazy" decoding="async">
+                <span class="cutm__meta"><span class="cutm__who">Director of analytics</span><span class="cutm__role">Travel brand</span></span>
+              </figcaption>
+            </figure>
+            <figure class="cutm__card" style="--c: var(--slate-700)">
+              <svg class="cutm__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M108,72v72H40a8,8,0,0,1-8-8V72a8,8,0,0,1,8-8h60A8,8,0,0,1,108,72Zm108-8H156a8,8,0,0,0-8,8v64a8,8,0,0,0,8,8h68V72A8,8,0,0,0,216,64Z" opacity="0.2"/><path d="M100,56H40A16,16,0,0,0,24,72v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,100,56Zm0,80H40V72h60ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Zm0,80H156V72h60Z"/></svg>
+              <blockquote class="cutm__q"><p>Nothing reaches a customer until one of us approves it, which is what got it past legal.</p></blockquote>
+              <figcaption class="cutm__by">
+                <img class="cutm__av" src="/assets/customers/stock/stock-4.jpg" alt="" width="96" height="96" loading="lazy" decoding="async">
+                <span class="cutm__meta"><span class="cutm__who">Head of marketing operations</span><span class="cutm__role">Fuel and convenience</span></span>
+              </figcaption>
+            </figure>
           </div>
         </div>
       </div>
@@ -119,7 +288,7 @@
          case-study PDF's, page 1. The two bars are the one KPI the PDF gives
          both sides of (hit rate, 11.56% against 11.13%); the other eight are
          not published, so no table is drawn for them. -->
-    <section class="section culead">
+    <section class="section culead section--band">
       <div class="padding-global">
         <div class="container">
 
@@ -132,174 +301,16 @@
             </p>
           </div>
 
-          <div class="culead__grid reveal">
-
-            <dl class="culead__story">
-              <div class="culead__row">
-                <dt>The problem</dt>
-                <dd>Two regions trailed the rest by 9.6 points before Ramadan, and mass targeting reached only 29% of the base: 715,000 active and 448,000 hibernating customers went untouched.</dd>
-              </div>
-              <div class="culead__row">
-                <dt>What aiRA did</dt>
-                <dd>Behavioural segmentation and a transaction-propensity model across five lifecycle cohorts, with aiRA running the campaign end to end and recalibrating it every cycle.</dd>
-              </div>
-              <div class="culead__row">
-                <dt>The result</dt>
-                <dd>A 7.5 point regional swing, and a win on eight of the nine KPIs both sides were scored on.</dd>
-              </div>
-            </dl>
-
-            <div class="culead__figs">
-              <ul class="culead__stats">
-                <li><span class="cu-val">SAR 233M</span><span class="cu-lbl">Net sales, up 4% year on year</span></li>
-                <li><span class="cu-val">+29.4%</span><span class="cu-lbl">New customers, year on year</span></li>
-                <li><span class="cu-val">+11.6%</span><span class="cu-lbl">Revenue per delivered contact</span></li>
-                <li><span class="cu-val">6.7x</span><span class="cu-lbl">Less erosion in average transaction value</span></li>
-              </ul>
-              <figure class="culead__vs">
-                <figcaption class="culead__vs-t">Hit rate, the same campaign window</figcaption>
-                <div class="culead__bar culead__bar--aira" style="--v: 11.56">
-                  <span class="culead__bar-k">aiRA</span>
-                  <span class="culead__bar-track"><span class="culead__bar-fill"></span></span>
-                  <span class="culead__bar-v">11.56%</span>
-                </div>
-                <div class="culead__bar" style="--v: 11.13">
-                  <span class="culead__bar-k">Agency</span>
-                  <span class="culead__bar-track"><span class="culead__bar-fill"></span></span>
-                  <span class="culead__bar-v">11.13%</span>
-                </div>
-              </figure>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="joint" aria-hidden="true"></div>
-
-    <!-- ================= THE OTHER FIVE ================= -->
-    <!-- /product's bento deal: two halves over three thirds, 10px gaps, rail
-         to rail, square corners. Each card leads on one figure; the story
-         sits in a native <details>, so it opens with no script and reads in
-         full to a screen reader. The consumer-durables card has no story to
-         open: no source carries its narrative, only its figures (as
-         /solutions/retail/other-retail already publishes them). -->
-    <section class="section custudies">
-      <div class="padding-global">
-        <div class="container">
-
-          <div class="section-head reveal">
-            <p class="eyebrow">Case studies</p>
-            <h2 class="section-heading">Five more, <em>measured</em>.</h2>
-          </div>
-
-          <div class="custudies__grid reveal">
-
-            <article class="cucard cucard--half">
-              <p class="cucard__tag">Healthcare · United States</p>
-              <h3 class="cucard__t">Loyalty set up for 90+ partner organisations, in 21 days instead of 90.</h3>
-              <p class="cucard__meta">120 million end customers.</p>
-              <ul class="cucard__stats">
-                <li class="cucard__lead"><span class="cu-val">75%</span><span class="cu-lbl">Less configuration effort</span></li>
-                <li><span class="cu-val">1 to 90+</span><span class="cu-lbl">Partner organisations, run at once</span></li>
-                <li><span class="cu-val">20 to 4</span><span class="cu-lbl">Specialists needed per cycle</span></li>
-              </ul>
-              <details class="cucard__more">
-                <summary>The full story</summary>
-                <dl>
-                  <dt>The problem</dt>
-                  <dd>Each partner organisation had its own requirements document, configured by hand by 16 to 20 specialists over three months a cycle, with full QA on every one. The programme could not scale.</dd>
-                  <dt>What aiRA did</dt>
-                  <dd>A five-stage workflow: read each requirements document, generate an execution plan, clean it up, check it against a summary, and execute it through the API.</dd>
-                  <dt>The result</dt>
-                  <dd>99.9% accuracy with manual errors at zero, and more than 8,000 promotions at the start of the year, then 200 or more a month.</dd>
-                </dl>
-              </details>
-            </article>
-
-            <article class="cucard cucard--half">
-              <p class="cucard__tag">Consumer durables · India</p>
-              <h3 class="cucard__t">A one-month push delivered 38 crore against a target already tripled.</h3>
-              <p class="cucard__meta">Electrical and consumer durables retailer.</p>
-              <ul class="cucard__stats">
-                <li class="cucard__lead"><span class="cu-val">38 Cr</span><span class="cu-lbl">Delivered against a 35 crore target</span></li>
-                <li><span class="cu-val">3x</span><span class="cu-lbl">The target, against the prior year</span></li>
-                <li><span class="cu-val">50%</span><span class="cu-lbl">Less campaign creation time</span></li>
-              </ul>
-              <a class="cucard__link" href="/solutions/retail/other-retail">More on other retail</a>
-            </article>
-
-            <article class="cucard">
-              <p class="cucard__tag">Multi-category retail</p>
-              <h3 class="cucard__t">Promotions written in plain English, with no engineering in the loop.</h3>
-              <p class="cucard__meta">20.6 million active customers, 500+ stores.</p>
-              <ul class="cucard__stats">
-                <li class="cucard__lead"><span class="cu-val">50%</span><span class="cu-lbl">Less promotion creation time</span></li>
-                <li><span class="cu-val">30 min</span><span class="cu-lbl">Saved per move to production</span></li>
-                <li><span class="cu-val">Zero</span><span class="cu-lbl">Configuration errors</span></li>
-              </ul>
-              <details class="cucard__more">
-                <summary>The full story</summary>
-                <dl>
-                  <dt>The problem</dt>
-                  <dd>More than 20 promotion templates a month across 15+ categories, every change needing engineering, and every move from test to production done by hand.</dd>
-                  <dt>What aiRA did</dt>
-                  <dd>Marketers write promotions in plain English, including auto-start, cyclical and one-time milestone rewards, and aiRA moves them to production on command.</dd>
-                  <dt>The result</dt>
-                  <dd>Configuration errors effectively eliminated across a monthly cadence of 20+ live templates.</dd>
-                </dl>
-              </details>
-            </article>
-
-            <article class="cucard">
-              <p class="cucard__tag">Menswear · India</p>
-              <h3 class="cucard__t">A loyalty programme redesigned end to end in 38 days.</h3>
-              <p class="cucard__meta">Premium menswear retailer.</p>
-              <ul class="cucard__stats">
-                <li class="cucard__lead"><span class="cu-val">38 days</span><span class="cu-lbl">To a production-ready redesign</span></li>
-                <li><span class="cu-val">3rd, 5th</span><span class="cu-lbl">Visit milestones, modelled with revenue</span></li>
-                <li><span class="cu-val">≤ 10%</span><span class="cu-lbl">Discount cap, held throughout</span></li>
-              </ul>
-              <details class="cucard__more">
-                <summary>The full story</summary>
-                <dl>
-                  <dt>The problem</dt>
-                  <dd>A head of loyalty inheriting an ageing programme: uncertain points economics, no milestone rewards, unclear tier benefits and no operating procedure.</dd>
-                  <dt>What aiRA did</dt>
-                  <dd>Compared the proposed and current programme on health, transaction value, frequency and points economics, simulated the milestone rewards and iterated the tier rules to a final design.</dd>
-                  <dt>The result</dt>
-                  <dd>Economics validated, and a four-part procedure for stores, backend ops, the points engine and coupons in place before launch.</dd>
-                </dl>
-              </details>
-            </article>
-
-            <article class="cucard">
-              <p class="cucard__tag">Footwear · India</p>
-              <h3 class="cucard__t">Nine persona models converged into one, in four weeks.</h3>
-              <p class="cucard__meta">Four brands, 4.26 million customers.</p>
-              <ul class="cucard__stats">
-                <li class="cucard__lead"><span class="cu-val">6</span><span class="cu-lbl">Need-state personas, from 9 iterations</span></li>
-                <li><span class="cu-val">10 / 10</span><span class="cu-lbl">Validation tests passed</span></li>
-                <li><span class="cu-val">85.3%</span><span class="cu-lbl">Persona retention, year on year</span></li>
-              </ul>
-              <details class="cucard__more">
-                <summary>The full story</summary>
-                <dl>
-                  <dt>The problem</dt>
-                  <dd>Persona work for board reporting took weeks to iterate, and cuts by CRM segment or price band never answered who the customer really is.</dd>
-                  <dt>What aiRA did</dt>
-                  <dd>Converged nine candidate models into one six-persona framework, written as SQL so the same dashboards rebuild each year across category, brand, price band, channel and store.</dd>
-                  <dt>The result</dt>
-                  <dd>One production-grade persona engine, since replicated across three sister brands, so their analytics run on a single view of the customer.</dd>
-                </dl>
-              </details>
-            </article>
-
-          </div>
-
-          <p class="custudies__note">Brands anonymised at the customers' request.</p>
-
+          <!-- FOUR FIGURES IN A ROW since 4 Oct (user, from a "Trusted by our
+               customers" stats-row reference: "make this section simple"). The
+               problem / what aiRA did / result list and the hit-rate bars are
+               in git. Every figure is still aiRA_Case_Studies.pdf's, page 1. -->
+          <ul class="culead__stats reveal">
+            <li><span class="culead__n">SAR 233M</span><span class="culead__l">Net sales, up 4% year on year</span></li>
+            <li><span class="culead__n">+29.4%</span><span class="culead__l">New customers, year on year</span></li>
+            <li><span class="culead__n">+11.6%</span><span class="culead__l">Revenue per delivered contact</span></li>
+            <li><span class="culead__n">6.7x</span><span class="culead__l">Less erosion in average transaction value</span></li>
+          </ul>
         </div>
       </div>
     </section>
@@ -308,7 +319,7 @@
 
     <!-- ================= BOOK CTA ================= -->
     <!-- The SPLIT variant shared with /product and index.html. -->
-    <section class="section book">
+    <section class="section section--wash book">
       <div class="padding-global">
         <div class="container">
           <div class="book__frame reveal">

@@ -22,6 +22,7 @@ assets/brand/*.pdf
 # Same pattern for the industry photography: the supplied PNGs stay local,
 # the compressed JPEGs beside them ship. Roughly halves what gets deployed.
 assets/industry/source/
+assets/customers/source/
 
 # Internal brand reference: quotes the Capillary Brand Guide, stays local.
 # It lives in assets/brand/ with the material it documents; absolute paths
@@ -40,6 +41,7 @@ style/pages/capillary-brand.css
 /*.mp4
 /*.png
 /*.jpg
+/*.jpeg
 
 # Working scratch. scratch/ holds serve.py, the local preview server CLAUDE.md
 # tells you to use: it lives in the repo so it survives a cleared temp dir, and
