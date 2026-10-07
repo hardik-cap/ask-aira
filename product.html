@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Product · How aiRA works</title>
-  <meta name="description" content="How aiRA works, in depth: it reads the warehouse you already have, answers with the reasoning shown, builds the move, and waits for a person to approve it. Seven capabilities, 140+ playbooks.">
+  <title>Product | aiRA</title>
+  <meta name="description" content="aiRA reads the warehouse you already have, answers with its reasoning shown, and builds the move for a person to approve. Live in two to four weeks.">
   <link rel="canonical" href="https://askaira.ai/product">
 
   <!-- Social card. The image is shared by every page for now (user, 28 Sep);
        the title, description and url are the page's own, so a shared link
        says what that page is. -->
-  <meta property="og:title" content="Product · How aiRA works">
-  <meta property="og:description" content="How aiRA works, in depth: it reads the warehouse you already have, answers with the reasoning shown, builds the move, and waits for a person to approve it. Seven capabilities, 140+ playbooks.">
+  <meta property="og:title" content="Product | aiRA">
+  <meta property="og:description" content="aiRA reads the warehouse you already have, answers with its reasoning shown, and builds the move for a person to approve. Live in two to four weeks.">
   <meta property="og:image" content="https://askaira.ai/assets/og/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -20,14 +20,19 @@
   <meta property="og:site_name" content="aiRA">
   <meta property="og:url" content="https://askaira.ai/product">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Product · How aiRA works">
-  <meta name="twitter:description" content="How aiRA works, in depth: it reads the warehouse you already have, answers with the reasoning shown, builds the move, and waits for a person to approve it. Seven capabilities, 140+ playbooks.">
+  <meta name="twitter:title" content="Product | aiRA">
+  <meta name="twitter:description" content="aiRA reads the warehouse you already have, answers with its reasoning shown, and builds the move for a person to approve. Live in two to four weeks.">
   <meta name="twitter:image" content="https://askaira.ai/assets/og/og-image.png">
   <link rel="icon" href="/assets/brand/aira-mark.svg" type="image/svg+xml">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,300..800&family=Roboto:wght@400;500;600;700&display=swap">
+  <!-- Fonts load without blocking first paint (4 Oct, PageSpeed): the
+       stylesheet is preloaded and switched on when it lands; display=swap
+       already swaps text in when the files arrive. Weights trimmed to the
+       400..700 the CSS uses (Google Sans Flex 117KB to 82KB). -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,400..700&family=Roboto:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,400..700&family=Roboto:wght@400;500;600;700&display=swap"></noscript>
 
   <link rel="stylesheet" href="/style/tokens.css">
   <link rel="stylesheet" href="/style/global.css">
@@ -40,6 +45,7 @@
   <script src="/js/diagram.js" defer></script>
   <script src="/js/glyph-matrix.js" defer></script>
   <script src="/js/rollout.js" defer></script>
+  <script src="/js/checklist.js" defer></script>
 </head>
 <body class="page-product">
 
@@ -71,37 +77,44 @@
                data-glyph-interval="150" aria-hidden="true"></div>
 
           <div class="phero__copy reveal is-in">
-            <!-- Solution-first: the H1 names the wait the reader is living
-                 with, not aiRA's process. The second clause is what separates
-                 aiRA from the category: everyone else stops at the answer. -->
-            <!-- "still" is doing typographic work as well as saying
-                 something: without it the balancer breaks this into
-                 554 / 427 / 478, so the middle line is the shortest and the
-                 centred block pinches in the middle (user, 23 Sep: "goes out
-                 and in"). With it the same three lines run 554 / 517 / 478, a
-                 clean taper, and the <em> phrase still lands whole on the
-                 last line where its dashed underline can do its job. It is
-                 also the word /book's H1 already uses for this idea. -->
-            <h1 class="phero__t">The answer your team is still waiting on, and
-              <em>the move it implies</em>.</h1>
+            <!-- Solution-first, and SHORT (user, 3 Oct, from databricks.com):
+                 the reference carries a six-word H1 and a one-line sub, with
+                 the explanation moved off the headline and into the sub. This
+                 H1 is the whole product in five words: the answer is what the
+                 category delivers, the move is what only aiRA does, and the
+                 <em> is on the half that separates it.
+
+                 THE PREVIOUS LINE'S "still" IS GONE AND SHOULD NOT COME BACK.
+                 It was there to fix a CENTRED block's rag: without it the
+                 balancer broke the headline 554 / 427 / 478, pinching in the
+                 middle (user, 23 Sep: "goes out and in"). The hero is ranged
+                 left now, so there is no taper to protect and the word was
+                 only ever paying for one.
+
+                 THE WAIT IS STILL ON THE PAGE. Every book card on the site
+                 reads "The question your team is still waiting on", so the
+                 page opens on the answer and closes on the question. -->
+            <h1 class="phero__t">The answer, and <em>the move it implies</em>.</h1>
+            <!-- One sentence per idea, three ideas: who asks, what it reads,
+                 who approves. The five-line version this replaces said the
+                 same things and no more. -->
             <p class="phero__sub">
-              Marketing, CRM, eCommerce, BI and growth ask in plain language.
-              aiRA reads the warehouse you already have, answers with the
-              reasoning shown, and builds the segment or the journey that
-              answer calls for. Nothing reaches a customer until a person
-              approves it.
+              Ask in plain language. aiRA reads the warehouse you already
+              have, shows its reasoning, and builds the move for a person to
+              approve.
             </p>
             <div class="btn-row phero__cta">
               <a class="btn btn--primary btn--lg" href="/book">Book a working session</a>
             </div>
           </div>
 
-          <!-- The capture is PART OF THE HERO now (user, 22 Sep, after
-               sendr.ai/platform/sequencer): centred copy with the product
-               directly under it, wide, running past the fold so the app reads
-               as already open rather than pictured. It had its own section
-               (#demo) for a few hours; that section is gone and this is where
-               the Guideflow walkthrough now goes.
+          <!-- The capture sits in the hero's RIGHT COLUMN and runs off the
+               right edge of the page (user, 3 Oct, from databricks.com:
+               "product image on right but not fully visible"). It was a
+               full-width block directly under centred copy from 22 Sep, after
+               sendr.ai/platform/sequencer, and before that it had its own
+               section (#demo) for a few hours. This is still where the
+               Guideflow walkthrough goes.
 
                SWAPPING IN THE EMBED IS ONE ELEMENT: replace the <img> with the
                Guideflow <iframe> and drop data-guideflow. The aspect-ratio
@@ -190,23 +203,11 @@
 
           <div class="bento__grid reveal">
 
-            <article class="bento__cell">
+            <article class="bento__cell bento__cell--4">
               <div class="bento__copy">
-                <p class="bento__label"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128A96,96,0,0,1,79.93,211.11h0L42.54,223.58a8,8,0,0,1-10.12-10.12l12.47-37.39h0A96,96,0,1,1,224,128Z" opacity="0.2"/><path d="M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-4-1.08,7.85,7.85,0,0,0-2.53.42L40,216,52.47,178.6a8,8,0,0,0-.66-6.54A88,88,0,1,1,128,216Zm12-88a12,12,0,1,1-12-12A12,12,0,0,1,140,128Zm-44,0a12,12,0,1,1-12-12A12,12,0,0,1,96,128Zm88,0a12,12,0,1,1-12-12A12,12,0,0,1,184,128Z"/></svg>One thread</p>
-                <h3 class="bento__t">The person with the question is the one who gets the answer.</h3>
-                <p class="bento__p">
-                  No ticket, no queue, no analyst in between. Marketing, CRM,
-                  eCommerce, BI and growth ask in their own words and get the answer
-                  back in the same sitting, which is the difference between a
-                  question worth asking and one that waits for the next sprint.
-                </p>
+                <h3 class="bento__t"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128A96,96,0,0,1,79.93,211.11h0L42.54,223.58a8,8,0,0,1-10.12-10.12l12.47-37.39h0A96,96,0,1,1,224,128Z" opacity="0.2"/><path d="M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-4-1.08,7.85,7.85,0,0,0-2.53.42L40,216,52.47,178.6a8,8,0,0,0-.66-6.54A88,88,0,1,1,128,216Zm12-88a12,12,0,1,1-12-12A12,12,0,0,1,140,128Zm-44,0a12,12,0,1,1-12-12A12,12,0,0,1,96,128Zm88,0a12,12,0,1,1-12-12A12,12,0,0,1,184,128Z"/></svg>One thread</h3>
+                <p class="bento__p">Ask in your own words and get the answer in the same sitting. No ticket, no queue.</p>
               </div>
-              <!-- The figure slot, drawn as lines only: a rule off the copy,
-                   then one line inset from each edge running the full width or
-                   height of the well, so the four cross at the corners and carry
-                   on to meet the cell. The glyph is the site's reserved-media
-                   placeholder, the same one /solutions' seat shots use: drop an
-                   <img> in beside it and the CSS steps it aside. -->
               <div class="bento__fig bento__fig--art" aria-hidden="true">
                 <!-- DRAWN, from the contexts/UI examples references (23 Sep):
                      one product fragment floating on a dot ground, with a
@@ -215,7 +216,12 @@
                      nothing between them, and its two timestamps are the claim:
                      asked and answered in the same minute. The card behind is
                      the ticket the same question becomes without aiRA, faded
-                     and tilted out of the way. The question is context.md's
+                     and tilted out of the way. FLOATING BUBBLES since 3 Oct
+                     (user: "show this message bubble as floaty, not in a
+                     box"): no card around the exchange; the question is a
+                     brand bubble on the right, aiRA's reply a white bubble
+                     on the left carrying its tool row and the result. The
+                     USER'S BUBBLE IS ALWAYS WHITE (user, same day). The question is context.md's
                      Predictive models string, verbatim. Product surface, so
                      Roboto and Phosphor REGULAR, never duotone. -->
                 <div class="oth">
@@ -228,8 +234,8 @@
                     <div class="oth__q">
                       <p class="chat__q">Which members are most likely to churn in the next 60 days?</p>
                     </div>
-                    <div class="chat__tool"><span class="chat__tool-c">&rsaquo;</span><svg class="chat__tool-ic" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg><span class="chat__tool-t">Running SparkSQL &middot; churn-risk model</span><span class="chat__tool-m">1.8s</span></div>
                     <div class="oth__a">
+                      <div class="chat__tool"><span class="chat__tool-c">&rsaquo;</span><svg class="chat__tool-ic" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24C74.17,24,32,48.6,32,80v96c0,31.4,42.17,56,96,56s96-24.6,96-56V80C224,48.6,181.83,24,128,24Zm80,104c0,9.62-7.88,19.43-21.61,26.92C170.93,163.35,150.19,168,128,168s-42.93-4.65-58.39-13.08C55.88,147.43,48,137.62,48,128V111.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64ZM69.61,53.08C85.07,44.65,105.81,40,128,40s42.93,4.65,58.39,13.08C200.12,60.57,208,70.38,208,80s-7.88,19.43-21.61,26.92C170.93,115.35,150.19,120,128,120s-42.93-4.65-58.39-13.08C55.88,99.43,48,89.62,48,80S55.88,60.57,69.61,53.08ZM186.39,202.92C170.93,211.35,150.19,216,128,216s-42.93-4.65-58.39-13.08C55.88,195.43,48,185.62,48,176V159.36c17.06,15,46.23,24.64,80,24.64s62.94-9.68,80-24.64V176C208,185.62,200.12,195.43,186.39,202.92Z"/></svg><span class="chat__tool-t">Running SparkSQL &middot; churn-risk model</span><span class="chat__tool-m">1.8s</span></div>
                       <div class="oth__kpi">
                         <span class="chat__kpi-l">At risk &middot; 60 days</span>
                         <span class="oth__kpi-row">
@@ -244,170 +250,34 @@
               </div>
             </article>
 
-            <article class="bento__cell">
+            <article class="bento__cell bento__cell--6">
               <div class="bento__copy">
-                <p class="bento__label"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,48H40a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H216a8,8,0,0,0,8-8V56A8,8,0,0,0,216,48Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V88H40V56Zm0,144H40V104h72v96Zm0,0H128V104h88v96Z"/></svg>Your business context</p>
-                <h3 class="bento__t">No modelling project before the first answer.</h3>
-                <p class="bento__p">
-                  Industry playbooks ship pre-built and your own business context
-                  layers on in days, against the two to four months of modelling a semantic
-                  layer needs before it can answer anything at all.
-                </p>
+                <h3 class="bento__t"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg>The move</h3>
+                <p class="bento__p">The segment and the journey are built in the same thread, then held until a person approves.</p>
               </div>
-              <!-- The figure slot, drawn as lines only: a rule off the copy,
-                   then one line inset from each edge running the full width or
-                   height of the well, so the four cross at the corners and carry
-                   on to meet the cell. The glyph is the site's reserved-media
-                   placeholder, the same one /solutions' seat shots use: drop an
-                   <img> in beside it and the CSS steps it aside. -->
               <div class="bento__fig bento__fig--art" aria-hidden="true">
-                <!-- DRAWN, the second of the contexts/UI examples figures, after
-                     its monospace training log. Front: aiRA's setup on your data
-                     as a dated log, read-only warehouse, a pre-built industry
-                     playbook, then your own business context layered on, ending in the
-                     first answer on day five. Behind, faded and tilted like the
-                     ticket in the One thread cell: the semantic-layer project the
-                     same first answer waits on elsewhere, week 6 of 16, which is
-                     the copy's "two to four months" and nothing more precise.
-                     No playbook count, deliberately: which playbooks are live
-                     today is unresolved (context.md 14.6). -->
-                <div class="odata">
-                  <div class="odata__proj">
-                    <p class="odata__proj-h"><span>Semantic layer</span><span class="oth__queued">Modelling</span></p>
-                    <p class="odata__proj-t">Week 6 of 16 &middot; no answers yet</p>
-                    <span class="odata__bar"><span></span></span>
-                  </div>
-                  <div class="odata__log">
-                    <p class="odata__head"><span class="odata__dots"><i></i><i></i><i></i></span><span>Setup &middot; your business context</span><span class="odata__live">Live</span></p>
-                    <ol class="odata__rows">
-                      <li><span class="odata__d">Day 1</span><span class="odata__s odata__s--add">+</span><span>Warehouse &rarr; <b>read-only</b></span></li>
-                      <li><span class="odata__d">Day 1</span><span class="odata__s odata__s--add">+</span><span>Retail playbook &rarr; <b>loaded</b></span></li>
-                      <li><span class="odata__d">Day 3</span><span class="odata__s odata__s--mod">~</span><span>&ldquo;Active member&rdquo; &rarr; <b>your rule</b></span></li>
-                      <li><span class="odata__d">Day 4</span><span class="odata__s odata__s--mod">~</span><span>Tier names &rarr; <b>your tiers</b></span></li>
-                      <li class="odata__done"><span class="odata__d">Day 5</span><span class="odata__s odata__s--ok">&check;</span><span>First answer on your data</span></li>
-                    </ol>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <article class="bento__cell bento__cell--wide">
-              <div class="bento__copy">
-                <p class="bento__label"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg>The move</p>
-                <h3 class="bento__t">Everywhere else, the answer is where it ends.</h3>
-                <p class="bento__p">
-                  A chart, a narrative and an export, and turning any of it into a
-                  campaign is a separate brief for a separate team. aiRA builds the
-                  segment and drafts the journey in the same thread that answered
-                  the question, and holds them there until a person approves.
-                </p>
-              </div>
-              <!-- The figure slot, drawn as lines only: a rule off the copy,
-                   then one line inset from each edge running the full width or
-                   height of the well, so the four cross at the corners and carry
-                   on to meet the cell. The glyph is the site's reserved-media
-                   placeholder, the same one /solutions' seat shots use: drop an
-                   <img> in beside it and the CSS steps it aside. -->
-              <div class="bento__fig bento__fig--art bento__fig--diagram" aria-hidden="true">
-                <!-- The move, SIMPLIFIED on 23 Sep after a detailed pass read as
-                     too crowded (user: "looks too crowdy to even tell whats
-                     happening"). One comparison, read straight down: both lanes
-                     share the same columns, answer, segment, journey, outcome,
-                     so each step sits over its twin. Each card carries one icon,
-                     one title and one line, and nothing else. Elsewhere the
-                     joins are hand-offs that cost days; in aiRA they are one
-                     line, and the outcome is held for approval. -->
                 <div class="omove">
-                  <!-- The wires. One viewBox for the whole drawing, so the two
-                       routes and the nodes riding them cannot drift apart: the
-                       nodes are placed from the same 1120x380 coordinates in
-                       CSS. Strokes are non-scaling so a 1px hairline stays a
-                       hairline at every width. -->
-                  <svg class="omove__wires" viewBox="0 0 1120 380" fill="none" aria-hidden="true">
-                    <defs>
-                      <linearGradient id="omoveAxis" x1="0" x2="1120" gradientUnits="userSpaceOnUse">
-                        <stop offset="0" stop-color="currentColor" stop-opacity="0"/>
-                        <stop offset="0.18" stop-color="currentColor" stop-opacity="1"/>
-                        <stop offset="0.82" stop-color="currentColor" stop-opacity="1"/>
-                        <stop offset="1" stop-color="currentColor" stop-opacity="0"/>
-                      </linearGradient>
-                    </defs>
-                    <!-- The line the question sits on. It fades at both ends
-                         rather than stopping, so it reads as an axis the
-                         drawing is placed against and not as a rule that ran
-                         out of room. -->
-                    <path class="omove__axis" d="M0 190H1120" stroke="url(#omoveAxis)"/>
-                    <path class="omove__path omove__path--else" vector-effect="non-scaling-stroke"
-                          d="M80 190C170 190 215 272 330 280C400 285 470 292 540 292C610 292 680 285 750 280C840 273 890 262 960 250"/>
-                    <path class="omove__path omove__path--aira" vector-effect="non-scaling-stroke"
-                          d="M80 190C170 190 215 108 330 100C400 95 470 88 540 88C610 88 680 95 750 100C840 107 890 120 960 130"/>
+                  <!-- A FAN-OUT, 3 Oct (user, with a primary-and-replicas
+                       sync diagram: "design these like image attached"). The
+                       question card on the left feeds the aiRA hub, and the
+                       hub branches on curved wires to the three things it
+                       builds, each in its own accent with its dashes
+                       travelling the wire. Laid out at one size (560x280)
+                       and zoomed to the well, like the other drawings, so
+                       wires and cards cannot drift; below 470 of container it
+                       stands up as a plain list. -->
+                  <svg class="omove__wires" viewBox="0 0 560 280" fill="none" aria-hidden="true">
+                    <path class="omove__w" d="M172 128H212M172 140H212M172 152H212M266 124C298 66 312 50 360 50M270 140H360M266 156C298 214 312 230 360 230"/>
+                    <path class="omove__dash omove__dash--t" d="M172 128H212M266 124C298 66 312 50 360 50"/>
+                    <path class="omove__dash omove__dash--p" d="M172 140H212M270 140H360"/>
+                    <path class="omove__dash omove__dash--s" d="M172 152H212M266 156C298 214 312 230 360 230"/>
                   </svg>
-
-                  <!-- One question, two routes out of it. That shared origin is
-                       the whole point of the drawing: the same ask either goes
-                       round three teams or stays in one thread. -->
-                  <div class="omove__n omove__n--hub"><span class="omove__tile"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-6.54-.67L40,216,52.47,178.6a8,8,0,0,0-.66-6.54A88,88,0,1,1,128,216Z"/><path d="M84,120a12,12,0,1,1,12,12A12,12,0,0,1,84,120Zm44,0a12,12,0,1,1,12,12A12,12,0,0,1,128,120Zm44,0a12,12,0,1,1,12,12A12,12,0,0,1,172,120Z"/></svg></span><span class="omove__lb">One question</span></div>
-
-                  <div class="omove__route omove__route--aira">
-                    <p class="omove__id"><b class="omove__brand"><img src="/assets/brand/aira-black.svg" alt="aiRA" width="62" height="20"></b><span>One thread</span></p>
-                    <div class="omove__n omove__n--a1"><span class="omove__tile"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg></span><span class="omove__lb">Answer</span></div>
-                    <div class="omove__n omove__n--a2"><span class="omove__tile"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"/></svg></span><span class="omove__lb">Segment</span></div>
-                    <div class="omove__n omove__n--a3"><span class="omove__tile"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg></span><span class="omove__lb">Journey</span></div>
-                    <p class="omove__out"><span class="state state--pending">Awaiting approval</span><i>2 minutes</i></p>
-                  </div>
-
-                  <div class="omove__route omove__route--else">
-                    <p class="omove__id"><b>Elsewhere</b><span>3 teams</span></p>
-                    <div class="omove__n omove__n--e1"><span class="omove__tile"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></svg></span><span class="omove__lb">Answer</span></div>
-                    <span class="omove__cost omove__cost--1">+3 days</span>
-                    <div class="omove__n omove__n--e2"><span class="omove__tile"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"/></svg></span><span class="omove__lb">Segment</span></div>
-                    <span class="omove__cost omove__cost--2">+4 days</span>
-                    <div class="omove__n omove__n--e3"><span class="omove__tile"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg></span><span class="omove__lb">Journey</span></div>
-                    <span class="omove__cost omove__cost--3">+2 days</span>
-                    <p class="omove__out omove__out--else"><span>Still in review</span><i>9 days</i></p>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <article class="bento__cell">
-              <div class="bento__copy">
-                <p class="bento__label"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,32H72A16,16,0,0,0,56,48V64H48A16,16,0,0,0,32,80V208a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16v-8h8a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Z" opacity="0.2"/><path d="M208,24H72A16,16,0,0,0,56,40V56H48A16,16,0,0,0,32,72V216a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V200h8a16,16,0,0,0,16-16V40A16,16,0,0,0,208,24ZM184,216H48V72H184V216Zm24-32h-8V72a16,16,0,0,0-16-16H72V40H208ZM152,112a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h56A8,8,0,0,1,152,112Zm0,32a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h56A8,8,0,0,1,152,144Z"/></svg>Its working</p>
-                <h3 class="bento__t">You can check the method, not just the picture.</h3>
-                <p class="bento__p">
-                  The query it ran, the assumptions it made and the documents it
-                  drew on all come back with the answer. An analyst can audit the
-                  reasoning, and the person who asked does not have to take the
-                  number on trust.
-                </p>
-              </div>
-              <!-- The figure slot, drawn as lines only: a rule off the copy,
-                   then one line inset from each edge running the full width or
-                   height of the well, so the four cross at the corners and carry
-                   on to meet the cell. The glyph is the site's reserved-media
-                   placeholder, the same one /solutions' seat shots use: drop an
-                   <img> in beside it and the CSS steps it aside. -->
-              <div class="bento__fig bento__fig--art" aria-hidden="true">
-                <!-- DARK, and code: the one well in the block that is neither a
-                     light card nor a diagram. The query aiRA ran, with two lines
-                     marked and a note for each, which is the claim made literal:
-                     the source it read and the assumption it made come back
-                     with the number. Drawn illustration, so Geist Mono. -->
-                <div class="ometh">
-                  <div class="ometh__code">
-                    <p class="ometh__tabs"><span class="is-on">Query</span><span>Assumptions</span><span>Sources</span></p>
-                    <ol class="ometh__lines">
-                      <li><b>SELECT</b> m.member_id, m.tier,</li>
-                      <li>       <b>SUM</b>(t.points) <b>AS</b> earned</li>
-                      <li class="is-mark" data-n="1"><b>FROM</b> loyalty.members m</li>
-                      <li><b>JOIN</b> loyalty.txns t <b>USING</b> (member_id)</li>
-                      <li class="is-mark" data-n="2"><b>WHERE</b> t.last_txn &lt; now() - <i>90</i></li>
-                      <li><b>GROUP BY</b> <i>1</i>, <i>2</i></li>
-                    </ol>
-                  </div>
-                  <ol class="ometh__notes">
-                    <li data-n="1"><span class="ometh__nk">Source</span><span>Members table, loyalty schema</span></li>
-                    <li data-n="2"><span class="ometh__nk">Assumption</span><span>Lapsed means 90 days with no purchase</span></li>
+                  <div class="omove__src"><b>Which members will lapse next quarter?</b></div>
+                  <span class="omove__hub"><img src="/assets/brand/aira-mark.svg" alt="" width="26" height="26"></span>
+                  <ol class="omove__steps">
+                    <li class="omove__step omove__step--t"><span class="omove__ic"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg></span><span class="omove__tx"><b>Answer</b><span class="omove__d">3,126 members at risk</span></span></li>
+                    <li class="omove__step omove__step--p"><span class="omove__ic"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M136,108A52,52,0,1,1,84,56,52,52,0,0,1,136,108Z" opacity="0.2"/><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"/></svg></span><span class="omove__tx"><b>Segment</b><span class="omove__d">High-value lapsers</span></span></li>
+                    <li class="omove__step omove__step--s"><span class="omove__ic"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M80,176a32,32,0,1,1-32-32A32,32,0,0,1,80,176Z" opacity="0.2"/><path d="M245.66,74.34l-32-32a8,8,0,0,0-11.32,11.32L220.69,72H208c-49.33,0-61.05,28.12-71.38,52.92-9.38,22.51-16.92,40.59-49.48,42.84a40,40,0,1,0,.1,16c43.26-2.65,54.34-29.15,64.14-52.69C161.41,107,169.33,88,208,88h12.69l-18.35,18.34a8,8,0,0,0,11.32,11.32l32-32A8,8,0,0,0,245.66,74.34ZM48,200a24,24,0,1,1,24-24A24,24,0,0,1,48,200Z"/></svg></span><span class="omove__tx"><b>Journey</b><span class="omove__d">Win-back, 3 steps</span></span></li>
                   </ol>
                 </div>
               </div>
@@ -415,53 +285,89 @@
 
             <article class="bento__cell">
               <div class="bento__copy">
-                <p class="bento__label"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,128c0,24-40,80-104,80S24,152,24,128s40-80,104-80S232,104,232,128Z" opacity="0.2"/><path d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"/></svg>Your domain</p>
-                <h3 class="bento__t">It knows what a points programme is.</h3>
-                <p class="bento__p">
-                  Not a text-to-SQL layer waiting to be told what loyalty means.
-                  aiRA reasons in the vocabulary the business already uses: points
-                  programmes, allocation and expiry, cohorts, lapse windows and the
-                  offers that move them.
-                </p>
+                <h3 class="bento__t"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,48H40a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H216a8,8,0,0,0,8-8V56A8,8,0,0,0,216,48Z" opacity="0.2"/><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V88H40V56Zm0,144H40V104h72v96Zm0,0H128V104h88v96Z"/></svg>Your business context</h3>
+                <p class="bento__p">Playbooks ship pre-built, and your own rules layer on in days rather than months of modelling.</p>
               </div>
-              <!-- The figure slot, drawn as lines only: a rule off the copy,
-                   then one line inset from each edge running the full width or
-                   height of the well, so the four cross at the corners and carry
-                   on to meet the cell. The glyph is the site's reserved-media
-                   placeholder, the same one /solutions' seat shots use: drop an
-                   <img> in beside it and the CSS steps it aside. -->
+              <div class="bento__fig bento__fig--art" role="group" aria-label="Example setup checklist">
+                <!-- AN AGENDA CARD since 3 Oct (user, from a "Meeting Agenda"
+                     checklist reference: "do something like this for Your
+                     business context"). aiRA's setup as a checklist: a grey
+                     shell carrying the title and a +, a white inner panel of
+                     rows, done rows ticked green and struck through, open ones
+                     an empty ring, the day on the right. The + is the claim:
+                     your own rules get ADDED to a playbook that ships built.
+                     The tilted "Semantic layer, week 6 of 16" card behind it
+                     is gone with the old log (in git); the reference is one
+                     card. No playbook count (context.md 14.6). The tick and
+                     ring are drawn micro-glyphs. INTERACTIVE since 3 Oct
+                     (user): every row is a role=checkbox button that
+                     js/checklist.js toggles, so this figure is NOT
+                     aria-hidden like the other four. -->
+                <div class="odata">
+                  <p class="odata__head" aria-hidden="true"><span>Your first week</span><svg class="odata__plus" viewBox="0 0 16 16"><path d="M8 2.5v11M2.5 8h11"/></svg></p>
+                  <ol class="odata__rows">
+                      <li class="is-done"><button type="button" class="odata__item" role="checkbox" aria-checked="true"><svg class="odata__ck" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9"/><path d="M6.2 10.3 8.7 12.8 13.8 7.4"/></svg><span class="odata__t">Connect warehouse, read-only</span><span class="odata__d">Day 1</span></button></li>
+                      <li class="is-done"><button type="button" class="odata__item" role="checkbox" aria-checked="true"><svg class="odata__ck" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9"/><path d="M6.2 10.3 8.7 12.8 13.8 7.4"/></svg><span class="odata__t">Load the retail playbook</span><span class="odata__d">Day 2</span></button></li>
+                      <li class="is-done"><button type="button" class="odata__item" role="checkbox" aria-checked="true"><svg class="odata__ck" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9"/><path d="M6.2 10.3 8.7 12.8 13.8 7.4"/></svg><span class="odata__t">Define &ldquo;active member&rdquo;</span><span class="odata__d">Day 3</span></button></li>
+                      <li><button type="button" class="odata__item" role="checkbox" aria-checked="false"><svg class="odata__ck" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9"/><path d="M6.2 10.3 8.7 12.8 13.8 7.4"/></svg><span class="odata__t">Map your tier names</span><span class="odata__d">Day 4</span></button></li>
+                      <li><button type="button" class="odata__item" role="checkbox" aria-checked="false"><svg class="odata__ck" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9"/><path d="M6.2 10.3 8.7 12.8 13.8 7.4"/></svg><span class="odata__t">First answer on your data</span><span class="odata__d">Day 5</span></button></li>
+                  </ol>
+                </div>
+              </div>
+            </article>
+
+            <article class="bento__cell bento__cell--4">
+              <div class="bento__copy">
+                <h3 class="bento__t"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,32H72A16,16,0,0,0,56,48V64H48A16,16,0,0,0,32,80V208a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16v-8h8a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Z" opacity="0.2"/><path d="M208,24H72A16,16,0,0,0,56,40V56H48A16,16,0,0,0,32,72V216a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V200h8a16,16,0,0,0,16-16V40A16,16,0,0,0,208,24ZM184,216H48V72H184V216Zm24-32h-8V72a16,16,0,0,0-16-16H72V40H208ZM152,112a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h56A8,8,0,0,1,152,112Zm0,32a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h56A8,8,0,0,1,152,144Z"/></svg>Its working</h3>
+                <p class="bento__p">The query, the assumptions and the sources come back with every answer.</p>
+              </div>
               <div class="bento__fig bento__fig--art" aria-hidden="true">
-                <!-- A CHART, the fifth kind of figure in the block. One member's
-                     points balance over time, labelled in the programme's own
-                     vocabulary rather than a database's: allocation,
-                     redemption, the lapse window, an offer timed inside it, and
-                     the expiry it is racing. No scale on either axis; it is a
-                     shape carrying words, not a dataset. Inline SVG with a
-                     fixed viewBox, so it scales as one picture. -->
-                <svg class="opts" viewBox="0 0 520 320" role="presentation" focusable="false">
-                  <text class="opts__cap" x="0" y="14">One member &middot; points balance</text>
-                  <line class="opts__base" x1="0" y1="262" x2="520" y2="262"/>
-                  <rect class="opts__lapse" x="240" y="40" width="210" height="222"/>
-                  <line class="opts__lapse-e" x1="240" y1="40" x2="240" y2="262"/>
-                  <line class="opts__lapse-e" x1="450" y1="40" x2="450" y2="262"/>
-                  <text class="opts__band" x="345" y="58" text-anchor="middle">Lapse window &middot; 90 days</text>
-                  <path class="opts__area" d="M0 262 H40 V190 H110 V168 H170 V120 H230 V176 H470 V262 Z"/>
-                  <path class="opts__line" d="M0 262 H40 V190 H110 V168 H170 V120 H230 V176 H450 H470 V262"/>
-                  <circle class="opts__pt" cx="40" cy="190" r="4"/>
-                  <text class="opts__lab" x="50" y="212">Allocation +500</text>
-                  <circle class="opts__pt" cx="230" cy="176" r="4"/>
-                  <text class="opts__lab" x="226" y="200" text-anchor="end">Redemption</text>
-                  <line class="opts__offer-l" x1="390" y1="176" x2="390" y2="104"/>
-                  <circle class="opts__offer" cx="390" cy="176" r="6"/>
-                  <rect class="opts__tag" x="330" y="80" width="120" height="26" rx="6"/>
-                  <text class="opts__tag-t" x="390" y="97" text-anchor="middle">Offer &middot; double points</text>
-                  <circle class="opts__exp" cx="470" cy="176" r="4"/>
-                  <text class="opts__exp-t" x="462" y="200" text-anchor="end">Expiry</text>
-                  <text class="opts__exp-t opts__exp-n" x="462" y="216" text-anchor="end">1,200 pts</text>
-                  <text class="opts__x" x="0" y="286">Earn</text>
-                  <text class="opts__x" x="240" y="286">Last activity</text>
-                  <text class="opts__x" x="520" y="286" text-anchor="end">Points expire</text>
-                </svg>
+                <!-- DARK, and code: the one well in the block that is neither a
+                     light card nor a diagram. The query aiRA ran, the two lines
+                     that carry its source and its assumption lit. The two
+                     floating notes off its corner came out 3 Oct (user) and
+                     the panel grew into their room. Drawn illustration, so
+                     Geist Mono. -->
+                <div class="ometh">
+                  <div class="ometh__code">
+                    <p class="ometh__tabs"><span class="is-on">Query</span><span>Assumptions</span><span>Sources</span></p>
+                    <ol class="ometh__lines">
+                      <li><b>SELECT</b> m.member_id, m.tier,</li>
+                      <li>       <b>SUM</b>(t.points) <b>AS</b> earned</li>
+                      <li class="is-mark"><b>FROM</b> loyalty.members m</li>
+                      <li><b>JOIN</b> loyalty.txns t <b>USING</b> (member_id)</li>
+                      <li class="is-mark"><b>WHERE</b> t.last_txn &lt; now() - <i>90</i></li>
+                      <li><b>GROUP BY</b> <i>1</i>, <i>2</i></li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="bento__cell">
+              <div class="bento__copy">
+                <h3 class="bento__t"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,128c0,24-40,80-104,80S24,152,24,128s40-80,104-80S232,104,232,128Z" opacity="0.2"/><path d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"/></svg>Your domain</h3>
+                <p class="bento__p">It reads loyalty terms like lapsed, liability and tier the way your programme means them.</p>
+              </div>
+              <div class="bento__fig bento__fig--art" aria-hidden="true">
+                <!-- A TERM TREE since 3 Oct (user, from a "Workflow completed"
+                     card with its steps hung off it on dashed elbows: "design
+                     your domain like this with our details"). The parent says
+                     the terms are understood; each child is one loyalty term,
+                     its own accent icon, and what aiRA reads it as in grey.
+                     ILLUSTRATIVE business context, not product defaults; the
+                     90 days matches the query in Its working. Icons are the
+                     codebase's Phosphor duotone (Clock, Coins, Users, Medal);
+                     the parent's check is a drawn micro-glyph. -->
+                <div class="odom">
+                  <p class="odom__top"><svg class="odom__ok" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.5"/><path d="M6.4 10.2 8.8 12.6 13.6 7.6"/></svg>Your terms, understood</p>
+                  <ol class="odom__rows">
+                    <li class="odom__row odom__row--t"><span class="odom__ic"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></svg></span><span class="odom__tx"><b>Lapsed member</b><span class="odom__m">90 days, no purchase</span></span></li>
+                    <li class="odom__row odom__row--p"><span class="odom__ic"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M240,132c0,19.88-35.82,36-80,36-19.6,0-37.56-3.17-51.47-8.44h0C146.76,156.85,176,142,176,124V96.72h0C212.52,100.06,240,114.58,240,132ZM176,84c0-19.88-35.82-36-80-36S16,64.12,16,84s35.82,36,80,36S176,103.88,176,84Z" opacity="0.2"/><path d="M184,89.57V84c0-25.08-37.83-44-88-44S8,58.92,8,84v40c0,20.89,26.25,37.49,64,42.46V172c0,25.08,37.83,44,88,44s88-18.92,88-44V132C248,111.3,222.58,94.68,184,89.57ZM232,132c0,13.22-30.79,28-72,28-3.73,0-7.43-.13-11.08-.37C170.49,151.77,184,139,184,124V105.74C213.87,110.19,232,122.27,232,132ZM72,150.25V126.46A183.74,183.74,0,0,0,96,128a183.74,183.74,0,0,0,24-1.54v23.79A163,163,0,0,1,96,152,163,163,0,0,1,72,150.25Zm96-40.32V124c0,8.39-12.41,17.4-32,22.87V123.5C148.91,120.37,159.84,115.71,168,109.93ZM96,56c41.21,0,72,14.78,72,28s-30.79,28-72,28S24,97.22,24,84,54.79,56,96,56ZM24,124V109.93c8.16,5.78,19.09,10.44,32,13.57v23.37C36.41,141.4,24,132.39,24,124Zm64,48v-4.17c2.63.1,5.29.17,8,.17,3.88,0,7.67-.13,11.39-.35A121.92,121.92,0,0,0,120,171.41v23.46C100.41,189.4,88,180.39,88,172Zm48,26.25V174.4a179.48,179.48,0,0,0,24,1.6,183.74,183.74,0,0,0,24-1.54v23.79a165.45,165.45,0,0,1-48,0Zm64-3.38V171.5c12.91-3.13,23.84-7.79,32-13.57V172C232,180.39,219.59,189.4,200,194.87Z"/></svg></span><span class="odom__tx"><b>Points liability</b><span class="odom__m">earned, not spent</span></span></li>
+                    <li class="odom__row odom__row--s"><span class="odom__ic"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M136,108A52,52,0,1,1,84,56,52,52,0,0,1,136,108Z" opacity="0.2"/><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"/></svg></span><span class="odom__tx"><b>Active household</b><span class="odom__m">2+ visits a month</span></span></li>
+                    <li class="odom__row odom__row--t"><span class="odom__ic"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M176,96a48,48,0,1,1-48-48A48,48,0,0,1,176,96Z" opacity="0.2"/><path d="M216,96A88,88,0,1,0,72,163.83V240a8,8,0,0,0,11.58,7.16L128,225l44.43,22.21A8.07,8.07,0,0,0,176,248a8,8,0,0,0,8-8V163.83A87.85,87.85,0,0,0,216,96ZM56,96a72,72,0,1,1,72,72A72.08,72.08,0,0,1,56,96ZM168,227.06l-36.43-18.21a8,8,0,0,0-7.16,0L88,227.06V174.37a87.89,87.89,0,0,0,80,0ZM128,152A56,56,0,1,0,72,96,56.06,56.06,0,0,0,128,152Zm0-96A40,40,0,1,1,88,96,40,40,0,0,1,128,56Z"/></svg></span><span class="odom__tx"><b>Tier upgrade</b><span class="odom__m">next tier&rsquo;s spend</span></span></li>
+                  </ol>
+                </div>
               </div>
             </article>
 

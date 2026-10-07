@@ -429,7 +429,29 @@
   /* 80px since 17 Sep (was 96). Drives every .section's vertical rhythm and
      the footer's top gap. */
   --section-pad: var(--sp-20);
-  --container:   80rem;   /* 1280 */
+  /* 91rem (1456) since 3 Oct, up from 80rem (1280), to match the widest
+     container databricks.com uses (user: "to match databricks max width ...
+     we can just increase max-width"). Read out of their live stylesheet
+     rather than measured off a screenshot: .inner-wrapper and
+     .new-row-item carry a stepped scale, 1136 / 1144 / 1312 / 1456 at
+     768 / 1280 / 1366 / 1536, and it is a named token set there too
+     (.max-w-grid-md through .max-w-grid-xxl), so 1456 is their ceiling by
+     intent and not by accident.
+     WHAT THIS ACTUALLY CHANGES IS NARROWER THAN IT LOOKS, and the reason is
+     --pad-x below. The container resolves to min(--container, 90% of the
+     viewport), so the 5% gutter is what binds until the viewport is wide
+     enough for the cap to matter: 1456 does not bind until about 1618px.
+     Below that this token is inert and the page is exactly as it was. So
+     1280 and 1366 are UNCHANGED, 1440 gains 16px, and the full 1456 arrives
+     at 1618 and up.
+     MATCHING THEM AT 1366 AND 1440 WOULD TAKE --pad-x, NOT THIS. Databricks
+     runs 1312 at both, which needs gutters of 27px and 64px; ours are 68 and
+     72. That is a change to the gutter model rather than to the cap, and it
+     was not done: their gutter is NON-MONOTONIC (it collapses to 27px at
+     exactly 1366 and 40px at 1536, because each breakpoint jumps the
+     max-width with no padding floor underneath), and this site's rails need
+     a floor, since .container's 20px inner gutter exists to clear them. */
+  --container:   91rem;   /* 1456 */
   --container-narrow: 46rem;
   --pad-x:       5%;
   --nav-h:       56px;

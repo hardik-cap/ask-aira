@@ -1767,6 +1767,16 @@
 .sec__top { margin-bottom: var(--sp-16); }
 .price__intro .section-sub,
 .sec__intro .section-sub { margin-top: var(--sp-4); max-width: 34rem; }
+/* The link to /pricing: .vdemo__more's object at body size, in the light
+   end of the brand ramp because this band is dark (P200, as its <em>). */
+/* Doubled class: .vdemo__more is declared later in this file at equal
+   weight and would otherwise win the colour. */
+.vdemo__more.price__more {
+  margin-top: var(--sp-6);
+  font-size: var(--t-body);
+  color: var(--primary-200);
+}
+.vdemo__more.price__more:hover { color: var(--ink-inv); }
 
 .price__card,
 .sec__card {
@@ -2872,7 +2882,8 @@
 
 /* ---- NASCAR proof (19 Sep) --------------------------------------------------
    The customer story beside the form, as one contained card: never full
-   bleed, the dark ground stops at the container. The trackside photograph
+   bleed, the dark ground stops at the container (SUPERSEDED 4 Oct: it now
+   runs rail to rail, see below). The trackside photograph
    sits under an ink overlay that is heaviest behind the words and eases
    toward the video; the Riverside take sits on the right as its supplied
    still with a play badge, and opens in the lightbox (20 Sep), so the 18MB
@@ -2886,15 +2897,25 @@
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   gap: var(--sp-10);
   align-items: center;
-  padding: var(--sp-12) var(--sp-10);
-  border-radius: var(--r-lg);
-  box-shadow: var(--shadow-lg);
+  padding: var(--sp-16) var(--sp-10);
 }
+/* END TO END since 4 Oct (user, matching /customers): the section gives up
+   its block padding so the photograph runs joint to joint, and the card
+   takes back .container's 20px gutter so its sides sit ON the rails. The
+   radius and the lift went with it: a fill that meets the frame's lines is
+   not a card. Both unwind below 992 with the rails. */
+.nproof { padding-block: 0; }
+.nproof__card { margin-inline: calc(-1 * var(--sp-5)); }
 
 .nproof__bg {
   position: absolute;
   inset: 0;
   background: url('/assets/nascar-bg.jpg') center 38% / cover no-repeat;
+}
+/* Phones take the 1000px encode (88KB against 294): the card is at most
+   a phone wide there, under an ink overlay. */
+@media (max-width: 767px) {
+  .nproof__bg { background-image: url('/assets/nascar-bg-1000.jpg'); }
 }
 .nproof__bg::after {
   content: '';
@@ -2980,7 +3001,8 @@
   .nproof__card {
     grid-template-columns: 1fr;
     gap: var(--sp-8);
-    padding: var(--sp-8) var(--sp-6);
+    padding: var(--sp-10) var(--sp-6);
+    margin-inline: 0;
   }
   .nproof__mark { width: 144px; height: auto; }
 }

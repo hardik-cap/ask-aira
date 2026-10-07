@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>aiRA | On-Demand Insights and Analytics Agent for Customer Data</title>
+  <title>aiRA: The insights and analytics agent for customer data</title>
   <meta name="description" content="aiRA reads the customer data you already own and pushes to the channels you already run. Ask in plain language, get the insight, the reasoning and a recommended move built and waiting on your approval.">
 
-  <meta property="og:title" content="aiRA | On-Demand Insights and Analytics Agent for Customer Data">
+  <meta property="og:title" content="aiRA: The insights and analytics agent for customer data">
   <meta property="og:description" content="aiRA sits between your data and your channels. Ask in plain language, get the insight, the reasoning and a recommended move built and waiting on your approval.">
   <meta property="og:image" content="https://askaira.ai/assets/og/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -17,7 +17,7 @@
   <meta property="og:site_name" content="aiRA">
   <meta property="og:url" content="https://askaira.ai/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="aiRA | On-Demand Insights and Analytics Agent for Customer Data">
+  <meta name="twitter:title" content="aiRA: The insights and analytics agent for customer data">
   <meta name="twitter:description" content="aiRA sits between your data and your channels. Ask in plain language, get a move built and waiting on your approval.">
   <meta name="twitter:image" content="https://askaira.ai/assets/og/og-image.png">
 
@@ -40,7 +40,12 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,300..800&family=Roboto:wght@400;500;600;700&display=swap">
+  <!-- Fonts load without blocking first paint (4 Oct, PageSpeed): the
+       stylesheet is preloaded and switched on when it lands; display=swap
+       already swaps text in when the files arrive. Weights trimmed to the
+       400..700 the CSS uses (Google Sans Flex 117KB to 82KB). -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,400..700&family=Roboto:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,400..700&family=Roboto:wght@400;500;600;700&display=swap"></noscript>
 
   <!-- Order matters: tokens -> global -> components -> page -->
   <link rel="stylesheet" href="/style/tokens.css">
@@ -171,7 +176,7 @@
               </span>
             </div>
             <div class="lgrid__tile">
-              <span class="lgrid__logo lgrid__logo--sq">
+              <span class="lgrid__logo lgrid__logo--xl">
                 <img src="/assets/logos/rack-room-shoes-color.svg" alt="Rack Room Shoes" width="50" height="50">
               </span>
             </div>
@@ -187,8 +192,8 @@
             </div>
             <div class="lgrid__tile">
               <span class="lgrid__logo">
-                <img src="/assets/logos/optum.svg" alt="Optum" width="172" height="50">
-              </span>
+              <img src="/assets/logos/metro-shoes.svg" alt="Metro Shoes" width="130" height="50">
+            </span>
             </div>
             <div class="lgrid__tile">
               <span class="lgrid__logo lgrid__logo--wide">
@@ -196,7 +201,7 @@
               </span>
             </div>
             <div class="lgrid__tile">
-              <span class="lgrid__logo lgrid__logo--badge">
+              <span class="lgrid__logo lgrid__logo--xl">
                 <img src="/assets/logos/aditya-birla.svg" alt="Aditya Birla" width="90" height="50">
               </span>
             </div>
@@ -208,9 +213,6 @@
           </div>
           <!-- Benched logos rotate into the grid seat by seat. -->
           <div class="lgrid__bench" hidden data-logo-bench>
-            <span class="lgrid__logo">
-              <img src="/assets/logos/metro-shoes.svg" alt="Metro Shoes" width="130" height="50">
-            </span>
             <span class="lgrid__logo">
               <img src="/assets/logos/arvind.svg" alt="Arvind" width="143" height="50">
             </span>
@@ -392,7 +394,7 @@
                 <div class="vdemo" data-video="https://www.youtube.com/embed/9OHDIi256uQ?si=e6kLUBVmScoQgixV&amp;autoplay=1" data-video-title="The aiRA product tour">
           <button class="vdemo__btn" type="button" data-video-play>
                     <span class="vdemo__shot" aria-hidden="true">
-                      <img src="/assets/industry/retail-hero.jpg" alt="" width="1800" height="1125" loading="lazy" decoding="async">
+                      <img src="/assets/industry/retail-hero-thumb.jpg" alt="" width="264" height="165" loading="lazy" decoding="async">
                       <span class="vdemo__play"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M228.23,134.69,84.15,222.81A8,8,0,0,1,72,216.12V39.88a8,8,0,0,1,12.15-6.69l144.08,88.12A7.82,7.82,0,0,1,228.23,134.69Z" opacity="0.2"/><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"/></svg></span>
                     </span>
                     <span class="vdemo__txt">
@@ -459,7 +461,7 @@
                 <div class="vdemo" data-video="https://www.youtube.com/embed/9OHDIi256uQ?si=e6kLUBVmScoQgixV&amp;autoplay=1" data-video-title="The aiRA product tour">
           <button class="vdemo__btn" type="button" data-video-play>
                     <span class="vdemo__shot" aria-hidden="true">
-                      <img src="/assets/industry/ind-restaurants-qsr.jpg" alt="" width="1800" height="1125" loading="lazy" decoding="async">
+                      <img src="/assets/industry/ind-restaurants-qsr-thumb.jpg" alt="" width="264" height="165" loading="lazy" decoding="async">
                       <span class="vdemo__play"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M228.23,134.69,84.15,222.81A8,8,0,0,1,72,216.12V39.88a8,8,0,0,1,12.15-6.69l144.08,88.12A7.82,7.82,0,0,1,228.23,134.69Z" opacity="0.2"/><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"/></svg></span>
                     </span>
                     <span class="vdemo__txt">
@@ -525,7 +527,7 @@
                 <div class="vdemo" data-video="https://www.youtube.com/embed/9OHDIi256uQ?si=e6kLUBVmScoQgixV&amp;autoplay=1" data-video-title="The aiRA product tour">
           <button class="vdemo__btn" type="button" data-video-play>
                     <span class="vdemo__shot" aria-hidden="true">
-                      <img src="/assets/industry/ind-travel-hospitality.jpg" alt="" width="1800" height="1125" loading="lazy" decoding="async">
+                      <img src="/assets/industry/ind-travel-hospitality-thumb.jpg" alt="" width="264" height="165" loading="lazy" decoding="async">
                       <span class="vdemo__play"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M228.23,134.69,84.15,222.81A8,8,0,0,1,72,216.12V39.88a8,8,0,0,1,12.15-6.69l144.08,88.12A7.82,7.82,0,0,1,228.23,134.69Z" opacity="0.2"/><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"/></svg></span>
                     </span>
                     <span class="vdemo__txt">
@@ -576,7 +578,7 @@
                 <div class="vdemo" data-video="https://www.youtube.com/embed/9OHDIi256uQ?si=e6kLUBVmScoQgixV&amp;autoplay=1" data-video-title="The aiRA product tour">
           <button class="vdemo__btn" type="button" data-video-play>
                     <span class="vdemo__shot" aria-hidden="true">
-                      <img src="/assets/industry/ind-telecom.jpg" alt="" width="1800" height="1125" loading="lazy" decoding="async">
+                      <img src="/assets/industry/ind-telecom-thumb.jpg" alt="" width="264" height="165" loading="lazy" decoding="async">
                       <span class="vdemo__play"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M228.23,134.69,84.15,222.81A8,8,0,0,1,72,216.12V39.88a8,8,0,0,1,12.15-6.69l144.08,88.12A7.82,7.82,0,0,1,228.23,134.69Z" opacity="0.2"/><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"/></svg></span>
                     </span>
                     <span class="vdemo__txt">
@@ -837,6 +839,8 @@
                  data-video-title="The NASCAR story">
               <button class="nproof__btn" type="button" data-video-play>
                 <img class="nproof__shot" src="/assets/nascar-thumbnail.jpg"
+                     srcset="/assets/nascar-thumbnail-720.jpg 720w, /assets/nascar-thumbnail.jpg 1354w"
+                     sizes="(max-width: 991px) 92vw, 560px"
                      alt="" width="1354" height="794" loading="lazy" decoding="async">
                 <span class="nproof__play" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M228.23,134.69,84.15,222.81A8,8,0,0,1,72,216.12V39.88a8,8,0,0,1,12.15-6.69l144.08,88.12A7.82,7.82,0,0,1,228.23,134.69Z" opacity="0.2"/><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"/></svg></span>
                 <span class="sr-only">Play the NASCAR story</span>
@@ -850,9 +854,14 @@
     <div class="joint" aria-hidden="true"></div>
 
     <!-- ================= CATEGORY COMPARISON ================= -->
-    <!-- Dark since 19 Sep, so the board and the pricing section read as one
-         continuous dark passage rather than two blocks trading grounds. -->
-    <section class="section section--inv compare section--band" id="category" data-nav-dark>
+    <!-- LIGHT since 4 Oct (user: "only section dark is pricing"). It was dark
+         from 19 Sep so it and pricing read as one dark passage; now pricing is
+         the page's one dark band and this board sits on the page ground. The
+         board's light styles were always the base rules (the dark ones are
+         .section--inv overrides), and the aiRA column stays its dark
+         brand-tinted panel, which is what marks it on a light ground. The
+         joint below went from .joint--inv to .joint with it. -->
+    <section class="section compare section--band" id="category">
       <div class="padding-global">
         <div class="container">
 
@@ -910,7 +919,7 @@
       </div>
     </section>
 
-    <div class="joint joint--inv" aria-hidden="true"></div>
+    <div class="joint" aria-hidden="true"></div>
 
 
 
@@ -930,20 +939,33 @@
                 Nobody pays for a login they never use, and adding the tenth marketer
                 costs nothing.
               </p>
+              <!-- PARKED 7 Oct with /pricing (user). Restore when the page is back.
+               The way to /pricing (4 Oct, user). A text link and not a
+                   button: the site keeps one conversion button, and this is a
+                   read-more. Same object as "Everything aiRA does in retail",
+                   relit for the dark band. 
+              <a class="vdemo__more price__more" href="/pricing">See plans and pricing<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,128l-72,72V56Z" opacity="0.2"/><path d="M221.66,122.34l-72-72A8,8,0,0,0,136,56v64H40a8,8,0,0,0,0,16h96v64a8,8,0,0,0,13.66,5.66l72-72A8,8,0,0,0,221.66,122.34ZM152,180.69V75.31L204.69,128Z"/></svg></a>
+              -->
             </div>
           </div>
 
           <div class="price__grid reveal reveal-stagger">
+            <!-- The three tiles PREVIEW /pricing since 4 Oct (user): the first
+                 one repeated the sub word for word and the second ("2 to 4
+                 weeks to a pilot") clashed with the paid Pilot plan's name. Both
+                 lines are /pricing's own: unlimited users is its table, the
+                 overage ceiling its fine print (terms-and-conditions). The
+                 2-to-4-weeks fact lives on in the FAQ. -->
             <div class="price__card">
               <div class="price__tile">
-                <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M240,132c0,19.88-35.82,36-80,36-19.6,0-37.56-3.17-51.47-8.44h0C146.76,156.85,176,142,176,124V96.72h0C212.52,100.06,240,114.58,240,132ZM176,84c0-19.88-35.82-36-80-36S16,64.12,16,84s35.82,36,80,36S176,103.88,176,84Z" opacity="0.2"/><path d="M184,89.57V84c0-25.08-37.83-44-88-44S8,58.92,8,84v40c0,20.89,26.25,37.49,64,42.46V172c0,25.08,37.83,44,88,44s88-18.92,88-44V132C248,111.3,222.58,94.68,184,89.57ZM232,132c0,13.22-30.79,28-72,28-3.73,0-7.43-.13-11.08-.37C170.49,151.77,184,139,184,124V105.74C213.87,110.19,232,122.27,232,132ZM72,150.25V126.46A183.74,183.74,0,0,0,96,128a183.74,183.74,0,0,0,24-1.54v23.79A163,163,0,0,1,96,152,163,163,0,0,1,72,150.25Zm96-40.32V124c0,8.39-12.41,17.4-32,22.87V123.5C148.91,120.37,159.84,115.71,168,109.93ZM96,56c41.21,0,72,14.78,72,28s-30.79,28-72,28S24,97.22,24,84,54.79,56,96,56ZM24,124V109.93c8.16,5.78,19.09,10.44,32,13.57v23.37C36.41,141.4,24,132.39,24,124Zm64,48v-4.17c2.63.1,5.29.17,8,.17,3.88,0,7.67-.13,11.39-.35A121.92,121.92,0,0,0,120,171.41v23.46C100.41,189.4,88,180.39,88,172Zm48,26.25V174.4a179.48,179.48,0,0,0,24,1.6,183.74,183.74,0,0,0,24-1.54v23.79a165.45,165.45,0,0,1-48,0Zm64-3.38V171.5c12.91-3.13,23.84-7.79,32-13.57V172C232,180.39,219.59,189.4,200,194.87Z"/></svg></span>Credits, charged on work done</h4>
-                <p>A credit is consumed when aiRA runs an analysis or builds an action. No per-seat license.</p>
+                <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M136,108A52,52,0,1,1,84,56,52,52,0,0,1,136,108Z" opacity="0.2"/><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"/></svg></span>Unlimited users, every plan</h4>
+                <p>Every plan seats your whole team from day one. What grows with use is the credit pool, never the headcount.</p>
               </div>
             </div>
             <div class="price__card">
               <div class="price__tile">
-                <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,48V88H40V48a8,8,0,0,1,8-8H208A8,8,0,0,1,216,48Z" opacity="0.2"/><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Zm-38.34-85.66a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L116,164.69l42.34-42.35A8,8,0,0,1,169.66,122.34Z"/></svg></span>2 to 4 weeks to a pilot</h4>
-                <p>On your real customer data, with your business context loaded. No engineering headcount from your side.</p>
+                <h4><span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg></span>Overage with a ceiling</h4>
+                <p>Usage past your pool is billed quarterly at your rate. Past 120%, access can pause until you approve, so a busy month never becomes a surprise bill.</p>
               </div>
             </div>
             <div class="price__card">

@@ -16,9 +16,9 @@
   without a canonical tag to read; give index.html one and this stops being a
   special case.
 
-  WHAT IS DELIBERATELY ABSENT: /404, /style-guide, /index-v2 and /index-v3, all
-  of which carry a noindex meta, and /pricing, which is parked in /archive and
-  404s. Restoring /pricing means adding it back here.
+  WHAT IS DELIBERATELY ABSENT: /404, /style-guide, /index-v2 and /index-v3,
+  all of which carry a noindex meta. /pricing was absent too while it was
+  parked and CAME BACK on 3 Oct with the page; it is entry 20.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>

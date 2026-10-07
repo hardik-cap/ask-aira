@@ -1,7 +1,7 @@
 /* ==========================================================================
    aiRA — the proof figures count into place (19 Sep)
 
-   Each .cproof__val animates once, the first time it is scrolled into view.
+   Each .cproof__val (and /customers' .culead__n, since 4 Oct) animates once, the first time it is scrolled into view.
    The DIRECTION is declared, not guessed: a figure that argues an increase
    counts up from zero, and a figure that argues a reduction counts down from
    the value it started at, written on the element as data-from. Guessing
@@ -21,7 +21,7 @@
   'use strict';
 
   var DUR = 1100;                  /* ms per figure */
-  var vals = Array.prototype.slice.call(document.querySelectorAll('.cproof__val'));
+  var vals = Array.prototype.slice.call(document.querySelectorAll('.cproof__val, .culead__n'));
   if (!vals.length) return;
 
   var reduce = window.matchMedia

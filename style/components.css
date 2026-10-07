@@ -1373,6 +1373,14 @@ body.modal-open { overflow: hidden; }
   max-width: 34rem;
 }
 .acc__body strong { color: var(--ink); font-weight: 600; }
+/* A link inside an answer (4 Oct, the pricing answer's way to /pricing).
+   The base `a` reset leaves links looking like text, so it says so here. */
+.acc__body a {
+  color: var(--brand-ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.acc__body a:hover { color: var(--ink); }
 
 @media (prefers-reduced-motion: reduce) {
   .acc__panel { transition: none; }
@@ -1905,6 +1913,11 @@ a.biz:focus-visible .biz__ic::after {
 .lgrid__logo--mid img { height: 32px; }
 .lgrid__logo--badge img { height: 40px; }
 .lgrid__logo--sq img { height: 48px; }
+/* Artwork that is mostly small type inside its own box (Rack Room Shoes'
+   tilted tile, Aditya Birla's stacked lockup): at its ratio band it read
+   tiny beside the wordmarks (4 Oct audit), so it takes 64px, still inside
+   the 104px tile. Same class on all four walls. */
+.lgrid__logo--xl img { height: 64px; }
 
 /* The resettle: js/logo-grid.js fades a mark out of one seat and into the
    next. */
@@ -2141,6 +2154,9 @@ a.biz:focus-visible .biz__ic::after {
     transform: none;
     transition: none;
   }
+  /* The lit line's translate(-50%) outranks the reset above (0,2,1 against
+     0,1,1), which shifted it half its width left of the others. */
+  .mech__core-sub-text > span.is-on { transform: none; }
   .dotspin { display: none; }
 }
 
@@ -2335,7 +2351,10 @@ a.biz:focus-visible .biz__ic::after {
      on index.html. On a whole dark page --surface-inv is the LIGHT surface and
      this would come out a pale lilac; that is the same inversion trap the nav
      drawer hit, and it would need a :root[data-theme="dark"] guard. */
-  background: color-mix(in srgb, var(--brand) 30%, var(--surface-inv));
+  /* 55% since 4 Oct (user: "make it a bit lighter"), up from 30, once the
+     board moved onto a LIGHT ground and the near-navy read heavy there.
+     White text on it measures 12.6:1 (was 15.7). */
+  background: color-mix(in srgb, var(--brand) 55%, var(--surface-inv));
   border: 1px solid color-mix(in srgb, var(--primary-200) 30%, transparent);
   border-radius: var(--r-lg);
   /* The site's one floating-surface shadow, same as the header card: this
