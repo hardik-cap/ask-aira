@@ -1,0 +1,341 @@
+/* ==========================================================================
+   aiRA - /customers (4 Oct). LIGHT since later on 4 Oct (user: "do light
+   mode, both customers"); it ran whole-page dark for part of the day. Hero (copy bottom-left, /about's shape), the NASCAR story, the KSA head-to-head
+   study, the five other case studies, book. Loads after tokens -> global ->
+   components.
+   ========================================================================== */
+
+/* ---- Hero --------------------------------------------------------------- */
+
+/* cartesia.ai/customers' hero (user, 4 Oct): a short band on the section's
+   own padding, the H1 left and the sub opposite it, centred against each
+   other. It replaced the 80svh bottom-left block. */
+.cuhero__copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: var(--sp-12);
+  align-items: center;
+}
+.cuhero__t {
+  font-family: var(--font-display);
+  font-size: var(--t-display-0);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+  text-wrap: balance;
+}
+.cuhero__t em {
+  font-style: normal;
+  white-space: nowrap;
+  color: var(--primary-400);
+  text-underline-offset: 0.16em;
+}
+.cuhero__sub {
+  font-size: var(--t-body-xl);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 28rem;
+  justify-self: end;
+  text-wrap: pretty;
+}
+
+/* ---- NASCAR: the big image ----------------------------------------------- */
+/* The photograph is dark whatever the page is, so its type takes the
+   INVERSE inks directly (the page is light again since 4 Oct). */
+
+.cufeat { padding-block: 0; }
+.cufeat__card {
+  margin-inline: calc(-1 * var(--sp-5));
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  /* SHORTER since 4 Oct (user: "reduce height of this card, it's too
+     big"): 432px at 1440 where it was 648. A FLUID HEIGHT, NOT A RATIO: an
+     aspect-ratio with a min-height transfers that floor into a minimum
+     WIDTH (400 x 3 = 1200), which held the card 1200 wide and scrolled the
+     page sideways at 1200 and below. The floor is what the copy needs. */
+  height: clamp(400px, 30vw, 500px);
+  display: flex;
+  align-items: flex-end;
+  background: var(--black);
+}
+.cufeat__img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  transition: transform var(--dur-slow) var(--ease);
+}
+/* Ink rises from the foot, where the story sits. */
+.cufeat__card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg,
+      color-mix(in srgb, var(--black) 60%, transparent) 0%,
+      transparent 60%),
+    linear-gradient(0deg,
+      color-mix(in srgb, var(--black) 90%, transparent) 0%,
+      color-mix(in srgb, var(--black) 60%, transparent) 45%,
+      color-mix(in srgb, var(--black) 10%, transparent) 100%);
+}
+.cufeat__body {
+  padding: var(--sp-12) var(--sp-10);
+  max-width: 44rem;
+}
+.cufeat__mark {
+  display: block;
+  height: 28px;
+  width: auto;
+  filter: invert(1);
+  opacity: 0.9;
+  margin-bottom: var(--sp-6);
+}
+.cufeat__t {
+  font-family: var(--font-display);
+  font-size: var(--t-display-2);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: var(--tr-display);
+  color: var(--ink-inv);
+}
+.cufeat__t em {
+  font-style: normal;
+  white-space: nowrap;
+  color: var(--primary-200);
+}
+.cufeat__sub {
+  margin-top: var(--sp-4);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-inv-2);
+  max-width: 34rem;
+}
+.cufeat__play {
+  margin-top: var(--sp-6);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--t-body);
+  font-weight: 500;
+  color: var(--ink-inv);
+  cursor: pointer;
+}
+/* The whole photograph is the play target. */
+.cufeat__play::after { content: ''; position: absolute; inset: 0; }
+.cufeat__play:focus-visible { outline: none; }
+.cufeat__play:focus-visible::after { outline: 2px solid var(--primary-200); outline-offset: -4px; }
+.cufeat__play-ic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ink-inv) 92%, transparent);
+  color: var(--black);
+  transition: transform var(--dur) var(--ease);
+}
+.cufeat__play-ic svg { width: 20px; height: 20px; margin-left: 2px; }
+.cufeat__card:hover .cufeat__play-ic { transform: scale(1.08); }
+.cufeat__card:hover .cufeat__img { transform: scale(1.02); }
+
+/* ---- Testimonials (sv-blocks "testimonial one", SAMPLE copy) -------------
+   Four columns, two rows: the lead card spans two columns and both rows, the
+   wide card two columns, two small cards one each. Drawn in the bento's
+   grammar (10px gaps, square, given back to the rails) so it sits with the
+   case-study cards further down. */
+
+.cutm__head { margin-bottom: var(--sp-12); }
+.cutm__tag {
+  display: inline-block;
+  margin-top: var(--sp-4);
+  padding: 4px 10px;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--r-pill);
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+}
+
+.cutm__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: auto auto;
+  gap: 10px;
+  margin-inline: calc(-1 * var(--sp-5));
+}
+.cutm__card {
+  /* A DARK FILL IN EACH CARD'S ACCENT (user, 4 Oct: these become the
+     customer's brand colour and logo; until then, colour as background).
+     --c is set per card in the markup; it is deepened toward the ink here
+     so every accent lands dark enough for white text. */
+  --c: var(--primary-900);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+  /* A GRADIENT TO DARK over an IMAGE SLOT (user, 4 Oct: "there will be an
+     image behind"). Top: the accent, translucent; bottom: near-black, where
+     the byline sits, so white text holds over any photo. Drop a photo in
+     with style="--img: url(...)" on the card; until then the slot is empty
+     and the base colour shows through the gradient. */
+  --img: none;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--c) 80%, transparent) 0%,
+      color-mix(in srgb, var(--c) 62%, transparent) 45%,
+      color-mix(in srgb, var(--slate-900) 94%, transparent) 100%),
+    var(--img) center / cover no-repeat,
+    color-mix(in srgb, var(--c) 35%, var(--slate-900));
+  padding: var(--sp-6);
+}
+.cutm__card--lead { grid-column: span 2; grid-row: span 2; padding: var(--sp-8); }
+.cutm__card--wide { grid-column: span 2; }
+
+.cutm__ind {
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: color-mix(in srgb, var(--on-brand) 72%, transparent);
+}
+.cutm__q { margin: 0; flex: 1 0 auto; }
+/* THE PHOSPHOR "Quotes" DUOTONE at 24px (4 Oct audit), the same markup as
+   /customers/nascar's .stquote__ic, so the site has one quote mark. It
+   replaced a typed \201C glyph from before that icon was harvested. */
+.cutm__ic {
+  display: block;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  margin-bottom: calc(-1 * var(--sp-2));
+  color: color-mix(in srgb, var(--on-brand) 72%, transparent);
+}
+/* THE LEAD CARD SETTLES ITS QUOTE TO THE FOOT (4 Oct audit): at two rows
+   tall its quote ended halfway down and ~200px of empty fill sat between it
+   and the byline. Industry tag on top, the quote and its speaker together
+   at the bottom, which is also where the gradient is darkest, the place an
+   image card wants its text. */
+.cutm__card--lead .cutm__ic { margin-top: auto; }
+.cutm__card--lead .cutm__q { flex: none; }
+.cutm__q p {
+  font-size: var(--t-body-xl);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--on-brand);
+}
+/* The lead card's quote is 24px (user, 4 Oct); the other three stay 18. */
+.cutm__card--lead .cutm__q p {
+  font-size: var(--t-title-xl);
+  line-height: 1.4;
+}
+
+.cutm__by { display: flex; align-items: center; gap: var(--sp-3); }
+.cutm__av {
+  flex: none;
+  display: block;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--surface);
+}
+.cutm__meta { display: flex; flex-direction: column; }
+.cutm__who { font-size: var(--t-body); font-weight: 500; color: var(--on-brand); }
+.cutm__role { font-size: var(--t-caption); color: color-mix(in srgb, var(--on-brand) 65%, transparent); }
+
+/* ---- Lead study: head to head --------------------------------------------
+   A plain stats row since 4 Oct (user, from a stats-row reference): four
+   figures across, a large number over a short two-line label, no boxes. */
+
+.culead__head { max-width: 46rem; }
+
+/* A RULED ROW (user, 4 Oct: "show this better, maybe separators"): a
+   hairline above and below and one between each figure, in the frame's own
+   line colour, so the four read as one band of results rather than four
+   loose numbers. */
+.culead__stats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  /* END TO END (user, 4 Oct): the row takes back .container's inset so its
+     rules meet the section's verticals: the 20px gutter at the rails, 24px
+     under the band (136 inset against the band's inner line at 112). The
+     first figure keeps its own padding now that its edge is a line.
+     Unwinds below 992 with the rails. */
+  --give: var(--sp-5);
+  margin-inline: calc(-1 * var(--give));
+}
+.culead__stats li { padding: var(--sp-8) var(--sp-8); }
+@media (min-width: 1200px) {
+  .culead__stats { --give: var(--sp-6); }
+}
+/* Tighter cells from 992 to 1299 (4 Oct audit): with 32px a side the
+   longest label ("Less erosion in average transaction value") ran to three
+   lines at 1200 against the others' two. */
+@media (min-width: 992px) and (max-width: 1299px) {
+  .culead__stats li { padding-inline: var(--sp-6); }
+}
+.culead__stats li + li { border-left: 1px solid var(--border); }
+.culead__n {
+  display: block;
+  /* Inter at 24px (user, 4 Oct), down from the 36px display face: the
+     figures read as results in a ruled table rather than as headlines. */
+  font-family: var(--font-sans);
+  font-size: var(--t-title-xl);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.culead__l {
+  display: block;
+  margin-top: var(--sp-3);
+  max-width: 14rem;
+  font-size: var(--t-body);
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+
+/* ---- Responsive --------------------------------------------------------- */
+
+@media (max-width: 991px) {
+  .cuhero__copy { grid-template-columns: 1fr; gap: var(--sp-5); }
+  .cuhero__sub { justify-self: start; }
+  .cutm__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-inline: 0; }
+  .cutm__card--lead { grid-row: auto; }
+  .cufeat__card { margin-inline: 0; }
+  .cufeat__card { height: auto; min-height: 400px; }
+  .cufeat__body { padding: var(--sp-8) var(--sp-6); }
+
+  /* Two by two: the divider runs between the columns only, and a rule
+     separates the two rows. */
+  .culead__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); --give: 0px; }
+  .culead__stats li { padding: var(--sp-6) var(--sp-6); }
+  .culead__stats li:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .culead__stats li:nth-child(n+3) { border-top: 1px solid var(--border); }
+
+}
+@media (max-width: 640px) {
+  .cutm__grid { grid-template-columns: 1fr; }
+  .cutm__card--lead,
+  .cutm__card--wide { grid-column: auto; }
+  .cuhero__sub { font-size: var(--t-body); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cufeat__img,
+  .cufeat__play-ic { transition: none; }
+}

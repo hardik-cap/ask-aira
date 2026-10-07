@@ -1,0 +1,439 @@
+<!doctype html>
+<!-- FULLY DARK (user, 27 Sep, inspo clerk.com/pricing). The mechanism is the
+     explicit [data-theme="dark"] attribute that tokens.css has always been
+     gated on, NOT a page-class token remap like .page-v2's in home-v2.css.
+     Two reasons it is the better hook here: the dark block already exists
+     and is the audited one, and because the attribute sits on :root it is
+     the same element the base tokens are declared on, so the --wash-* mixes
+     and .footer's --slate-100 ground flip with the ramp instead of needing
+     to be restated. This is the first page on the site to use it. -->
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pricing | aiRA</title>
+  <meta name="description" content="Usage-based credits, no per-seat license. Plans from Pilot to Enterprise, sized to how much your team asks, and paid for only when aiRA does work.">
+  <meta name="theme-color" content="#080B14">
+  <link rel="canonical" href="https://askaira.ai/pricing">
+
+  <!-- Social card. The image is shared by every page for now (user, 28 Sep);
+       the title, description and url are the page's own, so a shared link
+       says what that page is.
+       THIS BLOCK WAS MISSING UNTIL 3 Oct, and the reason generalises: the OG
+       sweep that gave the other nineteen pages their cards ran on 28 Sep,
+       hours AFTER this page was parked, so it was simply not in the set.
+       A PARKED PAGE DOES NOT RECEIVE SITE-WIDE CHANGES. It reads the live
+       tokens, global and components sheets, so anything in CSS follows it
+       home; anything in its own markup does not. On any future revival,
+       diff the page's <head> against a live one before calling it done. -->
+  <meta property="og:title" content="Pricing | aiRA">
+  <meta property="og:description" content="Usage-based credits, no per-seat license. Plans from Pilot to Enterprise, sized to how much your team asks, and paid for only when aiRA does work.">
+  <meta property="og:image" content="https://askaira.ai/assets/og/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="aiRA, the on-demand insights and analytics agent for customer data, shown beside its workspace: a question, the reasoning it ran, and the dashboard it built.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="aiRA">
+  <meta property="og:url" content="https://askaira.ai/pricing">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pricing | aiRA">
+  <meta name="twitter:description" content="Usage-based credits, no per-seat license. Plans from Pilot to Enterprise, sized to how much your team asks, and paid for only when aiRA does work.">
+  <meta name="twitter:image" content="https://askaira.ai/assets/og/og-image.png">
+  <link rel="icon" href="/assets/brand/aira-mark.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Fonts load without blocking first paint (4 Oct, PageSpeed): the
+       stylesheet is preloaded and switched on when it lands; display=swap
+       already swaps text in when the files arrive. Weights trimmed to the
+       400..700 the CSS uses (Google Sans Flex 117KB to 82KB). -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,400..700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,400..700&display=swap"></noscript>
+
+  <link rel="stylesheet" href="/style/tokens.css">
+  <link rel="stylesheet" href="/style/global.css">
+  <link rel="stylesheet" href="/style/components.css">
+  <link rel="stylesheet" href="/style/pages/pricing.css">
+
+  <script src="/js/components.js" defer></script>
+  <script src="/js/reveal.js" defer></script>
+  <script src="/js/eyebrow-scramble.js" defer></script>
+  <script src="/js/glyph-matrix.js" defer></script>
+  <script src="/js/pricing-four.js" defer></script>
+</head>
+<!-- data-nav-dark on the BODY, not per section: components.js checks the body
+     first and syncs the navbar dark for the whole page, which is exactly the
+     case here. Per-section marking is for dark bands inside a light page. -->
+<body class="page-pricing" data-nav-dark>
+
+  <div id="navbar-placeholder"></div>
+
+  <main>
+
+    <!-- ================= HERO =================
+         THE PAGE IS BUILT ON hightouch.com/pricing's STRUCTURE (user, 27 Sep),
+         which is the right reference precisely because Hightouch shows no
+         prices either: the page carries offer-shape cards with feature lists
+         and a demo CTA, then a section explaining WHY it is priced this way,
+         then an FAQ, then a closing CTA. Every one of those earns its place
+         without a number. What is NOT taken is its three-plan structure,
+         because aiRA has one offer and inventing tiers to fill a layout would
+         be the most expensive kind of placeholder.
+
+         THE CLERK REFERENCE IS THE TREATMENT, not the content: near-black
+         ground, hairline-joined boxy cards sharing one band, a muted-to-bright
+         text hierarchy, and a single accent used once. Its grammar turned out
+         to be close to this site's own frame already, so almost nothing was
+         imported: the rails, the crossing squares and the eyebrow-over-heading
+         head are the ones this site had. -->
+    <section class="section prhero">
+      <div class="padding-global">
+        <div class="container">
+
+          <!-- The glyph field, flanking the copy (user, 3 Oct: "bring the
+               glyph effect in left and right side of hero"). Same component
+               as /product's hero ground, js/glyph-matrix.js, injected into
+               any empty aria-hidden [data-glyph-matrix] host, so with the
+               script off the page is exactly as it was.
+               TWO HOSTS AND NOT ONE BEHIND THE COPY, because the copy here is
+               CENTRED and 800px wide. /product's single field clears an
+               ellipse around its headline, and that only works where the copy
+               sits off to one side; a centred 800px block in a 1240px
+               container leaves two ~220px flanks and nothing in the middle,
+               so the flanks ARE the field. Each fades toward the copy, which
+               does the job the clear ellipse does over there. -->
+          <div class="prhero__glyphs prhero__glyphs--l"
+               data-glyph-matrix="················+*/&lt;&gt;=?"
+               data-glyph-cell="16" data-glyph-rate="0.03"
+               data-glyph-interval="150" aria-hidden="true"></div>
+
+          <div class="prhero__copy reveal">
+            <!-- TWO LINES SINCE 3 Oct (user: "for pricing page h1, give
+                 something for 2 lines of it"). It was "Pay for answers, not
+                 for seats.", which fits on ONE line at 64px inside the 800px
+                 measure and left this hero the shortest on the site.
+                 THE SPINE IS UNCHANGED and the addition is a real parallel
+                 rather than padding: "the answers you get" against "the
+                 seats you buy" names what you RECEIVE against what you are
+                 BILLED for, which is the page's entire argument in one
+                 sentence. Lengthening it with a second clause about unused
+                 logins was the other option and was declined: the sub
+                 directly underneath already says "nobody pays for a login
+                 they never use", and a headline that repeats its own sub is
+                 one line doing half a job twice.
+                 THE <em> IS ONE WORD so it cannot break across the line end,
+                 which is what the dashed underline needs. -->
+            <h1 class="prhero__t">Pay for the answers you get, not the <em>seats</em> you buy.</h1>
+            <p class="prhero__sub">
+              aiRA is charged on work done. A credit is consumed when it runs an
+              analysis or builds an action, so nobody pays for a login they never
+              use and adding the tenth marketer costs nothing.
+            </p>
+          </div>
+
+          <div class="prhero__glyphs prhero__glyphs--r"
+               data-glyph-matrix="················+*/&lt;&gt;=?"
+               data-glyph-cell="16" data-glyph-rate="0.03"
+               data-glyph-interval="150" aria-hidden="true"></div>
+
+          <!-- ============================================================
+               EVERY FIGURE IN THESE CARDS IS DUMMY (user, 3 Oct: "i know
+               nothing is mentioned but just add dummy stuff"). $4,500 / $3,600,
+               $12,000 / $9,600 (monthly / yearly), 5,000 and 40,000 credits are
+               INVENTED to give the card layout something to stand on; no project source
+               publishes any price, and the only real figures (20% of ARR,
+               $100K minimum) are master-deck internals that are BARRED.
+               DO NOT LET THESE NUMBERS SHIP AS FACTS. Swap them the moment
+               Capillary supplies real ones; the feature lines are real
+               product claims and can stay. The standalone hero CTA came out
+               because each card carries one; all three read the one booking
+               string, which the one-string rule requires of any button that
+               routes to /book.
+               The check mark is one SealCheck duotone defined once below and
+               reused with <use>, because inlining a 3KB seal thirty times is
+               not a component, it is a payload. -->
+          <svg class="pr-defs" aria-hidden="true" focusable="false"><symbol id="pr-check" viewBox="0 0 256 256"><path d="M225.86,102.82c-3.77-3.94-7.67-8-9.14-11.57-1.36-3.27-1.44-8.69-1.52-13.94-.15-9.76-.31-20.82-8-28.51s-18.75-7.85-28.51-8c-5.25-.08-10.67-.16-13.94-1.52-3.56-1.47-7.63-5.37-11.57-9.14C146.28,23.51,138.44,16,128,16s-18.27,7.51-25.18,14.14c-3.94,3.77-8,7.67-11.57,9.14C88,40.64,82.56,40.72,77.31,40.8c-9.76.15-20.82.31-28.51,8S41,67.55,40.8,77.31c-.08,5.25-.16,10.67-1.52,13.94-1.47,3.56-5.37,7.63-9.14,11.57C23.51,109.72,16,117.56,16,128s7.51,18.27,14.14,25.18c3.77,3.94,7.67,8,9.14,11.57,1.36,3.27,1.44,8.69,1.52,13.94.15,9.76.31,20.82,8,28.51s18.75,7.85,28.51,8c5.25.08,10.67.16,13.94,1.52,3.56,1.47,7.63,5.37,11.57,9.14C109.72,232.49,117.56,240,128,240s18.27-7.51,25.18-14.14c3.94-3.77,8-7.67,11.57-9.14,3.27-1.36,8.69-1.44,13.94-1.52,9.76-.15,20.82-.31,28.51-8s7.85-18.75,8-28.51c.08-5.25.16-10.67,1.52-13.94,1.47-3.56,5.37-7.63,9.14-11.57C232.49,146.28,240,138.44,240,128S232.49,109.73,225.86,102.82Z" opacity="0.2"/><path d="M225.86,102.82c-3.77-3.94-7.67-8-9.14-11.57-1.36-3.27-1.44-8.69-1.52-13.94-.15-9.76-.31-20.82-8-28.51s-18.75-7.85-28.51-8c-5.25-.08-10.67-.16-13.94-1.52-3.56-1.47-7.63-5.37-11.57-9.14C146.28,23.51,138.44,16,128,16s-18.27,7.51-25.18,14.14c-3.94,3.77-8,7.67-11.57,9.14C88,40.64,82.56,40.72,77.31,40.8c-9.76.15-20.82.31-28.51,8S41,67.55,40.8,77.31c-.08,5.25-.16,10.67-1.52,13.94-1.47,3.56-5.37,7.63-9.14,11.57C23.51,109.72,16,117.56,16,128s7.51,18.27,14.14,25.18c3.77,3.94,7.67,8,9.14,11.57,1.36,3.27,1.44,8.69,1.52,13.94.15,9.76.31,20.82,8,28.51s18.75,7.85,28.51,8c5.25.08,10.67.16,13.94,1.52,3.56,1.47,7.63,5.37,11.57,9.14C109.72,232.49,117.56,240,128,240s18.27-7.51,25.18-14.14c3.94-3.77,8-7.67,11.57-9.14,3.27-1.36,8.69-1.44,13.94-1.52,9.76-.15,20.82-.31,28.51-8s7.85-18.75,8-28.51c.08-5.25.16-10.67,1.52-13.94,1.47-3.56,5.37-7.63,9.14-11.57C232.49,146.28,240,138.44,240,128S232.49,109.73,225.86,102.82Zm-11.55,39.29c-4.79,5-9.75,10.17-12.38,16.52-2.52,6.1-2.63,13.07-2.73,19.82-.1,7-.21,14.33-3.32,17.43s-10.39,3.22-17.43,3.32c-6.75.1-13.72.21-19.82,2.73-6.35,2.63-11.52,7.59-16.52,12.38S132,224,128,224s-9.15-4.92-14.11-9.69-10.17-9.75-16.52-12.38c-6.1-2.52-13.07-2.63-19.82-2.73-7-.1-14.33-.21-17.43-3.32s-3.22-10.39-3.32-17.43c-.1-6.75-.21-13.72-2.73-19.82-2.63-6.35-7.59-11.52-12.38-16.52S32,132,32,128s4.92-9.15,9.69-14.11,9.75-10.17,12.38-16.52c2.52-6.1,2.63-13.07,2.73-19.82.1-7,.21-14.33,3.32-17.43S70.51,56.9,77.55,56.8c6.75-.1,13.72-.21,19.82-2.73,6.35-2.63,11.52-7.59,16.52-12.38S124,32,128,32s9.15,4.92,14.11,9.69,10.17,9.75,16.52,12.38c6.1,2.52,13.07,2.63,19.82,2.73,7,.1,14.33.21,17.43,3.32s3.22,10.39,3.32,17.43c.1,6.75.21,13.72,2.73,19.82,2.63,6.35,7.59,11.52,12.38,16.52S224,124,224,128,219.08,137.15,214.31,142.11ZM173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34Z"/></symbol></svg>
+
+          <!-- PRICING FOUR, ported 3 Oct from sv-efferd's Svelte block
+               (user: "build Pricing Four ... and use that in our hero").
+               This site has no Svelte or npm, so it is hand-ported like
+               GlyphMatrix was: the monthly / yearly toggle with a sliding
+               pill, three cards with the middle one raised, a "Popular"
+               badge and a yearly "% off" badge that animates in, the price
+               rolling to its new figure, the features, and a full-width
+               button in each card's footer. js/pricing-four.js drives it;
+               with the script off the cards show monthly prices and the
+               toggle does nothing. NOT TAKEN: NumberFlow and motion-sv (the
+               roll is a short tween), lucide icons (the SealCheck duotone
+               symbol below stands in for CircleCheck; the badge has no star
+               because no Phosphor star exists in this codebase), and the
+               block's own heading and sub, since the hero already has both.
+               ALL FIGURES REMAIN DUMMY. The one-time $15,000 Pilot became a
+               monthly tier because a monthly/yearly toggle cannot switch a
+               one-time price; yearly is 20% off across the board. -->
+          <div class="pfour">
+            <div class="freq" role="group" aria-label="Billing period">
+              <button type="button" class="freq__btn" aria-pressed="true" data-freq="monthly">Monthly</button>
+              <button type="button" class="freq__btn" aria-pressed="false" data-freq="yearly">Yearly</button>
+              <span class="freq__pill" aria-hidden="true"></span>
+            </div>
+            <div class="plans">
+            <article class="plan">
+              <div class="plan__head">
+                <div class="plan__badges"><span class="plan__badge plan__badge--off" data-off hidden></span></div>
+                <h3 class="plan__name">Pilot</h3>
+                <p class="plan__for">Prove it on your own warehouse</p>
+                <p class="plan__price"><b class="plan__num" data-monthly="4500" data-yearly="3600">$4,500</b><span>/month</span></p>
+                <p class="plan__billed">billed <span data-freq-label>monthly</span></p>
+              </div>
+              <ul class="plan__list">
+                  <li><svg class="plan__tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg>Live in two to four weeks</li>
+                  <li><svg class="plan__tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg>5,000 credits a month</li>
+                  <li><svg class="plan__tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg>Pre-built industry playbooks</li>
+                  <li><svg class="plan__tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg>Your business context layered on</li>
+                  <li><svg class="plan__tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg>Parity gate before go-live</li>
+              </ul>
+              <div class="plan__foot"><a class="btn btn--secondary plan__cta" href="/book">Book a working session</a></div>
+            </article>
+
+            <article class="plan plan--featured">
+              <!-- BORDER BEAM (user, 3 Oct, sv-animations BorderBeam): a light
+                   running the featured card's edge, always on, on this card
+                   only. Ported to CSS; see pricing.css. -->
+              <span class="plan__beam" aria-hidden="true"></span>
+              <div class="plan__head">
+                <div class="plan__badges"><span class="plan__badge plan__badge--off" data-off hidden></span><span class="plan__badge">Popular</span></div>
+                <h3 class="plan__name">Growth</h3>
+                <p class="plan__for">The pool sized for a working team</p>
+                <p class="plan__price"><b class="plan__num" data-monthly="12000" data-yearly="9600">$12,000</b><span>/month</span></p>
+                <p class="plan__billed">billed <span data-freq-label>monthly</span></p>
+              </div>
+              <ul class="plan__list">
+                  <li><svg class="plan__tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg>Everything in Pilot</li>
+                  <li><svg class="plan__tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg>40,000 credits a month</li>
+                  <li><svg class="plan__tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg>Regional data residency</li>
+                  <li><svg class="plan__tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg>Credit ledger and audit log export</li>
+                  <li><svg class="plan__tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg>Priority support</li>
+              </ul>
+              <div class="plan__foot"><a class="btn btn--primary plan__cta" href="/book">Book a working session</a></div>
+            </article>
+
+            <article class="plan">
+              <div class="plan__head">
+                <div class="plan__badges"><span class="plan__badge plan__badge--off" data-off hidden></span></div>
+                <h3 class="plan__name">Enterprise</h3>
+                <p class="plan__for">Shaped to your pool and your term</p>
+                <p class="plan__price"><b>Custom</b></p>
+                <p class="plan__billed">sized to your pool and term</p>
+              </div>
+              <ul class="plan__list">
+                  <li><svg class="plan__tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg>Everything in Growth</li>
+                  <li><svg class="plan__tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg>Credit pool shaped to your term</li>
+                  <li><svg class="plan__tick" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg>Dedicated support and audit pack</li>
+              </ul>
+              <div class="plan__foot"><a class="btn btn--secondary plan__cta" href="/book">Book a working session</a></div>
+            </article>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= COMPARE PLANS =================
+         DUMMY ALLOCATION (user, 3 Oct). The ROW LABELS are real product
+         claims lifted from this site's own copy; WHICH PLAN GETS WHAT is
+         invented, like the card figures above, and must be corrected the
+         moment Capillary defines real tiers. clerk.com/pricing's feature
+         matrix is the shape. Row icons are the Phosphor duotone set already
+         in this codebase, harvested rather than recalled. -->
+    <section class="section pmx" id="compare">
+      <div class="padding-global">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow">Compare plans</p>
+            <h2 class="section-heading">The same product, <em>sized differently</em>.</h2>
+            <p class="section-sub">Every plan asks, reasons and builds the same way. What changes is the pool, the residency and who picks up when you call.</p>
+          </div>
+
+          <div class="pmx__scroll">
+            <!-- LIVEBLOCKS' COMPARISON GRID since 3 Oct (user: "make our
+                 comparison table like liveblocks.io/pricing, proper table
+                 structure and sticky header, and update the pricing in that").
+                 Fully ruled (column lines as well as rows), a STICKY header
+                 carrying each plan's name and price (its booking link came off
+                 3 Oct, user), and the rows in titled groups, each group its own <tbody> opened by a
+                 colgroup header row. The header prices are .plan__num with the
+                 cards' data, so js/pricing-four.js rolls them with the
+                 Monthly / Yearly toggle too. ALLOCATION AND PRICES ARE DUMMY;
+                 the row labels are real product claims. Header links carry no
+                 arrow: the booking string never takes an icon. -->
+            <!-- PHONE PLAN SWITCHER (3 Oct, "fix page in mobile"): below 768
+                 the grid shows the features against ONE plan at a time, the
+                 way liveblocks.io does on a phone, instead of scrolling a
+                 760px table sideways through a 350px window. Shown and wired
+                 by js/pricing-four.js; with the script off the table scrolls
+                 as before. Same .freq skin as the billing toggle. -->
+            <div class="freq pmx__pick" role="group" aria-label="Plan to compare" hidden>
+              <button type="button" class="freq__btn" aria-pressed="false" data-col="2">Pilot</button>
+              <button type="button" class="freq__btn" aria-pressed="true" data-col="3">Growth</button>
+              <button type="button" class="freq__btn" aria-pressed="false" data-col="4">Enterprise</button>
+              <span class="freq__pill" aria-hidden="true"></span>
+            </div>
+            <table class="pmx__table">
+              <thead>
+                <tr>
+                  <th scope="col" class="pmx__corner"><span class="sr-only">Feature</span></th>
+                  <th scope="col"><span class="pmx__plan">Pilot</span><span class="pmx__price"><b class="plan__num" data-monthly="4500" data-yearly="3600">$4,500</b><span>/month</span></span></th>
+                  <th scope="col" class="pmx__gcol"><span class="pmx__plan">Growth</span><span class="pmx__price"><b class="plan__num" data-monthly="12000" data-yearly="9600">$12,000</b><span>/month</span></span></th>
+                  <th scope="col"><span class="pmx__plan">Enterprise</span><span class="pmx__price"><b>Custom</b></span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="pmx__gh"><th colspan="4" scope="colgroup"><span class="pmx__gi"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M240,132c0,19.88-35.82,36-80,36-19.6,0-37.56-3.17-51.47-8.44h0C146.76,156.85,176,142,176,124V96.72h0C212.52,100.06,240,114.58,240,132ZM176,84c0-19.88-35.82-36-80-36S16,64.12,16,84s35.82,36,80,36S176,103.88,176,84Z" opacity="0.2"/><path d="M184,89.57V84c0-25.08-37.83-44-88-44S8,58.92,8,84v40c0,20.89,26.25,37.49,64,42.46V172c0,25.08,37.83,44,88,44s88-18.92,88-44V132C248,111.3,222.58,94.68,184,89.57ZM232,132c0,13.22-30.79,28-72,28-3.73,0-7.43-.13-11.08-.37C170.49,151.77,184,139,184,124V105.74C213.87,110.19,232,122.27,232,132ZM72,150.25V126.46A183.74,183.74,0,0,0,96,128a183.74,183.74,0,0,0,24-1.54v23.79A163,163,0,0,1,96,152,163,163,0,0,1,72,150.25Zm96-40.32V124c0,8.39-12.41,17.4-32,22.87V123.5C148.91,120.37,159.84,115.71,168,109.93ZM96,56c41.21,0,72,14.78,72,28s-30.79,28-72,28S24,97.22,24,84,54.79,56,96,56ZM24,124V109.93c8.16,5.78,19.09,10.44,32,13.57v23.37C36.41,141.4,24,132.39,24,124Zm64,48v-4.17c2.63.1,5.29.17,8,.17,3.88,0,7.67-.13,11.39-.35A121.92,121.92,0,0,0,120,171.41v23.46C100.41,189.4,88,180.39,88,172Zm48,26.25V174.4a179.48,179.48,0,0,0,24,1.6,183.74,183.74,0,0,0,24-1.54v23.79a165.45,165.45,0,0,1-48,0Zm64-3.38V171.5c12.91-3.13,23.84-7.79,32-13.57V172C232,180.39,219.59,189.4,200,194.87Z"/></svg></span><span class="pmx__gt">Credits and billing</span><span class="pmx__gd">One pool on the account, drawn only when aiRA does work.</span></th></tr>
+                <tr><th scope="row">Credits included</th><td>5,000 a month</td><td class="pmx__gcol">40,000 a month</td><td>Custom pool</td></tr>
+                <tr><th scope="row">Users</th><td>Unlimited</td><td class="pmx__gcol">Unlimited</td><td>Unlimited</td></tr>
+                <tr><th scope="row">Billing</th><td>Monthly or yearly</td><td class="pmx__gcol">Monthly or yearly</td><td>Your term</td></tr>
+                <tr><th scope="row">Overage</th><td>Quarterly, in arrears</td><td class="pmx__gcol">Quarterly, in arrears</td><td>Quarterly, in arrears</td></tr>
+              </tbody>
+              <tbody>
+                <tr class="pmx__gh"><th colspan="4" scope="colgroup"><span class="pmx__gi"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128A96,96,0,0,1,79.93,211.11h0L42.54,223.58a8,8,0,0,1-10.12-10.12l12.47-37.39h0A96,96,0,1,1,224,128Z" opacity="0.2"/><path d="M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-4-1.08,7.85,7.85,0,0,0-2.53.42L40,216,52.47,178.6a8,8,0,0,0-.66-6.54A88,88,0,1,1,128,216Zm12-88a12,12,0,1,1-12-12A12,12,0,0,1,140,128Zm-44,0a12,12,0,1,1-12-12A12,12,0,0,1,96,128Zm88,0a12,12,0,1,1-12-12A12,12,0,0,1,184,128Z"/></svg></span><span class="pmx__gt">The agent</span><span class="pmx__gd">The same aiRA on every plan: it asks, reasons and builds the same way.</span></th></tr>
+                <tr><th scope="row">Questions in plain language</th><td><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td><td class="pmx__gcol"><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td><td><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td></tr>
+                <tr><th scope="row">Reasoning shown on every answer</th><td><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td><td class="pmx__gcol"><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td><td><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td></tr>
+                <tr><th scope="row">Pre-built industry playbooks</th><td><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td><td class="pmx__gcol"><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td><td><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td></tr>
+                <tr><th scope="row">Your business context layered on</th><td><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td><td class="pmx__gcol"><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td><td><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td></tr>
+                <tr><th scope="row">Segments and journeys built</th><td><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td><td class="pmx__gcol"><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td><td><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td></tr>
+              </tbody>
+              <tbody>
+                <tr class="pmx__gh"><th colspan="4" scope="colgroup"><span class="pmx__gi"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,56v56c0,96-88,120-88,120S40,208,40,112V56a8,8,0,0,1,8-8H208A8,8,0,0,1,216,56Z" opacity="0.2"/><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></svg></span><span class="pmx__gt">Security and control</span><span class="pmx__gd">Governance that ships on day one, not after a review.</span></th></tr>
+                <tr><th scope="row">A person approves every move</th><td><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td><td class="pmx__gcol"><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td><td><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td></tr>
+                <tr><th scope="row">PII masked ahead of the model</th><td><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td><td class="pmx__gcol"><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td><td><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td></tr>
+                <tr><th scope="row">Regional data residency</th><td><span class="pmx__no" aria-hidden="true">&ndash;</span><span class="sr-only">Not included</span></td><td class="pmx__gcol"><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td><td><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td></tr>
+                <tr><th scope="row">Credit ledger and audit log export</th><td><span class="pmx__no" aria-hidden="true">&ndash;</span><span class="sr-only">Not included</span></td><td class="pmx__gcol"><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td><td><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td></tr>
+              </tbody>
+              <tbody>
+                <tr class="pmx__gh"><th colspan="4" scope="colgroup"><span class="pmx__gi"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M136,108A52,52,0,1,1,84,56,52,52,0,0,1,136,108Z" opacity="0.2"/><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"/></svg></span><span class="pmx__gt">Rollout and support</span><span class="pmx__gd">Live in two to four weeks, with a parity gate before go-live.</span></th></tr>
+                <tr><th scope="row">Parity gate before go-live</th><td><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td><td class="pmx__gcol"><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td><td><svg class="pmx__ok" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#pr-check"/></svg><span class="sr-only">Included</span></td></tr>
+                <tr><th scope="row">Support</th><td>Standard</td><td class="pmx__gcol">Priority</td><td>Dedicated</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= THE FINE PRINT =================
+         The honest section, and the reason this page can beat the category's
+         norm: expiry, the overage thresholds and the change policy are all in
+         Capillary's own published terms, so stating them here costs nothing
+         and answers procurement's three questions before the call rather than
+         during the redline. -->
+    <section class="section terms">
+      <div class="padding-global">
+        <div class="container">
+
+          <div class="terms__head reveal">
+            <p class="eyebrow">The fine print, up front</p>
+            <h2 class="section-heading">The parts most pricing pages <em>leave out</em>.</h2>
+            <p class="section-sub">
+              These are in the contract either way. Reading them here rather than in
+              a redline is the point.
+            </p>
+          </div>
+
+          <!-- SUPABASE'S "FINE-TUNE YOUR PROJECT" LAYOUT since 3 Oct (user,
+               from supabase.com/pricing): one wide card with a drawing left
+               and copy right, two smaller cards under it with their drawings
+               bleeding off the left edge. The three terms are unchanged and
+               still Capillary's own; the OVERAGE CEILING takes the wide card
+               because it is the one that answers "can this bill run away".
+               NOT TAKEN: the reference's toggle reads "Spend Cap On", a
+               setting the customer controls; here the pause at 120% is
+               Capillary's option, so the pill is a label, not a switch. The
+               arrow icons are left off too: no arrow-up-right exists in this
+               codebase. The bar heights are illustrative, not data. -->
+          <div class="tcards reveal">
+            <article class="tcard tcard--wide">
+              <div class="tcard__art tcap" aria-hidden="true">
+                <span class="tcap__pill"><i></i>Pauses at 120%</span>
+                <span class="tcap__line tcap__line--cap"><b>120% &middot; pause</b></span>
+                <span class="tcap__line tcap__line--pool"><b>100% &middot; your pool</b></span>
+                <div class="tcap__bars"><span class="tcap__bar" style="--h:38"><i></i></span><span class="tcap__bar" style="--h:62"><i></i></span><span class="tcap__bar" style="--h:86"><i></i></span><span class="tcap__bar" style="--h:108"><i></i></span><span class="tcap__bar" style="--h:120"><i></i></span></div>
+              </div>
+              <div class="tcard__copy">
+                <h3 class="tcard__t"><span class="tcard__ic"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg></span>Overage with a ceiling</h3>
+                <p class="tcard__d">Usage past your pool is billed quarterly, in arrears, at the rate in your order. Past 120%, Capillary may pause access until you approve the rate, so a runaway month never quietly becomes a runaway bill.</p>
+                <a class="btn btn--secondary tcard__link" href="/terms-and-conditions">Read the full terms</a>
+              </div>
+            </article>
+
+            <article class="tcard">
+              <div class="tcard__art tterm" aria-hidden="true">
+                <span class="tterm__track"><i></i></span>
+                <span class="tterm__q"><b>Q1</b><b>Q2</b><b>Q3</b><b>Q4</b></span>
+                <span class="tterm__end">Term ends &middot; credits expire</span>
+              </div>
+              <div class="tcard__copy">
+                <h3 class="tcard__t"><span class="tcard__ic"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M240,132c0,19.88-35.82,36-80,36-19.6,0-37.56-3.17-51.47-8.44h0C146.76,156.85,176,142,176,124V96.72h0C212.52,100.06,240,114.58,240,132ZM176,84c0-19.88-35.82-36-80-36S16,64.12,16,84s35.82,36,80,36S176,103.88,176,84Z" opacity="0.2"/><path d="M184,89.57V84c0-25.08-37.83-44-88-44S8,58.92,8,84v40c0,20.89,26.25,37.49,64,42.46V172c0,25.08,37.83,44,88,44s88-18.92,88-44V132C248,111.3,222.58,94.68,184,89.57ZM232,132c0,13.22-30.79,28-72,28-3.73,0-7.43-.13-11.08-.37C170.49,151.77,184,139,184,124V105.74C213.87,110.19,232,122.27,232,132ZM72,150.25V126.46A183.74,183.74,0,0,0,96,128a183.74,183.74,0,0,0,24-1.54v23.79A163,163,0,0,1,96,152,163,163,0,0,1,72,150.25Zm96-40.32V124c0,8.39-12.41,17.4-32,22.87V123.5C148.91,120.37,159.84,115.71,168,109.93ZM96,56c41.21,0,72,14.78,72,28s-30.79,28-72,28S24,97.22,24,84,54.79,56,96,56ZM24,124V109.93c8.16,5.78,19.09,10.44,32,13.57v23.37C36.41,141.4,24,132.39,24,124Zm64,48v-4.17c2.63.1,5.29.17,8,.17,3.88,0,7.67-.13,11.39-.35A121.92,121.92,0,0,0,120,171.41v23.46C100.41,189.4,88,180.39,88,172Zm48,26.25V174.4a179.48,179.48,0,0,0,24,1.6,183.74,183.74,0,0,0,24-1.54v23.79a165.45,165.45,0,0,1-48,0Zm64-3.38V171.5c12.91-3.13,23.84-7.79,32-13.57V172C232,180.39,219.59,189.4,200,194.87Z"/></svg></span>Credits last the term</h3>
+                <p class="tcard__d">Unused credits expire when the term does, and are not refundable or transferable. Size the pool to what you will ask.</p>
+              </div>
+            </article>
+
+            <article class="tcard">
+              <div class="tcard__art tnote" aria-hidden="true">
+                <span class="tnote__sheet"></span>
+                <span class="tnote__sheet"></span>
+                <span class="tnote__sheet"><b>Rate change</b><i>Effective in 30 days</i></span>
+              </div>
+              <div class="tcard__copy">
+                <h3 class="tcard__t"><span class="tcard__ic"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></svg></span>Rates change only forward</h3>
+                <p class="tcard__d">Consumption rates can be revised with thirty days&rsquo; notice. Nothing reduces a pool you have already bought.</p>
+              </div>
+            </article>
+          </div>
+
+
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= BOOK ================= -->
+    <section class="section book">
+      <div class="padding-global">
+        <div class="container">
+
+          <div class="book__frame reveal">
+            <div class="book__card book__card--split">
+              <div class="book__body">
+                <h2 class="book__title">The question your team is still waiting on.</h2>
+                <p class="book__sub">
+                  Thirty minutes, one real question, answered live. We reply within
+                  one business day with a time and the security brief.
+                </p>
+                <a class="btn btn--lg book__cta" href="/book">Book a working session</a>
+              </div>
+              <div class="book__shot" aria-hidden="true">
+                <img src="/assets/product/workspace.png" alt="" width="2560" height="1598" loading="lazy" decoding="async">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+
+</body>
+</html>
