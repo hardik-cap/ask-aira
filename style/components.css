@@ -2154,6 +2154,9 @@ a.biz:focus-visible .biz__ic::after {
     transform: none;
     transition: none;
   }
+  /* The lit line's translate(-50%) outranks the reset above (0,2,1 against
+     0,1,1), which shifted it half its width left of the others. */
+  .mech__core-sub-text > span.is-on { transform: none; }
   .dotspin { display: none; }
 }
 
