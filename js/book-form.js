@@ -60,18 +60,24 @@
   var JUNK_LOCAL = /^(test|testing|asdf|qwerty|abc|abcd|xyz|aaa|sample|demo|fake|none|null|na|no|noreply|no-reply|user|admin|email|mail|hello|hi)$/;
   var MASH = /(qwer|asdf|sdfg|dfgh|fghj|ghjk|hjkl|zxcv|xcvb|cvbn|vbnm|uiop)/;
 
+  /* ONE MESSAGE for every refusal (user, 9 Oct: "lets have generic for
+     each, lets not be too specific"). The checks stay separate; only the
+     wording is shared, so a visitor is told what is wanted, not which rule
+     tripped. */
+  var MSG = 'Enter a valid work email, like name@yourcompany.com.';
+
   function emailProblem(v) {
     v = v.trim().toLowerCase();
     if (!v) return '';
     var m = v.match(/^([a-z0-9._%+-]+)@([a-z0-9-]+(\.[a-z0-9-]+)*\.([a-z]{2,24}))$/);
-    if (!m || /\.\.|^\.|\.@|@-|-\./.test(v)) return 'Please enter a valid email address.';
+    if (!m || /\.\.|^\.|\.@|@-|-\./.test(v)) return MSG;
     var local = m[1], domain = m[2], name = domain.split('.').slice(-2)[0];
-    if (THROWAWAY.indexOf(domain) > -1) return 'Please use your work email, not a temporary or placeholder address.';
-    if (PERSONAL.indexOf(domain) > -1 || PERSONAL_FAMILY.test(domain)) return 'Please use your work email. We book sessions with a company address.';
+    if (THROWAWAY.indexOf(domain) > -1) return MSG;
+    if (PERSONAL.indexOf(domain) > -1 || PERSONAL_FAMILY.test(domain)) return MSG;
     if (JUNK_LOCAL.test(local) || MASH.test(local) || MASH.test(name) ||
         /(.)\1{3,}/.test(local + '@' + domain) ||
         (name.length >= 5 && !/[aeiouy]/.test(name))) {
-      return 'That email does not look real. Please check it.';
+      return MSG;
     }
     return '';
   }
@@ -104,7 +110,7 @@
       var waiting = ts && !ts.value && tsState === 'pending' && (Date.now() - loadedAt) < 8000;
       if (waiting) {
         e.preventDefault();
-        showTs('One moment: checking you are not a bot. Try again in a second.');
+        showTs('Almost ready. Give it a second, then press the button again.');
         return;
       }
       /* Send only the source fields that carry something: a disabled input
