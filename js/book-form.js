@@ -105,7 +105,15 @@
       if (waiting) {
         e.preventDefault();
         showTs('One moment: checking you are not a bot. Try again in a second.');
+        return;
       }
+      /* Send only the source fields that carry something: a disabled input
+         is not submitted, so the email shows no rows of "Empty". */
+      SOURCE.forEach(function (n) {
+        var el = form.querySelector('input[name="' + n + '"]');
+        if (el && !el.value) el.disabled = true;
+      });
+      setBusy(true);
     });
   }
 
@@ -125,6 +133,34 @@
     if (window.console) console.warn('Turnstile error ' + code + ' (110200 means this hostname is not on the widget\'s list)');
     return true;
   };
+
+  var SOURCE = ['source_page', 'landing_page', 'referrer', 'utm_source', 'utm_medium',
+                'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'li_fat_id'];
+  /* THE PRESSED STATE (9 Oct, user): once the form is actually on its way,
+     the button keeps its size and label for screen readers but shows three
+     pulsing dots, and stops taking clicks so a lead is not sent twice. */
+  var btn = form.querySelector('.book__submit');
+  function setBusy(on) {
+    if (!btn) return;
+    if (on && !btn.querySelector('.book__dots')) {
+      btn.insertAdjacentHTML('beforeend',
+        '<span class="book__dots" aria-hidden="true"><i></i><i></i><i></i></span>');
+    }
+    btn.classList.toggle('is-busy', on);
+    btn.setAttribute('aria-busy', on ? 'true' : 'false');
+    btn.disabled = on;
+  }
+
+  /* If the browser restores this page from its back/forward cache, fields
+     disabled on the way out would come back disabled, and the button busy;
+     reset both. */
+  window.addEventListener('pageshow', function () {
+    setBusy(false);
+    SOURCE.forEach(function (n) {
+      var el = form.querySelector('input[name="' + n + '"]');
+      if (el) el.disabled = false;
+    });
+  });
 
   var src = {};
   try { src = JSON.parse(sessionStorage.getItem('aira_src') || '{}'); } catch (e) {}

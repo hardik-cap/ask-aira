@@ -27,7 +27,9 @@
     if (!sessionStorage.getItem('aira_src')) {
       var q = new URLSearchParams(location.search), src = {
         landing_page: location.pathname + location.search,
-        referrer: document.referrer || ''
+        /* Only a referrer from ANOTHER site says where a lead came from;
+           our own pages (or a preview of them) are just navigation. */
+        referrer: (document.referrer && new URL(document.referrer).host !== location.host) ? document.referrer : ''
       };
       ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'li_fat_id']
         .forEach(function (k) { if (q.get(k)) src[k] = q.get(k); });

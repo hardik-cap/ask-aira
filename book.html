@@ -106,16 +106,6 @@
                    there into history, analytics and server logs. -->
               <input type="hidden" name="_append" value="false">
               <input type="checkbox" name="_honeypot" class="book__hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-              <input type="hidden" name="source_page" value="">
-              <input type="hidden" name="landing_page" value="">
-              <input type="hidden" name="referrer" value="">
-              <input type="hidden" name="utm_source" value="">
-              <input type="hidden" name="utm_medium" value="">
-              <input type="hidden" name="utm_campaign" value="">
-              <input type="hidden" name="utm_term" value="">
-              <input type="hidden" name="utm_content" value="">
-              <input type="hidden" name="gclid" value="">
-              <input type="hidden" name="li_fat_id" value="">
               <div class="book__row">
                 <label class="sr-only" for="bk-first">First name</label>
                 <input class="input" id="bk-first" name="first_name" type="text"
@@ -135,6 +125,21 @@
               <label class="sr-only" for="bk-question">What question would you like aiRA to answer?</label>
               <textarea class="input book__question" id="bk-question" name="question" rows="4"
                         placeholder="What question would you like aiRA to answer?"></textarea>
+              <!-- Source fields LAST (9 Oct, after the first real submission):
+                   Formspark lists fields in form order, so the person's own
+                   details lead the email and the tracking follows. Any left
+                   empty are disabled on submit by js/book-form.js, so they do
+                   not arrive as rows of "Empty". -->
+              <input type="hidden" name="source_page" value="">
+              <input type="hidden" name="landing_page" value="">
+              <input type="hidden" name="referrer" value="">
+              <input type="hidden" name="utm_source" value="">
+              <input type="hidden" name="utm_medium" value="">
+              <input type="hidden" name="utm_campaign" value="">
+              <input type="hidden" name="utm_term" value="">
+              <input type="hidden" name="utm_content" value="">
+              <input type="hidden" name="gclid" value="">
+              <input type="hidden" name="li_fat_id" value="">
               <!-- CLOUDFLARE TURNSTILE (9 Oct): Formspark verifies the token with the
                    widget's secret key, set in the form's Spam protection settings.
                    Managed mode, shown only when Cloudflare needs an interaction;
