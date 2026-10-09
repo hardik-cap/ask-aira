@@ -95,20 +95,36 @@
       if (!check(true)) { e.preventDefault(); email.focus(); return; }
       /* Turnstile's token lands in a hidden field a moment after load (or
          after its one click). Submitting before it does would be refused by
-         Formspark, so hold the form and say so instead. If the widget script
-         never loaded (blocked), there is no field and the form goes through. */
+         Formspark, so the form waits, but ONLY while the check is genuinely
+         under way. It never traps a visitor: if Cloudflare reports an error
+         (blocked script, a hostname not on the widget's list, a network
+         failure) or no token has arrived 8 seconds after load, the form goes
+         through and Formspark's own check decides. */
       var ts = form.querySelector('input[name="cf-turnstile-response"]');
-      var tsErr = form.querySelector('#bk-ts-err');
-      if (ts && !ts.value) {
+      var waiting = ts && !ts.value && tsState === 'pending' && (Date.now() - loadedAt) < 8000;
+      if (waiting) {
         e.preventDefault();
-        if (tsErr) { tsErr.textContent = 'One moment: checking you are not a bot. Try again in a second.'; tsErr.hidden = false; }
+        showTs('One moment: checking you are not a bot. Try again in a second.');
       }
     });
-    window.airaTurnstileOk = function () {
-      var tsErr = form.querySelector('#bk-ts-err');
-      if (tsErr) { tsErr.hidden = true; tsErr.textContent = ''; }
-    };
   }
+
+  var loadedAt = Date.now();
+  var tsState = 'pending';
+  function showTs(msg) {
+    var el = form.querySelector('#bk-ts-err');
+    if (!el) return;
+    el.textContent = msg || '';
+    el.hidden = !msg;
+  }
+  window.airaTurnstileOk = function () { tsState = 'ok'; showTs(''); };
+  window.airaTurnstileExpired = function () { tsState = 'pending'; loadedAt = Date.now(); };
+  window.airaTurnstileErr = function (code) {
+    tsState = 'failed';
+    showTs('');
+    if (window.console) console.warn('Turnstile error ' + code + ' (110200 means this hostname is not on the widget\'s list)');
+    return true;
+  };
 
   var src = {};
   try { src = JSON.parse(sessionStorage.getItem('aira_src') || '{}'); } catch (e) {}

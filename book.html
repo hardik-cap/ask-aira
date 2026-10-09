@@ -142,7 +142,8 @@
                    cf-turnstile-response field inside this form on its own. -->
               <div class="cf-turnstile book__ts" data-sitekey="0x4AAAAAAFSZZP3JXl12_JiD"
                    data-theme="light" data-size="flexible" data-appearance="interaction-only"
-                   data-callback="airaTurnstileOk"></div>
+                   data-callback="airaTurnstileOk" data-error-callback="airaTurnstileErr"
+                   data-expired-callback="airaTurnstileExpired"></div>
               <p class="book__err" id="bk-ts-err" role="alert" hidden></p>
               <button class="btn btn--primary btn--lg book__submit" type="submit">Book a working session</button>
             </form>
