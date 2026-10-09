@@ -31,9 +31,6 @@
     <loc>https://askaira.ai/book</loc>
   </url>
   <url>
-    <loc>https://askaira.ai/pricing</loc>
-  </url>
-  <url>
     <loc>https://askaira.ai/product</loc>
   </url>
   <url>
@@ -81,6 +78,4 @@
   <url>
     <loc>https://askaira.ai/terms-and-conditions</loc>
   </url>
-  <url><loc>https://askaira.ai/customers</loc></url>
-  <url><loc>https://askaira.ai/customers/nascar</loc></url>
 </urlset>
