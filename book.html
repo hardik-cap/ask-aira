@@ -42,6 +42,8 @@
   <script src="/js/components.js" defer></script>
   <script src="/js/reveal.js" defer></script>
   <script src="/js/logo-grid.js" defer></script>
+  <script src="/js/book-form.js" defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body class="page-book">
 
@@ -88,7 +90,32 @@
           </div>
 
           <div class="bhero__card reveal is-in">
-            <form class="book__form" action="/book" method="get">
+            <!-- FORMSPARK since 9 Oct (user: "lets connect formspark for email"):
+                 each submission is emailed by Formspark until a CRM is chosen.
+                 POST, so details never land in the address bar. _redirect
+                 sends people to /book/thanks (js/book-form.js points it at the
+                 current origin so previews work); _honeypot is Formspark's
+                 spam trap and stays hidden. The source fields are filled by
+                 js/book-form.js from the visitor's first landing (UTM tags,
+                 ad click IDs), so every lead says where it came from. -->
+            <form class="book__form" action="https://submit-form.com/QpP6jkjdt" method="post" data-book-form>
+              <input type="hidden" name="_redirect" value="https://askaira.ai/book/thanks">
+              <!-- _append false: by default Formspark adds EVERY submitted field
+                   to the redirect's query string, which would put the visitor's
+                   email, phone and question in /book/thanks' address, and from
+                   there into history, analytics and server logs. -->
+              <input type="hidden" name="_append" value="false">
+              <input type="checkbox" name="_honeypot" class="book__hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <input type="hidden" name="source_page" value="">
+              <input type="hidden" name="landing_page" value="">
+              <input type="hidden" name="referrer" value="">
+              <input type="hidden" name="utm_source" value="">
+              <input type="hidden" name="utm_medium" value="">
+              <input type="hidden" name="utm_campaign" value="">
+              <input type="hidden" name="utm_term" value="">
+              <input type="hidden" name="utm_content" value="">
+              <input type="hidden" name="gclid" value="">
+              <input type="hidden" name="li_fat_id" value="">
               <div class="book__row">
                 <label class="sr-only" for="bk-first">First name</label>
                 <input class="input" id="bk-first" name="first_name" type="text"
@@ -99,17 +126,25 @@
               </div>
               <label class="sr-only" for="bk-email">Work email</label>
               <input class="input" id="bk-email" name="email" type="email"
-                     placeholder="Work email" autocomplete="email" required>
+                     placeholder="Work email" autocomplete="email" required
+                     aria-describedby="bk-email-err">
+              <p class="book__err" id="bk-email-err" role="alert" hidden></p>
               <label class="sr-only" for="bk-phone">Phone (optional)</label>
               <input class="input" id="bk-phone" name="phone" type="tel"
                      placeholder="Phone (optional)" autocomplete="tel">
               <label class="sr-only" for="bk-question">What question would you like aiRA to answer?</label>
               <textarea class="input book__question" id="bk-question" name="question" rows="4"
                         placeholder="What question would you like aiRA to answer?"></textarea>
-              <button class="btn btn--primary btn--lg book__submit" type="submit">
-                Book a working session
-                <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,128l-72,72V56Z" opacity="0.2"/><path d="M221.66,122.34l-72-72A8,8,0,0,0,136,56v64H40a8,8,0,0,0,0,16h96v64a8,8,0,0,0,13.66,5.66l72-72A8,8,0,0,0,221.66,122.34ZM152,180.69V75.31L204.69,128Z"/></svg>
-              </button>
+              <!-- CLOUDFLARE TURNSTILE (9 Oct): Formspark verifies the token with the
+                   widget's secret key, set in the form's Spam protection settings.
+                   Managed mode, shown only when Cloudflare needs an interaction;
+                   for everyone else it is invisible. The script adds a hidden
+                   cf-turnstile-response field inside this form on its own. -->
+              <div class="cf-turnstile book__ts" data-sitekey="0x4AAAAAAFSZZP3JXl12_JiD"
+                   data-theme="light" data-size="flexible" data-appearance="interaction-only"
+                   data-callback="airaTurnstileOk"></div>
+              <p class="book__err" id="bk-ts-err" role="alert" hidden></p>
+              <button class="btn btn--primary btn--lg book__submit" type="submit">Book a working session</button>
             </form>
             <p class="book__note">
               By submitting this form you agree to Capillary contacting you about aiRA.

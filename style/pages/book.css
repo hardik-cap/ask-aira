@@ -89,6 +89,12 @@
 /* ---- The form (moved from home.css 19-20 Sep) --------------------------- */
 
 .book__form { display: flex; flex-direction: column; gap: var(--sp-3); }
+/* Formspark's spam trap: real visitors never see or tab to it. */
+.book__hp { display: none; }
+/* Turnstile: interaction-only, so it takes no room until Cloudflare needs a
+   click; then it spans the card like the fields. */
+.book__ts:empty { display: none; }
+.book__ts iframe { width: 100% !important; }
 .book__row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
 
 .input {
@@ -109,6 +115,12 @@
   border-color: var(--brand);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 18%, transparent);
 }
+
+/* A rejected work email (js/book-form.js): the field's edge and one line
+   under it in the reject ink, the approval grammar's own red. */
+.input[aria-invalid="true"] { border-color: var(--reject); }
+.input[aria-invalid="true"]:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--reject) 18%, transparent); }
+.book__err { margin-top: calc(-1 * var(--sp-1)); font-size: var(--t-caption); color: var(--reject); }
 
 .book__question { resize: vertical; min-height: 104px; line-height: var(--lh-body); }
 
