@@ -716,11 +716,12 @@ button.chip:hover, a.chip:hover { border-color: var(--brand-line); color: var(--
   margin-inline: auto;
 }
 
-/* The bar is the product's own ask bar, the same anatomy as the homepage
-   difference loop's (20 Sep, user call): a white pill with plus, the
-   question, mic, and the round P200 send. 24px, not --r-pill: the bar grows
-   when the question wraps, and a half-height radius on a tall box stops
-   reading as the product's bar. */
+/* The ask bar (20 Sep). Since 9 Oct it takes the homepage cue's shape
+   (user: "remove plus button and microphone and make it more roundy like
+   .cue"): no plus, no mic, just the question and the send; corners at half
+   the bar's fixed 79px height so it reads as a pill; the cue's grey 40px
+   send and its --shadow-ask. The left pad grew 16 to 24 so a three-line
+   question's first and last lines clear the curve. */
 .qbar__box {
   position: relative;   /* above the field it emerges from */
   z-index: 1;
@@ -732,11 +733,11 @@ button.chip:hover, a.chip:hover { border-color: var(--brand-line); color: var(--
   min-height: 79px;
   align-items: center;
   gap: var(--sp-3);
-  padding: 8px 8px 8px 16px;
+  padding: 8px 8px 8px 24px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 24px;
-  box-shadow: var(--shadow-md);
+  border-radius: 40px;
+  box-shadow: var(--shadow-ask);
 }
 .qbar__text {
   flex: 1;
@@ -757,43 +758,56 @@ button.chip:hover, a.chip:hover { border-color: var(--brand-line); color: var(--
      pill grows taller instead, same rule as the difference loop's bar. */
   overflow-wrap: break-word;
 }
-/* One flex item, so the caret below can stay inline inside it. */
+/* One flex item holding the rolled question. */
 .qbar__line { display: block; width: 100%; }
 
-/* A caret, so the line reads as being typed rather than as a heading that
-   happens to change. It rides the end of the text because it is a sibling
-   span, not a pseudo on the box. */
-.qbar__caret {
+/* ---- ROLLING TEXT, shared (9 Oct) -------------------------------------
+   The ONE way a question changes in an ask bar: the old question's letters
+   lift out, then the new one's rise in, staggered. Used by the homepage cue
+   (js/prompt-cue.js) and the category pages' question bar (js/qbar.js),
+   which until 9 Oct backspaced and retyped behind a caret instead (user:
+   "the animation of text appearing and going out is inconsistent in
+   both"). Both scripts build the same markup: a .roll__w per word (so
+   wrapping stays at word boundaries) holding a .roll__c per letter with
+   --i for its delay; .roll-out on the parent plays the exit. Both hold the
+   new text back 340ms for the exit, the out stagger cap plus its travel.
+   Chars are inline-block because a transform on an inline is ignored. */
+.roll__w { display: inline-block; white-space: nowrap; }
+.roll__c {
   display: inline-block;
-  width: 2px;
-  height: 1.05em;
-  margin-left: 2px;
-  vertical-align: text-bottom;
-  background: var(--brand);
-  animation: qbar-blink 1.05s step-end infinite;
+  opacity: 0;
+  animation: roll-in 300ms var(--ease) forwards;
+  /* Capped stagger: a long question ripples, it does not take a second. */
+  animation-delay: min(calc(var(--i) * 10ms), 300ms);
 }
-@keyframes qbar-blink { 50% { opacity: 0; } }
+.roll-out .roll__c {
+  opacity: 1;
+  animation: roll-out 200ms var(--ease) forwards;
+  animation-delay: min(calc(var(--i) * 4ms), 120ms);
+}
+@keyframes roll-in {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes roll-out {
+  to { opacity: 0; transform: translateY(-5px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .roll__c,
+  .roll-out .roll__c { animation: none; opacity: 1; transform: none; }
+}
 
-.qbar__plus,
-.qbar__mic {
-  display: inline-flex;
-  flex: none;
-  color: var(--ink-3);
-}
-.qbar__plus svg,
-.qbar__mic svg { width: 20px; height: 20px; }
-/* The product's own send: the round P200 circle with the regular up arrow.
-   Decorative, so the low-contrast white-on-periwinkle arrow is fine. */
+/* The send: the homepage cue's grey 40px circle (9 Oct). Decorative. */
 .qbar__send {
   flex: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--r-pill);
-  background: var(--primary-200);
-  color: var(--on-brand);
+  background: var(--surface-2);
+  color: var(--ink-2);
 }
 .qbar__send svg { width: 20px; height: 20px; }
 
@@ -911,7 +925,6 @@ button.chip:hover, a.chip:hover { border-color: var(--brand-line); color: var(--
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .qbar__caret { animation: none; }
   .qbar__tab { transition: none; }
   /* The field holds still. It keeps its full width, so the row reads as a
      static wall of marks rather than a belt frozen mid-slide. */

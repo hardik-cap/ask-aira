@@ -1,7 +1,8 @@
 /* ==========================================================================
    aiRA — prompt cue (18 Sep)
 
-   The black frigade-style callout in each industry panel's head. It cycles
+   The question bar under each industry panel's grid (white, .qbar__box's
+   look, and a link to that industry's hub since 9 Oct). It cycles
    the questions that industry actually asks: characters roll out, the next
    question's characters roll in (the hero rotator's trick at sentence
    length), and the box glides to the height and width the new question
@@ -21,7 +22,10 @@
   var OUT_MS = 340;   /* char roll-out: 120ms stagger cap + 200ms travel */
   var SIZE_MS = 420;  /* the box's size glide; matches .cue.is-sizing */
 
-  var stage = document.querySelector('[data-stage]');
+  /* The whole section, not the stage: since 9 Oct the bars sit outside the
+     panels and float from the section's first pixel, so that is when the
+     cycling has to start too. */
+  var stage = document.getElementById('industries');
   if (!stage) return;
 
   var reduce = window.matchMedia
@@ -50,10 +54,10 @@
     var n = 0;
     words.forEach(function (word, w) {
       var ws = document.createElement('span');
-      ws.className = 'cue__word';
+      ws.className = 'roll__w';
       for (var k = 0; k < word.length; k++) {
         var c = document.createElement('span');
-        c.className = 'cue__ch';
+        c.className = 'roll__c';
         c.style.setProperty('--i', n++);
         c.textContent = word[k];
         ws.appendChild(c);
@@ -69,7 +73,7 @@
     var el = cue.el;
     var oldW = el.offsetWidth;
     var oldH = el.offsetHeight;
-    cue.view.classList.remove('is-out');
+    cue.view.classList.remove('roll-out');
     setChars(cue.view, cue.texts[n]);
     cue.i = n;
     /* A hidden panel has no geometry to glide between. */
@@ -91,7 +95,7 @@
   }
 
   function show(cue, n) {
-    cue.view.classList.add('is-out');
+    cue.view.classList.add('roll-out');
     window.setTimeout(function () {
       if (!cue.el.classList.contains('is-cycling')) return;
       place(cue, n, true);
@@ -103,7 +107,8 @@
       cue.view = document.createElement('p');
       cue.view.className = 'cue__view';
       cue.view.setAttribute('aria-hidden', 'true');
-      cue.el.appendChild(cue.view);
+      /* Before the send link (9 Oct), so the circle stays at the end. */
+      cue.el.insertBefore(cue.view, cue.el.querySelector('.cue__go'));
     }
     if (cue.el.classList.contains('is-cycling')) return;
     cue.el.classList.add('is-cycling');
@@ -114,21 +119,30 @@
     cue.el.classList.remove('is-cycling', 'is-sizing');
     cue.el.style.width = '';
     cue.el.style.height = '';
-    if (cue.view) cue.view.classList.remove('is-out');
+    if (cue.view) cue.view.classList.remove('roll-out');
   }
 
-  /* The open panel is the one industries.js has left unhidden. Reading it
+  /* The open cue is the one industries.js has left unhidden. Reading it
      from the DOM keeps the two scripts independent. */
   function openCue() {
     for (var i = 0; i < cues.length; i++) {
-      if (cues[i].el.closest('.stage__panel') &&
-          !cues[i].el.closest('.stage__panel').hidden) return cues[i];
+      if (!cues[i].el.hidden) return cues[i];
     }
     return null;
   }
 
   var timer = null;
   var onScreen = false;
+
+  /* The entrance (9 Oct, user): .is-in plays the bar's rise in CSS. It is
+     taken off and put back so the keyframes replay every time the section
+     comes into view, not just the first. */
+  function arrive(cue) {
+    if (!cue || reduce.matches) return;
+    cue.el.classList.remove('is-in');
+    void cue.el.offsetWidth;
+    cue.el.classList.add('is-in');
+  }
 
   function tick() {
     var cue = openCue();
@@ -155,8 +169,12 @@
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (entries) {
       onScreen = entries[0].isIntersecting;
-      if (onScreen) run(); else halt();
-    }, { threshold: 0.15 }).observe(stage);
+      if (onScreen) { run(); arrive(openCue()); }
+      else {
+        halt();
+        cues.forEach(function (c) { c.el.classList.remove('is-in'); });
+      }
+    }, { threshold: 0 }).observe(stage);
   } else {
     onScreen = true;
     run();
@@ -175,6 +193,7 @@
       if (!cue) return;
       enable(cue);
       place(cue, 0, false);
+      arrive(cue);
     }, 0);
   });
 

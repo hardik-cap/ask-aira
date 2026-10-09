@@ -62,9 +62,12 @@
     var t = tabs[i];
     /* Both reads before either write: reading offsetLeft after setting the
        width forced a second synchronous layout (PageSpeed, 4 Oct). */
-    var w = t.offsetWidth, x = t.offsetLeft;
+    /* Height and y as well since 9 Oct: below 992 the four sit 2x2, so
+       the seat travels between rows as well as along one. */
+    var w = t.offsetWidth, h = t.offsetHeight, x = t.offsetLeft, y = t.offsetTop;
     thumb.style.width = w + 'px';
-    thumb.style.transform = 'translateX(' + x + 'px)';
+    thumb.style.height = h + 'px';
+    thumb.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
     thumb.classList.add('is-set');
   }
 
@@ -93,6 +96,12 @@
           });
         }
       });
+    });
+    /* The question bars sit outside the panels (9 Oct, so they can float
+       from the section's start), so they are switched here by key. */
+    var key = tabs[i].getAttribute('data-industry');
+    Array.prototype.forEach.call(document.querySelectorAll('[data-cue-for]'), function (c) {
+      c.hidden = c.getAttribute('data-cue-for') !== key;
     });
     moveThumb(i);
     if (focus) tabs[i].focus();

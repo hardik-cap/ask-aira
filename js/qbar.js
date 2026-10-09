@@ -44,8 +44,6 @@
   /* The bar's own icons are Phosphor REGULAR, not duotone: it is a drawn
      product surface, same product-fidelity rule as the difference loop. */
   var ARROW = 'M205.66,117.66a8,8,0,0,1-11.32,0L136,59.31V216a8,8,0,0,1-16,0V59.31L61.66,117.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,117.66Z';
-  var PLUS  = 'M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z';
-  var MIC   = 'M128,176a48.05,48.05,0,0,0,48-48V64a48,48,0,0,0-96,0v64A48.05,48.05,0,0,0,128,176ZM96,64a32,32,0,0,1,64,0v64a32,32,0,0,1-64,0Zm40,143.6V240a8,8,0,0,1-16,0V207.6A80.11,80.11,0,0,1,48,128a8,8,0,0,1,16,0,64,64,0,0,0,128,0,8,8,0,0,1,16,0A80.11,80.11,0,0,1,136,207.6Z';
 
   function icon(label) {
     var p = ICONS[label];
@@ -119,14 +117,12 @@
     bar.className = 'qbar';
     bar.innerHTML =
       '<div class="qbar__box">' +
-        '<span class="qbar__plus" aria-hidden="true">' + plain(PLUS) + '</span>' +
         /* The line is wrapped so the caret stays INLINE with the text: the
            text block is a flex container (it reserves three lines and centres
            whatever it uses), and a flex container would otherwise make the
            text run and the caret two separate items and push the caret onto
            a line of its own. */
-        '<p class="qbar__text"><span class="qbar__line"><span class="qbar__typed"></span><span class="qbar__caret" aria-hidden="true"></span></span></p>' +
-        '<span class="qbar__mic" aria-hidden="true">' + plain(MIC) + '</span>' +
+        '<p class="qbar__text"><span class="qbar__line"><span class="qbar__typed"></span></span></p>' +
         '<span class="qbar__send" aria-hidden="true">' + plain(ARROW) + '</span>' +
       '</div>' +
       '<div class="qbar__tabs" role="tablist" aria-label="Question categories"></div>';
@@ -155,23 +151,40 @@
     /* The cycle. HOLD matches the CSS fill's duration exactly; see arm(). */
     var HOLD = 6000, clock = null, onScreen = false, held = false;
 
-    function type(text) {
-      if (typer) { clearInterval(typer); typer = null; }
-      if (reduce) { typed.textContent = text; return; }
-      /* Wipe first, then type. Both run on one interval so the two halves
-         cannot drift apart or overlap on a fast double click. */
-      var cur = typed.textContent, i = cur.length, mode = 'out';
-      typer = setInterval(function () {
-        if (mode === 'out') {
-          i -= 3;
-          if (i <= 0) { i = 0; mode = 'in'; }
-          typed.textContent = cur.slice(0, i);
-        } else {
-          i += 1;
-          typed.textContent = text.slice(0, i);
-          if (i >= text.length) { clearInterval(typer); typer = null; }
+    /* THE SAME LETTER ROLL AS THE HOMEPAGE CUE (9 Oct): the old question
+       lifts out, the new one rises in. It replaced a backspace-and-retype
+       behind a caret, so the two ask bars on the site no longer change
+       their text two different ways. Markup and timing match
+       js/prompt-cue.js; the CSS is .roll__* in components.css. */
+    var OUT_MS = 340;
+    function setChars(text) {
+      typed.textContent = '';
+      var words = text.split(' '), n = 0;
+      words.forEach(function (word, w) {
+        var ws = document.createElement('span');
+        ws.className = 'roll__w';
+        for (var k = 0; k < word.length; k++) {
+          var c = document.createElement('span');
+          c.className = 'roll__c';
+          c.style.setProperty('--i', n++);
+          c.textContent = word[k];
+          ws.appendChild(c);
         }
-      }, 14);
+        typed.appendChild(ws);
+        if (w < words.length - 1) typed.appendChild(document.createTextNode(' '));
+      });
+    }
+    function type(text) {
+      if (typer) { clearTimeout(typer); typer = null; }
+      if (reduce) { typed.textContent = text; return; }
+      /* Nothing showing yet (the first pick): roll straight in. */
+      if (!typed.textContent) { setChars(text); return; }
+      typed.classList.add('roll-out');
+      typer = setTimeout(function () {
+        typer = null;
+        typed.classList.remove('roll-out');
+        setChars(text);
+      }, OUT_MS);
     }
 
     /* THE BAR AND THE TIMEOUT ARE ONE CLOCK. .is-running is added here, in the

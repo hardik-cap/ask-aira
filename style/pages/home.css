@@ -1957,9 +1957,27 @@
   letter-spacing: 0;
 }
 
+/* 2x2 BELOW 992 (user, 9 Oct: "horizontal scroll is too hidden for user to
+   find other industry"). It was a sideways-scrolling row of 240px cards with
+   its scrollbar hidden, so on a phone two industries sat off screen with
+   nothing saying they were there. Four in two rows are all visible at once.
+   The seat follows in both axes: js/industries.js measures the open tab's
+   offsetTop and height as well as its x and width. */
 @media (max-width: 991px) {
-  /* The row scrolls rather than crushing four cards. */
-  .inds__card { flex: 0 0 240px; padding: var(--sp-3) var(--sp-5); }
+  .inds__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: visible;
+  }
+  .inds__card { padding: var(--sp-3) var(--sp-4); }
+  .inds__thumb { bottom: auto; transition: transform 360ms var(--ease), width 360ms var(--ease), height 360ms var(--ease); }
+}
+@media (max-width: 640px) {
+  /* Icon over label: beside it, "Restaurants & QSR" and "Travel &
+     Hospitality" broke onto two ragged lines; stacked, each holds one. */
+  .inds__card { padding: var(--sp-3) var(--sp-2); }
+  .inds__top { flex-direction: column; gap: var(--sp-1); }
+  .inds__t { font-size: var(--t-body); text-align: center; white-space: nowrap; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1982,7 +2000,10 @@
    script to be read or indexed. */
 .inds__stage {
   position: relative;
-  overflow: hidden;
+  /* clip, not hidden (9 Oct): hidden makes the stage a scroll container,
+     and the cue's sticky float would then stick to a box that never
+     scrolls, i.e. never float at all. Same painting, no scroller. */
+  overflow: clip;
   isolation: isolate;
   /* No gap: the pill bar and the panel it drives are one object, and 40px
      between them read as a seam (user call, 19 Sep). */
@@ -2057,7 +2078,19 @@
   max-width: 30rem;
 }
 
-/* ---- the cue: frigade's black callout ----
+/* ---- the cue: the question bar under the grid (9 Oct) ----
+   MOVED BELOW THE CATEGORY GRID AND MADE A LINK (user, 9 Oct: "if user
+   skims past the categories, they can still come here, and see prompt
+   relatable to their use case"). It replaced the .vdemo video tile, which
+   opened one generic YouTube cut from all four tabs. The whole box is the
+   way into that industry's hub: since 9 Oct the .cue itself is the <a>
+   (aria-label names the hub), with the send circle a decorative span.
+   WHITE, LIKE .qbar__box, NOT BLACK (user: "black is too dark, maybe like
+   qbar__box"): white surface, hairline, 24px corners, --shadow-md, ink text
+   in the product face, and the round P200 send. The black frigade callout
+   and its notes below are the version this replaced.
+
+   Earlier, frigade's black callout:
    The question rides in a black rounded box with a soft shadow, white text
    on ink, hugging its content: the box takes the height (and width) the
    current question needs, and glides between sizes when the script swaps
@@ -2069,7 +2102,6 @@
    No-JS and reduced motion keep the full ordered list inside the same box,
    scrollable and dissolving at its cap, so nothing depends on the script. */
 .cue {
-  position: relative;
   /* Centred and ANCHORED to the frame below, on the frigade.com pattern
      (user, 19 Sep): left aligned and floating, it belonged to nothing and
      read as a stray object between the tabs and the cards. It now sits on the
@@ -2080,12 +2112,25 @@
      proportional overlap would breathe with the copy, and the frame's edge
      would move every few seconds. */
   z-index: 2;
+  /* FLOATS WHILE ITS PANEL IS ON SCREEN (user, 9 Oct, after attio.com/
+     platform/ask, whose floating ask bar is Intercom's messenger launcher):
+     sticky to the viewport's foot, so from the moment the industry grid
+     scrolls in the bar rides 24px above the bottom edge, over the cards,
+     and it docks in its place under the grid when you reach it. It never
+     leaves the industries section, because a sticky box cannot leave its
+     containing block, the .stage__panel. Pure CSS, on .is-cycling only
+     (rule below). Needs .inds__stage
+     to be overflow: clip, not hidden (see there). */
+  position: relative;
   margin-inline: auto;
+  /* Under the grid now: the grid keeps 20px under its last row, this adds
+     the rest so the bar reads as the section's close, not a fifth row. */
   /* Resting ON the frame's top edge, not dipping into it. It overlapped by
      28 while the grid carried 48px of top padding; with that padding gone the
      first row starts immediately and a dip put the box over two of the icons.
      Bottom edge flush to the border reads as anchored just as well. */
   margin-bottom: 0;
+  margin-top: var(--sp-8);
   /* Two lines' worth, for the wrapping modes: no-JS, and cycling below 992
      where a single line no longer fits. On desktop the box is one line and
      this floor is lifted; see the cycling rule further down. 12 + 12 padding
@@ -2098,16 +2143,117 @@
   align-items: center;
   gap: var(--sp-3);
   max-width: min(560px, 100%);
-  margin-top: var(--sp-6);
-  padding: var(--sp-3) var(--sp-5);
-  background: var(--black);
-  border-radius: var(--r-md);
+  padding: 8px 8px 8px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
   /* THE floating-surface shadow, the one the header card and the mobile menu
      wear: a contact line and a soft ambient pool. --shadow-lg was here and
      read as nothing on a box this size, because its 64px blur is pulled back
      by a -34px spread that only pays off on a full-width panel. */
-  box-shadow: var(--shadow-float);
+  box-shadow: var(--shadow-md);
   overflow: hidden;
+}
+/* Only the one-line cycling bar floats. With JS off, or reduced motion on,
+   the cue carries the whole question list (~140px), which is a panel, not
+   a bar, and parked over the cards it would hide them. */
+.cue[hidden] { display: none; }
+/* THE FLOATING PILL (user, 9 Oct, from attio's ask bar screenshot): pill
+   corners, the question in grey, a grey send circle, and a deep soft shadow
+   (--shadow-ask). It floats from the section's first pixel: the cues are
+   children of the section's container, not of the panels, which is what
+   lets a sticky box rise that far.
+   IT FITS EACH QUESTION, WHOLE (user, 9 Oct: "change width each time, i
+   should see full prompt, on mobile height should change"). It had a fixed
+   600px with the text fading out at the right, which cut most questions.
+   Now the box hugs the question and js/prompt-cue.js glides it between
+   sizes (.is-sizing): WIDTH on desktop, where every question holds one line
+   (the longest is ~785px against a container of 1220 at 992), and HEIGHT
+   below 992, where the question wraps at full width. Being anchored by its
+   bottom edge, a taller bar grows upward, away from the screen's foot.
+   The corner is a flat 28px, not --r-pill: it is a perfect pill at the
+   one-line 56px and stays a 28px corner when the bar wraps, where a pill
+   radius would round the whole box into a lozenge. */
+.cue.is-cycling {
+  position: sticky;
+  bottom: max(var(--sp-6), env(safe-area-inset-bottom));
+  width: fit-content;
+  max-width: 100%;
+  min-height: 56px;
+  padding: 8px 8px 8px 20px;
+  border-radius: 28px;
+  box-shadow: var(--shadow-ask);
+}
+.cue.is-cycling .cue__view {
+  flex: 1;
+  min-width: 0;
+  color: var(--ink-2);
+}
+@media (min-width: 992px) {
+  .cue.is-cycling .cue__view { white-space: nowrap; }
+}
+.cue.is-cycling .cue__go {
+  width: 40px;
+  height: 40px;
+  background: var(--surface-2);
+  color: var(--ink-2);
+}
+.cue.is-cycling .cue__go:hover { background: var(--brand); color: var(--on-brand); }
+
+/* THE ENTRANCE (9 Oct, user: "add a nice animation when it comes into
+   view"). js/prompt-cue.js adds .is-in each time #industries enters the
+   viewport (and on a tab change): the pill rises 32px out of a slight blur
+   and scale with a small overshoot, then the send circle pops in after it,
+   and the question's own characters roll in on top. transform and filter
+   only, so the sticky float underneath is untouched. Never under reduced
+   motion, where there is no cycling bar at all. */
+.cue.is-cycling.is-in {
+  animation: cue-rise 640ms cubic-bezier(0.22, 1.2, 0.36, 1) both;
+}
+.cue.is-cycling.is-in .cue__go {
+  animation: cue-go-pop 420ms cubic-bezier(0.34, 1.56, 0.64, 1) 260ms both;
+}
+@keyframes cue-rise {
+  from { opacity: 0; transform: translateY(32px) scale(0.94); filter: blur(6px); }
+  60%  { opacity: 1; filter: blur(0); }
+  to   { opacity: 1; transform: none; filter: none; }
+}
+@keyframes cue-go-pop {
+  from { opacity: 0; transform: scale(0.4) rotate(-45deg); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cue.is-cycling.is-in,
+  .cue.is-cycling.is-in .cue__go { animation: none; }
+}
+/* The bar IS the link since 9 Oct. Hovering it lights the box only; the
+   send circle answers to its own hover (below), not the bar's (user: "only
+   add hover state to box, only on button it has hover"). */
+.cue { text-decoration: none; color: inherit; }
+.cue:hover { border-color: var(--brand-line); }
+.cue:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+
+/* The send circle, .qbar__send's own object. Decoration inside the link
+   since 9 Oct (it was the link, stretched over the box by an ::after, which
+   made the whole bar count as hovering it). */
+.cue__go {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-left: auto;
+  border-radius: var(--r-pill);
+  background: var(--primary-200);
+  color: var(--on-brand);
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.cue__go svg { width: 20px; height: 20px; }
+.cue__go:hover { background: var(--brand); }
+@media (prefers-reduced-motion: reduce) {
+  .cue, .cue__go { transition: none; }
 }
 /* White on the black bar (user call, 19 Sep). The mark is an <img>, so the
    colour cannot be set on the SVG's own paths from here: brightness(0)
@@ -2116,7 +2262,7 @@
    redrawn in any colour. */
 /* The 3px nudge that sat the mark on the first line's cap height went with
    the top alignment above. */
-.cue__mark { flex: none; filter: brightness(0) invert(1); }
+.cue__mark { flex: none; }
 
 .cue__list {
   list-style: none;
@@ -2131,9 +2277,10 @@
   mask-image: linear-gradient(180deg, #000 65%, transparent);
 }
 .cue__item {
+  font-family: var(--font-product);
   font-size: var(--t-body-sm);
   line-height: 1.5;
-  color: var(--ink-inv);
+  color: var(--ink);
 }
 .cue__item + .cue__item { margin-top: var(--sp-2); }
 
@@ -2155,9 +2302,10 @@
 
 .cue__view {
   min-width: 0;
+  font-family: var(--font-product);
   font-size: var(--t-body-sm);
   line-height: 1.5;
-  color: var(--ink-inv);
+  color: var(--ink);
 }
 
 /* ---- one line on desktop, and the WIDTH does the moving (19 Sep) ----------
@@ -2177,56 +2325,26 @@
    floats against the middle of the block instead of reading as its bullet.
    Top aligned it sits with the first line, which is where the sentence
    starts. The 3px is optical: the mark is 16px against a 21px line box. */
-@media (max-width: 991px) {
-  .cue { align-items: flex-start; }
-  .cue__mark { margin-top: 3px; }
-}
+/* Not below 992 any more (9 Oct): the white bar centres its contents the
+   way .qbar__box does, so the two-line wrap and the fixed floor share one
+   middle rather than leaving the text against the ceiling. */
 
-@media (min-width: 992px) {
-  .cue.is-cycling {
-    min-height: 0;
-    max-width: none;
-  }
-  .cue.is-cycling .cue__view { white-space: nowrap; }
-  /* Only the width is left to transition, so say so: height is constant here
-     and listing it invited a glide that can never happen. */
-  .cue.is-cycling.is-sizing { transition: width 420ms var(--ease); }
-}
-/* Chars animate, words wrap: the chars are inline-block (a transform on an
-   inline is ignored), so each word boxes its own letters to keep real
-   wrapping at word boundaries. */
-.cue__word { display: inline-block; white-space: nowrap; }
-.cue__ch {
-  display: inline-block;
-  opacity: 0;
-  animation: cue-ch-in 300ms var(--ease) forwards;
-  /* Capped stagger: a long question ripples, it does not take a second. */
-  animation-delay: min(calc(var(--i) * 10ms), 300ms);
-}
-.cue__view.is-out .cue__ch {
-  opacity: 1;
-  animation: cue-ch-out 200ms var(--ease) forwards;
-  animation-delay: min(calc(var(--i) * 4ms), 120ms);
-}
-@keyframes cue-ch-in {
-  from { opacity: 0; transform: translateY(5px); }
-  to   { opacity: 1; transform: none; }
-}
-@keyframes cue-ch-out {
-  to { opacity: 0; transform: translateY(-5px); }
-}
+/* (The desktop one-line rules that lived here went into the pill above on
+   9 Oct: the bar is one line at every width now.) */
+/* The letter roll itself is shared with the category pages' question bar
+   since 9 Oct: .roll__w / .roll__c / .roll-out in components.css. */
 
 /* The size glide between questions; the script sets the from/to pixels. */
 /* One duration for the glide, and js/prompt-cue.js holds the same number in
    SIZE_MS: it pins the old size, flips to the new one, then hands the box
    back to auto once this has finished. Change them together. */
 .cue.is-sizing {
-  transition: width 420ms var(--ease), height 420ms var(--ease);
+  /* A softer settle than --ease (9 Oct): the glide is the whole effect now
+     and runs every 3.6s, so it decelerates long rather than snapping. */
+  transition: width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cue__ch,
-  .cue__view.is-out .cue__ch { animation: none; opacity: 1; transform: none; }
   .cue.is-sizing { transition: none; }
 }
 
@@ -2634,7 +2752,9 @@
      differs by industry (eight for three of them, five for telecom), so any
      :nth-last-child arithmetic for a last row would be wrong for one of
      them. */
-  margin: 0 0 var(--sp-5);
+  /* Top margin back since 9 Oct (user): the cue used to sit between the
+     picker and the grid and set this gap itself; it moved below. */
+  margin: var(--sp-8) 0 var(--sp-5);
   /* No fill and no frame (user, 19 Sep, in that order: lose the fill, then
      lose the outline too). What is left is the internal ruling and nothing
      else, so the set reads as lines drawn ON the section rather than as a
@@ -2745,35 +2865,9 @@
 
 }
 
-/* ---- Demo card (19 Sep, promptwatch reference) ---------------------------
-   A tight dark card centred under the grid: the industry's own still on the
-   left with the play badge riding on it, title and one line of detail on the
-   right. It was a full-width 112px strip in surface white with the product
-   screenshot bleeding off its right end.
-
-   There are FOUR of these now, one inside each .stage__panel, where there
-   used to be one for the whole section. That is what makes the still and the
-   copy industry-specific with no script work at all: the tabs already show
-   and hide the panels, and with JS off all four stack under their own
-   industry names. js/video.js binds every [data-video] it finds, so the
-   extra instances cost nothing.
-
-   The file behind all four is still the one generic product tour, because
-   the per-industry cuts are Hardik's to supply. The copy names the kind of
-   question each industry brings to it rather than claiming a cut that does
-   not exist yet, and no duration is claimed for the same reason. */
-.vdemo {
-  margin-top: var(--sp-10);
-  /* The flex parent does the centring, so the card itself never has to be
-     width-constrained to sit in the middle. A column since 19 Sep: it carried
-     an "In the product" label above the card until that came off on 19 Sep,
-     and it still stacks the card over the route link. */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--sp-4);
-}
-
+/* ---- Demo card: GONE 9 Oct (user), replaced by the cue under the grid.
+   .vdemo__more survives because the pricing band's .price__more link is
+   built on it. */
 /* The route onward (19 Sep): under each tab's video card, one arrow link
    into that industry's hub page. */
 .vdemo__more {
@@ -2791,95 +2885,6 @@
 @media (prefers-reduced-motion: reduce) {
   .vdemo__more { transition: none; }
 }
-.vdemo__btn {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-4);
-  max-width: 100%;
-  /* Tight: 10px around the still, opened out on the text side so the copy is
-     not jammed into the corner. */
-  padding: 10px var(--sp-6) 10px 10px;
-  background: var(--black);
-  border: 0;
-  border-radius: var(--r-lg);
-  box-shadow: var(--shadow-float);
-  text-align: left;
-  cursor: pointer;
-  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
-}
-.vdemo__btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-.vdemo__btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
-
-/* 16:10, the ratio all four industry stills are stored at, so the frame
-   crops none of them. */
-.vdemo__shot {
-  position: relative;
-  flex: none;
-  width: 128px;
-  aspect-ratio: 16 / 10;
-  border-radius: 10px;
-  overflow: hidden;
-}
-.vdemo__shot img { width: 100%; height: 100%; object-fit: cover; }
-
-/* The badge rides on the still rather than sitting beside the title. */
-.vdemo__play {
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--ink-inv) 88%, transparent);
-  color: var(--black);
-  transition: transform var(--dur) var(--ease);
-}
-/* Optical centring: a triangle's mass sits left of its bounding box. */
-.vdemo__play svg { width: 20px; height: 20px; margin-left: 1px; }
-.vdemo__btn:hover .vdemo__play { transform: scale(1.08); }
-
-.vdemo__txt {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-.vdemo__t {
-  font-family: var(--font-display);
-  font-size: var(--t-title-sm);
-  font-weight: 600;
-  letter-spacing: var(--tr-title);
-  color: var(--ink-inv);
-}
-.vdemo__d {
-  font-size: var(--t-body-sm);
-  line-height: 1.4;
-  color: var(--ink-inv-3);
-}
-
-@media (max-width: 560px) {
-  /* It stays one row and gives up thumbnail width rather than stacking: a
-     still sitting above a title reads as a figure, not as a play control. */
-  .vdemo__btn { padding-right: var(--sp-4); gap: var(--sp-3); }
-  .vdemo__shot { width: 88px; }
-  .vdemo__play { width: 28px; height: 28px; }
-  .vdemo__play svg { width: 11px; height: 11px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .vdemo__btn, .vdemo__play { transition: none; }
-  .vdemo__btn:hover { transform: none; }
-  .vdemo__btn:hover .vdemo__play { transform: none; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .vdemo__btn { transition: none; }
-}
-
-
 /* ---- NASCAR proof (19 Sep) --------------------------------------------------
    The customer story beside the form, as one contained card: never full
    bleed, the dark ground stops at the container (SUPERSEDED 4 Oct: it now
@@ -2973,8 +2978,8 @@
   transition: transform var(--dur-slow) var(--ease);
 }
 
-/* Same badge language as the industry stills' .vdemo__play, one step larger
-   because this still is a whole column rather than a 128px chip. The glyph
+/* Same badge language the industry stills' .vdemo__play had (gone 9 Oct),
+   one step larger because this still is a whole column rather than a 128px chip. The glyph
    itself stays 20px. */
 .nproof__play {
   position: absolute;

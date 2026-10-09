@@ -320,6 +320,12 @@
   --shadow-float: 0 1px 2px rgba(11, 16, 32, 0.05),
                   0 4px 10px -4px rgba(11, 16, 32, 0.08),
                   0 14px 32px -12px rgba(11, 16, 32, 0.16);
+  /* The floating ask bar on the homepage (9 Oct, attio's reference): a
+     wide, soft pool under a pill that rides over content, so it reads as
+     lifted off the page rather than set into it. */
+  --shadow-ask: 0 1px 3px rgba(11, 16, 32, 0.06),
+                0 8px 20px -6px rgba(11, 16, 32, 0.12),
+                0 24px 48px -16px rgba(11, 16, 32, 0.22);
 
   /* ---- Radius ------------------------------------------------------ */
   --r-xs:   4px;
