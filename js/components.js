@@ -15,6 +15,27 @@
   'use strict';
 
   var BASE = document.documentElement.getAttribute('data-base') || '';
+
+  /* ---- 0. Remember where the visitor came from (9 Oct) ----------------
+     First touch only: the landing page, referrer, UTM tags and ad click
+     IDs are kept for the visit in sessionStorage, so a lead who lands on
+     an ad page and books three pages later is still attributed to the ad.
+     js/book-form.js copies them into the /book form's hidden fields.
+     Storage can throw (private mode, blocked site data); then the form
+     simply goes without them. */
+  try {
+    if (!sessionStorage.getItem('aira_src')) {
+      var q = new URLSearchParams(location.search), src = {
+        landing_page: location.pathname + location.search,
+        /* Only a referrer from ANOTHER site says where a lead came from;
+           our own pages (or a preview of them) are just navigation. */
+        referrer: (document.referrer && new URL(document.referrer).host !== location.host) ? document.referrer : ''
+      };
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'li_fat_id']
+        .forEach(function (k) { if (q.get(k)) src[k] = q.get(k); });
+      sessionStorage.setItem('aira_src', JSON.stringify(src));
+    }
+  } catch (e) {}
   var DESKTOP = 991; // px; above this, hover dropdowns and no drawer
 
   /* ---- 1. Inject shared components ------------------------------------ */
