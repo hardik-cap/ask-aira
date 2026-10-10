@@ -400,6 +400,10 @@
      there but clamps up to 28, so a statement that wants 24 at every width
      had nowhere to go. Continues the title family's 16 / 18 / 20 / 24. */
   --t-title-xl:  1.5rem;      /* 24, flat */
+  /* 28 FLAT, added 10 Oct for the event pages' phone H1: --t-display-3
+     reaches 28 only at desktop widths, and Luma's long titles need 28 on a
+     phone, between the 24 step and the 32 hero. */
+  --t-title-2xl: 1.75rem;     /* 28, flat */
   --t-title-sm:  1rem;        /* 16 */
   --t-lede:      1.25rem;     /* 20, a lede set above the subheader */
   /* 18, added 28 Sep for the HERO subheads (.hero__sub, .phero__sub), which

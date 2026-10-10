@@ -150,11 +150,16 @@
 .cufeat__card:hover .cufeat__play-ic { transform: scale(1.08); }
 .cufeat__card:hover .cufeat__img { transform: scale(1.02); }
 
-/* ---- Testimonials (sv-blocks "testimonial one", SAMPLE copy) -------------
-   Four columns, two rows: the lead card spans two columns and both rows, the
-   wide card two columns, two small cards one each. Drawn in the bento's
-   grammar (10px gaps, square, given back to the rails) so it sits with the
-   case-study cards further down. */
+/* ---- Testimonials (SAMPLE copy) -------------------------------------------
+   A WHITE RULED GRID since 10 Oct (user, from a Clueso customers-page
+   screenshot: "logo and name in white bg"): two columns of white cells
+   sharing hairlines, gapless and square, given back to the rails like the
+   case-study bento below. The grid draws the top and left edge and each cell
+   its right and bottom, so no rule doubles. Each cell reads top to bottom as
+   the reference does: the mark slot, the quote in ink, the byline pinned to
+   the foot so a row's bylines share one baseline. The dark accent fills
+   (--c), the gradient-over-image slot and the Phosphor Quotes icon it
+   replaced are in git. */
 
 .cutm__head { margin-bottom: var(--sp-12); }
 .cutm__tag {
@@ -169,73 +174,43 @@
 
 .cutm__grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-template-rows: auto auto;
-  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-inline: calc(-1 * var(--sp-5));
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
 }
 .cutm__card {
-  /* A DARK FILL IN EACH CARD'S ACCENT (user, 4 Oct: these become the
-     customer's brand colour and logo; until then, colour as background).
-     --c is set per card in the markup; it is deepened toward the ink here
-     so every accent lands dark enough for white text. */
-  --c: var(--primary-900);
   margin: 0;
   display: flex;
   flex-direction: column;
   gap: var(--sp-6);
-  /* A GRADIENT TO DARK over an IMAGE SLOT (user, 4 Oct: "there will be an
-     image behind"). Top: the accent, translucent; bottom: near-black, where
-     the byline sits, so white text holds over any photo. Drop a photo in
-     with style="--img: url(...)" on the card; until then the slot is empty
-     and the base colour shows through the gradient. */
-  --img: none;
-  background:
-    linear-gradient(180deg,
-      color-mix(in srgb, var(--c) 80%, transparent) 0%,
-      color-mix(in srgb, var(--c) 62%, transparent) 45%,
-      color-mix(in srgb, var(--slate-900) 94%, transparent) 100%),
-    var(--img) center / cover no-repeat,
-    color-mix(in srgb, var(--c) 35%, var(--slate-900));
-  padding: var(--sp-6);
+  padding: var(--sp-8);
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
-.cutm__card--lead { grid-column: span 2; grid-row: span 2; padding: var(--sp-8); }
-.cutm__card--wide { grid-column: span 2; }
 
-.cutm__ind {
-  font-size: var(--t-caption);
-  font-weight: 500;
-  color: color-mix(in srgb, var(--on-brand) 72%, transparent);
-}
+/* The mark slot. CLEARED MARKS AS PLACEHOLDERS since 10 Oct (user), full
+   colour per the site rule, sized by height with the wall's own logic in
+   miniature: squares and stacked lockups at 36, the wide IndiGo wordmark a
+   step down at 24 so it does not dwarf them. The marks sit over INVENTED
+   quotes, which is why the "Sample quotes" tag above the grid is
+   load-bearing. The industry text label this replaced (.cutm__ind) is in
+   git. */
+/* align-self, because the card is a stretch flex column: stretched, the img
+   fills the row and the SVG re-centres itself inside it, so every mark sat
+   in the middle of its card. */
+.cutm__logo { display: block; align-self: flex-start; height: 36px; width: auto; }
+.cutm__logo--wide { height: 24px; }
+
+/* flex: 1 0 auto floors the byline, so the two cells of a row set their
+   bylines on one line whatever their quotes run to. */
 .cutm__q { margin: 0; flex: 1 0 auto; }
-/* THE PHOSPHOR "Quotes" DUOTONE at 24px (4 Oct audit), the same markup as
-   /customers/nascar's .stquote__ic, so the site has one quote mark. It
-   replaced a typed \201C glyph from before that icon was harvested. */
-.cutm__ic {
-  display: block;
-  flex: none;
-  width: 24px;
-  height: 24px;
-  margin-bottom: calc(-1 * var(--sp-2));
-  color: color-mix(in srgb, var(--on-brand) 72%, transparent);
-}
-/* THE LEAD CARD SETTLES ITS QUOTE TO THE FOOT (4 Oct audit): at two rows
-   tall its quote ended halfway down and ~200px of empty fill sat between it
-   and the byline. Industry tag on top, the quote and its speaker together
-   at the bottom, which is also where the gradient is darkest, the place an
-   image card wants its text. */
-.cutm__card--lead .cutm__ic { margin-top: auto; }
-.cutm__card--lead .cutm__q { flex: none; }
 .cutm__q p {
   font-size: var(--t-body-xl);
-  font-weight: 500;
-  line-height: 1.5;
-  color: var(--on-brand);
-}
-/* The lead card's quote is 24px (user, 4 Oct); the other three stay 18. */
-.cutm__card--lead .cutm__q p {
-  font-size: var(--t-title-xl);
-  line-height: 1.4;
+  line-height: 1.55;
+  color: var(--ink);
+  text-wrap: pretty;
 }
 
 .cutm__by { display: flex; align-items: center; gap: var(--sp-3); }
@@ -246,11 +221,10 @@
   height: 44px;
   border-radius: 50%;
   object-fit: cover;
-  background: var(--surface);
+  background: var(--surface-2);
 }
 .cutm__meta { display: flex; flex-direction: column; }
-.cutm__who { font-size: var(--t-body); font-weight: 500; color: var(--on-brand); }
-.cutm__role { font-size: var(--t-caption); color: color-mix(in srgb, var(--on-brand) 65%, transparent); }
+.cutm__who { font-size: var(--t-body); font-weight: 500; color: var(--ink); }
 
 /* ---- Lead study: head to head --------------------------------------------
    A plain stats row since 4 Oct (user, from a stats-row reference): four
@@ -314,8 +288,7 @@
 @media (max-width: 991px) {
   .cuhero__copy { grid-template-columns: 1fr; gap: var(--sp-5); }
   .cuhero__sub { justify-self: start; }
-  .cutm__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-inline: 0; }
-  .cutm__card--lead { grid-row: auto; }
+  .cutm__grid { margin-inline: 0; }
   .cufeat__card { margin-inline: 0; }
   .cufeat__card { height: auto; min-height: 400px; }
   .cufeat__body { padding: var(--sp-8) var(--sp-6); }
@@ -330,8 +303,7 @@
 }
 @media (max-width: 640px) {
   .cutm__grid { grid-template-columns: 1fr; }
-  .cutm__card--lead,
-  .cutm__card--wide { grid-column: auto; }
+  .cutm__card { padding: var(--sp-6); }
   .cuhero__sub { font-size: var(--t-body); }
 }
 

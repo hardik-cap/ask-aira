@@ -210,20 +210,30 @@
     <div class="joint" aria-hidden="true"></div>
 
     <!-- ================= TESTIMONIALS (SAMPLE) ================= -->
-    <!-- sv-blocks' "testimonial one" (user, 4 Oct): a centred head over a
-         four-column grid, one lead card across two rows, a wide card and two
-         small ones.
+    <!-- A WHITE RULED GRID since 10 Oct (user, from a Clueso customers-page
+         screenshot: "logo and name in white bg"): two columns of white cells
+         sharing hairlines, gapless and square in the site's own bento grammar,
+         each cell reading top to bottom as the reference does: the mark slot,
+         the quote in ink, then avatar and byline. The dark brand-accent fills
+         (--c), the gradient-over-image slot and the Phosphor Quotes icon all
+         came OUT with it (in git).
          THESE QUOTES ARE SAMPLES AND MUST NOT SHIP AS TESTIMONY. The user asked
          for "sample quotes from aiRA companies"; they are deliberately NOT
          attributed to any real brand or person, because an invented quote
          beside a real logo reads as that company's words, and the cleared logo
-         list (context.md 15.4a) clears marks only, never quotes. Each line
-         restates a product claim the site already makes. The visible
+         list (context.md 15.4a) clears marks only, never quotes. THE LOGO
+         SLOT CARRIES A CLEARED MARK AS A PLACEHOLDER since 10 Oct (user: "put
+         4 brand logos as placeholder on each cutm__card"), each matched to
+         its quote's industry: Rack Room Shoes, Aditya Birla, IndiGo, Shell.
+         THE PAIRING IS LAYOUT ONLY. None of these companies said these
+         words, which is exactly the misread the industry-label version
+         avoided, so the "Sample quotes" tag is now LOAD-BEARING and MUST NOT
+         come off while these marks sit over invented copy. When an approved
+         quote arrives its real logo replaces the placeholder and the byline
+         gains the person's name over their role.
+         Each line restates a product claim the site already makes. The visible
          "Sample quotes" tag stays until real, approved quotes replace them;
          then the tag, this note and the role-only bylines go together.
-         EACH CARD IS A DARK BRAND-ACCENT FILL (user, 4 Oct): the colour is
-         the card's own --c, a placeholder from the site's ramps, so the day a
-         customer's real accent and logo arrive it is one value per card.
          THE FACES ARE STOCK PHOTOS (assets/customers/stock, user 4 Oct) and
          depict nobody named: they illustrate the sample, which is one more
          reason the "Sample quotes" tag cannot come off while they are here. -->
@@ -239,37 +249,36 @@
             <p class="cutm__tag">Sample quotes, pending approval</p>
           </div>
           <div class="cutm__grid reveal">
-            <figure class="cutm__card cutm__card--lead" style="--c: var(--primary-900)">
-              <p class="cutm__ind">Footwear retail</p>
-              <svg class="cutm__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M108,72v72H40a8,8,0,0,1-8-8V72a8,8,0,0,1,8-8h60A8,8,0,0,1,108,72Zm108-8H156a8,8,0,0,0-8,8v64a8,8,0,0,0,8,8h68V72A8,8,0,0,0,216,64Z" opacity="0.2"/><path d="M100,56H40A16,16,0,0,0,24,72v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,100,56Zm0,80H40V72h60ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Zm0,80H156V72h60Z"/></svg>
+            <figure class="cutm__card">
+              <img class="cutm__logo" src="/assets/logos/rack-room-shoes-color.svg" alt="Rack Room Shoes" width="36" height="36" loading="lazy" decoding="async">
               <blockquote class="cutm__q"><p>We used to wait a week for a lapsed-member cut. Now the CRM team asks for it in the morning and has the segment, the reasoning behind it and a win-back journey waiting for approval by lunch.</p></blockquote>
               <figcaption class="cutm__by">
                 <img class="cutm__av" src="/assets/customers/stock/stock-1.jpg" alt="" width="96" height="96" loading="lazy" decoding="async">
-                <span class="cutm__meta"><span class="cutm__who">Head of CRM</span><span class="cutm__role">Footwear retailer</span></span>
+                <span class="cutm__meta"><span class="cutm__who">Head of CRM</span></span>
               </figcaption>
             </figure>
-            <figure class="cutm__card cutm__card--wide" style="--c: var(--secondary-900)">
-              <svg class="cutm__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M108,72v72H40a8,8,0,0,1-8-8V72a8,8,0,0,1,8-8h60A8,8,0,0,1,108,72Zm108-8H156a8,8,0,0,0-8,8v64a8,8,0,0,0,8,8h68V72A8,8,0,0,0,216,64Z" opacity="0.2"/><path d="M100,56H40A16,16,0,0,0,24,72v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,100,56Zm0,80H40V72h60ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Zm0,80H156V72h60Z"/></svg>
+            <figure class="cutm__card">
+              <img class="cutm__logo" src="/assets/logos/aditya-birla.svg" alt="Aditya Birla" width="65" height="36" loading="lazy" decoding="async">
               <blockquote class="cutm__q"><p>It already knows our tiers and what we mean by an active household, so the first answer is usually the one we needed.</p></blockquote>
               <figcaption class="cutm__by">
                 <img class="cutm__av" src="/assets/customers/stock/stock-2.jpg" alt="" width="96" height="96" loading="lazy" decoding="async">
-                <span class="cutm__meta"><span class="cutm__who">Loyalty lead</span><span class="cutm__role">Fashion group</span></span>
+                <span class="cutm__meta"><span class="cutm__who">Loyalty lead</span></span>
               </figcaption>
             </figure>
-            <figure class="cutm__card" style="--c: var(--tertiary-900)">
-              <svg class="cutm__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M108,72v72H40a8,8,0,0,1-8-8V72a8,8,0,0,1,8-8h60A8,8,0,0,1,108,72Zm108-8H156a8,8,0,0,0-8,8v64a8,8,0,0,0,8,8h68V72A8,8,0,0,0,216,64Z" opacity="0.2"/><path d="M100,56H40A16,16,0,0,0,24,72v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,100,56Zm0,80H40V72h60ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Zm0,80H156V72h60Z"/></svg>
+            <figure class="cutm__card">
+              <img class="cutm__logo cutm__logo--wide" src="/assets/logos/indigo.svg" alt="IndiGo" width="118" height="24" loading="lazy" decoding="async">
               <blockquote class="cutm__q"><p>The reasoning comes with every answer. That is what got our BI team to trust it.</p></blockquote>
               <figcaption class="cutm__by">
                 <img class="cutm__av" src="/assets/customers/stock/stock-3.jpg" alt="" width="96" height="96" loading="lazy" decoding="async">
-                <span class="cutm__meta"><span class="cutm__who">Director of analytics</span><span class="cutm__role">Travel brand</span></span>
+                <span class="cutm__meta"><span class="cutm__who">Director of analytics</span></span>
               </figcaption>
             </figure>
-            <figure class="cutm__card" style="--c: var(--slate-700)">
-              <svg class="cutm__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M108,72v72H40a8,8,0,0,1-8-8V72a8,8,0,0,1,8-8h60A8,8,0,0,1,108,72Zm108-8H156a8,8,0,0,0-8,8v64a8,8,0,0,0,8,8h68V72A8,8,0,0,0,216,64Z" opacity="0.2"/><path d="M100,56H40A16,16,0,0,0,24,72v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,100,56Zm0,80H40V72h60ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Zm0,80H156V72h60Z"/></svg>
+            <figure class="cutm__card">
+              <img class="cutm__logo" src="/assets/logos/shell.svg" alt="Shell" width="39" height="36" loading="lazy" decoding="async">
               <blockquote class="cutm__q"><p>Nothing reaches a customer until one of us approves it, which is what got it past legal.</p></blockquote>
               <figcaption class="cutm__by">
                 <img class="cutm__av" src="/assets/customers/stock/stock-4.jpg" alt="" width="96" height="96" loading="lazy" decoding="async">
-                <span class="cutm__meta"><span class="cutm__who">Head of marketing operations</span><span class="cutm__role">Fuel and convenience</span></span>
+                <span class="cutm__meta"><span class="cutm__who">Head of marketing operations</span></span>
               </figcaption>
             </figure>
           </div>

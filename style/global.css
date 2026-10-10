@@ -1061,6 +1061,23 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 /* The chevron is --ink-faint, tuned for a light bar; it all but vanishes on
    the dark one. */
 .nav.nav-dark .nav__chev { color: var(--ink-inv-3); }
+/* THE CTA GOES WHITE ON A DARK BAR (user, 10 Oct: "make the Book a working
+   session primary button white, so its visible"): .btn--primary is --black
+   and vanishes there. Same tokens as .section--inv .btn--primary; scoped
+   :not([data-theme="dark"]) because on a whole-dark page --ink-inv is the
+   DARK value (the standing double-inversion trap) and the
+   :root[data-theme="dark"] .btn--primary override is already right. The swap
+   animates through .btn's own background/color transition. */
+:root:not([data-theme="dark"]) .nav.nav-dark .btn--primary {
+  background: var(--ink-inv);
+  color: var(--surface-inv);
+}
+:root:not([data-theme="dark"]) .nav.nav-dark .btn--primary:hover {
+  background: color-mix(in srgb, var(--ink-inv) 90%, var(--surface-inv));
+}
+:root:not([data-theme="dark"]) .nav.nav-dark .btn--primary:active {
+  background: color-mix(in srgb, var(--ink-inv) 82%, var(--surface-inv));
+}
 
 /* THE NAV ON A PAGE THAT IS DARK THROUGHOUT ([data-theme="dark"]).
    .nav-dark above is written for a dark BAND inside a light page, so it

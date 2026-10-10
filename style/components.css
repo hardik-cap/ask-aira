@@ -3086,3 +3086,180 @@ a.biz:focus-visible .biz__ic::after {
 /* The script draws nothing under reduced motion beyond one static frame, so
    the field stays as texture rather than disappearing. Nothing here animates:
    the guard lives in the script, where the timer is. */
+
+
+/* ==========================================================================
+   PHOTO REEL (.evreel) — the past-events strip, shared since 10 Oct by
+   /events and both event detail pages, which is why it lives here and not
+   in a page sheet. A looping marquee of COLLAGE MODULES (user, 10 Oct, with
+   Instagram's Layout icon: "if an image is big we show it fully, if
+   something fits vertically make it like that layout, smaller ones can be
+   clubbed ... but be varied"). It replaced the blob-framed reel (in git).
+   Every module is the band's full height (--h), so the strip reads as one
+   tidy collage while the widths vary:
+   - full:   one photo at its OWN 3:2, so it shows whole, no crop;
+   - tall:   one photo cropped portrait, for a subject that stands up;
+   - stack:  two photos at 3:2, one over the other, each shown whole;
+   - layout: Instagram's Layout, a portrait crop beside a 3:2 stack.
+   The focal point of any crop is --pos (object-position) on the tile.
+   SQUARE, TIGHT AND UNLABELLED since later 10 Oct (user): no corner radius,
+   a 4px gap (3px on phones), no edge fade, and the per-photo event chips
+   removed. The section's own sub names both events (Captivate 2026 and
+   Bengaluru), so that line now carries the attribution the chips did; keep
+   it wherever the reel goes.
+   Two identical sets and a -50% translate loop it; the second set is
+   aria-hidden with empty alts. js/evreel.js takes the loop over (.is-js):
+   it SLOWS to a quarter on hover rather than stopping, and the belt can be
+   DRAGGED either way, easing back to its own pace on release (user,
+   10 Oct). The CSS animation and its pause-on-hover are the no-script
+   fallback. Under reduced motion the script stands down, the belt stops
+   and the first set becomes a sideways-scrolling row.
+   Inside .container it gives back the 20px gutter so its edges sit ON the
+   rails; below 992 that unwinds.
+   ========================================================================== */
+
+.evreel {
+  --h: 380px;
+  --g: 4px;
+  margin-inline: calc(-1 * var(--sp-5));
+  overflow: clip;
+}
+.evreel:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; }
+.evreel__belt {
+  display: flex;
+  width: max-content;
+  animation: evreel 90s linear infinite;
+}
+.evreel:hover .evreel__belt,
+.evreel:focus-within .evreel__belt { animation-play-state: paused; }
+/* Script-driven: the belt is moved by translateX from js/evreel.js. */
+.evreel.is-js { cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.evreel.is-js.is-dragging { cursor: grabbing; }
+.evreel.is-js .evreel__belt { animation: none; will-change: transform; }
+/* Images would otherwise start the browser's own image drag. */
+.evreel.is-js img { pointer-events: none; -webkit-user-drag: none; }
+.evreel__set {
+  flex: none;
+  display: flex;
+  gap: var(--g);
+  padding-right: var(--g);
+}
+
+.evreel__mod { flex: none; height: var(--h); display: grid; gap: var(--g); }
+/* Half the band, less half a gap: the height of a stacked tile. */
+.evreel__mod { --half: calc((var(--h) - var(--g)) / 2); }
+.evreel__mod--full   { width: calc(var(--h) * 1.5); }
+.evreel__mod--tall   { width: calc(var(--h) * 0.74); }
+.evreel__mod--stack  { width: calc(var(--half) * 1.5); grid-template-rows: 1fr 1fr; }
+.evreel__mod--layout {
+  width: calc(var(--h) * 0.62 + var(--g) + var(--half) * 1.5);
+  grid-template-columns: calc(var(--h) * 0.62) 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+.evreel__mod--layout > :first-child { grid-row: 1 / 3; }
+
+.evreel__ph {
+  position: relative;
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+  overflow: clip;
+  background: var(--surface-2);
+}
+.evreel__ph img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--pos, 50% 50%);
+}
+@keyframes evreel { to { transform: translateX(-50%); } }
+
+@media (max-width: 991px) {
+  .evreel { --h: 300px; margin-inline: 0; }
+}
+@media (max-width: 640px) {
+  .evreel { --h: 230px; --g: 3px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .evreel { overflow-x: auto; }
+  .evreel__belt { animation: none; }
+  .evreel__set[aria-hidden="true"] { display: none; }
+}
+
+
+/* ==========================================================================
+   HOVER TILES (.hovtiles) — a square grid ground whose cell under the
+   pointer lights at once and fades back over 2s (user, 10 Oct: the "Hover
+   Dark Tiles" example from animation-svelte.vercel.app/magic/bg-boxes, a
+   svelte-motion grid of bordered cells with whileHover backgroundColor
+   var(--tile), duration 0 in and 2s out). Hand-ported, no Svelte, no npm.
+   Worn by the /events hero band and the event pages' hero.
+   WHAT CHANGED IN THE PORT, on purpose:
+   - THE GRID IS A BACKGROUND, NOT A DIV PER CELL. The lines are two
+     repeating gradients; js/hover-tiles.js makes a cell ELEMENT only when
+     the pointer enters one and removes it once it has faded, so a 1920px
+     hero carries a handful of nodes instead of ~900.
+   - THE POINTER IS READ ON THE HOST'S PARENT, not on each cell, so a cell
+     lights even under the headline or the buttons (the copy sits above the
+     grid and would otherwise swallow the hover), and the host itself stays
+     pointer-events: none.
+   - THE PITCH IS 40px, not the reference's 48: decorative pitches on this
+     site divide --cell (80) so they register with the frame.
+   - Mouse and pen only; a touch is a scroll here, not a hover.
+   The host is an EMPTY, aria-hidden element and the first child of a
+   positioned parent; the parent's other children need to sit above it.
+   With the script off the grid still draws, it just never lights. Under
+   reduced motion a cell clears on leave instead of fading.
+   ========================================================================== */
+
+.hovtiles {
+  --hov-pitch: 40px;
+  --hov-line: color-mix(in srgb, var(--on-brand) 7%, transparent);
+  /* A faint lift of the line colour, not a colour of its own (user, 10 Oct:
+     "why the hover effect is blue, i need something subtle, very minimal"). */
+  --hov-tile: color-mix(in srgb, var(--on-brand) 3%, transparent);
+  /* Where the grid lives; each placement sets its own (see below). */
+  --hov-mask: radial-gradient(ellipse 75% 85% at 50% 38%, #000 25%, transparent 100%);
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: clip;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--hov-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--hov-line) 1px, transparent 1px);
+  background-size: var(--hov-pitch) var(--hov-pitch);
+  -webkit-mask-image: var(--hov-mask);
+  mask-image: var(--hov-mask);
+}
+/* Gathered in the centre, dark at both side ends (the /events band). */
+.hovtiles--centre {
+  --hov-mask: radial-gradient(ellipse 42% 75% at 50% 42%, #000 20%, transparent 100%);
+}
+/* Gathered top right, dark toward the bottom and the left (event heroes). */
+.hovtiles--corner {
+  --hov-mask: radial-gradient(ellipse 85% 95% at 100% 0%, #000 15%, transparent 80%);
+}
+/* Inside a section's frame: the grid stops on the rails, and on a banded
+   section on the bands' inner edge lines (the band insets 112px). */
+@media (min-width: 992px) {
+  .hovtiles--framed { inset-inline: var(--frame-x); }
+}
+@media (min-width: 1200px) {
+  .section--band > .hovtiles--framed { inset-inline: calc(var(--frame-x) + 112px); }
+}
+.hovtiles__c {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--hov-pitch);
+  height: var(--hov-pitch);
+  background: var(--hov-tile);
+  opacity: 0;
+  transition: opacity 2s ease-out;
+}
+.hovtiles__c.is-on { opacity: 1; transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .hovtiles__c { transition: none; }
+}

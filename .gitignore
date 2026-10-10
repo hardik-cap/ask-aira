@@ -23,6 +23,7 @@ assets/brand/*.pdf
 # the compressed JPEGs beside them ship. Roughly halves what gets deployed.
 assets/industry/source/
 assets/customers/source/
+assets/events/source/
 
 # Internal brand reference: quotes the Capillary Brand Guide, stays local.
 # It lives in assets/brand/ with the material it documents; absolute paths

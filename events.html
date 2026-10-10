@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Events | aiRA</title>
+  <meta name="description" content="aiRA events: in-person workshops for marketing, CRM, growth and analytics teams. Up next: Chicago on Monday 9 November 2026, then New York on Friday 13 November.">
+  <link rel="canonical" href="https://askaira.ai/events">
+
+  <meta property="og:title" content="Events | aiRA">
+  <meta property="og:description" content="aiRA events: in-person workshops for marketing, CRM, growth and analytics teams. Up next: Chicago on Monday 9 November 2026, then New York on Friday 13 November.">
+  <meta property="og:image" content="https://askaira.ai/assets/og/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="aiRA, the on-demand insights and analytics agent for customer data, shown beside its workspace: a question, the reasoning it ran, and the dashboard it built.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="aiRA">
+  <meta property="og:url" content="https://askaira.ai/events">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Events | aiRA">
+  <meta name="twitter:description" content="aiRA events: in-person workshops for marketing, CRM, growth and analytics teams. Up next: Chicago on Monday 9 November 2026, then New York on Friday 13 November.">
+  <meta name="twitter:image" content="https://askaira.ai/assets/og/og-image.png">
+  <link rel="icon" href="/assets/brand/aira-mark.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,400..700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,400..700&display=swap"></noscript>
+
+  <link rel="stylesheet" href="/style/tokens.css">
+  <link rel="stylesheet" href="/style/global.css">
+  <link rel="stylesheet" href="/style/components.css">
+  <link rel="stylesheet" href="/style/pages/events.css">
+
+  <script src="/js/components.js" defer></script>
+  <script src="/js/reveal.js" defer></script>
+  <script src="/js/eyebrow-scramble.js" defer></script>
+  <script src="/js/evreel.js" defer></script>
+  <script src="/js/hover-tiles.js" defer></script>
+  <script src="/js/events-filter.js" defer></script>
+  <script type="module" src="/js/event-globe.js"></script>
+</head>
+<body class="page-events">
+
+  <div id="navbar-placeholder"></div>
+
+  <main>
+
+    <!-- ================= HERO =================
+         THE DARK CUTOUT, FULL-BLEED THEN DOCKED (10 Oct, user, from
+         mongodb.com/events and then firecrawl.dev/alexandria: "make this a
+         big header, like it can leave max width ... then when scrolled it
+         comes back within section width ... end to end with the max width of
+         our, no container padding on it"). The panel is a DIRECT CHILD of the
+         section, not of .container, which is what makes full bleed free of vw
+         arithmetic (every vw version is wrong by the scrollbar; see the
+         .phero notes): at rest it is inset by margin-inline: var(--frame-x),
+         whose 50% resolves against the section's own width, so its edges land
+         exactly ON the rails with no container gutter, and a scroll-driven
+         animation plays it FROM margin 0 / radius 0 over the first 480px of
+         scroll. The copy keeps .padding-global inside the panel. Facts:
+         docs/EVENTS.md; registration stays Luma's. -->
+    <section class="section evhub" data-nav-dark>
+      <!-- ONE SURFACE: the panel itself is the full dark band at rest,
+           running up behind the floating header (the section pulls up by the
+           nav stack and the panel's own padding clears it), and the scroll
+           animation plays it TO the docked cutout. A separate ground layer
+           was tried and failed: two layers cannot share one glow, so the
+           strips read as a different background (user: "both bg seems
+           different"). data-nav-dark gives the header its dark variant while
+           the hero is under it. -->
+      <!-- No .reveal here: the panel is the whole first screen, and a hero
+           must not depend on an IntersectionObserver to become visible. -->
+      <div class="evhub__panel">
+        <!-- Hover tiles (components.css .hovtiles, js/hover-tiles.js): the
+             grid ground that replaced the dot pattern; the cell under the
+             pointer lights and fades. -->
+        <div class="hovtiles hovtiles--centre" data-hover-tiles aria-hidden="true"></div>
+        <div class="padding-global">
+          <div class="container">
+            <h1 class="evhub__t">Where customer teams <br><em>meet aiRA</em>.</h1>
+            <p class="evhub__sub">
+              Hands-on workshops for marketing, CRM, analytics, and ecommerce
+              teams, in cities across the US and India.
+            </p>
+            <div class="evhub__cta">
+              <!-- "View events" scrolls to the grid (user, 10 Oct); the
+                   registration asks live on the cards and event pages. The
+                   glyph is the harvested ArrowUpRight rotated 135deg in CSS,
+                   never a from-memory ArrowDown. -->
+              <a class="btn btn--lg evhub__btn evcta" href="#series">Browse events<span class="evcta__ic evcta__ic--down"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></span></a>
+            </div>
+          </div>
+        </div>
+        <!-- The globe (sv-animations Globe via theproductfolks.com, 10 Oct):
+             a dome rising into the band's foot, its container clipping the
+             lower half so it sinks behind the ticker line. One marker per
+             workshop city. Decorative to a reader (aria-hidden); draggable
+             for everyone else (js/event-globe.js). With the script off the
+             container keeps its height so the band does not jump. -->
+        <div class="evhub__globe" aria-hidden="true">
+          <canvas width="1440" height="1440"></canvas>
+        </div>
+        <!-- The fact ticker as a TICKET (user, 10 Oct: "make the evtick be
+             visible in view port, give it a ticket like look"): a stub with
+             the count, a perforated tear line, and the scrolling run in the
+             body, the ends notched like a ticket's. Inside the container's
+             width, sitting on the globe's foot; the panel is capped at the
+             viewport's height so it is on the first screen. aria-hidden:
+             every fact on it is restated in the featured card and the grid.
+             Each half carries the run THREE times so the -50% loop never
+             shows a gap. Static under reduced motion. -->
+        <div class="evtick" aria-hidden="true">
+          <span class="evtick__stub"><b>2</b> upcoming</span>
+          <div class="evtick__body">
+            <div class="evtick__belt">
+            <span class="evtick__seq"><span>Up next: Chicago</span><i>✦</i><span>Mon 9 Nov 2026</span><i>✦</i><span>Then: New York</span><i>✦</i><span>Fri 13 Nov 2026</span><i>✦</i><span>Seats are intentionally limited</span><i>✦</i><span>Up next: Chicago</span><i>✦</i><span>Mon 9 Nov 2026</span><i>✦</i><span>Then: New York</span><i>✦</i><span>Fri 13 Nov 2026</span><i>✦</i><span>Seats are intentionally limited</span><i>✦</i><span>Up next: Chicago</span><i>✦</i><span>Mon 9 Nov 2026</span><i>✦</i><span>Then: New York</span><i>✦</i><span>Fri 13 Nov 2026</span><i>✦</i><span>Seats are intentionally limited</span><i>✦</i></span>
+            <span class="evtick__seq"><span>Up next: Chicago</span><i>✦</i><span>Mon 9 Nov 2026</span><i>✦</i><span>Then: New York</span><i>✦</i><span>Fri 13 Nov 2026</span><i>✦</i><span>Seats are intentionally limited</span><i>✦</i><span>Up next: Chicago</span><i>✦</i><span>Mon 9 Nov 2026</span><i>✦</i><span>Then: New York</span><i>✦</i><span>Fri 13 Nov 2026</span><i>✦</i><span>Seats are intentionally limited</span><i>✦</i><span>Up next: Chicago</span><i>✦</i><span>Mon 9 Nov 2026</span><i>✦</i><span>Then: New York</span><i>✦</i><span>Fri 13 Nov 2026</span><i>✦</i><span>Seats are intentionally limited</span><i>✦</i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= FEATURED =================
+         sarvam.ai/events' shape (10 Oct, user): the MOST UPCOMING session as
+         one large split card, the event's own Luma cover beside the facts.
+         THAT IS CHICAGO, MON 9 NOV 2026: the first Luma scrape misread its
+         date as 9 Oct and called it past; the event's own cover art reads
+         "November 9, 2026, 5:00-7:00 PM" and the user confirmed two upcoming.
+         Chicago has its own page since later the same day
+         (/events/ai-analytics-workshop-chicago, cloned from the New York
+         template; CT assumed the way ET is there). The cover art is
+         DECORATIVE (alt="", aria-hidden): every fact on it is restated in the
+         body beside it. No time zone is stated: Luma shows none. -->
+    <section class="section evfeat-sec" id="featured">
+      <div class="padding-global">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="eyebrow">Up next</p>
+            <h2 class="section-heading">Coming to <em>Chicago</em>.</h2>
+          </div>
+
+          <article class="evfeat reveal">
+            <span class="evfeat__media" aria-hidden="true">
+              <img src="/assets/events/ai-analytics-workshop-chicago.avif" alt="" width="800" height="800" loading="lazy" decoding="async">
+            </span>
+            <!-- SARVAM'S DETAIL HEAD, IN A CARD (user, 10 Oct: "have one CTA
+                 only, it takes to details page. design or arrange like attached
+                 image"): a kind pill, the title, Luma's line, icon-and-value
+                 facts, and ONE button to the event page, set beside the facts.
+                 Seats and approval live on the event page. -->
+            <div class="evfeat__body">
+              <p class="evkind"><svg class="evkind__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,216H48a8,8,0,0,1-6.86-12.12l30.48-50.8h0c13.23-2.48,32-1.41,56.37,10.92,32.25,16.33,54.75,12.91,67.5,7.65h0l19.34,32.23A8,8,0,0,1,208,216Z" opacity="0.2"/><path d="M221.69,199.77,160,96.92V40h8a8,8,0,0,0,0-16H88a8,8,0,0,0,0,16h8V96.92L34.31,199.77A16,16,0,0,0,48,224H208a16,16,0,0,0,13.72-24.23ZM110.86,103.25A7.93,7.93,0,0,0,112,99.14V40h32V99.14a7.93,7.93,0,0,0,1.14,4.11L183.36,167c-12,2.37-29.07,1.37-51.75-10.11-15.91-8.05-31.05-12.32-45.22-12.81ZM48,208l28.54-47.58c14.25-1.73,30.31,1.85,47.82,10.72,19,9.61,35,12.88,48,12.88a69.89,69.89,0,0,0,19.55-2.7L208,208Z"/></svg>Workshop</p>
+              <h3 class="evfeat__t">The AI Analytics Workshop: Turn Customer Data Into Insights and Actions</h3>
+              <p class="evfeat__d">
+                What if your customer data could answer your questions before
+                the dashboard even loads?
+              </p>
+              <div class="evfeat__foot">
+                <dl class="evfeat__facts">
+                  <div><dt><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,48V88H40V48a8,8,0,0,1,8-8H208A8,8,0,0,1,216,48Z" opacity="0.2"/><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z"/></svg><span class="sr-only">Date</span></dt><dd>Monday 9 November 2026</dd></div>
+                  <div><dt><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></svg><span class="sr-only">Time</span></dt><dd>5:00 to 7:00 PM CT</dd></div>
+                  <div><dt><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24a80,80,0,0,0-80,80c0,72,80,128,80,128s80-56,80-128A80,80,0,0,0,128,24Zm0,112a32,32,0,1,1,32-32A32,32,0,0,1,128,136Z" opacity="0.2"/><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></svg><span class="sr-only">Place</span></dt><dd>Chicago, IL</dd></div>
+                </dl>
+                <a class="btn btn--primary btn--lg evcta" href="/events/ai-analytics-workshop-chicago">Event details<svg class="evcta__go" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= ALL SESSIONS =================
+         sarvam.ai/events' grid: every session as a card carrying its own Luma
+         cover, with a STATUS TOGGLE (All / Upcoming / Past) driven by
+         js/events-filter.js; with the script off, every card simply shows.
+         sarvam also filters by TYPE (webinar, conference): not built here,
+         because all four sessions are workshops and a filter with one value
+         filters nothing. Add it the day a second type exists.
+         The covers are decorative (alt="", the body restates every fact).
+         Bengaluru's own cover states its date, 5 Aug 2026, which the Luma
+         listing hid; the card reads it from the artwork. -->
+    <section class="section evgrid-sec" id="series">
+      <div class="padding-global">
+        <div class="container">
+          <!-- A TOOLBAR HEAD (user, 10 Oct, from a sarvam-style screenshot):
+               the title left and the status toggle right, no eyebrow. The
+               search box came out (user, 10 Oct); js/events-filter.js runs
+               the toggle; with it off every card shows. The reference's
+               "All types" menu is not built: every session is a workshop,
+               and a one-value filter filters nothing. -->
+          <div class="evbar-head reveal">
+            <h2 class="section-heading evbar-head__t">All events</h2>
+            <div class="evtools">
+              <div class="evfilter" role="group" aria-label="Filter events" data-evfilter>
+                <span class="evfilter__pill" aria-hidden="true"></span>
+                <button class="evfilter__btn" type="button" aria-pressed="true" data-evfilter-pick="all">All</button>
+                <button class="evfilter__btn" type="button" aria-pressed="false" data-evfilter-pick="upcoming">Upcoming</button>
+                <button class="evfilter__btn" type="button" aria-pressed="false" data-evfilter-pick="past">Past</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="evgrid reveal" data-evfilter-grid>
+            <a class="evcard" href="/events/ai-analytics-workshop-chicago" data-status="upcoming">
+              <span class="evcard__media">
+                <img src="/assets/events/ai-analytics-workshop-chicago.avif" alt="" width="800" height="800" loading="lazy" decoding="async">
+                <span class="evcard__tint" aria-hidden="true"></span>
+                <span class="evcard__cal"><b>9</b><i>Nov</i><span class="sr-only"> 2026</span></span>
+              </span>
+              <span class="evcard__body">
+                <span class="evcard__meta"><span class="evkind"><svg class="evkind__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,216H48a8,8,0,0,1-6.86-12.12l30.48-50.8h0c13.23-2.48,32-1.41,56.37,10.92,32.25,16.33,54.75,12.91,67.5,7.65h0l19.34,32.23A8,8,0,0,1,208,216Z" opacity="0.2"/><path d="M221.69,199.77,160,96.92V40h8a8,8,0,0,0,0-16H88a8,8,0,0,0,0,16h8V96.92L34.31,199.77A16,16,0,0,0,48,224H208a16,16,0,0,0,13.72-24.23ZM110.86,103.25A7.93,7.93,0,0,0,112,99.14V40h32V99.14a7.93,7.93,0,0,0,1.14,4.11L183.36,167c-12,2.37-29.07,1.37-51.75-10.11-15.91-8.05-31.05-12.32-45.22-12.81ZM48,208l28.54-47.58c14.25-1.73,30.31,1.85,47.82,10.72,19,9.61,35,12.88,48,12.88a69.89,69.89,0,0,0,19.55-2.7L208,208Z"/></svg>Workshop</span><span class="evcard__place"><svg class="evcard__pin" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24a80,80,0,0,0-80,80c0,72,80,128,80,128s80-56,80-128A80,80,0,0,0,128,24Zm0,112a32,32,0,1,1,32-32A32,32,0,0,1,128,136Z" opacity="0.2"/><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></svg>Chicago, IL</span></span>
+                <span class="evcard__t">The AI Analytics Workshop: Turn Customer Data Into Insights and Actions</span>
+                <span class="evcard__cta" aria-hidden="true">View event<svg viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+              </span>
+            </a>
+
+            <a class="evcard" href="/events/ai-analytics-workshop-new-york" data-status="upcoming">
+              <span class="evcard__media">
+                <img src="/assets/events/ai-analytics-workshop-new-york.avif" alt="" width="800" height="800" loading="lazy" decoding="async">
+                <span class="evcard__tint" aria-hidden="true"></span>
+                <span class="evcard__cal"><b>13</b><i>Nov</i><span class="sr-only"> 2026</span></span>
+              </span>
+              <span class="evcard__body">
+                <span class="evcard__meta"><span class="evkind"><svg class="evkind__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,216H48a8,8,0,0,1-6.86-12.12l30.48-50.8h0c13.23-2.48,32-1.41,56.37,10.92,32.25,16.33,54.75,12.91,67.5,7.65h0l19.34,32.23A8,8,0,0,1,208,216Z" opacity="0.2"/><path d="M221.69,199.77,160,96.92V40h8a8,8,0,0,0,0-16H88a8,8,0,0,0,0,16h8V96.92L34.31,199.77A16,16,0,0,0,48,224H208a16,16,0,0,0,13.72-24.23ZM110.86,103.25A7.93,7.93,0,0,0,112,99.14V40h32V99.14a7.93,7.93,0,0,0,1.14,4.11L183.36,167c-12,2.37-29.07,1.37-51.75-10.11-15.91-8.05-31.05-12.32-45.22-12.81ZM48,208l28.54-47.58c14.25-1.73,30.31,1.85,47.82,10.72,19,9.61,35,12.88,48,12.88a69.89,69.89,0,0,0,19.55-2.7L208,208Z"/></svg>Workshop</span><span class="evcard__place"><svg class="evcard__pin" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24a80,80,0,0,0-80,80c0,72,80,128,80,128s80-56,80-128A80,80,0,0,0,128,24Zm0,112a32,32,0,1,1,32-32A32,32,0,0,1,128,136Z" opacity="0.2"/><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></svg>New York, NY</span></span>
+                <span class="evcard__t">The AI Analytics Workshop: Turn Customer Data Into Insights and Actions</span>
+                <span class="evcard__cta" aria-hidden="true">View event<svg viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+              </span>
+            </a>
+
+
+            <article class="evcard evcard--past" data-status="past">
+              <div class="evcard__media">
+                <img src="/assets/events/ai-analytics-workshop-nashville.avif" alt="" width="800" height="800" loading="lazy" decoding="async">
+                <span class="evcard__cal evcard__cal--past"><b>29</b><i>Sep</i><span class="sr-only"> 2026</span></span>
+                <span class="evcard__veil" aria-hidden="true"></span>
+              </div>
+              <div class="evcard__body">
+                <div class="evcard__meta"><p class="evkind"><svg class="evkind__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,216H48a8,8,0,0,1-6.86-12.12l30.48-50.8h0c13.23-2.48,32-1.41,56.37,10.92,32.25,16.33,54.75,12.91,67.5,7.65h0l19.34,32.23A8,8,0,0,1,208,216Z" opacity="0.2"/><path d="M221.69,199.77,160,96.92V40h8a8,8,0,0,0,0-16H88a8,8,0,0,0,0,16h8V96.92L34.31,199.77A16,16,0,0,0,48,224H208a16,16,0,0,0,13.72-24.23ZM110.86,103.25A7.93,7.93,0,0,0,112,99.14V40h32V99.14a7.93,7.93,0,0,0,1.14,4.11L183.36,167c-12,2.37-29.07,1.37-51.75-10.11-15.91-8.05-31.05-12.32-45.22-12.81ZM48,208l28.54-47.58c14.25-1.73,30.31,1.85,47.82,10.72,19,9.61,35,12.88,48,12.88a69.89,69.89,0,0,0,19.55-2.7L208,208Z"/></svg>Workshop</p><p class="evcard__place"><svg class="evcard__pin" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24a80,80,0,0,0-80,80c0,72,80,128,80,128s80-56,80-128A80,80,0,0,0,128,24Zm0,112a32,32,0,1,1,32-32A32,32,0,0,1,128,136Z" opacity="0.2"/><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></svg>Nashville, TN</p></div>
+                <p class="evcard__t">The AI Analytics Workshop: Turn Customer Data Into Decisions</p>
+                <span class="evcard__cta evcard__cta--off">Registration closed</span>
+              </div>
+            </article>
+
+            <article class="evcard evcard--past" data-status="past">
+              <div class="evcard__media">
+                <img src="/assets/events/retention-growth-playbooks-bengaluru.avif" alt="" width="800" height="800" loading="lazy" decoding="async">
+                <span class="evcard__cal evcard__cal--past"><b>5</b><i>Aug</i><span class="sr-only"> 2026</span></span>
+                <span class="evcard__veil" aria-hidden="true"></span>
+              </div>
+              <div class="evcard__body">
+                <div class="evcard__meta"><p class="evkind"><svg class="evkind__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,216H48a8,8,0,0,1-6.86-12.12l30.48-50.8h0c13.23-2.48,32-1.41,56.37,10.92,32.25,16.33,54.75,12.91,67.5,7.65h0l19.34,32.23A8,8,0,0,1,208,216Z" opacity="0.2"/><path d="M221.69,199.77,160,96.92V40h8a8,8,0,0,0,0-16H88a8,8,0,0,0,0,16h8V96.92L34.31,199.77A16,16,0,0,0,48,224H208a16,16,0,0,0,13.72-24.23ZM110.86,103.25A7.93,7.93,0,0,0,112,99.14V40h32V99.14a7.93,7.93,0,0,0,1.14,4.11L183.36,167c-12,2.37-29.07,1.37-51.75-10.11-15.91-8.05-31.05-12.32-45.22-12.81ZM48,208l28.54-47.58c14.25-1.73,30.31,1.85,47.82,10.72,19,9.61,35,12.88,48,12.88a69.89,69.89,0,0,0,19.55-2.7L208,208Z"/></svg>Workshop</p><p class="evcard__place"><svg class="evcard__pin" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24a80,80,0,0,0-80,80c0,72,80,128,80,128s80-56,80-128A80,80,0,0,0,128,24Zm0,112a32,32,0,1,1,32-32A32,32,0,0,1,128,136Z" opacity="0.2"/><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></svg>Bengaluru, India</p></div>
+                <p class="evcard__t">Inside the Best Consumer Retention &amp; Growth Playbooks [Workshop]</p>
+                <span class="evcard__cta evcard__cta--off">Registration closed</span>
+              </div>
+            </article>
+          </div>
+          <p class="sr-only" aria-live="polite" data-evfilter-count></p>
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= FROM THE ROOM =================
+         ONE MOVING REEL since 10 Oct evening (see the note on .evreel); the
+         two labelled galleries it replaced are in git. Captivate 2026 first
+         (eight frames from a 25-photo set; dates from the welcome banner
+         and EXIF, 29 and 30 Sep 2026; NO CITY is named because neither the
+         photos nor their metadata state one), then Bengaluru. Each block's
+         own caption says which event it is, so no photo can read as a
+         different session. Captivate encodes in assets/events/captivate-2026.
+         Bengaluru: eight photographs from the session (5 Aug 2026, with The
+         Product Folks), picked from the 328-frame shoot the user supplied
+         (10 Oct): the room, the speakers, hands-on work at the tables, the
+         aiRA swag and dinner. Web encodes live in assets/events/bengaluru
+         (1600px lead and wide tiles, 1200px the rest, about 1.2MB in all).
+         These are content, so each carries real alt text. Labelled as
+         Bengaluru throughout: it was a different session from the US
+         workshop series, and the photos must not read as Chicago or New
+         York. -->
+    <section class="section evroom-sec" id="from-the-room">
+      <div class="padding-global">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2 class="section-heading">From <em>past events</em>.</h2>
+          </div>
+
+          <!-- ONE MOVING REEL (user, 10 Oct: "a carousal of images marquee
+               moving all clubbed into one"), replacing the two labelled bento
+               galleries. Sixteen photographs, Captivate's eight then
+               Bengaluru's, and EACH CARRIES ITS EVENT AS A CHIP, so mixing the
+               two shoots in one strip cannot pass a photo off as the wrong
+               event. Two identical sets and a -50% translate make the loop
+               seamless; the SECOND SET is aria-hidden with empty alts, so a
+               screen reader meets each photo once. Paused on hover and on
+               focus; under reduced motion the belt stops and the first set
+               becomes a sideways-scrolling row instead. -->
+          <div class="evreel reveal" tabindex="0" role="region" aria-label="Photographs from past aiRA events">
+            <div class="evreel__belt">
+              <div class="evreel__set">
+                <div class="evreel__mod evreel__mod--full">
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/fireside-welcome.jpg" alt="A fireside chat on the Captivate 2026 stage, between an aiRA banner and the Catalyzing Growth welcome banner" width="1600" height="1067" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--layout">
+                  <figure class="evreel__ph" style="--pos: 50% 40%"><img src="/assets/events/captivate-2026/speaker-stage.jpg" alt="A speaker addressing the room from the Captivate stage" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/aira-on-ipad.jpg" alt="An attendee typing a question into aiRA on an iPad" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/table-smiles.jpg" alt="Three attendees laughing at a table with tablets open" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--full">
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/aira-panel.jpg" alt="A panel discussion on stage beside an aiRA banner" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--stack">
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/hands-up.jpg" alt="A full room raising hands during a session at Captivate 2026" width="1600" height="1067" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/roundtable-session.jpg" alt="A small round-table session beside an aiRA banner" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--tall">
+                  <figure class="evreel__ph" style="--pos: 45% 50%"><img src="/assets/events/captivate-2026/evening-reception.jpg" alt="Attendees talking at the evening reception" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--full">
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/full-room.jpg" alt="The full room at round tables during the Bengaluru session" width="1600" height="1067" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--tall">
+                  <figure class="evreel__ph" style="--pos: 58% 40%"><img src="/assets/events/bengaluru/speaker-podium.jpg" alt="A speaker at the podium in front of the Retention and Growth backdrop in Bengaluru" width="1600" height="1067" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--stack">
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/hands-on-laptop.jpg" alt="Attendees gathered round a laptop, working through an exercise together" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/table-work.jpg" alt="A table of attendees following along on a laptop" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--layout">
+                  <figure class="evreel__ph" style="--pos: 50% 45%"><img src="/assets/events/bengaluru/aira-tote.jpg" alt="An aiRA tote bag printed with Ask, Think, Act" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/speaker-slide.jpg" alt="A speaker presenting the session's three takeaways on screen" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/prize-handoff.jpg" alt="An attendee receiving an aiRA tote on stage" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--full">
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/dinner-networking.jpg" alt="Attendees talking over dinner after the session" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+              </div>
+              <div class="evreel__set" aria-hidden="true">
+                <div class="evreel__mod evreel__mod--full">
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/fireside-welcome.jpg" alt="" width="1600" height="1067" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--layout">
+                  <figure class="evreel__ph" style="--pos: 50% 40%"><img src="/assets/events/captivate-2026/speaker-stage.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/aira-on-ipad.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/table-smiles.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--full">
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/aira-panel.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--stack">
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/hands-up.jpg" alt="" width="1600" height="1067" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/roundtable-session.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--tall">
+                  <figure class="evreel__ph" style="--pos: 45% 50%"><img src="/assets/events/captivate-2026/evening-reception.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--full">
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/full-room.jpg" alt="" width="1600" height="1067" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--tall">
+                  <figure class="evreel__ph" style="--pos: 58% 40%"><img src="/assets/events/bengaluru/speaker-podium.jpg" alt="" width="1600" height="1067" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--stack">
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/hands-on-laptop.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/table-work.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--layout">
+                  <figure class="evreel__ph" style="--pos: 50% 45%"><img src="/assets/events/bengaluru/aira-tote.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/speaker-slide.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/prize-handoff.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--full">
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/dinner-networking.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+
+    <!-- ================= BOOK CTA =================
+         Not in New York? The working session is the same idea for one team,
+         on a call, so the hub closes on the site's own book card. -->
+    <section class="section section--wash book">
+      <div class="padding-global">
+        <div class="container">
+          <div class="book__frame reveal">
+            <div class="book__card book__card--split">
+              <div class="book__body">
+                <h2 class="book__title">The question your team is still waiting on.</h2>
+                <p class="book__sub">
+                  Can't make it to an event? Thirty minutes, one real question,
+                  answered live. We reply within one business day with a time and the
+                  security brief.
+                </p>
+                <a class="btn btn--lg book__cta" href="/book">Book a working session</a>
+              </div>
+              <div class="book__shot" aria-hidden="true">
+                <img src="/assets/product/workspace.png" alt="" width="2560" height="1598" loading="lazy" decoding="async">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+</body>
+</html>
