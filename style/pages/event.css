@@ -259,6 +259,22 @@
 }
 .evticket .evcount__cell b::after { background: color-mix(in srgb, var(--primary-800) 70%, var(--black)); }
 .evticket .evcount__cell i { color: color-mix(in srgb, var(--on-brand) 65%, transparent); }
+/* A USED TICKET, for a past session's page: slate instead of brand, the
+   same fields, a stub saying it ended and pointing to what is next. */
+.evticket--past {
+  background: linear-gradient(160deg, var(--slate-600), var(--slate-700));
+  box-shadow: 0 24px 48px -24px color-mix(in srgb, var(--slate-700) 55%, transparent);
+}
+.evticket--past .evticket__stub { background: var(--slate-800); }
+.evticket--past .evticket__seats { font-size: var(--t-body); font-weight: 600; color: var(--on-brand); }
+.evticket__ended {
+  margin: 0;
+  align-self: center;
+  font-family: var(--font-display);
+  font-size: var(--t-title-lg);
+  font-weight: 500;
+  color: var(--on-brand);
+}
 /* The ask on the stub: white with black ink (primitives). */
 .evticket__cta { background: var(--on-brand); color: var(--black); }
 .evticket__cta:hover { background: color-mix(in srgb, var(--on-brand) 88%, var(--primary-200)); }

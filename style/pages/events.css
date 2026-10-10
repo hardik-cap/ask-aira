@@ -421,10 +421,14 @@ body.page-events .nav.nav-dark:not(.nav--scrolled) {
   border-radius: var(--r-lg);
   overflow: clip;
   text-decoration: none;
-  transition: border-color var(--dur-fast) var(--ease);
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-slow) var(--ease);
 }
 /* HOVER (user, 10 Oct: "on hover do nothing, just turn view event button
-   black"): the card itself never changes; only its button fills. */
+   black"): the upcoming card's button fills. Both kinds of card also lift
+   on a SUBTLE DROP SHADOW (user, later 10 Oct: "add subtle drop shadow on
+   both card hover"), --shadow-md, with no movement and no border change. */
+a.evcard:hover,
+a.evcard:focus-visible { box-shadow: var(--shadow-md); }
 
 .evcard__media {
   position: relative;
@@ -490,8 +494,8 @@ body.page-events .nav.nav-dark:not(.nav--scrolled) {
 /* AN ENDED SESSION (user, 10 Oct: "a bit more detail into this showing it's
    expired"). The cover sits back (grayscale) under a VEIL, a page-ground
    wash at 62% so the artwork recedes (its "Event ended" label came off on
-   the user's call); the title drops a step; the button is a disabled ghost
-   reading "Registration closed". The calendar chip stays above the veil. */
+   the user's call); the title drops a step. The calendar chip stays above
+   the veil. */
 .evcard--past .evcard__media img { filter: grayscale(0.7); }
 .evcard__veil {
   position: absolute;
@@ -512,17 +516,10 @@ body.page-events .nav.nav-dark:not(.nav--scrolled) {
 }
 .evcard--past .evcard__t { color: var(--ink-2); }
 
-/* The disabled ghost: no fill, a dashed edge (the tear line's ink), muted
-   label, no arrow, no hover. Not a link and not focusable. Class DOUBLED:
-   the base .evcard__cta rule sits later in this sheet and would win. */
-.evcard__cta.evcard__cta--off {
-  justify-content: center;
-  background: transparent;
-  border: 1.5px dashed var(--evtear);
-  color: var(--ink-3);
-  font-weight: 500;
-  cursor: not-allowed;
-}
+/* BUTTON LABELS BY STATE (user, 10 Oct: "on past show view event, on
+   upcoming show register"): an upcoming card's button reads "Register", a
+   past card's "View event"; both are the same button and both cards lead to
+   the event's own page, where the Luma ask lives. */
 .evcard__body {
   position: relative;
   flex: 1;
@@ -576,7 +573,6 @@ body.page-events .nav.nav-dark:not(.nav--scrolled) {
   line-height: var(--lh-title);
   color: var(--ink);
 }
-
 /* ONE BUTTON (user, 10 Oct: "why 2 button, design a decent single
    button"), replacing the attached label-plus-arrow-tile pair: one bordered
    box, the label left and the arrow right, the button radius. Decoration
