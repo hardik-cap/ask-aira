@@ -84,11 +84,6 @@
   margin-top: var(--sp-8);
 }
 
-.hero-ind__note {
-  margin-top: var(--sp-6);
-  font-size: var(--t-caption);
-  color: var(--ink-faint);
-}
 
 /* The hero figure is the same placeholder slot the seats use, so when real
    screenshots arrive they drop into one treatment rather than two. */
@@ -238,9 +233,6 @@
    the retail hub loads, so the other three hubs were spacing their tab bar
    differently; they belong with the shared hub styles. */
 
-/* The section head already says what the panel is, so the group's own heading
-   would be a second title on the same thought. */
-.rseats .finder__group-head { display: none; }
 
 /* ---- The asks (19 Sep) -------------------------------------------------------
    The teams section came out on Hardik's call; what stands in its place

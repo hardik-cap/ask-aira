@@ -41,8 +41,6 @@
   -webkit-mask: var(--sparkle-mask) center / contain no-repeat;
   mask: var(--sparkle-mask) center / contain no-repeat;
 }
-.rule--center::before { left: 50%; transform: translate(-50%, -50%); }
-.rule--muted::before { background: var(--slate-300); }
 .section--inv .rule { background: rgba(255, 255, 255, 0.12); }
 .section--inv .rule::before { background: var(--primary-300); }
 
@@ -51,8 +49,7 @@
 }
 
 /* Section top rule: sits flush on the section's leading edge. */
-.section > .rule:first-child,
-.section-rule {
+.section > .rule:first-child {
   position: absolute;
   top: 0;
   left: var(--pad-x);
@@ -248,11 +245,8 @@
   text-transform: uppercase;
   color: var(--ink-3);
 }
-.mono--brand { color: var(--brand-ink); }
 .mono--faint { color: var(--ink-faint); }
 .mono--num { text-transform: none; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
-/* For labels that contain the product name: aiRA must never render AIRA. */
-.mono--case { text-transform: none; }
 
 /* ---- Cards -------------------------------------------------------------
    One card shell, three intents. Cards do not lift on hover; they settle.
@@ -284,13 +278,6 @@
   text-wrap: pretty;
 }
 .card__body strong { color: var(--ink); font-weight: 600; }
-.card__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-4);
-  margin-bottom: var(--sp-4);
-}
 
 /* Interactive card: an anchor wrapping the shell. */
 a.card, .card--link { display: block; }
@@ -312,9 +299,6 @@ a.card:hover, .card--link:hover {
   display: block;
 }
 
-/* Quiet card: no shadow, for dense grids. */
-.card--quiet { box-shadow: none; background: var(--bg-subtle); }
-.card--quiet:hover { box-shadow: none; }
 
 /* Card on a dark section. */
 .section--inv .card {
@@ -330,20 +314,6 @@ a.card:hover, .card--link:hover {
   background: rgba(255, 255, 255, 0.06);
 }
 
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-5);
-}
-.card-grid--2 { grid-template-columns: repeat(2, 1fr); }
-.card-grid--4 { grid-template-columns: repeat(4, 1fr); }
-
-@media (max-width: 991px) {
-  .card-grid, .card-grid--4 { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 768px) {
-  .card-grid, .card-grid--2, .card-grid--4 { grid-template-columns: 1fr; }
-}
 
 /* ---- Chips and pills --------------------------------------------------- */
 
@@ -456,17 +426,6 @@ button.chip:hover, a.chip:hover { border-color: var(--brand-line); color: var(--
 .panel__app .sparkle { width: 11px; height: 11px; color: var(--brand); flex: none; }
 .panel__meta {
   margin-left: auto;
-  font-family: var(--font-mono);
-  font-size: var(--t-mono);
-  font-weight: 500;
-  letter-spacing: var(--tr-mono);
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-.panel__name {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
   font-family: var(--font-mono);
   font-size: var(--t-mono);
   font-weight: 500;
@@ -982,13 +941,6 @@ button.chip:hover, a.chip:hover { border-color: var(--brand-line); color: var(--
 
 /* ---- Footnote ---------------------------------------------------------- */
 
-.footnote {
-  font-size: var(--t-caption);
-  line-height: 1.6;
-  color: var(--ink-3);
-  max-width: 44rem;
-}
-.footnote a { color: var(--brand-ink); text-decoration: underline; text-underline-offset: 2px; }
 
 /* ---- Hover grammar: things settle into place --------------------------
    One idea, applied consistently. Elements at rest are slightly out of
@@ -1088,14 +1040,6 @@ body.modal-open { overflow: hidden; }
   position: absolute;
   left: 0; right: 0;
   pointer-events: none;
-}
-.vp__scrim--top {
-  top: 0; height: 96px;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent);
-}
-.vp__scrim--bot {
-  bottom: 0; height: 132px;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.62), transparent);
 }
 
 .vmodal__close {
@@ -1319,55 +1263,11 @@ body.modal-open { overflow: hidden; }
 .acc__item:not(.is-open) .acc__btn:focus-visible {
   color: var(--brand-ink);
 }
-.acc__item.is-open .acc__title { color: var(--brand-ink); }
-.acc__item.is-open .acc__chev { color: var(--brand); }
 
 @media (prefers-reduced-motion: reduce) {
   .acc__btn { transition: none; }
 }
 
-/* Grey until the row is open (user call, 22 Sep). It was --brand on every
-   row, which lit all four at once and left the open one with nothing of its
-   own. --ink-3 is the chevron's grey, so the two marks on a closed row agree.
-   It stays grey on hover too: hover moves the LABEL, and an icon that moved
-   with it would make a pointer hint look like a selection. */
-.acc__icon {
-  flex: none;
-  display: flex;
-  margin-top: 2px;
-  color: var(--ink-3);
-}
-.acc__item.is-open .acc__icon { color: var(--brand); }
-.acc__icon svg { width: 20px; height: 20px; }
-
-.acc__n {
-  flex: none;
-  font-family: var(--font-sans);
-  font-size: var(--t-mono);
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  font-variant-numeric: tabular-nums;
-  color: var(--ink-faint);
-}
-
-.acc__title {
-  font-family: var(--font-display);
-  font-size: var(--t-title-sm);
-  font-weight: 500;
-  letter-spacing: var(--tr-title);
-  line-height: 1.32;
-}
-
-.acc__chev {
-  flex: none;
-  width: 16px;
-  height: 16px;
-  margin-left: auto;
-  align-self: center;
-  color: var(--ink-3);
-  transition: transform var(--dur-fast) var(--ease);
-}
-.acc__item.is-open .acc__chev { transform: rotate(180deg); }
 
 .acc__panel {
   display: grid;
@@ -1397,8 +1297,7 @@ body.modal-open { overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   .acc__panel { transition: none; }
-  .acc__chev { transition: none; }
-}
+  }
 
 
 /* ==========================================================================
@@ -1711,7 +1610,7 @@ a.biz:focus-visible .biz__ic::after {
    treatment is the same call already made on .biz-grid.
 
    Icons are official Phosphor DUOTONE, one per item, in --brand: the same
-   treatment as .seat__cap-ic and .qledger__icon, which sit on these same pages,
+   treatment the retail pages' duotone icons already set,
    because these are capability glyphs and that is the site's weight for them.
    They were regular and ink for one revision, on the reasoning that brand had
    to be reserved for the "supported today" mark. That reasoning expired when
@@ -2052,8 +1951,6 @@ a.biz:focus-visible .biz__ic::after {
   stroke-width: 2;
   stroke-dasharray: none;
 }
-.mech__wires .mech__beamstop-a { stop-color: var(--primary-300); }
-.mech__wires .mech__beamstop-b { stop-color: var(--violet-400); }
 @media (prefers-reduced-motion: reduce) {
   .mech__wires .mech__beam { display: none; }
 }
@@ -2219,7 +2116,6 @@ a.biz:focus-visible .biz__ic::after {
    height it reads tiny: one step up. */
 .mech__dest img[alt="Salesforce Marketing Cloud"] { height: 42px; }
 
-.mech__foot { margin-top: var(--sp-10); color: var(--ink-inv-3); }
 
 /* The zero-copy promise: three cells sharing the questions grid's anatomy
    (.feat__mini icon/h4/para), retuned for the dark section. No top border. */
@@ -2319,18 +2215,6 @@ a.biz:focus-visible .biz__ic::after {
   overflow-x: auto;
 }
 
-/* The sourcing note under the board (21 Sep, /product). Centred on the
-   board's own axis and held narrow: it is a footnote, so it must not read as
-   another row of the argument. Muted on the dark ground the board wears. */
-.compare__note {
-  max-width: 44rem;
-  margin: var(--sp-6) auto 0;
-  text-align: center;
-  font-size: var(--t-caption);
-  line-height: var(--lh-body);
-  color: var(--ink-3);
-}
-.section--inv .compare__note { color: var(--ink-inv-3); }
 
 .compare__board {
   display: grid;
@@ -2687,18 +2571,6 @@ a.biz:focus-visible .biz__ic::after {
   transform-origin: 0 0;
 }
 
-/* The floating glyphs: white duotone marks drifting at the corners, tilted
-   a few degrees so they read placed rather than templated. */
-.book__float {
-  position: absolute;
-  color: rgba(255, 255, 255, 0.38);
-  pointer-events: none;
-}
-.book__float svg { width: 40px; height: 40px; }
-.book__float--1 { top: 18%; left: 9%; transform: rotate(-8deg); }
-.book__float--2 { top: 24%; right: 10%; transform: rotate(7deg); }
-.book__float--3 { bottom: 20%; left: 16%; transform: rotate(6deg); }
-.book__float--4 { bottom: 26%; right: 17%; transform: rotate(-7deg); }
 
 @media (max-width: 991px) {
   .book__frame { padding: var(--sp-6) var(--sp-4); }
@@ -2730,15 +2602,9 @@ a.biz:focus-visible .biz__ic::after {
      window falls off the right and the bottom as the box shrinks, which is
      the intended cut rather than a loss. */
   .book__shot img { transform: scale(2.2); }
-  .book__float svg { width: 28px; height: 28px; }
-  .book__float--1 { top: 8%; left: 6%; }
-  .book__float--2 { top: 10%; right: 6%; }
-  .book__float--3 { bottom: 8%; left: 10%; }
-  .book__float--4 { bottom: 10%; right: 10%; }
-}
+          }
 @media (max-width: 640px) {
-  .book__float { display: none; }
-  /* Doubled class on purpose: the base .book__card rule further down this
+    /* Doubled class on purpose: the base .book__card rule further down this
      same block sets its own padding, and at equal specificity the later one
      wins. */
   .book__card.book__card--split {
@@ -3236,18 +3102,6 @@ a.biz:focus-visible .biz__ic::after {
 /* Gathered in the centre, dark at both side ends (the /events band). */
 .hovtiles--centre {
   --hov-mask: radial-gradient(ellipse 42% 75% at 50% 42%, #000 20%, transparent 100%);
-}
-/* Gathered top right, dark toward the bottom and the left (event heroes). */
-.hovtiles--corner {
-  --hov-mask: radial-gradient(ellipse 85% 95% at 100% 0%, #000 15%, transparent 80%);
-}
-/* Inside a section's frame: the grid stops on the rails, and on a banded
-   section on the bands' inner edge lines (the band insets 112px). */
-@media (min-width: 992px) {
-  .hovtiles--framed { inset-inline: var(--frame-x); }
-}
-@media (min-width: 1200px) {
-  .section--band > .hovtiles--framed { inset-inline: calc(var(--frame-x) + 112px); }
 }
 .hovtiles__c {
   position: absolute;

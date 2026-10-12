@@ -492,14 +492,7 @@
    clone hidden); on phones it becomes the ticker viewport. */
 /* Decorative: pointer-events off so the poster underneath stays a single
    click target for the video facade. */
-/* The tour wraps the frame and the pills so the overlay can be sized to the
-   poster exactly, and so the pills can leave the overlay and flow normally
-   below it on phones without breaking out of the frame's aspect-ratio box. */
-.hero__tour {
-  position: relative;
-  max-width: 54rem;
-  margin: 0 auto;
-}
+
 
 /* Decorative: pointer-events off so the poster underneath stays a single
    click target for the video facade. */
@@ -545,15 +538,7 @@
   /* Five scattered pills collide once the frame is narrower than this, so the
      belt drops out of the overlay and back into normal flow under the video,
      which is the row (and, below 640, the ticker) it was before the move. */
-  /* In flow the belt rides ABOVE the video (17 Sep, user call): directly
-     under the "ASK aiRA FOR" label, with the tour below it. Flex order does
-     the move so the markup keeps the belt inside the tour for the desktop
-     overlay. The video returns to being the hero's last element, so its
-     fade meets the joint again and the belt needs no bottom clearance. */
-  .hero__tour {
-    display: flex;
-    flex-direction: column;
-  }
+  
   .hero__askbelt {
     position: static;
     order: -1;
@@ -1790,7 +1775,6 @@
 }
 
 
-
 /* The certification line. A supporting strip, so one quiet label rather than
    an eyebrow and a heading of its own. */
 .price__note,
@@ -1834,7 +1818,6 @@
   .feat__node { padding: 5px 7px; gap: 5px; }
   .feat__canvas { padding: var(--sp-2); }
 }
-
 
 
 /* ---- Industries: the picker bar (18 Sep, re-cut to tryplayground.com) -----
@@ -2352,7 +2335,7 @@
 
 @media (max-width: 991px) {
   .stage__panel { padding: var(--sp-8) var(--sp-8) 0; }
-  .stage__media { max-height: 300px; }
+  
 }
 @media (max-width: 640px) {
   /* No padding at all (user, 20 Sep): .padding-global already holds the
@@ -2360,7 +2343,7 @@
      gutter inside the first and cost the business grid most of its width. */
   .stage__panel { padding: 0; }
   .cue { margin-top: var(--sp-8); }
-  .stage__media { max-height: 220px; }
+  
 }
 
 @media (prefers-reduced-motion: reduce) {

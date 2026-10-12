@@ -1,23 +1,4 @@
-/* ==========================================================================
-   aiRA - event page TEMPLATE (/events/<slug>, 10 Oct). The first is
-   /events/ai-analytics-workshop-new-york. Named for the template, like
-   story.css, so the next city copies the page and changes the facts only.
 
-   The shape, from the 10 Oct reference scan (docs/EVENTS.md): the date in a
-   pill over the H1 and a facts list beside a drawn ticket (anthropic.com's
-   event pages), the topics as a ruled list, the agenda as one bordered list
-   (amplitude.com's Toronto page), "who it is for", the format with the real
-   product, past sessions, an FAQ, a closing card, and a floating
-   "Request a seat" pill that is the homepage cue's object.
-   EVERY ASK GOES TO LUMA. Registration is Luma's; this page carries the
-   details so the traffic lands here first.
-   Loads after tokens -> global -> components.
-   ========================================================================== */
-
-/* ---- Hero ---------------------------------------------------------------- */
-
-/* The hero content sits above its hover-tile grid (.hovtiles--framed). */
-.evhero > .padding-global { position: relative; z-index: 1; }
 /* SARVAM'S DETAIL LAYOUT since 10 Oct late (user: "sarvam does ui of
    details page clean", sarvam.ai/events/healthplix-...): a back link, then
    the square cover LEFT and the facts RIGHT (a kind pill, the H1, Luma's
@@ -66,6 +47,12 @@
   color: var(--brand-ink);
 }
 .evkind__ic { flex: none; width: 16px; height: 16px; }
+/* MORE THAN ONE LABEL (user, 12 Oct: "for B'luru make it Workshop + Dinner,
+   for Nashville Workshop + Lunch"): each kind is its own .evkind, the meal
+   on Phosphor ForkKnife duotone (the navbar's Restaurants glyph). The row
+   takes the single label's bottom margin; the labels inside give it up. */
+.evkinds { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-4); margin: 0 0 var(--sp-4); }
+.evkinds > .evkind { margin: 0; }
 
 .evhero__t {
   font-family: var(--font-display);
@@ -285,24 +272,8 @@
   .evticket .evcount__cells { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
-/* ---- The cover -------------------------------------------------------------
-   The event's own Luma cover, LEFT of the facts (sarvam). Square, the
-   artwork's own shape: it carries type, so it is never cropped. Straight,
-   no tilt. */
-.evhero__cover {
-  margin: 0;
-  width: 100%;
-  aspect-ratio: 1;
-  border-radius: var(--r-lg);
-  overflow: clip;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-lg);
-}
-.evhero__cover img { display: block; width: 100%; height: 100%; object-fit: cover; }
-
 @media (max-width: 991px) {
   .evhero__grid { grid-template-columns: 1fr; gap: var(--sp-10); }
-  .evhero__cover { max-width: 420px; }
 }
 @media (max-width: 640px) {
   .evhero__back { margin-bottom: var(--sp-6); }
@@ -326,6 +297,310 @@
 .evhero .hovtiles {
   --hov-line: color-mix(in srgb, var(--ink) 6%, transparent);
   --hov-tile: color-mix(in srgb, var(--ink) 3%, transparent);
+}
+
+/* ---- THE CITY HERO (.evhero--city, Chicago first, 12 Oct) -------------------
+   User: "use it on thumbnail and details page hero, surprise me with crazy
+   design there". Four layers, back to front:
+   1. THE PHOTOGRAPH, full bleed and run up behind the floating header (the
+      hub's pull-up), painted from --city (an image-set on the section) and
+      SHADED: dark under the copy on the left, at the top for the nav, and
+      at the foot.
+   2. THE CITY'S NAME, giant caps across the foot, filled with the SAME
+      photograph UNSHADED via background-clip: text. The word box and the
+      photo box are both inset: 0 on .evcity with the same size and position,
+      so the letters line up with the picture exactly and read as windows
+      cut through the shade. Change one background-position, change both.
+   3. THE FLAG STRIP at the very foot, the Chicago flag's own grammar: white,
+      a sky-blue stripe, a white band carrying four red six-pointed stars, a
+      sky-blue stripe, white. The word sinks behind it. Being white at its
+      foot, it is also the dark hero's hand-off to the light details below.
+   4. THE COPY AND THE TICKET over all of it, the ticket tilted like one held
+      up to the city, levelling on hover.
+   Primitives throughout (--black, --on-brand, --chicago-*): a drawn object.
+   Motion: the city settles in from a slight zoom on load and drifts on
+   scroll; both off under reduced motion. */
+.evhero--city {
+  --nav-stack: calc(var(--nav-h) + var(--nav-float) + 2px);
+  --word: clamp(96px, 18.6vw, 380px);
+  --flag-h: 64px;
+  --city-pos: 50% 58%;
+  /* The inline --city is the full photo; phones paint --city-sm. A custom
+     property set inline cannot be overridden by a media query, hence the
+     second name. */
+  --city-img: var(--city);
+  position: relative;
+  overflow: clip;
+  margin-top: calc(-1 * var(--nav-stack));
+  /* The copy clears the word's cap height (0.74 line box, sunk 0.06em). */
+  padding: calc(var(--nav-stack) + var(--sp-8)) 0 calc(var(--word) * 0.7 + var(--flag-h) + var(--sp-6));
+  /* A full screen, like the hub's hero, so the city has room: the copy and
+     the ticket sit at its foot above the word, the back link at its head. */
+  display: flex;
+  flex-direction: column;
+  min-height: max(min(100vh, 1000px), 720px);
+  min-height: max(min(100svh, 1000px), 720px);
+  background: var(--black);
+  color: var(--on-brand);
+}
+/* No frame rails across a photograph (the NASCAR card's precedent). */
+.evhero--city::before,
+.evhero--city::after { display: none; }
+body.page-event .nav.nav-dark:not(.nav--scrolled) {
+  background-color: transparent !important;
+  border-color: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.evcity { position: absolute; inset: 0 0 var(--flag-h); }
+.evcity__ph,
+.evcity__word {
+  position: absolute;
+  inset: 0;
+  background-image: var(--city-img);
+  background-size: cover;
+  background-position: var(--city-pos);
+  background-repeat: no-repeat;
+}
+.evcity__ph {
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb, var(--black) 92%, transparent) 0%, color-mix(in srgb, var(--black) 70%, transparent) 42%, color-mix(in srgb, var(--black) 18%, transparent) 78%, color-mix(in srgb, var(--black) 30%, transparent) 100%),
+    linear-gradient(to bottom, color-mix(in srgb, var(--black) 70%, transparent), transparent 24%),
+    linear-gradient(to top, color-mix(in srgb, var(--black) 86%, transparent), transparent 46%),
+    var(--city-img);
+  background-size: auto, auto, auto, cover;
+  background-position: 0 0, 0 0, 0 0, var(--city-pos);
+}
+.evcity__word {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: clip;
+  font-family: var(--font-display);
+  font-size: var(--word);
+  font-weight: 700;
+  line-height: 0.74;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: saturate(1.2) contrast(1.06);
+  /* The letters sink a little behind the flag strip. */
+  padding-bottom: 0;
+  translate: 0 0.06em;
+}
+.evcity__flag {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--flag-h);
+  /* Per-city stripes and stars: --flag-a top, --flag-b bottom, --flag-star,
+     set inline on each page's hero; Chicago is the default. */
+  background: linear-gradient(to bottom,
+    var(--on-brand) 0 6px,
+    var(--flag-a, var(--chicago-blue)) 6px 16px,
+    var(--on-brand) 16px calc(100% - 16px),
+    var(--flag-b, var(--chicago-blue)) calc(100% - 16px) calc(100% - 6px),
+    var(--on-brand) calc(100% - 6px));
+}
+.evcity__stars { display: flex; gap: var(--sp-8); }
+/* TEXAS AND TENNESSEE GET THEIR REAL GEOMETRY since 13 Oct (user: "are we
+   sure we are using correct flag design? ... tennessee flag has 3 stars, we
+   show 4; texas is having wrong flag"; checked against the statutes via
+   Wikipedia). The Chicago default above IS Chicago's flag (two light-blue
+   stripes, four red six-point stars) and stays. Texas: a blue hoist band a
+   third-ish of the strip with ONE white five-point star, then white over
+   red (both Pantone values now in tokens.css). Tennessee: crimson, a navy
+   disc holding THREE white five-point stars, and the fly end's white-then-
+   navy bars. Still 64px homages, not reproductions. */
+.evcity__flag--tx {
+  --tx-band: clamp(160px, 26%, 320px);
+  background:
+    linear-gradient(to right, var(--texas-blue) 0 var(--tx-band), transparent var(--tx-band)),
+    linear-gradient(to bottom, var(--on-brand) 0 50%, var(--texas-red) 50%);
+}
+.evflag__lone {
+  position: absolute;
+  left: calc(var(--tx-band) / 2);
+  top: 50%;
+  translate: -50% -50%;
+  width: 34px;
+  height: 34px;
+  fill: var(--on-brand);
+}
+.evcity__flag--tn {
+  background:
+    linear-gradient(to left,
+      var(--tennessee-blue) 0 22px,
+      var(--on-brand) 22px 28px,
+      transparent 28px),
+    linear-gradient(var(--tennessee-red), var(--tennessee-red));
+}
+.evflag-tn__disc {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--tennessee-blue);
+  border: 2px solid var(--on-brand);
+}
+.evflag-tn__disc svg {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  fill: var(--on-brand);
+}
+/* The statute's arrangement: evenly around the centre, the highest star
+   toward the upper hoist. */
+.evflag-tn__disc svg:nth-child(1) { left: 5px; top: 4px; }
+.evflag-tn__disc svg:nth-child(2) { right: 4px; top: 11px; }
+.evflag-tn__disc svg:nth-child(3) { left: 12px; bottom: 3px; }
+
+.evcity__stars svg { display: block; width: 22px; height: 22px; fill: var(--flag-star, var(--chicago-red)); }
+
+.evhero--city > .padding-global { position: relative; z-index: 2; flex: 1; display: flex; }
+.evhero--city > .padding-global > .container { display: flex; flex-direction: column; }
+.evhero--city .evhero__grid { margin-top: auto; }
+.evhero--city .evhero__back { color: color-mix(in srgb, var(--on-brand) 70%, transparent); }
+.evhero--city .evhero__back:hover { color: var(--on-brand); }
+.evhero--city .evhero__grid {
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--sp-12);
+  align-items: end;
+}
+.evhero--city .evkind { color: var(--tertiary-300); }
+.evhero--city .evhero__t { font-size: var(--t-display-1s); line-height: 1.06; color: var(--on-brand); }
+.evhero--city .evhero__t em { color: var(--tertiary-300); }
+.evhero--city .evhero__sub { color: color-mix(in srgb, var(--on-brand) 78%, transparent); }
+
+/* THE TICKET IS PAPER AND SITS STRAIGHT since 13 Oct (user: "try something
+   better with this, and also the tilt look not good"; the tilted brand
+   gradient is in git). A white ticket against the dark city, the flag's
+   blue on its top edge, "Admit one" and the aiRA mark on its head, ink
+   fields, the countdown back on its light flaps, a barcode closing the
+   stub. Its notches cannot be page-coloured discs over a photograph, so
+   each half MASKS its own half-notch out (the main its bottom corners, the
+   stub its top ones) and the shadow is a drop-shadow filter on the whole,
+   which follows the cut-outs. Hover only lifts it. */
+.evhero__hold { min-width: 0; }
+.evhero--city .evticket {
+  margin-top: 0;
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+  color: var(--ink);
+  filter: drop-shadow(0 28px 36px color-mix(in srgb, var(--black) 60%, transparent));
+  transition: translate var(--dur) var(--ease);
+}
+.evhero__hold:hover .evticket { translate: 0 -4px; }
+.evhero--city .evticket__admit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  margin: 0 0 var(--sp-4);
+  font-family: var(--font-display);
+  font-size: var(--t-caption);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.evhero--city .evticket__main {
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  background: var(--surface);
+  border-top: 3px solid var(--city-accent, var(--chicago-blue));
+  -webkit-mask:
+    radial-gradient(circle 11px at 0 100%, transparent 96%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle 11px at 100% 100%, transparent 96%, #000) right / 51% 100% no-repeat;
+  mask:
+    radial-gradient(circle 11px at 0 100%, transparent 96%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle 11px at 100% 100%, transparent 96%, #000) right / 51% 100% no-repeat;
+}
+.evhero--city .evticket__grid dt { color: var(--ink-3); }
+.evhero--city .evticket__grid dd { color: var(--ink); }
+.evhero--city .evticket__seats { color: var(--ink-3); }
+/* A PAST page's paper ticket (Nashville, Bengaluru): the ended line and the
+   went-count read in ink; the base past rules painted them for slate. */
+.evhero--city .evticket__ended { color: var(--ink); }
+.evhero--city .evticket--past .evticket__seats { color: var(--ink-2); font-weight: 600; }
+.evhero--city .evticket__stub {
+  border-radius: 0 0 var(--r-lg) var(--r-lg);
+  background: var(--surface-2);
+  border-top-color: color-mix(in srgb, var(--ink) 22%, transparent);
+  -webkit-mask:
+    radial-gradient(circle 11px at 0 0, transparent 96%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle 11px at 100% 0, transparent 96%, #000) right / 51% 100% no-repeat;
+  mask:
+    radial-gradient(circle 11px at 0 0, transparent 96%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle 11px at 100% 0, transparent 96%, #000) right / 51% 100% no-repeat;
+}
+.evhero--city .evticket__stub::before,
+.evhero--city .evticket__stub::after { display: none; }
+.evhero--city .evticket__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); justify-content: stretch; }
+/* The countdown back on the base light spec: the brand-ticket overrides
+   above this scope painted it for a blue ground. */
+.evhero--city .evticket .evcount__label { color: var(--ink-3); }
+.evhero--city .evticket .evcount.is-live .evcount__label { color: var(--brand-ink); }
+.evhero--city .evticket .evcount__cells { border-color: var(--border); }
+.evhero--city .evticket .evcount__cell + .evcount__cell { border-left-color: var(--border); }
+.evhero--city .evticket .evcount__cell b {
+  color: var(--ink);
+  background: linear-gradient(var(--surface) 50%, color-mix(in srgb, var(--surface) 86%, var(--black)) 50%);
+}
+.evhero--city .evticket .evcount__cell b::after { background: var(--surface-2); }
+.evhero--city .evticket .evcount__cell i { color: var(--ink-3); }
+/* The ask on paper is the site's own primary. */
+.evhero--city .evticket__cta { background: var(--black); color: var(--on-brand); }
+.evhero--city .evticket__cta:hover { background: color-mix(in srgb, var(--black) 86%, var(--on-brand)); }
+/* The barcode closing the stub, the hub ticket's own two-pitch stripes. */
+.evhero--city .evticket__code {
+  flex: none;
+  align-self: center;
+  width: 52px;
+  height: 30px;
+  background:
+    repeating-linear-gradient(90deg, color-mix(in srgb, var(--ink) 78%, transparent) 0 2px, transparent 2px 6px),
+    repeating-linear-gradient(90deg, color-mix(in srgb, var(--ink) 78%, transparent) 0 1px, transparent 1px 9px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .evcity { animation: evcity-in 2.2s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  @supports (animation-timeline: view()) {
+    .evcity__ph, .evcity__word {
+      animation: evcity-drift linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 100%;
+    }
+  }
+}
+@keyframes evcity-in { from { scale: 1.08; opacity: 0.4; } }
+@keyframes evcity-drift { to { background-position-y: 30%; } }
+@media (prefers-reduced-motion: reduce) {
+  .evhero--city .evticket { transition: none; }
+}
+
+@media (max-width: 991px) {
+  .evhero--city { --word: 24vw; --flag-h: 56px; padding-top: calc(var(--nav-stack) + var(--sp-8)); }
+  .evhero--city .evhero__grid { grid-template-columns: 1fr; gap: var(--sp-10); }
+  .evhero--city .evticket { max-width: 520px; }
+}
+@media (max-width: 767px) {
+  .evhero--city { --city-img: var(--city-sm); --city-pos: 50% 70%; }
+  .evcity__stars { gap: var(--sp-6); }
+  .evcity__stars svg { width: 18px; height: 18px; }
+}
+@media (max-width: 640px) {
+  .evhero--city .evhero__t { font-size: var(--t-title-2xl); line-height: 1.16; }
+  .evhero--city .evticket__code { display: none; }
 }
 
 /* ---- The event content -----------------------------------------------------
@@ -373,7 +648,13 @@
   color: var(--ink-2);
   text-wrap: pretty;
 }
-.evbody__passage p.evbody__lede { color: var(--ink); font-weight: 500; }
+.evbody__passage p.evbody__lede {
+  /* A step up since 13 Oct (user: "the body lands kind of dull"): the
+     opener Luma bolds reads as a lede, not another paragraph. */
+  font-size: var(--t-body-lg);
+  color: var(--ink);
+  font-weight: 500;
+}
 .evbody__t {
   margin: var(--sp-5) 0 0;
   font-family: var(--font-display);
@@ -396,14 +677,77 @@
 }
 .evbody__list li::marker { color: var(--ink-3); }
 
+/* THE DETAILS ARE TWO COLUMNS since 13 Oct (user: "after crazy hero, the
+   body lands kind of dull"): the document keeps its reading column, and
+   LOCATION AND THE HOSTS MOVE INTO A PAPER STUB BESIDE IT, a white card
+   with a dashed tear and punch notches between its two halves, the hero
+   ticket's own grammar rather than new decoration. Sticky at 1200+, so it
+   rides the read the way the hero ticket rides the photo; below 1200 it
+   follows the article as a full-width card. */
+.evbody__cols { display: grid; gap: var(--sp-8); align-items: start; }
+@media (min-width: 1200px) {
+  .evbody__cols { grid-template-columns: minmax(0, 1fr) 360px; gap: var(--sp-16); }
+  .evbody__aside { position: sticky; top: calc(var(--nav-h) + var(--nav-float) + 2px + var(--sp-5)); }
+}
+.evbody__aside {
+  display: grid;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  /* The tear's notches hang half out of the card and are clipped by it. */
+  overflow: clip;
+}
+.evbody__aside .evbody__t { margin: 0; }
+/* The tear between the stub's halves: the ticket grammar's dashed line,
+   stated locally (events.css's :root --evtear does not reach this page,
+   the standing pitfall), with the page-coloured notch discs half-clipped
+   at each end, exactly the old hub cards' seam. */
+.evbody__tear {
+  position: relative;
+  height: 0;
+  margin: var(--sp-1) calc(-1 * var(--sp-5));
+  border-top: 2px dashed color-mix(in srgb, var(--ink) 18%, transparent);
+}
+.evbody__tear::before,
+.evbody__tear::after {
+  content: '';
+  position: absolute;
+  top: -11px;
+  width: 20px;
+  height: 20px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+}
+.evbody__tear::before { left: -11px; }
+.evbody__tear::after { right: -11px; }
+/* Inside the stub the map stacks: the tile full width, the city and the
+   Google Maps link on one row beneath it (the sub-640 shape). */
+.evbody__aside .evmap { grid-template-columns: 1fr; }
+.evbody__aside .evmap__cap { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+
 /* Where: a city-level Google map (the venue stays Luma's until approval).
    Framed like the cover: hairline, 12px corners. The embed is light, so on
    this whole-dark page it is INVERTED and hue-rotated back, which keeps
    water blue and land dark rather than putting a white slab in a dark
    document. */
-.evmap { margin: 0; display: grid; gap: var(--sp-3); }
+/* A SMALL TILE since 13 Oct, second pass (user: "the google map embed, make
+   its size small"; the 21:9 full-width strip was still ~330px tall). The
+   map is a 280px 16:10 tile with the city and the Google Maps link standing
+   beside it; it only ever shows a city, so it needs no more. Full width
+   again below 640, where there is no room beside it. */
+.evmap {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  align-items: end;
+  gap: var(--sp-3) var(--sp-5);
+}
 .evmap__frame {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 10;
   border: 1px solid var(--border);
   border-radius: var(--r-md);
   overflow: clip;
@@ -420,9 +764,8 @@
 }
 .evmap__cap {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
   gap: var(--sp-2) var(--sp-5);
   font-size: var(--t-body);
   line-height: var(--lh-body);
@@ -441,7 +784,9 @@
 .evmap__link:hover { color: var(--brand-ink); }
 .evmap__link svg { width: 16px; height: 16px; }
 @media (max-width: 640px) {
-  .evmap__frame { aspect-ratio: 4 / 3; }
+  .evmap { grid-template-columns: 1fr; }
+  .evmap__frame { aspect-ratio: 16 / 9; }
+  .evmap__cap { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; }
 }
 @media (prefers-reduced-motion: reduce) {
   .evmap__link { transition: none; }
@@ -484,6 +829,14 @@
    /assets/events/hosts/): the disc becomes a frame for it. */
 .evhost__av--img { overflow: clip; background: var(--surface-2); border-color: var(--border); }
 .evhost__av--img img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* "aiRA by Capillary" takes the aiRA sparkle (user, 12 Oct: "if it says aira
+   by cap, use aira logo, if its just capillary, use capillary logo"), set
+   inside the disc on white rather than cropped to fill it. */
+.evhost__av--logo { background: var(--surface); }
+.evhost__av--logo img { object-fit: contain; padding: 6px; }
+/* Name over role, for the Captivate speaker chips (13 Oct). */
+.evhost__who { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.evhost__who .evhost__role { line-height: 1.35; }
 .evhost__name { font-size: var(--t-body); font-weight: 500; color: var(--ink); }
 .evhost__role { font-size: var(--t-caption); color: var(--ink-3); }
 
@@ -582,4 +935,182 @@
 
 @media (prefers-reduced-motion: reduce) {
   .evbar { transition: none; }
+}
+
+/* THE SOURCE LINE on a talk page (12 Oct): where the passage above comes
+   from, with a link to it in full. Smaller and quieter than the passage. */
+.evbody__src {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-4);
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+}
+
+/* ============ THE TICKET GRAMMAR ACROSS THE EVENT PAGES (13 Oct) ============
+   The hub's perforated joints, restated for the detail pages (one
+   stylesheet per page): every section boundary is a dashed tear with a
+   punch hole on each rail. See events.css for the hub half. */
+body.page-event .joint {
+  height: 0;
+  background: none;
+  border-top: 2px dashed var(--border-strong);
+}
+body.page-event .joint::before,
+body.page-event .joint::after {
+  width: 10px;
+  height: 10px;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+}
+
+/* ---- The write-up ticket (.evread, 13 Oct) ----------------------------------
+   The agentic-workflows page's LinkedIn write-up as a TICKET CARD (user,
+   from a #GROWTH Mixer reference: "a card like this ... design dont copy
+   exact, these are our competitor"): what is taken is the SHAPE, a photo
+   body and a stub behind a tear; the chrome is this site's own ticket
+   grammar, the perforation, the notch masks, the two-pitch barcode, the
+   brand stub (never the reference's lime and pink). One link, opening the
+   post in a new tab. The notches are MASKS on each half (a photo cannot
+   take page-coloured discs), the shadow a drop-shadow filter. */
+.evread {
+  display: flex;
+  margin-top: var(--sp-6);
+  text-decoration: none;
+  filter: drop-shadow(0 18px 30px color-mix(in srgb, var(--black) 25%, transparent));
+  transition: translate var(--dur-fast) var(--ease), filter var(--dur-fast) var(--ease);
+}
+.evread:hover,
+.evread:focus-visible {
+  translate: 0 -3px;
+  filter: drop-shadow(0 24px 36px color-mix(in srgb, var(--black) 32%, transparent));
+}
+.evread:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+.evread__main {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  min-height: 220px;
+  overflow: clip;
+  border-radius: var(--r-lg) 0 0 var(--r-lg);
+  background: var(--black);
+  -webkit-mask:
+    radial-gradient(circle 10px at 100% 0, transparent 96%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle 10px at 100% 100%, transparent 96%, #000) bottom / 100% 51% no-repeat;
+  mask:
+    radial-gradient(circle 10px at 100% 0, transparent 96%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle 10px at 100% 100%, transparent 96%, #000) bottom / 100% 51% no-repeat;
+}
+.evread__ph { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+.evread__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, color-mix(in srgb, var(--black) 82%, transparent), color-mix(in srgb, var(--black) 20%, transparent) 60%);
+}
+.evread__copy {
+  position: absolute;
+  left: var(--sp-6);
+  right: 76px;
+  bottom: var(--sp-5);
+  color: var(--on-brand);
+}
+.evread__copy b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--t-title-lg);
+  font-weight: 600;
+  line-height: var(--lh-title);
+}
+.evread__copy i {
+  display: block;
+  margin-top: 4px;
+  font-style: normal;
+  font-size: var(--t-caption);
+  color: color-mix(in srgb, var(--on-brand) 75%, transparent);
+}
+.evread__go {
+  position: absolute;
+  right: var(--sp-5);
+  bottom: var(--sp-5);
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--on-brand);
+  color: var(--black);
+  transition: background-color var(--dur-fast) var(--ease);
+}
+.evread__go svg { width: 18px; height: 18px; }
+.evread:hover .evread__go { background: var(--primary-200); }
+.evread__stub {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  width: 128px;
+  padding: var(--sp-5) var(--sp-4);
+  border-left: 2px dashed color-mix(in srgb, var(--on-brand) 45%, transparent);
+  border-radius: 0 var(--r-lg) var(--r-lg) 0;
+  background: linear-gradient(160deg, var(--primary-600), var(--primary-700));
+  color: var(--on-brand);
+  -webkit-mask:
+    radial-gradient(circle 10px at 0 0, transparent 96%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle 10px at 0 100%, transparent 96%, #000) bottom / 100% 51% no-repeat;
+  mask:
+    radial-gradient(circle 10px at 0 0, transparent 96%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle 10px at 0 100%, transparent 96%, #000) bottom / 100% 51% no-repeat;
+}
+.evread__code {
+  width: 68px;
+  height: 30px;
+  background:
+    repeating-linear-gradient(90deg, var(--on-brand) 0 2px, transparent 2px 6px),
+    repeating-linear-gradient(90deg, var(--on-brand) 0 1px, transparent 1px 9px);
+  opacity: 0.9;
+}
+.evread__cta {
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  font-family: var(--font-display);
+  font-size: var(--t-caption);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+/* Phones: the stub becomes the ticket's foot, the tear running across. */
+@media (max-width: 640px) {
+  .evread { flex-direction: column; }
+  .evread__main {
+    min-height: 190px;
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+    -webkit-mask:
+      radial-gradient(circle 10px at 0 100%, transparent 96%, #000) left / 51% 100% no-repeat,
+      radial-gradient(circle 10px at 100% 100%, transparent 96%, #000) right / 51% 100% no-repeat;
+    mask:
+      radial-gradient(circle 10px at 0 100%, transparent 96%, #000) left / 51% 100% no-repeat,
+      radial-gradient(circle 10px at 100% 100%, transparent 96%, #000) right / 51% 100% no-repeat;
+  }
+  .evread__stub {
+    flex-direction: row;
+    width: 100%;
+    padding: var(--sp-4) var(--sp-5);
+    border-left: 0;
+    border-top: 2px dashed color-mix(in srgb, var(--on-brand) 45%, transparent);
+    border-radius: 0 0 var(--r-lg) var(--r-lg);
+    -webkit-mask:
+      radial-gradient(circle 10px at 0 0, transparent 96%, #000) left / 51% 100% no-repeat,
+      radial-gradient(circle 10px at 100% 0, transparent 96%, #000) right / 51% 100% no-repeat;
+    mask:
+      radial-gradient(circle 10px at 0 0, transparent 96%, #000) left / 51% 100% no-repeat,
+      radial-gradient(circle 10px at 100% 0, transparent 96%, #000) right / 51% 100% no-repeat;
+  }
+  .evread__cta { writing-mode: horizontal-tb; rotate: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .evread, .evread__go { transition: none; }
 }

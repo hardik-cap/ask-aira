@@ -1,39 +1,32 @@
 /* ==========================================================================
-   aiRA - /events, the workshop hub. Light page, mongodb.com/events' card
-   grid, and a hero that is ONE STATIC FULL-BLEED DARK BAND from the page's
-   first pixel to the joint under its fact ticker (the firecrawl dock pass
-   that inset it with margins on scroll is in git: the gaps broke the page
-   frame). The band and the cards' poster bands are drawn in PRIMITIVES
-   (--primary-*, --secondary-500, --tertiary-600, --black, --on-brand), never
-   semantic tokens, the navbar poster's rule. The nav is transparent over the
-   band and takes its glass back as the band leaves under it. Each event's
-   page is styled by event.css. Loads after tokens -> global -> components.
+   aiRA - /events, the tour hub. Light page under a DARK hero band: a centred
+   hero over a dot map of the US with clickable tour pins and flat objects at its edges, a grid of
+   map-thumbnail event cards, and the photo reel. Each event's page is
+   styled by event.css. Loads after tokens -> global -> components.
    ========================================================================== */
 
-/* THE HERO IS A FULL-BLEED BAND THAT SHRINKS TO THE CONTAINER ON SCROLL,
-   INLINE ONLY (10 Oct, fourth pass: the user wanted firecrawl's max-width
-   shrink back, but the earlier dock's TOP AND BOTTOM margins were what broke
-   the page frame, opening white gaps no rail or joint runs through). So the
-   scroll animation moves margin-inline 0 -> var(--frame-x) and rounds the TOP
-   corners only: the docked edges land exactly ON the rails (the bento's own
-   grammar), the band stays flush with the page top (behind the header; the
-   section pulls up by --nav-stack and the panel's padding-top clears it) and
-   flush with the joint at its foot, whose full-width rule is why the bottom
-   corners stay square. No block margins, so the content never drifts and the
-   page below never shifts. REST IS THE FULL BAND in every non-animating
-   context (no scroll timelines, reduced motion, below 992); the TO frame
-   leaves rest deliberately, scrolled past = docked, scrolled back = full.
-   THE NAV'S GLASS rides the band: transparent over it, fading in over a VIEW
-   TIMELINE on the panel itself (exit 55% to 88% of the band's own exit) so
-   the timing follows the band's real height. Fallback where timelines do not
-   exist, under reduced motion and below 992: transparent until
-   .nav--scrolled, then the glass card. */
+/* THE HERO IS THE TOUR SHIRT since 13 Oct (the user's pick of four stacked
+   concepts: "concept one looks the strongest ... lets go with concept 1";
+   the road trip, the departures board and the postcards are in git, markup
+   and rules). The back of the tour tee as a poster on --black: stacked caps
+   with TOUR outlined and swept with colour, the date list with the played
+   stop struck through, the 2027 line, the sub, one CTA, the dot map a
+   halftone behind. KEPT from the previous dark hero: the torn ticket edge
+   at the band's foot, the brand glow rising into it, the straddling fact
+   ticket, the hover tiles and the transparent nav. The US pin map (.evus)
+   and the four flat objects (.evobjs) left with the map hero (in git).
+   Primitives throughout: a drawn object. */
 .evhub {
   --nav-stack: calc(var(--nav-h) + var(--nav-float) + 2px);
+  --scallop: 7px;
   position: relative;
   margin-top: calc(-1 * var(--nav-stack));
   padding: 0;
+  background: var(--surface-2);
 }
+/* The ticket's height, on the body because the band and the grid section
+   below it both measure off it. */
+body.page-events { --tick-h: 56px; }
 body.page-events .nav.nav-dark:not(.nav--scrolled) {
   background-color: transparent !important;
   border-color: transparent;
@@ -41,136 +34,139 @@ body.page-events .nav.nav-dark:not(.nav--scrolled) {
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
-@supports (animation-timeline: scroll()) {
-  @media (min-width: 992px) and (prefers-reduced-motion: no-preference) {
-    body.page-events { timeline-scope: --evband; }
-    body.page-events .nav.nav-dark {
-      animation: evnav-glass linear both;
-      animation-timeline: --evband;
-      animation-range: exit 55% exit 88%;
-    }
-  }
-}
-@keyframes evnav-glass {
-  from {
-    background-color: transparent;
-    border-color: transparent;
-    box-shadow: none;
-  }
-}
-@supports (animation-timeline: scroll()) {
-  @media (min-width: 992px) and (prefers-reduced-motion: no-preference) {
-    .evhub__panel {
-      animation: evhub-dock linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 480px;
-    }
-  }
-}
-@keyframes evhub-dock {
-  to {
-    margin-inline: var(--frame-x);
-    border-radius: var(--r-xl) var(--r-xl) 0 0;
-  }
-}
 .evhub__panel {
   position: relative;
   overflow: clip;
-  view-timeline-name: --evband;
-  padding-top: calc(var(--nav-stack) + var(--sp-24));
-  padding-bottom: var(--sp-10);
-  text-align: center;
-  /* A FULL-VIEWPORT HERO (user, 10 Oct: "make events page hero section
-     100vh"), a NAMED EXCEPTION to the site's no-full-viewport-hero rule.
-     The band runs up behind the header (the section pulls up by the nav
-     stack), so 100svh lands its foot exactly on the fold with nothing
-     subtracted. The GLOBE is the flexible part: it grows into spare height
-     on a tall screen (showing more of the dome) and gives it up on a short
-     one, never below its 200px floor; the copy and the ticket keep their
-     size. 720px is the band's own minimum (copy + a 200px globe + ticket),
-     so a very short window scrolls rather than crushing the globe. */
   display: flex;
   flex-direction: column;
-  height: max(100vh, 720px);
-  height: max(100svh, 720px);
-  /* Centred, so any height the capped globe cannot take is shared above
-     and below rather than pooling under the ticket. */
   justify-content: center;
-  /* The 16px dot pattern came off for the hover-tile grid (user, 10 Oct),
-     which is an element (.hovtiles) so it can light per cell. */
+  /* A MIN-height, not a height: the poster outgrows a short screen and must
+     push the band rather than clip. Half the ticket hangs below the band,
+     so it stops half a ticket short of the fold. */
+  min-height: max(calc(100vh - var(--tick-h) / 2), 720px);
+  min-height: max(calc(100svh - var(--tick-h) / 2), 720px);
+  padding-top: calc(var(--nav-stack) + var(--sp-10));
+  padding-bottom: calc(var(--tick-h) / 2 + var(--sp-8));
   background:
-    radial-gradient(90% 130% at 50% -35%, color-mix(in srgb, var(--primary-600) 62%, transparent), transparent 64%),
+    radial-gradient(90% 110% at 50% -30%, color-mix(in srgb, var(--primary-600) 55%, transparent), transparent 62%),
+    radial-gradient(55% 38% at 50% 104%, color-mix(in srgb, var(--primary-600) 46%, transparent), transparent 72%),
     var(--black);
+  /* The torn ticket edge: one scallop per 22px tile, the section's
+     --surface-2 ground showing through. */
+  -webkit-mask: radial-gradient(circle var(--scallop) at 50% 100%, transparent 96%, #000 100%) 50% 0 / 22px 100% repeat-x;
+  mask: radial-gradient(circle var(--scallop) at 50% 100%, transparent 96%, #000 100%) 50% 0 / 22px 100% repeat-x;
 }
-/* Everything in the band sits above the tile grid. */
+/* The hover-tile grid keeps its component default: faint white lines. */
 .evhub__panel > :not(.hovtiles) { position: relative; z-index: 1; }
-.evhub__t {
+
+/* ---- The poster ------------------------------------------------------------
+   TOUR ANIMATES (user: "the tour word can be a animating something"): the
+   outlined word is a background-clip: text gradient, a narrow two-colour
+   band sweeping through the letters on background-position; the outline is
+   always drawn, so reduced motion and old engines keep the resting shirt. */
+.evh1__poster { position: relative; text-align: center; }
+.evh1__dots {
+  position: absolute;
+  inset: -10% 0;
+  background: color-mix(in srgb, var(--on-brand) 9%, transparent);
+  -webkit-mask: url(/assets/events/us-dots.svg) center / contain no-repeat;
+  mask: url(/assets/events/us-dots.svg) center / contain no-repeat;
+}
+.evh1__poster > :not(.evh1__dots) { position: relative; }
+.evh1__pre {
+  margin: 0 0 var(--sp-5);
+  font-size: var(--t-body);
+  font-weight: 500;
+  color: color-mix(in srgb, var(--on-brand) 70%, transparent);
+}
+.evh1__t {
   margin: 0;
   font-family: var(--font-display);
-  font-size: var(--t-display-0);
-  font-weight: 500;
-  line-height: 1.04;
-  letter-spacing: var(--tr-display);
+  font-size: clamp(3rem, 10.5vw, 8.75rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
   color: var(--on-brand);
 }
-.evhub__t em { font-style: normal; color: var(--primary-200); }
-.evhub__sub {
-  margin: var(--sp-5) auto 0;
-  max-width: 38rem;
-  font-size: var(--t-body-xl);
-  line-height: var(--lh-body);
-  color: color-mix(in srgb, var(--on-brand) 74%, transparent);
-  text-wrap: pretty;
+.evh1__year {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-4);
+  margin: var(--sp-6) 0 0;
+  font-family: var(--font-display);
+  font-size: var(--t-body);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tertiary-300);
 }
-.evhub__cta { margin-top: var(--sp-8); }
-/* A light button, because .btn--primary is --black and this ground is too:
-   the same answer .section--inv's primary takes, stated here in primitives
-   since the panel is a drawn object, not an inverted section. */
-.evhub__btn {
-  background: var(--on-brand);
-  color: var(--black);
+.evh1__year i { font-style: normal; font-size: var(--t-caption); }
+.evh1__dates { list-style: none; margin: var(--sp-8) 0 0; padding: 0; display: grid; gap: var(--sp-3); }
+.evh1__stop {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--sp-5);
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.6vw, 2rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--on-brand);
+  text-decoration: none;
 }
-.evhub__btn:hover { background: color-mix(in srgb, var(--on-brand) 90%, var(--primary-200)); }
+.evh1__stop b { font-weight: 600; font-variant-numeric: tabular-nums; color: var(--tertiary-300); }
+a.evh1__stop { transition: color var(--dur-fast) var(--ease); }
+a.evh1__stop:hover { color: var(--primary-200); }
+a.evh1__stop:focus-visible { outline: 2px solid var(--primary-200); outline-offset: 4px; }
+.evh1__stop--past {
+  color: color-mix(in srgb, var(--on-brand) 38%, transparent);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+.evh1__stop--past b { color: color-mix(in srgb, var(--on-brand) 38%, transparent); }
+.evh1__later {
+  margin: var(--sp-8) 0 0;
+  font-family: var(--font-display);
+  font-size: var(--t-body);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--on-brand) 50%, transparent);
+}
+.evh1__later span { font-weight: 500; letter-spacing: 0; text-transform: none; }
+.evh1__cta { margin-top: var(--sp-10); }
+
+.evh1__t em {
+  font-style: normal;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--on-brand);
+  background: linear-gradient(105deg, transparent 0 38%, var(--tertiary-300) 46%, var(--primary-200) 54%, transparent 62% 100%);
+  background-size: 260% 100%;
+  background-position: 130% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .evh1__t em { animation: evh1-sweep 4.6s var(--ease) infinite; }
+}
+@keyframes evh1-sweep {
+  0% { background-position: 130% 0; }
+  60%, 100% { background-position: -30% 0; }
+}
 .evcta { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
 .evcta__ic { display: inline-flex; }
 .evcta__ic svg { width: 16px; height: 16px; }
 .evcta__ic--down svg { transform: rotate(135deg); }
+/* A light button: .btn--primary is --black, which this ground is too. */
+.evhub__btn { background: var(--on-brand); color: var(--black); }
+.evhub__btn:hover { background: color-mix(in srgb, var(--on-brand) 88%, var(--primary-200)); color: var(--black); }
 
-/* SHORT DESKTOP WINDOWS give up head room before the globe gives up size. */
+/* SHORT DESKTOP WINDOWS give up head room before the poster does. */
 @media (min-width: 992px) and (max-height: 820px) {
-  .evhub__panel { padding-top: calc(var(--nav-stack) + var(--sp-12)); }
-  .evhub__globe { margin-top: var(--sp-6); }
+  .evhub__panel { padding-top: calc(var(--nav-stack) + var(--sp-8)); }
 }
-
-/* The globe: a dome rising into the band's foot (theproductfolks.com), the
-   container clipping the sphere's lower half so the ticker's dashed rule is
-   the line it sinks behind; a short mask fade keeps the cut from reading as
-   a slice. The height is on the CONTAINER, so with the script off the band
-   keeps its shape. */
-.evhub__globe {
-  position: relative;
-  width: min(720px, 88%);
-  /* Flexes with the viewport: grows past 300 on a tall screen up to most of
-     the sphere, shrinks to the 200 floor on a short one. */
-  flex: 1 1 300px;
-  min-height: 200px;
-  max-height: 560px;
-  margin: var(--sp-12) auto 0;
-  overflow: clip;
-  -webkit-mask-image: linear-gradient(#000 72%, transparent 100%);
-  mask-image: linear-gradient(#000 72%, transparent 100%);
-}
-.evhub__globe canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  aspect-ratio: 1;
-  cursor: grab;
-  /* Horizontal drag spins the globe; vertical stays the page's scroll. */
-  touch-action: pan-y;
-}
-.evhub__globe canvas:active { cursor: grabbing; }
 
 /* The fact ticker, along the panel's foot; the globe above it carries the
    air, so it sits snug on the dome's clip line. */
@@ -180,16 +176,26 @@ body.page-events .nav.nav-dark:not(.nav--scrolled) {
 /* THE TICKET. Tertiary/600 (the teal-side anchor, a primitive like the
    rest of the drawn band), 12px corners, a semicircle notch cut from each
    short end by a mask, and a stub divided from the body by a dashed tear
-   line: an admission ticket, not a news crawl. It rides up over the globe's
-   foot (negative margin) and the belt is clipped inside the body. */
+   line: an admission ticket, not a news crawl. It sits under the tour map;
+   the belt is clipped inside the body. */
+/* A LINK since 13 Oct: the ticket to the next stop. The notch mask clips a
+   box-shadow, so the lift is a drop-shadow FILTER (the evbar lesson), which
+   follows the notches; hover raises it 2px and pauses the belt. */
+a.evtick { text-decoration: none; }
 .evtick {
   --notch: 10px;
   flex: none;
   display: flex;
   align-items: stretch;
   width: min(880px, calc(100% - 2 * var(--sp-5)));
-  height: 56px;
-  margin: calc(-1 * var(--sp-12)) auto 0;
+  height: var(--tick-h);
+  /* ACROSS THE SEAM: pulled up half its height over the band's foot and
+     half hanging into the grid section, which the negative bottom margin
+     keeps out of the section's height (the joint lands on the seam). Above
+     the joint (z-index 2) and the next section. */
+  position: relative;
+  z-index: 3;
+  margin: calc(var(--tick-h) / -2) auto calc(var(--tick-h) / -2);
   background: var(--tertiary-600);
   border-radius: var(--r-md);
   -webkit-mask:
@@ -198,7 +204,17 @@ body.page-events .nav.nav-dark:not(.nav--scrolled) {
   mask:
     radial-gradient(circle var(--notch) at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat,
     radial-gradient(circle var(--notch) at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat;
+  filter: drop-shadow(0 14px 26px color-mix(in srgb, var(--black) 30%, transparent));
+  transition: translate var(--dur-fast) var(--ease), filter var(--dur-fast) var(--ease);
 }
+a.evtick:hover,
+a.evtick:focus-visible {
+  translate: 0 -2px;
+  filter: drop-shadow(0 20px 32px color-mix(in srgb, var(--black) 42%, transparent));
+}
+a.evtick:hover .evtick__belt,
+a.evtick:focus-visible .evtick__belt { animation-play-state: paused; }
+a.evtick:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
 .evtick__stub {
   flex: none;
   display: flex;
@@ -223,7 +239,6 @@ body.page-events .nav.nav-dark:not(.nav--scrolled) {
   display: flex;
   align-items: center;
   overflow: clip;
-  margin-right: var(--notch);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 24px, #000 calc(100% - 24px), transparent);
   mask-image: linear-gradient(90deg, transparent, #000 24px, #000 calc(100% - 24px), transparent);
 }
@@ -245,12 +260,24 @@ body.page-events .nav.nav-dark:not(.nav--scrolled) {
   color: var(--on-brand);
 }
 .evtick__seq i { font-style: normal; font-size: var(--t-caption); color: color-mix(in srgb, var(--on-brand) 70%, transparent); }
+.evtick__seq b { font-weight: 700; color: var(--on-brand); }
+/* The barcode on the right end, behind its own tear: two stripe pitches
+   overlaid so the bars read irregular, like a printed code. */
+.evtick__code {
+  flex: none;
+  align-self: center;
+  width: 46px;
+  height: 26px;
+  margin: 0 calc(var(--notch) + var(--sp-4)) 0 var(--sp-4);
+  border-left: 2px dashed color-mix(in srgb, var(--on-brand) 45%, transparent);
+  padding-left: var(--sp-3);
+  background:
+    repeating-linear-gradient(90deg, var(--on-brand) 0 2px, transparent 2px 6px),
+    repeating-linear-gradient(90deg, var(--on-brand) 0 1px, transparent 1px 9px);
+  background-clip: content-box;
+  opacity: 0.9;
+}
 @keyframes evtick { to { transform: translateX(-50%); } }
-
-/* ---- Featured: the next session ---------------------------------------------
-   sarvam.ai/events' shape (10 Oct, user): the most upcoming session as one
-   large split card, its own Luma cover beside the facts. The cover stays
-   SQUARE, the artwork's own shape: it carries type, and a crop cuts it. */
 
 /* The tear line's ink, used by every ticket on this page: --border-strong
    (#E2E5EE) vanished on white and 1.5px rounded to 1, so it is 2px at 18%
@@ -258,61 +285,10 @@ body.page-events .nav.nav-dark:not(.nav--scrolled) {
    the page; keep it here, ahead of its first use.) */
 :root { --evtear: color-mix(in srgb, var(--ink) 18%, transparent); }
 
-/* SARVAM'S LAYOUT, NO CARD (user, 10 Oct: the landscape ticket with a stub
-   "not good, just do as sarvam one we had"): the cover framed on its own
-   beside the copy; the facts and the one button share the foot. */
-.evfeat {
-  display: grid;
-  grid-template-columns: 420px minmax(0, 1fr);
-  gap: var(--sp-12);
-  align-items: center;
-}
-.evfeat__media {
-  display: block;
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  overflow: clip;
-  box-shadow: var(--shadow-md);
-}
-.evfeat__media img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.evfeat__body { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
-.evfeat__foot { align-self: stretch; }
-.evfeat__t {
-  margin: var(--sp-5) 0 0;
-  max-width: 36rem;
-  font-family: var(--font-display);
-  font-size: var(--t-display-3);
-  font-weight: 500;
-  line-height: 1.18;
-  letter-spacing: var(--tr-display);
-  color: var(--ink);
-  text-wrap: balance;
-}
-.evfeat__d {
-  margin: var(--sp-4) 0 0;
-  max-width: 36rem;
-  font-size: var(--t-body-lg);
-  line-height: var(--lh-body);
-  color: var(--ink-2);
-}
-/* Facts left, the one button at their foot on the right (sarvam). The card
-   body is wide enough for the pair at every desktop width; it stacks at 1100
-   and below, where the body narrows. */
-/* Facts first, the one button BELOW them (user, 10 Oct), at every width. */
-.evfeat__foot {
-  margin-top: var(--sp-8);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--sp-8);
-}
-.evfeat__facts { margin: 0; display: grid; gap: var(--sp-3); }
-.evfeat__facts > div { display: flex; align-items: center; gap: var(--sp-3); font-size: var(--t-body); }
-.evfeat__facts dt { display: flex; color: var(--brand); }
-.evfeat__facts dt svg { width: 20px; height: 20px; }
-.evfeat__facts dd { margin: 0; color: var(--ink-2); }
+/* THE FEATURED BLOCK (.evfeat, "Coming to Chicago.") CAME OUT 12 Oct (user:
+   "lets not have the latest event single card there"); markup and rules are
+   in git. The upcoming cards in the grid carry the next event now. */
 .evcta__go { width: 16px; height: 16px; transition: transform var(--dur-fast) var(--ease); }
-.evfeat .evcta:hover .evcta__go { transform: translateX(3px); }
 
 @media (prefers-reduced-motion: reduce) {
   .evcta__go { transition: none; }
@@ -330,12 +306,20 @@ body.page-events .nav.nav-dark:not(.nav--scrolled) {
 .evbar-head {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: var(--sp-5) var(--sp-8);
   margin-bottom: var(--sp-10);
 }
+.evbar-head__lead { max-width: 40rem; }
 .evbar-head__t { margin: 0; }
+.evbar-head__sub {
+  margin: var(--sp-3) 0 0;
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
 .evtools { display: flex; align-items: center; gap: var(--sp-3); }
 
 /* SMALL, WITH A SLIDING ACTIVE STATE (user, 10 Oct: "make evfilter small,
@@ -390,7 +374,6 @@ body.page-events .nav.nav-dark:not(.nav--scrolled) {
 .evfilter__btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 
 
-
 /* ---- The grid: every session, its own cover ---------------------------------
    Three across (sarvam), each card its square Luma cover over the facts. The
    drawn per-city poster bands this replaced are in git. */
@@ -404,254 +387,304 @@ body.page-events .nav.nav-dark:not(.nav--scrolled) {
    DIFFERENCE between that padding and the nav stack (nav + float + 2px
    border): -22px. */
 .evgrid-sec { scroll-margin-top: calc(2px - 24px); }
+/* EACH SECTION ITS OWN GROUND (user, 12 Oct: "give both all events and past
+   photos different bg section color"): the grid on --surface-2 (slate-100),
+   so the white cards lift off it, and the photo reel on --surface (white),
+   which keeps the photographs clean. Dark hero, grey grid, white reel, grey
+   footer: no two neighbours share a tone. */
+.evgrid-sec { position: relative; background: var(--surface-2); padding-top: calc(var(--section-pad) + var(--tick-h) / 2); }
+.evgrid-sec > .padding-global { position: relative; z-index: 1; }
+/* The dot paper: .evbody__ground's 20px / 11% spec (20 divides --cell), on
+   its own element because the section pseudos are the rails. It dies before
+   the foot so the boundary to the reel stays clean. */
+.evgrid__ground {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--ink) 11%, transparent) 1px, transparent 1px);
+  background-size: 20px 20px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0 32%, transparent 86%);
+  mask-image: linear-gradient(to bottom, #000 0 32%, transparent 86%);
+}
+/* ============ THE TICKET GRAMMAR ACROSS THE PAGE (13 Oct) ============
+   (user: "that cutout we added in hero, lets have that kind of details and
+   fun across events and all details page ... a different thing
+   altogether"). Two moves, both this page and every /events/<slug> page
+   (event.css restates the joint half):
+   - EVERY JOINT IS A PERFORATION: the 1px hairline becomes a dashed tear
+     with a PUNCH HOLE on each rail where the brand squares sat. Positions
+     are global.css's own; only the drawing changes.
+   - THE REEL TEARS INTO THE GRID: the white section's top edge carries a
+     row of --surface-2 scallops, the grid's ground biting down, the hub
+     hero's torn edge quoted at a seam. */
+/* NO JOINT LINES ON THE HUB since 13 Oct (user: "since horizontally we are
+   having that cutout effect, lets remove horizontal lines appearing here"):
+   the hero already ends in a torn scallop edge with the ticket straddling
+   the seam, and the reel tears in on its own scallops, so a dashed rule at
+   the same boundaries was the same statement twice. The joint divs stay in
+   the markup (joints are placed there, the site rule); this stands them
+   down on THIS PAGE only, punch-hole rings included. The detail pages keep
+   their perforated joints (event.css). */
+body.page-events .joint { display: none; }
+.evroom-sec {
+  background:
+    radial-gradient(circle 7px at 11px 0, var(--surface-2) 96%, transparent 100%) top left / 22px 10px repeat-x,
+    var(--surface);
+}
 
-/* FOUR ACROSS (user, 10 Oct: "evcard are too big"): all four sessions on
-   one row down to 992, then 2x2, then one column on phones. No three-up
-   step: with four sessions it orphans the fourth card on its own row. */
+/* THREE ACROSS (user, 13 Oct: "do 3 column grid"; it was four across from
+   10 Oct, when there were four sessions). Six cards deal as two clean rows;
+   2x2 below 992, one column on phones. */
 .evgrid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
+/* POSTER CARDS (user, 13 Oct, after laravel.com/community: "image top,
+   and gradient to dark bottom, nice and clean look"; "kinda hard to
+   differentiate between new and past events"). The photo fills the whole
+   card and runs into --black at the foot, where the copy sits in white.
+   STATE IS CARRIED BY THREE THINGS AT ONCE, none of them a label: an
+   upcoming card is in full colour and ends in a white ticket button; a past
+   card has no button and sits in greyscale, its colour coming back only
+   part way on hover, the "you missed this one" feel. The "Upcoming" tag came
+   off with it. The whole card is still the link; the button is a span
+   inside it, so the event page (never Luma) is where both lead.
+   Its height is the photo band (see .evcard__media) plus the copy. The region
+   map rules (.evcard__map, --evmap-*) went with the white body; the maps in
+   assets/events/maps/ stay as files. */
 .evcard {
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--black);
   border-radius: var(--r-lg);
   overflow: clip;
   text-decoration: none;
-  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-slow) var(--ease);
-}
-/* HOVER (user, 10 Oct: "on hover do nothing, just turn view event button
-   black"): the upcoming card's button fills. Both kinds of card also lift
-   on a SUBTLE DROP SHADOW (user, later 10 Oct: "add subtle drop shadow on
-   both card hover"), --shadow-md, with no movement and no border change. */
-a.evcard:hover,
-a.evcard:focus-visible { box-shadow: var(--shadow-md); }
-
-.evcard__media {
-  position: relative;
-  display: block;
-  border-bottom: 2px dashed var(--evtear);
-}
-.evcard__media img { display: block; width: 100%; height: auto; }
-/* The calendar chip on UPCOMING cards (user, 10 Oct, from a date-tile
-   reference: "for quick look"): day over month on a white tile, top-left on
-   the cover where the "Upcoming" pill was; the chip says upcoming on its
-   own. aria-hidden: the date is in the card's text below. */
-.evcard__cal {
-  position: absolute;
-  top: var(--sp-3);
-  left: var(--sp-3);
-  display: grid;
-  min-width: 52px;
-  overflow: clip;
-  text-align: center;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r-sm);
   box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--dur-slow) var(--ease), translate var(--dur-slow) var(--ease);
 }
-/* A tear-off calendar: the month on a Tertiary band (the ticket's own
-   colour), the day under it. The month comes second in the markup and is
-   moved up by order, so a reader would get "9 Nov" if it were not hidden. */
-.evcard__cal i {
-  order: -1;
-  padding: 3px 8px;
-  background: var(--tertiary-600);
-  font-style: normal;
-  font-size: var(--t-caption);
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--on-brand);
-}
-/* A past session's chip: the band goes grey, a used ticket. */
-.evcard__cal--past i { background: var(--ink-3); }
-.evcard__cal b {
-  padding: 3px 10px 5px;
-  font-family: var(--font-display);
-  font-size: var(--t-title-xl);
-  font-weight: 600;
-  line-height: 1.1;
-  font-variant-numeric: tabular-nums;
-  color: var(--ink);
-}
-.evcard__body::before,
-.evcard__body::after {
-  content: "";
+a.evcard:hover,
+a.evcard:focus-visible { box-shadow: var(--shadow-md); translate: 0 -2px; }
+
+/* The photo is the card's flexible top: it takes whatever height the copy
+   leaves, then fades into the --black ground the copy sits on. */
+/* FLATTER since 13 Oct (user: "can our cards be little flat? the images
+   were cropped in certain size"): the photos are 2.4:1 panoramas, and a
+   3:4 card cut them to a vertical slice. The card has no ratio of its own
+   now; the photo is a 16:9 band and the card is that plus its copy. In a
+   row the band grows to match the tallest card (a past card, having no
+   button, gets a taller photo), so the copy still floors to the foot. */
+/* overflow clip: the hover zoom otherwise pokes 2.5% of photo out of the
+   media box over the copy below. The fade and the shade carry explicit
+   z-indexes: a scaled img is a stacking context and Chrome paints it over
+   a z-auto pseudo, which cut the fade off on hover (user, 13 Oct). */
+.evcard__media { position: relative; flex: 1 0 auto; aspect-ratio: 16 / 9; display: block; overflow: clip; }
+.evcard__media::after {
+  content: '';
   position: absolute;
-  top: -10px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--bg);
-  border: 1px solid var(--border);
-}
-.evcard__body::before { left: -10px; }
-.evcard__body::after { right: -10px; }
-/* AN ENDED SESSION (user, 10 Oct: "a bit more detail into this showing it's
-   expired"). The cover sits back (grayscale) under a VEIL, a page-ground
-   wash at 62% so the artwork recedes (its "Event ended" label came off on
-   the user's call); the title drops a step. The calendar chip stays above
-   the veil. */
-.evcard--past .evcard__media img { filter: grayscale(0.7); }
-.evcard__veil {
-  position: absolute;
-  inset: 0;
-  background: color-mix(in srgb, var(--bg) 62%, transparent);
-}
-.evcard__cal { z-index: 1; }
-/* An UPCOMING cover takes a primary tint (user, 10 Oct: "on upcoming
-   evcard__media we need a primary color overlay"): Primary/600 at 22%,
-   multiplied so the artwork's darks stay dark and its lights go brand. The
-   calendar chip sits above it. Past covers take the grey veil instead. */
-.evcard__tint {
-  position: absolute;
-  inset: 0;
-  background: color-mix(in srgb, var(--primary-600) 22%, transparent);
-  mix-blend-mode: multiply;
+  inset: auto 0 0;
+  height: 45%;
+  z-index: 1;
+  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--black) 70%, transparent) 55%, var(--black));
   pointer-events: none;
 }
-.evcard--past .evcard__t { color: var(--ink-2); }
+.evcard__photo img,
+img.evcard__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--pos, 50% 40%);
+  transition: scale 900ms var(--ease), filter var(--dur-slow) var(--ease);
+}
+a.evcard:hover .evcard__photo img,
+a.evcard:hover img.evcard__photo { scale: 1.05; }
 
-/* BUTTON LABELS BY STATE (user, 10 Oct: "on past show view event, on
-   upcoming show register"): an upcoming card's button reads "Register", a
-   past card's "View event"; both are the same button and both cards lead to
-   the event's own page, where the Luma ask lives. */
+/* THE COPY SITS ON THE DARK, NOT ON THE PHOTO. A first pass laid the
+   copy over a full-bleed photo and the city panoramas (2.4:1, cropped into
+   a portrait card) put their subject exactly under it: the Bean went under
+   the title and the button. Now the photo is the top of the card and the
+   copy pulls up 48px into its fade, so only the fade overlaps. A faint dim
+   at the top (.evcard__shade) is all the photo itself carries. */
+.evcard__shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--black) 12%, transparent), transparent 30%);
+  pointer-events: none;
+}
+
+/* "Upcoming": the white tag top-right, back on the two live cards (user,
+   13 Oct: "we are also missing the upcoming badge"). z-index 2 lifts it
+   over the shade and the fade. */
+.evcard__badge {
+  position: absolute;
+  top: var(--sp-3);
+  right: var(--sp-3);
+  z-index: 2;
+  padding: 3px 8px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xs);
+  font-size: var(--t-caption);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
 .evcard__body {
   position: relative;
-  flex: 1;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: var(--sp-2);
-  padding: var(--sp-4);
+  gap: var(--sp-1);
+  margin-top: -36px;
+  padding: 0 var(--sp-4) var(--sp-4);
+  transition: translate var(--dur-slow) var(--ease);
 }
-.evcard__body p { margin: 0; }
-/* THE TYPE, ICON AND LABEL (user, 10 Oct, from sarvam's "Webinar" line):
-   Phosphor FLASK duotone (user, 10 Oct; it replaced ChalkboardTeacher),
-   copied from the official package
-   (@phosphor-icons/react dist/defs), and "Workshop", in the brand ink, no
-   pill. All four sessions are workshops by their own Luma listings; when a
-   second type arrives it gets its own glyph here. Shared by the featured
-   block and the cards. */
+.evcard__kinds { display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-3); margin-bottom: var(--sp-1); }
 .evkind {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  margin: 0;
   font-size: var(--t-caption);
   font-weight: 600;
   line-height: 1.2;
   color: var(--brand-ink);
 }
-/* 16px beside 12px type (user, 10 Oct: "12px and short"); a 20px glyph
-   outweighed the word it labels. */
 .evkind__ic { flex: none; width: 16px; height: 16px; }
-
-/* Type and place share ONE ROW (user, 10 Oct). */
-.evcard__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-4); }
-.evcard__meta > * { margin: 0; }
-/* Air between the type-and-place row and the title (user, 10 Oct). */
-.evcard__body > .evcard__meta { margin-bottom: var(--sp-2); }
-/* Where it is, with a pin (user, 10 Oct: "remove date ... bring icon for
-   location"). The date lives on the calendar chip now, on every card. */
-.evcard__place {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: var(--t-caption);
-  font-weight: 500;
-  color: var(--ink-3);
-}
-.evcard__pin { flex: none; width: 14px; height: 14px; color: var(--ink-3); }
+.evcard .evkind { color: var(--tertiary-300); }
+/* Two lines at most, then an ellipsis (user, 12 Oct): Luma's titles are long
+   and the full title is on the event page. */
 .evcard__t {
   font-family: var(--font-display);
+  /* 14, the pre-poster size (user, 13 Oct: "we did not have large font"). */
   font-size: var(--t-body);
   font-weight: 500;
   line-height: var(--lh-title);
-  color: var(--ink);
+  color: var(--ink-inv);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
 }
-/* ONE BUTTON (user, 10 Oct: "why 2 button, design a decent single
-   button"), replacing the attached label-plus-arrow-tile pair: one bordered
-   box, the label left and the arrow right, the button radius. Decoration
-   inside the card's <a> (one link), so aria-hidden in the markup. On card
-   hover it is colour, never a fill: the border and ink take the brand and
-   the arrow steps right. */
-.evcard__cta {
-  margin-top: auto;
+/* Date and place on one row at opposite ends (user, 13 Oct). */
+.evcard__meta {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
   gap: var(--sp-3);
-  padding: 11px 14px 11px 16px;
-  border: 1px solid var(--border-strong);
-  border-radius: var(--r-md);
+  /* No rule above it (user, 13 Oct: "we did not have ... separation"). */
+  margin-top: var(--sp-2);
+}
+.evcard__date { font-size: var(--t-caption); font-weight: 600; color: var(--ink-inv); }
+.evcard__place { font-size: var(--t-caption); color: color-mix(in srgb, var(--ink-inv) 72%, transparent); }
+
+/* THE TICKET BUTTON, upcoming only, REVEALED ON HOVER (user, 13 Oct: "lets
+   do our original event card size we had, before we added button, just add
+   the button on hover, so things move up"). The button is OUT OF FLOW, hung
+   just below the copy and clipped by the card, so every card is the
+   no-button height and a row no longer stretches to the upcoming ones. On
+   hover and keyboard focus the whole copy block slides up by the button's
+   height plus its gap (--cta-lift) and the button rises in under it. The
+   block carries its own dark ramp above it (::before), so the title stays
+   legible as it climbs onto the photo. Touch has no hover, so under
+   (hover: none) the card simply rests in the lifted state. White, 12px
+   corners, the Phosphor Ticket duotone; on reveal it fills Tertiary/100. */
+.evcard { --cta-lift: 48px; }
+.evcard__body::before {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--cta-lift) - 24px) 0 0;
+  z-index: -1;
+  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--black) 85%, transparent) var(--cta-lift), var(--black) calc(var(--cta-lift) + 40px));
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease);
+  pointer-events: none;
+}
+/* COMPACT, the header button's size, with the arrow-right suffix (user,
+   13 Oct: "use smaller button, like the one in our header"); the full-width
+   44px ticket bar is gone. The glyph is the harvested Phosphor ArrowRight
+   the ticket's own CTA already carries. */
+.evcard__cta {
+  position: absolute;
+  left: var(--sp-4);
+  top: calc(100% - var(--sp-4) + var(--sp-3));
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  height: 36px;
+  padding: 0 var(--sp-4);
   background: var(--surface);
+  color: var(--black);
+  border-radius: var(--r-md);
   font-size: var(--t-body);
   font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+  line-height: 1;
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease), background-color var(--dur-fast) var(--ease);
 }
-.evcard__cta svg {
-  flex: none;
-  width: 16px;
-  height: 16px;
-  transition: transform var(--dur-fast) var(--ease);
-}
+.evcard__cta svg { flex: none; width: 16px; height: 16px; }
+/* Past cards lift too since 13 Oct (user: "for past card, show button too
+   but make it ghost"): same reveal, the button just outlined. */
+a.evcard:hover .evcard__body,
+a.evcard:focus-visible .evcard__body { translate: 0 calc(-1 * var(--cta-lift)); }
+a.evcard:hover .evcard__body::before,
+a.evcard:focus-visible .evcard__body::before,
 a.evcard:hover .evcard__cta,
-a.evcard:focus-visible .evcard__cta { background: var(--black); border-color: var(--black); color: var(--on-brand); }
-/* TOUCH SCREENS SHOW THE FILLED BUTTON AT REST (user, 10 Oct: "on mobile,
-   make view event button primary only, since no hover"): with no hover the
-   black state above would only flash on tap, so it is the resting state. */
+a.evcard:focus-visible .evcard__cta { opacity: 1; }
 @media (hover: none) {
-  a.evcard .evcard__cta { background: var(--black); border-color: var(--black); color: var(--on-brand); }
+  .evcard .evcard__body { translate: 0 calc(-1 * var(--cta-lift)); }
+  .evcard__body::before, .evcard__cta { opacity: 1; }
 }
-/* Air above the button: the title keeps 16px under it, and the button's
-   margin-top: auto pins it to the card's foot so a row's buttons align. */
-.evcard__body > .evcard__t { margin-bottom: var(--sp-4); }
+/* The ghost: white outline, no fill, the ended state's own weight. Same
+   12px-cornered button shape as the live one. */
+.evcard__cta--ghost {
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--ink-inv) 48%, transparent);
+  color: var(--ink-inv);
+}
+a.evcard:hover .evcard__cta--ghost,
+a.evcard:focus-visible .evcard__cta--ghost { background: color-mix(in srgb, var(--ink-inv) 8%, transparent); }
+
+/* PAST: no button, greyscale, everything a step quieter. Hover brings the
+   colour back part way: the room is still there to look at, you just were
+   not in it. */
+.evcard--past .evcard__photo img,
+.evcard--past img.evcard__photo { filter: grayscale(1) brightness(0.82) contrast(0.95); }
+a.evcard--past:hover .evcard__photo img,
+a.evcard--past:hover img.evcard__photo { filter: grayscale(0.35) brightness(0.9); }
+.evcard--past .evcard__t { color: color-mix(in srgb, var(--ink-inv) 78%, transparent); }
+.evcard--past .evkind { color: color-mix(in srgb, var(--ink-inv) 60%, transparent); }
+.evcard--past .evcard__date { color: color-mix(in srgb, var(--ink-inv) 72%, transparent); }
+.evcard--past .evcard__place { color: color-mix(in srgb, var(--ink-inv) 56%, transparent); }
+@media (prefers-reduced-motion: reduce) {
+  .evcard__photo img, img.evcard__photo, .evcard__cta, .evcard__body, .evcard__body::before { transition: none; }
+  a.evcard:hover, a.evcard:focus-visible { translate: none; }
+}
 
 
 /* ---- Responsive ----------------------------------------------------------- */
 
-@media (max-width: 1199px) {
-  .evfeat { grid-template-columns: 340px minmax(0, 1fr); }
-}
 @media (max-width: 991px) {
-  /* The full band is the base state already; a phone only tightens the head
-     room above the copy. */
   .evhub__panel { padding-top: calc(var(--nav-stack) + var(--sp-16)); }
-  .evhub__globe { flex-basis: 190px; min-height: 150px; max-height: 64vw; width: 92%; margin-top: var(--sp-10); }
-  .evtick { margin-top: calc(-1 * var(--sp-8)); }
 }
-/* PHONES: CONTENT-SIZED, NOT A FULL VIEWPORT (user, 10 Oct: "can we
-   improve hero on mobile"). At 100svh a portrait screen centred the copy in
-   a column far taller than it, leaving empty dark ground above the H1 and
-   under the ticket. The band now hugs its content: the copy under the nav,
-   the dome straight after the button, the ticket riding its foot. The
-   globe is a fixed slice of its own width, showing the top of the sphere. */
+/* PHONES: the poster flows from the top under the nav rather than
+   centring in the band. */
 @media (max-width: 767px) {
-  .evhub__panel {
-    height: auto;
-    justify-content: flex-start;
-    padding-top: calc(var(--nav-stack) + var(--sp-12));
-    padding-bottom: var(--sp-8);
-  }
-  .evhub__globe { flex: none; width: 100%; height: 62vw; min-height: 0; max-height: none; margin-top: var(--sp-6); }
-  .evtick { margin-top: calc(-1 * var(--sp-10)); }
+  .evhub__panel { justify-content: flex-start; padding-top: calc(var(--nav-stack) + var(--sp-12)); }
+  .evh1__dates { margin-top: var(--sp-6); }
 }
 @media (max-width: 640px) {
-  .evtick { height: 52px; }
+  body.page-events { --tick-h: 52px; }
+  .evtick__code { display: none; }
+  .evtick__body { margin-right: var(--notch); }
   .evtick__stub { padding-right: var(--sp-4); }
   .evtick__stub b { font-size: var(--t-title); }
-}
-@media (max-width: 767px) {
-  .evfeat { grid-template-columns: 1fr; gap: var(--sp-8); }
-  .evfeat__foot .btn { width: 100%; justify-content: center; }
-}
-@media (max-width: 991px) {
 }
 @media (max-width: 991px) {
   .evgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -662,9 +695,8 @@ a.evcard:focus-visible .evcard__cta { background: var(--black); border-color: va
 
 @media (prefers-reduced-motion: reduce) {
   .evtick__belt { animation: none; }
+  .evtick { transition: none; }
+  a.evh1__stop { transition: none; }
   .evcard, .evfilter__btn, .evfilter.is-live .evfilter__pill,
-  .evcard__cta, .evcard__cta svg { transition: none; }
+  .evcard { transition: none; }
 }
-
-
-

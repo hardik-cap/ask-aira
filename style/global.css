@@ -42,7 +42,8 @@ body {
 h1, h2, h3, h4, h5, h6 { margin: 0; font-family: var(--font-display); font-weight: 700; }
 /* THE universal h3 (19 Sep, user: "we need to settle on a universal h3 font
    size ... the hierarchy is bad"). Every section-level h3 on the site was
-   already --t-display-3 at 600 (.seat__t, .catrole__t, .runs__t), so this
+   already --t-display-3 at 600 (.runs__t; .seat__t and .catrole__t before
+   their blocks left the site), so this
    states the rule the site was mostly keeping rather than inventing a new
    one. Two had drifted off it: .stage__t was set at --t-display-2, the H2
    size, which is what flattened the hierarchy, and .acc__head declared no
@@ -100,7 +101,6 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
      padding keeps every section's content 20px clear of the lines. */
   padding-inline: var(--sp-5);
 }
-.container--narrow { max-width: var(--container-narrow); }
 
 /* .section carries its own vertical rhythm by default. The base export's
    equivalent deliberately had none, which meant hunting overrides on every
@@ -111,7 +111,6 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   padding-block: var(--section-pad);
 }
 .section--tight { padding-block: var(--sp-16); }
-.section--flush-top { padding-top: 0; }
 .section--flush-bottom { padding-bottom: 0; }
 
 @media (max-width: 991px) {
@@ -253,10 +252,6 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   right: calc(var(--frame-x) + 0.5px);
   transform: translate(50%, -50%);
 }
-
-/* A joint that is only the line, no plus markers (under the header). */
-.joint--bare::before,
-.joint--bare::after { display: none; }
 
 /* ---- Banded sections -----------------------------------------------------
    A section can trade its two hairline rails for 112px dot-grid bands sitting
@@ -571,16 +566,6 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
      fills its own width back. Scoped with :has() so rows of small and medium
      buttons are left alone. */
   .btn-row:has(.btn--lg) { width: 100%; }
-}
-
-/* Framed primary: a hairline box hugging the button, radius matched so the
-   two curves stay concentric. */
-.btn-frame {
-  display: inline-flex;
-  padding: 3px;
-  border: 1px solid var(--border-strong);
-  border-radius: calc(var(--r-sm) + 4px);
-  background: var(--hairline);
 }
 
 /* ---- Navbar ------------------------------------------------------------ */
@@ -991,23 +976,6 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 .nav__mini:hover { color: var(--ink); background: var(--slate-100); }
 .nav__mini svg { width: 20px; height: 20px; color: var(--ink-3); flex: none; }
 .nav__mini:hover svg { color: var(--brand); }
-.nav__aside-rule {
-  height: 1px;
-  flex: none;
-  background: var(--border);
-  margin: var(--sp-2) 8px;
-  margin-top: auto;
-}
-
-.nav__panel-foot {
-  margin: 0;
-  padding: var(--sp-3) var(--sp-3) var(--sp-2);
-  font-size: var(--t-body-sm);
-  color: var(--ink-3);
-}
-.nav__panel-foot a { font-weight: 600; color: var(--ink); }
-.nav__panel-foot a:hover { text-decoration: underline; }
-
 /* Mobile trigger */
 .nav__burger {
   display: none;
@@ -1156,7 +1124,6 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   color: var(--ink-inv);
   background: rgba(255, 255, 255, 0.07);
 }
-:root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__aside-rule { background: rgba(255, 255, 255, 0.12); }
 :root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__item:hover { background: rgba(255, 255, 255, 0.06); }
 :root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__item-label { color: var(--ink-inv); }
 :root:not([data-theme="dark"]) body:not(.page-v2) .nav.nav-dark .nav__item-desc { color: var(--ink-inv-3); }
@@ -1448,6 +1415,21 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 .footer__wordmark-svg linearGradient stop:last-child {
   stop-color: var(--primary-300);
   stop-opacity: 0;
+}
+
+/* THE PHOTO FILL LAYER, injected by js/footer-cut.js on the events pages
+   only (13 Oct, after sarvam.ai/events; stilled the same day, user: "don't
+   animate anything, don't move anything"): one event photograph fills the
+   letterforms over the indigo fill, the same picture the page's own hero
+   paints. NOTHING HERE MAY TRANSFORM: a transform on a masked group drags
+   the mask with it, so the letters themselves slide (the first build's
+   bug). The same foot fade as the fill, as a mask, so the letters still
+   sink into the page. Every other page keeps the plain gradient. */
+.footer__wordmark-photos {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 98%);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent 98%);
 }
 
 @media (max-width: 991px) {

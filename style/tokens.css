@@ -137,6 +137,22 @@
      ink, so --capillary-ink stays as its provenance-carrying alias; reach
      for --black in day-to-day work. Pure #000 is not used anywhere. */
   --black:           #212121;
+  /* CITY COLOURS, for the event pages' city heroes only (12 Oct). The
+     Chicago flag's own sky blue (Pantone 298) and red (Pantone 185 C):
+     its two stripes and four six-pointed stars are the city hero's strip. */
+  --chicago-blue:    #41B6E6;
+  --chicago-red:     #E4002B;
+  /* The other stops' strips are HOMAGES in each flag's palette, drawn in the
+     shared strip component (same stripes, same six-point stars), never a
+     reproduction: Texas blue and red for Dallas, Tennessee crimson and navy
+     for Nashville, the Kannada yellow and red for Bengaluru. Values are
+     close approximations, not certified brand numbers. */
+  --texas-blue:      #00205B;
+  --texas-red:       #BF0D3E;
+  --tennessee-red:   #C8102E;
+  --tennessee-blue:  #002D65;
+  --karnataka-yellow:#FFD200;
+  --karnataka-red:   #D7232A;
   --capillary-ink:   var(--black);
 
   /* Capillary logo-petal colours, the web-palette teal, and the brand

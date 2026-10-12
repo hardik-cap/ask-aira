@@ -745,41 +745,6 @@
   text-align: center;
 }
 
-/* The emblem sits BEHIND the wordmark rather than above it, which is what
-   makes these read as marks instead of as icons with captions. */
-.cert__mark {
-  position: absolute;
-  /* 84 and not 72: the ring has to clear the wordmark it sits behind, and
-     GDPR is the widest of them at about 50px. At 72 the stars landed on the
-     letters. */
-  width: 84px;
-  height: 84px;
-  opacity: 0.55;
-  pointer-events: none;
-}
-.cert__stack {
-  position: relative;
-  display: grid;
-  justify-items: center;
-  gap: 2px;
-  text-align: center;
-}
-.cert__lg {
-  font-family: var(--font-display);
-  font-size: var(--t-title-sm);
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  line-height: 1;
-  color: var(--ink-inv-2);
-}
-.cert__sm {
-  font-family: var(--font-display);
-  font-size: var(--t-caption);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  line-height: 1;
-  color: var(--ink-inv-3);
-}
 
 .sec__note {
   margin-top: var(--sp-6);
@@ -1018,14 +983,7 @@
     var(--fig-x) 0,          calc(100% - var(--fig-x)) 0;
   background-repeat: no-repeat;
 }
-.bento__ph {
-  /* Not the 20px icon size: CLAUDE.md's icon rule exempts the placeholder
-     glyph in an empty media well, and at 20px in a 420px well it reads as
-     debris rather than as a reserved slot. */
-  width: 40px;
-  height: 40px;
-  color: var(--ink-faint);
-}
+
 /* Once a real shot lands it fills the well and the drawn lines stand down
    with the glyph: they are the empty state, not a frame around the art.
    DIRECT CHILD ONLY, all three rules, since 3 Oct: the branch diagram's
@@ -1037,7 +995,7 @@
 .bento__fig:has(> img) {
   background-image: none;
 }
-.bento__fig:has(> img) .bento__ph { display: none; }
+
 .bento__fig > img {
   width: 100%;
   height: 100%;
