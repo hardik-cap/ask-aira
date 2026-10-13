@@ -145,10 +145,21 @@ body.page-events .nav.nav-dark:not(.nav--scrolled) {
 a.evh1__stop { transition: color var(--dur-fast) var(--ease); }
 a.evh1__stop:hover { color: var(--primary-200); }
 a.evh1__stop:focus-visible { outline: 2px solid var(--primary-200); outline-offset: 4px; }
-.evh1__stop--past {
-  color: color-mix(in srgb, var(--on-brand) 38%, transparent);
-  text-decoration: line-through;
-  text-decoration-thickness: 2px;
+/* A played stop is GREYED, not struck (user, 13 Oct: "greyscaling is
+   sufficient"), with a green done tick
+   (Phosphor CheckCircle duotone, from the package) as a SUFFIX on the
+   same line (user: "not top right but suffix same line"). Its negative
+   right margin cancels its own width plus the gap, so it hangs off the end
+   and the date and city stay centred like the live stops. */
+.evh1__stop--past { color: color-mix(in srgb, var(--on-brand) 38%, transparent); }
+.evh1__done {
+  flex: none;
+  align-self: center;
+  width: 20px;
+  height: 20px;
+  margin-left: calc(var(--sp-3) - var(--sp-5));
+  margin-right: calc(-20px - var(--sp-3));
+  color: var(--approve-on-dark);
 }
 .evh1__stop--past b { color: color-mix(in srgb, var(--on-brand) 38%, transparent); }
 .evh1__later {

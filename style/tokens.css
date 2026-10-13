@@ -288,6 +288,10 @@
   --pending-bg:   var(--primary-50);
   --approve:      #0E8A4F;
   --approve-bg:   #E6F5EC;
+  /* The approve green on a dark BAND inside a light page (the dark
+     theme's own --approve value, pinned): /events' "done" tick on the
+     hero's past stop. #0E8A4F is too deep to read on --black. */
+  --approve-on-dark: #4ED18B;
   --hold:         #B26A00;
   --hold-bg:      #FDF3E3;
   --reject:       #C4106A;
