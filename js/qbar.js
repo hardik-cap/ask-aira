@@ -67,11 +67,11 @@
      neighbours; see docs/context.md for the mapping and which ones need more
      marks from Capillary. */
   /* APPROVED BRANDS ONLY since 7 Oct (user): every row, and this fallback,
-     carries only the thirteen marks the logo sheet clears as aiRA users
-     (context.md 15.4a, Optum removed 7 Oct). Each page puts its own
-     category's cleared brands first, then the rest of the thirteen. */
-  var FALLBACK = ['asics', 'rack-room-shoes-color', 'metro-shoes', 'arvind',
-                  'indian-terrain', 'aditya-birla', 'kanmo-group', 'redtag',
+     carries only the twelve marks the logo sheet clears as aiRA users
+     (context.md 15.4a, Optum removed 7 Oct, Metro Shoes 13 Oct). Each page puts its own
+     category's cleared brands first, then the rest of the twelve. */
+  var FALLBACK = ['asics', 'rack-room-shoes-color', 'arvind',
+                  'indian-terrain', 'aditya-birla-lifestyle-brands', 'kanmo-group', 'redtag',
                   'shell', 'hertz-color', 'indigo', 'nascar-color', 'cochran-color'];
 
   function field(names) {
