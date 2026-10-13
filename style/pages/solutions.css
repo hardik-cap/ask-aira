@@ -361,7 +361,6 @@ html:not(.js) .hero-solutions .section-head { margin-bottom: 0; }
 .pickgrid .section-head { margin-bottom: var(--sp-10); }
 
 
-
 /* Group headers inside the business list. Presentational: the option labels
    are unambiguous on their own, so the grouping is a visual aid and the
    listbox still contains only options. */
@@ -376,19 +375,6 @@ html:not(.js) .hero-solutions .section-head { margin-bottom: 0; }
 }
 .pick__group:first-child { padding-top: 4px; }
 
-/* Shown when the chosen business is narrower than the content written so far.
-   Saying it is better than letting retail's questions sit under an apparel
-   heading, which is the failure this whole page argues against. */
-.finder__pending {
-  margin-top: var(--sp-3);
-  padding: 10px 14px;
-  font-size: var(--t-body-sm);
-  line-height: 1.55;
-  color: var(--ink-2);
-  background: var(--capillary-tint-orange);
-  border-radius: var(--r-sm);
-  max-width: 44rem;
-}
 
 /* ---- Industry groups ----------------------------------------------------- */
 
@@ -396,25 +382,7 @@ html.js .finder__group { display: none; }
 html.js .finder__group.is-active { display: block; }
 html:not(.js) .finder__group + .finder__group { margin-top: var(--sp-16); }
 
-.finder__group-head { margin-bottom: var(--sp-8); }
 
-.finder__group-t {
-  font-family: var(--font-display);
-  font-size: var(--t-display-3);
-  font-weight: 700;
-  line-height: 1.22;
-  letter-spacing: var(--tr-title);
-  color: var(--ink);
-  margin-bottom: var(--sp-3);
-  text-wrap: balance;
-}
-
-.finder__group-s {
-  font-size: var(--t-body);
-  line-height: var(--lh-body);
-  color: var(--ink-3);
-  max-width: 44rem;
-}
 
 /* ---- The five seats ------------------------------------------------------
    Exactly the category pages' .catroles anatomy (user call, 17 Sep: "please
@@ -442,146 +410,21 @@ html:not(.js) .finder__group + .finder__group { margin-top: var(--sp-16); }
 
 /* Every second seat swaps sides, the copy staying first in the DOM. */
 .seat:nth-child(even) { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr); }
-.seat:nth-child(even) .seat__id { order: 2; }
-.seat:nth-child(even) .seat__shot { order: 1; }
 
-.seat__id { min-width: 0; }
 
-/* The media slot, exactly the category pages' reserved frame: a gradient
-   hairline dissolving downward around an empty dotted surface (one-element
-   border-box trick so the markup keeps its single slot div). Still a
-   PLACEHOLDER: drop an <img> in and the glyph steps aside; the data-shot
-   attribute names the seat the shot belongs to. */
-.seat__shot {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 67 / 34;
-  border: 1px solid transparent;
-  border-radius: var(--r-lg);
-  background-image:
-    radial-gradient(var(--frame-grid) 1px, transparent 1px),
-    linear-gradient(var(--surface), var(--surface)),
-    linear-gradient(180deg, var(--border-strong), transparent);
-  background-size: 22px 22px, auto, auto;
-  background-origin: padding-box, padding-box, border-box;
-  background-clip: padding-box, padding-box, border-box;
-  box-shadow: var(--shadow-float);
-}
 .seat__shot-ic {
   width: 40px;
   height: 40px;
   color: var(--ink-faint);
 }
-.seat__shot img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: calc(var(--r-lg) - 1px);
-}
-/* Once a real screenshot lands it fills the frame edge to edge. */
-.seat__shot:has(img) {
-  background-image:
-    linear-gradient(var(--surface), var(--surface)),
-    linear-gradient(180deg, var(--border-strong), transparent);
-  background-size: auto, auto;
-  background-origin: padding-box, border-box;
-  background-clip: padding-box, border-box;
-}
-.seat__shot:has(img) .seat__shot-ic { display: none; }
 
-.seat__t {
-  font-family: var(--font-display);
-  font-size: var(--t-display-3);
-  font-weight: 600;
-  letter-spacing: var(--tr-title);
-  color: var(--ink);
-}
-.seat__ic {
-  width: 24px;
-  height: 24px;
-  flex: none;
-  color: var(--brand);
-}
-
-.seat__hand {
-  margin-top: var(--sp-3);
-  font-size: var(--t-body-lg);
-  line-height: var(--lh-body);
-  color: var(--ink-2);
-  max-width: 40rem;
-  text-wrap: pretty;
-}
-
-/* The two capabilities this seat leans on: the qledger cell anatomy from the
-   category pages. The PAIRING is the same in every industry, because the
-   capability is a product feature and does not change with the vertical. What
-   it hands back does, so the descriptions underneath are written per industry
-   (17 Sep, once the playbook registry landed: see IA §29). Before that they
-   were one shared set of ten lines, which made a section headed "the same
-   week looks different in every chair" read identically on all four pages. */
-.seat__pair {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--sp-8);
-  margin-top: var(--sp-8);
-}
-.seat__cap-t {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  font-family: var(--font-display);
-  font-size: var(--t-title-sm);
-  font-weight: 600;
-  letter-spacing: var(--tr-title);
-  color: var(--ink);
-  margin-bottom: var(--sp-2);
-}
-.seat__cap-ic {
-  width: 20px;
-  height: 20px;
-  flex: none;
-  color: var(--brand);
-}
-.seat__cap-d {
-  font-size: var(--t-body-sm);
-  line-height: var(--lh-body);
-  color: var(--ink-3);
-}
-
-/* The questions close the copy column. They sit in a plain bordered block
-   rather than the raised card they were before: the figure is the raised
-   object now, and two of those would fight. */
-.seat__qs {
-  list-style: none;
-  margin: var(--sp-8) 0 0;
-  padding: var(--sp-6);
-  display: grid;
-  gap: var(--sp-5);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-}
 
 /* Landing from a nav "by team" link marks the seat rather than hiding the
    other four: the contrast between them is the point of the page. */
-/* Landing from a shared ?role= link marks the seat rather than hiding the
-   other four: the contrast between them is the point of the page. */
-.seat.is-target .seat__qs {
-  border-color: var(--brand);
-  box-shadow: 0 0 0 3px var(--primary-50);
-}
-.seat.is-target .seat__t { color: var(--brand-ink); }
+
 
 /* ---- Footnote ------------------------------------------------------------ */
 
-.finder__note {
-  margin-top: var(--sp-10);
-  font-size: var(--t-caption);
-  font-weight: 450;
-  line-height: 1.6;
-  color: var(--ink-faint);
-}
 
 /* ---- Close ----------------------------------------------------------------
    A floating CTA card (17 Sep, Clerk reference): the section itself is light
@@ -650,8 +493,7 @@ html:not(.js) .finder__group + .finder__group { margin-top: var(--sp-16); }
      aspect and float. The alternation resets so copy always leads. */
   .seat,
   .seat:nth-child(even) { grid-template-columns: 1fr; }
-  .seat:nth-child(even) .seat__id,
-  .seat:nth-child(even) .seat__shot { order: 0; }
+  
   .seat + .seat { margin-top: var(--sp-12); padding-top: var(--sp-12); }
 
   .solutions-close__card { padding: var(--sp-10); }
@@ -694,14 +536,9 @@ html:not(.js) .finder__group + .finder__group { margin-top: var(--sp-16); }
   .hero-solutions {
     padding-block: calc(var(--sp-16) + var(--nav-h) + var(--nav-float) + 2px) var(--sp-12);
   }
-  .seat__qs { padding: var(--sp-5); }
+  
   .solutions-close__card { padding: var(--sp-6); }
-  /* Two capability columns need about 200px each to keep their titles on one
-     line. Below that they stack. */
-  .seat__pair {
-    grid-template-columns: 1fr;
-    gap: var(--sp-5);
-  }
+  
 }
 
 /* ---- Reduced motion ------------------------------------------------------ */

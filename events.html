@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Events | aiRA</title>
+  <meta name="description" content="The Future of AI in Customer Analytics, live across the US: hands-on sessions on how AI is changing the way marketing, CRM, analytics, and ecommerce teams work with customer data. Up next: Chicago on Monday 9 November 2026, then Dallas on Friday 13 November.">
+  <link rel="canonical" href="https://askaira.ai/events">
+
+  <meta property="og:title" content="Events | aiRA">
+  <meta property="og:description" content="The Future of AI in Customer Analytics, live across the US: hands-on sessions on how AI is changing the way marketing, CRM, analytics, and ecommerce teams work with customer data. Up next: Chicago on Monday 9 November 2026, then Dallas on Friday 13 November.">
+  <meta property="og:image" content="https://askaira.ai/assets/og/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="aiRA, the on-demand insights and analytics agent for customer data, shown beside its workspace: a question, the reasoning it ran, and the dashboard it built.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="aiRA">
+  <meta property="og:url" content="https://askaira.ai/events">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Events | aiRA">
+  <meta name="twitter:description" content="The Future of AI in Customer Analytics, live across the US: hands-on sessions on how AI is changing the way marketing, CRM, analytics, and ecommerce teams work with customer data. Up next: Chicago on Monday 9 November 2026, then Dallas on Friday 13 November.">
+  <meta name="twitter:image" content="https://askaira.ai/assets/og/og-image.png">
+  <link rel="icon" href="/assets/brand/aira-mark.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,400..700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,400..700&display=swap"></noscript>
+
+  <link rel="stylesheet" href="/style/tokens.css">
+  <link rel="stylesheet" href="/style/global.css">
+  <link rel="stylesheet" href="/style/components.css">
+  <link rel="stylesheet" href="/style/pages/events.css">
+
+  <script src="/js/components.js" defer></script>
+  <script src="/js/reveal.js" defer></script>
+  <script src="/js/evreel.js" defer></script>
+  <script src="/js/footer-cut.js" defer></script>
+  <script src="/js/evh1-dots.js" defer></script>
+  <script src="/js/events-filter.js" defer></script>
+  <!-- The city-request form is HIDDEN (13 Oct, user); its three scripts are
+       parked with it. Restore these lines with the section's hidden attribute.
+  <script src="/js/work-email.js" defer></script>
+  <script src="/js/tour-city.js" defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  -->
+</head>
+<body class="page-events">
+
+  <div id="navbar-placeholder"></div>
+
+  <main>
+
+    <!-- ================= HERO =================
+         THE DARK CUTOUT, FULL-BLEED THEN DOCKED (10 Oct, user, from
+         mongodb.com/events and then firecrawl.dev/alexandria: "make this a
+         big header, like it can leave max width ... then when scrolled it
+         comes back within section width ... end to end with the max width of
+         our, no container padding on it"). The panel is a DIRECT CHILD of the
+         section, not of .container, which is what makes full bleed free of vw
+         arithmetic (every vw version is wrong by the scrollbar; see the
+         .phero notes): at rest it is inset by margin-inline: var(--frame-x),
+         whose 50% resolves against the section's own width, so its edges land
+         exactly ON the rails with no container gutter, and a scroll-driven
+         animation plays it FROM margin 0 / radius 0 over the first 480px of
+         scroll. The copy keeps .padding-global inside the panel. Facts:
+         docs/EVENTS.md; registration stays Luma's. -->
+    <section class="section evhub" data-nav-dark>
+      <!-- THE TOUR SHIRT, DARK, since 13 Oct (the pick of four stacked
+           concepts). The band keeps the torn ticket edge at its foot, the
+           glow rising into it, the straddling fact ticket and the
+           transparent nav. The US pin map and the four flat objects left
+           with the map hero (in git). -->
+      <div class="evhub__panel">
+        <div class="padding-global">
+          <div class="container">
+            <!-- THE POSTER (13 Oct, the user's pick of four stacked concepts:
+                 "concept one looks the strongest ... lets go with concept 1";
+                 the road trip, the departures board and the postcards are in
+                 git). The back of the tour tee: stacked caps with TOUR
+                 outlined and swept with colour, the date list with the played
+                 stop struck through, the 2027 line, the sub, one CTA. Every
+                 date is the listings' own; the dot map is the halftone
+                 behind. -->
+            <div class="evh1__poster">
+              <span class="evh1__dots" aria-hidden="true"></span>
+              <canvas class="evh1__parts" data-us-dots aria-hidden="true"></canvas>
+              <p class="evh1__pre"><img class="evh1__logo" src="/assets/brand/aira-lockup-reverse.png" alt="aiRA by Capillary" width="96" height="32"><span>presents</span></p>
+              <h1 class="evh1__t">The Future<br>of AI in<br><em>Customer<br>Analytics</em></h1>
+              <p class="evh1__year"><i aria-hidden="true">&#10022;</i> Live across US <i aria-hidden="true">&#10022;</i></p>
+              <ul class="evh1__dates">
+                <li><span class="evh1__stop evh1__stop--past"><b>Sep 29</b><span>Nashville, TN</span><svg class="evh1__done" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></span><span class="sr-only">(completed)</span></li>
+                <li><a class="evh1__stop" href="/events/ai-analytics-workshop-chicago"><b>Nov 09</b><span>Chicago, IL</span></a></li>
+                <li><a class="evh1__stop" href="/events/ai-analytics-workshop-dallas"><b>Nov 13</b><span>Dallas, TX</span></a></li>
+              </ul>
+              <p class="evh1__later">2027 · New York · Atlanta · San Francisco · Los Angeles</p>
+              <div class="evh1__cta"><a class="btn btn--lg evhub__btn evcta" href="#series">Browse events<span class="evcta__ic evcta__ic--down"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></span></a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- The fact ticker as a TICKET (user, 10 Oct: "make the evtick be
+           visible in view port, give it a ticket like look"), straddling the
+           seam between the dark band and the grid section: the bridge that
+           keeps dark-to-light from reading as a cut. A LINK since 13 Oct
+           (user: "this is good, but can be better"): the ticket to the next
+           stop, opening the Chicago page; the aria-label carries the facts
+           and the belt and stub stay decoration. A drawn BARCODE closes the
+           right end behind its own tear, and hovering pauses the belt so the
+           line can be read. Each half carries the run THREE times so the
+           -50% loop never shows a gap. Static under reduced motion. -->
+      <a class="evtick" href="/events/ai-analytics-workshop-chicago" aria-label="Up next: Chicago, Monday 9 November 2026 · Then: Dallas, Friday 13 November · Seats are intentionally limited · View the Chicago event">
+        <span class="evtick__stub" aria-hidden="true"><b>2</b> upcoming</span>
+        <div class="evtick__body" aria-hidden="true">
+          <div class="evtick__belt">
+          <span class="evtick__seq"><span>Up next: <b>Chicago</b> · Mon 9 Nov</span><i>&#10022;</i><span>Then: <b>Dallas</b> · Fri 13 Nov</span><i>&#10022;</i><span>Seats are intentionally limited</span><i>&#10022;</i><span>Up next: <b>Chicago</b> · Mon 9 Nov</span><i>&#10022;</i><span>Then: <b>Dallas</b> · Fri 13 Nov</span><i>&#10022;</i><span>Seats are intentionally limited</span><i>&#10022;</i><span>Up next: <b>Chicago</b> · Mon 9 Nov</span><i>&#10022;</i><span>Then: <b>Dallas</b> · Fri 13 Nov</span><i>&#10022;</i><span>Seats are intentionally limited</span><i>&#10022;</i></span>
+          <span class="evtick__seq"><span>Up next: <b>Chicago</b> · Mon 9 Nov</span><i>&#10022;</i><span>Then: <b>Dallas</b> · Fri 13 Nov</span><i>&#10022;</i><span>Seats are intentionally limited</span><i>&#10022;</i><span>Up next: <b>Chicago</b> · Mon 9 Nov</span><i>&#10022;</i><span>Then: <b>Dallas</b> · Fri 13 Nov</span><i>&#10022;</i><span>Seats are intentionally limited</span><i>&#10022;</i><span>Up next: <b>Chicago</b> · Mon 9 Nov</span><i>&#10022;</i><span>Then: <b>Dallas</b> · Fri 13 Nov</span><i>&#10022;</i><span>Seats are intentionally limited</span><i>&#10022;</i></span>
+          </div>
+        </div>
+        <span class="evtick__code" aria-hidden="true"></span>
+      </a>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= ALL SESSIONS =================
+         sarvam.ai/events' grid: every session as a card carrying its own Luma
+         cover, with a STATUS TOGGLE (All / Upcoming / Past) driven by
+         js/events-filter.js; with the script off, every card simply shows.
+         sarvam also filters by TYPE (webinar, conference): not built here,
+         because all four sessions are workshops and a filter with one value
+         filters nothing. Add it the day a second type exists.
+         The covers are decorative (alt="", the body restates every fact).
+         Bengaluru's own cover states its date, 5 Aug 2026, which the Luma
+         listing hid; the card reads it from the artwork. -->
+    <section class="section evgrid-sec" id="series">
+      <!-- A dotted ground under the grid (user, 13 Oct: "something in bg
+           instead of blank grey"): the event pages' own 20px dot paper
+           (.evbody__ground's spec), fading out toward the section's foot.
+           An ELEMENT, never .section::before, which is the frame's rail. -->
+      <div class="evgrid__ground" aria-hidden="true"></div>
+      <div class="padding-global">
+        <div class="container">
+          <!-- A TOOLBAR HEAD (user, 10 Oct, from a sarvam-style screenshot):
+               the title left and the status toggle right, no eyebrow. The
+               search box came out (user, 10 Oct); js/events-filter.js runs
+               the toggle; with it off every card shows. The reference's
+               "All types" menu is not built: every session is a workshop,
+               and a one-value filter filters nothing. -->
+          <div class="evbar-head reveal">
+            <div class="evbar-head__lead">
+              <h2 class="section-heading evbar-head__t">All events</h2>
+              <!-- The tour's one description, moved out of the poster
+                   (user, 13 Oct). The Luma listings' own phrase. -->
+              <p class="evbar-head__sub">
+                Hands-on sessions on how AI is changing the way marketing, CRM,
+                analytics, and ecommerce teams work with customer data, city by
+                city across the US.
+              </p>
+            </div>
+            <div class="evtools">
+              <div class="evfilter" role="group" aria-label="Filter events" data-evfilter>
+                <span class="evfilter__pill" aria-hidden="true"></span>
+                <button class="evfilter__btn" type="button" aria-pressed="true" data-evfilter-pick="all">All</button>
+                <button class="evfilter__btn" type="button" aria-pressed="false" data-evfilter-pick="upcoming">Upcoming</button>
+                <button class="evfilter__btn" type="button" aria-pressed="false" data-evfilter-pick="past">Past</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="evgrid reveal" data-evfilter-grid>
+            <a class="evcard" href="/events/ai-analytics-workshop-chicago" data-status="upcoming">
+              <span class="evcard__media evcard__media--photo">
+                <!-- A CITY PHOTO replaces the region map once the city has one
+                     (12 Oct, Chicago first): assets/events/cities/<city>-720,
+                     12:5 like the map, decorative. -->
+                <picture class="evcard__photo evcard__photo--wide"><source type="image/avif" srcset="/assets/events/cities/chicago-720.avif 720w, /assets/events/cities/chicago-1440.avif 1440w" sizes="(max-width: 639px) 100vw, 360px"><img src="/assets/events/cities/chicago-720.jpg" srcset="/assets/events/cities/chicago-720.jpg 720w, /assets/events/cities/chicago-1440.jpg 1440w" sizes="(max-width: 639px) 100vw, 360px" alt="" width="720" height="300" loading="lazy" decoding="async"></picture>
+                <span class="evcard__shade" aria-hidden="true"></span>
+                <span class="evcard__badge">Upcoming</span>
+              </span>
+              <span class="evcard__body">
+                <span class="evcard__kinds"><span class="evkind"><svg class="evkind__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,128a32,32,0,0,0,25.6,31.36,8,8,0,0,1,6.4,7.83V192a8,8,0,0,1-8,8H96V56H224a8,8,0,0,1,8,8V88.81a8,8,0,0,1-6.4,7.83A32,32,0,0,0,200,128Z" opacity="0.2"/><path d="M227.19,104.48A16,16,0,0,0,240,88.81V64a16,16,0,0,0-16-16H32A16,16,0,0,0,16,64V88.81a16,16,0,0,0,12.81,15.67,24,24,0,0,1,0,47A16,16,0,0,0,16,167.19V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V167.19a16,16,0,0,0-12.81-15.67,24,24,0,0,1,0-47ZM32,167.2a40,40,0,0,0,0-78.39V64H88V192H32Zm192,0V192H104V64H224V88.8a40,40,0,0,0,0,78.39Z"/></svg>Workshop + Dinner</span></span>
+                <span class="evcard__t">The AI Analytics Workshop: Turn Customer Data Into Insights and Actions</span>
+                <span class="evcard__meta"><time class="evcard__date" datetime="2026-11-09T17:00-06:00">9 Nov</time><span class="evcard__place">Chicago, IL</span></span>
+                <span class="evcard__cta">Event details<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+              </span>
+            </a>
+
+            <a class="evcard" href="/events/ai-analytics-workshop-dallas" data-status="upcoming">
+              <span class="evcard__media evcard__media--photo">
+                <picture class="evcard__photo evcard__photo--wide"><source type="image/avif" srcset="/assets/events/cities/dallas-720.avif 720w, /assets/events/cities/dallas-1440.avif 1440w" sizes="(max-width: 639px) 100vw, 360px"><img src="/assets/events/cities/dallas-720.jpg" srcset="/assets/events/cities/dallas-720.jpg 720w, /assets/events/cities/dallas-1440.jpg 1440w" sizes="(max-width: 639px) 100vw, 360px" alt="" width="720" height="300" loading="lazy" decoding="async"></picture>
+                <span class="evcard__shade" aria-hidden="true"></span>
+                <span class="evcard__badge">Upcoming</span>
+              </span>
+              <span class="evcard__body">
+                <span class="evcard__kinds"><span class="evkind"><svg class="evkind__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,128a32,32,0,0,0,25.6,31.36,8,8,0,0,1,6.4,7.83V192a8,8,0,0,1-8,8H96V56H224a8,8,0,0,1,8,8V88.81a8,8,0,0,1-6.4,7.83A32,32,0,0,0,200,128Z" opacity="0.2"/><path d="M227.19,104.48A16,16,0,0,0,240,88.81V64a16,16,0,0,0-16-16H32A16,16,0,0,0,16,64V88.81a16,16,0,0,0,12.81,15.67,24,24,0,0,1,0,47A16,16,0,0,0,16,167.19V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V167.19a16,16,0,0,0-12.81-15.67,24,24,0,0,1,0-47ZM32,167.2a40,40,0,0,0,0-78.39V64H88V192H32Zm192,0V192H104V64H224V88.8a40,40,0,0,0,0,78.39Z"/></svg>Workshop + Dinner</span></span>
+                <span class="evcard__t">The AI Analytics Workshop: Turn Customer Data Into Insights and Actions</span>
+                <span class="evcard__meta"><time class="evcard__date" datetime="2026-11-13T17:00-06:00">13 Nov</time><span class="evcard__place">Dallas, TX</span></span>
+                <span class="evcard__cta">Event details<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+              </span>
+            </a>
+
+            <!-- TWO PRODUCT ROADMAP TALKS (user, 12 Oct), Capillary Captivate 2026,
+                 Nashville; titles and times VERBATIM from capillaryevents.com agenda.
+                 Each opens its own page (/events/agentic-workflows-in-aira,
+                 /events/from-answers-to-action), which links out to its source. -->
+            <a class="evcard evcard--past" href="/events/agentic-workflows-in-aira" data-status="past">
+              <span class="evcard__media evcard__media--photo">
+                <picture class="evcard__photo"><source type="image/avif" srcset="/assets/events/captivate-2026/stage-screen-720.avif 720w, /assets/events/captivate-2026/stage-screen-1440.avif 1440w" sizes="(max-width: 639px) 100vw, 360px"><img src="/assets/events/captivate-2026/stage-screen-720.jpg" srcset="/assets/events/captivate-2026/stage-screen-720.jpg 720w, /assets/events/captivate-2026/stage-screen-1440.jpg 1440w" sizes="(max-width: 639px) 100vw, 360px" alt="" width="720" height="300" loading="lazy" decoding="async"></picture>
+                <span class="evcard__shade" aria-hidden="true"></span>
+              </span>
+              <span class="evcard__body">
+                <span class="evcard__kinds"><span class="evkind"><svg class="evkind__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,192H24L96,64h64Z" opacity="0.2"/><path d="M235.92,199A8,8,0,0,1,225,195.92L155.32,72H136v8a8,8,0,0,1-16,0V72H100.68L31,195.92A8,8,0,0,1,17,188.08L82.32,72H24a8,8,0,0,1,0-16H232a8,8,0,0,1,0,16H173.68L239,188.08A8,8,0,0,1,235.92,199ZM128,112a8,8,0,0,0-8,8v16a8,8,0,0,0,16,0V120A8,8,0,0,0,128,112Zm0,56a8,8,0,0,0-8,8v16a8,8,0,0,0,16,0V176A8,8,0,0,0,128,168Z"/></svg>Product Roadmap</span></span>
+                <span class="evcard__t">Agentic workflows in aiRA</span>
+                <span class="evcard__meta"><time class="evcard__date" datetime="2026-09-30T15:30-05:00">30 Sep</time><span class="evcard__place">Nashville, TN</span></span>
+                <span class="evcard__cta evcard__cta--ghost">View event<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+              </span>
+            </a>
+
+            <a class="evcard evcard--past" href="/events/from-answers-to-action" data-status="past">
+              <span class="evcard__media evcard__media--photo">
+                <picture class="evcard__photo"><source type="image/avif" srcset="/assets/events/captivate-2026/venue-aerial-720.avif 720w, /assets/events/captivate-2026/venue-aerial-1440.avif 1440w" sizes="(max-width: 639px) 100vw, 360px"><img src="/assets/events/captivate-2026/venue-aerial-720.jpg" srcset="/assets/events/captivate-2026/venue-aerial-720.jpg 720w, /assets/events/captivate-2026/venue-aerial-1440.jpg 1440w" sizes="(max-width: 639px) 100vw, 360px" alt="" width="720" height="300" loading="lazy" decoding="async"></picture>
+                <span class="evcard__shade" aria-hidden="true"></span>
+              </span>
+              <span class="evcard__body">
+                <span class="evcard__kinds"><span class="evkind"><svg class="evkind__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M232,192H24L96,64h64Z" opacity="0.2"/><path d="M235.92,199A8,8,0,0,1,225,195.92L155.32,72H136v8a8,8,0,0,1-16,0V72H100.68L31,195.92A8,8,0,0,1,17,188.08L82.32,72H24a8,8,0,0,1,0-16H232a8,8,0,0,1,0,16H173.68L239,188.08A8,8,0,0,1,235.92,199ZM128,112a8,8,0,0,0-8,8v16a8,8,0,0,0,16,0V120A8,8,0,0,0,128,112Zm0,56a8,8,0,0,0-8,8v16a8,8,0,0,0,16,0V176A8,8,0,0,0,128,168Z"/></svg>Product Roadmap</span></span>
+                <span class="evcard__t">From answers to action: aiRA as your always on growth engine</span>
+                <span class="evcard__meta"><time class="evcard__date" datetime="2026-09-29T17:00-05:00">29 Sep</time><span class="evcard__place">Nashville, TN</span></span>
+                <span class="evcard__cta evcard__cta--ghost">View event<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+              </span>
+            </a>
+
+            <a class="evcard evcard--past" href="/events/ai-analytics-workshop-nashville" data-status="past">
+              <span class="evcard__media evcard__media--photo">
+                <picture class="evcard__photo"><source type="image/avif" srcset="/assets/events/cities/nashville-720.avif 720w, /assets/events/cities/nashville-1440.avif 1440w" sizes="(max-width: 639px) 100vw, 360px"><img src="/assets/events/cities/nashville-720.jpg" srcset="/assets/events/cities/nashville-720.jpg 720w, /assets/events/cities/nashville-1440.jpg 1440w" sizes="(max-width: 639px) 100vw, 360px" alt="" width="720" height="300" loading="lazy" decoding="async"></picture>
+                <span class="evcard__shade" aria-hidden="true"></span>
+              </span>
+              <span class="evcard__body">
+                <span class="evcard__kinds"><span class="evkind"><svg class="evkind__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,128a32,32,0,0,0,25.6,31.36,8,8,0,0,1,6.4,7.83V192a8,8,0,0,1-8,8H96V56H224a8,8,0,0,1,8,8V88.81a8,8,0,0,1-6.4,7.83A32,32,0,0,0,200,128Z" opacity="0.2"/><path d="M227.19,104.48A16,16,0,0,0,240,88.81V64a16,16,0,0,0-16-16H32A16,16,0,0,0,16,64V88.81a16,16,0,0,0,12.81,15.67,24,24,0,0,1,0,47A16,16,0,0,0,16,167.19V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V167.19a16,16,0,0,0-12.81-15.67,24,24,0,0,1,0-47ZM32,167.2a40,40,0,0,0,0-78.39V64H88V192H32Zm192,0V192H104V64H224V88.8a40,40,0,0,0,0,78.39Z"/></svg>Workshop + Lunch</span></span>
+                <span class="evcard__t">The AI Analytics Workshop: Turn Customer Data Into Decisions</span>
+                <span class="evcard__meta"><time class="evcard__date" datetime="2026-09-29T10:00-05:00">29 Sep</time><span class="evcard__place">Nashville, TN</span></span>
+                <span class="evcard__cta evcard__cta--ghost">View event<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+              </span>
+            </a>
+
+            <a class="evcard evcard--past" href="/events/retention-growth-playbooks-bengaluru" data-status="past">
+              <span class="evcard__media evcard__media--photo">
+                <picture class="evcard__photo"><source type="image/avif" srcset="/assets/events/cities/bengaluru-720.avif 720w, /assets/events/cities/bengaluru-1440.avif 1440w" sizes="(max-width: 639px) 100vw, 360px"><img src="/assets/events/cities/bengaluru-720.jpg" srcset="/assets/events/cities/bengaluru-720.jpg 720w, /assets/events/cities/bengaluru-1440.jpg 1440w" sizes="(max-width: 639px) 100vw, 360px" alt="" width="720" height="300" loading="lazy" decoding="async"></picture>
+                <span class="evcard__shade" aria-hidden="true"></span>
+              </span>
+              <span class="evcard__body">
+                <span class="evcard__kinds"><span class="evkind"><svg class="evkind__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,128a32,32,0,0,0,25.6,31.36,8,8,0,0,1,6.4,7.83V192a8,8,0,0,1-8,8H96V56H224a8,8,0,0,1,8,8V88.81a8,8,0,0,1-6.4,7.83A32,32,0,0,0,200,128Z" opacity="0.2"/><path d="M227.19,104.48A16,16,0,0,0,240,88.81V64a16,16,0,0,0-16-16H32A16,16,0,0,0,16,64V88.81a16,16,0,0,0,12.81,15.67,24,24,0,0,1,0,47A16,16,0,0,0,16,167.19V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V167.19a16,16,0,0,0-12.81-15.67,24,24,0,0,1,0-47ZM32,167.2a40,40,0,0,0,0-78.39V64H88V192H32Zm192,0V192H104V64H224V88.8a40,40,0,0,0,0,78.39Z"/></svg>Workshop + Dinner</span></span>
+                <span class="evcard__t">Inside the Best Consumer Retention &amp; Growth Playbooks [Workshop]</span>
+                <span class="evcard__meta"><time class="evcard__date" datetime="2026-08-05T17:30+05:30">5 Aug</time><span class="evcard__place">Bengaluru, KA</span></span>
+                <span class="evcard__cta evcard__cta--ghost">View event<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+              </span>
+            </a>
+          </div>
+          <p class="sr-only" aria-live="polite" data-evfilter-count></p>
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= BRING THE TOUR TO YOUR CITY =================
+         The tour's city-request form (13 Oct; Hardik on the 12 Oct call:
+         "Bring this workshop to your city"). REDESIGNED later that day
+         (user: "surprise me ... height increasing is not great, also put
+         this section above past events"): one paper ticket ABOVE the reel,
+         its left half a MINI POSTER in the hub cards' own grammar (a real
+         photograph, the Captivate audience with hands raised, PLACEHOLDER
+         until the user supplies one, fading into --black with the pitch on
+         the dark), a dashed tear, and the form right at a HEIGHT THAT NEVER
+         MOVES: every field always shows, and "Somewhere else" swaps itself
+         for a type-in pill in the same chips row instead of unfolding rows
+         (js/tour-city.js). Posts to Formspark "Tour City Requests"
+         (jRH2wikQO), never the booking form. -->
+    <!-- HIDDEN 13 Oct (user: "hide bring the tour to your city section"):
+         markup kept whole; remove `hidden` and un-park the three head
+         scripts to bring it back. -->
+    <section class="section evcity-sec" id="tour-city" hidden>
+      <div class="padding-global">
+        <div class="container">
+          <div class="evcity reveal">
+            <div class="evcity__side">
+              <img class="evcity__ph" src="/assets/events/captivate-2026/hands-up.jpg" alt="" width="1600" height="1067" loading="lazy" decoding="async">
+              <span class="evcity__shade" aria-hidden="true"></span>
+              <div class="evcity__copy">
+                <h2 class="evcity__t">Bring the tour to <em>your city</em>.</h2>
+                <p class="evcity__sub">The 2027 stops are still being planned. Tell us where you want the workshop next, and we&rsquo;ll let you know when it lands there.</p>
+              </div>
+            </div>
+            <div class="evcity__tear" aria-hidden="true"></div>
+            <div class="evcity__pane">
+              <form class="evcity__form" action="https://submit-form.com/jRH2wikQO" method="post" data-tour-city>
+              <input type="hidden" name="_redirect" value="https://askaira.ai/events?city-request=sent#tour-city">
+              <input type="hidden" name="_append" value="false">
+              <input type="checkbox" name="_honeypot" class="evcity__hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <fieldset class="evcity__cities">
+                <legend class="evcity__legend">Which city?</legend>
+                <div class="evcity__chips">
+                    <label class="evcity__chip"><input type="radio" name="city" value="New York" required><span>New York</span></label>
+                    <label class="evcity__chip"><input type="radio" name="city" value="Atlanta" required><span>Atlanta</span></label>
+                    <label class="evcity__chip"><input type="radio" name="city" value="San Francisco" required><span>San Francisco</span></label>
+                    <label class="evcity__chip"><input type="radio" name="city" value="Los Angeles" required><span>Los Angeles</span></label>
+                    <label class="evcity__chip"><input type="radio" name="city" value="Somewhere else" data-city-other><span>Somewhere else</span></label>
+                    <input class="evcity__input evcity__input--chip" id="tc-other" name="city_other" type="text" placeholder="Your city" autocomplete="address-level2" aria-label="Your city" data-city-other-field hidden>
+                </div>
+              </fieldset>
+              <div class="evcity__fields" data-city-fields>
+                <div class="evcity__row">
+                  <label class="sr-only" for="tc-name">Full name</label>
+                  <input class="evcity__input" id="tc-name" name="name" type="text" placeholder="Full name" autocomplete="name" required>
+                  <label class="sr-only" for="tc-company">Company (optional)</label>
+                  <input class="evcity__input" id="tc-company" name="company" type="text" placeholder="Company (optional)" autocomplete="organization">
+                </div>
+                <label class="sr-only" for="tc-email">Work email</label>
+                <input class="evcity__input" id="tc-email" name="email" type="email" placeholder="Work email" autocomplete="email" required aria-describedby="tc-email-err">
+                <p class="evcity__err" id="tc-email-err" role="alert" hidden></p>
+                <input type="hidden" name="source_page" value="">
+                <input type="hidden" name="landing_page" value="">
+                <input type="hidden" name="referrer" value="">
+                <input type="hidden" name="utm_source" value="">
+                <input type="hidden" name="utm_medium" value="">
+                <input type="hidden" name="utm_campaign" value="">
+                <input type="hidden" name="utm_term" value="">
+                <input type="hidden" name="utm_content" value="">
+                <input type="hidden" name="gclid" value="">
+                <input type="hidden" name="li_fat_id" value="">
+                <div class="cf-turnstile evcity__ts" data-sitekey="0x4AAAAAAFSZZP3JXl12_JiD"
+                     data-theme="light" data-size="flexible" data-appearance="interaction-only"
+                     data-callback="airaCityTsOk" data-error-callback="airaCityTsErr"
+                     data-expired-callback="airaCityTsExpired"></div>
+                <p class="evcity__err" id="tc-form-err" role="alert" hidden></p>
+                <button class="btn btn--primary evcity__submit" type="submit" data-city-submit>Request this city</button>
+                <p class="evcity__note">By submitting this form you agree to Capillary contacting you about the tour. See the <a href="/privacy-policy">privacy policy</a>.</p>
+              </div>
+            </form>
+              <div class="evcity__done" data-city-done hidden tabindex="-1">
+              <svg class="evcity__done-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>
+              <p class="evcity__done-t" data-city-done-t>You&rsquo;re on the list.</p>
+              <p class="evcity__done-s" data-city-done-s>We&rsquo;ll let you know when the tour heads your way.</p>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= FROM THE ROOM =================
+         ONE MOVING REEL since 10 Oct evening (see the note on .evreel); the
+         two labelled galleries it replaced are in git. Captivate 2026 first
+         (eight frames from a 25-photo set; dates from the welcome banner
+         and EXIF, 29 and 30 Sep 2026; NO CITY is named because neither the
+         photos nor their metadata state one), then Bengaluru. Each block's
+         own caption says which event it is, so no photo can read as a
+         different session. Captivate encodes in assets/events/captivate-2026.
+         Bengaluru: eight photographs from the session (5 Aug 2026, with The
+         Product Folks), picked from the 328-frame shoot the user supplied
+         (10 Oct): the room, the speakers, hands-on work at the tables, the
+         aiRA swag and dinner. Web encodes live in assets/events/bengaluru
+         (1600px lead and wide tiles, 1200px the rest, about 1.2MB in all).
+         These are content, so each carries real alt text. Labelled as
+         Bengaluru throughout: it was a different session from the US
+         workshop series, and the photos must not read as Chicago or New
+         York. -->
+    <section class="section evroom-sec" id="from-the-room">
+      <div class="padding-global">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2 class="section-heading">From <em>past events</em>.</h2>
+          </div>
+
+          <!-- ONE MOVING REEL (user, 10 Oct: "a carousal of images marquee
+               moving all clubbed into one"), replacing the two labelled bento
+               galleries. Sixteen photographs, Captivate's eight then
+               Bengaluru's, and EACH CARRIES ITS EVENT AS A CHIP, so mixing the
+               two shoots in one strip cannot pass a photo off as the wrong
+               event. Two identical sets and a -50% translate make the loop
+               seamless; the SECOND SET is aria-hidden with empty alts, so a
+               screen reader meets each photo once. Paused on hover and on
+               focus; under reduced motion the belt stops and the first set
+               becomes a sideways-scrolling row instead. -->
+          <div class="evreel reveal" tabindex="0" role="region" aria-label="Photographs from past aiRA events">
+            <div class="evreel__belt">
+              <div class="evreel__set">
+                <div class="evreel__mod evreel__mod--full">
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/fireside-welcome.jpg" alt="A fireside chat on the Captivate 2026 stage, between an aiRA banner and the Catalyzing Growth welcome banner" width="1600" height="1067" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--layout">
+                  <figure class="evreel__ph" style="--pos: 50% 40%"><img src="/assets/events/captivate-2026/speaker-stage.jpg" alt="A speaker addressing the room from the Captivate stage" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/aira-on-ipad.jpg" alt="An attendee typing a question into aiRA on an iPad" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/table-smiles.jpg" alt="Three attendees laughing at a table with tablets open" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--full">
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/aira-panel.jpg" alt="A panel discussion on stage beside an aiRA banner" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--stack">
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/hands-up.jpg" alt="A full room raising hands during a session at Captivate 2026" width="1600" height="1067" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/roundtable-session.jpg" alt="A small round-table session beside an aiRA banner" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--tall">
+                  <figure class="evreel__ph" style="--pos: 45% 50%"><img src="/assets/events/captivate-2026/evening-reception.jpg" alt="Attendees talking at the evening reception" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--full">
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/full-room.jpg" alt="The full room at round tables during the Bengaluru session" width="1600" height="1067" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--stack">
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/hands-on-laptop.jpg" alt="Attendees gathered round a laptop, working through an exercise together" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/table-work.jpg" alt="A table of attendees following along on a laptop" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--layout">
+                  <figure class="evreel__ph" style="--pos: 50% 45%"><img src="/assets/events/bengaluru/aira-tote.jpg" alt="An aiRA tote bag printed with Ask, Think, Act" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/speaker-slide.jpg" alt="A speaker presenting the session's three takeaways on screen" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/prize-handoff.jpg" alt="An attendee receiving an aiRA tote on stage" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--full">
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/dinner-networking.jpg" alt="Attendees talking over dinner after the session" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+              </div>
+              <div class="evreel__set" aria-hidden="true">
+                <div class="evreel__mod evreel__mod--full">
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/fireside-welcome.jpg" alt="" width="1600" height="1067" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--layout">
+                  <figure class="evreel__ph" style="--pos: 50% 40%"><img src="/assets/events/captivate-2026/speaker-stage.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/aira-on-ipad.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/table-smiles.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--full">
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/aira-panel.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--stack">
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/hands-up.jpg" alt="" width="1600" height="1067" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/captivate-2026/roundtable-session.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--tall">
+                  <figure class="evreel__ph" style="--pos: 45% 50%"><img src="/assets/events/captivate-2026/evening-reception.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--full">
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/full-room.jpg" alt="" width="1600" height="1067" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--stack">
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/hands-on-laptop.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/table-work.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--layout">
+                  <figure class="evreel__ph" style="--pos: 50% 45%"><img src="/assets/events/bengaluru/aira-tote.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/speaker-slide.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/prize-handoff.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+                <div class="evreel__mod evreel__mod--full">
+                  <figure class="evreel__ph"><img src="/assets/events/bengaluru/dinner-networking.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+        <div class="joint" aria-hidden="true"></div>
+
+</main>
+
+  <div id="footer-placeholder"></div>
+
+</body>
+</html>

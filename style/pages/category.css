@@ -8,7 +8,7 @@
    These load pages/solutions.css and pages/industry.css the way the hubs do,
    so the hero, the close card and the section furniture are inherited. Only
    what is new to a category page lives here: the breadcrumb, the four-facet
-   shape grid, and the role blocks built on the .qledger component that was
+   shape grid, and the question ledger built on the .qledger component that was
    kept back for exactly this page (components.css).
 
    Role sections are anchors rather than tabs on purpose. The questions are
@@ -321,123 +321,11 @@
 
 
 /* ---- Role blocks ----------------------------------------------------------
-   Five per page, stacked and anchored. Since 17 Sep each block is a split
-   pane: the seat's copy and its question ledger on one side, a reserved
-   image frame on the other, alternating sides down the page. The frame is
-   deliberately empty: real product shots drop into the .catrole__shot slots
-   later, and the space is held now so nothing reflows when they land. */
+   GONE. The five .catrole split panes left the markup with the 18 Sep
+   solution-first redesign and their CSS sat here unused until the 13 Oct
+   dead-rule sweep removed it (in git). The question bar and ledger below
+   are what replaced them. */
 
-.catrole {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
-  gap: var(--sp-10) var(--sp-16);
-  align-items: center;
-  /* The anchor lands under the floating header: scroll-padding-top on :root
-     already accounts for the bar, and this adds the breathing room a heading
-     wants above it. */
-  scroll-margin-top: calc(var(--nav-h) + var(--nav-float) + var(--sp-10));
-}
-
-.catrole + .catrole {
-  margin-top: var(--sp-16);
-  padding-top: var(--sp-16);
-  border-top: 1px solid var(--border);
-}
-
-/* Every second seat swaps sides so the page does not read as one long
-   left-hand rail. The copy stays first in the DOM either way. */
-.catrole--flip { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr); }
-.catrole--flip .catrole__body { order: 2; }
-.catrole--flip .catrole__fig  { order: 1; }
-
-.catrole__head { margin-bottom: var(--sp-6); }
-
-.catrole__t {
-  font-family: var(--font-display);
-  font-size: var(--t-display-3);
-  font-weight: 600;
-  letter-spacing: var(--tr-title);
-  color: var(--ink);
-}
-
-.catrole__p {
-  margin-top: var(--sp-3);
-  font-size: var(--t-body-lg);
-  line-height: var(--lh-body);
-  color: var(--ink-2);
-  max-width: 40rem;
-  text-wrap: pretty;
-}
-
-/* The ledger is an open two-by-two grid, the reference block's feature-grid
-   anatomy carried over from the homepage questions section: each capability
-   leads with its own duotone icon inside the title, and the seat's real
-   question is the sentence beneath. No card, no ruling: the cells float
-   on the wash. */
-.catrole .qledger {
-  border-top: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--sp-8) var(--sp-8);
-  padding-top: var(--sp-2);
-}
-.catrole .qledger__cap {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  font-family: var(--font-display);
-  font-size: var(--t-title-sm);
-  font-weight: 600;
-  letter-spacing: var(--tr-title);
-  color: var(--ink);
-}
-.catrole .qledger__icon {
-  display: inline-flex;
-  flex: none;
-  color: var(--brand);
-}
-.catrole .qledger__icon svg { width: 20px; height: 20px; }
-.catrole .qledger__q {
-  margin-top: var(--sp-2);
-  font-size: var(--t-body-sm);
-  line-height: var(--lh-body);
-  color: var(--ink-3);
-  text-wrap: pretty;
-}
-
-/* The reserved frame: a hairline that dissolves downward around an empty
-   surface, so the slot reads as intentional rather than unfinished. */
-.catrole__fig {
-  padding: 1px;
-  border-radius: var(--r-lg);
-  background: linear-gradient(180deg, var(--border-strong), transparent);
-}
-.catrole__shot {
-  aspect-ratio: 67 / 34;
-  border-radius: calc(var(--r-lg) - 1px);
-  background:
-    radial-gradient(var(--frame-grid) 1px, transparent 1px) 0 0 / 22px 22px,
-    var(--surface);
-  box-shadow: var(--shadow-float);
-}
-.catrole__shot img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: inherit;
-}
-
-@media (max-width: 900px) {
-  .catrole,
-  .catrole--flip { grid-template-columns: 1fr; }
-  .catrole--flip .catrole__body,
-  .catrole--flip .catrole__fig { order: 0; }
-  .catrole + .catrole { margin-top: var(--sp-12); padding-top: var(--sp-12); }
-}
-@media (max-width: 560px) {
-  .catrole .qledger { grid-template-columns: 1fr; gap: var(--sp-6); }
-}
 
 /* ---- Proof ----------------------------------------------------------------
    Only on the pages where a cleared case study genuinely covers the category.
@@ -600,7 +488,6 @@
    --t-mono), NOT Geist Mono: mono stays confined to eyebrows and drawn
    illustrations. Uppercasing in CSS is safe here because no capability name
    contains "aiRA". */
-.asked .qledger__n,
 .asked .qledger__cap {
   font-family: var(--font-display);
   font-size: var(--t-mono);

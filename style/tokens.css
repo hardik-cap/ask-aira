@@ -137,6 +137,27 @@
      ink, so --capillary-ink stays as its provenance-carrying alias; reach
      for --black in day-to-day work. Pure #000 is not used anywhere. */
   --black:           #212121;
+  /* CITY COLOURS, for the event pages' city heroes only (12 Oct). The
+     Chicago flag's own sky blue (Pantone 298) and red (Pantone 185 C):
+     its two stripes and four six-pointed stars are the city hero's strip. */
+  --chicago-blue:    #41B6E6;
+  --chicago-red:     #E4002B;
+  /* The other stops' strips are HOMAGES in each flag's palette, drawn in the
+     shared strip component (same stripes, same six-point stars), never a
+     reproduction: Texas blue and red for Dallas, Tennessee crimson and navy
+     for Nashville, the Kannada yellow and red for Bengaluru. Values are
+     close approximations, not certified brand numbers. */
+  --texas-blue:      #00205B;
+  --texas-red:       #BF0D3E;
+  --tennessee-red:   #C8102E;
+  --tennessee-blue:  #002D65;
+  --karnataka-yellow:#FFD200;
+  --karnataka-red:   #D7232A;
+  /* THE TOUR TINT's two stops that are not palette steps (13 Oct, lifted
+     from the user's LinkedIn tour creatives): a violet midpoint and a
+     night navy. Its other stops are Primary/600 and --black. */
+  --tour-violet:     #5836D2;
+  --tour-night:      #020336;
   --capillary-ink:   var(--black);
 
   /* Capillary logo-petal colours, the web-palette teal, and the brand
@@ -267,6 +288,10 @@
   --pending-bg:   var(--primary-50);
   --approve:      #0E8A4F;
   --approve-bg:   #E6F5EC;
+  /* The approve green on a dark BAND inside a light page (the dark
+     theme's own --approve value, pinned): /events' "done" tick on the
+     hero's past stop. #0E8A4F is too deep to read on --black. */
+  --approve-on-dark: #4ED18B;
   --hold:         #B26A00;
   --hold-bg:      #FDF3E3;
   --reject:       #C4106A;
@@ -320,6 +345,12 @@
   --shadow-float: 0 1px 2px rgba(11, 16, 32, 0.05),
                   0 4px 10px -4px rgba(11, 16, 32, 0.08),
                   0 14px 32px -12px rgba(11, 16, 32, 0.16);
+  /* The floating ask bar on the homepage (9 Oct, attio's reference): a
+     wide, soft pool under a pill that rides over content, so it reads as
+     lifted off the page rather than set into it. */
+  --shadow-ask: 0 1px 3px rgba(11, 16, 32, 0.06),
+                0 8px 20px -6px rgba(11, 16, 32, 0.12),
+                0 24px 48px -16px rgba(11, 16, 32, 0.22);
 
   /* ---- Radius ------------------------------------------------------ */
   --r-xs:   4px;
@@ -394,6 +425,10 @@
      there but clamps up to 28, so a statement that wants 24 at every width
      had nowhere to go. Continues the title family's 16 / 18 / 20 / 24. */
   --t-title-xl:  1.5rem;      /* 24, flat */
+  /* 28 FLAT, added 10 Oct for the event pages' phone H1: --t-display-3
+     reaches 28 only at desktop widths, and Luma's long titles need 28 on a
+     phone, between the 24 step and the 32 hero. */
+  --t-title-2xl: 1.75rem;     /* 28, flat */
   --t-title-sm:  1rem;        /* 16 */
   --t-lede:      1.25rem;     /* 20, a lede set above the subheader */
   /* 18, added 28 Sep for the HERO subheads (.hero__sub, .phero__sub), which

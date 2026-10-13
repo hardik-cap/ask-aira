@@ -6,10 +6,13 @@
     <div class="container nav__inner">
 
       <a class="nav__logo" href="/" aria-label="aiRA by Capillary, home">
-        <img class="nav__logo-light" src="/assets/brand/aira-logo.png"
-             alt="aiRA by Capillary" width="81" height="26">
-        <img class="nav__logo-dark" src="/assets/brand/aira-logo-reverse.png"
-             alt="" aria-hidden="true" width="81" height="26">
+        <!-- THE ENDORSED LOCKUP since 13 Oct (user: "aiRA by capillary to
+             replace everywhere there is the old aiRA logo"), the footer's own
+             artwork; aira-logo.png and its reverse are placed nowhere now. -->
+        <img class="nav__logo-light" src="/assets/brand/aira-lockup.png"
+             alt="aiRA by Capillary" width="92" height="32">
+        <img class="nav__logo-dark" src="/assets/brand/aira-lockup-reverse.png"
+             alt="" aria-hidden="true" width="96" height="32">
       </a>
 
       <button class="nav__burger" type="button" aria-label="Open menu"
@@ -129,11 +132,20 @@
           <!-- CUSTOMERS, a flat link before Pricing (4 Oct, user). Added, hidden
                and restored the same day. Its story pages (/customers/nascar)
                live under it. -->
-          <!-- PARKED 9 Oct (user: "archive customers and pricing page and hide
-               from header and footer"). Uncomment when they come back.
+          <!-- PARKED AGAIN 12 Oct (user: "archive pricing and customers pages
+               with headers and footer updated"). Pages in /archive; uncomment
+               these two lines when they come back.
           <a class="nav__link" href="/customers">Customers</a>
           <a class="nav__link" href="/pricing">Pricing</a>
           -->
+
+          <!-- EVENTS IS A FLAT LINK since 10 Oct (user: "make it just a
+               link, no drawer"). The laravel-style drawer it replaced for a
+               few hours (upcoming rows with date tiles, past sessions, a
+               drawn poster) is in git with its CSS; /events itself carries
+               everything it showed. -->
+          <a class="nav__link" href="/events">Events</a>
+
           <!-- ABOUT IS A FLAT LINK and not a "Company" dropdown (27 Sep).
                Solutions earns a panel because it has fifteen destinations
                behind it; a Company group would currently hold one built page,

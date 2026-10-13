@@ -1,0 +1,981 @@
+/* ==========================================================================
+   aiRA - /events, the tour hub. Light page under a DARK hero band: a centred
+   hero over a dot map of the US with clickable tour pins and flat objects at its edges, a grid of
+   map-thumbnail event cards, and the photo reel. Each event's page is
+   styled by event.css. Loads after tokens -> global -> components.
+   ========================================================================== */
+
+/* THE HERO IS THE TOUR SHIRT since 13 Oct (the user's pick of four stacked
+   concepts: "concept one looks the strongest ... lets go with concept 1";
+   the road trip, the departures board and the postcards are in git, markup
+   and rules). The back of the tour tee as a poster on --black: stacked caps
+   with TOUR outlined and swept with colour, the date list with the played
+   stop struck through, the 2027 line, the sub, one CTA, the dot map a
+   halftone behind. KEPT from the previous dark hero: the torn ticket edge
+   at the band's foot, the brand glow rising into it, the straddling fact
+   ticket, the hover tiles and the transparent nav. The US pin map (.evus)
+   and the four flat objects (.evobjs) left with the map hero (in git).
+   Primitives throughout: a drawn object. */
+.evhub {
+  --nav-stack: calc(var(--nav-h) + var(--nav-float) + 2px);
+  --scallop: 7px;
+  position: relative;
+  margin-top: calc(-1 * var(--nav-stack));
+  padding: 0;
+  background: var(--surface-2);
+}
+/* The ticket's height, on the body because the band and the grid section
+   below it both measure off it. */
+body.page-events { --tick-h: 56px; }
+body.page-events .nav.nav-dark:not(.nav--scrolled) {
+  background-color: transparent !important;
+  border-color: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.evhub__panel {
+  position: relative;
+  overflow: clip;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* A MIN-height, not a height: the poster outgrows a short screen and must
+     push the band rather than clip. Half the ticket hangs below the band,
+     so it stops half a ticket short of the fold. */
+  min-height: max(calc(100vh - var(--tick-h) / 2), 720px);
+  min-height: max(calc(100svh - var(--tick-h) / 2), 720px);
+  padding-top: calc(var(--nav-stack) + var(--sp-10));
+  padding-bottom: calc(var(--tick-h) / 2 + var(--sp-8));
+  background:
+    radial-gradient(90% 110% at 50% -30%, color-mix(in srgb, var(--primary-600) 55%, transparent), transparent 62%),
+    radial-gradient(55% 38% at 50% 104%, color-mix(in srgb, var(--primary-600) 46%, transparent), transparent 72%),
+    var(--black);
+  /* The torn ticket edge: one scallop per 22px tile, the section's
+     --surface-2 ground showing through. */
+  -webkit-mask: radial-gradient(circle var(--scallop) at 50% 100%, transparent 96%, #000 100%) 50% 0 / 22px 100% repeat-x;
+  mask: radial-gradient(circle var(--scallop) at 50% 100%, transparent 96%, #000 100%) 50% 0 / 22px 100% repeat-x;
+}
+/* The hover-tile grid left with the particles (user, 13 Oct: "remove
+   square grid effect"); everything in the panel sits above the band. */
+.evhub__panel > * { position: relative; z-index: 1; }
+
+/* ---- The poster ------------------------------------------------------------
+   TOUR ANIMATES (user: "the tour word can be a animating something"): the
+   outlined word is a background-clip: text gradient, a narrow two-colour
+   band sweeping through the letters on background-position; the outline is
+   always drawn, so reduced motion and old engines keep the resting shirt. */
+.evh1__poster { position: relative; text-align: center; }
+.evh1__dots {
+  position: absolute;
+  inset: -10% 0;
+  background: color-mix(in srgb, var(--on-brand) 9%, transparent);
+  -webkit-mask: url(/assets/events/us-dots.svg) center / contain no-repeat;
+  mask: url(/assets/events/us-dots.svg) center / contain no-repeat;
+}
+/* THE MAP IS INTERACTIVE PARTICLES when it can be (user, 13 Oct, from
+   Bencho's Particles): js/evh1-dots.js seats one dot per us-dots.svg
+   point on this canvas and adds .is-live, standing the masked span down.
+   The span above stays the ground with scripts off, under reduced motion
+   and on touch, where nothing could push a dot anyway. The canvas takes
+   pointer-events none: the PANEL is listened to, so the CTA and the date
+   links stay plain links. */
+/* The canvas is ALWAYS displayed (transparent until the script draws):
+   hidden, it measures a zero box and the script could never size it. Only
+   the span stands down. */
+/* Explicit width and height, NOT inset alone: a canvas is a replaced
+   element, so insets do not stretch it and it sits at its intrinsic
+   300x150. */
+.evh1__parts {
+  position: absolute;
+  top: -10%;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  display: block;
+  pointer-events: none;
+  color: color-mix(in srgb, var(--on-brand) 14%, transparent);
+}
+.evh1__poster.is-live .evh1__dots { display: none; }
+.evh1__poster > :not(.evh1__dots):not(.evh1__parts) { position: relative; }
+/* The presenter is the LOCKUP, not typed text (13 Oct, user: "the aiRA by
+   capillary logo ... on the event page hero"): the reverse artwork at
+   32px (40 first; user: "reduce size"), the nav's own size, with
+   "presents" set beside it. */
+.evh1__pre {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  margin: 0 0 var(--sp-6);
+  font-size: var(--t-body);
+  font-weight: 500;
+  color: color-mix(in srgb, var(--on-brand) 70%, transparent);
+}
+.evh1__logo { height: 32px; width: auto; }
+/* "presents" centres on the WORDMARK, not the whole lockup: the "by
+   capillary" line hangs below, so the word lifts 4px off the box centre. */
+.evh1__pre span { margin-bottom: 8px; }
+.evh1__t {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 10.5vw, 7.5rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--on-brand);
+}
+.evh1__year {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-4);
+  margin: var(--sp-6) 0 0;
+  font-family: var(--font-display);
+  font-size: var(--t-body);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tertiary-300);
+}
+.evh1__year i { font-style: normal; font-size: var(--t-caption); }
+.evh1__dates { list-style: none; margin: var(--sp-8) 0 0; padding: 0; display: grid; gap: var(--sp-3); }
+.evh1__stop {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--sp-5);
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.6vw, 2rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--on-brand);
+  text-decoration: none;
+}
+.evh1__stop b { font-weight: 600; font-variant-numeric: tabular-nums; color: var(--tertiary-300); }
+a.evh1__stop { transition: color var(--dur-fast) var(--ease); }
+a.evh1__stop:hover { color: var(--primary-200); }
+a.evh1__stop:focus-visible { outline: 2px solid var(--primary-200); outline-offset: 4px; }
+/* A played stop is GREYED, not struck (user, 13 Oct: "greyscaling is
+   sufficient"), with a green done tick
+   (Phosphor CheckCircle duotone, from the package) as a SUFFIX on the
+   same line (user: "not top right but suffix same line"). Its negative
+   right margin cancels its own width plus the gap, so it hangs off the end
+   and the date and city stay centred like the live stops. */
+.evh1__stop--past { color: color-mix(in srgb, var(--on-brand) 38%, transparent); }
+.evh1__done {
+  flex: none;
+  align-self: center;
+  width: 20px;
+  height: 20px;
+  margin-left: calc(var(--sp-3) - var(--sp-5));
+  margin-right: calc(-20px - var(--sp-3));
+  color: var(--approve-on-dark);
+}
+.evh1__stop--past b { color: color-mix(in srgb, var(--on-brand) 38%, transparent); }
+.evh1__later {
+  margin: var(--sp-8) 0 0;
+  font-family: var(--font-display);
+  font-size: var(--t-body);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--on-brand) 50%, transparent);
+}
+.evh1__later span { font-weight: 500; letter-spacing: 0; text-transform: none; }
+.evh1__cta { margin-top: var(--sp-10); }
+
+/* The highlight is CUSTOMER ANALYTICS in solid Tertiary/300 (13 Oct,
+   user, option 1): colour, not the outline TOUR and FUTURE wore, because
+   two outlined lines would leave half the title as hairlines. A lighter
+   Primary/200 band still sweeps through it; at rest it is plain T300. */
+.evh1__t em {
+  font-style: normal;
+  color: transparent;
+  background: linear-gradient(105deg, var(--tertiary-300) 0 38%, var(--primary-200) 50%, var(--tertiary-300) 62% 100%);
+  background-size: 260% 100%;
+  background-position: 130% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .evh1__t em { animation: evh1-sweep 4.6s var(--ease) infinite; }
+}
+@keyframes evh1-sweep {
+  0% { background-position: 130% 0; }
+  60%, 100% { background-position: -30% 0; }
+}
+.evcta { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.evcta__ic { display: inline-flex; }
+.evcta__ic svg { width: 16px; height: 16px; }
+.evcta__ic--down svg { transform: rotate(135deg); }
+/* A light button: .btn--primary is --black, which this ground is too. */
+.evhub__btn { background: var(--on-brand); color: var(--black); }
+.evhub__btn:hover { background: color-mix(in srgb, var(--on-brand) 88%, var(--primary-200)); color: var(--black); }
+
+/* SHORT DESKTOP WINDOWS give up head room before the poster does. */
+@media (min-width: 992px) and (max-height: 820px) {
+  .evhub__panel { padding-top: calc(var(--nav-stack) + var(--sp-8)); }
+}
+
+/* The fact ticker, along the panel's foot; the globe above it carries the
+   air, so it sits snug on the dome's clip line. */
+/* SOLID TERTIARY BAND since 10 Oct (user: "add a solid bg ... teal or
+   purple"): Tertiary/600, the teal-side anchor, a primitive like the rest of
+   the drawn band. The dashed hairline went with the transparency. */
+/* THE TICKET. Tertiary/600 (the teal-side anchor, a primitive like the
+   rest of the drawn band), 12px corners, a semicircle notch cut from each
+   short end by a mask, and a stub divided from the body by a dashed tear
+   line: an admission ticket, not a news crawl. It sits under the tour map;
+   the belt is clipped inside the body. */
+/* A LINK since 13 Oct: the ticket to the next stop. The notch mask clips a
+   box-shadow, so the lift is a drop-shadow FILTER (the evbar lesson), which
+   follows the notches; hover raises it 2px and pauses the belt. */
+a.evtick { text-decoration: none; }
+.evtick {
+  --notch: 10px;
+  flex: none;
+  display: flex;
+  align-items: stretch;
+  width: min(880px, calc(100% - 2 * var(--sp-5)));
+  height: var(--tick-h);
+  /* ACROSS THE SEAM: pulled up half its height over the band's foot and
+     half hanging into the grid section, which the negative bottom margin
+     keeps out of the section's height (the joint lands on the seam). Above
+     the joint (z-index 2) and the next section. */
+  position: relative;
+  z-index: 3;
+  margin: calc(var(--tick-h) / -2) auto calc(var(--tick-h) / -2);
+  background: var(--tertiary-600);
+  border-radius: var(--r-md);
+  -webkit-mask:
+    radial-gradient(circle var(--notch) at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--notch) at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat;
+  mask:
+    radial-gradient(circle var(--notch) at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--notch) at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat;
+  filter: drop-shadow(0 14px 26px color-mix(in srgb, var(--black) 30%, transparent));
+  transition: translate var(--dur-fast) var(--ease), filter var(--dur-fast) var(--ease);
+}
+a.evtick:hover,
+a.evtick:focus-visible {
+  translate: 0 -2px;
+  filter: drop-shadow(0 20px 32px color-mix(in srgb, var(--black) 42%, transparent));
+}
+a.evtick:hover .evtick__belt,
+a.evtick:focus-visible .evtick__belt { animation-play-state: paused; }
+a.evtick:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+.evtick__stub {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 var(--sp-6) 0 calc(var(--notch) + var(--sp-5));
+  border-right: 2px dashed color-mix(in srgb, var(--on-brand) 45%, transparent);
+  font-size: var(--t-body);
+  font-weight: 500;
+  white-space: nowrap;
+  color: color-mix(in srgb, var(--on-brand) 80%, transparent);
+}
+.evtick__stub b {
+  font-family: var(--font-display);
+  font-size: var(--t-title-xl);
+  font-weight: 500;
+  color: var(--on-brand);
+}
+.evtick__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  overflow: clip;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 24px, #000 calc(100% - 24px), transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 24px, #000 calc(100% - 24px), transparent);
+}
+.evtick__belt {
+  display: flex;
+  width: max-content;
+  animation: evtick 56s linear infinite;
+}
+.evtick__seq {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-6);
+  padding-left: var(--sp-6);
+  /* Inter, sentence case: no Geist Mono on new builds (user, 10 Oct). */
+  font-size: var(--t-body);
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--on-brand);
+}
+.evtick__seq i { font-style: normal; font-size: var(--t-caption); color: color-mix(in srgb, var(--on-brand) 70%, transparent); }
+.evtick__seq b { font-weight: 700; color: var(--on-brand); }
+/* The barcode on the right end, behind its own tear: two stripe pitches
+   overlaid so the bars read irregular, like a printed code. */
+.evtick__code {
+  flex: none;
+  align-self: center;
+  width: 46px;
+  height: 26px;
+  margin: 0 calc(var(--notch) + var(--sp-4)) 0 var(--sp-4);
+  border-left: 2px dashed color-mix(in srgb, var(--on-brand) 45%, transparent);
+  padding-left: var(--sp-3);
+  background:
+    repeating-linear-gradient(90deg, var(--on-brand) 0 2px, transparent 2px 6px),
+    repeating-linear-gradient(90deg, var(--on-brand) 0 1px, transparent 1px 9px);
+  background-clip: content-box;
+  opacity: 0.9;
+}
+@keyframes evtick { to { transform: translateX(-50%); } }
+
+/* The tear line's ink, used by every ticket on this page: --border-strong
+   (#E2E5EE) vanished on white and 1.5px rounded to 1, so it is 2px at 18%
+   ink. (Deleted once by a block rewrite, which blanked every tear line on
+   the page; keep it here, ahead of its first use.) */
+:root { --evtear: color-mix(in srgb, var(--ink) 18%, transparent); }
+
+/* THE FEATURED BLOCK (.evfeat, "Coming to Chicago.") CAME OUT 12 Oct (user:
+   "lets not have the latest event single card there"); markup and rules are
+   in git. The upcoming cards in the grid carry the next event now. */
+.evcta__go { width: 16px; height: 16px; transition: transform var(--dur-fast) var(--ease); }
+
+@media (prefers-reduced-motion: reduce) {
+  .evcta__go { transition: none; }
+}
+
+/* ---- The toolbar head: title, search, status toggle ------------------------
+   From a sarvam-style screenshot (user, 10 Oct): "All events" left, the
+   controls right on one line, no eyebrow. The toggle is a SEGMENTED control
+   with the chosen segment FILLED in --black: the reference shows exactly
+   that, and a segmented control is the one place a fill is the state
+   (the colour-not-fill rule is for hover and selected cards). Both
+   controls are 48px tall so they read as one row. Below 768 they stack
+   full width, the three segments sharing it equally. */
+
+.evbar-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-5) var(--sp-8);
+  margin-bottom: var(--sp-10);
+}
+.evbar-head__lead { max-width: 40rem; }
+.evbar-head__t { margin: 0; }
+.evbar-head__sub {
+  margin: var(--sp-3) 0 0;
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+.evtools { display: flex; align-items: center; gap: var(--sp-3); }
+
+/* SMALL, WITH A SLIDING ACTIVE STATE (user, 10 Oct: "make evfilter small,
+   the active state moves and animates"). 36px tall. One black pill under
+   the buttons, placed by js/events-filter.js off the pressed button's own
+   box and animated in x and width, so it travels between options instead of
+   blinking. .is-live (added by the script) hands the fill to the pill;
+   without it the pressed button carries the fill itself. */
+.evfilter {
+  position: relative;
+  display: inline-flex;
+  height: 36px;
+  padding: 3px;
+  gap: 2px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+}
+.evfilter__pill {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 0;
+  width: var(--w, 0);
+  transform: translateX(var(--x, 0));
+  border-radius: var(--r-pill);
+  background: var(--black);
+  opacity: 0;
+}
+.evfilter.is-live .evfilter__pill {
+  opacity: 1;
+  transition: transform 360ms cubic-bezier(0.34, 1.36, 0.64, 1), width 360ms cubic-bezier(0.34, 1.36, 0.64, 1);
+}
+.evfilter__btn {
+  position: relative;
+  z-index: 1;
+  appearance: none;
+  background: none;
+  border: 0;
+  border-radius: var(--r-pill);
+  padding: 0 14px;
+  font: inherit;
+  font-size: var(--t-body);
+  font-weight: 500;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: color 240ms var(--ease);
+}
+.evfilter__btn:hover { color: var(--ink); }
+.evfilter__btn[aria-pressed="true"] { background: var(--black); color: var(--on-brand); }
+.evfilter.is-live .evfilter__btn[aria-pressed="true"] { background: none; }
+.evfilter__btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+
+/* ---- The grid: every session, its own cover ---------------------------------
+   Three across (sarvam), each card its square Luma cover over the facts. The
+   drawn per-city poster bands this replaced are in git. */
+
+/* The hero's "View events" anchors here. The section's top edge lands
+   EXACTLY under the floating header (user, 10 Oct: it was "not coming
+   exactly on all sessions section"). TRAP: html already carries
+   scroll-padding-top (nav + float + 24px) and scroll-margin ADDS to it, so
+   the old margin, which restated the same clearance, doubled it and stopped
+   ~90px short with the featured section showing. This margin is only the
+   DIFFERENCE between that padding and the nav stack (nav + float + 2px
+   border): -22px. */
+.evgrid-sec { scroll-margin-top: calc(2px - 24px); }
+/* EACH SECTION ITS OWN GROUND (user, 12 Oct: "give both all events and past
+   photos different bg section color"): the grid on --surface-2 (slate-100),
+   so the white cards lift off it, and the photo reel on --surface (white),
+   which keeps the photographs clean. Dark hero, grey grid, white reel, grey
+   footer: no two neighbours share a tone. */
+.evgrid-sec { position: relative; background: var(--surface-2); padding-top: calc(var(--section-pad) + var(--tick-h) / 2); }
+.evgrid-sec > .padding-global { position: relative; z-index: 1; }
+/* The dot paper: .evbody__ground's 20px / 11% spec (20 divides --cell), on
+   its own element because the section pseudos are the rails. It dies before
+   the foot so the boundary to the reel stays clean. */
+.evgrid__ground {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--ink) 11%, transparent) 1px, transparent 1px);
+  background-size: 20px 20px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0 32%, transparent 86%);
+  mask-image: linear-gradient(to bottom, #000 0 32%, transparent 86%);
+}
+/* ============ THE TICKET GRAMMAR ACROSS THE PAGE (13 Oct) ============
+   (user: "that cutout we added in hero, lets have that kind of details and
+   fun across events and all details page ... a different thing
+   altogether"). Two moves, both this page and every /events/<slug> page
+   (event.css restates the joint half):
+   - EVERY JOINT IS A PERFORATION: the 1px hairline becomes a dashed tear
+     with a PUNCH HOLE on each rail where the brand squares sat. Positions
+     are global.css's own; only the drawing changes.
+   - THE REEL TEARS INTO THE GRID: the white section's top edge carries a
+     row of --surface-2 scallops, the grid's ground biting down, the hub
+     hero's torn edge quoted at a seam. */
+/* NO JOINT LINES ON THE HUB since 13 Oct (user: "since horizontally we are
+   having that cutout effect, lets remove horizontal lines appearing here"):
+   the hero already ends in a torn scallop edge with the ticket straddling
+   the seam, and the reel tears in on its own scallops, so a dashed rule at
+   the same boundaries was the same statement twice. The joint divs stay in
+   the markup (joints are placed there, the site rule); this stands them
+   down on THIS PAGE only, punch-hole rings included. The detail pages keep
+   their perforated joints (event.css). */
+body.page-events .joint { display: none; }
+.evroom-sec {
+  background:
+    radial-gradient(circle 7px at 11px 0, var(--surface-2) 96%, transparent 100%) top left / 22px 10px repeat-x,
+    var(--surface);
+}
+
+/* THREE ACROSS (user, 13 Oct: "do 3 column grid"; it was four across from
+   10 Oct, when there were four sessions). Six cards deal as two clean rows;
+   2x2 below 992, one column on phones. */
+.evgrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+/* POSTER CARDS (user, 13 Oct, after laravel.com/community: "image top,
+   and gradient to dark bottom, nice and clean look"; "kinda hard to
+   differentiate between new and past events"). The photo fills the whole
+   card and runs into --black at the foot, where the copy sits in white.
+   STATE IS CARRIED BY THREE THINGS AT ONCE, none of them a label: an
+   upcoming card is in full colour and ends in a white ticket button; a past
+   card has no button and sits in greyscale, its colour coming back only
+   part way on hover, the "you missed this one" feel. The "Upcoming" tag came
+   off with it. The whole card is still the link; the button is a span
+   inside it, so the event page (never Luma) is where both lead.
+   Its height is the photo band (see .evcard__media) plus the copy. The region
+   map rules (.evcard__map, --evmap-*) went with the white body; the maps in
+   assets/events/maps/ stay as files. */
+.evcard {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  background: var(--black);
+  border-radius: var(--r-lg);
+  overflow: clip;
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--dur-slow) var(--ease), translate var(--dur-slow) var(--ease);
+}
+.evcard:is(:hover, :focus-visible) { box-shadow: var(--shadow-md); translate: 0 -2px; }
+
+
+/* The photo is the card's flexible top: it takes whatever height the copy
+   leaves, then fades into the --black ground the copy sits on. */
+/* FLATTER since 13 Oct (user: "can our cards be little flat? the images
+   were cropped in certain size"): the photos are 2.4:1 panoramas, and a
+   3:4 card cut them to a vertical slice. The card has no ratio of its own
+   now; the photo is a 16:9 band and the card is that plus its copy. In a
+   row the band grows to match the tallest card (a past card, having no
+   button, gets a taller photo), so the copy still floors to the foot. */
+/* overflow clip: the hover zoom otherwise pokes 2.5% of photo out of the
+   media box over the copy below. The fade and the shade carry explicit
+   z-indexes: a scaled img is a stacking context and Chrome paints it over
+   a z-auto pseudo, which cut the fade off on hover (user, 13 Oct). */
+.evcard__media { position: relative; flex: 1 0 auto; aspect-ratio: 16 / 9; display: block; overflow: clip; }
+.evcard__media::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 45%;
+  z-index: 1;
+  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--black) 70%, transparent) 55%, var(--black));
+  pointer-events: none;
+}
+.evcard__photo img,
+img.evcard__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--pos, 50% 40%);
+  transition: scale 900ms var(--ease), filter var(--dur-slow) var(--ease);
+}
+.evcard:hover .evcard__photo img,
+.evcard:hover img.evcard__photo { scale: 1.05; }
+
+/* CHICAGO AND DALLAS SIT BACK IN THE BAND (user, 13 Oct: "scale down ...
+   show more of surroundings"). A 2.4:1 panorama in the 16:9 band loses a
+   quarter of its width to the cover crop, which read as a zoomed-in
+   skyline. The --wide photo hangs from the band's top at 82% of its
+   height, so the visible crop widens from 74% to about 90% of the
+   panorama, and the img carries its own mask so its foot dissolves into
+   the band's fade instead of cutting to a hard edge. */
+.evcard__photo--wide img { height: 82%; mask-image: linear-gradient(to bottom, #000 72%, transparent); }
+
+/* THE COPY SITS ON THE DARK, NOT ON THE PHOTO. A first pass laid the
+   copy over a full-bleed photo and the city panoramas (2.4:1, cropped into
+   a portrait card) put their subject exactly under it: the Bean went under
+   the title and the button. Now the photo is the top of the card and the
+   copy pulls up 48px into its fade, so only the fade overlaps. A faint dim
+   at the top (.evcard__shade) is all the photo itself carries. */
+.evcard__shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--black) 12%, transparent), transparent 30%);
+  pointer-events: none;
+}
+/* UPCOMING CARDS WEAR THE TOUR TINT (user, 13 Oct, with the LinkedIn tour
+   creatives' own gradient: "apply tint on the hub"), so the hub card and
+   the ad that sent someone to it are the same picture. The TOP and MIDDLE
+   stops are the creative's; the FOOT IS EASED (user, same day: "a bit too
+   dark from below or text area"): the creative ran to opaque black because
+   its type sits on the photo, while here the media's own ::after fade
+   already melts the photo into the copy, and the two stacked crushed the
+   lower half. So the tint stops at the night navy and lets the fade finish.
+   PAST CARDS STAY GREYSCALE and untinted: tint against grey is the
+   upcoming/past signal. */
+.evcard:not(.evcard--past) .evcard__shade {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--black) 55%, transparent) 0%,
+    color-mix(in srgb, var(--primary-600) 55%, transparent) 17.53%,
+    color-mix(in srgb, var(--tour-violet) 55%, transparent) 46.82%,
+    color-mix(in srgb, var(--tour-night) 45%, transparent) 75%,
+    color-mix(in srgb, var(--tour-night) 30%, transparent) 100%);
+}
+
+/* "Upcoming": the white tag top-right, back on the two live cards (user,
+   13 Oct: "we are also missing the upcoming badge"). z-index 2 lifts it
+   over the shade and the fade. */
+.evcard__badge {
+  position: absolute;
+  top: var(--sp-3);
+  right: var(--sp-3);
+  z-index: 2;
+  padding: 3px 8px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xs);
+  font-size: var(--t-caption);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.evcard__body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  margin-top: -36px;
+  padding: 0 var(--sp-4) var(--sp-4);
+  transition: translate var(--dur-slow) var(--ease);
+}
+.evcard__kinds { display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-3); margin-bottom: var(--sp-1); }
+.evkind {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--t-caption);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--brand-ink);
+}
+.evkind__ic { flex: none; width: 16px; height: 16px; }
+.evcard .evkind { color: var(--tertiary-300); }
+/* Two lines at most, then an ellipsis (user, 12 Oct): Luma's titles are long
+   and the full title is on the event page. */
+.evcard__t {
+  font-family: var(--font-display);
+  /* 14, the pre-poster size (user, 13 Oct: "we did not have large font"). */
+  font-size: var(--t-body);
+  font-weight: 500;
+  line-height: var(--lh-title);
+  color: var(--ink-inv);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+/* Date and place on one row at opposite ends (user, 13 Oct).
+   THE FOOT IS A TICKET STUB since later the same day (user: "they still
+   dont look very event like"): the events pages' own tear grammar, a
+   dashed line where a stub would tear off with a punch notch half-clipped
+   out of each card edge (discs in the grid's own ground, cropped by the
+   card's overflow), so the date-and-place row reads as the ticket's stub.
+   This supersedes the no-separator note from the flat-card pass: that was
+   a plain hairline, this is the tear. */
+.evcard__meta {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-3);
+  border-top: 2px dashed color-mix(in srgb, var(--ink-inv) 28%, transparent);
+}
+.evcard__meta::before,
+.evcard__meta::after {
+  content: '';
+  position: absolute;
+  top: -9px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--surface-2);
+}
+.evcard__meta::before { left: calc(-1 * var(--sp-4) - 8px); }
+.evcard__meta::after { right: calc(-1 * var(--sp-4) - 8px); }
+.evcard__date { font-size: var(--t-caption); font-weight: 600; color: var(--ink-inv); }
+.evcard__place { font-size: var(--t-caption); color: color-mix(in srgb, var(--ink-inv) 72%, transparent); }
+
+/* THE TICKET BUTTON, upcoming only, REVEALED ON HOVER (user, 13 Oct: "lets
+   do our original event card size we had, before we added button, just add
+   the button on hover, so things move up"). The button is OUT OF FLOW, hung
+   just below the copy and clipped by the card, so every card is the
+   no-button height and a row no longer stretches to the upcoming ones. On
+   hover and keyboard focus the whole copy block slides up by the button's
+   height plus its gap (--cta-lift) and the button rises in under it. The
+   block carries its own dark ramp above it (::before), so the title stays
+   legible as it climbs onto the photo. Touch has no hover, so under
+   (hover: none) the card simply rests in the lifted state. White, 12px
+   corners, the Phosphor Ticket duotone; on reveal it fills Tertiary/100. */
+.evcard { --cta-lift: 48px; }
+.evcard__body::before {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--cta-lift) - 24px) 0 0;
+  z-index: -1;
+  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--black) 85%, transparent) var(--cta-lift), var(--black) calc(var(--cta-lift) + 40px));
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease);
+  pointer-events: none;
+}
+/* COMPACT, the header button's size, with the arrow-right suffix (user,
+   13 Oct: "use smaller button, like the one in our header"); the full-width
+   44px ticket bar is gone. The glyph is the harvested Phosphor ArrowRight
+   the ticket's own CTA already carries. */
+.evcard__cta {
+  position: absolute;
+  left: var(--sp-4);
+  top: calc(100% - var(--sp-4) + var(--sp-3));
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  height: 36px;
+  padding: 0 var(--sp-4);
+  background: var(--surface);
+  color: var(--black);
+  border-radius: var(--r-md);
+  font-size: var(--t-body);
+  font-weight: 600;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease), background-color var(--dur-fast) var(--ease);
+}
+.evcard__cta svg { flex: none; width: 16px; height: 16px; }
+/* Past cards lift too since 13 Oct (user: "for past card, show button too
+   but make it ghost"): same reveal, the button just outlined. */
+.evcard:is(:hover, :focus-visible) .evcard__body { translate: 0 calc(-1 * var(--cta-lift)); }
+.evcard:is(:hover, :focus-visible) .evcard__body::before,
+.evcard:is(:hover, :focus-visible) .evcard__cta { opacity: 1; }
+@media (hover: none) {
+  .evcard .evcard__body { translate: 0 calc(-1 * var(--cta-lift)); }
+  .evcard__body::before, .evcard__cta { opacity: 1; }
+}
+/* The ghost: white outline, no fill, the ended state's own weight. Same
+   12px-cornered button shape as the live one. */
+.evcard__cta--ghost {
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--ink-inv) 48%, transparent);
+  color: var(--ink-inv);
+}
+.evcard:is(:hover, :focus-visible) .evcard__cta--ghost { background: color-mix(in srgb, var(--ink-inv) 8%, transparent); }
+
+/* PAST: no button, greyscale, everything a step quieter. Hover brings the
+   colour back part way: the room is still there to look at, you just were
+   not in it. */
+.evcard--past .evcard__photo img,
+.evcard--past img.evcard__photo { filter: grayscale(1) brightness(0.82) contrast(0.95); }
+.evcard--past:hover .evcard__photo img,
+.evcard--past:hover img.evcard__photo { filter: grayscale(0.35) brightness(0.9); }
+.evcard--past .evcard__t { color: color-mix(in srgb, var(--ink-inv) 78%, transparent); }
+.evcard--past .evkind { color: color-mix(in srgb, var(--ink-inv) 60%, transparent); }
+.evcard--past .evcard__date { color: color-mix(in srgb, var(--ink-inv) 72%, transparent); }
+.evcard--past .evcard__place { color: color-mix(in srgb, var(--ink-inv) 56%, transparent); }
+@media (prefers-reduced-motion: reduce) {
+  .evcard__photo img, img.evcard__photo, .evcard__cta, .evcard__body, .evcard__body::before { transition: none; }
+  .evcard:is(:hover, :focus-visible) { translate: none; }
+}
+
+
+/* ---- Responsive ----------------------------------------------------------- */
+
+@media (max-width: 991px) {
+  .evhub__panel { padding-top: calc(var(--nav-stack) + var(--sp-16)); }
+}
+/* PHONES: the poster flows from the top under the nav rather than
+   centring in the band. */
+@media (max-width: 767px) {
+  .evhub__panel { justify-content: flex-start; padding-top: calc(var(--nav-stack) + var(--sp-12)); }
+  .evh1__dates { margin-top: var(--sp-6); }
+}
+@media (max-width: 640px) {
+  body.page-events { --tick-h: 52px; }
+  .evtick__code { display: none; }
+  .evtick__body { margin-right: var(--notch); }
+  .evtick__stub { padding-right: var(--sp-4); }
+  .evtick__stub b { font-size: var(--t-title); }
+}
+@media (max-width: 991px) {
+  .evgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 639px) {
+  .evgrid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .evtick__belt { animation: none; }
+  .evtick { transition: none; }
+  a.evh1__stop { transition: none; }
+  .evcard, .evfilter__btn, .evfilter.is-live .evfilter__pill,
+  .evcard { transition: none; }
+}
+
+/* ---- BRING THE TOUR TO YOUR CITY (#tour-city) -----------------------------
+   The tour's city-request ticket (13 Oct; redesigned the same day, user:
+   "surprise me with a good design ... height increasing is not great").
+   It sits BETWEEN the grid and the reel on the grid's own --surface-2, so
+   no scallop of its own: the reel's torn top edge still punches this
+   ground. ONE PAPER TICKET: the left half a MINI POSTER in the hub cards'
+   grammar (the photo fading into --black, the pitch on the dark, the em in
+   the on-dark accent), a dashed tear with punch notches, the form right.
+   THE FORM'S HEIGHT NEVER MOVES: every field always shows, and the
+   "Somewhere else" chip SWAPS ITSELF for a same-size type-in pill in the
+   chips row (the :has() below; js/tour-city.js focuses it and swaps back),
+   so nothing unfolds. Inputs restate /book's .input (book.css does not
+   load here); chips are radios styled as pills, a chip not a button, so
+   --r-pill is allowed, and the picked one takes a brand edge and brand
+   ink, never a fill. */
+.evcity-sec { background: var(--surface-2); scroll-margin-top: calc(2px - 24px); }
+.evcity {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) auto minmax(0, 6fr);
+  align-items: stretch;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: clip;
+}
+
+/* The poster half: photo into dark, copy on the dark. */
+.evcity__side { position: relative; min-height: 440px; }
+.evcity__ph { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+.evcity__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--black) 8%, color-mix(in srgb, var(--black) 72%, transparent) 34%, transparent 62%);
+}
+.evcity__copy { position: absolute; inset: auto 0 0; padding: var(--sp-8); }
+.evcity__t {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--t-display-3);
+  font-weight: 500;
+  line-height: var(--lh-title);
+  color: var(--ink-inv);
+}
+.evcity__t em { font-style: normal; color: var(--tertiary-300); }
+.evcity__sub { margin: var(--sp-3) 0 0; font-size: var(--t-body); line-height: var(--lh-body); color: color-mix(in srgb, var(--ink-inv) 78%, transparent); }
+
+.evcity__tear {
+  position: relative;
+  width: 0;
+  border-left: 2px dashed color-mix(in srgb, var(--ink) 18%, transparent);
+}
+.evcity__tear::before,
+.evcity__tear::after {
+  content: '';
+  position: absolute;
+  left: -11px;
+  width: 20px;
+  height: 20px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  z-index: 1;
+}
+.evcity__tear::before { top: -11px; }
+.evcity__tear::after { bottom: -11px; }
+
+.evcity__pane { padding: var(--sp-8); display: grid; align-content: center; }
+.evcity__form { display: grid; gap: var(--sp-5); }
+.evcity__form[hidden] { display: none; }
+.evcity__hp { display: none; }
+.evcity__cities { margin: 0; padding: 0; border: 0; min-width: 0; display: grid; gap: var(--sp-3); }
+.evcity__legend {
+  padding: 0;
+  margin-bottom: var(--sp-3);
+  font-family: var(--font-display);
+  font-size: var(--t-caption);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.evcity__chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.evcity__chip { position: relative; cursor: pointer; }
+.evcity__chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.evcity__chip span {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 var(--sp-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  font-size: var(--t-body);
+  font-weight: 500;
+  color: var(--ink-2);
+  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.evcity__chip:hover span { border-color: var(--ink-3); color: var(--ink); }
+.evcity__chip input:checked + span {
+  border-color: var(--brand);
+  box-shadow: inset 0 0 0 1px var(--brand);
+  color: var(--brand-ink);
+}
+.evcity__chip input:focus-visible + span { outline: 2px solid var(--brand); outline-offset: 2px; }
+/* "Somewhere else" picked: the chip stands down and the type-in pill takes
+   its place in the row, same 40px, so the row never grows. The [hidden]
+   attribute stays for the no-:has fallback and the script. */
+.evcity__chips:has([data-city-other]:checked) .evcity__chip:has([data-city-other]) { display: none; }
+
+.evcity__fields { display: grid; gap: var(--sp-3); }
+.evcity__row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
+.evcity__input {
+  width: 100%;
+  font: inherit;
+  font-size: var(--t-body);
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  padding: 10px 14px;
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.evcity__input::placeholder { color: var(--ink-faint); }
+.evcity__input:focus {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 18%, transparent);
+}
+.evcity__input[aria-invalid="true"] { border-color: var(--reject); }
+/* The type-in pill: AFTER the base .evcity__input rule, which would
+   otherwise win the width at equal specificity. */
+.evcity__input--chip {
+  width: 200px;
+  max-width: 100%;
+  height: 40px;
+  padding: 0 var(--sp-4);
+  border-radius: var(--r-pill);
+  border-color: var(--brand);
+  box-shadow: inset 0 0 0 1px var(--brand);
+}
+.evcity__input--chip[hidden] { display: none; }
+.evcity__err { margin: calc(-1 * var(--sp-1)) 0 0; font-size: var(--t-caption); color: var(--reject); }
+.evcity__ts:empty { display: none; }
+.evcity__submit { justify-self: start; margin-top: var(--sp-1); }
+.evcity__submit.is-busy { opacity: 0.6; cursor: progress; }
+.evcity__note { margin: 0; font-size: var(--t-caption); color: var(--ink-3); }
+.evcity__note a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.evcity__note a:hover { color: var(--ink); }
+
+.evcity__done { display: grid; justify-items: start; gap: var(--sp-2); outline: none; }
+.evcity__done[hidden] { display: none; }
+.evcity__done-ic { width: 40px; height: 40px; color: var(--brand); }
+.evcity__done-t { margin: var(--sp-2) 0 0; font-family: var(--font-display); font-size: var(--t-title-xl); font-weight: 500; color: var(--ink); }
+.evcity__done-s { margin: 0; font-size: var(--t-body); color: var(--ink-2); }
+
+/* The hero's 2027 line leads here. */
+.evh1__later a { color: inherit; text-decoration: none; }
+.evh1__later a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 991px) {
+  .evcity { grid-template-columns: 1fr; }
+  .evcity__side { min-height: 0; aspect-ratio: 16 / 8; }
+  .evcity__copy { padding: var(--sp-6); }
+  .evcity__tear {
+    width: auto;
+    height: 0;
+    border-left: 0;
+    border-top: 2px dashed color-mix(in srgb, var(--ink) 18%, transparent);
+  }
+  .evcity__tear::before, .evcity__tear::after { top: -11px; bottom: auto; }
+  .evcity__tear::before { left: -11px; }
+  .evcity__tear::after { left: auto; right: -11px; }
+  .evcity__pane { padding: var(--sp-6); }
+}
+@media (max-width: 639px) {
+  .evcity__row { grid-template-columns: 1fr; }
+  .evcity__submit { justify-self: stretch; }
+  .evcity__side { aspect-ratio: 4 / 3; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .evcity__chip span, .evcity__input { transition: none; }
+}

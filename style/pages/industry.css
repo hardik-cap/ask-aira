@@ -84,11 +84,6 @@
   margin-top: var(--sp-8);
 }
 
-.hero-ind__note {
-  margin-top: var(--sp-6);
-  font-size: var(--t-caption);
-  color: var(--ink-faint);
-}
 
 /* The hero figure is the same placeholder slot the seats use, so when real
    screenshots arrive they drop into one treatment rather than two. */
@@ -126,29 +121,75 @@
    surface without a screenshot, and aria-hidden: they illustrate, the copy
    beside them explains. */
 .hero-ind__fig { position: relative; }
+/* THE TWO CARDS ARE QUIET WIDGETS since 13 Oct (user, with an Apple-style
+   widget reference: "dont look like widget tho ... very ai made ui, make
+   clean ui"). What came off: caps micro-labels, the mono "Pending" pill,
+   the icon tile, the hairline foot and the drawn Approve button. What
+   they are now: a large-radius white card on a soft wide shadow, a
+   sentence-case heading led by one small brand glyph and plain type.
+   (The reference's dissolving foot was NOT taken: a mask clips the card's
+   own shadow, and the shadow is what lifts it off the photo.) The audience card leads with its NUMBER at
+   display size; the move card says what aiRA built in one sentence and
+   ends on a dashed "Your approval" slot, the invoice's "Sign here": the
+   approval grammar shown as an empty place a person fills, not a badge. */
 .hero-float {
   position: absolute;
   z-index: 1;
-  display: grid;
-  gap: 4px;
-  justify-items: start;
-  padding: var(--sp-4) var(--sp-5);
+  width: 208px;
+  padding: 14px var(--sp-4);
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r-md);
-  box-shadow: var(--shadow-float);
+  border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
 }
+/* COMPACT, same day (user: "too big and reduce padding, very clean and
+   compact"): 208px wide, 14/16 padding, a 14px heading, 12px secondary
+   lines, the count at 24, a 40px approval slot. */
 .hero-float--aud { top: 20px; left: -28px; }
 .hero-float--move { bottom: 24px; right: -20px; }
-.hero-float__t {
-  font-family: var(--font-display);
-  font-size: var(--t-title-sm);
-  font-weight: 600;
-  letter-spacing: var(--tr-title);
+.hero-float__k {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: var(--t-body);
+  font-weight: 500;
   color: var(--ink);
 }
-.hero-float__n {
-  font-size: var(--t-body);
+.hero-float__k svg { width: 20px; height: 20px; flex: none; color: var(--brand); }
+.hero-float__t {
+  margin: 6px 0 0;
+  font-size: var(--t-caption);
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+.hero-float__t b { font-weight: 500; color: var(--ink); }
+.hero-float__big {
+  margin: 6px 0 0;
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+}
+.hero-float__big b {
+  font-family: var(--font-display);
+  font-size: var(--t-title-xl);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.hero-float__sign {
+  display: grid;
+  place-items: center;
+  height: 40px;
+  margin: 10px 0 0;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--r-sm);
+  background: var(--surface-2);
+}
+.hero-float__sign span {
+  padding: 0 var(--sp-3) 2px;
+  border-bottom: 1px solid var(--border-strong);
+  font-size: var(--t-caption);
   color: var(--ink-2);
 }
 @media (max-width: 991px) {
@@ -238,9 +279,6 @@
    the retail hub loads, so the other three hubs were spacing their tab bar
    differently; they belong with the shared hub styles. */
 
-/* The section head already says what the panel is, so the group's own heading
-   would be a second title on the same thought. */
-.rseats .finder__group-head { display: none; }
 
 /* ---- The asks (19 Sep) -------------------------------------------------------
    The teams section came out on Hardik's call; what stands in its place

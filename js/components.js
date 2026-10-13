@@ -116,7 +116,10 @@
     });
 
     document.addEventListener('click', function (e) {
-      if (!nav.contains(e.target)) closeAll();
+      if (nav.contains(e.target)) return;
+      closeAll();
+      // A tap on the dimmed page closes the mobile sheet too.
+      if (nav.classList.contains('is-open')) closeMobile();
     });
 
     document.addEventListener('keydown', function (e) {
