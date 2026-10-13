@@ -40,27 +40,52 @@
 
   /* ---- 1. Inject shared components ------------------------------------ */
 
-  function inject(id, file) {
+  /* THE HEADER NO LONGER WAITS ON THE NETWORK (13 Oct, user: "when any
+     page loads, header loads late"). Each component's markup is kept in
+     localStorage after its first fetch, so every later page injects it
+     the moment this script runs, with no request in the way; a fresh copy
+     is still fetched in the background and saved for the NEXT page, so a
+     deploy reaches visitors one page view later. The first visit (or
+     storage blocked) waits on the fetch as before. `ready` runs straight
+     after the markup lands, in the same task, so the bar is set up before
+     the browser can paint it. */
+  function inject(id, file, ready) {
     var host = document.getElementById(id);
     if (!host) return Promise.resolve(null);
 
     // Escape hatch: a page that ships its own variant pre-fills the
     // placeholder, and we leave it alone.
-    if (host.children.length) return Promise.resolve(host);
+    if (host.children.length) {
+      if (ready) ready(host);
+      return Promise.resolve(host);
+    }
 
-    return fetch(BASE + '/components/' + file)
+    var key = 'aira_c_' + file, cached = null;
+    try { cached = localStorage.getItem(key); } catch (e) {}
+    if (cached) {
+      host.innerHTML = cached;
+      if (ready) ready(host);
+    }
+
+    var fresh = fetch(BASE + '/components/' + file)
       .then(function (r) {
         if (!r.ok) throw new Error(file + ': HTTP ' + r.status);
         return r.text();
       })
       .then(function (html) {
-        host.innerHTML = html;
+        try { if (html !== cached) localStorage.setItem(key, html); } catch (e) {}
+        if (!cached) {
+          host.innerHTML = html;
+          if (ready) ready(host);
+        }
         return host;
       })
       .catch(function (err) {
         console.error('[aira] could not inject ' + file, err);
-        return null;
+        return cached ? host : null;
       });
+
+    return cached ? Promise.resolve(host) : fresh;
   }
 
   /* ---- 2 + 3. Navbar behaviour ---------------------------------------- */
@@ -293,14 +318,34 @@
 
   /* ---- Boot ----------------------------------------------------------- */
 
-  Promise.all([
-    inject('navbar-placeholder', 'navbar.html'),
-    inject('footer-placeholder', 'footer.html')
-  ]).then(function () {
+  /* The NAVBAR IS SET UP THE MOMENT ITS MARKUP LANDS, not once the footer
+     has arrived too (13 Oct, user: the events header "flickers for a brief
+     second when came from any light page"). Waiting on Promise.all left
+     the bar painted in its LIGHT default for however long the footer
+     fetch took, and only then did the dark sync turn it dark over the
+     events band. */
+  function navReady() {
     initNav();
     initNavScroll();
     initNavDarkSync();
     initVersionTabs();
+  }
+
+  /* 'aira:components-ready' waits for DOMContentLoaded as well: with the
+     markup cached, both components can land before the later deferred
+     scripts (reveal.js, footer-cut.js, seat-tabs.js) have run and added
+     their listeners, and an event nobody hears leaves the footer's reveal
+     wrappers invisible. Deferred scripts all run before DOMContentLoaded. */
+  var domReady = new Promise(function (res) {
+    if (document.readyState === 'complete') res();
+    else document.addEventListener('DOMContentLoaded', res, { once: true });
+  });
+
+  Promise.all([
+    inject('navbar-placeholder', 'navbar.html', navReady),
+    inject('footer-placeholder', 'footer.html'),
+    domReady
+  ]).then(function () {
     document.dispatchEvent(new CustomEvent('aira:components-ready'));
   });
 })();
