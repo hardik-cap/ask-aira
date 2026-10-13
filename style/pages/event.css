@@ -722,9 +722,36 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
 }
 .evbody__tear::before { left: -11px; }
 .evbody__tear::after { right: -11px; }
-/* Inside the stub the map keeps its base shape, the 280px tile with the
-   city and the Google Maps link beside it; it stacks below 640 on the
-   base rule. */
+/* WHEN AND WHERE (user, 13 Oct: "this can be styled better with more
+   details"): beside the map, the facts the hero ticket carries, read from
+   each page's own ticket so the two cannot disagree: date, time, venue,
+   the page's fourth line (after / part of / presented by) and its seats
+   line (approval, room, or Luma's went count). The ticket's field
+   grammar, a caps micro-label over the value, with a 20px duotone glyph.
+   The map fills the left half at the list's height; below 640 it stacks
+   on the base rule. */
+@media (min-width: 641px) {
+  .evbody__aside .evmap {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: stretch;
+    gap: var(--sp-6);
+  }
+  .evbody__aside .evmap__frame { aspect-ratio: auto; min-height: 240px; height: 100%; }
+}
+.evbody__aside .evmap__cap { justify-content: space-between; gap: var(--sp-4); }
+.evfacts { margin: 0; display: grid; gap: var(--sp-3); }
+.evfacts > div { position: relative; padding-left: 30px; }
+.evfacts__ic { position: absolute; left: 0; top: 2px; width: 20px; height: 20px; color: var(--ink-3); }
+.evfacts dt {
+  font-family: var(--font-display);
+  font-size: var(--t-caption);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  color: var(--ink-3);
+}
+.evfacts dd { margin: 2px 0 0; font-size: var(--t-body); font-weight: 500; line-height: 1.4; color: var(--ink); }
 
 /* Where: a city-level Google map (the venue stays Luma's until approval).
    Framed like the cover: hairline, 12px corners. The embed is light, so on
@@ -898,12 +925,10 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
   text-align: center;
 }
 .evhosts__list--mini .evhost__av { width: 72px; height: 72px; border: 0; overflow: clip; }
-.evhosts__list--mini .evhost__av picture { display: block; width: 100%; height: 100%; }
-/* Hues go to PHOTO chips only (--img); a logo chip must never take one or
-   the mark reads as a person's disc. */
-.evhosts__list--mini .evhost:nth-child(3n + 1) .evhost__av--img:not(.evhost__av--logo) { background: var(--tertiary-300); }
-.evhosts__list--mini .evhost:nth-child(3n + 2) .evhost__av--img:not(.evhost__av--logo) { background: var(--primary-300); }
-.evhosts__list--mini .evhost:nth-child(3n + 3) .evhost__av--img:not(.evhost__av--logo) { background: var(--secondary-300); }
+/* The hosts are THEIR OWN PHOTOS, as supplied (user, 13 Oct: "please dont
+   change bg of evhost images, use the ones shared only"), cropped to the
+   disc with a hairline; the matted cutouts on hue discs are gone. */
+.evhosts__list--mini .evhost__av--img { background: var(--surface-2); border: 1px solid var(--border); }
 /* The logo chip sits on PLAIN WHITE with a hairline (user, 13 Oct: the
    wash disc "not loking good, use white only"). */
 .evhosts__list--mini .evhost__av--logo { background: var(--surface); border: 1px solid var(--border); }
@@ -1249,4 +1274,43 @@ body.page-event .joint::after {
 }
 @media (prefers-reduced-motion: reduce) {
   .evread, .evread__go { transition: none; }
+}
+
+/* SHARE THIS EVENT (user, 13 Oct, with a round-icon "Share this event"
+   reference): the last section of the paper stub, after a tear. Four
+   network links and a copy-link button as 44px outlined circles, the
+   site's round icon-control shape (the cue's send circle). State is
+   colour on the edge and the glyph, never a fill. The copy button's label
+   is for screen readers; it confirms visually by turning its link glyph
+   into a check, in brand ink, for two seconds. */
+.evshare { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.evshare__btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.evshare__btn:hover { border-color: var(--brand-line); color: var(--brand-ink); }
+.evshare__btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.evshare__ic { width: 20px; height: 20px; flex: none; }
+.evshare__label {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+.evshare__ok { display: none; }
+.evshare__copy.is-copied { border-color: var(--brand-line); color: var(--brand-ink); }
+.evshare__copy.is-copied .evshare__ic:not(.evshare__ok) { display: none; }
+.evshare__copy.is-copied .evshare__ok { display: block; }
+@media (prefers-reduced-motion: reduce) {
+  .evshare__btn { transition: none; }
 }

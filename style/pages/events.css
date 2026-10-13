@@ -107,7 +107,7 @@ body.page-events .nav.nav-dark:not(.nav--scrolled) {
 .evh1__t {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(3rem, 10.5vw, 8.75rem);
+  font-size: clamp(3rem, 10.5vw, 7.5rem);
   font-weight: 700;
   line-height: 0.92;
   letter-spacing: -0.03em;
@@ -163,11 +163,14 @@ a.evh1__stop:focus-visible { outline: 2px solid var(--primary-200); outline-offs
 .evh1__later span { font-weight: 500; letter-spacing: 0; text-transform: none; }
 .evh1__cta { margin-top: var(--sp-10); }
 
+/* The highlight is CUSTOMER ANALYTICS in solid Tertiary/300 (13 Oct,
+   user, option 1): colour, not the outline TOUR and FUTURE wore, because
+   two outlined lines would leave half the title as hairlines. A lighter
+   Primary/200 band still sweeps through it; at rest it is plain T300. */
 .evh1__t em {
   font-style: normal;
   color: transparent;
-  -webkit-text-stroke: 2px var(--on-brand);
-  background: linear-gradient(105deg, transparent 0 38%, var(--tertiary-300) 46%, var(--primary-200) 54%, transparent 62% 100%);
+  background: linear-gradient(105deg, var(--tertiary-300) 0 38%, var(--primary-200) 50%, var(--tertiary-300) 62% 100%);
   background-size: 260% 100%;
   background-position: 130% 0;
   -webkit-background-clip: text;
@@ -490,8 +493,8 @@ body.page-events .joint { display: none; }
   box-shadow: var(--shadow-sm);
   transition: box-shadow var(--dur-slow) var(--ease), translate var(--dur-slow) var(--ease);
 }
-a.evcard:hover,
-a.evcard:focus-visible { box-shadow: var(--shadow-md); translate: 0 -2px; }
+.evcard:is(:hover, :focus-visible) { box-shadow: var(--shadow-md); translate: 0 -2px; }
+
 
 /* The photo is the card's flexible top: it takes whatever height the copy
    leaves, then fades into the --black ground the copy sits on. */
@@ -525,8 +528,8 @@ img.evcard__photo {
   object-position: var(--pos, 50% 40%);
   transition: scale 900ms var(--ease), filter var(--dur-slow) var(--ease);
 }
-a.evcard:hover .evcard__photo img,
-a.evcard:hover img.evcard__photo { scale: 1.05; }
+.evcard:hover .evcard__photo img,
+.evcard:hover img.evcard__photo { scale: 1.05; }
 
 /* CHICAGO AND DALLAS SIT BACK IN THE BAND (user, 13 Oct: "scale down ...
    show more of surroundings"). A 2.4:1 panorama in the 16:9 band loses a
@@ -704,12 +707,9 @@ a.evcard:hover img.evcard__photo { scale: 1.05; }
 .evcard__cta svg { flex: none; width: 16px; height: 16px; }
 /* Past cards lift too since 13 Oct (user: "for past card, show button too
    but make it ghost"): same reveal, the button just outlined. */
-a.evcard:hover .evcard__body,
-a.evcard:focus-visible .evcard__body { translate: 0 calc(-1 * var(--cta-lift)); }
-a.evcard:hover .evcard__body::before,
-a.evcard:focus-visible .evcard__body::before,
-a.evcard:hover .evcard__cta,
-a.evcard:focus-visible .evcard__cta { opacity: 1; }
+.evcard:is(:hover, :focus-visible) .evcard__body { translate: 0 calc(-1 * var(--cta-lift)); }
+.evcard:is(:hover, :focus-visible) .evcard__body::before,
+.evcard:is(:hover, :focus-visible) .evcard__cta { opacity: 1; }
 @media (hover: none) {
   .evcard .evcard__body { translate: 0 calc(-1 * var(--cta-lift)); }
   .evcard__body::before, .evcard__cta { opacity: 1; }
@@ -721,23 +721,22 @@ a.evcard:focus-visible .evcard__cta { opacity: 1; }
   border: 1px solid color-mix(in srgb, var(--ink-inv) 48%, transparent);
   color: var(--ink-inv);
 }
-a.evcard:hover .evcard__cta--ghost,
-a.evcard:focus-visible .evcard__cta--ghost { background: color-mix(in srgb, var(--ink-inv) 8%, transparent); }
+.evcard:is(:hover, :focus-visible) .evcard__cta--ghost { background: color-mix(in srgb, var(--ink-inv) 8%, transparent); }
 
 /* PAST: no button, greyscale, everything a step quieter. Hover brings the
    colour back part way: the room is still there to look at, you just were
    not in it. */
 .evcard--past .evcard__photo img,
 .evcard--past img.evcard__photo { filter: grayscale(1) brightness(0.82) contrast(0.95); }
-a.evcard--past:hover .evcard__photo img,
-a.evcard--past:hover img.evcard__photo { filter: grayscale(0.35) brightness(0.9); }
+.evcard--past:hover .evcard__photo img,
+.evcard--past:hover img.evcard__photo { filter: grayscale(0.35) brightness(0.9); }
 .evcard--past .evcard__t { color: color-mix(in srgb, var(--ink-inv) 78%, transparent); }
 .evcard--past .evkind { color: color-mix(in srgb, var(--ink-inv) 60%, transparent); }
 .evcard--past .evcard__date { color: color-mix(in srgb, var(--ink-inv) 72%, transparent); }
 .evcard--past .evcard__place { color: color-mix(in srgb, var(--ink-inv) 56%, transparent); }
 @media (prefers-reduced-motion: reduce) {
   .evcard__photo img, img.evcard__photo, .evcard__cta, .evcard__body, .evcard__body::before { transition: none; }
-  a.evcard:hover, a.evcard:focus-visible { translate: none; }
+  .evcard:is(:hover, :focus-visible) { translate: none; }
 }
 
 
@@ -772,4 +771,188 @@ a.evcard--past:hover img.evcard__photo { filter: grayscale(0.35) brightness(0.9)
   a.evh1__stop { transition: none; }
   .evcard, .evfilter__btn, .evfilter.is-live .evfilter__pill,
   .evcard { transition: none; }
+}
+
+/* ---- BRING THE TOUR TO YOUR CITY (#tour-city) -----------------------------
+   The tour's city-request ticket (13 Oct; redesigned the same day, user:
+   "surprise me with a good design ... height increasing is not great").
+   It sits BETWEEN the grid and the reel on the grid's own --surface-2, so
+   no scallop of its own: the reel's torn top edge still punches this
+   ground. ONE PAPER TICKET: the left half a MINI POSTER in the hub cards'
+   grammar (the photo fading into --black, the pitch on the dark, the em in
+   the on-dark accent), a dashed tear with punch notches, the form right.
+   THE FORM'S HEIGHT NEVER MOVES: every field always shows, and the
+   "Somewhere else" chip SWAPS ITSELF for a same-size type-in pill in the
+   chips row (the :has() below; js/tour-city.js focuses it and swaps back),
+   so nothing unfolds. Inputs restate /book's .input (book.css does not
+   load here); chips are radios styled as pills, a chip not a button, so
+   --r-pill is allowed, and the picked one takes a brand edge and brand
+   ink, never a fill. */
+.evcity-sec { background: var(--surface-2); scroll-margin-top: calc(2px - 24px); }
+.evcity {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) auto minmax(0, 6fr);
+  align-items: stretch;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: clip;
+}
+
+/* The poster half: photo into dark, copy on the dark. */
+.evcity__side { position: relative; min-height: 440px; }
+.evcity__ph { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+.evcity__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--black) 8%, color-mix(in srgb, var(--black) 72%, transparent) 34%, transparent 62%);
+}
+.evcity__copy { position: absolute; inset: auto 0 0; padding: var(--sp-8); }
+.evcity__t {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--t-display-3);
+  font-weight: 500;
+  line-height: var(--lh-title);
+  color: var(--ink-inv);
+}
+.evcity__t em { font-style: normal; color: var(--tertiary-300); }
+.evcity__sub { margin: var(--sp-3) 0 0; font-size: var(--t-body); line-height: var(--lh-body); color: color-mix(in srgb, var(--ink-inv) 78%, transparent); }
+
+.evcity__tear {
+  position: relative;
+  width: 0;
+  border-left: 2px dashed color-mix(in srgb, var(--ink) 18%, transparent);
+}
+.evcity__tear::before,
+.evcity__tear::after {
+  content: '';
+  position: absolute;
+  left: -11px;
+  width: 20px;
+  height: 20px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  z-index: 1;
+}
+.evcity__tear::before { top: -11px; }
+.evcity__tear::after { bottom: -11px; }
+
+.evcity__pane { padding: var(--sp-8); display: grid; align-content: center; }
+.evcity__form { display: grid; gap: var(--sp-5); }
+.evcity__form[hidden] { display: none; }
+.evcity__hp { display: none; }
+.evcity__cities { margin: 0; padding: 0; border: 0; min-width: 0; display: grid; gap: var(--sp-3); }
+.evcity__legend {
+  padding: 0;
+  margin-bottom: var(--sp-3);
+  font-family: var(--font-display);
+  font-size: var(--t-caption);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.evcity__chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.evcity__chip { position: relative; cursor: pointer; }
+.evcity__chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.evcity__chip span {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 var(--sp-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  font-size: var(--t-body);
+  font-weight: 500;
+  color: var(--ink-2);
+  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.evcity__chip:hover span { border-color: var(--ink-3); color: var(--ink); }
+.evcity__chip input:checked + span {
+  border-color: var(--brand);
+  box-shadow: inset 0 0 0 1px var(--brand);
+  color: var(--brand-ink);
+}
+.evcity__chip input:focus-visible + span { outline: 2px solid var(--brand); outline-offset: 2px; }
+/* "Somewhere else" picked: the chip stands down and the type-in pill takes
+   its place in the row, same 40px, so the row never grows. The [hidden]
+   attribute stays for the no-:has fallback and the script. */
+.evcity__chips:has([data-city-other]:checked) .evcity__chip:has([data-city-other]) { display: none; }
+
+.evcity__fields { display: grid; gap: var(--sp-3); }
+.evcity__row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
+.evcity__input {
+  width: 100%;
+  font: inherit;
+  font-size: var(--t-body);
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  padding: 10px 14px;
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.evcity__input::placeholder { color: var(--ink-faint); }
+.evcity__input:focus {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 18%, transparent);
+}
+.evcity__input[aria-invalid="true"] { border-color: var(--reject); }
+/* The type-in pill: AFTER the base .evcity__input rule, which would
+   otherwise win the width at equal specificity. */
+.evcity__input--chip {
+  width: 200px;
+  max-width: 100%;
+  height: 40px;
+  padding: 0 var(--sp-4);
+  border-radius: var(--r-pill);
+  border-color: var(--brand);
+  box-shadow: inset 0 0 0 1px var(--brand);
+}
+.evcity__input--chip[hidden] { display: none; }
+.evcity__err { margin: calc(-1 * var(--sp-1)) 0 0; font-size: var(--t-caption); color: var(--reject); }
+.evcity__ts:empty { display: none; }
+.evcity__submit { justify-self: start; margin-top: var(--sp-1); }
+.evcity__submit.is-busy { opacity: 0.6; cursor: progress; }
+.evcity__note { margin: 0; font-size: var(--t-caption); color: var(--ink-3); }
+.evcity__note a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.evcity__note a:hover { color: var(--ink); }
+
+.evcity__done { display: grid; justify-items: start; gap: var(--sp-2); outline: none; }
+.evcity__done[hidden] { display: none; }
+.evcity__done-ic { width: 40px; height: 40px; color: var(--brand); }
+.evcity__done-t { margin: var(--sp-2) 0 0; font-family: var(--font-display); font-size: var(--t-title-xl); font-weight: 500; color: var(--ink); }
+.evcity__done-s { margin: 0; font-size: var(--t-body); color: var(--ink-2); }
+
+/* The hero's 2027 line leads here. */
+.evh1__later a { color: inherit; text-decoration: none; }
+.evh1__later a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 991px) {
+  .evcity { grid-template-columns: 1fr; }
+  .evcity__side { min-height: 0; aspect-ratio: 16 / 8; }
+  .evcity__copy { padding: var(--sp-6); }
+  .evcity__tear {
+    width: auto;
+    height: 0;
+    border-left: 0;
+    border-top: 2px dashed color-mix(in srgb, var(--ink) 18%, transparent);
+  }
+  .evcity__tear::before, .evcity__tear::after { top: -11px; bottom: auto; }
+  .evcity__tear::before { left: -11px; }
+  .evcity__tear::after { left: auto; right: -11px; }
+  .evcity__pane { padding: var(--sp-6); }
+}
+@media (max-width: 639px) {
+  .evcity__row { grid-template-columns: 1fr; }
+  .evcity__submit { justify-self: stretch; }
+  .evcity__side { aspect-ratio: 4 / 3; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .evcity__chip span, .evcity__input { transition: none; }
 }
