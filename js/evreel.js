@@ -57,7 +57,7 @@
       while (x > 0) x -= W;
     }
     function paint() {
-      belt.style.transform = 'translateX(' + x.toFixed(2) + 'px)';
+      belt.style.transform = 'translate3d(' + x.toFixed(2) + 'px, 0, 0)';
     }
 
     reel.addEventListener('pointerenter', function (e) {
@@ -73,18 +73,37 @@
     });
     reel.addEventListener('focusout', function () { focus = false; });
 
+    /* A press only becomes a DRAG once it has moved 6px and more sideways
+       than up or down (13 Oct, user: "carousel glitching on mobile when
+       moving"). It used to freeze the belt on every pointerdown and track
+       every pixel, so a finger that landed on the reel to SCROLL THE PAGE
+       stopped it, nudged it by the scroll's sideways wobble, and then,
+       when the browser took the gesture over (pointercancel), flung it by
+       that wobble's velocity, often backwards. Now a vertical gesture is
+       left entirely to the page and a cancel throws nothing. */
+    var pending = false, startX = 0, startY = 0;
     reel.addEventListener('pointerdown', function (e) {
       if (e.button !== 0) return;
-      dragging = true;
-      dragV = 0;
-      lastX = e.clientX;
-      lastT = performance.now();
-      reel.classList.add('is-dragging');
-      try { reel.setPointerCapture(e.pointerId); } catch (err) {}
+      pending = true;
+      startX = e.clientX;
+      startY = e.clientY;
     });
     reel.addEventListener('pointermove', function (e) {
-      if (!dragging) return;
       var now = performance.now();
+      if (pending) {
+        var ax = Math.abs(e.clientX - startX), ay = Math.abs(e.clientY - startY);
+        if (ax < 6 && ay < 6) return;
+        pending = false;
+        if (ax <= ay) return;           /* a scroll, not a drag */
+        dragging = true;
+        dragV = 0;
+        lastX = e.clientX;
+        lastT = now;
+        reel.classList.add('is-dragging');
+        try { reel.setPointerCapture(e.pointerId); } catch (err) {}
+        return;
+      }
+      if (!dragging) return;
       var dx = e.clientX - lastX;
       var dt = Math.max((now - lastT) / 1000, 0.001);
       x += dx;
@@ -95,18 +114,20 @@
       lastX = e.clientX;
       lastT = now;
     });
-    function release() {
+    function release(fling) {
+      pending = false;
       if (!dragging) return;
       dragging = false;
       dragged = true;
       reel.classList.remove('is-dragging');
+      if (!fling) return;               /* cancelled: keep the current pace */
       /* A pointer held still before letting go throws nothing. */
       if (performance.now() - lastT > 80) dragV = 0;
       v = Math.max(-MAX_FLING, Math.min(MAX_FLING, dragV));
     }
-    reel.addEventListener('pointerup', release);
-    reel.addEventListener('pointercancel', release);
-    reel.addEventListener('lostpointercapture', release);
+    reel.addEventListener('pointerup', function () { release(true); });
+    reel.addEventListener('pointercancel', function () { release(false); });
+    reel.addEventListener('lostpointercapture', function () { release(true); });
 
     reel.addEventListener('keydown', function (e) {
       if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
@@ -122,13 +143,15 @@
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {
         visible = entries[0].isIntersecting;
-        if (visible) { last = performance.now(); requestAnimationFrame(tick); }
+        if (visible && !running) { running = true; last = performance.now(); requestAnimationFrame(tick); }
       }).observe(reel);
     }
 
-    var last = performance.now();
+    /* ONE loop per reel: the observer's first callback fires while the
+       starting loop is already running, which used to start a second. */
+    var last = performance.now(), running = true;
     function tick(now) {
-      if (!visible) return;
+      if (!visible) { running = false; return; }
       var dt = Math.min((now - last) / 1000, 0.1);
       last = now;
       if (!dragging) {

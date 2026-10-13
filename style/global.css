@@ -1155,7 +1155,13 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
     top: calc(var(--nav-h) + 2px + var(--nav-float) * 2);
     left: var(--frame-x);
     right: var(--frame-x);
-    bottom: var(--nav-float);
+    /* The sheet HUGS ITS CONTENT (13 Oct, user: "why is it full length"):
+       four links and a button in a card running to the screen's foot was
+       mostly empty card. It grows with the Solutions list up to the
+       screen's foot, then scrolls inside. */
+    bottom: auto;
+    max-height: calc(100vh - var(--nav-h) - 2px - var(--nav-float) * 3);
+    max-height: calc(100svh - var(--nav-h) - 2px - var(--nav-float) * 3);
     flex-direction: column;
     align-items: stretch;
     gap: 0;
@@ -1218,6 +1224,26 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
      category rows. */
   .nav__aside { padding: var(--sp-3) var(--sp-2); order: -1; }
   body.nav-locked { overflow: hidden; }
+  /* The page DIMS behind the open sheet (13 Oct, user: "when opened can we
+     dim other page"), now that the sheet hugs its content and the page
+     shows under it. A fixed pseudo on the body, one step under the nav
+     placeholder's z-index 998, so the bar and the sheet stay lit; a tap on
+     it closes the sheet (js/components.js). */
+  /* cursor: pointer is for iOS Safari, which fires no click on a plain
+     element, so a tap on the dim would never reach the close handler. */
+  body.nav-locked { cursor: pointer; }
+  body.nav-locked .nav { cursor: auto; }
+  body.nav-locked::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 997;
+    background: color-mix(in srgb, var(--black) 55%, transparent);
+    animation: nav-dim-in var(--dur) var(--ease);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body.nav-locked::after { animation: none; }
+  }
   /* With the sheet open, the bar must NOT carry backdrop-filter: a
      backdrop-filter ancestor becomes the containing block for fixed
      descendants, which pins the full-screen sheet to the 56px bar (the
@@ -1229,7 +1255,22 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   }
   body.nav-locked .nav,
   body.nav-locked .nav.nav--scrolled { background-color: var(--nav-rest); }
+  /* A DARK-SYNCED bar keeps a dark sheet (13 Oct, user: "on mobile header
+     nav is broken"). The sheet was --nav-rest, the LIGHT ground, while
+     .nav-dark had already turned its links, logo and CTA white, so the
+     events pages opened a white sheet of invisible links; and the locked
+     rule above repainted the bar itself light under a white logo. Light
+     theme only: on a whole-dark page --surface-inv is the light value and
+     the base rules are already right. */
+  :root:not([data-theme="dark"]) .nav.nav-dark .nav__menu {
+    background: var(--surface-inv);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+  :root:not([data-theme="dark"]) body.nav-locked .nav.nav-dark,
+  :root:not([data-theme="dark"]) body.nav-locked .nav.nav-dark.nav--scrolled { background-color: var(--surface-inv); }
 }
+
+@keyframes nav-dim-in { from { opacity: 0; } }
 
 /* ---- Footer --------------------------------------------------------------
    Flat and flush with the site grid: no border, no glow, content aligned
