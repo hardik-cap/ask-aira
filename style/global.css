@@ -698,7 +698,10 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   border-radius: var(--r-sm);
   transition: background var(--dur-fast) var(--ease);
 }
-.nav__logo img { height: 24px; width: auto; }
+/* 32px, not the old 24: the lockup carries "by capillary" under the
+   wordmark, which at 24 is a smudge. 8px padding x2 + 32 = 48 inside the
+   56px bar. */
+.nav__logo img { height: 32px; width: auto; }
 .nav__logo-dark { display: none; }
 .nav.nav-dark .nav__logo-light { display: none; }
 .nav.nav-dark .nav__logo-dark { display: block; }
