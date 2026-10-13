@@ -12,9 +12,16 @@
    gathers itself back.
    PROGRESSIVE: the static masked span (.evh1__dots) stays in the markup as
    the ground; this script stands it down (.is-live on the poster) only
-   when it can actually run. Under prefers-reduced-motion, or without a
-   fine hover pointer (a phone cannot push dots), the span simply remains
-   and no canvas, fetch or frame ever happens. Pointer events are read on
+   when it can actually run. Under prefers-reduced-motion the span simply
+   remains and no canvas, fetch or frame ever happens.
+   PHONES GET IT TOO since 13 Oct (user: "can the effect work on mobile?
+   fluid with scroll would be better"): a finger landing on the panel sends
+   a small shockwave and a drag pushes dots like the mouse (touch events
+   are PASSIVE, so the page still scrolls under the thumb); and on every
+   device SCROLLING RIPPLES THE MAP: each scroll step gives every dot a
+   kick along a travelling sine across the map, scaled by the step, so the
+   map sloshes like a liquid and the spring settles it once the page stops.
+   The ripple only runs while the hero is on screen. Pointer events are read on
    the PANEL, not the canvas, so dots move under the copy too (the
    hover-tiles lesson), and nothing here preventDefaults, so the CTA and
    date links click as before. */
@@ -24,7 +31,7 @@
   var canvas = document.querySelector('[data-us-dots]');
   if (!canvas || !canvas.getContext) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  var FINE = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   var VW = 960, VH = 600;
   /* the component's knobs: push reach (css px), push strength, shock */
@@ -33,7 +40,7 @@
   var dots = [];
   var raf = 0;
   var hand = null;
-  var k = 1, ox = 0, oy = 0, dpr = 1, rad = 2;
+  var k = 1, ox = 0, oy = 0, dpr = 1, rad = 2, lastW = 0, lastH = 0;
   var homes = null;
 
   function size() {
@@ -47,6 +54,7 @@
     ox = (r.width - VW * k) / 2;
     oy = (r.height - VH * k) / 2;
     rad = Math.max(1.1, 2.6 * k);
+    lastW = Math.round(r.width); lastH = Math.round(r.height);
     return true;
   }
 
@@ -154,10 +162,65 @@
         run();
       });
 
+      /* Touch: land = a small shockwave, drag = the mouse's push. */
+      function shock(p, reach, mult) {
+        var S = (0.4 + (FORCE / 100) * 1.2) * mult;
+        for (var i = 0; i < dots.length; i++) {
+          var d = dots[i];
+          var dx = d.x - p.x, dy = d.y - p.y;
+          var dd = Math.hypot(dx, dy);
+          if (dd > reach || dd < 0.01) continue;
+          var f = (1 - dd / reach) * 30 * S;
+          d.vx += (dx / dd) * f;
+          d.vy += (dy / dd) * f;
+        }
+        run();
+      }
+      function touchAt(e) {
+        var t = e.touches && e.touches[0];
+        return t ? local(t) : null;
+      }
+      host.addEventListener('touchstart', function (e) {
+        var p = touchAt(e);
+        if (p) { shock(p, 120, 0.3); hand = p; }
+      }, { passive: true });
+      host.addEventListener('touchmove', function (e) {
+        var p = touchAt(e);
+        if (p) { hand = p; run(); }
+      }, { passive: true });
+      host.addEventListener('touchend', function () { hand = null; run(); }, { passive: true });
+      host.addEventListener('touchcancel', function () { hand = null; run(); }, { passive: true });
+
+      /* Scroll: a travelling wave, kicked by each scroll step. */
+      var onScreen = true, lastY = window.scrollY;
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (en) { onScreen = en[0].isIntersecting; }).observe(canvas);
+      }
+      window.addEventListener('scroll', function () {
+        var y = window.scrollY, step = y - lastY;
+        lastY = y;
+        if (!onScreen || !step) return;
+        step = Math.max(-24, Math.min(24, step));
+        var amp = (FINE ? 0.08 : 0.055) * step, ph = y * 0.018;
+        for (var i = 0; i < dots.length; i++) {
+          var d = dots[i];
+          d.vy += amp * Math.sin(d.hx * 0.022 + ph);
+          d.vx += amp * 0.35 * Math.cos(d.hy * 0.03 + ph * 0.7);
+        }
+        run();
+      }, { passive: true });
+
       var rt = 0;
       window.addEventListener('resize', function () {
         clearTimeout(rt);
-        rt = setTimeout(function () { if (size()) { seat(); draw(); } }, 120);
+        /* Re-seat only when the canvas really changed size: a phone fires
+           resize every time the address bar slides during a scroll, and a
+           re-seat there would freeze the ripple mid-wave. */
+        rt = setTimeout(function () {
+          var r = canvas.getBoundingClientRect();
+          if (Math.round(r.width) === lastW && Math.round(r.height) === lastH) return;
+          if (size()) { seat(); draw(); }
+        }, 120);
       });
     })
     .catch(function () { /* the masked span is still the ground */ });
