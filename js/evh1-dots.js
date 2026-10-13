@@ -182,7 +182,7 @@
       }
       host.addEventListener('touchstart', function (e) {
         var p = touchAt(e);
-        if (p) { shock(p, 140, 0.45); hand = p; }
+        if (p) { shock(p, 120, 0.3); hand = p; }
       }, { passive: true });
       host.addEventListener('touchmove', function (e) {
         var p = touchAt(e);
@@ -200,8 +200,8 @@
         var y = window.scrollY, step = y - lastY;
         lastY = y;
         if (!onScreen || !step) return;
-        step = Math.max(-40, Math.min(40, step));
-        var amp = (FINE ? 0.10 : 0.16) * step, ph = y * 0.018;
+        step = Math.max(-24, Math.min(24, step));
+        var amp = (FINE ? 0.08 : 0.055) * step, ph = y * 0.018;
         for (var i = 0; i < dots.length; i++) {
           var d = dots[i];
           d.vy += amp * Math.sin(d.hx * 0.022 + ph);
