@@ -98,24 +98,17 @@ body.page-events .nav.nav-dark:not(.nav--scrolled) {
 }
 .evh1__poster.is-live .evh1__dots { display: none; }
 .evh1__poster > :not(.evh1__dots):not(.evh1__parts) { position: relative; }
-/* The presenter is the LOCKUP, not typed text (13 Oct, user: "the aiRA by
-   capillary logo ... on the event page hero"): the reverse artwork at
-   32px (40 first; user: "reduce size"), the nav's own size, with
-   "presents" set beside it. */
+/* The presenter is TYPED, not the lockup (13 Oct, user: "the dual aira
+   logo looks weird ... we wanna keep the header one"). The lockup sat a few
+   centimetres under the header's own, two logos stacked on one screen; a
+   credit line is what a tour poster carries anyway. Sentence case on
+   purpose: uppercasing would render the brand "AIRA". */
 .evh1__pre {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--sp-3);
-  margin: 0 0 var(--sp-6);
+  margin: 0 0 var(--sp-5);
   font-size: var(--t-body);
   font-weight: 500;
   color: color-mix(in srgb, var(--on-brand) 70%, transparent);
 }
-.evh1__logo { height: 32px; width: auto; }
-/* "presents" centres on the WORDMARK, not the whole lockup: the "by
-   capillary" line hangs below, so the word lifts 4px off the box centre. */
-.evh1__pre span { margin-bottom: 8px; }
 .evh1__t {
   margin: 0;
   font-family: var(--font-display);
