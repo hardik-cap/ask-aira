@@ -36,7 +36,7 @@
   <script src="/js/reveal.js" defer></script>
   <script src="/js/evreel.js" defer></script>
   <script src="/js/footer-cut.js" defer></script>
-  <script src="/js/hover-tiles.js" defer></script>
+  <script src="/js/evh1-dots.js" defer></script>
   <script src="/js/events-filter.js" defer></script>
 </head>
 <body class="page-events">
@@ -66,10 +66,6 @@
            transparent nav. The US pin map and the four flat objects left
            with the map hero (in git). -->
       <div class="evhub__panel">
-        <!-- Hover tiles (components.css .hovtiles, js/hover-tiles.js): the
-             grid ground that replaced the dot pattern; the cell under the
-             pointer lights and fades. -->
-        <div class="hovtiles hovtiles--centre" data-hover-tiles aria-hidden="true"></div>
         <div class="padding-global">
           <div class="container">
             <!-- THE POSTER (13 Oct, the user's pick of four stacked concepts:
@@ -82,6 +78,7 @@
                  behind. -->
             <div class="evh1__poster">
               <span class="evh1__dots" aria-hidden="true"></span>
+              <canvas class="evh1__parts" data-us-dots aria-hidden="true"></canvas>
               <p class="evh1__pre">aiRA by Capillary presents</p>
               <h1 class="evh1__t">The AI<br>Analytics<br>Workshop<br><em>Tour</em></h1>
               <p class="evh1__year"><i aria-hidden="true">&#10022;</i> 2026 · United States <i aria-hidden="true">&#10022;</i></p>
@@ -171,7 +168,7 @@
                 <!-- A CITY PHOTO replaces the region map once the city has one
                      (12 Oct, Chicago first): assets/events/cities/<city>-720,
                      12:5 like the map, decorative. -->
-                <picture class="evcard__photo"><source type="image/avif" srcset="/assets/events/cities/chicago-720.avif 720w, /assets/events/cities/chicago-1440.avif 1440w" sizes="(max-width: 639px) 100vw, 360px"><img src="/assets/events/cities/chicago-720.jpg" srcset="/assets/events/cities/chicago-720.jpg 720w, /assets/events/cities/chicago-1440.jpg 1440w" sizes="(max-width: 639px) 100vw, 360px" alt="" width="720" height="300" loading="lazy" decoding="async"></picture>
+                <picture class="evcard__photo evcard__photo--wide"><source type="image/avif" srcset="/assets/events/cities/chicago-720.avif 720w, /assets/events/cities/chicago-1440.avif 1440w" sizes="(max-width: 639px) 100vw, 360px"><img src="/assets/events/cities/chicago-720.jpg" srcset="/assets/events/cities/chicago-720.jpg 720w, /assets/events/cities/chicago-1440.jpg 1440w" sizes="(max-width: 639px) 100vw, 360px" alt="" width="720" height="300" loading="lazy" decoding="async"></picture>
                 <span class="evcard__shade" aria-hidden="true"></span>
                 <span class="evcard__badge">Upcoming</span>
               </span>
@@ -185,7 +182,7 @@
 
             <a class="evcard" href="/events/ai-analytics-workshop-dallas" data-status="upcoming">
               <span class="evcard__media evcard__media--photo">
-                <picture class="evcard__photo"><source type="image/avif" srcset="/assets/events/cities/dallas-720.avif 720w, /assets/events/cities/dallas-1440.avif 1440w" sizes="(max-width: 639px) 100vw, 360px"><img src="/assets/events/cities/dallas-720.jpg" srcset="/assets/events/cities/dallas-720.jpg 720w, /assets/events/cities/dallas-1440.jpg 1440w" sizes="(max-width: 639px) 100vw, 360px" alt="" width="720" height="300" loading="lazy" decoding="async"></picture>
+                <picture class="evcard__photo evcard__photo--wide"><source type="image/avif" srcset="/assets/events/cities/dallas-720.avif 720w, /assets/events/cities/dallas-1440.avif 1440w" sizes="(max-width: 639px) 100vw, 360px"><img src="/assets/events/cities/dallas-720.jpg" srcset="/assets/events/cities/dallas-720.jpg 720w, /assets/events/cities/dallas-1440.jpg 1440w" sizes="(max-width: 639px) 100vw, 360px" alt="" width="720" height="300" loading="lazy" decoding="async"></picture>
                 <span class="evcard__shade" aria-hidden="true"></span>
                 <span class="evcard__badge">Upcoming</span>
               </span>

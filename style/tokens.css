@@ -153,6 +153,11 @@
   --tennessee-blue:  #002D65;
   --karnataka-yellow:#FFD200;
   --karnataka-red:   #D7232A;
+  /* THE TOUR TINT's two stops that are not palette steps (13 Oct, lifted
+     from the user's LinkedIn tour creatives): a violet midpoint and a
+     night navy. Its other stops are Primary/600 and --black. */
+  --tour-violet:     #5836D2;
+  --tour-night:      #020336;
   --capillary-ink:   var(--black);
 
   /* Capillary logo-petal colours, the web-palette teal, and the brand

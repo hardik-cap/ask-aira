@@ -56,8 +56,9 @@ body.page-events .nav.nav-dark:not(.nav--scrolled) {
   -webkit-mask: radial-gradient(circle var(--scallop) at 50% 100%, transparent 96%, #000 100%) 50% 0 / 22px 100% repeat-x;
   mask: radial-gradient(circle var(--scallop) at 50% 100%, transparent 96%, #000 100%) 50% 0 / 22px 100% repeat-x;
 }
-/* The hover-tile grid keeps its component default: faint white lines. */
-.evhub__panel > :not(.hovtiles) { position: relative; z-index: 1; }
+/* The hover-tile grid left with the particles (user, 13 Oct: "remove
+   square grid effect"); everything in the panel sits above the band. */
+.evhub__panel > * { position: relative; z-index: 1; }
 
 /* ---- The poster ------------------------------------------------------------
    TOUR ANIMATES (user: "the tour word can be a animating something"): the
@@ -72,7 +73,31 @@ body.page-events .nav.nav-dark:not(.nav--scrolled) {
   -webkit-mask: url(/assets/events/us-dots.svg) center / contain no-repeat;
   mask: url(/assets/events/us-dots.svg) center / contain no-repeat;
 }
-.evh1__poster > :not(.evh1__dots) { position: relative; }
+/* THE MAP IS INTERACTIVE PARTICLES when it can be (user, 13 Oct, from
+   Bencho's Particles): js/evh1-dots.js seats one dot per us-dots.svg
+   point on this canvas and adds .is-live, standing the masked span down.
+   The span above stays the ground with scripts off, under reduced motion
+   and on touch, where nothing could push a dot anyway. The canvas takes
+   pointer-events none: the PANEL is listened to, so the CTA and the date
+   links stay plain links. */
+/* The canvas is ALWAYS displayed (transparent until the script draws):
+   hidden, it measures a zero box and the script could never size it. Only
+   the span stands down. */
+/* Explicit width and height, NOT inset alone: a canvas is a replaced
+   element, so insets do not stretch it and it sits at its intrinsic
+   300x150. */
+.evh1__parts {
+  position: absolute;
+  top: -10%;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  display: block;
+  pointer-events: none;
+  color: color-mix(in srgb, var(--on-brand) 14%, transparent);
+}
+.evh1__poster.is-live .evh1__dots { display: none; }
+.evh1__poster > :not(.evh1__dots):not(.evh1__parts) { position: relative; }
 .evh1__pre {
   margin: 0 0 var(--sp-5);
   font-size: var(--t-body);
@@ -503,6 +528,15 @@ img.evcard__photo {
 a.evcard:hover .evcard__photo img,
 a.evcard:hover img.evcard__photo { scale: 1.05; }
 
+/* CHICAGO AND DALLAS SIT BACK IN THE BAND (user, 13 Oct: "scale down ...
+   show more of surroundings"). A 2.4:1 panorama in the 16:9 band loses a
+   quarter of its width to the cover crop, which read as a zoomed-in
+   skyline. The --wide photo hangs from the band's top at 82% of its
+   height, so the visible crop widens from 74% to about 90% of the
+   panorama, and the img carries its own mask so its foot dissolves into
+   the band's fade instead of cutting to a hard edge. */
+.evcard__photo--wide img { height: 82%; mask-image: linear-gradient(to bottom, #000 72%, transparent); }
+
 /* THE COPY SITS ON THE DARK, NOT ON THE PHOTO. A first pass laid the
    copy over a full-bleed photo and the city panoramas (2.4:1, cropped into
    a portrait card) put their subject exactly under it: the Bean went under
@@ -515,6 +549,24 @@ a.evcard:hover img.evcard__photo { scale: 1.05; }
   z-index: 1;
   background: linear-gradient(to bottom, color-mix(in srgb, var(--black) 12%, transparent), transparent 30%);
   pointer-events: none;
+}
+/* UPCOMING CARDS WEAR THE TOUR TINT (user, 13 Oct, with the LinkedIn tour
+   creatives' own gradient: "apply tint on the hub"), so the hub card and
+   the ad that sent someone to it are the same picture. The TOP and MIDDLE
+   stops are the creative's; the FOOT IS EASED (user, same day: "a bit too
+   dark from below or text area"): the creative ran to opaque black because
+   its type sits on the photo, while here the media's own ::after fade
+   already melts the photo into the copy, and the two stacked crushed the
+   lower half. So the tint stops at the night navy and lets the fade finish.
+   PAST CARDS STAY GREYSCALE and untinted: tint against grey is the
+   upcoming/past signal. */
+.evcard:not(.evcard--past) .evcard__shade {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--black) 55%, transparent) 0%,
+    color-mix(in srgb, var(--primary-600) 55%, transparent) 17.53%,
+    color-mix(in srgb, var(--tour-violet) 55%, transparent) 46.82%,
+    color-mix(in srgb, var(--tour-night) 45%, transparent) 75%,
+    color-mix(in srgb, var(--tour-night) 30%, transparent) 100%);
 }
 
 /* "Upcoming": the white tag top-right, back on the two live cards (user,
@@ -572,15 +624,36 @@ a.evcard:hover img.evcard__photo { scale: 1.05; }
   line-clamp: 2;
   overflow: hidden;
 }
-/* Date and place on one row at opposite ends (user, 13 Oct). */
+/* Date and place on one row at opposite ends (user, 13 Oct).
+   THE FOOT IS A TICKET STUB since later the same day (user: "they still
+   dont look very event like"): the events pages' own tear grammar, a
+   dashed line where a stub would tear off with a punch notch half-clipped
+   out of each card edge (discs in the grid's own ground, cropped by the
+   card's overflow), so the date-and-place row reads as the ticket's stub.
+   This supersedes the no-separator note from the flat-card pass: that was
+   a plain hairline, this is the tear. */
 .evcard__meta {
+  position: relative;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: var(--sp-3);
-  /* No rule above it (user, 13 Oct: "we did not have ... separation"). */
-  margin-top: var(--sp-2);
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-3);
+  border-top: 2px dashed color-mix(in srgb, var(--ink-inv) 28%, transparent);
 }
+.evcard__meta::before,
+.evcard__meta::after {
+  content: '';
+  position: absolute;
+  top: -9px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--surface-2);
+}
+.evcard__meta::before { left: calc(-1 * var(--sp-4) - 8px); }
+.evcard__meta::after { right: calc(-1 * var(--sp-4) - 8px); }
 .evcard__date { font-size: var(--t-caption); font-weight: 600; color: var(--ink-inv); }
 .evcard__place { font-size: var(--t-caption); color: color-mix(in srgb, var(--ink-inv) 72%, transparent); }
 

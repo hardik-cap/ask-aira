@@ -3054,66 +3054,7 @@ a.biz:focus-visible .biz__ic::after {
 }
 
 
-/* ==========================================================================
-   HOVER TILES (.hovtiles) — a square grid ground whose cell under the
-   pointer lights at once and fades back over 2s (user, 10 Oct: the "Hover
-   Dark Tiles" example from animation-svelte.vercel.app/magic/bg-boxes, a
-   svelte-motion grid of bordered cells with whileHover backgroundColor
-   var(--tile), duration 0 in and 2s out). Hand-ported, no Svelte, no npm.
-   Worn by the /events hero band and the event pages' hero.
-   WHAT CHANGED IN THE PORT, on purpose:
-   - THE GRID IS A BACKGROUND, NOT A DIV PER CELL. The lines are two
-     repeating gradients; js/hover-tiles.js makes a cell ELEMENT only when
-     the pointer enters one and removes it once it has faded, so a 1920px
-     hero carries a handful of nodes instead of ~900.
-   - THE POINTER IS READ ON THE HOST'S PARENT, not on each cell, so a cell
-     lights even under the headline or the buttons (the copy sits above the
-     grid and would otherwise swallow the hover), and the host itself stays
-     pointer-events: none.
-   - THE PITCH IS 40px, not the reference's 48: decorative pitches on this
-     site divide --cell (80) so they register with the frame.
-   - Mouse and pen only; a touch is a scroll here, not a hover.
-   The host is an EMPTY, aria-hidden element and the first child of a
-   positioned parent; the parent's other children need to sit above it.
-   With the script off the grid still draws, it just never lights. Under
-   reduced motion a cell clears on leave instead of fading.
-   ========================================================================== */
-
-.hovtiles {
-  --hov-pitch: 40px;
-  --hov-line: color-mix(in srgb, var(--on-brand) 7%, transparent);
-  /* A faint lift of the line colour, not a colour of its own (user, 10 Oct:
-     "why the hover effect is blue, i need something subtle, very minimal"). */
-  --hov-tile: color-mix(in srgb, var(--on-brand) 3%, transparent);
-  /* Where the grid lives; each placement sets its own (see below). */
-  --hov-mask: radial-gradient(ellipse 75% 85% at 50% 38%, #000 25%, transparent 100%);
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: clip;
-  pointer-events: none;
-  background-image:
-    linear-gradient(to right, var(--hov-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--hov-line) 1px, transparent 1px);
-  background-size: var(--hov-pitch) var(--hov-pitch);
-  -webkit-mask-image: var(--hov-mask);
-  mask-image: var(--hov-mask);
-}
-/* Gathered in the centre, dark at both side ends (the /events band). */
-.hovtiles--centre {
-  --hov-mask: radial-gradient(ellipse 42% 75% at 50% 42%, #000 20%, transparent 100%);
-}
-.hovtiles__c {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: var(--hov-pitch);
-  height: var(--hov-pitch);
-  background: var(--hov-tile);
-  opacity: 0;
-  transition: opacity 2s ease-out;
-}
-.hovtiles__c.is-on { opacity: 1; transition: none; }
-@media (prefers-reduced-motion: reduce) {
-  .hovtiles__c { transition: none; }
-}
+/* HOVER TILES left the site 13 Oct (user: "remove square grid effect" on
+   the /events hero, its last placement; the event pages' city heroes had
+   already dropped it). The component, its --centre mask and
+   js/hover-tiles.js are in git. */

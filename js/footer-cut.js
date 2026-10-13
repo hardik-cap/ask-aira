@@ -5,8 +5,8 @@
    picture the page's own city hero paints, read out of the hero's inline
    --city-sm image-set (the 1440 encode, the right size for the footer and
    already in cache when the phone hero fetched it). The hub has no photo
-   hero, so it takes the next stop's skyline (update the fallback with the
-   tour). No timer, no transition, no transform: a transform on a masked
+   hero, so it takes a generic event photo, the Captivate audience, never
+   one city's skyline. No timer, no transition, no transform: a transform on a masked
    group drags the mask with it and the letterforms themselves slide (the
    first build's bug).
    Built here rather than in components/footer.html so the photo is fetched
@@ -19,8 +19,10 @@
 (function () {
   'use strict';
 
-  /* The next stop's skyline, for /events itself. */
-  var FALLBACK = '/assets/events/cities/chicago-1440.avif';
+  /* For /events itself, which has no photo hero: a GENERIC event photo,
+     the Captivate audience, not a city (user, 13 Oct: the hub "can show
+     something generic, it shows chicago atm"). */
+  var FALLBACK = '/assets/events/captivate-2026/hands-up.jpg';
   var NS = 'http://www.w3.org/2000/svg';
   var done = false;
 

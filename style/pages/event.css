@@ -289,16 +289,6 @@
   .evhero__back { transition: none; }
 }
 
-/* The detail pages are LIGHT since 10 Oct late (user: "do event detail
-   light"), matching the hub and the rest of the site; they ran whole-dark
-   for part of that day. The admission ticket keeps its primitives, so it
-   reads the same on either ground. The hover-tile grid is drawn in white
-   for the hub's dark band, so here it takes ink instead. */
-.evhero .hovtiles {
-  --hov-line: color-mix(in srgb, var(--ink) 6%, transparent);
-  --hov-tile: color-mix(in srgb, var(--ink) 3%, transparent);
-}
-
 /* ---- THE CITY HERO (.evhero--city, Chicago first, 12 Oct) -------------------
    User: "use it on thumbnail and details page hero, surprise me with crazy
    design there". Four layers, back to front:
@@ -452,17 +442,21 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
   background: var(--tennessee-blue);
   border: 2px solid var(--on-brand);
 }
+/* THE TRIO IS THE FLAG'S OWN GEOMETRY (user, 13 Oct: "show tennessee flag
+   stars accurately", with the real flag beside it): ONE svg over the whole
+   disc in the flag's own 72-unit space (navy r36), each star outer radius
+   17 with its centre 18.5 from the disc's centre, the first tilted 18deg
+   and the other two the SAME star rotated 120 and 240 about the centre,
+   position and tilt together, so the three interlock point-to-point and
+   no two sit parallel. The polygons are generated from Wikimedia's
+   Flag_of_Tennessee.svg transforms; regenerate, never nudge by eye. */
 .evflag-tn__disc svg {
   position: absolute;
-  width: 15px;
-  height: 15px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   fill: var(--on-brand);
 }
-/* The statute's arrangement: evenly around the centre, the highest star
-   toward the upper hoist. */
-.evflag-tn__disc svg:nth-child(1) { left: 5px; top: 4px; }
-.evflag-tn__disc svg:nth-child(2) { right: 4px; top: 11px; }
-.evflag-tn__disc svg:nth-child(3) { left: 12px; bottom: 3px; }
 
 .evcity__stars svg { display: block; width: 22px; height: 22px; fill: var(--flag-star, var(--chicago-red)); }
 
@@ -498,9 +492,9 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
   overflow: visible;
   color: var(--ink);
   filter: drop-shadow(0 28px 36px color-mix(in srgb, var(--black) 60%, transparent));
-  transition: translate var(--dur) var(--ease);
 }
-.evhero__hold:hover .evticket { translate: 0 -4px; }
+/* No hover lift (user, 13 Oct: "on hover dont move up"); the ticket sits
+   still. */
 .evhero--city .evticket__admit {
   display: flex;
   align-items: center;
@@ -656,6 +650,9 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
   font-weight: 500;
 }
 .evbody__t {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
   margin: var(--sp-5) 0 0;
   font-family: var(--font-display);
   font-size: var(--t-title-sm);
@@ -663,6 +660,10 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
   line-height: var(--lh-title);
   color: var(--ink);
 }
+/* Each body heading leads with a 20px Phosphor duotone glyph (user, 13
+   Oct: "can we use icons with these h3 headings?"), harvested from the
+   package per heading subject; it inherits the heading's ink. */
+.evbody__ic { flex: none; width: 20px; height: 20px; }
 /* Luma's topics: a plain bulleted list (sarvam). */
 .evbody__list {
   margin: 0;
@@ -677,19 +678,16 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
 }
 .evbody__list li::marker { color: var(--ink-3); }
 
-/* THE DETAILS ARE TWO COLUMNS since 13 Oct (user: "after crazy hero, the
-   body lands kind of dull"): the document keeps its reading column, and
-   LOCATION AND THE HOSTS MOVE INTO A PAPER STUB BESIDE IT, a white card
-   with a dashed tear and punch notches between its two halves, the hero
-   ticket's own grammar rather than new decoration. Sticky at 1200+, so it
-   rides the read the way the hero ticket rides the photo; below 1200 it
-   follows the article as a full-width card. */
-.evbody__cols { display: grid; gap: var(--sp-8); align-items: start; }
-@media (min-width: 1200px) {
-  .evbody__cols { grid-template-columns: minmax(0, 1fr) 360px; gap: var(--sp-16); }
-  .evbody__aside { position: sticky; top: calc(var(--nav-h) + var(--nav-float) + 2px + var(--sp-5)); }
-}
+/* LOCATION AND THE HOSTS ARE A PAPER STUB, a white card with a dashed
+   tear and punch notches between its two halves, the hero ticket's own
+   grammar (13 Oct: "the body lands kind of dull"). It sat BESIDE the
+   article as a sticky second column for part of 13 Oct; it now CLOSES the
+   article at the same 48rem measure (user, same day: "remove 2 column
+   thing, the map and host can sit at bottom"), one reading column top to
+   bottom. */
+.evbody__cols { display: grid; gap: var(--sp-10); }
 .evbody__aside {
+  max-width: 48rem;
   display: grid;
   gap: var(--sp-4);
   padding: var(--sp-5);
@@ -724,10 +722,9 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
 }
 .evbody__tear::before { left: -11px; }
 .evbody__tear::after { right: -11px; }
-/* Inside the stub the map stacks: the tile full width, the city and the
-   Google Maps link on one row beneath it (the sub-640 shape). */
-.evbody__aside .evmap { grid-template-columns: 1fr; }
-.evbody__aside .evmap__cap { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+/* Inside the stub the map keeps its base shape, the 280px tile with the
+   city and the Google Maps link beside it; it stacks below 640 on the
+   base rule. */
 
 /* Where: a city-level Google map (the venue stays Luma's until approval).
    Framed like the cover: hairline, 12px corners. The embed is light, so on
@@ -839,6 +836,144 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
 .evhost__who .evhost__role { line-height: 1.35; }
 .evhost__name { font-size: var(--t-body); font-weight: 500; color: var(--ink); }
 .evhost__role { font-size: var(--t-caption); color: var(--ink-3); }
+
+/* THE CAPTIVATE HEADLINERS ARE BIG FACE CUTOUTS (user, 13 Oct, supplying a
+   four-speakers-on-coloured-discs reference: "this i wanted like face
+   cutouts big"): the chip grammar stands down on this list and each
+   speaker is an alpha-matted cutout (macOS Vision subject lift over the
+   originals in assets/events/source; a scratchpad tool made them, so
+   REGENERATE rather than re-matte by hand) sitting bottom-anchored on a
+   coloured disc, shoulders clipped by its edge, name and role centred
+   below. The discs cycle the ramps' light steps. */
+.evhosts__list--faces {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--sp-6) var(--sp-4);
+}
+.evhosts__list--faces .evhost {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  text-align: center;
+}
+.evhosts__list--faces .evhost__av {
+  width: 100%;
+  max-width: 176px;
+  height: auto;
+  aspect-ratio: 1;
+  border: 0;
+}
+.evhosts__list--faces .evhost__av picture { display: block; width: 100%; height: 100%; }
+.evhosts__list--faces .evhost:nth-child(4n + 1) .evhost__av { background: var(--tertiary-300); }
+.evhosts__list--faces .evhost:nth-child(4n + 2) .evhost__av { background: var(--primary-300); }
+.evhosts__list--faces .evhost:nth-child(4n + 3) .evhost__av { background: var(--secondary-300); }
+.evhosts__list--faces .evhost:nth-child(4n + 4) .evhost__av { background: var(--tertiary-200); }
+.evhosts__list--faces .evhost__who { align-items: center; }
+@media (max-width: 639px) {
+  .evhosts__list--faces { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* THE ASIDE'S HOSTS SPEAK THE SAME GRAMMAR IN MINIATURE (user, 13 Oct:
+   "show these pill host chips in any better form"): the pill chips are
+   gone; each host is a 72px coloured disc with their cutout over it, the
+   name centred under, wrapping as a row. The logo chips (aiRA, Capillary)
+   keep their mark, set on the brand wash instead of a hue so a logo never
+   reads as a person. */
+.evhosts__list--mini { gap: var(--sp-5) var(--sp-3); }
+.evhosts__list--mini .evhost {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  width: 88px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  text-align: center;
+}
+.evhosts__list--mini .evhost__av { width: 72px; height: 72px; border: 0; overflow: clip; }
+.evhosts__list--mini .evhost__av picture { display: block; width: 100%; height: 100%; }
+/* Hues go to PHOTO chips only (--img); a logo chip must never take one or
+   the mark reads as a person's disc. */
+.evhosts__list--mini .evhost:nth-child(3n + 1) .evhost__av--img:not(.evhost__av--logo) { background: var(--tertiary-300); }
+.evhosts__list--mini .evhost:nth-child(3n + 2) .evhost__av--img:not(.evhost__av--logo) { background: var(--primary-300); }
+.evhosts__list--mini .evhost:nth-child(3n + 3) .evhost__av--img:not(.evhost__av--logo) { background: var(--secondary-300); }
+/* The logo chip sits on PLAIN WHITE with a hairline (user, 13 Oct: the
+   wash disc "not loking good, use white only"). */
+.evhosts__list--mini .evhost__av--logo { background: var(--surface); border: 1px solid var(--border); }
+.evhosts__list--mini .evhost__av--logo img { padding: 14px; }
+.evhosts__list--mini .evhost__name { font-size: var(--t-caption); line-height: 1.3; }
+
+/* THE DAY'S AGENDA on the two Captivate talk pages (user, 13 Oct,
+   supplying capillaryevents.com's agenda URLs; "use proper table UI" the
+   same day, with a shadcn-svelte data-table reference, HAND-PORTED like
+   every sv-* reference: no npm here). A real <table> in a rounded ruled
+   frame: a muted header row, hairline row rules, no column verticals,
+   people in a muted line under each session title. OUR SESSION wears the
+   rollout tabs' selected mark, a 2px brand top edge on its cells, title
+   in brand ink, a plain "This session" label: colour on the edge and the
+   label, never a fill. COLLAPSED BY js/event-agenda.js to the first six
+   rows with a "Show the full day" button; script off, the whole day
+   shows. The Room column drops below 640. */
+.evagenda__note { margin: var(--sp-2) 0 0; font-size: var(--t-caption); color: var(--ink-3); }
+.evagenda { margin: var(--sp-4) 0 var(--sp-8); }
+.evagenda__frame {
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: clip;
+  background: var(--surface);
+}
+.evagenda__table { width: 100%; border-collapse: collapse; }
+.evagenda__table th {
+  padding: 9px 14px;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: var(--t-caption);
+  font-weight: 600;
+  color: var(--ink-3);
+  background: var(--surface-2);
+}
+.evagenda__table td {
+  padding: 10px 14px;
+  border-top: 1px solid var(--border);
+  vertical-align: top;
+}
+.evagenda__time {
+  width: 1%;
+  white-space: nowrap;
+  font-size: var(--t-caption);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+  padding-top: 12px;
+}
+.evagenda__t { display: block; font-size: var(--t-body); font-weight: 500; color: var(--ink); line-height: var(--lh-title); }
+.evagenda__meta { display: block; margin-top: 2px; font-size: var(--t-caption); color: var(--ink-3); line-height: 1.4; }
+.evagenda__room { width: 150px; font-size: var(--t-caption); color: var(--ink-3); padding-top: 12px; }
+.evagenda__row--here td { border-top: 2px solid var(--brand); padding-top: 9px; }
+.evagenda__row--here td.evagenda__time, .evagenda__row--here td.evagenda__room { padding-top: 11px; }
+.evagenda__row--here .evagenda__t { color: var(--brand-ink); }
+.evagenda__here {
+  margin-left: var(--sp-2);
+  font-family: var(--font-display);
+  font-size: var(--t-caption);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-ink);
+  white-space: nowrap;
+}
+.evagenda.is-cut tbody tr:nth-child(n + 7) { display: none; }
+.evagenda__more { display: flex; margin: var(--sp-4) auto 0; }
+@media (max-width: 639px) {
+  .evagenda__table th:nth-child(3), .evagenda__table td.evagenda__room { display: none; }
+  .evagenda__table th, .evagenda__table td { padding-inline: 10px; }
+}
 
 /* ---- The floating ask -----------------------------------------------------
    The homepage cue's pill (white, 28px corners, --shadow-ask), fixed to the
@@ -980,11 +1115,12 @@ body.page-event .joint::after {
   margin-top: var(--sp-6);
   text-decoration: none;
   filter: drop-shadow(0 18px 30px color-mix(in srgb, var(--black) 25%, transparent));
-  transition: translate var(--dur-fast) var(--ease), filter var(--dur-fast) var(--ease);
+  transition: filter var(--dur-fast) var(--ease);
 }
+/* Hover deepens the shadow only, no lift (user, 13 Oct: "on hover dont
+   move up"). */
 .evread:hover,
 .evread:focus-visible {
-  translate: 0 -3px;
   filter: drop-shadow(0 24px 36px color-mix(in srgb, var(--black) 32%, transparent));
 }
 .evread:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
