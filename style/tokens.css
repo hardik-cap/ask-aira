@@ -158,6 +158,14 @@
      night navy. Its other stops are Primary/600 and --black. */
   --tour-violet:     #5836D2;
   --tour-night:      #020336;
+  /* SOCIAL NETWORKS' OWN COLOURS, for the event pages' share row only
+     (14 Oct, user: "for linkedin use 0A66C2 color here, not in footer";
+     "keep our social icons i shared"). A network mark keeps its colour
+     like a customer logo does; the footer's marks stay in ink. Facebook
+     and WhatsApp are the values in the user's supplied files. */
+  --linkedin-blue:   #0A66C2;
+  --facebook-blue:   #0867FF;
+  --whatsapp-green:  #25D366;
   --capillary-ink:   var(--black);
 
   /* Capillary logo-petal colours, the web-palette teal, and the brand

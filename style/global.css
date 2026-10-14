@@ -1475,6 +1475,15 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 98%);
   mask-image: linear-gradient(to bottom, #000 55%, transparent 98%);
 }
+/* Every photo layer is stacked; the shown one is .is-on. On /events the
+   script cycles them (14 Oct, user: "slideshow of all the locations"), and
+   the change is a fade of OPACITY ONLY: no transform, ever, inside the
+   masked group. */
+.footer__wordmark-photos image { opacity: 0; transition: opacity 900ms var(--ease); }
+.footer__wordmark-photos image.is-on { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .footer__wordmark-photos image { transition: none; }
+}
 
 @media (max-width: 991px) {
   .footer__grid { grid-template-columns: 1fr; gap: var(--sp-8); }

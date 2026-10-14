@@ -679,12 +679,16 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
 .evbody__list li::marker { color: var(--ink-3); }
 
 /* LOCATION AND THE HOSTS ARE A PAPER STUB, a white card with a dashed
-   tear and punch notches between its two halves, the hero ticket's own
-   grammar (13 Oct: "the body lands kind of dull"). It sat BESIDE the
-   article as a sticky second column for part of 13 Oct; it now CLOSES the
-   article at the same 48rem measure (user, same day: "remove 2 column
-   thing, the map and host can sit at bottom"), one reading column top to
-   bottom. */
+   tear and punch notches, the hero ticket's own grammar (13 Oct: "the
+   body lands kind of dull"). It sat BESIDE the article as a sticky second
+   column for part of 13 Oct, then closed the article at the passage's
+   48rem. SINCE 14 Oct (user: "a lot of space wasted") it is the hero
+   ticket's own SHAPE at the container's FULL WIDTH from 992 up: the map
+   and facts as the printed main, a VERTICAL perforation, and a 320px stub
+   carrying the hosts (a roster of rows, not discs in a field of air) and
+   the share icons. Below 992 it stacks back to the one-column card at the
+   passage's measure, tears horizontal. The two halves are .evbody__half
+   wrappers on all six pages; edit them together. */
 .evbody__cols { display: grid; gap: var(--sp-10); }
 .evbody__aside {
   max-width: 48rem;
@@ -699,6 +703,61 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
   overflow: clip;
 }
 .evbody__aside .evbody__t { margin: 0; }
+/* display: contents below 992, so the halves' children stack on the
+   aside's own grid exactly as before the wrappers existed. */
+.evbody__half { display: contents; }
+@media (min-width: 992px) {
+  .evbody__aside {
+    max-width: none;
+    grid-template-columns: minmax(0, 1fr) auto 320px;
+    align-items: stretch;
+    padding: 0;
+    gap: 0;
+  }
+  .evbody__half {
+    display: grid;
+    gap: var(--sp-4);
+    align-content: start;
+    min-width: 0;
+    padding: var(--sp-6);
+  }
+  /* When the stub runs taller (Bengaluru's five hosts), the map grows into
+     the main's leftover height instead of leaving a field of white. */
+  .evbody__half--main { grid-template-rows: auto minmax(0, 1fr); align-content: stretch; }
+  /* The seam between main and stub is the perforation, stood upright:
+     border-left instead of border-top, the punch notches at its top and
+     bottom, clipped by the card like every other tear. */
+  /* .evbody__aside doubled on: the base .evbody__tear rule sits later in
+     this sheet and ties on specificity, so bare --seam rules lose height
+     and border back to it. */
+  .evbody__aside .evbody__tear--seam {
+    width: 0;
+    height: auto;
+    margin: 0;
+    border-top: 0;
+    border-left: 2px dashed color-mix(in srgb, var(--ink) 18%, transparent);
+  }
+  .evbody__aside .evbody__tear--seam::before,
+  .evbody__aside .evbody__tear--seam::after { left: -11px; }
+  .evbody__aside .evbody__tear--seam::before { top: -11px; }
+  .evbody__aside .evbody__tear--seam::after { top: auto; bottom: -11px; }
+  /* The stub's inner tear (hosts / share) bleeds to the stub's own edges;
+     its left notch lands on the seam, a punch at the junction. */
+  .evbody__half--stub .evbody__tear { margin: var(--sp-1) calc(-1 * var(--sp-6)); }
+  /* Hosts as a ROSTER in the narrow stub: 44px disc and the name on one
+     row, so five hosts fill the column instead of wrapping 72px discs. */
+  .evbody__half--stub .evhosts__list--mini { display: grid; gap: var(--sp-3); }
+  .evbody__half--stub .evhosts__list--mini .evhost {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--sp-3);
+    width: auto;
+    text-align: left;
+  }
+  .evbody__half--stub .evhosts__list--mini .evhost__av { width: 44px; height: 44px; }
+  .evbody__half--stub .evhosts__list--mini .evhost__av--logo img { padding: 8px; }
+  .evbody__half--stub .evhosts__list--mini .evhost__name { font-size: var(--t-body); }
+}
 /* The tear between the stub's halves: the ticket grammar's dashed line,
    stated locally (events.css's :root --evtear does not reach this page,
    the standing pitfall), with the page-coloured notch discs half-clipped
@@ -738,7 +797,10 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
   }
   .evbody__aside .evmap__frame { aspect-ratio: auto; min-height: 240px; height: 100%; }
 }
-.evbody__aside .evmap__cap { justify-content: space-between; gap: var(--sp-4); }
+/* 0,2,0 so the base map figure's own <640 row-wrap rule never flips this
+   caption sideways inside the card: the facts stay a column and the Maps
+   link closes it at every width. */
+.evbody__aside .evmap__cap { flex-direction: column; align-items: flex-start; justify-content: space-between; gap: var(--sp-4); }
 .evfacts { margin: 0; display: grid; gap: var(--sp-3); }
 .evfacts > div { position: relative; padding-left: 30px; }
 .evfacts__ic { position: absolute; left: 0; top: 2px; width: 20px; height: 20px; color: var(--ink-3); }
@@ -1313,6 +1375,23 @@ body.page-event .joint::after {
 .evshare__btn:hover { border-color: var(--brand-line); color: var(--brand-ink); }
 .evshare__btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 .evshare__ic { width: 20px; height: 20px; flex: none; }
+/* THE FOUR NETWORK MARKS ARE THE USER'S SUPPLIED FILES (14 Oct, user:
+   "keep our social icons i shared"; assets/social/), the ONE NAMED
+   EXCEPTION to the all-duotone events pages: LinkedIn is the footer's own
+   bare "in" glyph, here in LinkedIn blue (the footer keeps it in ink), and
+   X, Facebook and WhatsApp carry their own colours. A network mark keeps
+   its colour like a customer logo, so hover only lights the edge on these
+   four; the copy-link button keeps the brand-ink hover. Colours are tokens
+   fed in through currentColor; Facebook's "f" is a white knockout. */
+.evshare__btn--li,
+.evshare__btn--li:hover { color: var(--linkedin-blue); }
+.evshare__btn--x,
+.evshare__btn--x:hover  { color: var(--black); }
+.evshare__btn--fb,
+.evshare__btn--fb:hover { color: var(--facebook-blue); }
+.evshare__btn--wa,
+.evshare__btn--wa:hover { color: var(--whatsapp-green); }
+.evshare__knock { fill: var(--on-brand); }
 .evshare__label {
   position: absolute; width: 1px; height: 1px; overflow: hidden;
   clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
