@@ -812,18 +812,21 @@ img.evcard__photo {
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-sm);
-  overflow: clip;
+  /* NO overflow clip on the card (14 Oct, user: "dropdown stuck in box"):
+     the city list hangs past its foot. The two things the clip used to do
+     moved onto their own parts: the photo side clips its own corners, and
+     the tear clips its own punch discs. */
 }
 
 /* The poster half: photo into dark, copy on the dark. */
-.evcity__side { position: relative; min-height: 440px; }
+.evcity__side { position: relative; min-height: 440px; overflow: clip; border-radius: calc(var(--r-lg) - 1px) 0 0 calc(var(--r-lg) - 1px); }
 .evcity__ph { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
 /* The poster wears the TOUR TINT, the same creative gradient the hub's
    upcoming cards carry (black into Primary/600 into the tour violet), so
-   this card and the ads asking for the next city are one picture. Unlike
-   the hub cards, the foot RUNS TO SOLID BLACK: here the copy sits on the
-   photo itself, which is exactly the case the creative's opaque foot
-   exists for. */
+   this card and the ads asking for the next city are one picture. The
+   foot RUNS TO SOLID BLACK because the 2027 shortlist sits on the photo,
+   which is the case the creative's opaque foot exists for. (The section
+   heading lives in the regular head above since 14 Oct.) */
 .evcity__shade {
   position: absolute;
   inset: 0;
@@ -834,34 +837,53 @@ img.evcard__photo {
     color-mix(in srgb, var(--black) 76%, transparent) 72%,
     var(--black) 96%);
 }
-.evcity__copy { position: absolute; inset: auto 0 0; padding: var(--sp-8); }
-.evcity__t {
+/* THE TOUR LINE ON THE PHOTO (user, 14 Oct: no dates, then no cities,
+   "more advertising language"): the tour's name in a tracked Tertiary/300
+   caps label (.evh1__year's spec) over "Coming to a city near you." in
+   display type, white on the shade's solid foot, bottom-left. */
+.evcity__poster { position: absolute; inset: auto 0 0; padding: var(--sp-8); }
+.evcity__year {
   margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--t-caption);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tertiary-300);
+}
+.evcity__stops {
+  margin: var(--sp-2) 0 0;
   font-family: var(--font-display);
   font-size: var(--t-display-3);
   font-weight: 500;
   line-height: var(--lh-title);
-  color: var(--ink-inv);
+  color: var(--on-brand);
+  text-wrap: balance;
 }
-.evcity__t em { font-style: normal; color: var(--tertiary-300); }
-.evcity__sub { margin: var(--sp-3) 0 0; font-size: var(--t-body); line-height: var(--lh-body); color: color-mix(in srgb, var(--ink-inv) 78%, transparent); }
 
+/* The tear is a 20px CLIPPING STRIP that takes no room (margins give the
+   20px back, so its grid track is 0): it draws the dashed line down its
+   middle and clips its own punch discs to half circles at the card's top
+   and bottom edges, which the card's overflow clip used to do. */
 .evcity__tear {
   position: relative;
-  width: 0;
-  border-left: 2px dashed color-mix(in srgb, var(--ink) 18%, transparent);
+  z-index: 1;
+  width: 20px;
+  margin-inline: -10px;
+  overflow: clip;
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--ink) 18%, transparent) 0 6px, transparent 6px 10px) center / 2px 10px repeat-y;
 }
 .evcity__tear::before,
 .evcity__tear::after {
   content: '';
   position: absolute;
-  left: -11px;
+  left: 0;
   width: 20px;
   height: 20px;
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: 50%;
-  z-index: 1;
+  box-sizing: border-box;
 }
 .evcity__tear::before { top: -11px; }
 .evcity__tear::after { bottom: -11px; }
@@ -971,10 +993,13 @@ select.evcity__combo-in:invalid { color: var(--ink-faint); }
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-lg);
-  max-height: 272px;
+  max-height: 310px;
   overflow-y: auto;
 }
 .evcity__list[hidden] { display: none; }
+/* A group after the first opens on a hairline, so "On the 2027 route" and
+   "Cities in the running" read as two lists. */
+.evcity__opt + .evcity__group { margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--border); }
 .evcity__group {
   padding: 8px 10px 4px;
   font-family: var(--font-display);
@@ -1081,14 +1106,24 @@ select.evcity__combo-in:invalid { color: var(--ink-faint); }
 @media (max-width: 991px) {
   .evcity { grid-template-columns: 1fr; }
   .evcity__side { min-height: 0; aspect-ratio: 16 / 8; }
-  .evcity__copy { padding: var(--sp-6); }
+  .evcity__poster { padding: var(--sp-6); }
+  /* The stacked poster is short, so the route climbs out of the solid
+     foot onto the bright stage: the ramp starts higher here. */
+  .evcity__shade {
+    background: linear-gradient(180deg,
+      color-mix(in srgb, var(--black) 45%, transparent) 0%,
+      color-mix(in srgb, var(--primary-600) 48%, transparent) 14%,
+      color-mix(in srgb, var(--black) 80%, transparent) 42%,
+      var(--black) 78%);
+  }
+  .evcity__side { border-radius: calc(var(--r-lg) - 1px) calc(var(--r-lg) - 1px) 0 0; }
   .evcity__tear {
     width: auto;
-    height: 0;
-    border-left: 0;
-    border-top: 2px dashed color-mix(in srgb, var(--ink) 18%, transparent);
+    height: 20px;
+    margin: -10px 0;
+    background: linear-gradient(to right, color-mix(in srgb, var(--ink) 18%, transparent) 0 6px, transparent 6px 10px) center / 10px 2px repeat-x;
   }
-  .evcity__tear::before, .evcity__tear::after { top: -11px; bottom: auto; }
+  .evcity__tear::before, .evcity__tear::after { top: 0; bottom: auto; }
   .evcity__tear::before { left: -11px; }
   .evcity__tear::after { left: auto; right: -11px; }
   .evcity__pane { padding: var(--sp-6); }

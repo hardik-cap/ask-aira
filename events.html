@@ -276,18 +276,27 @@
     <section class="section evcity-sec" id="tour-city">
       <div class="padding-global">
         <div class="container">
+          <div class="section-head reveal">
+            <h2 class="section-heading">Bring the tour to <em>your city</em>.</h2>
+            <p class="section-sub">Four cities are on the 2027 route. Want the workshop somewhere else? Request your city, and we&rsquo;ll let you know if it gets a stop.</p>
+          </div>
           <div class="evcity reveal">
             <div class="evcity__side">
               <img class="evcity__ph" src="/assets/events/captivate-2026/hands-up.jpg" alt="" width="1600" height="1067" loading="lazy" decoding="async">
               <span class="evcity__shade" aria-hidden="true"></span>
-              <div class="evcity__copy">
-                <h2 class="evcity__t">Bring the tour to <em>your city</em>.</h2>
-                <p class="evcity__sub">The 2027 stops are still being planned. Tell us where you want the workshop next, and we&rsquo;ll let you know if it lands there.</p>
+              <!-- THE PHOTO CARRIES A TOUR LINE, NOT A CITY LIST (14 Oct, user:
+                   "the one liner should not contain cities make it more
+                   advertising language"): the tour's own name as the label
+                   and the classic tour promise. The route cities live in the
+                   dropdown's first group and the hero's 2027 line. -->
+              <div class="evcity__poster">
+                <p class="evcity__year">The Future of AI in Customer Analytics</p>
+                <p class="evcity__stops">Coming to a city near you.</p>
               </div>
             </div>
             <div class="evcity__tear" aria-hidden="true"></div>
             <div class="evcity__pane">
-              <p class="evcity__admit" aria-hidden="true"><span>2027 tour</span><img src="/assets/brand/aira-mark.svg" alt="" width="16" height="16"></p>
+              <p class="evcity__admit" aria-hidden="true"><span>City request</span><img src="/assets/brand/aira-mark.svg" alt="" width="16" height="16"></p>
               <form class="evcity__form" action="https://submit-form.com/jRH2wikQO" method="post" data-tour-city>
               <input type="hidden" name="_redirect" value="https://askaira.ai/events?city-request=sent#tour-city">
               <input type="hidden" name="_append" value="false">
@@ -304,12 +313,31 @@
                 <label class="evcity__label" for="tc-city">City</label>
                 <div class="evcity__combo" data-city-combo>
                   <svg class="evcity__combo-ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24a80,80,0,0,0-80,80c0,72,80,128,80,128s80-56,80-128A80,80,0,0,0,128,24Zm0,112a32,32,0,1,1,32-32A32,32,0,0,1,128,136Z" opacity="0.2"/><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></svg>
+                  <!-- TWO GROUPS (14 Oct, user: "shouldn't New York, Atlanta,
+                       San Francisco and Los Angeles also be in dropdown"): the
+                       PLANNED 2027 ROUTE first, a request there being interest
+                       in a stop already planned; then the POLL, cities off the
+                       route, the six metros with the most US target accounts
+                       after the tour's own (aiRa TAL 2026: Orlando 32, Houston
+                       26, Miami 22, Denver 21, Charlotte 20, Seattle 16),
+                       PENDING HARDIK'S SIGN-OFF. data-kind picks the
+                       confirmation line. -->
                   <select class="evcity__input evcity__combo-in" id="tc-city" name="city" required>
                     <option value="" selected disabled>Pick a city</option>
-                    <option value="New York, NY" data-name="New York" data-st="NY">New York, NY</option>
-                    <option value="Atlanta, GA" data-name="Atlanta" data-st="GA">Atlanta, GA</option>
-                    <option value="San Francisco, CA" data-name="San Francisco" data-st="CA">San Francisco, CA</option>
-                    <option value="Los Angeles, CA" data-name="Los Angeles" data-st="CA">Los Angeles, CA</option>
+                    <optgroup label="On the 2027 route">
+                      <option value="New York, NY" data-name="New York" data-st="NY" data-kind="route">New York, NY</option>
+                      <option value="Atlanta, GA" data-name="Atlanta" data-st="GA" data-kind="route">Atlanta, GA</option>
+                      <option value="San Francisco, CA" data-name="San Francisco" data-st="CA" data-kind="route">San Francisco, CA</option>
+                      <option value="Los Angeles, CA" data-name="Los Angeles" data-st="CA" data-kind="route">Los Angeles, CA</option>
+                    </optgroup>
+                    <optgroup label="Cities in the running">
+                      <option value="Orlando, FL" data-name="Orlando" data-st="FL" data-kind="poll">Orlando, FL</option>
+                      <option value="Miami, FL" data-name="Miami" data-st="FL" data-kind="poll">Miami, FL</option>
+                      <option value="Houston, TX" data-name="Houston" data-st="TX" data-kind="poll">Houston, TX</option>
+                      <option value="Denver, CO" data-name="Denver" data-st="CO" data-kind="poll">Denver, CO</option>
+                      <option value="Charlotte, NC" data-name="Charlotte" data-st="NC" data-kind="poll">Charlotte, NC</option>
+                      <option value="Seattle, WA" data-name="Seattle" data-st="WA" data-kind="poll">Seattle, WA</option>
+                    </optgroup>
                   </select>
                   <svg class="evcity__chev" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,96l-80,80L48,96Z" opacity="0.2"/><path d="M215.39,92.94A8,8,0,0,0,208,88H48a8,8,0,0,0-5.66,13.66l80,80a8,8,0,0,0,11.32,0l80-80A8,8,0,0,0,215.39,92.94ZM128,164.69,67.31,104H188.69Z"/></svg>
                 </div>
@@ -361,7 +389,7 @@
               <div class="evcity__done" data-city-done hidden tabindex="-1">
                 <p class="evcity__done-k">Request sent for</p>
                 <p class="evcity__done-t" data-city-done-t>your city</p>
-                <p class="evcity__done-s">The 2027 stops are still being planned. If <span data-city-done-name>your city</span> makes the cut, we&rsquo;ll email you.</p>
+                <p class="evcity__done-s" data-city-done-s>We&rsquo;ll email you if your city gets a stop on the tour.</p>
                 <div class="evcity__done-foot">
                   <a class="btn btn--secondary" href="#series">See upcoming events</a>
                   <button class="evcity__again" type="button" data-city-again hidden>Request another city</button>
