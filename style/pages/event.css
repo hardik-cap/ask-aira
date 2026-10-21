@@ -53,6 +53,26 @@
    takes the single label's bottom margin; the labels inside give it up. */
 .evkinds { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-4); margin: 0 0 var(--sp-4); }
 .evkinds > .evkind { margin: 0; }
+/* A PARTNER EVENT'S HOST LINE (21 Oct, Dallas became Adobe's Journey
+   Optimizer Loyalty Tour; Hardik: "style the page a little so that it
+   looks like an Adobe event"). The host's mark in its own colour, a
+   hairline, then who it is with, above the kind labels. Only on a city
+   (dark photo) hero today, so the ink is on-dark. */
+.evhero__with {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin: 0 0 var(--sp-5);
+  font-size: var(--t-body);
+  font-weight: 500;
+  color: color-mix(in srgb, var(--on-brand) 82%, transparent);
+}
+.evhero__with img { height: 24px; width: auto; }
+.evhero__with-rule { width: 1px; height: 20px; background: color-mix(in srgb, var(--on-brand) 32%, transparent); }
+@media (max-width: 639px) {
+  .evhero__with { flex-direction: column; align-items: flex-start; gap: var(--sp-1); }
+  .evhero__with-rule { display: none; }
+}
 
 .evhero__t {
   font-family: var(--font-display);
@@ -677,6 +697,17 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
   color: var(--ink-2);
 }
 .evbody__list li::marker { color: var(--ink-3); }
+/* A PARTNER CONFERENCE'S LINE-UP (From Day One pages, 21 Oct): the
+   organiser's speakers as plain text, name over role and company, two
+   columns. Text, not faces: the photos are From Day One's, not ours. */
+.evspk { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-4) var(--sp-6); }
+.evspk li { display: grid; gap: 2px; min-width: 0; }
+.evspk__n { font-size: var(--t-body); font-weight: 500; color: var(--ink); }
+.evspk__r { font-size: var(--t-caption); line-height: 1.4; color: var(--ink-3); }
+@media (max-width: 639px) { .evspk { grid-template-columns: 1fr; } }
+/* An organiser with no mark of ours to show: a Phosphor glyph in the
+   logo chip's white disc. */
+.evhost__glyph { width: 20px; height: 20px; color: var(--ink-3); }
 
 /* LOCATION AND THE HOSTS ARE A PAPER STUB, a white card with a dashed
    tear and punch notches, the hero ticket's own grammar (13 Oct: "the
@@ -690,6 +721,58 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
    passage's measure, tears horizontal. The two halves are .evbody__half
    wrappers on all six pages; edit them together. */
 .evbody__cols { display: grid; gap: var(--sp-10); }
+/* WITH THE EVENT'S OWN CREATIVE (Dallas, 21 Oct): the passage keeps its
+   measure as its cap and the square Luma cover takes a 300-420px column
+   beside it from 1100 up (at a bare 1fr it came out 206px under the band),
+   the closing ticket still spanning the row. Below, it follows the
+   passage at the passage's measure. */
+.evbody__poster { margin: 0; max-width: 48rem; }
+.evbody__poster img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+}
+@media (min-width: 1100px) {
+  .evbody__cols--poster { grid-template-columns: minmax(0, 1fr) clamp(300px, 34%, 420px); column-gap: var(--sp-12); }
+  .evbody__cols--poster > .evbody__poster { grid-column: 2; grid-row: 1; }
+  .evbody__cols--poster > .evbody__aside { grid-column: 1 / -1; }
+}
+.evbody__t--first { margin-top: 0; }
+/* THE EVENT'S PARTNERS (21 Oct, Hardik: partner logos on each event
+   page): the passage opens on who the event is with, a caps micro-label
+   ("In association with", "Presented by" ...) and the partners' own marks
+   in full colour, closed off by a hairline. A page with two kinds of
+   partner sets two .evpartners__group pairs in the row (Chicago: TBH "In
+   association with", NALA "Community partner", user 21 Oct). Three logo shapes, one optical
+   size, as on the hub's partner row. Only on events that HAVE a partner:
+   Nashville and the two Captivate talks were Capillary's own. */
+.evpartners {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-4) var(--sp-8);
+  padding-bottom: var(--sp-5);
+  margin-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--border);
+}
+.evpartners__k {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--t-caption);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.evbody__passage p.evpartners__k { font-size: var(--t-caption); line-height: var(--lh-title); color: var(--ink-3); }
+.evpartners__group { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-4) var(--sp-6); }
+.evpartners__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-4) var(--sp-8); }
+.evpartners__logo { display: block; width: auto; }
+.evpartners__logo--word { height: 24px; }
+.evpartners__logo--stack { height: 36px; }
+.evpartners__logo--badge { height: 52px; }
 .evbody__aside {
   max-width: 48rem;
   display: grid;
@@ -703,6 +786,21 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
   overflow: clip;
 }
 .evbody__aside .evbody__t { margin: 0; }
+/* THE TICKET TILTS UNDER THE POINTER (21 Oct, user: "i need the hover
+   moving effect"): js/ticket-tilt.js writes --rx/--ry from the mouse, at
+   most 3deg on this wide card, and this turns them into a perspective
+   tilt. Scoped to .is-in so .reveal's own rise keeps the transform until
+   it lands (equal specificity to .reveal.is-in; this sheet loads later).
+   Slow ease back when the pointer leaves, a short follow while it moves.
+   Mouse only and off under reduced motion, both in the script. */
+.evbody__aside[data-tilt].is-in {
+  transform: perspective(1600px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 700ms var(--ease), box-shadow 700ms var(--ease);
+}
+.evbody__aside[data-tilt].is-in.is-tilting {
+  transition: transform 140ms linear, box-shadow 300ms var(--ease);
+  box-shadow: var(--shadow-md);
+}
 /* display: contents below 992, so the halves' children stack on the
    aside's own grid exactly as before the wrappers existed. */
 .evbody__half { display: contents; }
@@ -814,6 +912,18 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
   color: var(--ink-3);
 }
 .evfacts dd { margin: 2px 0 0; font-size: var(--t-body); font-weight: 500; line-height: 1.4; color: var(--ink); }
+/* A published venue's street address (Chicago's LUXBAR, 22 Oct): the
+   venue name stays the value, the address a quieter second line under it,
+   in the ticket and the facts list alike. */
+.evaddr {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--font-sans);
+  font-size: var(--t-caption);
+  font-weight: 450;
+  line-height: 1.4;
+  color: var(--ink-3);
+}
 
 /* Where: a city-level Google map (the venue stays Luma's until approval).
    Framed like the cover: hairline, 12px corners. The embed is light, so on
@@ -1402,4 +1512,7 @@ body.page-event .joint::after {
 .evshare__copy.is-copied .evshare__ok { display: block; }
 @media (prefers-reduced-motion: reduce) {
   .evshare__btn { transition: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .evbody__aside[data-tilt].is-in { transform: none; transition: none; }
 }

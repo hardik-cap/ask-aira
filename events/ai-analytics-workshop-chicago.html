@@ -23,9 +23,9 @@
   <link rel="icon" href="/assets/brand/aira-mark.svg" type="image/svg+xml">
 
   <!-- schema.org Event, so Google can show the date and the city in its
-       event results. The LOCATION IS THE CITY ONLY, on purpose: the venue is
-       hidden on Luma until a seat is approved, and this page must never
-       reveal what Luma withholds. No offers block: Luma shows no price. -->
+       event results. The VENUE IS
+       PUBLISHED since 22 Oct (user, after GroundSwell moved the dinner from
+       Gibson's to LUXBAR, same group, across the street). No offers block: Luma shows no price. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -38,9 +38,11 @@
     "eventStatus": "https://schema.org/EventScheduled",
     "location": {
       "@type": "Place",
-      "name": "Chicago",
+      "name": "LUXBAR",
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "18 E. Bellevue Place",
+        "postalCode": "60611",
         "addressLocality": "Chicago",
         "addressRegion": "IL",
         "addressCountry": "US"
@@ -75,6 +77,7 @@
   <script src="/js/footer-cut.js" defer></script>
   <script src="/js/event-bar.js" defer></script>
   <script src="/js/event-countdown.js" defer></script>
+  <script src="/js/ticket-tilt.js" defer></script>
   <!-- "REQUEST A SEAT" OPENS LUMA'S CHECKOUT OVERLAY (12 Oct; back 13 Oct
        after an hour of the embedded iframe, user: "do luma button only"). The
        script binds every [data-luma-action="checkout"] by its
@@ -140,7 +143,7 @@
                   <dl class="evticket__grid">
                     <div><dt>Date</dt><dd>Monday 9 November 2026</dd></div>
                     <div><dt>Time</dt><dd>6:00 to 9:00 PM CT</dd></div>
-                    <div><dt>Venue</dt><dd>Chicago, IL</dd></div>
+                    <div><dt>Venue</dt><dd>LUXBAR<span class="evaddr">18 E. Bellevue Place, Chicago, IL&nbsp;60611</span></dd></div>
                     <div><dt>With</dt><dd>Drinks, snacks and dinner</dd></div>
                   </dl>
                   <p class="evticket__seats">Approval required</p>
@@ -186,6 +189,7 @@
           <div class="evbody__cols">
           <div class="evbody__close reveal">
             <div class="evbody__passage">
+              <div class="evpartners"><div class="evpartners__group"><p class="evpartners__k">In association with</p><ul class="evpartners__list"><li><img class="evpartners__logo evpartners__logo--badge" src="/assets/logos/tbh-loyalty-chicago.png" alt="The BIG Handshake Loyalty Chicago" width="240" height="240" loading="lazy" decoding="async"></li></ul></div><div class="evpartners__group"><p class="evpartners__k">Community partner</p><ul class="evpartners__list"><li><img class="evpartners__logo evpartners__logo--badge" src="/assets/logos/north-american-loyalty-association.png" alt="North American Loyalty Association" width="256" height="300" loading="lazy" decoding="async"></li></ul></div></div>
               <p class="evbody__lede">No waiting on an analyst. No SQL queue. No &ldquo;let me pull that and get back to you.&rdquo;</p>
               <p>
                 Join us after work in Chicago for an evening on how AI is changing
@@ -246,22 +250,20 @@
 
             </div>
           </div>
-          <aside class="evbody__aside reveal">
+          <aside class="evbody__aside reveal" data-tilt>
             <div class="evbody__half evbody__half--main">
                         <!-- Where (user, 10 Oct: "we also need google map inside details
-                 page"). CITY ONLY, ON PURPOSE: Luma hides the venue until a
-                 seat is approved and this page never reveals what Luma
-                 withholds. Pin the venue here only once its address is
-                 cleared to publish. Google's key-free embed, lazy-loaded so
+                 page"). PINNED ON LUXBAR since 22 Oct (user cleared the
+                 address to publish; it was city only until then). Google's key-free embed, lazy-loaded so
                  nothing third-party loads until it nears the screen. -->
             <h3 class="evbody__t"><svg class="evbody__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24a80,80,0,0,0-80,80c0,72,80,128,80,128s80-56,80-128A80,80,0,0,0,128,24Zm0,112a32,32,0,1,1,32-32A32,32,0,0,1,128,136Z" opacity="0.2"/><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></svg>When and where</h3>
             <figure class="evmap">
               <div class="evmap__frame">
-                <iframe src="https://www.google.com/maps?q=Chicago%2C+IL&amp;z=11&amp;output=embed" title="Map of Chicago, Illinois" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+                <iframe src="https://www.google.com/maps?q=LUXBAR%2C+18+E+Bellevue+Pl%2C+Chicago%2C+IL+60611&amp;z=16&amp;output=embed" title="Map of LUXBAR, 18 E. Bellevue Place, Chicago" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
               </div>
               <figcaption class="evmap__cap">
-                <dl class="evfacts"><div><dt><svg class="evfacts__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,48V88H40V48a8,8,0,0,1,8-8H208A8,8,0,0,1,216,48Z" opacity="0.2"/><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z"/></svg>Date</dt><dd>Monday 9 November 2026</dd></div><div><dt><svg class="evfacts__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></svg>Time</dt><dd>6:00 to 9:00 PM CT</dd></div><div><dt><svg class="evfacts__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24a80,80,0,0,0-80,80c0,72,80,128,80,128s80-56,80-128A80,80,0,0,0,128,24Zm0,112a32,32,0,1,1,32-32A32,32,0,0,1,128,136Z" opacity="0.2"/><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></svg>Venue</dt><dd>Chicago, IL</dd></div><div><dt><svg class="evfacts__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40V168H152S152,64,208,40Z" opacity="0.2"/><path d="M72,88V40a8,8,0,0,1,16,0V88a8,8,0,0,1-16,0ZM216,40V224a8,8,0,0,1-16,0V176H152a8,8,0,0,1-8-8,268.75,268.75,0,0,1,7.22-56.88c9.78-40.49,28.32-67.63,53.63-78.47A8,8,0,0,1,216,40ZM200,53.9c-32.17,24.57-38.47,84.42-39.7,106.1H200ZM119.89,38.69a8,8,0,1,0-15.78,2.63L112,88.63a32,32,0,0,1-64,0l7.88-47.31a8,8,0,1,0-15.78-2.63l-8,48A8.17,8.17,0,0,0,32,88a48.07,48.07,0,0,0,40,47.32V224a8,8,0,0,0,16,0V135.32A48.07,48.07,0,0,0,128,88a8.17,8.17,0,0,0-.11-1.31Z"/></svg>With</dt><dd>Drinks, snacks and dinner</dd></div><div><dt><svg class="evfacts__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,100a60,60,0,1,1-60-60A60,60,0,0,1,168,100Z" opacity="0.2"/><path d="M144,157.68a68,68,0,1,0-71.9,0c-20.65,6.76-39.23,19.39-54.17,37.17a8,8,0,0,0,12.25,10.3C50.25,181.19,77.91,168,108,168s57.75,13.19,77.87,37.15a8,8,0,0,0,12.25-10.3C183.18,177.07,164.6,164.44,144,157.68ZM56,100a52,52,0,1,1,52,52A52.06,52.06,0,0,1,56,100Zm197.66,33.66-32,32a8,8,0,0,1-11.32,0l-16-16a8,8,0,0,1,11.32-11.32L216,148.69l26.34-26.35a8,8,0,0,1,11.32,11.32Z"/></svg>Seats</dt><dd>Approval required</dd></div></dl>
-                <a class="evmap__link" href="https://www.google.com/maps/search/?api=1&amp;query=Chicago%2C+IL" target="_blank" rel="noopener">Open in Google Maps<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M192,64V168L88,64Z" opacity="0.2"/><path d="M192,56H88a8,8,0,0,0-5.66,13.66L128.69,116,58.34,186.34a8,8,0,0,0,11.32,11.32L140,127.31l46.34,46.35A8,8,0,0,0,200,168V64A8,8,0,0,0,192,56Zm-8,92.69-38.34-38.34h0L107.31,72H184Z"/></svg></a>
+                <dl class="evfacts"><div><dt><svg class="evfacts__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,48V88H40V48a8,8,0,0,1,8-8H208A8,8,0,0,1,216,48Z" opacity="0.2"/><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z"/></svg>Date</dt><dd>Monday 9 November 2026</dd></div><div><dt><svg class="evfacts__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></svg>Time</dt><dd>6:00 to 9:00 PM CT</dd></div><div><dt><svg class="evfacts__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,24a80,80,0,0,0-80,80c0,72,80,128,80,128s80-56,80-128A80,80,0,0,0,128,24Zm0,112a32,32,0,1,1,32-32A32,32,0,0,1,128,136Z" opacity="0.2"/><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></svg>Venue</dt><dd>LUXBAR<span class="evaddr">18 E. Bellevue Place, Chicago, IL&nbsp;60611</span></dd></div><div><dt><svg class="evfacts__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208,40V168H152S152,64,208,40Z" opacity="0.2"/><path d="M72,88V40a8,8,0,0,1,16,0V88a8,8,0,0,1-16,0ZM216,40V224a8,8,0,0,1-16,0V176H152a8,8,0,0,1-8-8,268.75,268.75,0,0,1,7.22-56.88c9.78-40.49,28.32-67.63,53.63-78.47A8,8,0,0,1,216,40ZM200,53.9c-32.17,24.57-38.47,84.42-39.7,106.1H200ZM119.89,38.69a8,8,0,1,0-15.78,2.63L112,88.63a32,32,0,0,1-64,0l7.88-47.31a8,8,0,1,0-15.78-2.63l-8,48A8.17,8.17,0,0,0,32,88a48.07,48.07,0,0,0,40,47.32V224a8,8,0,0,0,16,0V135.32A48.07,48.07,0,0,0,128,88a8.17,8.17,0,0,0-.11-1.31Z"/></svg>With</dt><dd>Drinks, snacks and dinner</dd></div><div><dt><svg class="evfacts__ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,100a60,60,0,1,1-60-60A60,60,0,0,1,168,100Z" opacity="0.2"/><path d="M144,157.68a68,68,0,1,0-71.9,0c-20.65,6.76-39.23,19.39-54.17,37.17a8,8,0,0,0,12.25,10.3C50.25,181.19,77.91,168,108,168s57.75,13.19,77.87,37.15a8,8,0,0,0,12.25-10.3C183.18,177.07,164.6,164.44,144,157.68ZM56,100a52,52,0,1,1,52,52A52.06,52.06,0,0,1,56,100Zm197.66,33.66-32,32a8,8,0,0,1-11.32,0l-16-16a8,8,0,0,1,11.32-11.32L216,148.69l26.34-26.35a8,8,0,0,1,11.32,11.32Z"/></svg>Seats</dt><dd>Approval required</dd></div></dl>
+                <a class="evmap__link" href="https://www.google.com/maps/search/?api=1&amp;query=LUXBAR%2C+18+E+Bellevue+Pl%2C+Chicago%2C+IL+60611" target="_blank" rel="noopener">Open in Google Maps<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M192,64V168L88,64Z" opacity="0.2"/><path d="M192,56H88a8,8,0,0,0-5.66,13.66L128.69,116,58.34,186.34a8,8,0,0,0,11.32,11.32L140,127.31l46.34,46.35A8,8,0,0,0,200,168V64A8,8,0,0,0,192,56Zm-8,92.69-38.34-38.34h0L107.31,72H184Z"/></svg></a>
               </figcaption>
             </figure>
             </div>

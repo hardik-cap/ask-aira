@@ -31,17 +31,23 @@
   var MAX_FLING = 2400;     /* px/s cap on a throw */
   var NUDGE = 160;          /* px per arrow key */
 
-  document.querySelectorAll('.evreel').forEach(function (reel) {
-    var belt = reel.querySelector('.evreel__belt');
-    var set = belt && belt.querySelector('.evreel__set');
+  /* GENERIC SINCE 22 Oct: any [data-reel] host joins the photo reels (the
+     speakers ticker on /events is the first). Belt and set are found by the
+     reel's own classes or by [data-reel-belt]/[data-reel-set]; the pace can
+     be set per reel with data-reel-duration (seconds per set), since a
+     narrow set at the shared 90s would barely move. */
+  document.querySelectorAll('.evreel, [data-reel]').forEach(function (reel) {
+    var belt = reel.querySelector('.evreel__belt, [data-reel-belt]');
+    var set = belt && belt.querySelector('.evreel__set, [data-reel-set]');
     if (!set) return;
 
     reel.classList.add('is-js');
 
+    var duration = parseFloat(reel.getAttribute('data-reel-duration')) || DURATION;
     var W = 0, speed = 0;
     function measure() {
       W = set.getBoundingClientRect().width;
-      speed = W / DURATION;
+      speed = W / duration;
     }
     measure();
     window.addEventListener('resize', measure);
@@ -67,9 +73,13 @@
       hover = false;
       dragged = false;
     });
-    reel.addEventListener('focusin', function () {
-      /* Focus that lands mid-press came from the click, never the keyboard. */
-      focus = !dragging && reel.matches(':focus-visible');
+    reel.addEventListener('focusin', function (e) {
+      /* Focus that lands mid-press came from the click, never the keyboard.
+         A LINK inside the belt holding keyboard focus slows it too (the
+         speaker cards carry event links), or the focused thing drifts away
+         from its reader. */
+      focus = !dragging && (reel.matches(':focus-visible') ||
+        (e.target !== reel && e.target.matches(':focus-visible')));
     });
     reel.addEventListener('focusout', function () { focus = false; });
 
@@ -81,9 +91,10 @@
        when the browser took the gesture over (pointercancel), flung it by
        that wobble's velocity, often backwards. Now a vertical gesture is
        left entirely to the page and a cancel throws nothing. */
-    var pending = false, startX = 0, startY = 0;
+    var pending = false, startX = 0, startY = 0, swallow = false;
     reel.addEventListener('pointerdown', function (e) {
       if (e.button !== 0) return;
+      swallow = false;        /* a cancelled drag never got its click */
       pending = true;
       startX = e.clientX;
       startY = e.clientY;
@@ -119,6 +130,7 @@
       if (!dragging) return;
       dragging = false;
       dragged = true;
+      swallow = true;         /* the pointerup would otherwise CLICK a link */
       reel.classList.remove('is-dragging');
       if (!fling) return;               /* cancelled: keep the current pace */
       /* A pointer held still before letting go throws nothing. */
@@ -128,6 +140,13 @@
     reel.addEventListener('pointerup', function () { release(true); });
     reel.addEventListener('pointercancel', function () { release(false); });
     reel.addEventListener('lostpointercapture', function () { release(true); });
+
+    reel.addEventListener('click', function (e) {
+      if (!swallow) return;
+      swallow = false;
+      e.preventDefault();
+      e.stopPropagation();
+    }, true);
 
     reel.addEventListener('keydown', function (e) {
       if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
