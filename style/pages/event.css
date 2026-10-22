@@ -71,9 +71,22 @@
 /* A round badge needs more height than a wordmark to read (Chicago's TBH). */
 .evhero__with img.evhero__with-badge { height: 36px; }
 .evhero__with-rule { width: 1px; height: 20px; background: color-mix(in srgb, var(--on-brand) 32%, transparent); }
+/* ON PHONES IT STEPS ASIDE (user, 22 Oct: "comes to on face"): the fold
+   opens on the event itself, and the partner line moves BELOW the title
+   and sub as one small row, the logo at caption scale. The copy column
+   goes flex so order can carry it; the markup stays put, so readers and
+   crawlers still meet the partner first. */
 @media (max-width: 639px) {
-  .evhero__with { flex-direction: column; align-items: flex-start; gap: var(--sp-1); }
-  .evhero__with-rule { display: none; }
+  .evhero__copy { display: flex; flex-direction: column; align-items: flex-start; }
+  .evhero__with {
+    order: 10;
+    margin: var(--sp-5) 0 0;
+    gap: var(--sp-2);
+    font-size: var(--t-caption);
+  }
+  .evhero__with img { height: 18px; }
+  .evhero__with img.evhero__with-badge { height: 24px; }
+  .evhero__with-rule { height: 14px; }
 }
 
 .evhero__t {
@@ -661,6 +674,10 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
   letter-spacing: 0.02em;
   color: var(--ink-2);
 }
+/* Collapsed by js/event-speakers.js: the first eight show, the button
+   under the list says how many more. Script off, the list is whole. */
+.evspk.is-cut li:nth-child(n + 9) { display: none; }
+.evspk__more { margin-top: var(--sp-5); }
 @media (max-width: 639px) { .evspk { grid-template-columns: 1fr; } }
 /* An organiser with no mark of ours to show: a Phosphor glyph in the
    logo chip's white disc. */
