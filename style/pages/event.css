@@ -68,6 +68,8 @@
   color: color-mix(in srgb, var(--on-brand) 82%, transparent);
 }
 .evhero__with img { height: 24px; width: auto; }
+/* A round badge needs more height than a wordmark to read (Chicago's TBH). */
+.evhero__with img.evhero__with-badge { height: 36px; }
 .evhero__with-rule { width: 1px; height: 20px; background: color-mix(in srgb, var(--on-brand) 32%, transparent); }
 @media (max-width: 639px) {
   .evhero__with { flex-direction: column; align-items: flex-start; gap: var(--sp-1); }
@@ -723,6 +725,30 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
 }
 .evbody__passage p.evpartners__k { font-size: var(--t-caption); line-height: var(--lh-title); color: var(--ink-3); }
 .evpartners__group { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-4) var(--sp-6); }
+/* WITH DESCRIPTIONS (user, 22 Oct: "have a description on The Big
+   HandShake Chicago and NALA too. 2 lines each"; Chicago only so far,
+   futureproof.website's sponsor-band shape): each group stands as a
+   column, label over mark over two sourced lines. */
+.evpartners--told { align-items: flex-start; gap: var(--sp-6) var(--sp-16); }
+.evpartners--told .evpartners__group {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  max-width: 58ch;
+}
+.evpartners__d {
+  margin: 0;
+  font-size: var(--t-caption);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+.evpartners__d a {
+  color: var(--brand-ink);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .evpartners__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-4) var(--sp-8); }
 .evpartners__logo { display: block; width: auto; }
 .evpartners__logo--word { height: 24px; }
