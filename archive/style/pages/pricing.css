@@ -1,0 +1,879 @@
+/* /pricing — fully dark, 27 Sep.
+   Built on hightouch.com/pricing's STRUCTURE (offer-shape cards, a section
+   explaining the model, an FAQ, a closing CTA, no numbers anywhere) and
+   clerk.com/pricing's TREATMENT (near-black ground, hairline-joined boxy
+   cards in one band, muted-to-bright text hierarchy, one accent used once).
+
+   ALMOST NOTHING IS IMPORTED FROM EITHER. The ground, the rails, the
+   crossing squares and the eyebrow-over-heading head are this site's own
+   and already matched Clerk's grammar closely; the dark itself is
+   tokens.css's [data-theme="dark"] block, set on <html>. So this sheet
+   places the hero, draws the one local object (the offer band), restates
+   the FAQ grid that lives in home.css, and re-tones the footer. */
+
+/* ---------- Hero ---------------------------------------------------- */
+/* CENTRED, which Clerk and Hightouch both do and which this site otherwise
+   reserves for /product's hero: a pricing page has one thing to say and
+   nothing to put beside it, so a left-aligned block leaves half the fold
+   empty on a ground this dark. --t-display-1s (48px) is the interior-page
+   H1 token; 60px is the home hero's. */
+/* A FULL SCREEN since 28 Sep (user), the same calculation /about's hero uses:
+   #navbar-placeholder is a STICKY element in normal flow rather than an
+   overlay, so it really occupies space at the top of the document, and the
+   2px is the nav card's own border, which --nav-h does not count. */
+/* NO LONGER A FULL VIEWPORT (user, 3 Oct: "remove the 100vh"). It was
+   calc(100svh - --nav-h - --nav-float - 2px), the offset every utility hero on
+   this site uses to land its bottom edge exactly on the fold. What that bought
+   was a first screen of hero and nothing else; what it cost here is that this
+   hero is four short centred blocks totalling about 400px, so the other 400
+   were empty ground above and below them. The section takes the site's
+   ordinary --section-pad rhythm now and is as tall as its content.
+   THE flex/align-items CENTRING WENT WITH IT. It existed only to centre the
+   copy inside a box taller than itself; with no forced height there is no
+   spare room to centre in, and leaving it on would have made .padding-global a
+   flex item needing its width: 100% restated. The container is a grid now, for
+   the flanking fields below.
+   If the full-viewport hero is ever wanted back, the arithmetic is in the Type
+   section of CLAUDE.md under FULL-VIEWPORT HEROES: this page is in the group
+   that subtracts the header, and the 2px is the nav card's own border. */
+.prhero {
+  /* 60svh SINCE 3 OCT (user: "give about and pricing page hero 60vh
+     height"), and it is a PLAIN 60, with no header subtracted. That
+     arithmetic (less --nav-h, --nav-float and the nav card's own 2px
+     border) exists only to land a section's BOTTOM EDGE exactly on the
+     fold, and at 60% there is no edge to land, so subtracting anything
+     here would just make it 60% minus a number nobody asked for.
+     svh, with vh under it for older engines: on a phone 100vh is the
+     LARGEST viewport, measured with the browser chrome retracted, so a
+     vh-based hero is always taller than the screen it opens on.
+     min-height is a FLOOR, not a cap: the copy still wins if it needs
+     more, which is what keeps this safe on a short or zoomed viewport.
+     THIS IS NOT THE FULL-VIEWPORT HERO COMING BACK. That version was
+     removed earlier the same day and the thing it bought, the next
+     section starting exactly at the fold, is still gone: at 60% the
+     section below is visible from the start, deliberately. */
+  min-height: 60vh;
+  min-height: 60svh;
+  /* THE CENTRING HAD TO COME BACK WITH THE HEIGHT, and that is the whole
+     reason these two changes are one edit. It went out hours earlier with
+     the 100svh on the correct reasoning that there is no spare room to
+     centre in once a box is sized by its content; a 60svh floor puts the
+     spare room back, and without this the copy would sit at the top of it
+     with the slack hanging underneath.
+     .padding-global needs width: 100% restated because it is a flex item
+     now and would otherwise shrink to its content. */
+  display: flex;
+  align-items: center;
+}
+.prhero > .padding-global { width: 100%; }
+
+.prhero .container {
+  text-align: center;
+  /* THREE COLUMNS: field, copy, field. The middle track is the copy's own
+     800px measure, so the two flanks are whatever the container has left,
+     220px each at 1440 and narrowing with it. minmax(0, …) on all three
+     because a grid track's default `auto` minimum is min-content, and a
+     canvas in an auto track would refuse to go below its drawn width. */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 800px) minmax(0, 1fr);
+  align-items: center;
+}
+.prhero__copy {
+  grid-column: 2;
+  /* width:100% AS WELL AS the cap, because an auto-margined GRID item is
+     shrink-to-fit and collapses onto its widest child. Measured without it:
+     782px at 1440 and 676 at 1100 rather than the 800 asked for, so the
+     headline's measure was being set by the headline rather than by the
+     block, which is the same trap .phero__copy carries a note about. It
+     changed no line of type here, because the h1 fits either way, but it
+     means the 800 is real rather than coincidental. */
+  width: 100%;
+  max-width: 800px;
+  margin-inline: auto;
+}
+
+/* ---- The flanking glyph fields (3 Oct) ---------------------------------
+   js/glyph-matrix.js, the same component /product's hero ground uses. The
+   host owns placement and masking; the script only draws, and reads its
+   colour off the host's computed `color`, so the field stays token-driven.
+
+   THE PITCH IS 16 AND MUST DIVIDE --cell (80px). At any other pitch the
+   field meets the frame's band lines at a different place on every column
+   and the whole frame reads as broken. 16 divides 80 exactly.
+
+   THEY ARE STRETCHED TO THE ROW and then pushed out top and bottom by the
+   section's own padding token, so the texture runs the full height of the
+   section rather than stopping level with the copy. Written as the same
+   token .prhero's padding uses, so it still lands correctly if that moves.
+
+   EACH FADES TOWARD THE COPY. That is the job /product's clear ellipse does
+   over there, and it cannot be done the same way here: an ellipse needs the
+   copy to sit off to one side, and this copy is centred. Two masks are
+   INTERSECTED on each host, an inner-edge fade and a vertical one, because
+   mask-composite defaults to `add`, which is a union and would leave the
+   mask opaque almost everywhere. `intersect` is the one that means "both".
+
+   THE TINTS ARE THE LIGHT END OF THE RAMPS, not the saturated mid steps
+   /product uses. This is a whole dark page, and the mid steps are the
+   accent language of a dark BAND inside a light page; on the dark ground
+   itself the site reaches for the light end, which is what --accent-on-dark
+   (Tertiary/300) already encodes and what .prhero__t's own <em> does with
+   --primary-200. A saturated mid step here reads as a muddy smudge. */
+.prhero__glyphs {
+  align-self: stretch;
+  margin-block: calc(-1 * var(--section-pad));
+  color: var(--ink);
+  --gm-c1: var(--tertiary-300);
+  --gm-c2: var(--secondary-300);
+  --gm-c3: var(--primary-300);
+  opacity: 0.5;
+  pointer-events: none;
+}
+.prhero__glyphs--l { grid-column: 1; }
+.prhero__glyphs--r { grid-column: 3; }
+
+.prhero__glyphs--l {
+  -webkit-mask-image:
+    linear-gradient(to left,  transparent 0, #000 46%, #000 100%),
+    linear-gradient(to bottom, transparent 0, #000 18%, #000 82%, transparent 100%);
+  mask-image:
+    linear-gradient(to left,  transparent 0, #000 46%, #000 100%),
+    linear-gradient(to bottom, transparent 0, #000 18%, #000 82%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+.prhero__glyphs--r {
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0, #000 46%, #000 100%),
+    linear-gradient(to bottom, transparent 0, #000 18%, #000 82%, transparent 100%);
+  mask-image:
+    linear-gradient(to right, transparent 0, #000 46%, #000 100%),
+    linear-gradient(to bottom, transparent 0, #000 18%, #000 82%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+/* --t-display-0 (64) since 28 Sep (user: "pricing page hero h1 font size is
+   different than others"). It was --t-display-1s, the 48 that /book and the
+   legal pages take, which left /pricing as the only hero on a selling page set
+   at utility size. It takes /product's 800px measure with it, so the two
+   centred heroes are one object. */
+.prhero__t {
+  font-size: var(--t-display-0);
+  font-weight: 500;
+  line-height: var(--lh-display);
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+  max-width: 800px;
+  margin-inline: auto;
+  margin-bottom: var(--sp-5);
+  text-wrap: balance;
+}
+/* THE <em> WAS RENDERING ITALIC (user, 28 Sep: "dont do italic format"), which
+   is the browser default for the tag and is the one thing this site never does
+   with it. Every other heading's <em> is the brand highlight, restated here
+   because .prhero__t is not a .section-heading. --primary-200 and not the
+   light theme's --primary-400: this is a whole dark page, and P400 on the dark
+   ground is the same miss .section--inv already corrects for a dark band. */
+.prhero__t em {
+  font-style: normal;
+  color: var(--primary-200);
+  text-underline-offset: 0.16em;
+}
+.prhero__sub {
+  font-size: var(--t-body-xl);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  max-width: 38rem;
+  margin-inline: auto;
+  text-wrap: pretty;
+}
+.prhero__cta {
+  justify-content: center;
+  margin-top: var(--sp-8);
+}
+
+/* ---------- Section heads ------------------------------------------- */
+.terms__head {
+  max-width: 46rem;
+  margin-bottom: var(--sp-10);
+}
+
+/* ---------- The fine print as cards (3 Oct, supabase.com/pricing) --------
+   One wide card (drawing left, copy right) over two smaller ones whose
+   drawings bleed off their left edge, the reference's "Fine-tune your
+   project". Cards are --surface on the page ground with a hairline; each
+   drawing sits in its own inset panel. */
+.tcards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  /* END TO END, rail to rail (user, 3 Oct: "like product page bento"): the
+     20px giveback of .container's gutter, so the grid's own edges sit on the
+     frame's verticals. Unwound below 992 with the rails. */
+  margin-inline: calc(-1 * var(--sp-5));
+}
+.tcard {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+  gap: var(--sp-8);
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  /* Square, like /product's bento cards (user, 3 Oct). */
+  border-radius: 0;
+  background: var(--surface);
+}
+.tcard--wide {
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+  padding: var(--sp-5);
+  gap: var(--sp-12);
+}
+.tcard__copy { padding: var(--sp-6) var(--sp-6) var(--sp-6) 0; }
+.tcard--wide .tcard__copy { padding: 0 var(--sp-8) 0 0; }
+.tcard__t {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin: 0;
+  font-size: var(--t-title-sm);   /* 16px (user, 3 Oct) */
+  font-weight: 500;
+  color: var(--ink);
+}
+.tcard__ic { display: grid; flex: none; color: var(--ink-2); }
+.tcard__ic svg { width: 20px; height: 20px; }
+.tcard__d {
+  margin: var(--sp-3) 0 0;
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-3);
+}
+.tcard__link { margin-top: var(--sp-6); }
+
+/* Every drawing: an inset panel ruled with faint horizontals. */
+.tcard__art {
+  position: relative;
+  min-height: 200px;
+  height: 100%;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  background:
+    repeating-linear-gradient(to bottom, transparent 0 55px, var(--border) 55px 56px),
+    var(--bg);
+  overflow: hidden;
+}
+/* The small cards' drawings run off the card's left edge, as the
+   reference's do: no left border, no left radius, flush to the card. */
+.tcard:not(.tcard--wide) .tcard__art {
+  border-left: 0;
+  border-radius: 0;
+  border-top: 0;
+  border-bottom: 0;
+}
+
+/* The ceiling: five usage bars climbing past the pool line to the pause
+   line. Heights are a percentage of the pool, drawn on a 120%-high scale. */
+.tcap { min-height: 300px; }
+.tcap__pill {
+  position: absolute;
+  top: var(--sp-4);
+  left: var(--sp-4);
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 5px 12px 5px 6px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  font-size: var(--t-body-sm);
+  color: var(--ink);
+}
+.tcap__pill i {
+  width: 30px;
+  height: 18px;
+  border-radius: var(--r-pill);
+  background: var(--approve);
+  position: relative;
+}
+.tcap__pill i::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--surface);
+}
+.tcap__bars {
+  position: absolute;
+  left: 34%;
+  right: 8%;
+  bottom: 28px;
+  height: 180px;           /* = 120% of the pool */
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.tcap__bar {
+  width: 26px;
+  height: calc(var(--h) / 120 * 100%);
+  border: 1.5px solid var(--border-strong);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+/* The slice above the pool line takes the overage tint. */
+.tcap__bar i {
+  display: block;
+  width: 100%;
+  height: calc(max(var(--h) - 100, 0) / var(--h) * 100%);
+  margin-top: auto;
+  order: -1;
+  align-self: flex-start;
+  background: color-mix(in srgb, var(--hold) 45%, transparent);
+}
+.tcap__line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1.5px dashed var(--hold);
+}
+/* 100% sits 150px above the bars' floor (180 x 100/120); 120% at 180. */
+.tcap__line--pool { bottom: calc(28px + 150px); }
+.tcap__line--cap { bottom: calc(28px + 180px); border-top-color: var(--reject); }
+.tcap__line b {
+  position: absolute;
+  /* Left, not right: on the right the label sat over the tallest bar and
+     hid exactly where it meets the ceiling. */
+  left: var(--sp-4);
+  bottom: 4px;
+  font-size: var(--t-caption);
+  font-weight: 500;
+  color: var(--hold);
+}
+.tcap__line--cap b { color: var(--reject); }
+
+/* The term: a track filled to its end, four quarters, the end marked. */
+.tterm {
+  display: grid;
+  align-content: center;
+  gap: var(--sp-3);
+  padding: 0 var(--sp-6) 0 0;
+}
+.tterm__track {
+  height: 10px;
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.tterm__track i {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--tertiary-300), var(--primary-300));
+}
+.tterm__q {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+}
+.tterm__q b { font-weight: 500; }
+.tterm__end {
+  justify-self: end;
+  padding: 3px 9px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  font-size: var(--t-caption);
+  color: var(--ink-2);
+}
+
+/* The notice: three sheets stacked, the front one the change. */
+.tnote { display: grid; place-items: end center; padding-top: var(--sp-8); }
+.tnote__sheet {
+  grid-area: 1 / 1;
+  /* Explicit z-order: the two back sheets carry opacity, which makes each a
+     stacking context painted AFTER plain in-flow boxes, so without this they
+     drew over the front sheet and washed it out. */
+  position: relative;
+  width: 70%;
+  height: 120px;
+  border: 1px solid var(--border-strong);
+  border-bottom: 0;
+  border-radius: 10px 10px 0 0;
+  background: var(--surface);
+}
+.tnote__sheet:nth-child(1) { z-index: 1; width: 56%; translate: 0 -24px; opacity: 0.5; }
+.tnote__sheet:nth-child(2) { z-index: 2; width: 63%; translate: 0 -12px; opacity: 0.75; }
+.tnote__sheet:nth-child(3) {
+  z-index: 3;
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  padding: var(--sp-4);
+}
+.tnote__sheet b { font-size: var(--t-body-sm); font-weight: 600; color: var(--ink); }
+.tnote__sheet i { font-style: normal; font-size: var(--t-caption); color: var(--hold); }
+
+/* ---------- The footer on a dark page -------------------------------- */
+/* The ground and the type flip through the token ramp on their own, because
+   [data-theme="dark"] remaps --slate-100 and .footer is built on it. These
+   three do not, because they are asset swaps rather than colours: the same
+   pair of rules .page-v2 carries in home-v2.css. */
+.page-pricing .footer__logo-light { display: none; }
+.page-pricing .footer__logo-dark { display: block; }
+.page-pricing .footer__wordmark { color: #fff; }
+
+/* ---- Pricing Four (3 Oct, sv-efferd) -----------------------------------
+   Hand-ported from sv-efferd's Svelte "Pricing Four" (user). EVERY FIGURE IS
+   DUMMY; see the markup's warning block. Its anatomy: a monthly / yearly
+   toggle with a sliding pill, three separate rounded cards with the middle
+   one raised (scale 1.05) and its head and foot on a lifted ground, badges
+   top-right, and each card in three bands, head / features / foot, split
+   by hairlines. It replaced the clerk-style hairline-joined band. */
+.pfour {
+  grid-column: 1 / -1;
+  margin-top: var(--sp-12);
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-8);
+  text-align: left;
+}
+/* The glyph fields are pinned to the copy's row so they do not stretch down
+   beside the cards. */
+.prhero__glyphs { grid-row: 1; }
+.prhero__copy { grid-row: 1; }
+
+/* The toggle: two buttons over one pill that slides between them. The
+   script measures the pressed button and moves the pill to it, so the
+   two labels can be any width. */
+.freq {
+  position: relative;
+  display: inline-flex;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+.freq__btn {
+  position: relative;
+  z-index: 1;
+  padding: 6px 16px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--t-body-sm);
+  font-weight: 500;
+  color: var(--ink-3);
+  cursor: pointer;
+  transition: color 0.25s var(--ease);
+}
+.freq__btn[aria-pressed="true"] { color: var(--bg); }
+.freq__btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 8px; }
+.freq__pill {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: var(--pill-w, 0);
+  translate: var(--pill-x, 0) 0;
+  border-radius: 8px;
+  background: var(--ink);
+  transition: translate 0.4s cubic-bezier(0.34, 1.4, 0.64, 1), width 0.4s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+/* Before the script measures, the pill would be zero wide; the pressed
+   label carries its own ground until then. */
+.freq:not(.is-live) .freq__btn[aria-pressed="true"] { background: var(--ink); border-radius: 8px; }
+
+.plans {
+  width: 100%;
+  max-width: 64rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-6);
+  align-items: stretch;
+}
+.plan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+/* The raised card: larger, its border in the brand, its head and foot on
+   the lifted ground. Colour on the edge, never a full fill. */
+.plan--featured {
+  scale: 1.05;
+  z-index: 1;
+  border-color: var(--brand-line);
+}
+.plan--featured .plan__head,
+.plan--featured .plan__foot { background: var(--surface-2); }
+
+.plan__head {
+  position: relative;
+  padding: var(--sp-5);
+  border-bottom: 1px solid var(--border);
+}
+.plan__badges {
+  position: absolute;
+  top: var(--sp-3);
+  right: var(--sp-3);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.plan__badge {
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  font-size: var(--t-caption);
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+/* The yearly discount: brand-filled, and it ARRIVES rather than appears,
+   the block's AnimatePresence in CSS. */
+.plan__badge--off {
+  border-color: transparent;
+  background: var(--brand);
+  color: var(--on-brand);
+  animation: plan-badge-in 0.18s var(--ease) both;
+}
+@keyframes plan-badge-in {
+  from { opacity: 0; scale: 0.95; translate: 0 -4px; }
+}
+.plan__name {
+  font-size: var(--t-title);
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0;
+}
+.plan__for {
+  margin: 2px 0 0;
+  font-size: var(--t-body-sm);
+  color: var(--ink-3);
+}
+.plan__price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin: var(--sp-6) 0 4px;
+}
+.plan__price b {
+  font-family: var(--font-display);
+  font-size: var(--t-display-3);
+  font-weight: 600;
+  letter-spacing: var(--tr-display);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.plan__price span { font-size: var(--t-body); color: var(--ink-3); }
+.plan__billed {
+  margin: 0 0 var(--sp-2);
+  font-size: var(--t-caption);
+  color: var(--ink-3);
+}
+.plan__list {
+  list-style: none;
+  margin: 0;
+  padding: var(--sp-6) var(--sp-5) var(--sp-8);
+  display: grid;
+  gap: var(--sp-3);
+  font-size: var(--t-body-sm);
+  color: var(--ink-2);
+}
+.plan__list li { display: flex; align-items: center; gap: var(--sp-2); }
+.plan__tick {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: var(--accent-on-dark);
+}
+.plan__foot {
+  margin-top: auto;
+  padding: var(--sp-3);
+  border-top: 1px solid var(--border);
+}
+.plan__cta { width: 100%; justify-content: center; }
+
+/* ---- Border beam on the featured card (3 Oct) ----------------------------
+   sv-animations' BorderBeam, ported to CSS (user asked: one plan, or a hover
+   effect on all three). ONE CARD, ALWAYS ON: a beam exists to pull the eye to
+   one thing, and Growth is already the one marked Popular. As a hover effect
+   it would only light the card already being looked at, never fire on touch,
+   and three cards lighting in turn reads as a template.
+   The component's own technique: a layer the card's size whose MASK keeps
+   only the border ring (padding-box and border-box masks INTERSECTED, the
+   ring being the difference), and inside it a gradient square travelling the
+   rounded rectangle via offset-path: rect(). Tertiary into Primary at the
+   light end of the ramps, the accent pair this dark page uses. */
+.plan__beam {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border: 1.5px solid transparent;
+  border-radius: inherit;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(transparent, transparent), linear-gradient(#000, #000);
+  -webkit-mask-clip: padding-box, border-box;
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(transparent, transparent), linear-gradient(#000, #000);
+  mask-clip: padding-box, border-box;
+  mask-composite: intersect;
+}
+.plan__beam::after {
+  content: '';
+  position: absolute;
+  width: 120px;
+  aspect-ratio: 1;
+  background: linear-gradient(to left, var(--tertiary-300), var(--primary-300), transparent);
+  offset-anchor: 90% 50%;
+  /* Engines without rect() offset paths draw nothing rather than a stuck
+     square in the corner. */
+  display: none;
+}
+@supports (offset-path: rect(0 auto auto 0 round 16px)) {
+  @media (prefers-reduced-motion: no-preference) {
+    .plan__beam::after {
+      display: block;
+      offset-path: rect(0 auto auto 0 round var(--r-lg));
+      animation: plan-beam 8s linear infinite;
+    }
+  }
+}
+@keyframes plan-beam {
+  from { offset-distance: 0%; }
+  to   { offset-distance: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .freq__pill, .freq__btn { transition: none; }
+  .plan__badge--off { animation: none; }
+}
+.pr-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* ---- The comparison grid (3 Oct, liveblocks.io/pricing) ----------------
+   DUMMY ALLOCATION AND PRICES, real row labels; see the markup. A real
+   <table>: row and column headers read together is the one thing a grid of
+   divs cannot give a screen reader. Liveblocks' structure: FULLY RULED, the
+   columns drawn as well as the rows, an outer frame with rounded corners, a
+   STICKY header with each plan's name, price and booking link, and rows in
+   titled groups.
+   border-collapse: SEPARATE, so the frame can round its corners (collapse
+   ignores border-radius); each cell draws only its top and left edge and the
+   table draws the right and bottom, so no line is ever doubled. */
+/* min-width: 0 is load-bearing: as a grid item the wrapper defaults to
+   min-width: auto, so the table widened it instead of scrolling inside it,
+   and the PAGE overflowed by 192px at 390 (found 3 Oct). */
+.pmx__scroll { max-width: 100%; min-width: 0; }
+/* The phone plan switcher. .freq's inline-flex would beat the hidden
+   attribute, so it is off here outright and only the 767 rule shows it. */
+.pmx__pick { display: none; }
+.pmx__table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  font-size: var(--t-body);
+}
+.pmx__table th,
+.pmx__table td {
+  padding: var(--sp-4) var(--sp-6);
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  text-align: left;
+  vertical-align: middle;
+}
+.pmx__table thead th:first-child { border-top-left-radius: var(--r-lg); }
+.pmx__table thead th:last-child { border-top-right-radius: var(--r-lg); }
+.pmx__table tbody:last-child tr:last-child th:first-child { border-bottom-left-radius: var(--r-lg); }
+
+/* THE STICKY HEADER. It parks exactly under the floating nav: the nav
+   placeholder is sticky itself and measures --nav-float above a card
+   --nav-h tall plus its 2px border, 70px, with nothing below the card
+   (measured: the placeholder's bottom is 70). An offset of 82 left a 12px
+   strip where rows showed through. Opaque, or
+   the rows would scroll through it. It cannot stick below 992, where the
+   wrapper becomes a scroll container (sticky resolves against the nearest
+   one), and it does not need to there. */
+.pmx__table thead th {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--nav-float) + 2px);
+  z-index: 2;
+  background: var(--bg);
+  padding-block: var(--sp-6);
+  vertical-align: top;
+}
+.pmx__corner { width: 34%; }
+.pmx__plan {
+  display: block;
+  font-size: var(--t-title);
+  font-weight: 600;
+  color: var(--ink);
+}
+.pmx__gcol .pmx__plan { color: var(--accent-on-dark); }
+.pmx__price {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  margin: 6px 0 0;
+  font-size: var(--t-body-sm);
+  font-weight: 400;
+  color: var(--ink-3);
+}
+.pmx__price b {
+  font-family: var(--font-display);
+  font-size: var(--t-title-xl);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+/* Group header: one cell across the row, the reference's icon, title and
+   one line of description, with air above it. */
+.pmx__gh th {
+  padding: var(--sp-10) var(--sp-6) var(--sp-5);
+}
+.pmx__gi {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin-bottom: var(--sp-4);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--accent-on-dark);
+}
+.pmx__gi svg { width: 20px; height: 20px; }
+.pmx__gt {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--t-title-xl);
+  font-weight: 500;
+  color: var(--ink);
+}
+.pmx__gd {
+  display: block;
+  margin-top: 4px;
+  font-size: var(--t-body);
+  font-weight: 400;
+  color: var(--ink-3);
+}
+/* Feature rows: the label indented under its group, like the reference, and
+   the rows inside a group sharing column lines but no row rules, so a group
+   reads as one block. */
+.pmx__table tbody tr:not(.pmx__gh) th,
+.pmx__table tbody tr:not(.pmx__gh) td { padding-block: var(--sp-3); }
+.pmx__table tbody tr:not(.pmx__gh) + tr th,
+.pmx__table tbody tr:not(.pmx__gh) + tr td { border-top-color: transparent; }
+.pmx__table tbody tr:not(.pmx__gh) th {
+  padding-left: var(--sp-10);
+  font-weight: 450;
+  color: var(--ink-2);
+}
+.pmx__table tbody tr:not(.pmx__gh):last-child th,
+.pmx__table tbody tr:not(.pmx__gh):last-child td { padding-bottom: var(--sp-6); }
+.pmx__table td { color: var(--ink); }
+/* INLINE, or nothing could align it: the global reset makes every svg a
+   block. */
+.pmx__ok { display: inline-block; width: 20px; height: 20px; color: var(--accent-on-dark); vertical-align: middle; }
+.pmx__no { color: var(--ink-faint); }
+
+/* ---------- Narrow --------------------------------------------------- */
+
+/* THE FLANKING FIELDS STOP AT 1200, earlier than the 992 the rest of this
+   page unwinds at, and the arithmetic forces it rather than taste. The copy
+   holds a flat 800px and the flanks are whatever the container has left, so
+   they shrink twice as fast as the page does: 220px at 1440 (13.8 glyph
+   columns at the 16px pitch), 156 at 1280, 120 at 1200, then 75 at 1100,
+   41 at 1024 and 5 at 900. Below about 120px there are too few columns left
+   to read as a field and it becomes a thin strip of noise down each margin.
+   IT ALSO FIXES A REAL FAULT, not just a thin one: at 768 and below the
+   track is 0px wide, and a canvas with no CSS size falls back to its
+   intrinsic 300x150, so two 300px canvases were sitting in zero-width grid
+   tracks. The script drops its grid and kills its timer when the host is
+   display:none, so hiding them is the complete fix rather than a cosmetic
+   one.
+   The container goes to one column with them, or the copy would stay in a
+   middle track with two empty ones either side. */
+@media (max-width: 1199px) {
+  .prhero .container { grid-template-columns: minmax(0, 1fr); }
+  .prhero__copy { grid-column: 1; }
+  .prhero__glyphs { display: none; }
+}
+
+@media (max-width: 991px) {
+  /* The card band stacks: three cells in one column, the shared verticals
+     becoming horizontals. The featured card keeps its bar and badge. */
+  /* One column of cards; the raised card stops scaling, since a 5% grow in
+     a single column only pushes it into the gutter. */
+  .plans { grid-template-columns: minmax(0, 1fr); max-width: 30rem; }
+  .plan--featured { scale: none; }
+
+  /* The matrix keeps its shape and scrolls SIDEWAYS in its own box instead
+     of stacking: a comparison that stacks per plan stops being a comparison,
+     and this wrapper is its own scroll container, so body's overflow-x: clip
+     is untouched. min-width holds the columns readable. */
+  .pmx__scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .pmx__table { min-width: 760px; }
+  /* Inside the scroll box the header cannot stick, so it stops trying. */
+  .pmx__table thead th { position: static; }
+}
+/* Below 768 the switcher takes over: one plan column beside the features,
+   no sideways scroll. Only once the script has marked the table, so a
+   script-less phone still gets the scrolling table. Column N is the plan
+   the switcher chose (data-col on the table, 2 to 4). */
+@media (max-width: 767px) {
+  .pmx__pick:not([hidden]) { display: inline-flex; margin-bottom: var(--sp-6); }
+  .pmx__table.is-tabbed { min-width: 0; }
+  .pmx__table.is-tabbed thead th:not(:first-child),
+  .pmx__table.is-tabbed tbody tr:not(.pmx__gh) td { display: none; }
+  .pmx__table.is-tabbed[data-col="2"] thead th:nth-child(2),
+  .pmx__table.is-tabbed[data-col="2"] tbody td:nth-child(2),
+  .pmx__table.is-tabbed[data-col="3"] thead th:nth-child(3),
+  .pmx__table.is-tabbed[data-col="3"] tbody td:nth-child(3),
+  .pmx__table.is-tabbed[data-col="4"] thead th:nth-child(4),
+  .pmx__table.is-tabbed[data-col="4"] tbody td:nth-child(4) { display: table-cell; }
+  .pmx__table.is-tabbed .pmx__corner { width: 55%; }
+  .pmx__table.is-tabbed th,
+  .pmx__table.is-tabbed td { padding-inline: var(--sp-4); }
+  .pmx__table.is-tabbed tbody tr:not(.pmx__gh) th { padding-left: var(--sp-4); }
+  .pmx__table.is-tabbed .pmx__gh th { padding: var(--sp-8) var(--sp-4) var(--sp-4); }
+  /* One column fits, so the wrapper stops being a scroll container, and
+     with that the header can STICK again on a phone. */
+  .pmx__scroll:has(.is-tabbed) { overflow: visible; }
+  .pmx__table.is-tabbed thead th { position: sticky; }
+
+}
+@media (max-width: 768px) {
+  .terms__head {
+    margin-bottom: var(--sp-8);
+  }
+}
+/* The cards stack below 992; each small card puts its drawing on top. */
+@media (max-width: 991px) {
+  .tcards { grid-template-columns: minmax(0, 1fr); margin-inline: 0; }
+  .tcard, .tcard--wide { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .tcard--wide { padding: var(--sp-4); }
+  .tcard__copy, .tcard--wide .tcard__copy { padding: var(--sp-6) var(--sp-5); }
+  .tcard--wide .tcard__copy { padding-inline: var(--sp-2); }
+  .tcard:not(.tcard--wide) .tcard__art {
+    border: 0;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    min-height: 160px;
+  }
+  .tterm { padding: 0 var(--sp-6); }
+
+}

@@ -8,15 +8,15 @@
    reads as a splash, the loop PARKING itself the moment every dot has
    settled), but there is ONE shape, the tour map: homes are parsed out of
    /assets/events/us-dots.svg ("Mx yh0" segments, 960x600), so the map is
-   never drawn twice. Press fires the component's shockwave and the map
-   gathers itself back.
+   never drawn twice. The component's press shockwave is NOT ported (taken
+   out 16 Oct, user): hover push only.
    PROGRESSIVE: the static masked span (.evh1__dots) stays in the markup as
    the ground; this script stands it down (.is-live on the poster) only
    when it can actually run. Under prefers-reduced-motion the span simply
    remains and no canvas, fetch or frame ever happens.
    PHONES GET IT TOO since 13 Oct (user: "can the effect work on mobile?
-   fluid with scroll would be better"): a finger landing on the panel sends
-   a small shockwave and a drag pushes dots like the mouse (touch events
+   fluid with scroll would be better"): a finger dragging on the panel
+   pushes dots like the mouse (touch events
    are PASSIVE, so the page still scrolls under the thumb); and on every
    device SCROLLING RIPPLES THE MAP: each scroll step gives every dot a
    kick along a travelling sine across the map, scaled by the step, so the
@@ -34,7 +34,7 @@
   var FINE = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   var VW = 960, VH = 600;
-  /* the component's knobs: push reach (css px), push strength, shock */
+  /* the component's knobs: push reach (css px), push strength */
   var REACH = 80, FORCE = 60;
 
   var dots = [];
@@ -145,44 +145,17 @@
         run();
       });
       host.addEventListener('pointerleave', function () { hand = null; run(); });
-      host.addEventListener('pointerdown', function (e) {
-        if (e.pointerType && e.pointerType !== 'mouse') return;
-        /* the component's shockwave; the map gathers itself back */
-        var p = local(e);
-        var S = 0.4 + (FORCE / 100) * 1.2;
-        for (var i = 0; i < dots.length; i++) {
-          var d = dots[i];
-          var dx = d.x - p.x, dy = d.y - p.y;
-          var dd = Math.hypot(dx, dy);
-          if (dd > 200 || dd < 0.01) continue;
-          var f = (1 - dd / 200) * 30 * S;
-          d.vx += (dx / dd) * f;
-          d.vy += (dy / dd) * f;
-        }
-        run();
-      });
-
-      /* Touch: land = a small shockwave, drag = the mouse's push. */
-      function shock(p, reach, mult) {
-        var S = (0.4 + (FORCE / 100) * 1.2) * mult;
-        for (var i = 0; i < dots.length; i++) {
-          var d = dots[i];
-          var dx = d.x - p.x, dy = d.y - p.y;
-          var dd = Math.hypot(dx, dy);
-          if (dd > reach || dd < 0.01) continue;
-          var f = (1 - dd / reach) * 30 * S;
-          d.vx += (dx / dd) * f;
-          d.vy += (dy / dd) * f;
-        }
-        run();
-      }
+      /* NO PRESS SHOCKWAVE since 16 Oct (user: "remove the click effect
+         to scatter dots, hover movement is fine"): the component's
+         pointerdown burst and the touch-landing burst are both gone; a
+         finger still pushes dots while it drags. */
       function touchAt(e) {
         var t = e.touches && e.touches[0];
         return t ? local(t) : null;
       }
       host.addEventListener('touchstart', function (e) {
         var p = touchAt(e);
-        if (p) { shock(p, 120, 0.3); hand = p; }
+        if (p) { hand = p; run(); }
       }, { passive: true });
       host.addEventListener('touchmove', function (e) {
         var p = touchAt(e);
