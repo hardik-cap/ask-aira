@@ -576,6 +576,30 @@ img.evcard__photo {
 /* "Upcoming": the white tag top-right, back on the two live cards (user,
    13 Oct: "we are also missing the upcoming badge"). z-index 2 lifts it
    over the shade and the fade. */
+/* THE ORGANISER'S MARK RIDES THE COVER since 22 Oct (user: "show the
+   organizers logo as well on event cards, like adobe"; then "why they in
+   a white box, looks bad, just show logo"): a BARE mark, top-left
+   opposite the Upcoming badge, the event's organising or headline
+   partner. The card is a photo fading to dark, so a dark-ink mark cannot
+   sit on it bare: From Day One's text goes back to ITS ORIGINAL WHITE
+   (from-day-one-white.svg, the supplied artwork before we inked it for
+   light grounds; ribbon colours untouched) and The Product Folks takes
+   the white knockout filter (--knock), the /customers dark-page
+   exception. Adobe's red and the TBH badge read as they are. The
+   aiRA-run stops (Nashville, the Captivate talks) carry none. */
+.evcard__org {
+  position: absolute;
+  top: var(--sp-4);
+  left: var(--sp-4);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+}
+.evcard__org img { display: block; width: auto; height: 18px; }
+.evcard__org--stack img { height: 30px; }
+.evcard__org--badge img { height: 40px; }
+.evcard__org--knock img { filter: brightness(0) invert(1); }
+
 .evcard__badge {
   position: absolute;
   top: var(--sp-3);
@@ -1053,6 +1077,9 @@ img.evcard__photo {
   .evcity__side { aspect-ratio: 4 / 3; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .evspeak__reel { overflow-x: auto; }
+  .evspeak__belt { animation: none; }
+  .evspeak__set[aria-hidden="true"] { display: none; }
   .evpoll__opt, .evpoll__input, .evpoll__bar, .evpoll__tear::before, .evpoll__tear::after { transition: none; }
 }
 
@@ -1064,24 +1091,25 @@ img.evcard__photo {
    reel's driver, generic over [data-reel] now). A ticket-card pass
    (border, tear, stub) was built and REVERTED the same day (user: "dont
    make everything card with ticket ui, old one was fine of square
-   photo"). The ORGANISERS stay a static row (.evspeak__row, the old
-   strip's grammar). */
+   photo"). The ORGANISERS are their own highlighted mini band (.evorg,
+   below). */
 .evspeak-sec { background: var(--surface); }
 /* minmax(0,1fr), not a bare auto track: the ticker belt inside is
    width: max-content, and an auto column would size itself to the belt
    (3,600px) and push the whole grid past the container. */
 .evspeak { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-16); margin-top: var(--sp-12); }
 .evspeak__group { display: grid; gap: var(--sp-6); }
-/* The belt. Same contract as .evreel: two sets, the set's right padding
-   is the loop's period, CSS keyframe at rest, js/evreel.js takes over
-   (.is-js) for the slow-on-hover and the drag. Bleeds to the rails with
-   the container's 20px give-back from 992 up. */
+/* THE BELT AGAIN, SMALLER (user, 22 Oct: "are there only 6 spearks? do
+   ticker then and reduce size"; the one-day grid is in git). Same
+   contract as .evreel: two sets, the set's right padding is the loop's
+   period, CSS keyframe at rest, js/evreel.js (.is-js) takes over for the
+   slow-on-hover and the drag. Bleeds to the rails from 992 up. */
 .evspeak__reel { overflow: clip; }
 .evspeak__reel:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; }
 .evspeak__belt {
   display: flex;
   width: max-content;
-  animation: evspeak-roll 36s linear infinite;
+  animation: evspeak-roll 31s linear infinite;
 }
 .evspeak__reel:hover .evspeak__belt,
 .evspeak__reel:focus-within .evspeak__belt { animation-play-state: paused; }
@@ -1093,33 +1121,39 @@ img.evcard__photo {
   flex: none;
   display: flex;
   align-items: stretch;
+  gap: var(--sp-4);
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0 var(--sp-4) 0 0;
 }
 @keyframes evspeak-roll { to { transform: translateX(-50%); } }
-/* THE TILE IS THE OLD STRIP'S EXACTLY (user, 22 Oct: "dont make
-   everything card with ticket ui, old one was fine of square photo ...
-   we had zero gap between each card and use their original shared
-   background"): photos edge to edge with NO gap (the base .evspeak__ph
-   bleed over the tile's 8px text inset), the original grounds
-   (--surface-2, the cutouts' hue tiles), the original 0/40/80 three-step
-   wave. Only the SIZE grew for the belt. Six tiles a set and a step of
-   three divide evenly, so the wave and the photo seam run unbroken
-   across the loop's join. */
+/* THE CARD IS THE USER'S GLEAN REFERENCE (22 Oct): the portrait with
+   its own background filling the top, the company mark a solid white
+   plate docked flush in the photo's bottom-right corner (only its inner
+   corner rounded), then name over title on the card's own ground. */
 .evspeak__card {
   flex: none;
+  width: 240px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 280px;
-  padding-inline: var(--sp-2);
-  gap: 4px;
-  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: clip;
+  text-align: left;
 }
-.evspeak__card:nth-child(3n + 2) { margin-top: 40px; }
-.evspeak__card:nth-child(3n) { margin-top: 80px; }
-.evspeak__card .evspeak__n { font-size: var(--t-title); }
+.evspeak__card .evspeak__ph { position: relative; }
+.evspeak__card .evspeak__n {
+  margin: var(--sp-3) var(--sp-4) 0;
+  font-size: var(--t-title-sm);
+  font-weight: 600;
+}
+.evspeak__card .evspeak__t {
+  max-width: none;
+  margin: 2px var(--sp-4) 0;
+}
+.evspeak__card > :last-child { margin-bottom: var(--sp-3); }
 /* The organisers' row opens on its own h3 (user, 21 Oct: "center align
    and give better title, and make it h3"); the speakers' row needs none,
    the section heading being its title. The h3 statement step, centred. */
@@ -1134,133 +1168,78 @@ img.evcard__photo {
 /* SPEAKERS IN ONE ROW, ORGANISERS IN ANOTHER (user, 21 Oct). Both rows use
    one tile width, a sixth of the container, so faces match across rows;
    the three-step wave repeats every three tiles. */
-.evspeak__row {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  row-gap: var(--sp-12);
-}
-.evspeak__row li {
-  flex: 0 0 calc(100% / 6);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  min-width: 0;
-  padding-inline: var(--sp-2);
-  text-align: center;
-}
-.evspeak__row li:nth-child(3n + 2) { margin-top: 40px; }
-.evspeak__row li:nth-child(3n) { margin-top: 80px; }
 .evspeak__ph {
-  width: calc(100% + 2 * var(--sp-2));
-  margin: 0 calc(-1 * var(--sp-2)) var(--sp-3);
+  width: 100%;
+  margin: 0;
   aspect-ratio: 1;
   overflow: hidden;
   background: var(--surface-2);
 }
 .evspeak__ph img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.evspeak__ph--cut img { object-position: 50% 100%; }
-.evspeak__ph--h1 { background: var(--primary-300); }
-.evspeak__ph--h2 { background: var(--tertiary-300); }
-.evspeak__ph--h3 { background: var(--secondary-300); }
-.evspeak__ph--h4 { background: var(--tertiary-200); }
 .evspeak__n { font-size: var(--t-body-lg); font-weight: 500; color: var(--ink); }
 .evspeak__t { max-width: 26ch; font-size: var(--t-caption); line-height: 1.4; color: var(--ink-2); }
-.evspeak__o {
+/* THE ORGANISERS' STRIP (user, 22 Oct: "shorten this section, no need
+   for big box. should sit well with our partners"; the tinted
+   futureproof-style panel lived a few hours, in git). The partners row's
+   own register: centred h3, one attribution line, the three people as
+   disc-and-name pairs on open ground. */
+.evorg { display: grid; justify-items: center; gap: var(--sp-3); }
+.evorg__sub {
+  margin: 0;
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  text-align: center;
+  text-wrap: pretty;
+}
+.evorg__list {
+  list-style: none;
+  margin: var(--sp-5) 0 0;
+  padding: 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  min-height: 32px;
+  flex-wrap: wrap;
   justify-content: center;
-  margin-top: var(--sp-1);
-  font-size: var(--t-caption);
-  line-height: 1.4;
-  color: var(--ink-3);
+  gap: var(--sp-4) var(--sp-10);
 }
-/* THE COMPANY IS ITS REAL MARK (user, 21 Oct: "show real company logos
-   too"), full colour, sized by shape like the partner row: a wide
-   wordmark at 18px, Hertz's shorter one at 22, ADAC's square and NALA's
-   badge taller. The alt text carries the name. */
-.evspeak__logo { display: block; width: auto; max-width: 100%; }
-.evspeak__logo--word { height: 18px; }
-.evspeak__logo--mid { height: 22px; }
-.evspeak__logo--sq { height: 32px; }
-.evspeak__logo--badge { height: 40px; }
-/* THE TAG IS A TINY TICKET AND A LINK TO THE EVENT (user, 21 Oct: "make
-   it look better and have it redirect to the event"): a date stub, a
-   dashed tear with a punch notch top and bottom, then the event and an
-   arrow. The notches are MASKS on each half, the hub ticket's own way;
-   the stub is the brand for a tour stop (--tour) and ink otherwise (--ink).
-   Chicago opens its page, Captivate opens capillaryevents.com in a new
-   tab. Hover is colour only: the name goes brand, the arrow steps. */
-.evspeak__tag {
-  --notch: 4px;
+.evorg__list li { display: flex; align-items: center; gap: var(--sp-3); }
+.evorg__av {
+  display: block;
+  width: 48px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+}
+.evorg__av img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.evorg__n { font-size: var(--t-body); font-weight: 500; color: var(--ink); }
+
+/* THE COMPANY CHIP SITS ON THE PHOTO since 22 Oct (user: "place the
+   logo on their pic like moengage ... hide the event they were in"): a
+   small white chip, bottom-left of the portrait with a slight tilt, the
+   mark full colour, alt carrying the name. The per-speaker event ticket
+   tags are GONE with it (in git): the hub cards say where each event is.
+   Cooper has no company and carries none. */
+.evspeak__card .evspeak__ph { position: relative; }
+.evspeak__chip {
+  position: absolute;
+  right: 0;
+  bottom: 0;
   display: inline-flex;
-  align-items: stretch;
-  height: 32px;
-  margin-top: var(--sp-3);
-  font-size: var(--t-caption);
-  font-weight: 600;
-  line-height: 1;
-  text-decoration: none;
-  white-space: nowrap;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--surface);
+  border-top-left-radius: var(--r-md);
 }
-.evspeak__tag-d,
-.evspeak__tag-e { display: inline-flex; align-items: center; }
-.evspeak__tag-d {
-  padding: 0 10px 0 12px;
-  border-radius: var(--r-sm) 0 0 var(--r-sm);
-  color: var(--on-brand);
-  font-variant-numeric: tabular-nums;
-  -webkit-mask:
-    radial-gradient(circle var(--notch) at 100% 0, transparent 96%, #000 100%) top / 100% 51% no-repeat,
-    radial-gradient(circle var(--notch) at 100% 100%, transparent 96%, #000 100%) bottom / 100% 51% no-repeat;
-  mask:
-    radial-gradient(circle var(--notch) at 100% 0, transparent 96%, #000 100%) top / 100% 51% no-repeat,
-    radial-gradient(circle var(--notch) at 100% 100%, transparent 96%, #000 100%) bottom / 100% 51% no-repeat;
-}
-.evspeak__tag-e {
-  gap: 6px;
-  padding: 0 10px 0 12px;
-  border-radius: 0 var(--r-sm) var(--r-sm) 0;
-  background:
-    linear-gradient(var(--border-strong) 50%, transparent 0) 0 0 / 1px 6px repeat-y,
-    var(--surface-2);
-  color: var(--ink);
-  transition: color var(--dur-fast) var(--ease);
-  -webkit-mask:
-    radial-gradient(circle var(--notch) at 0 0, transparent 96%, #000 100%) top / 100% 51% no-repeat,
-    radial-gradient(circle var(--notch) at 0 100%, transparent 96%, #000 100%) bottom / 100% 51% no-repeat;
-  mask:
-    radial-gradient(circle var(--notch) at 0 0, transparent 96%, #000 100%) top / 100% 51% no-repeat,
-    radial-gradient(circle var(--notch) at 0 100%, transparent 96%, #000 100%) bottom / 100% 51% no-repeat;
-}
-.evspeak__tag--tour .evspeak__tag-d { background: var(--brand); }
-.evspeak__tag--ink .evspeak__tag-d { background: var(--black); }
-.evspeak__go { flex: none; width: 16px; height: 16px; transition: translate var(--dur-fast) var(--ease); }
-a.evspeak__tag:hover .evspeak__tag-e,
-a.evspeak__tag:focus-visible .evspeak__tag-e { color: var(--brand); }
-a.evspeak__tag:hover .evspeak__go { translate: 2px 0; }
-a.evspeak__tag[target="_blank"]:hover .evspeak__go { translate: 2px -2px; }
-a.evspeak__tag:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; border-radius: var(--r-sm); }
+.evspeak__chip img { display: block; width: auto; height: 14px; }
+.evspeak__chip--sq img { height: 20px; }
 @media (prefers-reduced-motion: reduce) {
-  .evspeak__go, .evspeak__tag-e { transition: none; }
-  .evspeak__reel { overflow-x: auto; }
-  .evspeak__belt { animation: none; }
-  .evspeak__set[aria-hidden="true"] { display: none; }
 }
 
-/* PARTNERS, EACH OVER ITS EVENT (user, 21 Oct: "an event is with adobe,
-   other is with thebighandshake, LA is being done with fromdayone"): one
-   centred row, every partner's mark over the same ticket tag the speakers
-   wear, so the row says who runs which stop. Adobe and Accenture share
-   Dallas; NALA, the community partner, carries its role instead. The mark
-   box is one height so the tags sit on one line. */
+/* PARTNERS: ONE PLAIN ROW OF MARKS (user, 22 Oct: "just show the logos
+   man simple, dont make everything links"). The per-event ticket tags the
+   row carried for a day are gone; the hub cards' organiser chips say who
+   runs which stop now. */
 .evpart {
   display: grid;
   gap: var(--sp-8);
@@ -1275,18 +1254,8 @@ a.evspeak__tag:focus-visible { outline: 2px solid var(--brand); outline-offset: 
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--sp-10) var(--sp-16);
-}
-.evpart__item { display: flex; flex-direction: column; align-items: center; gap: var(--sp-1); }
-.evpart__marks { display: flex; align-items: center; gap: var(--sp-6); height: 56px; }
-.evpart__role {
-  display: inline-flex;
   align-items: center;
-  height: 32px;
-  margin-top: var(--sp-3);
-  font-size: var(--t-caption);
-  font-weight: 600;
-  color: var(--ink-3);
+  gap: var(--sp-8) var(--sp-12);
 }
 .evpart__logo { display: block; width: auto; }
 .evpart__logo--word { height: 26px; }
@@ -1297,20 +1266,11 @@ a.evspeak__tag:focus-visible { outline: 2px solid var(--brand); outline-offset: 
   .evspeak__reel { margin-inline: calc(-1 * var(--sp-5)); }
 }
 @media (max-width: 991px) {
-  /* Organisers: three to a row, the same wave, a little shallower. */
-  .evspeak__row li { flex-basis: 33.333%; }
-  .evspeak__row li:nth-child(3n + 2) { margin-top: 32px; }
-  .evspeak__row li:nth-child(3n) { margin-top: 64px; }
   .evpart__list { gap: var(--sp-8) var(--sp-10); }
 }
 @media (max-width: 639px) {
-  /* Organisers two to a row: the wave becomes a simple up / down. */
   .evspeak { gap: var(--sp-12); }
-  .evspeak__card { width: 240px; }
-  .evspeak__row { row-gap: var(--sp-8); }
-  .evspeak__row li { flex-basis: 50%; }
-  .evspeak__row li:nth-child(n) { margin-top: 0; }
-  .evspeak__row li:nth-child(2n) { margin-top: 40px; }
+  .evspeak__card { width: 200px; }
   /* global.css ranges centred heads left on phones; the h3 follows. */
   .evspeak__h { text-align: left; }
 }
