@@ -3073,6 +3073,43 @@ a.biz:focus-visible .biz__ic::after {
    SHARED since later 22 Oct (user: the CTAs with the product image should
    be the homepage's): /product and /about close on it too, replacing the
    split .book__card--split, so it lives here rather than in home.css. */
+/* THE HERO'S SQUARE LATTICE, TURNED SIDEWAYS (22 Oct, user: "dots heavy on
+   the sides, fading out to the center"): index.html's .hero__grad::after
+   recipe (4px squares on a 16px pitch, which divides --cell) in a faint
+   white, held between the rails, masked from both sides toward a clear
+   middle where the copy sits, with a short fade at top and bottom so it
+   never butts the joints. An ELEMENT, because the section's own pseudos are
+   the rails. */
+.bookcta__ground {
+  position: absolute;
+  inset: 0 var(--frame-x);
+  pointer-events: none;
+  background-image:
+    conic-gradient(at 4px 4px, transparent 0 270deg,
+      color-mix(in srgb, var(--on-brand) 18%, transparent) 270deg 360deg);
+  background-size: 16px 16px;
+  -webkit-mask-image:
+    linear-gradient(to right, #000 0%, rgba(0, 0, 0, 0.4) 20%, transparent 38% 62%, rgba(0, 0, 0, 0.4) 80%, #000 100%),
+    linear-gradient(to bottom, transparent 0%, #000 18% 82%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, #000 0%, rgba(0, 0, 0, 0.4) 20%, transparent 38% 62%, rgba(0, 0, 0, 0.4) 80%, #000 100%),
+    linear-gradient(to bottom, transparent 0%, #000 18% 82%, transparent 100%);
+  mask-composite: intersect;
+}
+.bookcta > .padding-global { position: relative; }
+/* On a phone the copy runs nearly edge to edge, so the field goes quieter. */
+@media (max-width: 640px) {
+  .bookcta__ground {
+    opacity: 0.55;
+    -webkit-mask-image:
+      linear-gradient(to right, #000 0%, transparent 16% 84%, #000 100%),
+      linear-gradient(to bottom, transparent 0%, #000 18% 82%, transparent 100%);
+    mask-image:
+      linear-gradient(to right, #000 0%, transparent 16% 84%, #000 100%),
+      linear-gradient(to bottom, transparent 0%, #000 18% 82%, transparent 100%);
+  }
+}
 .bookcta__in {
   display: grid;
   justify-items: center;

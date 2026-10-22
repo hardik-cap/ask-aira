@@ -151,20 +151,33 @@ a.evh1__stop { transition: color var(--dur-fast) var(--ease); }
 a.evh1__stop:hover { color: var(--primary-200); }
 a.evh1__stop:focus-visible { outline: 2px solid var(--primary-200); outline-offset: 4px; }
 /* A played stop is GREYED, not struck (user, 13 Oct: "greyscaling is
-   sufficient"), with a green done tick
-   (Phosphor CheckCircle duotone, from the package) as a SUFFIX on the
-   same line (user: "not top right but suffix same line"). Its negative
-   right margin cancels its own width plus the gap, so it hangs off the end
-   and the date and city stay centred like the live stops. */
-.evh1__stop--past { color: color-mix(in srgb, var(--on-brand) 38%, transparent); }
-.evh1__done {
+   sufficient"), and carries a RUBBER STAMP as a suffix since 22 Oct (user:
+   the green check "is very basic"): "Wrapped" in small caps inside a 1.5px
+   outline, tilted a few degrees, in the done green, the tour-shirt and
+   ticket grammar of the rest of the page. Its negative right margin cancels
+   its own width plus the gap, so it hangs off the end and the date and city
+   stay centred like the live stops. The sr-only "(completed)" after it is
+   what a screen reader hears. */
+.evh1__stop--past { color: color-mix(in srgb, var(--on-brand) 38%, transparent); align-items: center; }
+.evh1__stamp {
+  --w: 74px;
   flex: none;
-  align-self: center;
-  width: 20px;
-  height: 20px;
+  box-sizing: border-box;
+  width: var(--w);
   margin-left: calc(var(--sp-3) - var(--sp-5));
-  margin-right: calc(-20px - var(--sp-3));
+  margin-right: calc(-1 * var(--w) - var(--sp-3));
+  padding: 3px 0 2px;
+  font-family: var(--font-display);
+  font-size: var(--t-caption);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-align: center;
   color: var(--approve-on-dark);
+  border: 1.5px solid currentColor;
+  border-radius: var(--r-xs);
+  rotate: -7deg;
+  opacity: 0.9;
 }
 .evh1__stop--past b { color: color-mix(in srgb, var(--on-brand) 38%, transparent); }
 .evh1__later {
@@ -791,6 +804,9 @@ img.evcard__photo {
   .evtick__body { margin-right: var(--notch); }
   .evtick__stub { padding-right: var(--sp-4); }
   .evtick__stub b { font-size: var(--t-title); }
+  /* No room to hang the stamp off the end on a phone: it joins the row,
+     which then sits a little left of centre. */
+  .evh1__stamp { --w: 64px; margin-right: 0; letter-spacing: 0.08em; }
 }
 @media (max-width: 991px) {
   .evgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -991,16 +1007,20 @@ img.evcard__photo {
 
 .evpoll__opt:hover { border-color: var(--ink-faint); }
 .evpoll__opt:hover .evpoll__dot { border-color: var(--ink-3); }
-/* ACTIVE: picked, or typing in the other row. */
+/* ACTIVE IS THE /book FIELD'S FOCUS STATE (22 Oct, user: "use same
+   active state style used on book a demo form field"): white ground, the
+   brand edge and a 3px brand ring at 18%, exactly book.css's .input:focus.
+   The ring fills to a brand dot and the name goes brand ink. A solid-brand
+   pass and a Primary/50 wash each lived one turn. */
 .evpoll__opt:has(.evpoll__radio:checked),
 .evpoll__opt--other:focus-within {
   border-color: var(--brand);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 16%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 18%, transparent);
 }
 .evpoll__opt:has(.evpoll__radio:checked) .evpoll__dot {
   border-color: var(--brand);
-  box-shadow: inset 0 0 0 4px var(--surface);
   background: var(--brand);
+  box-shadow: inset 0 0 0 4px var(--surface);
 }
 .evpoll__opt:has(.evpoll__radio:checked) .evpoll__name { color: var(--brand-ink); }
 .evpoll__opt:has(.evpoll__radio:focus-visible) { outline: 2px solid var(--brand); outline-offset: 2px; }
@@ -1028,17 +1048,53 @@ img.evcard__photo {
 }
 .evpoll__res b { font-size: var(--t-body); font-weight: 600; color: var(--ink); }
 .evpoll__res span { font-size: var(--t-caption); color: var(--ink-3); }
-.evpoll.is-voted .evpoll__opt { cursor: default; border-color: var(--border); box-shadow: none; }
+/* VOTED IS A RESULTS LIST, NOT A FORM (22 Oct, user: the is-mine state
+   "should look better", then "do like that horizontal bar is filled ...
+   greyed out"). Each row stays a 52px box but drops its input chrome (no
+   border, no ring): the box is a --surface-2 track and the FILL runs its
+   full height to the row's share. Other rows are greyed out (slate fill,
+   name and share in --ink-2); the visitor's row fills in Primary/100 with
+   the name and share in brand ink, a CheckCircle and "Your vote"
+   (.evpoll__you, in each row's markup, shown on .is-mine; words sr-only
+   below 640). */
+.evpoll.is-voted .evpoll__opt {
+  cursor: default;
+  background: var(--surface-2);
+  border-color: transparent;
+  box-shadow: none;
+}
+.evpoll.is-voted .evpoll__fill { background: color-mix(in srgb, var(--slate-300) 70%, var(--surface-2)); }
+.evpoll.is-voted .evpoll__name,
+.evpoll.is-voted .evpoll__res b { color: var(--ink-2); }
 .evpoll.is-voted .evpoll__dot { display: none; }
 .evpoll.is-voted .evpoll__res { display: inline-flex; }
 .evpoll.is-voted .evpoll__input { display: none; }
 .evpoll.is-voted .evpoll__name--other { display: flex; }
 .evpoll.is-shown .evpoll__fill { scale: var(--pct, 0) 1; }
-.evpoll.is-voted .evpoll__opt.is-mine { border-color: var(--brand); }
-.evpoll.is-voted .evpoll__opt.is-mine .evpoll__fill { background: color-mix(in srgb, var(--brand) 16%, transparent); }
+/* The visitor's row stays FILLED BRAND after the vote, its share drawn
+   as a deeper brand bar inside it, all type white. */
+.evpoll.is-voted .evpoll__opt.is-mine { background: var(--brand); }
+.evpoll.is-voted .evpoll__opt.is-mine .evpoll__fill { background: color-mix(in srgb, var(--black) 28%, var(--brand)); }
 .evpoll.is-voted .evpoll__opt.is-mine .evpoll__name,
-.evpoll.is-voted .evpoll__opt.is-mine .evpoll__res b { color: var(--brand-ink); }
-.evpoll__mine { font-size: var(--t-caption); font-weight: 600; color: var(--brand-ink); }
+.evpoll.is-voted .evpoll__opt.is-mine .evpoll__res b { color: var(--on-brand); font-weight: 600; }
+.evpoll.is-voted .evpoll__opt.is-mine .evpoll__st,
+.evpoll.is-voted .evpoll__opt.is-mine .evpoll__res span { color: color-mix(in srgb, var(--on-brand) 72%, transparent); }
+.evpoll__you { display: none; }
+.evpoll.is-voted .evpoll__opt.is-mine .evpoll__you {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--t-caption);
+  font-weight: 600;
+  color: var(--on-brand);
+}
+.evpoll__you svg { width: 16px; height: 16px; flex: none; }
+.evpoll.is-voted .evpoll__name { white-space: nowrap; }
+/* A phone has room for the city and its share, not the words too: the
+   check stays and "Your vote" goes to screen readers only. */
+@media (max-width: 639px) {
+  .evpoll__you-t { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
 
 .evpoll__foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3) var(--sp-4); min-height: 44px; }
 .evpoll__go:disabled { opacity: 0.45; cursor: default; }
@@ -1216,31 +1272,8 @@ img.evcard__photo {
   .evband__row { grid-template-columns: minmax(220px, 300px) 1fr; }
   .evband__label { padding-left: var(--sp-6); }
   .evband__cell { border-left: 1px solid var(--frame-line); padding: var(--sp-6) 0 var(--sp-6) var(--sp-8); }
-  /* THE CROSSING SQUARES (22 Oct, user: "on the meet the organizers and our
-     partners, also bring it there"): every hairline meets the two rails and
-     the label rule, so each line carries three 6px --frame-plus squares, the
-     joint's own mark. One strip per line, centred on it: a row's ::before for
-     its top line, the band's ::after for the foot. The middle square sits on
-     the label track's edge, which is its 300px max at every width from 992
-     (the 1fr column always leaves it room). */
-  .evband { position: relative; }
-  .evband__row { position: relative; }
-  .evband__row::before,
-  .evband::after {
-    content: '';
-    position: absolute;
-    left: -2.5px;
-    right: -2.5px;
-    height: 6px;
-    z-index: 1;
-    pointer-events: none;
-    background:
-      linear-gradient(var(--frame-plus), var(--frame-plus)) 0 0 / 6px 6px no-repeat,
-      linear-gradient(var(--frame-plus), var(--frame-plus)) 300px 0 / 6px 6px no-repeat,
-      linear-gradient(var(--frame-plus), var(--frame-plus)) 100% 0 / 6px 6px no-repeat;
-  }
-  .evband__row::before { top: -3.5px; }
-  .evband::after { bottom: -3.5px; }
+  /* NO CROSSING SQUARES on this band (user, 22 Oct: "remove corner
+     squares in this, its too much"); they lived a few hours, in git. */
 }
 .evorg__list {
   list-style: none;

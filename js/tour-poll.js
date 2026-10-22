@@ -9,7 +9,7 @@
    function sends the visitor back to /events?poll=sent#tour-city. This
    adds:
      1. a pick-one choice across five rows: a city, or the typed "somewhere
-        else" row (typing picks it), the button naming what it will count;
+        else" row (typing picks it); the button stays "Vote";
      2. the NAME CHECKER on a typed city, the function's own rules, so a
         refused name says so before anything is sent (the function checks
         again: this one is only for speed);
@@ -87,7 +87,8 @@
   function relabel() {
     var c = choice();
     btn.disabled = !c;
-    btn.textContent = c ? 'Vote for ' + c.label : 'Vote';
+    // The button reads "Vote" whatever is picked (user, 22 Oct: "do a
+    // generic text, dont make it dynamic").
   }
   function clearBad() {
     otherRow.classList.remove('is-bad');
