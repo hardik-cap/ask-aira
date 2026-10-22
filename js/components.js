@@ -155,7 +155,16 @@
 
     /* Mobile drawer */
 
+    function seatSheet() {
+      // The sheet is viewport-fixed but the card it hangs from is not
+      // always at the viewport top: the tour announcement bar pushes it
+      // down at scroll top. Measured at open; the locked body cannot
+      // scroll, so the number holds while the sheet shows.
+      if (menu) menu.style.setProperty('--nav-bottom', Math.round(nav.getBoundingClientRect().bottom) + 'px');
+    }
+
     function openMobile() {
+      seatSheet();
       nav.classList.add('is-open');
       if (menu) menu.classList.add('is-open');
       if (burger) {
@@ -187,6 +196,7 @@
     var lastDesktop = isDesktop();
     window.addEventListener('resize', function () {
       var now = isDesktop();
+      if (!now && nav.classList.contains('is-open')) seatSheet();
       if (now && !lastDesktop) closeMobile();
       if (now !== lastDesktop) closeAll();
       lastDesktop = now;
@@ -243,7 +253,9 @@
       nav.classList.add('nav-dark');
       return;
     }
-    if (!darkSections.length) return;
+    // No early return on a page with no dark section: the FOOTER is dark
+    // on every page (22 Oct) and carries data-nav-dark, but it is injected
+    // separately and can land after this runs, so it is picked up below.
 
     var navH = nav.offsetHeight || 72;
 
@@ -262,7 +274,9 @@
       active.clear();
       darkSections.forEach(function (el) {
         var r = el.getBoundingClientRect();
-        if (r.top <= navH && r.bottom > 0) active.add(el);
+        // height > 0 for the same reason as the observer below: a hidden
+        // or collapsed section has no box and cannot be behind the bar.
+        if (r.height > 0 && r.top <= navH && r.bottom > 0) active.add(el);
       });
       apply();
     }
@@ -275,14 +289,35 @@
       });
     });
 
+    // Late arrivals (the footer): watch any [data-nav-dark] not yet tracked
+    // once both components are in, then re-prime for a page restored at
+    // the foot.
+    var io = null;
+    document.addEventListener('aira:components-ready', function () {
+      Array.prototype.forEach.call(document.querySelectorAll('[data-nav-dark]'), function (el) {
+        if (darkSections.indexOf(el) !== -1) return;
+        darkSections.push(el);
+        if (io) io.observe(el);
+      });
+      prime();
+    });
+
     if (!('IntersectionObserver' in window)) {
       window.addEventListener('scroll', prime, { passive: true });
       return;
     }
 
-    var io = new IntersectionObserver(function (entries) {
+    io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) active.add(e.target); else active.delete(e.target);
+        // Never trust an intersection from a section with no box. The
+        // homepage keeps three parked dark sections `hidden` (display:
+        // none, rect 0x0 at 0,0), and iOS Safari's initial callback can
+        // report such a target as intersecting, which painted the bar
+        // dark over the light hero at scroll top (user's iPhone, 22 Oct)
+        // until the first scroll recomputed it. A section that is not
+        // rendered is never behind the navbar.
+        var on = e.isIntersecting && e.boundingClientRect.height > 0;
+        if (on) active.add(e.target); else active.delete(e.target);
       });
       apply();
     }, {
@@ -325,10 +360,40 @@
      fetch took, and only then did the dark sync turn it dark over the
      events band. */
   function navReady() {
+    initTourBar();
     initNav();
     initNavScroll();
     initNavDarkSync();
     initVersionTabs();
+  }
+
+  /* ---- 3a. Tour announcement bar (22 Oct) ------------------------------
+     The strip above the header advertising the events tour. It ships
+     inside navbar.html (hidden) so one component edit covers every page,
+     and is MOVED OUT of #navbar-placeholder here: the placeholder is the
+     sticky element, so left inside it the strip would stay stuck to the
+     viewport instead of scrolling away like an announcement bar should.
+     Not shown on the events pages (they ARE the advertisement) or, for
+     the rest of the session, once dismissed. Runs in the same task as the
+     injection, so on cached loads nothing moves after first paint. */
+  function initTourBar() {
+    var bar = document.querySelector('[data-tourbar]');
+    if (!bar) return;
+    var off = false;
+    try { off = sessionStorage.getItem('aira_tourbar') === 'off'; } catch (e) {}
+    if (off || document.body.classList.contains('page-events') ||
+        document.body.classList.contains('page-event')) {
+      bar.remove();
+      return;
+    }
+    var host = document.getElementById('navbar-placeholder');
+    if (host && host.parentNode) host.parentNode.insertBefore(bar, host);
+    bar.hidden = false;
+    var x = bar.querySelector('[data-tourbar-x]');
+    if (x) x.addEventListener('click', function () {
+      bar.remove();
+      try { sessionStorage.setItem('aira_tourbar', 'off'); } catch (e) {}
+    });
   }
 
   /* 'aira:components-ready' waits for DOMContentLoaded as well: with the

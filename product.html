@@ -24,15 +24,10 @@
   <meta name="twitter:description" content="aiRA reads the warehouse you already have, answers with its reasoning shown, and builds the move for a person to approve. Live in two to four weeks.">
   <meta name="twitter:image" content="https://askaira.ai/assets/og/og-image.png">
   <link rel="icon" href="/assets/brand/aira-mark.svg" type="image/svg+xml">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Fonts load without blocking first paint (4 Oct, PageSpeed): the
        stylesheet is preloaded and switched on when it lands; display=swap
        already swaps text in when the files arrive. Weights trimmed to the
        400..700 the CSS uses (Google Sans Flex 117KB to 82KB). -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,400..700&family=Roboto:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,400..700&family=Roboto:wght@400;500;600;700&display=swap"></noscript>
 
   <link rel="stylesheet" href="/style/tokens.css">
   <link rel="stylesheet" href="/style/global.css">
@@ -708,52 +703,27 @@
     <div class="joint" aria-hidden="true"></div>
 
     <!-- ================= BOOK CTA =================
-         The SPLIT variant, shared with index.html; see .book__card--split in
-         components.css. It replaced the brand-filled box from 20 Sep
-         (frigade.com). The contact form moved out; /book carries it. -->
-    <section class="section section--wash book">
+         THE HOMEPAGE'S DARK CLOSE since 22 Oct (user, asked whether the
+         split card with the product capture should change: "Homepage's
+         CTA"). Shared .bookcta in components.css; the promptwatch split card
+         it replaced is in git. -->
+    <section class="section section--inv bookcta" data-nav-dark>
       <div class="padding-global">
         <div class="container">
-
-          <div class="book__frame reveal">
-            <!-- The SPLIT variant (23 Sep, promptwatch.com reference the user
-                 supplied): copy left on a diagonal brand gradient, the real
-                 product right, cut by the card's own edge, and the whole
-                 thing filling the section rail to rail rather than sitting in
-                 it as a box. The four floating glyphs went with the change;
-                 they were quiet furniture for an empty fill and are clutter
-                 beside a screenshot.
-
-                 The capture is workspace.png, framed from its TOP-LEFT so
-                 what shows is the ask and the reasoning under it rather than
-                 the whole two-pane window shrunk to nothing. -->
-            <div class="book__card book__card--split">
-              <div class="book__body">
-                <!-- Was "Bring aiRA a real question.", the same process-led
-                     line /book's H1 was rewritten away from on 20 Sep. The
-                     button carries no icon, ever. -->
-                <h2 class="book__title">The question your team is still waiting on.</h2>
-                <p class="book__sub">
-                  Thirty minutes, one real question, answered live. We reply within
-                  one business day with a time and the security brief.
-                </p>
-                <a class="btn btn--lg book__cta" href="/book">Book a working session</a>
-              </div>
-              <div class="book__shot" aria-hidden="true">
-                <img src="/assets/product/workspace.png" alt="" width="2560" height="1598" loading="lazy" decoding="async">
-              </div>
+          <div class="bookcta__in reveal">
+            <h2 class="section-heading bookcta__t">The question your team is still waiting on.</h2>
+            <p class="section-sub bookcta__sub">Thirty minutes, one real question, answered live. We reply within one business day with a time and the security brief.</p>
+            <div class="bookcta__row">
+              <a class="btn btn--primary btn--lg" href="/book">Book a working session</a>
             </div>
           </div>
-
         </div>
       </div>
     </section>
 
-    <!-- The frame's line at the book/footer boundary. The card's fill
-         dissolves into it, and both sides of the line are --surface-2 by the
-         time it lands, so it reads as the divider it is rather than as a cut
-         through the gradient. -->
-    <div class="joint" aria-hidden="true"></div>
+    <!-- The CTA is dark and runs into the dark footer: this seam is the
+         footer joint, inverse, drawn in primitives. -->
+    <div class="joint joint--to-footer" aria-hidden="true"></div>
 
   </main>
 

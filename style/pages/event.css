@@ -1300,23 +1300,10 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
 }
 .evbody__src--prose a:hover { text-decoration-style: dashed; }
 
-/* ============ THE TICKET GRAMMAR ACROSS THE EVENT PAGES (13 Oct) ============
-   The hub's perforated joints, restated for the detail pages (one
-   stylesheet per page): every section boundary is a dashed tear with a
-   punch hole on each rail. See events.css for the hub half. */
-body.page-event .joint {
-  height: 0;
-  background: none;
-  border-top: 2px dashed var(--border-strong);
-}
-body.page-event .joint::before,
-body.page-event .joint::after {
-  width: 10px;
-  height: 10px;
-  background: var(--bg);
-  border: 1px solid var(--border-strong);
-  border-radius: 50%;
-}
+/* THE PERFORATED JOINTS CAME OFF 22 Oct (user: the crossing squares are
+   "missing in a lot of sections in events"): the detail pages take the
+   site's plain joint, hairline and 6px squares, like every other page. The
+   dashed tear with punch-hole rings that stood here since 13 Oct is in git. */
 
 /* ---- The write-up ticket (.evread, 13 Oct) ----------------------------------
    The agentic-workflows page's LinkedIn write-up as a TICKET CARD (user,

@@ -1,6 +1,25 @@
 <!-- aiRA navbar. Injected into #navbar-placeholder by js/components.js.
      If the placeholder already has children the fetch is skipped, which is
      the escape hatch for a page-specific nav variant. -->
+<!-- TOUR ANNOUNCEMENT BAR (22 Oct, user: "advertise ... it will appear in
+     all pages except events"). Injected with the navbar, then MOVED OUT of
+     the sticky placeholder by js/components.js so it scrolls away while the
+     nav card stays stuck; removed outright on body.page-events and
+     body.page-event, and for the session once dismissed. The next stop is
+     HAND-MAINTAINED: update it with the hub ticker when the next event
+     changes. -->
+<div class="tourbar" data-tourbar hidden>
+  <a class="tourbar__link" href="/events">
+    <span class="tourbar__spark" aria-hidden="true"><svg class="spark" viewBox="0 58 332 332" fill="currentColor" aria-hidden="true"><path d="M166,58Q202.5,187.5 332,224Q202.5,260.5 166,390Q129.5,260.5 0,224Q129.5,187.5 166,58Z"/></svg></span>
+    <span class="tourbar__long">The Future of AI in Customer Analytics, live across US.</span>
+    <span class="tourbar__short">aiRA is on tour.</span>
+    <span class="tourbar__tear" aria-hidden="true"></span>
+    <span class="tourbar__next">Next stop: Chicago, Nov&nbsp;9</span>
+  </a>
+  <button class="tourbar__x" type="button" aria-label="Dismiss announcement" data-tourbar-x>
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+</div>
 <header class="nav" id="site-nav" data-nav>
   <div class="padding-global">
     <div class="container nav__inner">

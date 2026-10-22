@@ -1,9 +1,13 @@
-<!-- aiRA footer (Metaforms-style, 16 Sep): brand block on the left carrying
+<!-- THE FOOTER IS DARK ON EVERY PAGE since 22 Oct (user, after attio.com:
+     "dark footer in entire site and cta linked to it"); see global.css.
+     aiRA footer (Metaforms-style, 16 Sep): brand block on the left carrying
      the logo, the one-line positioning and the social row; link columns on
      the right; the giant wordmark across the full width beneath them; and a
      rule-topped legal row last, copyright left and legal links right.
      Injected into #footer-placeholder by js/components.js. -->
-<footer class="footer">
+<!-- data-nav-dark since 22 Oct (user: the bar went light again over the
+     dark footer): the nav theme sync picks the footer up once it lands. -->
+<footer class="footer" data-nav-dark>
   <!-- The frame's crossing mark where the footer's two rails meet its top
        edge (23 Sep). Every other section boundary gets one from its .joint;
        the footer's did not, so its rails began out of nothing, and on pages
@@ -16,20 +20,19 @@
 
       <div class="footer__grid">
         <div class="footer__brand reveal">
+          <!-- aiRA BY CAPILLARY HOLDS THE LOGO SPOT AGAIN since latest 22 Oct
+               (user: "bring aira by cap logo to footer"), after a few hours of
+               Capillary's own lockup there. The lockup credits the parent in
+               the mark itself (Heroku's "from Salesforce" pattern) and the
+               footer stays aiRA's, so the socials came back under it. The
+               line is the hero's static claim again. -->
           <a class="footer__logo" href="/" aria-label="aiRA by Capillary, home">
-            <img class="footer__logo-light" src="/assets/brand/aira-lockup.png" alt="aiRA by Capillary" width="78" height="26">
-            <img class="footer__logo-dark" src="/assets/brand/aira-lockup-reverse.png" alt="aiRA by Capillary" width="78" height="26">
+            <img src="/assets/brand/aira-lockup-reverse.png" alt="aiRA by Capillary" width="223" height="78">
           </a>
-          <!-- THE HERO'S OWN CLAIM, not a second one (user, 27 Sep: "tagline in
-               footer needs to be same as Hero Section"). It is the static half of
-               index.html's H1, without the rotating team word: the footer closes
-               every page, so a different line here reads as a second positioning
-               rather than the same one restated. Was "Between your data and your
-               channels.", which was context.md 1's mechanism line. -->
           <p class="footer__line">On-demand insights and analytics agent.</p>
           <ul class="footer__social">
             <li>
-              <a href="https://www.linkedin.com/company/askaira-ai/" rel="noopener"
+              <a href="https://www.linkedin.com/showcase/ask-aira/" rel="noopener"
                  aria-label="aiRA on LinkedIn">
                 <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                   <path d="M4.68938 13.9414H2.19817V6.00487H4.68938V13.9414ZM11.0331 5.8076C13.5556 5.80761 14.0204 7.4507 14.0204 9.58788L14.0195 13.9414H11.5312V10.083C11.5312 9.16272 11.5141 7.97752 10.2363 7.97752C8.94014 7.97762 8.74212 8.98038 8.74212 10.0156V13.9414H6.25286V6.00487H8.64251V7.08983H8.67571C8.91482 6.68505 9.2606 6.3517 9.67571 6.12596C10.0908 5.90033 10.56 5.79021 11.0331 5.8076ZM3.16204 2.08788C3.44219 2.03265 3.73307 2.06074 3.997 2.16893C4.26087 2.2771 4.4867 2.46024 4.64544 2.6953C4.80418 2.93045 4.88855 3.20738 4.8886 3.49022C4.88863 3.67786 4.85166 3.86371 4.77923 4.0371C4.70668 4.21061 4.59984 4.36912 4.46575 4.50194C4.33173 4.63461 4.17208 4.73967 3.997 4.81151C3.82188 4.88332 3.63382 4.92085 3.44427 4.92088C3.15884 4.92084 2.87989 4.83661 2.64251 4.67967C2.40501 4.5226 2.21965 4.29931 2.11028 4.03807C2.00094 3.77682 1.97261 3.48928 2.02825 3.2119C2.08392 2.93455 2.22091 2.67949 2.42278 2.47948C2.62464 2.27953 2.88204 2.14316 3.16204 2.08788Z" fill="currentColor"/>
@@ -135,18 +138,20 @@
 
       <div class="footer__bottom">
 
-        <!-- Direct children of .footer__bottom, not wrapped: the row is
-             space-between, so a wrapper would keep them bunched on the left. -->
+        <!-- Two children on a space-between row: the copyright left, and
+             the legal links on the right. -->
         <p class="footer__legal">
           &copy; 2026 aiRA by Capillary
         </p>
-        <ul class="footer__bottom-links">
-          <!-- Full names, not "Terms" and "Privacy" (22 Sep): the pages are
-               called Terms & Conditions and Privacy Policy, and the footer is
-               the only place they are named. -->
-          <li><a href="/terms-and-conditions">Terms &amp; Conditions</a></li>
-          <li><a href="/privacy-policy">Privacy Policy</a></li>
-        </ul>
+        <div class="footer__bottom-end">
+          <ul class="footer__bottom-links">
+            <!-- Full names, not "Terms" and "Privacy" (22 Sep): the pages are
+                 called Terms & Conditions and Privacy Policy, and the footer is
+                 the only place they are named. -->
+            <li><a href="/terms-and-conditions">Terms &amp; Conditions</a></li>
+            <li><a href="/privacy-policy">Privacy Policy</a></li>
+          </ul>
+        </div>
       </div>
 
       <!-- Inlined, not an <img>: the torch effect has to reach the paths, and

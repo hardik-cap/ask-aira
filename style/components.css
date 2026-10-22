@@ -2458,9 +2458,14 @@ a.biz:focus-visible .biz__ic::after {
      at that seam put a step exactly where the gradient is trying to resolve.
      .book's --wash-secondary exists so the last LIGHT section is not a repeat
      of the difference section's wash, and here there is no light section left
-     to tell apart. */
-  background: var(--surface-2);
+     to tell apart.
+     THE FOOTER WENT DARK 22 Oct (attio, site-wide), so this ground followed
+     it to --slate-900 on the same principle: the card now dissolves into the
+     dark that IS the footer, and the CTA and footer read as one block. */
+  background: var(--slate-900);
 }
+.book:has(.book__card--split)::before,
+.book:has(.book__card--split)::after { background: color-mix(in srgb, var(--on-brand) 12%, transparent); }
 .book__frame:has(.book__card--split) { padding: 0; }
 
 .book__card--split {
@@ -3058,3 +3063,37 @@ a.biz:focus-visible .biz__ic::after {
    the /events hero, its last placement; the event pages' city heroes had
    already dropped it). The component, its --centre mask and
    js/hover-tiles.js are in git. */
+
+/* ---- Book CTA, laravel's close (22 Oct) -------------------------------------
+   "Create without limits. What will you ship?" translated: a centred
+   headline (the site-wide book title, unchanged), one quiet line, the one
+   conversion button. No accent fill, no capture. DARK since later 22 Oct
+   (.section--inv, attio): it is the page's last section and runs straight
+   into the dark footer through a .joint--to-footer.
+   SHARED since later 22 Oct (user: the CTAs with the product image should
+   be the homepage's): /product and /about close on it too, replacing the
+   split .book__card--split, so it lives here rather than in home.css. */
+.bookcta__in {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: var(--sp-6);
+}
+/* The heading is a plain .section-heading since 22 Oct (user: "size is
+   weird compare to others"): it was --t-display-1, a hero size, against
+   every other H2's --t-display-2. The section is .section--inv, so the
+   heading, sub and primary button take their inverse inks from global.css;
+   only the measure and centring are set here. */
+.bookcta__t { margin: 0; max-width: 20ch; text-wrap: balance; }
+.bookcta__sub { margin: 0; max-width: 44ch; text-wrap: pretty; }
+.bookcta__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
+}
+@media (max-width: 639px) {
+  .bookcta__row { width: 100%; flex-direction: column; }
+  .bookcta__row .btn { width: 100%; justify-content: center; }
+}
