@@ -125,7 +125,28 @@ export async function onRequestGet({ request, env }) {
   return json({ counts: await counts(env.TOUR_POLL), voted: votedFrom(request) });
 }
 
-export async function onRequestPost({ request, env }) {
+// THE VOTE LOG IN GOOGLE SHEETS (22 Oct, user: "automate the data ... to a
+// sheet"). When POLL_SHEET_URL is set (a Google Apps Script web app's /exec
+// URL, a Pages secret), every counted vote is also sent there as one row:
+// time, the city it counted for, the typed name if any, and which site. No
+// IP and nothing that identifies the voter. It goes out through waitUntil
+// AFTER the response, so the voter never waits on Google, and a failure
+// there loses only that row: KV stays the count of record. POLL_SHEET_TOKEN
+// is a shared secret the script checks, so a leaked URL cannot be spammed.
+// The script itself lives in scratch/poll-sheet.gs.
+function logToSheet(env, waitUntil, request, row) {
+  if (!env.POLL_SHEET_URL || !waitUntil) return;
+  const host = new URL(request.url).hostname;
+  const site = /(^|\.)askaira\.ai$/.test(host) || host.startsWith('ask-aira-production') ? 'live' : 'staging';
+  waitUntil(fetch(env.POLL_SHEET_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ token: env.POLL_SHEET_TOKEN || '', time: new Date().toISOString(), site, ...row }),
+    redirect: 'manual',
+  }).catch(() => {}));
+}
+
+export async function onRequestPost({ request, env, waitUntil }) {
   const isForm = !(request.headers.get('Content-Type') || '').includes('application/json');
   const back = (status) => Response.redirect(new URL('/events?poll=' + status + '#tour-city', request.url), 303);
   if (!env.TOUR_POLL) return isForm ? back('closed') : json({ error: 'closed' }, 503);
@@ -146,11 +167,12 @@ export async function onRequestPost({ request, env }) {
     }
   } catch (e) { /* falls through to the invalid answer */ }
 
-  let key, name;
+  let key, name, typed = '';
   if (CITIES[city]) {
     key = 'c:' + city; name = CITIES[city];
   } else {
     const clean = cleanCity(other);
+    typed = clean || '';
     if (!clean) return isForm ? back('invalid') : json({ error: 'invalid' }, 400);
     const slug = slugify(clean);
     const known = CITIES[slug] ? slug : ALIASES[slug];
@@ -168,6 +190,7 @@ export async function onRequestPost({ request, env }) {
   if (key.startsWith('x:')) writes.push(kv.get('t:other').then((v) => kv.put('t:other', String((parseInt(v, 10) || 0) + 1))));
   if (ik) writes.push(kv.put(ik, String(used + 1), { expirationTtl: 86400 }));
   await Promise.all(writes);
+  logToSheet(env, waitUntil, request, { city: key.startsWith('x:') ? 'Other' : name, typed });
 
   const cookie = COOKIE + '=' + encodeURIComponent(name) + '; Path=/; Secure; HttpOnly; SameSite=Lax';
   if (isForm) {

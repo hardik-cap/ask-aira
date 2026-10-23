@@ -39,7 +39,6 @@
   <script src="/js/reveal.js" defer></script>
   <script src="/js/eyebrow-scramble.js" defer></script>
   <script src="/js/askstory.js" defer></script>
-  <script type="module" src="/js/globe.js"></script>
 </head>
 <body class="page-solutions page-industry">
 
@@ -216,29 +215,30 @@
 
     <div class="joint" aria-hidden="true"></div>
 
-    <!-- ================= CLOSE ================= -->
-    <section class="section solutions-close">
+    <!-- ================= CLOSE =================
+         THE HOMEPAGE'S DARK CTA since 22 Oct (user: "white globe cta section
+         is still present in some pages, please change them to the new dark
+         cta section"). The site-wide book title and sub (user: "the CTA
+         section copy across all pages should be same"), in the shared
+         .bookcta (components.css); the white globe card is in git. -->
+    <section class="section section--inv bookcta" data-nav-dark>
+      <div class="bookcta__ground" aria-hidden="true"></div>
       <div class="padding-global">
         <div class="container">
-          <div class="solutions-close__card reveal">
-            <div class="solutions-close__grid">
-              <div class="reveal">
-                <h2 class="section-heading">Bring the question your restaurant team is <em>still waiting on</em>.</h2>
-                <p class="section-sub">
-                  Forty-five minutes, one real question, your own business context. You leave with
-                  the answer and the move built, or you leave knowing aiRA is not
-                  the fit. Both are useful.
-                </p>
-                <a class="btn btn--primary btn--lg solutions-close__cta" href="/book">Book a working session</a>
-              </div>
-              <div class="close-globe" aria-hidden="true">
-                <canvas class="close-globe__canvas" width="1200" height="1200"></canvas>
-              </div>
+          <div class="bookcta__in reveal">
+            <h2 class="section-heading bookcta__t">The question your team is still waiting on.</h2>
+            <p class="section-sub bookcta__sub">Thirty minutes, one real question, answered live. We reply within one business day with a time and the security brief.</p>
+            <div class="bookcta__row">
+              <a class="btn btn--primary btn--lg" href="/book">Book a working session</a>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- The CTA is dark and runs into the dark footer: this seam is the
+         footer joint, inverse, drawn in primitives. -->
+    <div class="joint joint--to-footer" aria-hidden="true"></div>
 
   </main>
 

@@ -151,33 +151,22 @@ a.evh1__stop { transition: color var(--dur-fast) var(--ease); }
 a.evh1__stop:hover { color: var(--primary-200); }
 a.evh1__stop:focus-visible { outline: 2px solid var(--primary-200); outline-offset: 4px; }
 /* A played stop is GREYED, not struck (user, 13 Oct: "greyscaling is
-   sufficient"), and carries a RUBBER STAMP as a suffix since 22 Oct (user:
-   the green check "is very basic"): "Wrapped" in small caps inside a 1.5px
-   outline, tilted a few degrees, in the done green, the tour-shirt and
-   ticket grammar of the rest of the page. Its negative right margin cancels
-   its own width plus the gap, so it hangs off the end and the date and city
-   stay centred like the live stops. The sr-only "(completed)" after it is
-   what a screen reader hears. */
-.evh1__stop--past { color: color-mix(in srgb, var(--on-brand) 38%, transparent); align-items: center; }
-.evh1__stamp {
-  --w: 74px;
+   sufficient"), with a green done tick
+   (Phosphor CheckCircle duotone, from the package) as a SUFFIX on the
+   same line (user: "not top right but suffix same line"). Its negative
+   right margin cancels its own width plus the gap, so it hangs off the end
+   and the date and city stay centred like the live stops. A "Wrapped"
+   rubber stamp replaced it for a few hours on 22 Oct and was reverted
+   (user: "not looking good"). */
+.evh1__stop--past { color: color-mix(in srgb, var(--on-brand) 38%, transparent); }
+.evh1__done {
   flex: none;
-  box-sizing: border-box;
-  width: var(--w);
+  align-self: center;
+  width: 20px;
+  height: 20px;
   margin-left: calc(var(--sp-3) - var(--sp-5));
-  margin-right: calc(-1 * var(--w) - var(--sp-3));
-  padding: 3px 0 2px;
-  font-family: var(--font-display);
-  font-size: var(--t-caption);
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  line-height: 1;
-  text-align: center;
+  margin-right: calc(-20px - var(--sp-3));
   color: var(--approve-on-dark);
-  border: 1.5px solid currentColor;
-  border-radius: var(--r-xs);
-  rotate: -7deg;
-  opacity: 0.9;
 }
 .evh1__stop--past b { color: color-mix(in srgb, var(--on-brand) 38%, transparent); }
 .evh1__later {
@@ -804,9 +793,6 @@ img.evcard__photo {
   .evtick__body { margin-right: var(--notch); }
   .evtick__stub { padding-right: var(--sp-4); }
   .evtick__stub b { font-size: var(--t-title); }
-  /* No room to hang the stamp off the end on a phone: it joins the row,
-     which then sits a little left of centre. */
-  .evh1__stamp { --w: 64px; margin-right: 0; letter-spacing: 0.08em; }
 }
 @media (max-width: 991px) {
   .evgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }

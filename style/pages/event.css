@@ -6,18 +6,12 @@
    then the content as plain document sections. The H1 takes the utility
    hero step (--t-display-1s, 48) on purpose: it shares its row with the
    cover, which is what that token is for. */
-.evhero__back {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: var(--sp-8);
-  font-size: var(--t-body);
-  color: var(--ink-3);
-  text-decoration: none;
-  transition: color var(--dur-fast) var(--ease);
-}
-.evhero__back:hover { color: var(--ink); }
-.evhero__back svg { width: 16px; height: 16px; }
+/* THE BACK LINK IS A BREADCRUMB since 22 Oct (user: "bring [the category
+   pages' crumb] navigation to [All events] ... Events / event page name"):
+   the shared .crumb (components.css) reading "Events / <city or talk>",
+   the arrow on "Events" in the regular weight as before. Positioned here,
+   recoloured below for the photo heroes. */
+.evhero__crumb { margin-bottom: var(--sp-8); }
 
 .evhero__grid {
   display: grid;
@@ -311,7 +305,7 @@
   .evhero__grid { grid-template-columns: 1fr; gap: var(--sp-10); }
 }
 @media (max-width: 640px) {
-  .evhero__back { margin-bottom: var(--sp-6); }
+  .evhero__crumb { margin-bottom: var(--sp-6); }
   /* 28px with the accent free to wrap (user, 10 Oct: "check the heading
      too, not great"). At 32 Luma's 69-character title ran four lines, and
      the nowrap on its <em> left "Into" stranded at the start of the last
@@ -320,9 +314,7 @@
   .evhero__t em { white-space: normal; }
   .evhero__ctas, .evhero__ctas .btn { width: 100%; justify-content: center; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .evhero__back { transition: none; }
-}
+
 
 /* ---- THE CITY HERO (.evhero--city, Chicago first, 12 Oct) -------------------
    User: "use it on thumbnail and details page hero, surprise me with crazy
@@ -424,8 +416,10 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
 .evhero--city > .padding-global { position: relative; z-index: 2; flex: 1; display: flex; }
 .evhero--city > .padding-global > .container { display: flex; flex-direction: column; }
 .evhero--city .evhero__grid { margin-top: auto; }
-.evhero--city .evhero__back { color: color-mix(in srgb, var(--on-brand) 70%, transparent); }
-.evhero--city .evhero__back:hover { color: var(--on-brand); }
+.evhero--city .crumb { color: color-mix(in srgb, var(--on-brand) 40%, transparent); }
+.evhero--city .crumb a { color: color-mix(in srgb, var(--on-brand) 70%, transparent); }
+.evhero--city .crumb a:hover { color: var(--on-brand); }
+.evhero--city .crumb__current { color: var(--on-brand); }
 .evhero--city .evhero__grid {
   grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
   gap: var(--sp-12);

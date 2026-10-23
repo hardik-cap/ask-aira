@@ -625,7 +625,22 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
    on light pages AND on /pricing's whole-dark theme, and semantic inks
    would re-resolve there (the standing inversion trap). The white-alpha
    edge matches .nav.nav-dark's. */
+/* THE BAR'S HEIGHT IS HELD FROM FIRST PAINT (22 Oct, PageSpeed /product:
+   CLS 0.045). The bar arrives with the injected navbar, so on a first
+   visit it landed after paint and pushed the page down ~38px. Until the
+   header lands (#navbar-placeholder is still :empty) the page keeps that
+   much room above it, on every page that shows the bar, and the bar
+   is pinned to the same 38px so the hand-over moves nothing. Below ~340px
+   its copy wraps and it grows; that small shift is accepted. A visitor who
+   dismissed it this session sees the gap close once the header lands. */
+:root { --tourbar-h: 38px; }
+/* Padding on the BODY, not a margin on the placeholder: the margin
+   collapsed through the body, so the body itself moved 38px at the
+   hand-over and still counted as a shift. */
+body:not(.page-events):not(.page-event):has(#navbar-placeholder:empty) { padding-top: var(--tourbar-h); }
 .tourbar {
+  box-sizing: border-box;
+  min-height: var(--tourbar-h);
   position: relative;
   display: flex;
   align-items: center;

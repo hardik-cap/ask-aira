@@ -121,9 +121,16 @@
                rounded card, so a frame there was a frame around a frame. This
                one is a raw app capture and needs an edge of its own. -->
           <div class="phero__fig reveal is-in" data-guideflow>
-            <img class="phero__shot" src="/assets/product/workspace.png"
+            <!-- AVIF/WebP at four widths since 22 Oct (PageSpeed: this 590KB PNG
+                 was the LCP, 3 to 5s on a phone). 1480px is the 200% crop's
+                 widest render; below 1200 it is the full column. -->
+            <picture>
+              <source type="image/avif" srcset="/assets/product/workspace-800.avif 800w, /assets/product/workspace-1280.avif 1280w, /assets/product/workspace-1920.avif 1920w, /assets/product/workspace-2560.avif 2560w" sizes="(min-width: 1200px) 1480px, 100vw">
+              <source type="image/webp" srcset="/assets/product/workspace-800.webp 800w, /assets/product/workspace-1280.webp 1280w, /assets/product/workspace-1920.webp 1920w, /assets/product/workspace-2560.webp 2560w" sizes="(min-width: 1200px) 1480px, 100vw">
+            <img class="phero__shot" src="/assets/product/workspace.png" fetchpriority="high"
                  alt="The aiRA workspace: a thread on the left showing the question &ldquo;Show me customer insights for April 2026&rdquo;, the schema discovery and SparkSQL it ran, and a versioned headline-KPI artifact; on the right, the Customer Insights dashboard it produced, with a spend chart and a cohort table carrying a suggested action per cohort."
                  width="2560" height="1598" decoding="async">
+            </picture>
           </div>
 
     </section>
@@ -691,7 +698,11 @@
                    reporting" means, so the picture is the claim. Decoration,
                    so it carries an empty alt and the wrapper is hidden. -->
               <span class="rollout__gate-shot" aria-hidden="true">
-                <img src="/assets/product/workspace.png" alt="" width="2560" height="1598" loading="lazy" decoding="async">
+                <picture>
+                  <source type="image/avif" srcset="/assets/product/workspace-800.avif 800w, /assets/product/workspace-1280.avif 1280w, /assets/product/workspace-1920.avif 1920w, /assets/product/workspace-2560.avif 2560w" sizes="300px">
+                  <source type="image/webp" srcset="/assets/product/workspace-800.webp 800w, /assets/product/workspace-1280.webp 1280w, /assets/product/workspace-1920.webp 1920w, /assets/product/workspace-2560.webp 2560w" sizes="300px">
+                  <img src="/assets/product/workspace.png" alt="" width="2560" height="1598" loading="lazy" decoding="async">
+                </picture>
               </span>
             </div>
           </div>

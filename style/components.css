@@ -1737,6 +1737,12 @@ a.biz:focus-visible .biz__ic::after {
   }
 }
 
+/* THE RUNS SECTION IS LIGHT since 22 Oct (user: "make section--inv runs
+   light mode in #eff1f6"): it sat dark right above the dark book CTA, so
+   the joint between two dark sections read as a stray white line. It is
+   --surface-2 (Slate/100, #EFF1F6) now, and the dark rules below are left
+   for any future .section--inv placement. */
+.section.runs:not(.section--inv) { background: var(--surface-2); }
 /* Dark variant (18 Sep, user call): the section wears .section--inv and
    every register retunes. Icons and flags ride Primary/200, the dark-surface
    accent, because full brand Primary/400 sinks on near-black. Placed after the
