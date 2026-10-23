@@ -3117,20 +3117,21 @@
   .faq__list { padding-inline: 0; }
 }
 
-/* On a phone the list is flush to the page's 20px gutter, so the full sp-4
-   outset would leave the card only 4px from the screen edge. The button's
-   reach and the card step down to sp-3 TOGETHER, so the text still never
-   moves when a row opens. */
+/* ON A PHONE NOTHING OUTSETS (23 Oct, user: the open card ran to the screen
+   edge once the gutter went to 12px). The card and the row hairlines sit ON
+   the page gutter, and every row pads its question and answer sp-3 inside,
+   closed or open, so the text still never moves when a row opens. */
 @media (max-width: 640px) {
   .faq .acc__btn {
-    width: calc(100% + var(--sp-3) * 2);
+    width: 100%;
     padding-inline: var(--sp-3);
-    margin-inline: calc(-1 * var(--sp-3));
+    margin-inline: 0;
   }
   .faq .acc__item.is-open {
-    margin-inline: calc(-1 * var(--sp-3));
-    padding-inline: var(--sp-3);
+    margin-inline: 0;
+    padding-inline: 0;
   }
+  .faq .acc__body { padding-inline: var(--sp-3); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -3312,6 +3313,24 @@
 @media (max-width: 991px) {
   /* The rails come off with .container's gutter; the track follows. */
   .hevents__car { margin-inline: 0; --peek: var(--sp-12); }
+  /* THE CARETS GET A GROUND on smaller screens (23 Oct, user: "add fills on
+     mobile or transparent one atleast so its visible"): bare white on a
+     bright photo vanished. A translucent black disc behind a smaller caret,
+     inset from the slide edge, drawn in primitives since it sits on a photo.
+     A circle, not the 12px button corner: the user asked for these not to
+     read as square tiles. */
+  .hevents__arrow {
+    width: 40px;
+    height: 40px;
+    background: color-mix(in srgb, var(--black) 55%, transparent);
+    border: 1px solid color-mix(in srgb, var(--on-brand) 18%, transparent);
+    border-radius: var(--r-pill);
+    filter: none;
+  }
+  .hevents__arrow svg { width: 20px; height: 20px; }
+  .hevents__arrow--prev { left: var(--sp-2); }
+  .hevents__arrow:not(.hevents__arrow--prev) { right: var(--sp-2); }
+  .hevents__arrow:focus-visible { border-radius: var(--r-pill); }
 }
 @media (max-width: 767px) {
   .hevents__foot { flex-direction: column; align-items: flex-start; padding: var(--sp-6); }

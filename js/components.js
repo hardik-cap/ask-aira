@@ -257,77 +257,64 @@
     // on every page (22 Oct) and carries data-nav-dark, but it is injected
     // separately and can land after this runs, so it is picked up below.
 
-    var navH = nav.offsetHeight || 72;
+    /* WHICH SECTION IS BEHIND THE BAR IS READ OFF THE BAR'S OWN POSITION,
+       on scroll, not by an IntersectionObserver (23 Oct, user's iPhone:
+       /product and the homepage opened with a DARK bar over a light hero,
+       /events with a LIGHT bar over its dark band, both righting themselves
+       only once scrolled). The observer's band was a fixed 0..navH strip
+       at the viewport top, which was wrong twice over: the tour bar puts
+       the nav 38px lower at scroll top, and its bottom rootMargin was cut
+       from window.innerHeight, which on iOS 26 runs under the floating
+       toolbar and changes as it collapses, so Safari's first callback
+       reported sections in and out of a band that did not match the
+       screen. Now the test is one horizontal line through the middle of
+       the nav card as it actually renders: a dark section counts while it
+       crosses that line. A handful of rects per frame, rAF-throttled.
+       height > 0 keeps out parked `hidden` sections, whose rect is 0x0 at
+       the origin. */
+    var queued = false;
 
-    // Track a SET of intersecting dark sections. With a single boolean,
-    // scrolling from one dark section straight into the next flips the
-    // navbar light for a frame.
-    var active = new Set();
-
-    function apply() {
-      nav.classList.toggle('nav-dark', active.size > 0);
-    }
-
-    // Prime synchronously before first paint. Without this the navbar
-    // renders light, then snaps dark, and the transition shows a flash.
-    function prime() {
-      active.clear();
-      darkSections.forEach(function (el) {
+    function check() {
+      queued = false;
+      var n = nav.getBoundingClientRect();
+      var y = n.top + n.height / 2;
+      var dark = darkSections.some(function (el) {
         var r = el.getBoundingClientRect();
-        // height > 0 for the same reason as the observer below: a hidden
-        // or collapsed section has no box and cannot be behind the bar.
-        if (r.height > 0 && r.top <= navH && r.bottom > 0) active.add(el);
+        return r.height > 0 && r.top <= y && r.bottom > y;
       });
-      apply();
+      nav.classList.toggle('nav-dark', dark);
+    }
+    function queue() {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(check);
     }
 
+    // Set synchronously before first paint, with the colour transition held
+    // off, so the bar never animates in from the wrong state.
     nav.classList.add('nav-no-init-transition');
-    prime();
+    check();
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
         nav.classList.remove('nav-no-init-transition');
       });
     });
 
-    // Late arrivals (the footer): watch any [data-nav-dark] not yet tracked
-    // once both components are in, then re-prime for a page restored at
-    // the foot.
-    var io = null;
+    // Late arrivals (the footer) join once both components are in.
     document.addEventListener('aira:components-ready', function () {
       Array.prototype.forEach.call(document.querySelectorAll('[data-nav-dark]'), function (el) {
-        if (darkSections.indexOf(el) !== -1) return;
-        darkSections.push(el);
-        if (io) io.observe(el);
+        if (darkSections.indexOf(el) === -1) darkSections.push(el);
       });
-      prime();
+      check();
     });
 
-    if (!('IntersectionObserver' in window)) {
-      window.addEventListener('scroll', prime, { passive: true });
-      return;
-    }
-
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        // Never trust an intersection from a section with no box. The
-        // homepage keeps three parked dark sections `hidden` (display:
-        // none, rect 0x0 at 0,0), and iOS Safari's initial callback can
-        // report such a target as intersecting, which painted the bar
-        // dark over the light hero at scroll top (user's iPhone, 22 Oct)
-        // until the first scroll recomputed it. A section that is not
-        // rendered is never behind the navbar.
-        var on = e.isIntersecting && e.boundingClientRect.height > 0;
-        if (on) active.add(e.target); else active.delete(e.target);
-      });
-      apply();
-    }, {
-      // A band the height of the navbar, pinned to the top of the viewport:
-      // a section counts as "behind the navbar" only while it overlaps it.
-      rootMargin: (-navH + 1) + 'px 0px ' + (-(window.innerHeight - navH) + 1) + 'px 0px',
-      threshold: 0
-    });
-
-    darkSections.forEach(function (el) { io.observe(el); });
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    // Layout settles after images and fonts land, and a page restored from
+    // the back/forward cache keeps whatever state it was frozen in.
+    window.addEventListener('load', queue);
+    window.addEventListener('pageshow', queue);
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', queue);
   }
 
   /* ---- Version switcher (review-only) ----------------------------------- */

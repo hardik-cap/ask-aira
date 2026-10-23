@@ -867,12 +867,14 @@ button.chip:hover, a.chip:hover { border-color: var(--brand-line); color: var(--
        the row sat 20px left of the content and stopped 20px short of the
        right edge. Letting it stretch is what makes the bleed symmetrical. */
     width: auto;
-    margin-inline: calc(var(--sp-5) * -1);
-    padding-inline: var(--sp-5);
+    /* The bleed is the page gutter itself (--pad-x), so it lands on the
+       screen edge whatever the phone gutter is set to. */
+    margin-inline: calc(var(--pad-x) * -1);
+    padding-inline: var(--pad-x);
     /* The bleed IS the affordance: the last pill is cut by the screen edge
        rather than tidily contained, which is what says the row scrolls. The
        scroll padding keeps an auto-advanced tab off that edge. */
-    scroll-padding-inline: var(--sp-5);
+    scroll-padding-inline: var(--pad-x);
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-x: contain;
   }

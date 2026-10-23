@@ -991,8 +991,16 @@ img.evcard__photo {
 .evpoll__input:focus,
 .evpoll__input:focus-visible { outline: none; box-shadow: none; }
 
-.evpoll__opt:hover { border-color: var(--ink-faint); }
-.evpoll__opt:hover .evpoll__dot { border-color: var(--ink-3); }
+/* HOVER IS FOR A MOUSE ONLY (23 Oct, user's iPhone: the first tap on a
+   city did nothing, the second picked it). On touch, iOS Safari applies
+   :hover on the first tap and can hold the click back when the hover
+   changes the row, so a row needed two taps. touch-action: manipulation
+   also drops the double-tap-to-zoom wait on the label. */
+.evpoll__opt { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+@media (hover: hover) and (pointer: fine) {
+  .evpoll__opt:hover { border-color: var(--ink-faint); }
+  .evpoll__opt:hover .evpoll__dot { border-color: var(--ink-3); }
+}
 /* ACTIVE IS THE /book FIELD'S FOCUS STATE (22 Oct, user: "use same
    active state style used on book a demo form field"): white ground, the
    brand edge and a 3px brand ring at 18%, exactly book.css's .input:focus.

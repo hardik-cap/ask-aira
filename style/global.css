@@ -122,13 +122,14 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   :root { --section-pad: 56px; }
   .section--tight { padding-block: var(--sp-10); }
 }
-/* Phones take a flat 20px gutter instead of the 5% ratio (13 Sep). At 390px
-   5% is already ~19.5px, but it keeps shrinking with the viewport, and this
-   is the last 20px of side margin the layout has once the .container gutter
-   is gone. --frame-x follows the token, so anything measured off the frame
+/* Phones take a flat 16px gutter instead of the 5% ratio (13 Sep at 20px,
+   12px since 23 Oct, user; 16 for an hour before that). A ratio keeps shrinking with the viewport, and
+   this is the only side margin the layout has once the .container gutter
+   is gone. A phone bleed to the screen edge should give back --pad-x, never
+   a hard 20px. --frame-x follows the token, so anything measured off the frame
    stays aligned to the content edge. */
 @media (max-width: 640px) {
-  :root { --pad-x: 20px; }
+  :root { --pad-x: 12px; }
 }
 
 /* Dark section surface. Opt in per section; the navbar syncs to it via
@@ -1443,6 +1444,15 @@ body:not(.page-events):not(.page-event):has(#navbar-placeholder:empty) { padding
   :root:not([data-theme="dark"]) body.nav-locked .nav.nav-dark.nav--scrolled { background-color: var(--surface-inv); }
 }
 
+/* PHONES: THE BAR'S CARD SITS ON THE PAGE GUTTER (23 Oct, user). Its edge
+   is --pad-x from the screen, the same edge as the content below and as the
+   open menu sheet (left: --frame-x), and it keeps its 12px inner pad. Lining
+   the LOGO up with the gutter instead (an 8px float and a 3px pad) was tried
+   for one turn and read as a logo jammed against the card's edge. */
+@media (max-width: 640px) {
+  .nav { margin-inline: var(--pad-x); }
+}
+
 @keyframes nav-dim-in { from { opacity: 0; } }
 
 /* ---- Footer --------------------------------------------------------------
@@ -1718,6 +1728,15 @@ body:not(.page-events):not(.page-event):has(#navbar-placeholder:empty) { padding
   /* grid-auto-flow goes back to row here, or the explicit template is
      ignored and the columns stay in one line. */
   .footer__cols { grid-auto-flow: row; grid-template-columns: 1fr 1fr; }
+  /* COMPANY STACKS UNDER PRODUCT (23 Oct, user): left in flow it wrapped to
+     a third row of its own under a one-link Product column, so the band read
+     as three columns that did not fit. Product and Company share the left
+     track and Solutions, the long list, takes the right one over both rows,
+     so the two columns end at about the same height. By position, since the
+     component carries exactly these three columns in this order. */
+  .footer__col:nth-child(1) { grid-column: 1; grid-row: 1; }
+  .footer__col:nth-child(2) { grid-column: 2; grid-row: 1 / span 2; }
+  .footer__col:nth-child(3) { grid-column: 1; grid-row: 2; }
 }
 
 /* ==========================================================================
@@ -1737,6 +1756,9 @@ body:not(.page-events):not(.page-event):has(#navbar-placeholder:empty) { padding
    `h3.acc__head` is 0,1,1 against the component's 0,1,0, and
    `.shape-grid--4 h3.shape__t` is 0,2,1 against category.css's 0,2,0. A bare
    `h3` would lose to every one of them.
+   THE ACCORDION QUESTION (.acc__head) IS LEFT OUT since 23 Oct (user: "on
+   mobile, the accordion question ... 16 pixel"): its own 0,1,0 rule in
+   components.css beats the bare `h3` here, so it holds 16px on phones.
    TWO THINGS ARE LEFT OUT ON PURPOSE. .footer__col-title is the user's own
    exception and needs no rule, since its 0,1,0 already beats the bare `h3`
    here. And .legal__body h3 is 0,1,1, so it holds its 16px: those pages run a
@@ -1748,7 +1770,6 @@ body:not(.page-events):not(.page-event):has(#navbar-placeholder:empty) { padding
    ========================================================================== */
 @media (max-width: 640px) {
   h3,
-  h3.acc__head,
   h3.runs__t,
   h3.bento__t,
   h3.rollout__t,
