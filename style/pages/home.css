@@ -3304,7 +3304,6 @@
   white-space: nowrap;
   transition: background-color var(--dur-fast) var(--ease);
 }
-.hevents__go svg { flex: none; width: 16px; height: 16px; }
 .hevents__feat:hover .hevents__go,
 .hevents__feat:focus-visible .hevents__go { background: var(--tertiary-100); }
 .hevents__feat:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; }

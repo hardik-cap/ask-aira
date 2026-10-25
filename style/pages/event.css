@@ -174,8 +174,14 @@
 }
 
 .evhero__ctas { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
-/* The event ask is NOT the booking CTA, so it may carry a glyph: the
-   regular up-right arrow says "this opens Luma in a new tab". */
+/* THE EVENT BUTTONS CARRY NO ICON since 26 Oct (user: "remove icon from
+   event buttons"), WITH ONE EXCEPTION the same day (user: "only the buttons
+   which open a new tab, not luma popup, but a new page, should have arrow
+   out"): a button that leaves for another site in a new tab carries the
+   Phosphor ArrowUpRight in the REGULAR weight (.evcta__ic; user: "do these regular state icons"). Today that is only the From Day One
+   pages' "Apply to attend" (Eventbrite). The Luma "Request a seat" buttons
+   carry target="_blank" only as the no-script fallback; the popup is what
+   opens, so they stay text only. The gap never changes on hover. */
 .evcta { display: inline-flex; align-items: center; gap: 6px; }
 .evcta__ic { display: inline-flex; }
 .evcta__ic svg { width: 16px; height: 16px; }
@@ -494,6 +500,20 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
 }
 .evhero--city .evticket__stub::before,
 .evhero--city .evticket__stub::after { display: none; }
+/* TWO FIXED ROWS, NOT A WRAPPING ROW (26 Oct, same recording). The stub was
+   flex-wrap, so whether the button sat beside the countdown or under it
+   depended on a few spare pixels: on one laptop it fitted beside it, on
+   another it did not, and the countdown's digits change width as they
+   tick. Now the countdown (or "This event has ended") always holds the top
+   row and the button and barcode share the second, at every width. */
+.evhero--city .evticket__stub {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--sp-4) var(--sp-5);
+}
+.evhero--city .evticket__stub > :first-child { grid-column: 1 / -1; }
+.evhero--city .evticket__stub > .evhero__ctas { justify-self: start; }
 .evhero--city .evticket__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); justify-content: stretch; }
 /* The countdown back on the base light spec: the brand-ticket overrides
    above this scope painted it for a blue ground. */
@@ -548,6 +568,8 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
 @media (max-width: 640px) {
   .evhero--city .evhero__t { font-size: var(--t-title-2xl); line-height: 1.16; }
   .evhero--city .evticket__code { display: none; }
+  /* No barcode on a phone, so no second track: the button runs full width. */
+  .evhero--city .evticket__stub { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* ---- The event content -----------------------------------------------------
@@ -1237,7 +1259,6 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
 }
 .evbar__txt b { font-weight: 600; color: var(--on-brand); }
 .evbar__btn { flex: none; }
-.evbar__btn.evcta { gap: 6px; }
 
 @media (max-width: 640px) {
   .evbar { left: var(--sp-5); right: var(--sp-5); max-width: none; transform: translateY(24px); }
@@ -1254,13 +1275,13 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
   .evbar__sep { display: none; }
 }
 /* The narrowest phones (360) are about 28px short of "Mon 9 Nov · 5:00 PM
-   CT" on one line beside the button, so the button gives up its arrow and
-   the tear closes in, rather than the date wrapping or being cut. */
+   CT" on one line beside the button, so the button tightens and the tear
+   closes in, rather than the date wrapping or being cut. */
 @media (max-width: 380px) {
-  .evbar__btn .evcta__ic { display: none; }
   .evbar__btn.btn { padding-inline: 12px; }
   .evbar__go { margin-left: var(--sp-2); padding-left: var(--sp-2); }
   .evbar__tk { padding-left: calc(var(--notch) + 8px); }
+  .evbar__btn .evcta__ic { display: none; }
 }
 /* Below that (320) it is allowed to wrap: a third line beats a clipped one. */
 @media (max-width: 340px) {

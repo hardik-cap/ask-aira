@@ -739,7 +739,6 @@ img.evcard__photo {
   opacity: 0;
   transition: opacity var(--dur-slow) var(--ease), background-color var(--dur-fast) var(--ease);
 }
-.evcard__cta svg { flex: none; width: 16px; height: 16px; }
 /* Past cards lift too since 13 Oct (user: "for past card, show button too
    but make it ghost"): same reveal, the button just outlined. */
 .evcard:is(:hover, :focus-visible) .evcard__body { translate: 0 calc(-1 * var(--cta-lift)); }

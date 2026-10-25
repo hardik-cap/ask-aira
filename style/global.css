@@ -470,8 +470,12 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 }
 
 /* ---- Buttons -----------------------------------------------------------
-   Trailing arrows nudge outward on hover; the gap grows rather than the
-   arrow translating, so the label never shifts.
+   A BUTTON NEVER CHANGES SIZE ON HOVER (26 Oct, user: "do not let this
+   happen to button"). Hover used to open the icon gap 7 to 11px, which made
+   every icon button 4px wider: in the event ticket's stub that wrapped
+   "Request a seat" onto the next row, out from under the pointer, and it
+   flickered between the two rows (a client's screen recording). Hover is
+   colour only now.
    ---------------------------------------------------------------------- */
 
 .btn {
@@ -495,11 +499,9 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   transition: background var(--dur-fast) var(--ease),
               border-color var(--dur-fast) var(--ease),
               color var(--dur-fast) var(--ease),
-              gap var(--dur-fast) var(--ease),
               box-shadow var(--dur-fast) var(--ease);
 }
 .btn svg { width: 20px; height: 20px; flex: none; }
-.btn:hover { gap: 11px; }
 
 /* Primary is INK, not brand (16 Sep, Clerk direction). Both shipping pages
    already overrode it to black page-side; making that the default deletes
@@ -874,8 +876,18 @@ body:not(.page-events):not(.page-event):has(#navbar-placeholder:empty) { padding
    56px bar. */
 .nav__logo img { height: 32px; width: auto; }
 .nav__logo-dark { display: none; }
-.nav.nav-dark .nav__logo-light { display: none; }
-.nav.nav-dark .nav__logo-dark { display: block; }
+/* THE LOGO CHANGES ITS PICTURE, NOT WHICH IMAGE IS SHOWN (23 Oct, user's
+   iPhone: on /events the header logo needed two taps). Hiding one <img> and
+   showing the other is a visibility change, and iOS Safari watches for
+   exactly that during a tap: content appearing reads as a hover menu
+   opening, so it swallows the click. Whenever the bar's colour flipped
+   under a tap, the first tap was lost. One image swapping its source
+   changes nothing's visibility. The reverse file is still fetched by the
+   hidden .nav__logo-dark, so the swap never waits on the network. */
+.nav.nav-dark .nav__logo-light { content: url("/assets/brand/aira-lockup-reverse.png"); }
+/* V3 (frozen) swaps vector wordmarks by slot, so it keeps the old swap. */
+.page-v3 .nav.nav-dark .nav__logo-light { display: none; }
+.page-v3 .nav.nav-dark .nav__logo-dark { display: block; }
 
 .nav__menu {
   display: flex;
