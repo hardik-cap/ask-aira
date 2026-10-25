@@ -155,7 +155,9 @@ a.evh1__stop:focus-visible { outline: 2px solid var(--primary-200); outline-offs
    (Phosphor CheckCircle duotone, from the package) as a SUFFIX on the
    same line (user: "not top right but suffix same line"). Its negative
    right margin cancels its own width plus the gap, so it hangs off the end
-   and the date and city stay centred like the live stops. */
+   and the date and city stay centred like the live stops. A "Wrapped"
+   rubber stamp replaced it for a few hours on 22 Oct and was reverted
+   (user: "not looking good"). */
 .evh1__stop--past { color: color-mix(in srgb, var(--on-brand) 38%, transparent); }
 .evh1__done {
   flex: none;
@@ -454,12 +456,16 @@ a.evtick:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
    the markup (joints are placed there, the site rule); this stands them
    down on THIS PAGE only, punch-hole rings included. The detail pages keep
    their perforated joints (event.css). */
-body.page-events .joint { display: none; }
-.evroom-sec {
-  background:
-    radial-gradient(circle 7px at 11px 0, var(--surface-2) 96%, transparent 100%) top left / 22px 10px repeat-x,
-    var(--surface);
-}
+/* THE JOINTS ARE BACK ON THE HUB since 22 Oct (user: "whenever there's a
+   connection or cross lines, we show this square dot ... it's missing in a
+   lot of sections in events"): the plain site joint, hairline and squares,
+   at every boundary. The rule that stood them down is gone. */
+/* The reel's scallop tear came OFF 22 Oct (user: "this separator looking
+   weird"): grey bumps between two near-white grounds read as dirt, not a
+   tear. A plain hairline takes the boundary; the hero keeps its torn edge,
+   which works because its band is dark. */
+/* The reel's ground is --surface-2 (#EFF1F6) since 22 Oct (user). */
+.evroom-sec { background: var(--surface-2); }
 
 /* THREE ACROSS (user, 13 Oct: "do 3 column grid"; it was four across from
    10 Oct, when there were four sessions). Six cards deal as two clean rows;
@@ -683,6 +689,10 @@ img.evcard__photo {
 .evcard__meta::before { left: calc(-1 * var(--sp-4) - 8px); }
 .evcard__meta::after { right: calc(-1 * var(--sp-4) - 8px); }
 .evcard__date { font-size: var(--t-caption); font-weight: 600; color: var(--ink-inv); }
+/* The start time rides the date at a quieter weight (22 Oct, user: "add more
+   detail to evcard__date, we have space on event card"). It is part of the
+   <time>, so the stub still reads as one fact. */
+.evcard__hr { font-weight: 500; color: color-mix(in srgb, var(--ink-inv) 72%, transparent); }
 .evcard__place { font-size: var(--t-caption); color: color-mix(in srgb, var(--ink-inv) 72%, transparent); }
 
 /* THE TICKET BUTTON, upcoming only, REVEALED ON HOVER (user, 13 Oct: "lets
@@ -729,7 +739,6 @@ img.evcard__photo {
   opacity: 0;
   transition: opacity var(--dur-slow) var(--ease), background-color var(--dur-fast) var(--ease);
 }
-.evcard__cta svg { flex: none; width: 16px; height: 16px; }
 /* Past cards lift too since 13 Oct (user: "for past card, show button too
    but make it ghost"): same reveal, the button just outlined. */
 .evcard:is(:hover, :focus-visible) .evcard__body { translate: 0 calc(-1 * var(--cta-lift)); }
@@ -758,6 +767,7 @@ img.evcard__photo {
 .evcard--past .evcard__t { color: color-mix(in srgb, var(--ink-inv) 78%, transparent); }
 .evcard--past .evkind { color: color-mix(in srgb, var(--ink-inv) 60%, transparent); }
 .evcard--past .evcard__date { color: color-mix(in srgb, var(--ink-inv) 72%, transparent); }
+.evcard--past .evcard__hr { color: color-mix(in srgb, var(--ink-inv) 56%, transparent); }
 .evcard--past .evcard__place { color: color-mix(in srgb, var(--ink-inv) 56%, transparent); }
 @media (prefers-reduced-motion: reduce) {
   .evcard__photo img, img.evcard__photo, .evcard__cta, .evcard__body, .evcard__body::before { transition: none; }
@@ -788,6 +798,8 @@ img.evcard__photo {
 }
 @media (max-width: 639px) {
   .evgrid { grid-template-columns: 1fr; }
+  /* The date list steps down with the phone poster (22 Oct, user). */
+  .evh1__stop { font-size: var(--t-title-sm); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -894,152 +906,194 @@ img.evcard__photo {
 .evcity__tear::after { bottom: -11px; }
 
 .evcity__pane { padding: var(--sp-8); display: grid; align-content: center; }
-/* THE POLL (21 Oct; Hardik: "Add polling. Show the number ... one poll in
-   one session"). THE FOUR CITIES ARE TICKET STUBS STANDING IN A ROW (user,
-   same day: "design a better looking poll ... be unique"), and the row IS
-   the chart: each stub's fill rises from its foot to its share of the
-   leader (--share, set by js/tour-poll.js), so the four read as a race.
-   A stub: the city and its state on top, the events pages' dashed tear
-   with a punch notch at each edge, the count large at the foot. The fill
-   is data (a pale brand tint); the PICK is colour on the edge, the notches
-   and the name, never a fill. A voted visitor's stub keeps a deeper tint
-   and says "Your vote"; the others lock. Then the typed-in city and the
-   button. The Formspark form it replaced is in git. */
-.evpoll { display: grid; gap: var(--sp-5); }
-.evpoll__set { margin: 0; padding: 0; border: 0; min-width: 0; display: grid; gap: var(--sp-5); }
+/* THE POLL AS HORIZONTAL BARS (22 Oct, user: "like horizontal bars, once
+   the field is active, do it accent color, default state, do it nice").
+   It replaced the four ticket stubs standing in a row.
+   THREE STATES PER ROW:
+   - REST: a white 52px row on a hairline, an empty 18px ring, the city in
+     ink and its state code muted. No numbers: results show after a vote.
+   - PICKED (and focus inside the typed row): the brand edge with a soft
+     brand ring, the ring filled to a brand dot, the city in brand ink. The
+     accent is the edge and the dot, never a fill: a fill is the result.
+   - VOTED: the form takes .is-voted, the rows stop being buttons and each
+     grows a horizontal BAR from its left edge to its share of all votes
+     (--pct, set by js/tour-poll.js), with the percentage and count at the
+     right. Others are a quiet ink tint; the visitor's own row keeps the
+     brand edge and its bar is a brand tint. The typed row becomes the
+     "Other cities" total. */
+.evpoll { display: grid; gap: var(--sp-6); }
+.evpoll__set { margin: 0; padding: 0; border: 0; min-width: 0; display: grid; gap: var(--sp-4); }
 .evpoll__q {
   padding: 0;
-  margin-bottom: var(--sp-1);
   font-family: var(--font-display);
-  font-size: var(--t-title);
+  font-size: var(--t-title-xl);
   font-weight: 500;
   line-height: var(--lh-title);
   color: var(--ink);
 }
-.evpoll__opts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.evpoll__help { margin: 6px 0 0; font-size: var(--t-body-sm); color: var(--ink-3); }
+.evpoll__opts { display: grid; gap: var(--sp-2); }
 .evpoll__opt {
-  --stub-edge: var(--border-strong);
   position: relative;
-  display: grid;
-  grid-template-rows: auto 20px 1fr;
-  height: 196px;
-  background: var(--surface-2);
-  border: 1px solid var(--stub-edge);
-  border-radius: var(--r-lg);
-  overflow: clip;
-  cursor: pointer;
-  transition: border-color var(--dur-fast) var(--ease);
-}
-/* The native radio stays in the stub for keyboard and screen readers; the
-   stub draws the state. */
-.evpoll__radio { position: absolute; inset: 0; margin: 0; opacity: 0; pointer-events: none; }
-/* The fill lives in the stub's LOWER HALF only, the third grid row it
-   shares with the count, so the tear is the chart's ceiling and the city
-   above it stays clean. */
-.evpoll__bar {
-  grid-row: 3;
-  grid-column: 1;
-  background: color-mix(in srgb, var(--brand) 16%, transparent);
-  transform-origin: 50% 100%;
-  scale: 1 0;
-  transition: scale 720ms var(--ease), background-color var(--dur-fast) var(--ease);
-}
-.evpoll.is-live .evpoll__bar { scale: 1 var(--share, 0); }
-.evpoll__top,
-.evpoll__tear,
-.evpoll__count { position: relative; }
-.evpoll__top { display: grid; gap: 4px; padding: 14px 14px 8px; }
-.evpoll__name {
-  font-family: var(--font-display);
-  font-size: var(--t-body-lg);
-  font-weight: 500;
-  line-height: var(--lh-title);
-  color: var(--ink);
-  text-wrap: balance;
-}
-.evpoll__st {
-  font-family: var(--font-display);
-  font-size: var(--t-caption);
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-}
-/* The tear: a dashed rule across the stub and a punch notch at each edge,
-   the page-coloured disc half clipped by the stub, so it reads as a hole. */
-.evpoll__tear {
-  background: linear-gradient(to right, color-mix(in srgb, var(--ink) 18%, transparent) 0 6px, transparent 6px 10px) center / 10px 2px repeat-x;
-}
-.evpoll__tear::before,
-.evpoll__tear::after {
-  content: '';
-  position: absolute;
-  top: 1px;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--surface);
-  border: 1px solid var(--stub-edge);
-  box-sizing: border-box;
-  transition: border-color var(--dur-fast) var(--ease);
-}
-.evpoll__tear::before { left: -10px; }
-.evpoll__tear::after { right: -10px; }
-.evpoll__count { grid-row: 3; grid-column: 1; align-self: end; display: flex; align-items: baseline; gap: 6px; padding: 0 14px 14px; }
-.evpoll__n {
-  font-family: var(--font-display);
-  font-size: var(--t-display-3);
-  font-weight: 500;
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-  color: var(--ink);
-}
-.evpoll__u { font-size: var(--t-caption); color: var(--ink-3); }
-
-.evpoll__opt:hover { --stub-edge: var(--ink-faint); }
-.evpoll__opt:has(.evpoll__radio:checked),
-.evpoll__opt.is-mine { --stub-edge: var(--brand); }
-.evpoll__opt:has(.evpoll__radio:checked) .evpoll__name,
-.evpoll__opt.is-mine .evpoll__name,
-.evpoll__opt.is-mine .evpoll__n { color: var(--brand-ink); }
-.evpoll__opt.is-mine .evpoll__bar { background: color-mix(in srgb, var(--brand) 30%, transparent); }
-.evpoll__opt.is-mine .evpoll__st::after { content: ' · Your vote'; color: var(--brand-ink); }
-.evpoll__opt:has(.evpoll__radio:focus-visible) { box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 18%, transparent); }
-.evpoll.is-voted .evpoll__opt { cursor: default; }
-.evpoll.is-voted .evpoll__opt:not(.is-mine):hover { --stub-edge: var(--border-strong); }
-@media (max-width: 639px) {
-  .evpoll__opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .evpoll__opt { height: 164px; }
-}
-
-.evpoll__other { display: grid; gap: 6px; }
-.evpoll__label { font-size: var(--t-caption); font-weight: 500; color: var(--ink-2); }
-.evpoll__input {
-  width: 100%;
-  height: 44px;
-  font: inherit;
-  font-size: var(--t-body);
-  color: var(--ink);
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: 52px;
+  padding: 0 var(--sp-4);
   background: var(--surface);
   border: 1px solid var(--border-strong);
   border-radius: var(--r-md);
-  padding: 0 14px;
+  overflow: clip;
+  cursor: pointer;
   transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
 }
-.evpoll__input::placeholder { color: var(--ink-faint); }
-.evpoll__input:hover { border-color: var(--ink-faint); }
-.evpoll__input:focus {
+/* The native radio stays for keyboard and screen readers; the row draws it. */
+.evpoll__radio { position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
+.evpoll__dot {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--ink-faint);
+  background: var(--surface);
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.evpoll__name {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  min-width: 0;
+  font-size: var(--t-body);
+  font-weight: 500;
+  color: var(--ink);
+  transition: color var(--dur-fast) var(--ease);
+}
+.evpoll__st { font-size: var(--t-caption); font-weight: 500; letter-spacing: 0.04em; color: var(--ink-3); }
+.evpoll__name--other { display: none; }
+/* The typed row: the field IS the row's label, borderless inside it. */
+.evpoll__input {
+  flex: 1;
+  min-width: 0;
+  height: 50px;
+  padding: 0;
+  font: inherit;
+  font-size: var(--t-body);
+  font-weight: 500;
+  color: var(--ink);
+  background: none;
+  border: 0;
   outline: none;
+}
+.evpoll__input::placeholder { color: var(--ink-3); font-weight: 400; }
+/* The row carries the focus ring; the field inside it draws none. */
+.evpoll__input:focus,
+.evpoll__input:focus-visible { outline: none; box-shadow: none; }
+
+/* HOVER IS FOR A MOUSE ONLY (23 Oct, user's iPhone: the first tap on a
+   city did nothing, the second picked it). On touch, iOS Safari applies
+   :hover on the first tap and can hold the click back when the hover
+   changes the row, so a row needed two taps. touch-action: manipulation
+   also drops the double-tap-to-zoom wait on the label. */
+.evpoll__opt { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+@media (hover: hover) and (pointer: fine) {
+  .evpoll__opt:hover { border-color: var(--ink-faint); }
+  .evpoll__opt:hover .evpoll__dot { border-color: var(--ink-3); }
+}
+/* ACTIVE IS THE /book FIELD'S FOCUS STATE (22 Oct, user: "use same
+   active state style used on book a demo form field"): white ground, the
+   brand edge and a 3px brand ring at 18%, exactly book.css's .input:focus.
+   The ring fills to a brand dot and the name goes brand ink. A solid-brand
+   pass and a Primary/50 wash each lived one turn. */
+.evpoll__opt:has(.evpoll__radio:checked),
+.evpoll__opt--other:focus-within {
   border-color: var(--brand);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 18%, transparent);
 }
-.evpoll__input:disabled { background: var(--surface-2); color: var(--ink-3); cursor: default; }
+.evpoll__opt:has(.evpoll__radio:checked) .evpoll__dot {
+  border-color: var(--brand);
+  background: var(--brand);
+  box-shadow: inset 0 0 0 4px var(--surface);
+}
+.evpoll__opt:has(.evpoll__radio:checked) .evpoll__name { color: var(--brand-ink); }
+.evpoll__opt:has(.evpoll__radio:focus-visible) { outline: 2px solid var(--brand); outline-offset: 2px; }
+/* A typed name the checker refused. Doubled class so it beats the picked
+   row's :has() rule. */
+.evpoll__opt.evpoll__opt--other.is-bad { border-color: var(--reject); box-shadow: 0 0 0 3px color-mix(in srgb, var(--reject) 14%, transparent); }
+
+/* RESULTS. */
+.evpoll__fill {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  transform-origin: 0 50%;
+  scale: 0 1;
+  transition: scale 760ms var(--ease);
+}
+.evpoll__res {
+  display: none;
+  margin-left: auto;
+  align-items: baseline;
+  gap: var(--sp-2);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.evpoll__res b { font-size: var(--t-body); font-weight: 600; color: var(--ink); }
+.evpoll__res span { font-size: var(--t-caption); color: var(--ink-3); }
+/* VOTED IS A RESULTS LIST, NOT A FORM (22 Oct, user: the is-mine state
+   "should look better", then "do like that horizontal bar is filled ...
+   greyed out"). Each row stays a 52px box but drops its input chrome (no
+   border, no ring): the box is a --surface-2 track and the FILL runs its
+   full height to the row's share. Other rows are greyed out (slate fill,
+   name and share in --ink-2); the visitor's row fills in Primary/100 with
+   the name and share in brand ink, a CheckCircle and "Your vote"
+   (.evpoll__you, in each row's markup, shown on .is-mine; words sr-only
+   below 640). */
+.evpoll.is-voted .evpoll__opt {
+  cursor: default;
+  background: var(--surface-2);
+  border-color: transparent;
+  box-shadow: none;
+}
+.evpoll.is-voted .evpoll__fill { background: color-mix(in srgb, var(--slate-300) 70%, var(--surface-2)); }
+.evpoll.is-voted .evpoll__name,
+.evpoll.is-voted .evpoll__res b { color: var(--ink-2); }
+.evpoll.is-voted .evpoll__dot { display: none; }
+.evpoll.is-voted .evpoll__res { display: inline-flex; }
+.evpoll.is-voted .evpoll__input { display: none; }
+.evpoll.is-voted .evpoll__name--other { display: flex; }
+.evpoll.is-shown .evpoll__fill { scale: var(--pct, 0) 1; }
+/* The visitor's row stays FILLED BRAND after the vote, its share drawn
+   as a deeper brand bar inside it, all type white. */
+.evpoll.is-voted .evpoll__opt.is-mine { background: var(--brand); }
+.evpoll.is-voted .evpoll__opt.is-mine .evpoll__fill { background: color-mix(in srgb, var(--black) 28%, var(--brand)); }
+.evpoll.is-voted .evpoll__opt.is-mine .evpoll__name,
+.evpoll.is-voted .evpoll__opt.is-mine .evpoll__res b { color: var(--on-brand); font-weight: 600; }
+.evpoll.is-voted .evpoll__opt.is-mine .evpoll__st,
+.evpoll.is-voted .evpoll__opt.is-mine .evpoll__res span { color: color-mix(in srgb, var(--on-brand) 72%, transparent); }
+.evpoll__you { display: none; }
+.evpoll.is-voted .evpoll__opt.is-mine .evpoll__you {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--t-caption);
+  font-weight: 600;
+  color: var(--on-brand);
+}
+.evpoll__you svg { width: 16px; height: 16px; flex: none; }
+.evpoll.is-voted .evpoll__name { white-space: nowrap; }
+/* A phone has room for the city and its share, not the words too: the
+   check stays and "Your vote" goes to screen readers only. */
+@media (max-width: 639px) {
+  .evpoll__you-t { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
 
 .evpoll__foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3) var(--sp-4); min-height: 44px; }
 .evpoll__go:disabled { opacity: 0.45; cursor: default; }
 .evpoll__go.is-busy { opacity: 0.6; cursor: progress; }
 .evpoll__go[hidden] { display: none; }
-.evpoll__status { margin: 0; font-size: var(--t-caption); color: var(--ink-2); }
+.evpoll__status { margin: 0; font-size: var(--t-body-sm); color: var(--ink-2); }
 .evpoll__status:empty { display: none; }
 .evpoll__status.is-bad { color: var(--reject); }
 
@@ -1080,7 +1134,7 @@ img.evcard__photo {
   .evspeak__reel { overflow-x: auto; }
   .evspeak__belt { animation: none; }
   .evspeak__set[aria-hidden="true"] { display: none; }
-  .evpoll__opt, .evpoll__input, .evpoll__bar, .evpoll__tear::before, .evpoll__tear::after { transition: none; }
+  .evpoll__opt, .evpoll__dot, .evpoll__name, .evpoll__fill { transition: none; }
 }
 
 /* ---- SPEAKERS AND PARTNERS (#speakers, 21 Oct) ----------------------------
@@ -1104,7 +1158,11 @@ img.evcard__photo {
    contract as .evreel: two sets, the set's right padding is the loop's
    period, CSS keyframe at rest, js/evreel.js (.is-js) takes over for the
    slow-on-hover and the drag. Bleeds to the rails from 992 up. */
-.evspeak__reel { overflow: clip; }
+/* clip x only: unlike `hidden`, `clip` pairs with visible per axis
+   without creating a scroll container, so the belt still cuts at the rail
+   bleed while the cards' --shadow-sm paints past their bottom edge (22
+   Oct, user: "shadow cutting to bottom"). */
+.evspeak__reel { overflow-x: clip; overflow-y: visible; }
 .evspeak__reel:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; }
 .evspeak__belt {
   display: flex;
@@ -1154,17 +1212,6 @@ img.evcard__photo {
   margin: 2px var(--sp-4) 0;
 }
 .evspeak__card > :last-child { margin-bottom: var(--sp-3); }
-/* The organisers' row opens on its own h3 (user, 21 Oct: "center align
-   and give better title, and make it h3"); the speakers' row needs none,
-   the section heading being its title. The h3 statement step, centred. */
-.evspeak__h {
-  margin: 0;
-  font-size: var(--t-title-xl);
-  font-weight: 500;
-  line-height: var(--lh-title);
-  text-align: center;
-}
-.evspeak__h em { font-style: normal; color: var(--brand); }
 /* SPEAKERS IN ONE ROW, ORGANISERS IN ANOTHER (user, 21 Oct). Both rows use
    one tile width, a sixth of the container, so faces match across rows;
    the three-step wave repeats every three tiles. */
@@ -1183,22 +1230,51 @@ img.evcard__photo {
    futureproof-style panel lived a few hours, in git). The partners row's
    own register: centred h3, one attribution line, the three people as
    disc-and-name pairs on open ground. */
-.evorg { display: grid; justify-items: center; gap: var(--sp-3); }
-.evorg__sub {
+/* ONE RULED BAND since later 22 Oct (user: "any better way to style
+   this"): organisers and partners as two rows sharing hairlines, each a
+   label cell beside its content with one vertical rule between, bled to
+   the rails at 992+ with the ticker's giveback. The frame's grammar, not
+   two centred strips floating under the ticker. */
+.evband {
+  margin-top: var(--sp-16);
+  border-block: 1px solid var(--frame-line);
+  /* White paper under the hairlines (22 Oct, user). */
+  background: var(--surface);
+}
+.evband__row { display: grid; }
+.evband__row + .evband__row { border-top: 1px solid var(--frame-line); }
+.evband__label {
+  display: grid;
+  gap: var(--sp-2);
+  align-content: center;
+  padding: var(--sp-6) var(--sp-6) var(--sp-6) 0;
+}
+/* Plain ink, no brand em (user: "black black"): a row label, not a
+   section heading. */
+.evband__h { margin: 0; font-size: var(--t-title); font-weight: 500; letter-spacing: -0.01em; color: var(--ink); }
+.evband__sub {
   margin: 0;
-  font-size: var(--t-body);
+  font-size: var(--t-caption);
   line-height: var(--lh-body);
-  color: var(--ink-2);
-  text-align: center;
+  color: var(--ink-3);
   text-wrap: pretty;
+}
+.evband__cell { padding: var(--sp-6) 0; }
+@media (min-width: 992px) {
+  .evband { margin-inline: calc(-1 * var(--sp-5)); }
+  .evband__row { grid-template-columns: minmax(220px, 300px) 1fr; }
+  .evband__label { padding-left: var(--sp-6); }
+  .evband__cell { border-left: 1px solid var(--frame-line); padding: var(--sp-6) 0 var(--sp-6) var(--sp-8); }
+  /* NO CROSSING SQUARES on this band (user, 22 Oct: "remove corner
+     squares in this, its too much"); they lived a few hours, in git. */
 }
 .evorg__list {
   list-style: none;
-  margin: var(--sp-5) 0 0;
-  padding: 0;
+  margin: 0;
+  padding-block: var(--sp-6);
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  align-items: center;
   gap: var(--sp-4) var(--sp-10);
 }
 .evorg__list li { display: flex; align-items: center; gap: var(--sp-3); }
@@ -1237,25 +1313,16 @@ img.evcard__photo {
 }
 
 /* PARTNERS: ONE PLAIN ROW OF MARKS (user, 22 Oct: "just show the logos
-   man simple, dont make everything links"). The per-event ticket tags the
-   row carried for a day are gone; the hub cards' organiser chips say who
-   runs which stop now. */
-.evpart {
-  display: grid;
-  gap: var(--sp-8);
-  margin-top: var(--sp-16);
-  padding-top: var(--sp-12);
-  border-top: 1px solid var(--border);
-}
+   man simple, dont make everything links"), the band's second row since
+   later that day. */
 .evpart__list {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding-block: var(--sp-6);
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
-  gap: var(--sp-8) var(--sp-12);
+  gap: var(--sp-6) var(--sp-12);
 }
 .evpart__logo { display: block; width: auto; }
 .evpart__logo--word { height: 26px; }

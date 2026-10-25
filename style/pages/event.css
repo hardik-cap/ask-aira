@@ -6,18 +6,12 @@
    then the content as plain document sections. The H1 takes the utility
    hero step (--t-display-1s, 48) on purpose: it shares its row with the
    cover, which is what that token is for. */
-.evhero__back {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: var(--sp-8);
-  font-size: var(--t-body);
-  color: var(--ink-3);
-  text-decoration: none;
-  transition: color var(--dur-fast) var(--ease);
-}
-.evhero__back:hover { color: var(--ink); }
-.evhero__back svg { width: 16px; height: 16px; }
+/* THE BACK LINK IS A BREADCRUMB since 22 Oct (user: "bring [the category
+   pages' crumb] navigation to [All events] ... Events / event page name"):
+   the shared .crumb (components.css) reading "Events / <city or talk>",
+   the arrow on "Events" in the regular weight as before. Positioned here,
+   recoloured below for the photo heroes. */
+.evhero__crumb { margin-bottom: var(--sp-8); }
 
 .evhero__grid {
   display: grid;
@@ -180,8 +174,14 @@
 }
 
 .evhero__ctas { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
-/* The event ask is NOT the booking CTA, so it may carry a glyph: the
-   regular up-right arrow says "this opens Luma in a new tab". */
+/* THE EVENT BUTTONS CARRY NO ICON since 26 Oct (user: "remove icon from
+   event buttons"), WITH ONE EXCEPTION the same day (user: "only the buttons
+   which open a new tab, not luma popup, but a new page, should have arrow
+   out"): a button that leaves for another site in a new tab carries the
+   Phosphor ArrowUpRight in the REGULAR weight (.evcta__ic; user: "do these regular state icons"). Today that is only the From Day One
+   pages' "Apply to attend" (Eventbrite). The Luma "Request a seat" buttons
+   carry target="_blank" only as the no-script fallback; the popup is what
+   opens, so they stay text only. The gap never changes on hover. */
 .evcta { display: inline-flex; align-items: center; gap: 6px; }
 .evcta__ic { display: inline-flex; }
 .evcta__ic svg { width: 16px; height: 16px; }
@@ -311,7 +311,7 @@
   .evhero__grid { grid-template-columns: 1fr; gap: var(--sp-10); }
 }
 @media (max-width: 640px) {
-  .evhero__back { margin-bottom: var(--sp-6); }
+  .evhero__crumb { margin-bottom: var(--sp-6); }
   /* 28px with the accent free to wrap (user, 10 Oct: "check the heading
      too, not great"). At 32 Luma's 69-character title ran four lines, and
      the nowrap on its <em> left "Into" stranded at the start of the last
@@ -320,9 +320,7 @@
   .evhero__t em { white-space: normal; }
   .evhero__ctas, .evhero__ctas .btn { width: 100%; justify-content: center; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .evhero__back { transition: none; }
-}
+
 
 /* ---- THE CITY HERO (.evhero--city, Chicago first, 12 Oct) -------------------
    User: "use it on thumbnail and details page hero, surprise me with crazy
@@ -424,8 +422,10 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
 .evhero--city > .padding-global { position: relative; z-index: 2; flex: 1; display: flex; }
 .evhero--city > .padding-global > .container { display: flex; flex-direction: column; }
 .evhero--city .evhero__grid { margin-top: auto; }
-.evhero--city .evhero__back { color: color-mix(in srgb, var(--on-brand) 70%, transparent); }
-.evhero--city .evhero__back:hover { color: var(--on-brand); }
+.evhero--city .crumb { color: color-mix(in srgb, var(--on-brand) 40%, transparent); }
+.evhero--city .crumb a { color: color-mix(in srgb, var(--on-brand) 70%, transparent); }
+.evhero--city .crumb a:hover { color: var(--on-brand); }
+.evhero--city .crumb__current { color: var(--on-brand); }
 .evhero--city .evhero__grid {
   grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
   gap: var(--sp-12);
@@ -500,6 +500,20 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
 }
 .evhero--city .evticket__stub::before,
 .evhero--city .evticket__stub::after { display: none; }
+/* TWO FIXED ROWS, NOT A WRAPPING ROW (26 Oct, same recording). The stub was
+   flex-wrap, so whether the button sat beside the countdown or under it
+   depended on a few spare pixels: on one laptop it fitted beside it, on
+   another it did not, and the countdown's digits change width as they
+   tick. Now the countdown (or "This event has ended") always holds the top
+   row and the button and barcode share the second, at every width. */
+.evhero--city .evticket__stub {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--sp-4) var(--sp-5);
+}
+.evhero--city .evticket__stub > :first-child { grid-column: 1 / -1; }
+.evhero--city .evticket__stub > .evhero__ctas { justify-self: start; }
 .evhero--city .evticket__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); justify-content: stretch; }
 /* The countdown back on the base light spec: the brand-ticket overrides
    above this scope painted it for a blue ground. */
@@ -554,6 +568,8 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
 @media (max-width: 640px) {
   .evhero--city .evhero__t { font-size: var(--t-title-2xl); line-height: 1.16; }
   .evhero--city .evticket__code { display: none; }
+  /* No barcode on a phone, so no second track: the button runs full width. */
+  .evhero--city .evticket__stub { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* ---- The event content -----------------------------------------------------
@@ -1243,7 +1259,6 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
 }
 .evbar__txt b { font-weight: 600; color: var(--on-brand); }
 .evbar__btn { flex: none; }
-.evbar__btn.evcta { gap: 6px; }
 
 @media (max-width: 640px) {
   .evbar { left: var(--sp-5); right: var(--sp-5); max-width: none; transform: translateY(24px); }
@@ -1260,13 +1275,13 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
   .evbar__sep { display: none; }
 }
 /* The narrowest phones (360) are about 28px short of "Mon 9 Nov · 5:00 PM
-   CT" on one line beside the button, so the button gives up its arrow and
-   the tear closes in, rather than the date wrapping or being cut. */
+   CT" on one line beside the button, so the button tightens and the tear
+   closes in, rather than the date wrapping or being cut. */
 @media (max-width: 380px) {
-  .evbar__btn .evcta__ic { display: none; }
   .evbar__btn.btn { padding-inline: 12px; }
   .evbar__go { margin-left: var(--sp-2); padding-left: var(--sp-2); }
   .evbar__tk { padding-left: calc(var(--notch) + 8px); }
+  .evbar__btn .evcta__ic { display: none; }
 }
 /* Below that (320) it is allowed to wrap: a third line beats a clipped one. */
 @media (max-width: 340px) {
@@ -1300,23 +1315,10 @@ body.page-event .nav.nav-dark:not(.nav--scrolled) {
 }
 .evbody__src--prose a:hover { text-decoration-style: dashed; }
 
-/* ============ THE TICKET GRAMMAR ACROSS THE EVENT PAGES (13 Oct) ============
-   The hub's perforated joints, restated for the detail pages (one
-   stylesheet per page): every section boundary is a dashed tear with a
-   punch hole on each rail. See events.css for the hub half. */
-body.page-event .joint {
-  height: 0;
-  background: none;
-  border-top: 2px dashed var(--border-strong);
-}
-body.page-event .joint::before,
-body.page-event .joint::after {
-  width: 10px;
-  height: 10px;
-  background: var(--bg);
-  border: 1px solid var(--border-strong);
-  border-radius: 50%;
-}
+/* THE PERFORATED JOINTS CAME OFF 22 Oct (user: the crossing squares are
+   "missing in a lot of sections in events"): the detail pages take the
+   site's plain joint, hairline and 6px squares, like every other page. The
+   dashed tear with punch-hole rings that stood here since 13 Oct is in git. */
 
 /* ---- The write-up ticket (.evread, 13 Oct) ----------------------------------
    The agentic-workflows page's LinkedIn write-up as a TICKET CARD (user,

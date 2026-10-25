@@ -1,9 +1,13 @@
-<!-- aiRA footer (Metaforms-style, 16 Sep): brand block on the left carrying
+<!-- THE FOOTER IS DARK ON EVERY PAGE since 22 Oct (user, after attio.com:
+     "dark footer in entire site and cta linked to it"); see global.css.
+     aiRA footer (Metaforms-style, 16 Sep): brand block on the left carrying
      the logo, the one-line positioning and the social row; link columns on
      the right; the giant wordmark across the full width beneath them; and a
      rule-topped legal row last, copyright left and legal links right.
      Injected into #footer-placeholder by js/components.js. -->
-<footer class="footer">
+<!-- data-nav-dark since 22 Oct (user: the bar went light again over the
+     dark footer): the nav theme sync picks the footer up once it lands. -->
+<footer class="footer" data-nav-dark>
   <!-- The frame's crossing mark where the footer's two rails meet its top
        edge (23 Sep). Every other section boundary gets one from its .joint;
        the footer's did not, so its rails began out of nothing, and on pages
@@ -16,16 +20,15 @@
 
       <div class="footer__grid">
         <div class="footer__brand reveal">
+          <!-- aiRA BY CAPILLARY HOLDS THE LOGO SPOT AGAIN since latest 22 Oct
+               (user: "bring aira by cap logo to footer"), after a few hours of
+               Capillary's own lockup there. The lockup credits the parent in
+               the mark itself (Heroku's "from Salesforce" pattern) and the
+               footer stays aiRA's, so the socials came back under it. The
+               line is the hero's static claim again. -->
           <a class="footer__logo" href="/" aria-label="aiRA by Capillary, home">
-            <img class="footer__logo-light" src="/assets/brand/aira-lockup.png" alt="aiRA by Capillary" width="78" height="26">
-            <img class="footer__logo-dark" src="/assets/brand/aira-lockup-reverse.png" alt="aiRA by Capillary" width="78" height="26">
+            <img src="/assets/brand/aira-lockup-reverse.png" alt="aiRA by Capillary" width="223" height="78">
           </a>
-          <!-- THE HERO'S OWN CLAIM, not a second one (user, 27 Sep: "tagline in
-               footer needs to be same as Hero Section"). It is the static half of
-               index.html's H1, without the rotating team word: the footer closes
-               every page, so a different line here reads as a second positioning
-               rather than the same one restated. Was "Between your data and your
-               channels.", which was context.md 1's mechanism line. -->
           <p class="footer__line">On-demand insights and analytics agent.</p>
           <ul class="footer__social">
             <li>
@@ -135,18 +138,20 @@
 
       <div class="footer__bottom">
 
-        <!-- Direct children of .footer__bottom, not wrapped: the row is
-             space-between, so a wrapper would keep them bunched on the left. -->
+        <!-- Two children on a space-between row: the copyright left, and
+             the legal links on the right. -->
         <p class="footer__legal">
           &copy; 2026 aiRA by Capillary
         </p>
-        <ul class="footer__bottom-links">
-          <!-- Full names, not "Terms" and "Privacy" (22 Sep): the pages are
-               called Terms & Conditions and Privacy Policy, and the footer is
-               the only place they are named. -->
-          <li><a href="/terms-and-conditions">Terms &amp; Conditions</a></li>
-          <li><a href="/privacy-policy">Privacy Policy</a></li>
-        </ul>
+        <div class="footer__bottom-end">
+          <ul class="footer__bottom-links">
+            <!-- Full names, not "Terms" and "Privacy" (22 Sep): the pages are
+                 called Terms & Conditions and Privacy Policy, and the footer is
+                 the only place they are named. -->
+            <li><a href="/terms-and-conditions">Terms &amp; Conditions</a></li>
+            <li><a href="/privacy-policy">Privacy Policy</a></li>
+          </ul>
+        </div>
       </div>
 
       <!-- Inlined, not an <img>: the torch effect has to reach the paths, and

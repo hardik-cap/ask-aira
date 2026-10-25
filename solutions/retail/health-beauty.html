@@ -24,15 +24,10 @@
   <meta name="twitter:description" content="Replenishment you can date, two margin models under one roof, and the strictest data rules in retail. aiRA answers what health and beauty teams ask, then builds the move and waits for approval.">
   <meta name="twitter:image" content="https://askaira.ai/assets/og/og-image.png">
   <link rel="icon" href="/assets/brand/aira-mark.svg" type="image/svg+xml">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Fonts load without blocking first paint (4 Oct, PageSpeed): the
        stylesheet is preloaded and switched on when it lands; display=swap
        already swaps text in when the files arrive. Weights trimmed to the
        400..700 the CSS uses (Google Sans Flex 117KB to 82KB). -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,400..700&family=Roboto:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,400..700&family=Roboto:wght@400;500;600;700&display=swap"></noscript>
 
   <link rel="stylesheet" href="/style/tokens.css">
   <link rel="stylesheet" href="/style/global.css">
@@ -45,7 +40,6 @@
   <script src="/js/reveal.js" defer></script>
   <script src="/js/eyebrow-scramble.js" defer></script>
   <script src="/js/qbar.js" defer></script>
-  <script type="module" src="/js/globe.js"></script>
 </head>
 <body class="page-solutions page-category">
 
@@ -202,28 +196,30 @@
 
     <div class="joint" aria-hidden="true"></div>
 
-    <!-- ================= CLOSE ================= -->
-    <section class="section solutions-close">
+    <!-- ================= CLOSE =================
+         THE HOMEPAGE'S DARK CTA since 22 Oct (user: "white globe cta section
+         is still present in some pages, please change them to the new dark
+         cta section"). The site-wide book title and sub (user: "the CTA
+         section copy across all pages should be same"), in the shared
+         .bookcta (components.css); the white globe card is in git. -->
+    <section class="section section--inv bookcta" data-nav-dark>
+      <div class="bookcta__ground" aria-hidden="true"></div>
       <div class="padding-global">
         <div class="container">
-          <div class="solutions-close__card reveal">
-            <div class="solutions-close__grid">
-              <div>
-                <p class="eyebrow">The working session</p>
-                <h2 class="section-heading">Bring the question your health and beauty team is <em>still waiting on</em>.</h2>
-                <p class="section-sub">Forty-five minutes, one real question, your consent model. The security brief comes before the session, not after the third call. You leave with the answer and the move built, or you leave knowing aiRA is not the fit.</p>
-                <div class="btn-row solutions-close__cta">
-                  <a class="btn btn--primary btn--lg" href="/book">Book a working session</a>
-                </div>
-              </div>
-              <div class="close-globe" aria-hidden="true">
-                <canvas class="close-globe__canvas" width="1200" height="1200"></canvas>
-              </div>
+          <div class="bookcta__in reveal">
+            <h2 class="section-heading bookcta__t">The question your team is still waiting on.</h2>
+            <p class="section-sub bookcta__sub">Thirty minutes, one real question, answered live. We reply within one business day with a time and the security brief.</p>
+            <div class="bookcta__row">
+              <a class="btn btn--primary btn--lg" href="/book">Book a working session</a>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- The CTA is dark and runs into the dark footer: this seam is the
+         footer joint, inverse, drawn in primitives. -->
+    <div class="joint joint--to-footer" aria-hidden="true"></div>
 
   </main>
 

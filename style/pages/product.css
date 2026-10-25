@@ -512,7 +512,10 @@
    would give the same result here, which is the tell that the box and the
    asset agree. This pairs with .phero__fig's aspect-ratio: 1280/1598 and
    neither can be changed alone. */
-.phero__fig > img,
+/* The capture sits in a <picture> (AVIF/WebP, 22 Oct), which takes no box
+   of its own, so these rules reach the img through it. */
+.phero__fig picture { display: contents; }
+.phero__fig img,
 .phero__fig > iframe {
   display: block;
   width: 200%;
@@ -2400,7 +2403,7 @@
      centred: at full width the frame is the capture's own 16/10 and nothing
      is cut, so a 200% element would show the left half of a picture that
      had room for all of it. */
-  .phero__fig > img,
+  .phero__fig img,
   .phero__fig > iframe { width: 100%; object-position: top center; }
   /* No dissolve either: there is no edge being cut to soften, and a mask
      here would just fade the right of a picture that fits. */

@@ -37,15 +37,10 @@
     }
   }
   </script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Fonts load without blocking first paint (4 Oct, PageSpeed): the
        stylesheet is preloaded and switched on when it lands; display=swap
        already swaps text in when the files arrive. Weights trimmed to the
        400..700 the CSS uses (Google Sans Flex 117KB to 82KB). -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,400..700&family=Roboto:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Geist+Mono:wght@400;500;600&family=Google+Sans+Flex:opsz,wght@6..144,400..700&family=Roboto:wght@400;500;600;700&display=swap"></noscript>
 
   <!-- Order matters: tokens -> global -> components -> page -->
   <link rel="stylesheet" href="/style/tokens.css">
@@ -55,6 +50,7 @@
 
   <script src="/js/components.js" defer></script>
   <script src="/js/reveal.js" defer></script>
+  <!-- EVENTS SECTION HIDDEN 26 Oct (user): <script src="/js/home-events.js" defer></script> -->
   <script src="/js/eyebrow-scramble.js" defer></script>
   <script src="/js/diagram.js" defer></script>
   <script src="/js/rotator.js" defer></script>
@@ -554,6 +550,87 @@
 
     <div class="joint" aria-hidden="true"></div>
 
+    <!-- ================= NASCAR PROOF ================= -->
+    <!-- The customer story from the 15 Sep call: NASCAR, last section, beside
+         the form. One contained card inside the container (never full bleed):
+         the trackside photograph under an ink overlay on the left, the
+         Riverside take on the right, opening in the lightbox from its
+         supplied still. The clip is the raw "AI tool learns NASCAR's
+         nuances" take, shipped on the 19 Sep call; when Hardik's edited cut
+         lands, swap the src and nothing else. No quote and no numbers in the
+         copy: the testimonial text is still unapproved (context.md paragraph
+         5), and nothing placeholder ships. -->
+    <section class="section nproof">
+      <div class="padding-global">
+        <div class="container">
+          <!-- section--inv on the card, not the section: the dark ground and
+               its text flips stay inside the max-width bounds. -->
+          <div class="nproof__card section--inv reveal">
+            <div class="nproof__bg" aria-hidden="true"></div>
+            <div class="nproof__main">
+              <p class="eyebrow">Customer story</p>
+              <h2 class="section-heading nproof__t">
+                NASCAR gets fan insights in <em>minutes, not weeks</em>.
+              </h2>
+              <p class="section-sub nproof__sub">
+                NASCAR's marketing and CRM teams use aiRA, which already understands
+                their fans, their data and the rhythm of a race season. Analysis that
+                used to take weeks now takes minutes, so the team spends less time
+                explaining and more time acting.
+              </p>
+              <img class="nproof__mark" src="/assets/logos/nascar.svg" alt="" aria-hidden="true"
+                   width="192" height="32" loading="lazy">
+            </div>
+            <!-- The supplied still (20 Sep) with the play badge riding on
+                 it. Clicking opens the same lightbox the product tour uses
+                 (js/video.js), which means the 18MB take is never fetched
+                 until someone asks for it, and it plays big with aiRA's own
+                 controls instead of squeezed into this column.
+                 THE CUT IS THE APPROVED ONE since 27 Sep, supplied by the
+                 user as "NASCAR gets fan insights in minutes, not weeks.mov"
+                 and named for it: a produced 2:29 testimonial with Donald
+                 Baal's lower third, burnt-in subtitles, real Fan Rewards
+                 footage and an aiRA end card. It replaces nascar-nuances.mp4,
+                 the raw studio take, which nothing references now.
+                 NEITHER SUPPLIED FILE CAN SHIP: Cloudflare Pages refuses
+                 any single file over 25 MiB, and the master is 207MB while
+                 the 2.9Mbps mp4 supplied beside it is 54MB. It is transcoded
+                 from the MASTER, not from the 54MB copy, so the encode is
+                 first generation: 1920x1080 H.264 at 1150kbps video and
+                 96kbps AAC, landing at 21.6MB.
+                 RESOLUTION BEAT BITRATE HERE, which is worth keeping. Three
+                 encodes were compared on the hardest frame, the Fan Rewards
+                 UI at 0:40: 720p/950k was soft with ringing on the glyph
+                 edges, 720p/1200k was cleaner, and 1080p/1150k was crispest
+                 AND the smallest of the three at 21.6MB against 22.4. Half
+                 this cut is a static talking head and the other half is a
+                 static screen recording, so there is almost no motion for
+                 the extra pixels to cost anything, while the UI text has
+                 detail that downscaling destroys outright.
+                 Apple's own tools cannot do this: avconvert and
+                 AVAssetExportSession expose quality presets only, and their
+                 720p preset came out at 120MB, so the bitrate has to be set
+                 through AVAssetWriter. -->
+            <div class="nproof__media"
+                 data-video="/assets/video/nascar-minutes-not-weeks.mp4"
+                 data-video-poster="/assets/nascar-thumbnail.jpg"
+                 data-video-title="The NASCAR story">
+              <button class="nproof__btn" type="button" data-video-play>
+                <img class="nproof__shot" src="/assets/nascar-thumbnail.jpg"
+                     srcset="/assets/nascar-thumbnail-720.jpg 720w, /assets/nascar-thumbnail.jpg 1354w"
+                     sizes="(max-width: 991px) 92vw, 560px"
+                     alt="" width="1354" height="794" loading="lazy" decoding="async">
+                <span class="nproof__play" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M228.23,134.69,84.15,222.81A8,8,0,0,1,72,216.12V39.88a8,8,0,0,1,12.15-6.69l144.08,88.12A7.82,7.82,0,0,1,228.23,134.69Z" opacity="0.2"/><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"/></svg></span>
+                <span class="sr-only">Play the NASCAR story</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true"></div>
+
     <!-- Sections below carry `hidden` while the homepage is pared down for
          direction review. Remove the attribute to restore a section, and
          add a joint above it so every visible boundary keeps its line. -->
@@ -728,96 +805,20 @@
 
     <div class="joint" aria-hidden="true" hidden></div>
 
-    <!-- ================= NASCAR PROOF ================= -->
-    <!-- The customer story from the 15 Sep call: NASCAR, last section, beside
-         the form. One contained card inside the container (never full bleed):
-         the trackside photograph under an ink overlay on the left, the
-         Riverside take on the right, opening in the lightbox from its
-         supplied still. The clip is the raw "AI tool learns NASCAR's
-         nuances" take, shipped on the 19 Sep call; when Hardik's edited cut
-         lands, swap the src and nothing else. No quote and no numbers in the
-         copy: the testimonial text is still unapproved (context.md paragraph
-         5), and nothing placeholder ships. -->
-    <section class="section nproof">
-      <div class="padding-global">
-        <div class="container">
-          <!-- section--inv on the card, not the section: the dark ground and
-               its text flips stay inside the max-width bounds. -->
-          <div class="nproof__card section--inv reveal">
-            <div class="nproof__bg" aria-hidden="true"></div>
-            <div class="nproof__main">
-              <p class="eyebrow">Customer story</p>
-              <h2 class="section-heading nproof__t">
-                NASCAR gets fan insights in <em>minutes, not weeks</em>.
-              </h2>
-              <p class="section-sub nproof__sub">
-                NASCAR's marketing and CRM teams use aiRA, which already understands
-                their fans, their data and the rhythm of a race season. Analysis that
-                used to take weeks now takes minutes, so the team spends less time
-                explaining and more time acting.
-              </p>
-              <img class="nproof__mark" src="/assets/logos/nascar.svg" alt="" aria-hidden="true"
-                   width="192" height="32" loading="lazy">
-            </div>
-            <!-- The supplied still (20 Sep) with the play badge riding on
-                 it. Clicking opens the same lightbox the product tour uses
-                 (js/video.js), which means the 18MB take is never fetched
-                 until someone asks for it, and it plays big with aiRA's own
-                 controls instead of squeezed into this column.
-                 THE CUT IS THE APPROVED ONE since 27 Sep, supplied by the
-                 user as "NASCAR gets fan insights in minutes, not weeks.mov"
-                 and named for it: a produced 2:29 testimonial with Donald
-                 Baal's lower third, burnt-in subtitles, real Fan Rewards
-                 footage and an aiRA end card. It replaces nascar-nuances.mp4,
-                 the raw studio take, which nothing references now.
-                 NEITHER SUPPLIED FILE CAN SHIP: Cloudflare Pages refuses
-                 any single file over 25 MiB, and the master is 207MB while
-                 the 2.9Mbps mp4 supplied beside it is 54MB. It is transcoded
-                 from the MASTER, not from the 54MB copy, so the encode is
-                 first generation: 1920x1080 H.264 at 1150kbps video and
-                 96kbps AAC, landing at 21.6MB.
-                 RESOLUTION BEAT BITRATE HERE, which is worth keeping. Three
-                 encodes were compared on the hardest frame, the Fan Rewards
-                 UI at 0:40: 720p/950k was soft with ringing on the glyph
-                 edges, 720p/1200k was cleaner, and 1080p/1150k was crispest
-                 AND the smallest of the three at 21.6MB against 22.4. Half
-                 this cut is a static talking head and the other half is a
-                 static screen recording, so there is almost no motion for
-                 the extra pixels to cost anything, while the UI text has
-                 detail that downscaling destroys outright.
-                 Apple's own tools cannot do this: avconvert and
-                 AVAssetExportSession expose quality presets only, and their
-                 720p preset came out at 120MB, so the bitrate has to be set
-                 through AVAssetWriter. -->
-            <div class="nproof__media"
-                 data-video="/assets/video/nascar-minutes-not-weeks.mp4"
-                 data-video-poster="/assets/nascar-thumbnail.jpg"
-                 data-video-title="The NASCAR story">
-              <button class="nproof__btn" type="button" data-video-play>
-                <img class="nproof__shot" src="/assets/nascar-thumbnail.jpg"
-                     srcset="/assets/nascar-thumbnail-720.jpg 720w, /assets/nascar-thumbnail.jpg 1354w"
-                     sizes="(max-width: 991px) 92vw, 560px"
-                     alt="" width="1354" height="794" loading="lazy" decoding="async">
-                <span class="nproof__play" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M228.23,134.69,84.15,222.81A8,8,0,0,1,72,216.12V39.88a8,8,0,0,1,12.15-6.69l144.08,88.12A7.82,7.82,0,0,1,228.23,134.69Z" opacity="0.2"/><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"/></svg></span>
-                <span class="sr-only">Play the NASCAR story</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="joint" aria-hidden="true"></div>
-
     <!-- ================= CATEGORY COMPARISON ================= -->
-    <!-- LIGHT since 4 Oct (user: "only section dark is pricing"). It was dark
+    <!-- DARK AGAIN since 22 Oct (user: "only 1 small dark section is not
+         enough"), running into pricing as one dark chapter, why aiRA and
+         what it costs. The NASCAR card sits after events (proof before the
+         FAQ and the ask), so three dark blocks never stack; solutions stays
+         directly under the logo wall (user). The history below explains the light interlude.
+         LIGHT since 4 Oct (user: "only section dark is pricing"). It was dark
          from 19 Sep so it and pricing read as one dark passage; now pricing is
          the page's one dark band and this board sits on the page ground. The
          board's light styles were always the base rules (the dark ones are
          .section--inv overrides), and the aiRA column stays its dark
          brand-tinted panel, which is what marks it on a light ground. The
          joint below went from .joint--inv to .joint with it. -->
-    <section class="section compare section--band" id="category">
+    <section class="section section--inv compare section--band" id="category" data-nav-dark>
       <div class="padding-global">
         <div class="container">
 
@@ -875,7 +876,7 @@
       </div>
     </section>
 
-    <div class="joint" aria-hidden="true"></div>
+    <div class="joint joint--inv" aria-hidden="true"></div>
 
 
 
@@ -991,6 +992,87 @@
     </section>
 
     <div class="joint" aria-hidden="true"></div>
+
+    <!-- ================= EVENTS =================
+         laravel.com's homepage events section in this site's grammar (22 Oct,
+         user; moved to the page FOOT and made a CAROUSEL on the second ask):
+         eyebrow + "We'll see you on tour." (GENERIC since 22 Oct, user: naming
+         the next city meant editing it after every stop), then every upcoming stop as a
+         full-width photo slide in the campaign tint, a CSS scroll-snap track
+         (script off, it simply scrolls sideways) with arrow buttons
+         js/home-events.js un-hides. Slides run in DATE ORDER.
+         HAND-MAINTAINED WITH THE HUB. The LA/NYC slides link to the FDO
+         pages, so the standing FDO ship-blocker covers this section. -->
+    <section class="section hevents" id="events" hidden>
+      <div class="padding-global">
+        <div class="container">
+          <div class="section-head hevents__head reveal">
+            <div class="hevents__lead">
+              <p class="eyebrow">Events</p>
+              <h2 class="section-heading">We&rsquo;ll see you <em>on tour</em>.</h2>
+              <p class="section-sub">The Future of AI in Customer Analytics is live across the US: hands-on workshops, dinners and conference stops, city by city.</p>
+            </div>
+            <a class="btn btn--secondary hevents__all" href="/events">See all events</a>
+          </div>
+
+          <div class="hevents__car reveal">
+            <div class="hevents__track" data-ecar tabindex="0" aria-label="Upcoming events, scroll sideways for more">
+            <a class="hevents__feat" href="/events/from-day-one-los-angeles-marketing">
+              <img class="hevents__photo" src="/assets/events/cities/los-angeles-1440.jpg" srcset="/assets/events/cities/los-angeles-720.jpg 720w, /assets/events/cities/los-angeles-1440.jpg 1440w" sizes="(min-width: 992px) 90vw, 100vw" alt="" width="1500" height="624" loading="lazy" decoding="async">
+              <span class="hevents__foot">
+                <span class="hevents__name">From Day One Los Angeles: Marketing</span>
+                <span class="hevents__grid">
+                  <span>Thu 5 Nov</span><i>2026</i>
+                  <span>Los Angeles</span><i>CA</i>
+                </span>
+                <span class="hevents__go">Event details</span>
+              </span>
+            </a>
+            <a class="hevents__feat" href="/events/ai-analytics-workshop-chicago">
+              <img class="hevents__photo" src="/assets/events/cities/chicago-1440.jpg" srcset="/assets/events/cities/chicago-720.jpg 720w, /assets/events/cities/chicago-1440.jpg 1440w" sizes="(min-width: 992px) 90vw, 100vw" alt="" width="1500" height="624" loading="lazy" decoding="async">
+              <span class="hevents__foot">
+                <span class="hevents__name">The Future of AI in Customer Analytics: Chicago</span>
+                <span class="hevents__grid">
+                  <span>Mon 9 Nov</span><i>2026</i>
+                  <span>Chicago</span><i>IL</i>
+                </span>
+                <span class="hevents__go">Event details</span>
+              </span>
+            </a>
+            <a class="hevents__feat" href="/events/ai-analytics-workshop-dallas">
+              <img class="hevents__photo" src="/assets/events/cities/dallas-1440.jpg" srcset="/assets/events/cities/dallas-720.jpg 720w, /assets/events/cities/dallas-1440.jpg 1440w" sizes="(min-width: 992px) 90vw, 100vw" alt="" width="1500" height="624" loading="lazy" decoding="async">
+              <span class="hevents__foot">
+                <span class="hevents__name">Journey Optimizer Loyalty Tour: Dallas</span>
+                <span class="hevents__grid">
+                  <span>Thu 12 Nov</span><i>2026</i>
+                  <span>Dallas</span><i>TX</i>
+                </span>
+                <span class="hevents__go">Event details</span>
+              </span>
+            </a>
+            <a class="hevents__feat" href="/events/from-day-one-nyc-downtown-marketing">
+              <img class="hevents__photo" src="/assets/events/cities/new-york-1440.jpg" srcset="/assets/events/cities/new-york-720.jpg 720w, /assets/events/cities/new-york-1440.jpg 1440w" sizes="(min-width: 992px) 90vw, 100vw" alt="" width="1500" height="624" loading="lazy" decoding="async">
+              <span class="hevents__foot">
+                <span class="hevents__name">From Day One NYC Downtown: Marketing</span>
+                <span class="hevents__grid">
+                  <span>Thu 3 Dec</span><i>2026</i>
+                  <span>New York</span><i>NY</i>
+                </span>
+                <span class="hevents__go">Event details</span>
+              </span>
+            </a>
+            </div>
+            <div class="hevents__nav" data-ecar-nav hidden>
+              <button class="hevents__arrow hevents__arrow--prev" type="button" data-ecar-prev aria-label="Previous event"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"/></svg></button>
+              <button class="hevents__arrow" type="button" data-ecar-next aria-label="Next event"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="joint" aria-hidden="true" hidden></div>
 
     <!-- ================= FAQ ================= -->
     <!-- The promptwatch two-column FAQ (20 Sep, user reference): the head and
@@ -1171,56 +1253,37 @@
 
     <div class="joint" aria-hidden="true"></div>
 
-    <!-- ================= BOOK CTA =================
-         The SPLIT variant (23 Sep, promptwatch.com reference the user
-         supplied, carried over from /product): copy left on a diagonal brand
-         gradient, the real product right, cut by the card's own edge, and the
-         whole thing filling the section rail to rail and top to bottom rather
-         than sitting in it as a box. It replaced the brand-filled box from
-         20 Sep (frigade.com), and the four floating duotone glyphs went with
-         it: they were quiet furniture for an empty fill and are clutter
-         beside a screenshot.
 
-         .section--band came off in the same change and had to: the band
-         insets .container by 136px, so a fill that gives back .container's
-         20px gutter to reach the rails would have stopped 116px short of
-         them. -->
-    <section class="section section--wash book">
+    <!-- ================= BOOK CTA =================
+         LARAVEL'S CLOSE since 22 Oct (user, from laravel.com's "Create
+         without limits. What will you ship?": "change our book card cta
+         section into laravels cta like. remove accent bg and product
+         image"): a centred display headline, one quiet line, two buttons.
+         The promptwatch split card (brand gradient + workspace capture) it
+         replaced is in git and still ships on /product. The page frame's
+         rails and brand crossing squares already do what laravel's dashed
+         rails and red corner marks do, so the section needs no ground of
+         its own. ONE conversion button, text only, as ever; the secondary
+         routes to the finder and reads the standing "See use cases". -->
+    <section class="section section--inv bookcta" data-nav-dark>
+      <div class="bookcta__ground" aria-hidden="true"></div>
       <div class="padding-global">
         <div class="container">
-
-          <div class="book__frame reveal">
-            <div class="book__card book__card--split">
-              <div class="book__body">
-                <!-- Was "Bring aiRA a real question.", the same process-led
-                     line /book's H1 was rewritten away from on 20 Sep and
-                     /product's book card already carried. One title across
-                     every book card now (user, 27 Sep). The button carries no
-                     icon, ever. -->
-                <h2 class="book__title">The question your team is still waiting on.</h2>
-                <p class="book__sub">
-                  Thirty minutes, one real question, answered live. We reply within
-                  one business day with a time and the security brief.
-                </p>
-                <a class="btn btn--lg book__cta" href="/book">Book a working session</a>
-              </div>
-              <div class="book__shot" aria-hidden="true">
-                <img src="/assets/product/workspace.png" alt="" width="2560" height="1598" loading="lazy" decoding="async">
-              </div>
+          <div class="bookcta__in reveal">
+            <h2 class="section-heading bookcta__t">The question your team is still waiting on.</h2>
+            <p class="section-sub bookcta__sub">Thirty minutes, one real question, answered live. We reply within one business day with a time and the security brief.</p>
+            <div class="bookcta__row">
+              <a class="btn btn--primary btn--lg" href="/book">Book a working session</a>
             </div>
           </div>
-
         </div>
       </div>
     </section>
 
-    <!-- #close is hidden, so this lands on the book section's boundary with
-         the footer, which is where the user wants it (23 Sep): every visible
-         boundary keeps its line. It was parked for one turn on the reasoning
-         that a hairline through the card's fade would cut it, and that was
-         wrong in practice: by the time the line lands both sides of it are
-         --surface-2, so it reads as the divider it is. -->
-    <div class="joint" aria-hidden="true"></div>
+    <!-- The CTA is dark and runs into the dark footer (22 Oct, attio):
+         this seam is the footer joint, inverse, drawn in primitives.
+         #close below stays hidden. -->
+    <div class="joint joint--to-footer" aria-hidden="true"></div>
 
     <!-- ================= CLOSE ================= -->
     <section class="section section--inv close" data-nav-dark hidden>

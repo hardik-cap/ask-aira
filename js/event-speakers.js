@@ -19,7 +19,7 @@
     var btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'btn btn--secondary btn--sm evspk__more';
-    var openLabel = 'Show all ' + rows.length + ' speakers';
+    var openLabel = 'Show all speakers';
     btn.textContent = openLabel;
     btn.setAttribute('aria-expanded', 'false');
 

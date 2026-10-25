@@ -56,8 +56,11 @@
      not cancel and the rule stopped short of the rails. */
   .legal > .padding-global > .container { --sheet-pad: var(--sp-8); }
 }
+/* Phones: the page gutter, 12px (23 Oct, user: every section on the same
+   gutter). --pad-x is a flat length at this width, so the crumb's negative
+   margin still cancels it exactly. */
 @media (max-width: 640px) {
-  .legal > .padding-global > .container { --sheet-pad: var(--sp-5); }
+  .legal > .padding-global > .container { --sheet-pad: var(--pad-x); }
 }
 
 /* One reading column, centred in the sheet. The reference runs its text the

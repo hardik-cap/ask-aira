@@ -122,13 +122,14 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   :root { --section-pad: 56px; }
   .section--tight { padding-block: var(--sp-10); }
 }
-/* Phones take a flat 20px gutter instead of the 5% ratio (13 Sep). At 390px
-   5% is already ~19.5px, but it keeps shrinking with the viewport, and this
-   is the last 20px of side margin the layout has once the .container gutter
-   is gone. --frame-x follows the token, so anything measured off the frame
+/* Phones take a flat 16px gutter instead of the 5% ratio (13 Sep at 20px,
+   12px since 23 Oct, user; 16 for an hour before that). A ratio keeps shrinking with the viewport, and
+   this is the only side margin the layout has once the .container gutter
+   is gone. A phone bleed to the screen edge should give back --pad-x, never
+   a hard 20px. --frame-x follows the token, so anything measured off the frame
    stays aligned to the content edge. */
 @media (max-width: 640px) {
-  :root { --pad-x: 20px; }
+  :root { --pad-x: 12px; }
 }
 
 /* Dark section surface. Opt in per section; the navbar syncs to it via
@@ -288,6 +289,54 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   .section--band .container { padding-inline: 136px; }
 }
 
+/* THE BAND'S INNER EDGES GET THE CROSSING SQUARE TOO (22 Oct, user:
+   "whenever there's a connection or cross lines, we show this square dot ...
+   put it in every page sections"). A banded section's inner edge line,
+   111.5px inside each rail, meets the joint above and below it, so the
+   joint's two rail squares cast an exact COPY of themselves there: a
+   box-shadow with no blur and no spread is the same 6px square, offset.
+   The joint does not know its neighbours, so the selectors find a band on
+   either side, skipping up to three [hidden] siblings (the homepage parks
+   sections between visible ones). A band meeting the FOOTER marks the
+   footer's own crossing the same way. V2 and V3 draw their own handles and
+   are left out. Wide screens only, with the bands. */
+@media (min-width: 1200px) {
+  body:not(.page-v2):not(.page-v3) .section--band:not([hidden]) + .joint::before,
+  body:not(.page-v2):not(.page-v3) .section--band:not([hidden]) + [hidden] + .joint::before,
+  body:not(.page-v2):not(.page-v3) .section--band:not([hidden]) + [hidden] + [hidden] + .joint::before,
+  body:not(.page-v2):not(.page-v3) .section--band:not([hidden]) + [hidden] + [hidden] + [hidden] + .joint::before,
+  body:not(.page-v2):not(.page-v3) .joint:has(+ .section--band:not([hidden]))::before,
+  body:not(.page-v2):not(.page-v3) .joint:has(+ [hidden] + .section--band:not([hidden]))::before,
+  body:not(.page-v2):not(.page-v3) .joint:has(+ [hidden] + [hidden] + .section--band:not([hidden]))::before,
+  body:not(.page-v2):not(.page-v3) .joint:has(+ [hidden] + [hidden] + [hidden] + .section--band:not([hidden]))::before { box-shadow: 111px 0 0 0 var(--frame-plus); }
+  body:not(.page-v2):not(.page-v3) .section--band:not([hidden]) + .joint::after,
+  body:not(.page-v2):not(.page-v3) .section--band:not([hidden]) + [hidden] + .joint::after,
+  body:not(.page-v2):not(.page-v3) .section--band:not([hidden]) + [hidden] + [hidden] + .joint::after,
+  body:not(.page-v2):not(.page-v3) .section--band:not([hidden]) + [hidden] + [hidden] + [hidden] + .joint::after,
+  body:not(.page-v2):not(.page-v3) .joint:has(+ .section--band:not([hidden]))::after,
+  body:not(.page-v2):not(.page-v3) .joint:has(+ [hidden] + .section--band:not([hidden]))::after,
+  body:not(.page-v2):not(.page-v3) .joint:has(+ [hidden] + [hidden] + .section--band:not([hidden]))::after,
+  body:not(.page-v2):not(.page-v3) .joint:has(+ [hidden] + [hidden] + [hidden] + .section--band:not([hidden]))::after { box-shadow: -111px 0 0 0 var(--frame-plus); }
+  body:not(.page-v2):not(.page-v3) .section--band:not([hidden]) + .joint.joint--inv::before,
+  body:not(.page-v2):not(.page-v3) .section--band:not([hidden]) + [hidden] + .joint.joint--inv::before,
+  body:not(.page-v2):not(.page-v3) .section--band:not([hidden]) + [hidden] + [hidden] + .joint.joint--inv::before,
+  body:not(.page-v2):not(.page-v3) .section--band:not([hidden]) + [hidden] + [hidden] + [hidden] + .joint.joint--inv::before,
+  body:not(.page-v2):not(.page-v3) .joint.joint--inv:has(+ .section--band:not([hidden]))::before,
+  body:not(.page-v2):not(.page-v3) .joint.joint--inv:has(+ [hidden] + .section--band:not([hidden]))::before,
+  body:not(.page-v2):not(.page-v3) .joint.joint--inv:has(+ [hidden] + [hidden] + .section--band:not([hidden]))::before,
+  body:not(.page-v2):not(.page-v3) .joint.joint--inv:has(+ [hidden] + [hidden] + [hidden] + .section--band:not([hidden]))::before { box-shadow: 111px 0 0 0 color-mix(in srgb, var(--ink-inv) 26%, var(--surface-inv)); }
+  body:not(.page-v2):not(.page-v3) .section--band:not([hidden]) + .joint.joint--inv::after,
+  body:not(.page-v2):not(.page-v3) .section--band:not([hidden]) + [hidden] + .joint.joint--inv::after,
+  body:not(.page-v2):not(.page-v3) .section--band:not([hidden]) + [hidden] + [hidden] + .joint.joint--inv::after,
+  body:not(.page-v2):not(.page-v3) .section--band:not([hidden]) + [hidden] + [hidden] + [hidden] + .joint.joint--inv::after,
+  body:not(.page-v2):not(.page-v3) .joint.joint--inv:has(+ .section--band:not([hidden]))::after,
+  body:not(.page-v2):not(.page-v3) .joint.joint--inv:has(+ [hidden] + .section--band:not([hidden]))::after,
+  body:not(.page-v2):not(.page-v3) .joint.joint--inv:has(+ [hidden] + [hidden] + .section--band:not([hidden]))::after,
+  body:not(.page-v2):not(.page-v3) .joint.joint--inv:has(+ [hidden] + [hidden] + [hidden] + .section--band:not([hidden]))::after { box-shadow: -111px 0 0 0 color-mix(in srgb, var(--ink-inv) 26%, var(--surface-inv)); }
+  body:has(main > .section--band:not([hidden]):last-child) .footer__crossing::before { box-shadow: 111px 0 0 0 color-mix(in srgb, var(--on-brand) 30%, var(--slate-900)); }
+  body:has(main > .section--band:not([hidden]):last-child) .footer__crossing::after { box-shadow: -111px 0 0 0 color-mix(in srgb, var(--on-brand) 30%, var(--slate-900)); }
+}
+
 /* The frame is a desktop device (13 Sep). Below 992px the rails come off,
    and with them the crossing squares, which would otherwise float with
    nothing to mark. The horizontal joints stay: they are the section
@@ -421,8 +470,12 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 }
 
 /* ---- Buttons -----------------------------------------------------------
-   Trailing arrows nudge outward on hover; the gap grows rather than the
-   arrow translating, so the label never shifts.
+   A BUTTON NEVER CHANGES SIZE ON HOVER (26 Oct, user: "do not let this
+   happen to button"). Hover used to open the icon gap 7 to 11px, which made
+   every icon button 4px wider: in the event ticket's stub that wrapped
+   "Request a seat" onto the next row, out from under the pointer, and it
+   flickered between the two rows (a client's screen recording). Hover is
+   colour only now.
    ---------------------------------------------------------------------- */
 
 .btn {
@@ -446,11 +499,9 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   transition: background var(--dur-fast) var(--ease),
               border-color var(--dur-fast) var(--ease),
               color var(--dur-fast) var(--ease),
-              gap var(--dur-fast) var(--ease),
               box-shadow var(--dur-fast) var(--ease);
 }
 .btn svg { width: 20px; height: 20px; flex: none; }
-.btn:hover { gap: 11px; }
 
 /* Primary is INK, not brand (16 Sep, Clerk direction). Both shipping pages
    already overrode it to black page-side; making that the default deletes
@@ -568,6 +619,130 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   .btn-row:has(.btn--lg) { width: 100%; }
 }
 
+/* ---- Tour announcement bar ---------------------------------------------
+   The strip above the header advertising the events tour (22 Oct). It ships
+   in navbar.html and js/components.js moves it out of the sticky
+   placeholder, so it scrolls away while the nav stays stuck; the events
+   pages never show it. DRAWN IN PRIMITIVES (--tour-night, --on-brand,
+   Tertiary/300), never semantic tokens: the bar keeps the campaign's navy
+   on light pages AND on /pricing's whole-dark theme, and semantic inks
+   would re-resolve there (the standing inversion trap). The white-alpha
+   edge matches .nav.nav-dark's. */
+/* THE BAR'S HEIGHT IS HELD FROM FIRST PAINT (22 Oct, PageSpeed /product:
+   CLS 0.045). The bar arrives with the injected navbar, so on a first
+   visit it landed after paint and pushed the page down ~38px. Until the
+   header lands (#navbar-placeholder is still :empty) the page keeps that
+   much room above it, on every page that shows the bar, and the bar
+   is pinned to the same 38px so the hand-over moves nothing. Below ~340px
+   its copy wraps and it grows; that small shift is accepted. A visitor who
+   dismissed it this session sees the gap close once the header lands. */
+:root { --tourbar-h: 38px; }
+/* Padding on the BODY, not a margin on the placeholder: the margin
+   collapsed through the body, so the body itself moved 38px at the
+   hand-over and still counted as a shift. */
+body:not(.page-events):not(.page-event):has(#navbar-placeholder:empty) { padding-top: var(--tourbar-h); }
+.tourbar {
+  box-sizing: border-box;
+  min-height: var(--tourbar-h);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* The campaign's own tint, turned on its side: the creatives run black
+     into Primary/600 into --tour-violet into night top to bottom; here the
+     violet glow rises under the message and the strip dies to night at both
+     ends, so the bar reads as a sliver of the same poster. */
+  background:
+    radial-gradient(56rem 300% at 50% 130%,
+      color-mix(in srgb, var(--tour-violet) 58%, var(--tour-night)) 0%,
+      color-mix(in srgb, var(--primary-600) 30%, var(--tour-night)) 42%,
+      transparent 74%)
+    var(--tour-night);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.tourbar__link {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-1) var(--sp-2);
+  /* The right padding clears the dismiss button at every width. */
+  padding: 10px var(--sp-12) 10px var(--sp-5);
+  font-size: var(--t-caption);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  color: var(--on-brand);
+  text-align: center;
+  text-decoration: none;
+}
+/* THE SPARKLE IS DRAWN, not typed (22 Oct, PageSpeed): a typed ✦ (U+2726)
+   sits in Google Fonts' "symbols" subset, so one character made every page
+   download a 71KB second Google Sans Flex file before first paint. It is
+   the large sparkle from aira-mark.svg, inline, wherever the tour used ✦
+   (this bar, the /events hero's "Live across US" line and its ticker).
+   Never type ✦, → or other symbols in display type: check the subset. */
+.spark { display: inline-block; width: 0.9em; height: 0.9em; vertical-align: -0.08em; }
+.tourbar__spark { color: var(--tertiary-300); font-size: 10px; }
+/* The ticket tear, upright: the event cards' stub line (2px dashed at 28%
+   white) between the message and the stop, so the strip carries the
+   campaign's ticket grammar in one small mark. */
+.tourbar__tear { width: 0; height: 14px; border-left: 2px dashed rgba(255, 255, 255, 0.28); }
+/* The stop takes the poster title's own sweep: solid Tertiary/300 at rest
+   (the band parks off-glyph), a Primary/200 light passing through it in
+   motion. Same recipe and clock as .evh1__t em. */
+.tourbar__next {
+  font-weight: 600;
+  white-space: nowrap;
+  color: transparent;
+  background: linear-gradient(105deg, var(--tertiary-300) 0 38%, var(--primary-200) 50%, var(--tertiary-300) 62% 100%);
+  background-size: 260% 100%;
+  background-position: 130% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tourbar__next { animation: tourbar-sweep 4.6s var(--ease) infinite; }
+}
+@keyframes tourbar-sweep {
+  0% { background-position: 130% 0; }
+  60%, 100% { background-position: -30% 0; }
+}
+.tourbar__link:hover .tourbar__next,
+.tourbar__link:focus-visible .tourbar__next {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  /* The glyphs are painted by the gradient, so currentColor is transparent
+     and the underline needs its own ink. */
+  text-decoration-color: var(--tertiary-300);
+}
+.tourbar__short { display: none; }
+.tourbar__x {
+  position: absolute;
+  right: var(--sp-3);
+  top: 50%;
+  translate: 0 -50%;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: var(--r-xs);
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease);
+}
+.tourbar__x:hover, .tourbar__x:focus-visible { color: var(--on-brand); }
+@media (max-width: 639px) {
+  .tourbar__long { display: none; }
+  .tourbar__short { display: inline; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tourbar__x { transition: none; }
+}
+
 /* ---- Navbar ------------------------------------------------------------ */
 
 /* The placeholder both reserves height for the injected markup and is the
@@ -614,12 +789,11 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   border: 1px solid var(--border);
   border-radius: var(--r-md);
   box-shadow: var(--shadow-float);
-  /* The card is GLASS, not a white slab (16 Sep). It floats over the hero's
-     tinted wash, so an opaque fill reads as a cut-out rectangle; translucent
-     plus blur lets the ground tint it and is what makes it look lifted. This
-     is the rest state, and the scrolled rules only firm it up, because a
-     floating card should not change character on scroll. --nav-rest is the
-     opaque fallback where backdrop-filter is unsupported. */
+  /* The card is a SOLID surface since 22 Oct (user: "remove translucent
+     effect or glass effect from header"); it was blurred half-transparent
+     glass from 16 Sep until then. --nav-rest is the page ground, so the
+     resting card still sits quietly on the hero wash, and the scrolled
+     state only firms the edge and shadow. */
   background-color: var(--nav-rest);
   /* Flat background-color, never a gradient: WebKit cannot interpolate
      between two gradient values and flickers mid-swap on theme sync. */
@@ -644,14 +818,13 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
    be sized by `width` rather than margin-inline, because margin-inline: auto is
    not interpolable and the card would jump rather than travel, and the panel
    needs its own width in CONTAINER units off #navbar-placeholder, never vw. */
-@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .nav,
-  .nav--scrolled {
-    background-color: var(--nav-surface-glass);
-    backdrop-filter: blur(14px) saturate(140%);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
-  }
-}
+/* THE GLASS IS GONE since 22 Oct (user: "remove translucent effect or
+   glass effect from header"): the @supports backdrop-filter block that
+   painted the bar as blurred half-transparent glass is deleted, light and
+   dark variants both, and the surface tokens went opaque. The bar is a
+   solid card at rest and scrolled. The nav-locked backdrop-filter guard
+   below stays: it documents the containing-block trap for whoever brings
+   glass back. */
 .nav-no-init-transition, .nav-no-init-transition * { transition: none !important; }
 @media (prefers-reduced-motion: reduce) {
   /* The width still changes, it just arrives rather than travels. */
@@ -703,8 +876,18 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
    56px bar. */
 .nav__logo img { height: 32px; width: auto; }
 .nav__logo-dark { display: none; }
-.nav.nav-dark .nav__logo-light { display: none; }
-.nav.nav-dark .nav__logo-dark { display: block; }
+/* THE LOGO CHANGES ITS PICTURE, NOT WHICH IMAGE IS SHOWN (23 Oct, user's
+   iPhone: on /events the header logo needed two taps). Hiding one <img> and
+   showing the other is a visibility change, and iOS Safari watches for
+   exactly that during a tap: content appearing reads as a hover menu
+   opening, so it swallows the click. Whenever the bar's colour flipped
+   under a tap, the first tap was lost. One image swapping its source
+   changes nothing's visibility. The reverse file is still fetched by the
+   hidden .nav__logo-dark, so the swap never waits on the network. */
+.nav.nav-dark .nav__logo-light { content: url("/assets/brand/aira-lockup-reverse.png"); }
+/* V3 (frozen) swaps vector wordmarks by slot, so it keeps the old swap. */
+.page-v3 .nav.nav-dark .nav__logo-light { display: none; }
+.page-v3 .nav.nav-dark .nav__logo-dark { display: block; }
 
 .nav__menu {
   display: flex;
@@ -1006,10 +1189,6 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   background-color: var(--nav-surface-inv);
   border-color: rgba(255, 255, 255, 0.12);
 }
-@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .nav.nav-dark,
-  .nav.nav-dark.nav--scrolled { background-color: var(--nav-surface-inv-glass); }
-}
 .nav.nav-dark .nav__link,
 .nav.nav-dark .nav__toggle { color: var(--ink-inv-2); }
 .nav.nav-dark .nav__link:hover,
@@ -1152,7 +1331,14 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
      border, which --nav-h does not count. */
   .nav__menu {
     position: fixed;
-    top: calc(var(--nav-h) + 2px + var(--nav-float) * 2);
+    /* --nav-bottom is the bar card's MEASURED viewport bottom, set by
+       js/components.js each time the sheet opens (and on resize while
+       open): the card is not always at the viewport top, because the tour
+       announcement bar sits above the sticky placeholder at scroll top and
+       pushes it down, which had the sheet opening OVER the card (22 Oct,
+       user's screenshot). The calc fallback is the stuck-bar arithmetic,
+       for the moment before the script has measured. */
+    top: calc(var(--nav-bottom, calc(var(--nav-h) + 2px + var(--nav-float))) + var(--nav-float));
     left: var(--frame-x);
     right: var(--frame-x);
     /* The sheet HUGS ITS CONTENT (13 Oct, user: "why is it full length"):
@@ -1160,8 +1346,8 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
        mostly empty card. It grows with the Solutions list up to the
        screen's foot, then scrolls inside. */
     bottom: auto;
-    max-height: calc(100vh - var(--nav-h) - 2px - var(--nav-float) * 3);
-    max-height: calc(100svh - var(--nav-h) - 2px - var(--nav-float) * 3);
+    max-height: calc(100vh - var(--nav-bottom, calc(var(--nav-h) + 2px + var(--nav-float))) - var(--nav-float) * 2);
+    max-height: calc(100svh - var(--nav-bottom, calc(var(--nav-h) + 2px + var(--nav-float))) - var(--nav-float) * 2);
     flex-direction: column;
     align-items: stretch;
     gap: 0;
@@ -1270,6 +1456,15 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   :root:not([data-theme="dark"]) body.nav-locked .nav.nav-dark.nav--scrolled { background-color: var(--surface-inv); }
 }
 
+/* PHONES: THE BAR'S CARD SITS ON THE PAGE GUTTER (23 Oct, user). Its edge
+   is --pad-x from the screen, the same edge as the content below and as the
+   open menu sheet (left: --frame-x), and it keeps its 12px inner pad. Lining
+   the LOGO up with the gutter instead (an 8px float and a 3px pad) was tried
+   for one turn and read as a logo jammed against the card's edge. */
+@media (max-width: 640px) {
+  .nav { margin-inline: var(--pad-x); }
+}
+
 @keyframes nav-dim-in { from { opacity: 0; } }
 
 /* ---- Footer --------------------------------------------------------------
@@ -1317,13 +1512,9 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
 
 .footer__logo { display: inline-flex; }
 .footer__logo img { height: 26px; width: auto; }
-/* Light lockup by default; dark grounds (page-v2 now, a dark theme later)
-   swap to the reverse. */
-.footer__logo-dark { display: none; }
-/* The "dark theme later" arrived (/pricing 27 Sep, /customers 4 Oct) without
-   this half, so both pages showed the black lockup on a near-black footer. */
-:root[data-theme="dark"] .footer__logo-light { display: none; }
-:root[data-theme="dark"] .footer__logo-dark { display: block; }
+/* The aiRA by Capillary lockup, always the reverse file (the footer is
+   dark on every page), at the nav's 32px so "by capillary" reads. */
+.footer__logo img { height: 32px; }
 
 /* THE TRACK COUNT FOLLOWS THE COLUMN COUNT, which is why this is auto-flow
    rather than the repeat(3) it was until 28 Sep. The Company column was hidden
@@ -1485,6 +1676,63 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   .footer__wordmark-photos image { transition: none; }
 }
 
+/* ---- THE FOOTER IS DARK ON EVERY PAGE (22 Oct) -------------------------
+   User, after attio.com: "they have dark footer in entire site and cta
+   linked to it, lets do same". The ground is --slate-900, which is exactly
+   what .section--inv paints on a light page, so a dark CTA section above
+   runs straight into the footer as one block; a .joint--inv marks that seam.
+   EVERYTHING HERE IS PRIMITIVES (--slate-900, --on-brand mixes), never the
+   semantic inks: --ink, --surface-inv and --ink-inv all re-resolve under
+   data-theme="dark", and the footer must be the same dark band on a whole
+   dark page as on a light one (--slate-900 is not redefined in the dark
+   block). The rules above are the footer's original light skin and are
+   overridden here rather than deleted, so its history reads in one place. */
+.footer {
+  --ft-ink:   var(--on-brand);
+  --ft-ink-2: color-mix(in srgb, var(--on-brand) 68%, transparent);
+  --ft-ink-3: color-mix(in srgb, var(--on-brand) 46%, transparent);
+  --ft-line:  color-mix(in srgb, var(--on-brand) 12%, transparent);
+  background: var(--slate-900);
+}
+.footer::before, .footer::after { background: var(--ft-line); }
+.footer__crossing::before,
+.footer__crossing::after { background: color-mix(in srgb, var(--on-brand) 30%, var(--slate-900)); }
+.footer__line { color: var(--ft-ink-2); }
+.footer__col-title { color: var(--ft-ink-3); }
+.footer__col-list a,
+.footer__social a,
+.footer__legal,
+.footer__bottom-links a { color: var(--ft-ink-2); }
+.footer__col-list a:hover,
+.footer__social a:hover,
+.footer__bottom-links a:hover { color: var(--ft-ink); }
+.footer__bottom { border-top-color: var(--ft-line); }
+@media (min-width: 992px) {
+  .footer__cols::before,
+  .footer__col + .footer__col::before { background: var(--ft-line); }
+}
+/* The closing wordmark glows a step brighter on the dark ground. */
+.footer__wordmark-svg linearGradient stop:first-child { stop-color: var(--primary-400); stop-opacity: 0.55; }
+.footer__wordmark-svg linearGradient stop:last-child { stop-color: var(--primary-400); }
+
+/* The legal row's right-hand group: the legal links. */
+.footer__bottom-end {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-3) var(--sp-6);
+}
+.footer__bottom-end .footer__social { margin-left: 0; }
+@media (max-width: 639px) {
+  .footer__bottom-end { width: 100%; justify-content: space-between; }
+}
+
+/* A dark book or CTA section closing a page flows into the footer: the
+   seam takes the inverse joint, drawn in the same primitives. */
+.joint--to-footer { background: color-mix(in srgb, var(--on-brand) 12%, var(--slate-900)); }
+.joint--to-footer::before,
+.joint--to-footer::after { background: color-mix(in srgb, var(--on-brand) 30%, var(--slate-900)); }
+
 @media (max-width: 991px) {
   .footer__grid { grid-template-columns: 1fr; gap: var(--sp-8); }
 }
@@ -1492,6 +1740,15 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
   /* grid-auto-flow goes back to row here, or the explicit template is
      ignored and the columns stay in one line. */
   .footer__cols { grid-auto-flow: row; grid-template-columns: 1fr 1fr; }
+  /* COMPANY STACKS UNDER PRODUCT (23 Oct, user): left in flow it wrapped to
+     a third row of its own under a one-link Product column, so the band read
+     as three columns that did not fit. Product and Company share the left
+     track and Solutions, the long list, takes the right one over both rows,
+     so the two columns end at about the same height. By position, since the
+     component carries exactly these three columns in this order. */
+  .footer__col:nth-child(1) { grid-column: 1; grid-row: 1; }
+  .footer__col:nth-child(2) { grid-column: 2; grid-row: 1 / span 2; }
+  .footer__col:nth-child(3) { grid-column: 1; grid-row: 2; }
 }
 
 /* ==========================================================================
@@ -1511,6 +1768,9 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
    `h3.acc__head` is 0,1,1 against the component's 0,1,0, and
    `.shape-grid--4 h3.shape__t` is 0,2,1 against category.css's 0,2,0. A bare
    `h3` would lose to every one of them.
+   THE ACCORDION QUESTION (.acc__head) IS LEFT OUT since 23 Oct (user: "on
+   mobile, the accordion question ... 16 pixel"): its own 0,1,0 rule in
+   components.css beats the bare `h3` here, so it holds 16px on phones.
    TWO THINGS ARE LEFT OUT ON PURPOSE. .footer__col-title is the user's own
    exception and needs no rule, since its 0,1,0 already beats the bare `h3`
    here. And .legal__body h3 is 0,1,1, so it holds its 16px: those pages run a
@@ -1522,7 +1782,6 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 0; }
    ========================================================================== */
 @media (max-width: 640px) {
   h3,
-  h3.acc__head,
   h3.runs__t,
   h3.bento__t,
   h3.rollout__t,
