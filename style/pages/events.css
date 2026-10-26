@@ -1184,7 +1184,11 @@ img.evcard__photo {
   margin: 0;
   padding: 0 var(--sp-4) 0 0;
 }
-@keyframes evspeak-roll { to { transform: translateX(-50%); } }
+/* THREE SETS since 26 Oct: with Cooper Manning off (user) a set of five is
+   1280px, narrower than the reel from 1440 up, so two copies left a gap at
+   the seam. The belt carries the set three times and moves ONE set, a third
+   of its width; js/evreel.js already wraps on one set's width. */
+@keyframes evspeak-roll { to { transform: translateX(calc(-100% / 3)); } }
 /* THE CARD IS THE USER'S GLEAN REFERENCE (22 Oct): the portrait with
    its own background filling the top, the company mark a solid white
    plate docked flush in the photo's bottom-right corner (only its inner
@@ -1243,6 +1247,11 @@ img.evcard__photo {
 }
 .evband__row { display: grid; }
 .evband__row + .evband__row { border-top: 1px solid var(--frame-line); }
+/* A row can be parked with `hidden` (the organisers row since 26 Oct); the
+   grid display above would otherwise beat the attribute, and the row after
+   it must not draw a second rule under the band's own top edge. */
+.evband__row[hidden] { display: none; }
+.evband__row[hidden] + .evband__row { border-top: 0; }
 .evband__label {
   display: grid;
   gap: var(--sp-2);
