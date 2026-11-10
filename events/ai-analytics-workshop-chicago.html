@@ -70,18 +70,7 @@
   <script src="/js/eyebrow-scramble.js" defer></script>
   <script src="/js/evreel.js" defer></script>
   <script src="/js/footer-cut.js" defer></script>
-  <script src="/js/event-bar.js" defer></script>
-  <script src="/js/event-countdown.js" defer></script>
   <script src="/js/ticket-tilt.js" defer></script>
-  <!-- "REQUEST A SEAT" OPENS LUMA'S CHECKOUT OVERLAY (12 Oct; back 13 Oct
-       after an hour of the embedded iframe, user: "do luma button only"). The
-       script binds every [data-luma-action="checkout"] by its
-       data-luma-event-id; the href stays the plain Luma link, so with the
-       script blocked the button is a normal link. The id MUST stay
-       "luma-checkout": the script reads it to find its own stylesheet and
-       close icon. The buttons do NOT carry Luma's .luma-checkout--button
-       class, which would restyle them as Luma's navy pill. -->
-  <script id="luma-checkout" src="https://embed.lu.ma/checkout-button.js" defer></script>
 </head>
 <body class="page-event">
 
@@ -134,7 +123,7 @@
                    keep, carrying the countdown and "Request a seat". Every
                    field is Luma's. The countdown keeps its own markup and
                    script (js/event-countdown.js). -->
-              <div class="evticket">
+              <div class="evticket evticket--past">
                 <div class="evticket__main">
                   <p class="evticket__admit" aria-hidden="true"><span>Admit one</span><img src="/assets/brand/aira-mark.svg" alt="" width="16" height="16"></p>
                   <dl class="evticket__grid">
@@ -143,16 +132,11 @@
                     <div><dt>Venue</dt><dd>LUXBAR<span class="evaddr">18 E. Bellevue Place, Chicago, IL&nbsp;60611</span></dd></div>
                     <div><dt>With</dt><dd>Drinks, snacks and dinner</dd></div>
                   </dl>
-                  <p class="evticket__seats">Approval required</p>
                 </div>
                 <div class="evticket__stub">
-                  <div class="evcount" data-evcount data-start="2026-11-09T18:00:00-06:00" data-end="2026-11-09T21:00:00-06:00" hidden>
-                <p class="evcount__label" data-evcount-label>Starts in</p>
-                <div class="evcount__cells" aria-hidden="true"><span class="evcount__cell"><b data-evcount-unit="d">00</b><i>Days</i></span><span class="evcount__cell"><b data-evcount-unit="h">00</b><i>Hours</i></span><span class="evcount__cell"><b data-evcount-unit="m">00</b><i>Minutes</i></span><span class="evcount__cell"><b data-evcount-unit="s">00</b><i>Seconds</i></span></div>
-                <p class="sr-only" data-evcount-sr></p>
-              </div>
-                  <div class="evhero__ctas" data-evbar-watch>
-                    <a class="btn evcta evticket__cta" data-luma-action="checkout" data-luma-event-id="evt-72jmVR8QkYuisob" data-luma-utm-source="askaira" href="https://luma.com/h1aerg06?utm_source=askaira&amp;utm_medium=event-page&amp;utm_campaign=chi-2026-11" target="_blank" rel="noopener">Request a seat</a>
+                  <p class="evticket__ended">This event has ended</p>
+                  <div class="evhero__ctas">
+                    <a class="btn evcta evticket__cta" href="/events#series">See upcoming events</a>
                   </div>
                   <span class="evticket__code" aria-hidden="true"></span>
                 </div>
@@ -395,15 +379,6 @@
 
   </main>
 
-  <!-- The floating ask, the homepage cue's pill: it rides the foot of the
-       screen once the hero's buttons have scrolled away, and steps aside when
-       the closing card's button is on screen (js/event-bar.js). -->
-  <div class="evbar" data-evbar hidden>
-    <div class="evbar__tk">
-      <span class="evbar__txt"><b>Chicago</b><span class="evbar__sep"> · </span>Mon 9 Nov · 6:00 PM CT</span>
-      <span class="evbar__go"><a class="btn evcta evbar__btn" data-luma-action="checkout" data-luma-event-id="evt-72jmVR8QkYuisob" data-luma-utm-source="askaira" href="https://luma.com/h1aerg06?utm_source=askaira&amp;utm_medium=event-page&amp;utm_campaign=chi-2026-11" target="_blank" rel="noopener">Request a seat</a></span>
-    </div>
-  </div>
 
   <div id="footer-placeholder"></div>
 
