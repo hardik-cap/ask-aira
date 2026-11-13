@@ -3196,6 +3196,9 @@
   text-decoration: none;
 }
 .hevents__feat:last-child { scroll-snap-align: end; }
+/* A LONE SLIDE TAKES THE WHOLE TRACK (13 Nov, one stop left on the tour):
+   with no neighbour to peek, the --peek slack read as a stray gap. */
+.hevents__feat:only-child { width: 100%; }
 /* The arrows ride ON the slides like laravel's chevrons (user: "dont need
    this white space, put arrows like laravel on the image"), one mid-edge
    each side. SINCE 22 Oct THEY ARE BARE CARETS (user: "use a caret big icon,
